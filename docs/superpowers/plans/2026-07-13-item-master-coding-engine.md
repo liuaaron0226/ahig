@@ -12,7 +12,7 @@
 
 - Project root: `C:\Users\User\Desktop\bixlink-wms` (new, independent repo — do not touch `project-golem` or any file under `C:\Users\User\Desktop\claude`).
 - Every category template's `generateCode` output must exactly match the real worked example transcribed from `專案命名及編碼原則-20210516R00.xlsx` (see Task 3) — these are the acceptance fixtures, not illustrative examples.
-- The leading "大類" (position 1) field of every item-code template is **not** hardcoded as a literal. The source spreadsheet's own reference data is internally inconsistent about what this digit means (a hidden `編碼原則` sheet maps it to a 1–5 "成品/半成品/零件/原物料/外購料" stage, but the observed example values include `6`, which falls outside that range for the `0包材` template). Treat it as a required caller-supplied `input` field in every template until the business confirms the real rule — do not silently invent a validation rule for it.
+- The leading "大類" (position 1) field of every item-code template is a required caller-supplied `input` field (not a literal), validated against the confirmed business rule (user-confirmed 2026-07-13, supersedes the outdated hidden `編碼原則` sheet): `1`=成品, `2`=半成品, `3`=零件, `4`=原物料, `5`=消耗品, `6`=商品(不做加工，單純買賣). `createItem` (Task 7) rejects any other value; the engine itself (Task 2) stays generic.
 - Only the 小類 (position 2) field is hardcoded per template, because every one of the 16 worked examples confirms it always equals that category sheet's own leading character.
 - `VendorCode` seed data is a **partial, reference-only** lookup (the source only enumerates codes 01–05 and 31–32 for cell vendors; the real transaction log uses values like `15` that aren't in that list). Do not enforce it as a foreign key / hard validation in Phase 1 — store it for future dropdown/autocomplete use only.
 - The `Item` model carries three nullable flexibility columns (`moq`, `substituteGroupId`, `legacyCodes`) required by spec §5 for substitute parts, MOQ, and one-material-multiple-codes. This module only defines them in the schema; no task in this plan reads or writes them, and tests must not assert on them. They exist so the future migration module can populate them without a schema change.
@@ -1173,6 +1173,19 @@ describe('createItem', () => {
       createItem({ categoryKey: 'nope', fieldValues: {}, nameSpec: 'x', unit: 'pcs' })
     ).rejects.toThrow('Unknown category key: "nope"');
   });
+
+  it('rejects a major-category (大類) value outside the confirmed 1-6 range', async () => {
+    await expect(
+      createItem({
+        categoryKey: 'C_adp',
+        fieldValues: { major: '7', seg3_4: '01', seg5_10: 'ATS005', seg11_12: '01' },
+        nameSpec: 'bad major',
+        unit: 'pcs',
+      })
+    ).rejects.toThrow(
+      'Invalid 大類 value "7": must be one of 1(成品), 2(半成品), 3(零件), 4(原物料), 5(消耗品), 6(商品)'
+    );
+  });
 });
 ```
 
@@ -1198,8 +1211,25 @@ export interface CreateItemInput {
   unit: string;
 }
 
+/** 大類 (position 1) codes, user-confirmed 2026-07-13. */
+export const MAJOR_CATEGORY_LABELS: Record<string, string> = {
+  '1': '成品',
+  '2': '半成品',
+  '3': '零件',
+  '4': '原物料',
+  '5': '消耗品',
+  '6': '商品',
+};
+
 export async function createItem(input: CreateItemInput): Promise<Item> {
   const template = getCategoryTemplate(input.categoryKey);
+
+  const major = input.fieldValues['major'];
+  if (major !== undefined && !(major in MAJOR_CATEGORY_LABELS)) {
+    throw new Error(
+      `Invalid 大類 value "${major}": must be one of 1(成品), 2(半成品), 3(零件), 4(原物料), 5(消耗品), 6(商品)`
+    );
+  }
 
   const existingCount = await db.item.count({
     where: { categoryKey: input.categoryKey },
@@ -1222,7 +1252,7 @@ export async function createItem(input: CreateItemInput): Promise<Item> {
 - [ ] **Step 4: Run tests to verify they pass**
 
 Run: `npm test`
-Expected: 3 tests PASS
+Expected: 4 tests PASS
 
 - [ ] **Step 5: Commit**
 
