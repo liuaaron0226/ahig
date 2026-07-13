@@ -15,6 +15,7 @@
 - The leading "大類" (position 1) field of every item-code template is **not** hardcoded as a literal. The source spreadsheet's own reference data is internally inconsistent about what this digit means (a hidden `編碼原則` sheet maps it to a 1–5 "成品/半成品/零件/原物料/外購料" stage, but the observed example values include `6`, which falls outside that range for the `0包材` template). Treat it as a required caller-supplied `input` field in every template until the business confirms the real rule — do not silently invent a validation rule for it.
 - Only the 小類 (position 2) field is hardcoded per template, because every one of the 16 worked examples confirms it always equals that category sheet's own leading character.
 - `VendorCode` seed data is a **partial, reference-only** lookup (the source only enumerates codes 01–05 and 31–32 for cell vendors; the real transaction log uses values like `15` that aren't in that list). Do not enforce it as a foreign key / hard validation in Phase 1 — store it for future dropdown/autocomplete use only.
+- The `Item` model carries three nullable flexibility columns (`moq`, `substituteGroupId`, `legacyCodes`) required by spec §5 for substitute parts, MOQ, and one-material-multiple-codes. This module only defines them in the schema; no task in this plan reads or writes them, and tests must not assert on them. They exist so the future migration module can populate them without a schema change.
 
 ---
 
@@ -800,12 +801,17 @@ model CustomerRegionCode {
 }
 
 model Item {
-  id          Int      @id @default(autoincrement())
-  itemCode    String   @unique
-  categoryKey String
-  nameSpec    String
-  unit        String
-  createdAt   DateTime @default(now())
+  id                Int      @id @default(autoincrement())
+  itemCode          String   @unique
+  categoryKey       String
+  nameSpec          String
+  unit              String
+  // Flexibility fields per spec §5 — nullable, written by later modules
+  // (migration, purchasing), not captured by this module's UI yet:
+  moq               Int?     // 最小包裝/訂購數量
+  substituteGroupId Int?     // items sharing a group id are substitutes (替代料)
+  legacyCodes       String?  // JSON array of historical codes/aliases (一料多號)
+  createdAt         DateTime @default(now())
 }
 ```
 
