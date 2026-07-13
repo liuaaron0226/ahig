@@ -12,7 +12,7 @@
 
 包含：schema、服務層函式（createPartner/createSite/createLocation/createBatch/createTransaction）、對應 API route、庫存結存查詢函式。
 
-明確排除：FIFO/FEFO 配撥引擎、批次到期日提醒、跨系統對帳、歷史資料匯入（下一模組）。
+明確排除：FIFO/FEFO 配撥引擎、批次到期日提醒、跨系統對帳、歷史資料匯入（下一模組）。`BatchAllocation` 本模組只建 Prisma model（其他表的關聯需要它），**不建服務函式或 API route**——實際寫入 BatchAllocation 的資料是下一個模組（歷史資料匯入）的工作。
 
 ## 3. 資料模型
 
@@ -30,9 +30,9 @@
 `id, itemId(FK→Item), batchNo(nullable — 批號/Date code), sourcePartnerId(nullable FK→Partner), receivedDate(nullable), sourceAttribute(enum: PURCHASED/FREE_SAMPLE/CUSTOMER_SUPPLIED), certRefs(nullable — JSON 陣列存文件參照，UN38.3/MSDS 等)`
 
 ### InventoryTransaction（庫存異動 — 不可變）
-`id, date, type(enum: IN/OUT/ADJUST_INCREASE/ADJUST_DECREASE/TRANSFER), itemId(FK→Item), batchId(nullable FK→Batch), quantity(Int, 一律為正數，方向由 type 決定), siteId(FK→Site), locationId(nullable FK→Location), projectId(nullable — 本模組先不建 Project 表，暫存 String), issuedTo(nullable String — 專案代號或人名), orderNo(nullable), remark(nullable), partnerId(nullable FK→Partner), transferGroupId(nullable — 見下方 TRANSFER 設計), createdAt`
+`id, date, type(enum: IN/OUT/ADJUST_INCREASE/ADJUST_DECREASE — 沒有獨立的 TRANSFER 值，見下方設計), itemId(FK→Item), batchId(nullable FK→Batch), quantity(Int, 一律為正數，方向由 type 決定), siteId(FK→Site), locationId(nullable FK→Location), projectId(nullable — 本模組先不建 Project 表，暫存 String), issuedTo(nullable String — 專案代號或人名), orderNo(nullable), remark(nullable), partnerId(nullable FK→Partner), transferGroupId(nullable — 見下方 TRANSFER 設計), createdAt`
 
-**TRANSFER 設計**：不在單一列存來源/目的兩個 Site，而是拆成兩筆配對交易（來源站 OUT + 目的站 IN），共用同一個 `transferGroupId` 方便介面把兩筆顯示在一起。這樣結存計算永遠只需要「對單一 siteId 加總」，不用為 TRANSFER 另外寫查詢邏輯。
+**據點間移轉（TRANSFER）設計**：不是獨立的 `type` 值，而是呼叫兩次 `createTransaction`（一筆來源站 `type=OUT`、一筆目的站 `type=IN`），共用同一個 `transferGroupId` 讓介面把兩筆顯示在一起。這樣結存計算永遠只需要「對單一 siteId 加總」，不用為轉移另外寫查詢邏輯或新增 type 值。
 
 ### BatchAllocation（批次分配 — 追溯用途）
 `id, batchId(FK→Batch, 來源批次), finishedItemId(FK→Item, 分配到的成品料號), quantity, transactionId(nullable FK→InventoryTransaction, 對應的出庫異動)`
