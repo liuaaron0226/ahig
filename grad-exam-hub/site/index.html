@@ -1,0 +1,1437 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Feb · 研究所備考平台</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⛰️</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@600;900&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --night:#0F1B2D; --ridge:#1E3A5F; --mist:#7FB4C7; --dawn:#F2D9A0; --ember:#E8927C;
+  --ink:#EAF2F7; --ink-dim:rgba(234,242,247,.62);
+  --glass:rgba(255,255,255,.07); --glass-line:rgba(255,255,255,.14);
+  --serif:"Noto Serif TC",serif; --sans:"Noto Sans TC",sans-serif; --mono:"IBM Plex Mono",monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);color:var(--ink);background:var(--night);min-height:100vh;font-weight:300;line-height:1.7}
+
+/* ============ 動態風景：三種風格 × 即時天氣（Open-Meteo） ============ */
+.scene{position:fixed;inset:0;z-index:-1;overflow:hidden}
+/* 風格調色盤（夜/日兩套天空、三層地景色） */
+body[data-theme="mountain"]{
+  --skyN:linear-gradient(180deg,#0A1420 0%,#0F1B2D 40%,#274B6B 75%,#3E6E86 100%);
+  --skyD:linear-gradient(180deg,#2C5876 0%,#4E86A0 50%,#7FA9B8 80%,#C9B27E 100%);
+  --l1:#0F1B2D;--l2:#1E3A5F;--l3:#274B6B}
+body[data-theme="ocean"]{
+  --skyN:linear-gradient(180deg,#050E1A 0%,#0A1E33 45%,#123B57 78%,#1C5A74 100%);
+  --skyD:linear-gradient(180deg,#1E5C7E 0%,#3E88A8 50%,#7CB4C6 80%,#D8C48E 100%);
+  --l1:#071523;--l2:#0E2B44;--l3:#174463}
+body[data-theme="forest"]{
+  --skyN:linear-gradient(180deg,#0A1410 0%,#12241C 45%,#1E3B2C 78%,#2E5540 100%);
+  --skyD:linear-gradient(180deg,#2F5D46 0%,#4F8663 52%,#88AE8C 82%,#D8C48E 100%);
+  --l1:#0B1911;--l2:#16301F;--l3:#234A30}
+.sky{position:absolute;inset:0;background:var(--skyN)}
+body.day .sky{background:var(--skyD)}
+/* 瑞士實景主題：照片鋪滿＋緩慢推近；晝夜與天氣用濾鏡同步 */
+.photo{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;
+  will-change:transform;transition:opacity 1.2s ease,filter 1.4s ease;
+  filter:brightness(calc(var(--pbn,1)*var(--pbw,1))) saturate(var(--psw,1))}
+body.swiss .photo{opacity:1;animation:kenburns 80s ease-in-out infinite alternate}
+body[data-theme="peaks"] .photo{background-image:url(assets/swiss-peaks.jpg)}
+body[data-theme="village"] .photo{background-image:url(assets/swiss-village.jpg)}
+body[data-theme="valley"] .photo{background-image:url(assets/swiss-valley.jpg)}
+body[data-theme="lake"] .photo{background-image:url(assets/swiss-lake.jpg)}
+@keyframes kenburns{from{transform:scale(1)}to{transform:scale(1.09)}}
+body.swiss:not(.day){--pbn:.4}
+body.swiss[data-wx="cloud"]{--pbw:.88;--psw:.85}
+body.swiss[data-wx="rain"]{--pbw:.72;--psw:.72}
+body.swiss[data-wx="storm"]{--pbw:.58;--psw:.65}
+body.swiss[data-wx="fog"]{--pbw:.82;--psw:.5}
+body.swiss[data-wx="snow"]{--pbw:.92;--psw:.7}
+/* 照片自帶天空，向量星月太陽退場 */
+body.swiss .stars,body.swiss .sun2,body.swiss .moon{opacity:0!important}
+/* 日間深色薄紗：確保淺色天空下文字仍可讀 */
+.scene::before{content:"";position:absolute;inset:0;background:rgba(8,16,26,0);transition:background 1s ease;z-index:5}
+body.day[data-mode="exam"] .scene::before,body.day[data-mode="study"] .scene::before{background:rgba(8,16,26,.42)}
+/* 照片主題白天：待機畫面加暗角讓文字浮出來 */
+body.swiss.day[data-mode="home"] .scene::before{
+  background:radial-gradient(62% 58% at 50% 46%,rgba(8,16,26,.52),rgba(8,16,26,.14))}
+.stars{position:absolute;inset:0 0 40% 0;transition:opacity 1.2s ease;
+  background-image:radial-gradient(1px 1px at 12% 30%,rgba(255,255,255,.8),transparent),
+   radial-gradient(1px 1px at 34% 12%,rgba(255,255,255,.6),transparent),
+   radial-gradient(1.5px 1.5px at 58% 24%,rgba(255,255,255,.7),transparent),
+   radial-gradient(1px 1px at 72% 8%,rgba(255,255,255,.5),transparent),
+   radial-gradient(1px 1px at 88% 34%,rgba(255,255,255,.6),transparent),
+   radial-gradient(1.2px 1.2px at 45% 40%,rgba(255,255,255,.45),transparent),
+   radial-gradient(1px 1px at 20% 55%,rgba(255,255,255,.4),transparent);
+  animation:twinkle 6s ease-in-out infinite alternate}
+@keyframes twinkle{from{opacity:.9}to{opacity:.45}}
+body.day .stars,body[data-wx="rain"] .stars,body[data-wx="storm"] .stars,body[data-wx="fog"] .stars{opacity:0!important}
+/* 日：太陽　夜：月亮 */
+.sun2{position:absolute;right:16%;top:12%;width:20vmin;height:20vmin;border-radius:50%;opacity:0;transition:opacity 1.2s;
+  background:radial-gradient(circle,rgba(255,244,214,.95) 18%,rgba(242,217,160,.5) 40%,transparent 70%)}
+body.day .sun2{opacity:1}
+body.day[data-wx="rain"] .sun2,body.day[data-wx="storm"] .sun2,body.day[data-wx="fog"] .sun2{opacity:.18}
+.moon{position:absolute;right:18%;top:14%;width:9vmin;height:9vmin;border-radius:50%;opacity:1;transition:opacity 1.2s;
+  background:radial-gradient(circle at 38% 35%,#F5F0DC,#CFC9B2 65%);
+  box-shadow:0 0 46px 14px rgba(245,240,220,.25)}
+body.day .moon,body[data-wx="rain"] .moon,body[data-wx="storm"] .moon,body[data-wx="fog"] .moon{opacity:0}
+/* 地景（依風格切換；日間整體提亮） */
+.scene svg{position:absolute;bottom:0;left:0;width:100%;height:46vh;display:none;will-change:transform}
+.r1{opacity:.95}.r2{opacity:.7}.r3{opacity:.45}
+body.day .scene svg{filter:brightness(1.65) saturate(.85)}
+body[data-theme="mountain"] svg.t-mtn{display:block}
+body[data-theme="ocean"] svg.t-sea{display:block}
+body[data-theme="forest"] svg.t-for{display:block}
+.t-sea .drift{animation:sway 11s ease-in-out infinite alternate}
+.t-sea.r2 .drift{animation-duration:15s;animation-delay:-4s}
+.t-sea.r3 .drift{animation-duration:19s;animation-delay:-8s}
+@keyframes sway{from{transform:translateX(-1.6%)}to{transform:translateX(1.6%)}}
+.mist{position:absolute;bottom:6vh;left:-20%;width:140%;height:16vh;display:none;
+  background:linear-gradient(90deg,transparent,rgba(127,180,199,.14) 30%,rgba(127,180,199,.05) 60%,transparent);
+  filter:blur(18px);animation:mistflow 46s linear infinite}
+body[data-theme="mountain"] .mist,body[data-theme="forest"] .mist{display:block}
+@keyframes mistflow{from{transform:translateX(-6%)}to{transform:translateX(10%)}}
+
+/* ---- 天氣層（依 data-wx 淡入淡出） ---- */
+.wx{position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity 1.4s ease}
+/* 雲 */
+.wx.clouds i{position:absolute;width:46vw;height:15vh;border-radius:50%;filter:blur(36px);
+  background:rgba(255,255,255,.1);animation:cl 95s linear infinite}
+.wx.clouds i:nth-child(1){top:5%}
+.wx.clouds i:nth-child(2){top:17%;animation-duration:135s;animation-delay:-45s;background:rgba(255,255,255,.07)}
+.wx.clouds i:nth-child(3){top:29%;animation-duration:175s;animation-delay:-95s;background:rgba(255,255,255,.05)}
+@keyframes cl{from{transform:translateX(-55vw)}to{transform:translateX(110vw)}}
+body[data-wx="cloud"] .clouds,body[data-wx="rain"] .clouds,body[data-wx="storm"] .clouds,body[data-wx="snow"] .clouds{opacity:1}
+body[data-wx="storm"] .clouds i{background:rgba(180,195,215,.13)}
+/* 雨 */
+.wx.rain{inset:auto;top:-100%;left:-4%;right:-4%;height:200%;will-change:transform;
+  background:repeating-linear-gradient(102deg,transparent 0 11px,rgba(196,224,255,.15) 11px 12px,transparent 12px 24px);
+  animation:rainfall .75s linear infinite}
+@keyframes rainfall{from{transform:translate3d(1.5vw,-50%,0)}to{transform:translate3d(0,0,0)}}
+body[data-wx="rain"] .rain{opacity:.85}
+body[data-wx="storm"] .rain{opacity:1;animation-duration:.5s}
+/* 雪 */
+.wx.snow{inset:auto;top:-100%;left:0;right:0;height:200%;will-change:transform;
+  background-image:radial-gradient(3px 3px at 20% 30%,rgba(255,255,255,.85),transparent),
+   radial-gradient(2px 2px at 60% 70%,rgba(255,255,255,.6),transparent),
+   radial-gradient(2.5px 2.5px at 85% 15%,rgba(255,255,255,.7),transparent),
+   radial-gradient(1.8px 1.8px at 40% 85%,rgba(255,255,255,.5),transparent);
+  background-size:220px 220px;animation:snowfall 7s linear infinite}
+@keyframes snowfall{from{transform:translate3d(0,-50%,0)}to{transform:translate3d(-30px,0,0)}}
+body[data-wx="snow"] .snow{opacity:1}
+/* 霧 */
+.wx.fogL i{position:absolute;left:-15%;width:130%;height:22vh;filter:blur(34px);
+  background:linear-gradient(90deg,transparent,rgba(205,218,228,.2) 30%,rgba(205,218,228,.1) 65%,transparent);
+  animation:mistflow 38s linear infinite alternate}
+.wx.fogL i:nth-child(1){bottom:8vh}
+.wx.fogL i:nth-child(2){bottom:26vh;animation-duration:52s;animation-direction:alternate-reverse}
+body[data-wx="fog"] .fogL{opacity:1}
+body[data-wx="fog"] .sky{filter:brightness(.86) saturate(.7)}
+/* 閃電 */
+.wx.flash{background:radial-gradient(58% 42% at 52% 18%,rgba(255,255,255,.95),transparent 70%)}
+body[data-wx="storm"] .flash{opacity:1;animation:zap 8.5s infinite}
+@keyframes zap{0%,90.6%,93.4%,100%{opacity:0}91%{opacity:.85}91.8%{opacity:.12}92.6%{opacity:.5}}
+
+/* 極光＋流星：只在「晴天的夜晚」出場 */
+.aurora{position:absolute;inset:-20%;pointer-events:none;mix-blend-mode:screen;
+  filter:blur(58px);opacity:0;transition:opacity 1.4s ease}
+.aurora i{position:absolute;display:block;width:62vw;height:28vh;border-radius:50%;
+  background:linear-gradient(100deg,rgba(127,180,199,.55),rgba(242,217,160,.4) 55%,rgba(232,146,124,.32));
+  animation:aur 28s ease-in-out infinite alternate}
+.aurora i:nth-child(1){top:8%;left:2%}
+.aurora i:nth-child(2){top:18%;left:32%;width:74vw;animation-duration:38s;animation-delay:-9s}
+.aurora i:nth-child(3){top:4%;left:50%;animation-duration:47s;animation-delay:-19s;
+  background:linear-gradient(80deg,rgba(242,217,160,.35),rgba(127,180,199,.45))}
+@keyframes aur{from{transform:translateX(-13%) rotate(-7deg) scaleY(.75)}
+  to{transform:translateX(11%) rotate(6deg) scaleY(1.3)}}
+body:not(.day)[data-wx="clear"] .aurora{opacity:.55}
+body:not(.day)[data-wx="clear"][data-mode="exam"] .aurora,
+body:not(.day)[data-wx="clear"][data-mode="study"] .aurora{opacity:.14}
+.meteor{position:absolute;top:-6%;width:2px;height:120px;pointer-events:none;display:none;
+  background:linear-gradient(180deg,rgba(255,255,255,.95),transparent);
+  transform:rotate(32deg);opacity:0;animation:met 11s linear infinite}
+.meteor.m1{left:22%}.meteor.m2{left:64%;animation-delay:5.2s;animation-duration:14s}
+.meteor.m3{left:84%;animation-delay:8.6s;animation-duration:17s}
+@keyframes met{0%,86%{opacity:0;transform:rotate(32deg) translateY(0)}
+  89%{opacity:.9}100%{opacity:0;transform:rotate(32deg) translateY(72vh)}}
+body:not(.day)[data-wx="clear"][data-mode="home"] .meteor{display:block}
+/* 專注時整片天色亮起（讀書狀態的畫面語言） */
+.scene::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:0;
+  background:radial-gradient(62% 52% at 50% 86%,rgba(242,217,160,.24),transparent 70%);
+  transition:opacity 1.6s ease}
+body.running .scene::after{opacity:1}
+body.running.break .scene::after{background:radial-gradient(62% 52% at 50% 86%,rgba(127,180,199,.28),transparent 70%)}
+@media (prefers-reduced-motion:reduce){
+  .sky,.mist,.stars,.aurora i,.wx.rain,.wx.snow,.wx.clouds i,.wx.fogL i,.wx.flash,.t-sea .drift,.photo{animation:none}
+  .meteor{display:none!important}
+  .reveal{opacity:1!important;transform:none!important}
+}
+
+/* ============ liquid glass 基底 ============ */
+.glass{background:var(--glass);border:1px solid var(--glass-line);border-radius:18px;
+  backdrop-filter:blur(14px) saturate(1.3);-webkit-backdrop-filter:blur(14px) saturate(1.3);
+  box-shadow:0 8px 32px rgba(4,10,18,.35)}
+
+/* ============ LIQUID BUTTON（參考影片：磨砂玻璃膠囊＋凝膠液體灌注） ============ */
+.lq{position:relative;display:inline-block;overflow:hidden;isolation:isolate;cursor:pointer;
+  border-radius:999px;border:1px solid var(--glass-line);
+  background:linear-gradient(180deg,rgba(255,255,255,.14),rgba(255,255,255,.03) 46%,rgba(255,255,255,.07));
+  backdrop-filter:blur(12px) saturate(1.25);-webkit-backdrop-filter:blur(12px) saturate(1.25);
+  box-shadow:inset 0 1px 1px rgba(255,255,255,.35), inset 0 -8px 16px rgba(255,255,255,.05),
+    inset 0 -1px 1px rgba(4,10,18,.3), 0 6px 18px rgba(4,10,18,.4);
+  transition:box-shadow .5s ease, border-color .5s ease, transform .3s cubic-bezier(.3,1.6,.4,1), color .45s ease;
+  -webkit-tap-highlight-color:transparent}
+.lq[hidden]{display:none}  /* .lq 的 display 會蓋掉 [hidden]，補回來讓按鈕能真的隱藏 */
+.lq::before,.lq::after{content:"";position:absolute;z-index:-1;left:-25%;width:150%;padding-top:150%;
+  top:105%;border-radius:42% 46% 44% 48%;
+  background:radial-gradient(circle at 50% 28%,rgba(255,255,255,.5),transparent 42%),
+    var(--lq-color,rgba(242,217,160,.55));
+  transition:top .7s cubic-bezier(.34,1.45,.5,1);
+  animation:lqspin 7s linear infinite}
+.lq::after{opacity:.6;animation-duration:9s;animation-direction:reverse;transition-duration:.9s;
+  filter:brightness(1.2) saturate(1.15)}
+@keyframes lqspin{to{transform:rotate(360deg)}}
+.lq:hover,.lq:focus-visible,.lq.on{border-color:transparent;
+  box-shadow:inset 0 1px 1px rgba(255,255,255,.5), inset 0 -10px 20px rgba(255,255,255,.14),
+    0 10px 34px var(--lq-glow,rgba(242,217,160,.45)), 0 2px 10px var(--lq-glow,rgba(242,217,160,.35))}
+.lq:hover,.lq:focus-visible{transform:translateY(-2px)}
+.lq:hover::before,.lq:focus-visible::before,.lq.on::before{top:-28%}
+.lq:hover::after,.lq:focus-visible::after,.lq.on::after{top:-38%}
+.lq:active{transform:scale(.95)}
+.lq:hover,.lq:focus-visible,.lq.on{color:#132033}
+@media (prefers-reduced-motion:reduce){
+  .lq::before,.lq::after{animation:none;transition:none}
+  .lq:hover,.lq:focus-visible{transform:none}
+  .lq:hover::before,.lq.on::before{top:-28%}
+}
+/* 高 specificity 按鈕在液體灌滿時仍要轉深色字 */
+.pomo .ctrl button.lq:hover,.pomo .ctrl button.lq:focus-visible,
+#cvBack:hover,#cvBack:focus-visible,
+#camCities button:hover,#camCities button.on{color:#132033}
+.lq.gold {--lq-color:rgba(242,217,160,.85);--lq-glow:rgba(242,217,160,.4)}
+.lq.mist2{--lq-color:rgba(127,180,199,.85);--lq-glow:rgba(127,180,199,.4)}
+.lq.ember{--lq-color:rgba(232,146,124,.85);--lq-glow:rgba(232,146,124,.4)}
+
+/* ============ 模式切換：home / exam / study ============ */
+body[data-mode="home"] header.top, body[data-mode="home"] .wrap{display:none}
+body[data-mode="exam"] #home, body[data-mode="study"] #home{display:none}
+body[data-mode="exam"] #study{display:none}
+body[data-mode="study"] .wrap>section:not(#study){display:none}
+body[data-mode="exam"] .only-study{display:none!important}
+body[data-mode="study"] .only-exam{display:none!important}
+
+/* ============ 待機畫面 ============ */
+#home{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:14px;text-align:center;padding:0 20px 40px}
+#home .eyebrow{font-family:var(--mono);font-size:.78rem;color:var(--mist);letter-spacing:.34em}
+#home .clock{font-family:var(--serif);font-weight:900;font-size:clamp(4rem,15vw,9rem);line-height:1;
+  letter-spacing:.04em;text-shadow:0 4px 40px rgba(4,10,18,.5)}
+#home .clock small{font-size:.32em;color:var(--dawn);font-weight:600;vertical-align:.18em;margin-left:.2em}
+#home .date{font-family:var(--mono);font-size:.85rem;color:var(--ink-dim);letter-spacing:.18em}
+#home .count{font-size:.85rem;color:var(--dawn);letter-spacing:.1em;margin-top:2px}
+#home .modes{display:flex;gap:18px;flex-wrap:wrap;justify-content:center;margin-top:34px}
+#home .modes button{font-family:var(--sans);font-weight:400;color:var(--ink);
+  font-size:1.02rem;letter-spacing:.14em;padding:10px 26px}
+#home .modes button b{display:block;font-family:var(--serif);font-weight:900;font-size:1.5rem;
+  letter-spacing:.2em;margin-bottom:2px}
+#home .modes button i{font-style:normal;font-size:.72rem;color:inherit;opacity:.75;letter-spacing:.1em}
+#home .hint{font-size:.72rem;color:rgba(234,242,247,.4);margin-top:20px;letter-spacing:.12em}
+#home .wxline{font-family:var(--mono);font-size:.8rem;color:var(--mist);letter-spacing:.12em;min-height:1.4em}
+#home .themes{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:22px;max-width:min(92vw,520px);margin-inline:auto}
+#home .themes .pill{font-size:.74rem;padding:6px 18px;color:var(--ink)}
+
+/* ============ 模式切換液態轉場：整片液體從山下湧上蓋過畫面再退去 ============ */
+#wipe{position:fixed;inset:0;z-index:60;pointer-events:none;overflow:hidden;visibility:hidden}
+#wipe::before,#wipe::after{content:"";position:absolute;left:-25%;top:0;width:150%;padding-top:150%;
+  border-radius:42% 46% 44% 48%;will-change:transform;transform:translateY(110%);
+  background:linear-gradient(120deg,rgba(127,180,199,.9),rgba(242,217,160,.94) 60%,rgba(232,146,124,.85))}
+#wipe.go{visibility:visible}
+#wipe.go::before{animation:wipeup 1.05s cubic-bezier(.5,.08,.4,1) forwards}
+#wipe.go::after{opacity:.55;animation:wipeup2 1.13s cubic-bezier(.5,.08,.4,1) forwards}
+@keyframes wipeup{0%{transform:translateY(110%) rotate(0deg)}
+  44%{transform:translateY(-34%) rotate(150deg)}56%{transform:translateY(-36%) rotate(190deg)}
+  100%{transform:translateY(-215%) rotate(360deg)}}
+@keyframes wipeup2{0%{transform:translateY(112%) rotate(180deg)}
+  46%{transform:translateY(-30%) rotate(40deg)}58%{transform:translateY(-33%) rotate(0deg)}
+  100%{transform:translateY(-218%) rotate(-160deg)}}
+
+/* ============ 點擊液爆：波紋圈＋飛濺液滴 ============ */
+.burst{position:fixed;z-index:70;width:8px;height:8px;pointer-events:none;transform:translate(-50%,-50%)}
+.burst::before{content:"";position:absolute;inset:-7px;border-radius:45% 48% 42% 50%;
+  border:2px solid rgba(255,255,255,.9);animation:burstring .7s ease-out forwards}
+@keyframes burstring{to{transform:scale(10) rotate(70deg);opacity:0;border-width:1px}}
+.burst i{position:absolute;width:7px;height:7px;border-radius:47% 53% 44% 56%;
+  background:var(--bc,rgba(242,217,160,.95));box-shadow:0 0 8px var(--bc,rgba(242,217,160,.6));
+  animation:drop .8s cubic-bezier(.2,.6,.3,1) forwards}
+@keyframes drop{0%{transform:translate(0,0) scale(1);opacity:1}
+  100%{transform:translate(var(--dx),calc(var(--dy) + 52px)) scale(.15);opacity:0}}
+
+/* ============ layout ============ */
+.wrap{max-width:1120px;margin:0 auto;padding:0 clamp(16px,4vw,40px) 70px}
+header.top{position:sticky;top:12px;z-index:20;margin:12px auto;max-width:1120px;
+  display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 16px 10px 22px}
+.brand{font-family:var(--serif);font-weight:900;font-size:1.05rem;letter-spacing:.12em;white-space:nowrap;cursor:pointer;background:none;border:none;color:var(--ink)}
+.brand em{color:var(--dawn);font-style:normal}
+nav.menu{display:flex;gap:8px;flex-wrap:wrap}
+nav.menu a,nav.menu button{color:var(--ink);text-decoration:none;font-size:.82rem;letter-spacing:.06em;
+  padding:7px 16px;display:inline-block;font-family:var(--sans);font-weight:300}
+nav.menu a.active{color:#132033}
+nav.menu a.active.lq::before{top:-28%}
+nav.menu a.active.lq::after{top:-38%}
+a:focus-visible,button:focus-visible{outline:2px solid var(--dawn);outline-offset:3px;border-radius:6px}
+
+.hero{padding:clamp(56px,11vh,120px) 0 40px}
+.hero .eyebrow{font-family:var(--mono);font-size:.8rem;color:var(--mist);letter-spacing:.28em}
+.hero h1{font-family:var(--serif);font-weight:900;font-size:clamp(2.2rem,6vw,4rem);line-height:1.25;margin:.35em 0 .4em}
+.hero h1 span{color:var(--dawn)}
+.hero p.sub{max-width:36em;color:var(--ink-dim)}
+.stats{display:flex;gap:14px;flex-wrap:wrap;margin-top:30px}
+.stat{padding:14px 22px;min-width:132px}
+.stat b{display:block;font-family:var(--mono);font-weight:500;font-size:1.7rem;color:var(--dawn)}
+.stat i{font-style:normal;font-size:.78rem;color:var(--ink-dim);letter-spacing:.1em}
+.jump{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px}
+.jump a{color:var(--ink);text-decoration:none;font-size:.8rem;padding:8px 18px}
+
+.boot{opacity:0;transform:translateY(26px);animation:bootin .9s cubic-bezier(.2,.7,.2,1) forwards}
+.boot.d1{animation-delay:.08s}.boot.d2{animation-delay:.2s}.boot.d3{animation-delay:.34s}
+.boot.d4{animation-delay:.5s}.boot.d5{animation-delay:.66s}
+@keyframes bootin{to{opacity:1;transform:none}}
+.reveal{opacity:0;transform:translateY(34px);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.7,.2,1)}
+.reveal.in{opacity:1;transform:none}
+
+section{padding:56px 0 8px}
+h2{font-family:var(--serif);font-weight:900;font-size:clamp(1.4rem,3vw,1.9rem);margin-bottom:6px}
+.sec-note{color:var(--ink-dim);font-size:.88rem;margin-bottom:26px;max-width:46em}
+.sec-note b{color:var(--dawn);font-weight:500}
+
+/* 收合式區塊（一次只展開一個） */
+section.acc{padding:0;margin:16px 0;background:var(--glass);border:1px solid var(--glass-line);
+  border-radius:20px;backdrop-filter:blur(14px) saturate(1.3);-webkit-backdrop-filter:blur(14px) saturate(1.3);
+  box-shadow:0 8px 32px rgba(4,10,18,.35);overflow:hidden;
+  transition:border-color .5s ease, box-shadow .5s ease}
+section.acc.open{border-color:rgba(242,217,160,.35);box-shadow:0 14px 44px rgba(4,10,18,.5)}
+.sec-head{display:flex;justify-content:space-between;align-items:center;gap:14px;
+  cursor:pointer;padding:20px 26px;user-select:none}
+.sec-head:hover h2{color:var(--dawn)}
+.sec-head h2{margin:0;transition:color .4s ease}
+.sec-head .hintline{font-size:.76rem;color:var(--ink-dim);margin-left:auto;text-align:right}
+.sec-head .arrow{font-family:var(--mono);color:var(--dawn);font-size:1rem;
+  transition:transform .5s cubic-bezier(.2,.7,.2,1)}
+section.acc.open .arrow{transform:rotate(90deg)}
+.sec-body{display:grid;grid-template-rows:0fr;transition:grid-template-rows .7s cubic-bezier(.2,.7,.2,1)}
+section.acc.open .sec-body{grid-template-rows:1fr}
+.sec-inner{overflow:hidden;min-height:0;padding:0 26px}
+section.acc.open .sec-inner{padding-bottom:26px}
+/* 卡片內細節收合 */
+details.more summary{cursor:pointer;list-style:none;font-size:.76rem;color:var(--mist);
+  padding:6px 0 2px;letter-spacing:.06em}
+details.more summary::-webkit-details-marker{display:none}
+details.more summary::before{content:"▸ ";font-family:var(--mono);color:var(--dawn)}
+details.more[open] summary::before{content:"▾ "}
+
+/* 招生管道卡 */
+.channels{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:18px}
+.chan{padding:24px 26px;display:flex;flex-direction:column;gap:12px;
+  transition:transform .4s cubic-bezier(.2,.7,.2,1), box-shadow .4s ease}
+.chan:hover{transform:translateY(-5px);box-shadow:0 18px 44px rgba(4,10,18,.5)}
+.chan .head{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.chan h3{font-family:var(--serif);font-weight:600;font-size:1.15rem}
+.badge{font-size:.68rem;letter-spacing:.12em;padding:3px 10px;border-radius:999px;white-space:nowrap;
+  border:1px solid var(--glass-line);color:var(--mist)}
+.badge.joint{color:var(--dawn);border-color:rgba(242,217,160,.4)}
+.chan .how{font-size:.8rem;color:var(--ink-dim)}
+.prog{border-top:1px solid var(--glass-line);padding-top:10px}
+.prog b{font-weight:500;font-size:.92rem}
+.prog .grp{color:var(--dawn);font-size:.85rem}
+.subj{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0 4px}
+.subj span{font-family:var(--mono);font-size:.72rem;padding:2px 9px;border-radius:6px;
+  background:rgba(127,180,199,.12);border:1px solid rgba(127,180,199,.25);color:var(--mist)}
+.subj span.hot{background:rgba(232,146,124,.14);border-color:rgba(232,146,124,.4);color:var(--ember)}
+.prog .note{font-size:.76rem;color:var(--ink-dim)}
+.prog .note.star{color:var(--dawn)}
+.prog .quota{font-family:var(--mono);font-size:.72rem;color:var(--mist)}
+.chan .links{margin-top:auto;padding-top:12px;display:flex;gap:10px;flex-wrap:wrap}
+.chan .links a{color:var(--ink);font-size:.78rem;text-decoration:none;padding:7px 16px}
+.sched{font-family:var(--mono);font-size:.72rem;color:var(--ink-dim)}
+
+/* 作戰總覽表 */
+.ov-wrap{overflow-x:auto;padding:4px 0 6px}
+table.ov{border-collapse:collapse;width:100%;min-width:860px;font-size:.82rem}
+.ov th{font-family:var(--mono);font-weight:400;font-size:.68rem;color:var(--ink-dim);
+  text-align:left;padding:8px 10px;letter-spacing:.08em;border-bottom:1px solid var(--glass-line);white-space:nowrap}
+.ov td{padding:11px 10px;border-bottom:1px solid rgba(255,255,255,.07);vertical-align:top}
+.ov tbody tr{cursor:pointer;transition:background .3s ease}
+.ov tbody tr:hover{background:rgba(255,255,255,.05)}
+.ov .sch{display:inline-block;background:none;border:0;padding:0;cursor:pointer;text-align:left;
+  font-family:var(--serif);font-weight:600;font-size:.98rem;color:var(--dawn);white-space:nowrap;
+  border-bottom:1px solid transparent;transition:border-color .25s ease}
+.ov .sch small{display:block;font-family:var(--sans);font-weight:300;font-size:.68rem;color:var(--ink-dim);border:0}
+.ov tbody tr:hover .sch,.ov .sch:focus-visible{border-bottom-color:var(--dawn)}
+.ov .subj-chip{display:inline-block;font-family:var(--mono);font-size:.68rem;padding:2px 9px;
+  margin:2px 5px 2px 0;border:1px solid var(--glass-line);border-radius:8px;color:var(--mist);white-space:nowrap}
+.ov .dt{font-family:var(--mono);font-size:.72rem;color:var(--mist);white-space:nowrap}
+.ov .free{font-size:.72rem;color:var(--dawn);line-height:1.5}
+.ov .st{font-family:var(--mono);font-size:.7rem;color:var(--ink-dim);white-space:nowrap}
+.ov .st b{color:var(--dawn);font-weight:500;font-size:.9rem}
+.ov-note{font-size:.74rem;color:var(--ink-dim);margin-top:10px}
+/* 懸浮視窗 */
+.modal{position:fixed;inset:0;z-index:300;display:flex;align-items:flex-start;justify-content:center;padding:5vh 20px}
+.modal[hidden]{display:none}
+body.modal-open{overflow:hidden}
+.modal-back{position:absolute;inset:0;background:rgba(6,12,22,.66);backdrop-filter:blur(6px);animation:mfade .3s ease}
+.modal-panel{position:relative;width:min(920px,100%);max-height:90vh;overflow:auto;
+  padding:32px 34px 30px;border-radius:22px;animation:mrise .34s cubic-bezier(.22,1,.36,1)}
+.modal-x{position:absolute;top:14px;right:16px;width:36px;height:36px;padding:0;font-size:.9rem;
+  color:var(--ink);line-height:34px;text-align:center}
+.modal-body .dhead{display:flex;gap:12px;align-items:baseline;margin:0 40px 4px 0}
+.modal-body .dhead h2{margin:0;font-size:1.7rem}
+.modal-body .chow{font-size:.82rem;color:var(--ink-dim);margin-bottom:2px}
+@keyframes mfade{from{opacity:0}}
+@keyframes mrise{from{opacity:0;transform:translateY(22px)}}
+@media(prefers-reduced-motion:reduce){.modal-back,.modal-panel{animation:none}}
+/* 全戰場章節彙整 */
+.agg{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px;margin-top:22px}
+.agg .panel h3 small{font-family:var(--sans);font-weight:300;color:var(--ink-dim);font-size:.7rem;margin-left:8px}
+
+/* 學校卡：收合列摘要 */
+.school .sec-head{flex-wrap:wrap;row-gap:8px}
+.school .nm{display:flex;align-items:baseline;gap:10px;flex:0 0 auto}
+.school .nm h2{margin:0}
+.school .smeta{display:flex;gap:5px 14px;flex-wrap:wrap;align-items:center;flex:1 1 260px;
+  font-family:var(--mono);font-size:.72rem;color:var(--ink-dim);margin-left:4px}
+.school .smeta>span{white-space:nowrap}
+.school .smeta b{color:var(--dawn);font-weight:500}
+.school .smeta .free2{font-family:var(--sans);color:var(--dawn);white-space:normal}
+.school .smeta .subj{margin:0;gap:5px}
+.school .smeta .subj span{font-size:.68rem;padding:1px 8px}
+.agg-h{font-family:var(--serif);font-weight:600;font-size:1.15rem;color:var(--dawn);margin:34px 0 2px}
+.agg-note{font-size:.78rem;color:var(--ink-dim);margin-bottom:4px}
+/* 學校卡展開內容 */
+.school .chead{display:flex;gap:10px;flex-wrap:wrap;align-items:baseline;margin-bottom:6px}
+.school .chow{font-size:.8rem;color:var(--ink-dim)}
+.school .links{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0 4px}
+.school .links a{color:var(--ink);font-size:.78rem;text-decoration:none;padding:7px 16px}
+.progs{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:4px 26px;margin-top:6px}
+/* 科目戰情列 */
+.sb{border-top:1px solid var(--glass-line);padding:18px 0 14px}
+.sb .sbh{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+.sb h4{font-family:var(--serif);font-weight:600;font-size:1.02rem;color:var(--ink)}
+.sb h4 small{font-family:var(--sans);font-weight:300;font-size:.72rem;color:var(--ink-dim);margin-left:8px}
+.badge.dead{color:var(--ember);border-color:rgba(232,146,124,.4)}
+.quick{font-size:.78rem;color:var(--mist);margin-top:4px}
+.quick b{color:var(--dawn);font-weight:500}
+.yrow{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0 2px}
+.yrow a,.yrow span{display:inline-block;width:44px;height:28px;line-height:28px;text-align:center;
+  font-family:var(--mono);font-size:.7rem;text-decoration:none;color:var(--ink);border-radius:9px}
+.yrow a.lq{--lq-color:rgba(242,217,160,.9);--lq-glow:rgba(242,217,160,.4);
+  background:rgba(242,217,160,.14);border:1px solid rgba(242,217,160,.4)}
+.yrow span{background:rgba(255,255,255,.03);border:1px dashed rgba(255,255,255,.12);
+  color:rgba(234,242,247,.28);cursor:help}
+
+/* 反向選校 */
+.finder{padding:26px}
+.finder h4{font-family:var(--serif);font-weight:600;font-size:.98rem;margin:16px 0 10px;color:var(--mist)}
+.finder h4:first-child{margin-top:0}
+.pills{display:flex;gap:10px;flex-wrap:wrap}
+.pill{font-size:.82rem;padding:8px 20px;color:var(--ink);user-select:none;font-family:var(--sans);font-weight:300}
+.pill.chap{font-size:.76rem;padding:6px 16px}
+.verdicts{margin-top:26px;display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:14px}
+.verdict{padding:18px 20px;border-radius:16px;border:1px solid var(--glass-line);
+  background:rgba(255,255,255,.05);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  transition:transform .35s ease}
+.verdict:hover{transform:translateY(-3px)}
+.verdict .vh{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.verdict b{font-weight:500;font-size:.9rem}
+.verdict .tag{font-size:.72rem;padding:2px 11px;border-radius:999px;white-space:nowrap}
+.tag.ok{background:rgba(242,217,160,.18);color:var(--dawn);border:1px solid rgba(242,217,160,.5)}
+.tag.no{background:rgba(232,146,124,.1);color:var(--ember);border:1px solid rgba(232,146,124,.35)}
+.tag.doc{background:rgba(127,180,199,.14);color:var(--mist);border:1px solid rgba(127,180,199,.4)}
+.verdict .req{font-size:.76rem;color:var(--ink-dim);margin-top:8px;line-height:1.65}
+.verdict .req em{font-style:normal;color:var(--dawn)}
+.verdict .req s{color:rgba(232,146,124,.9);text-decoration:none;border-bottom:1px dotted rgba(232,146,124,.6)}
+.verdict.dim{opacity:.55}
+.finder .disclaimer{margin-top:20px;font-size:.74rem;color:var(--ink-dim);border-top:1px solid var(--glass-line);padding-top:14px}
+
+/* ============ 讀書模式：進度追蹤器 ============ */
+#study{padding-top:40px}
+.tk-top{display:flex;flex-wrap:wrap;gap:12px 24px;align-items:center;padding:18px 24px;margin-bottom:18px}
+.tk-stat{display:flex;flex-direction:column;gap:2px;font-size:.72rem;color:var(--ink-dim)}
+.tk-stat i{font-style:normal;letter-spacing:.1em}
+.tk-stat b{font-family:var(--mono);font-size:1.25rem;font-weight:500;color:var(--ink)}
+.tk-stat.hi b{color:var(--dawn);font-size:1.55rem}
+.tk-top.behind .tk-stat.hi b{color:var(--ember)}
+.tk-date{gap:4px}
+.tk-date input{background:rgba(255,255,255,.07);border:1px solid var(--glass-line);color:var(--ink);
+  border-radius:9px;padding:5px 9px;font-family:var(--mono);font-size:.82rem;color-scheme:dark}
+.tk-done-all{margin-left:auto;color:var(--dawn);font-family:var(--serif);letter-spacing:.12em}
+.panel{padding:22px 24px;margin-bottom:18px}
+.panel h3{font-family:var(--serif);font-weight:600;font-size:1rem;color:var(--dawn);margin-bottom:14px;letter-spacing:.08em}
+.tk-sub{font-family:var(--sans);font-weight:400;font-size:.72rem;color:var(--ink-dim);letter-spacing:.06em;margin-left:10px}
+.tk-wrow{display:grid;grid-template-columns:6.5em 1fr minmax(120px,1.1fr) 3.6em;gap:14px;align-items:center;
+  font-size:.82rem;padding:8px 0;border-top:1px solid var(--glass-line)}
+.tk-wrow:first-child{border-top:0}
+.tk-wrow .nm{color:var(--ink)}
+.tk-wrow .q{font-size:.76rem;color:var(--ink-dim)}
+.tk-wrow .q b{color:var(--dawn);font-family:var(--mono)}
+.tk-wrow.behind .q b{color:var(--ember)}
+.tk-wrow .wd{font-family:var(--mono);font-size:.74rem;color:var(--ink-dim);text-align:right}
+.tk-bar{height:9px;border-radius:6px;background:rgba(255,255,255,.06);overflow:hidden;display:block}
+.tk-bar i{display:block;height:100%;width:100%;border-radius:6px;transform-origin:left;
+  background:linear-gradient(90deg,rgba(127,180,199,.7),rgba(242,217,160,.9));
+  transition:transform .5s cubic-bezier(.2,.7,.2,1)}
+.tk-wrow.behind .tk-bar i{background:linear-gradient(90deg,rgba(232,146,124,.55),rgba(232,146,124,.9))}
+.tk-grp{margin-bottom:26px}
+.tk-gh{font-family:var(--serif);font-weight:600;font-size:1.05rem;color:var(--dawn);
+  letter-spacing:.1em;margin:0 0 12px;padding-bottom:6px;border-bottom:1px solid var(--glass-line)}
+.tk-courses{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:14px;align-items:start}
+.tk-card{padding:0;overflow:hidden}
+.tk-chead{display:flex;flex-direction:column;gap:11px;padding:16px 18px;cursor:pointer;user-select:none}
+.tk-cn{display:flex;align-items:baseline;gap:10px}
+.tk-cn b{font-weight:500;font-size:.9rem;color:var(--ink)}
+.tk-cn .ok{font-size:.72rem;color:var(--dawn);white-space:nowrap}
+.tk-cmeta{display:flex;align-items:center;gap:11px}
+.tk-cmeta .tk-bar{flex:1}
+.tk-cmeta .val{font-family:var(--mono);font-size:.72rem;color:var(--ink-dim);white-space:nowrap}
+.tk-x{font-size:.7rem;color:var(--ink-dim);padding:2px 7px;border-radius:7px;border:1px solid transparent;background:none;cursor:pointer;font-family:var(--sans)}
+.tk-x:hover{color:var(--ember);border-color:rgba(232,146,124,.4)}
+.tk-caret{color:var(--ink-dim);transition:transform .3s ease;font-size:.8rem}
+.tk-card.open .tk-caret{transform:rotate(90deg)}
+.tk-sessions{max-height:0;overflow:hidden;transition:max-height .45s ease;padding:0 18px}
+.tk-card.open .tk-sessions{max-height:3000px;padding-bottom:14px}
+.tk-sess{display:flex;align-items:flex-start;gap:9px;padding:6px 0;font-size:.8rem;
+  border-top:1px solid rgba(255,255,255,.05);cursor:pointer}
+.tk-sess input{margin-top:2px;accent-color:var(--ember);width:15px;height:15px;flex:none;cursor:pointer}
+.tk-sess .sn{font-family:var(--mono);font-size:.72rem;color:var(--ink-dim);flex:none;min-width:1.7em}
+.tk-sess .st{color:var(--ink);line-height:1.45}
+.tk-sess.done .st,.tk-sess.done .sn{color:var(--ink-dim);text-decoration:line-through}
+.tk-add .tk-form{display:flex;flex-wrap:wrap;gap:10px;align-items:flex-start}
+.tk-add select,.tk-add input,.tk-add textarea{background:rgba(255,255,255,.07);border:1px solid var(--glass-line);
+  color:var(--ink);border-radius:10px;padding:8px 11px;font-family:var(--sans);font-size:.82rem}
+.tk-add select option{background:var(--night)}
+.tk-add input#tkName{flex:1;min-width:180px}
+.tk-file{display:flex;flex-direction:column;gap:4px;font-size:.72rem;color:var(--ink-dim);flex:2;min-width:230px}
+.tk-add textarea{width:100%;resize:vertical;font-family:var(--mono);font-size:.76rem}
+.tk-add input#tkCount{width:10em}
+.tk-hint{font-size:.74rem;color:var(--ink-dim);margin-top:10px}
+.empty{font-size:.82rem;color:var(--ink-dim)}
+
+/* 科目分析（學校卡內展開） */
+.ana{margin-top:10px;padding:16px 18px;border-radius:14px;
+  background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1)}
+.ana .upd{font-family:var(--mono);font-size:.68rem;color:var(--ink-dim);margin-bottom:8px}
+.ana-scroll{overflow-x:auto}
+.ana table{border-collapse:collapse;width:100%;min-width:560px;font-size:.74rem;margin:8px 0}
+.ana th,.ana td{padding:4px 6px;text-align:center;border-bottom:1px solid rgba(255,255,255,.08)}
+.ana th{font-family:var(--mono);font-weight:400;color:var(--ink-dim)}
+.ana td.n{text-align:left;white-space:nowrap}
+.heat{display:inline-block;min-width:20px;border-radius:5px;padding:1px 4px;font-family:var(--mono);font-size:.68rem}
+.ana ul{margin:8px 0 0 1.2em;font-size:.78rem;color:var(--ink-dim)}
+.ana ul li{margin-bottom:4px}
+.ana ul li b{color:var(--ink);font-weight:500}
+.ana .trend{font-size:.78rem;color:var(--ink-dim);margin-top:8px;border-top:1px solid var(--glass-line);padding-top:8px}
+.pending{font-size:.76rem;color:var(--ink-dim);margin-top:8px}
+
+footer{padding:60px 0 40px;color:rgba(234,242,247,.4);font-size:.75rem;text-align:center}
+.err{padding:30px;color:#F2B8A0}
+</style>
+</head>
+<body data-mode="home" data-theme="mountain" data-wx="clear">
+
+<div class="scene" aria-hidden="true">
+  <div class="sky"></div><div class="photo"></div><div class="stars"></div>
+  <div class="sun2"></div><div class="moon"></div>
+  <div class="aurora"><i></i><i></i><i></i></div>
+  <div class="meteor m1"></div><div class="meteor m2"></div><div class="meteor m3"></div>
+  <!-- 山稜 -->
+  <svg class="t-mtn r3" viewBox="0 0 1440 320" preserveAspectRatio="none"><path fill="var(--l3)" d="M0,240 C180,140 300,220 460,170 C620,120 700,200 880,150 C1060,100 1180,190 1440,130 L1440,320 L0,320 Z"/></svg>
+  <svg class="t-mtn r2" viewBox="0 0 1440 320" preserveAspectRatio="none"><path fill="var(--l2)" d="M0,270 C200,190 340,250 520,210 C700,170 820,240 1000,200 C1180,160 1300,230 1440,190 L1440,320 L0,320 Z"/></svg>
+  <!-- 海岸（波浪內層飄移） -->
+  <svg class="t-sea r3" viewBox="0 0 1440 320" preserveAspectRatio="none"><g class="drift"><path fill="var(--l3)" d="M-60,196 C60,176 180,214 300,199 C420,184 540,218 660,203 C780,188 900,222 1020,207 C1140,192 1260,220 1380,205 C1440,198 1500,208 1500,208 L1500,320 L-60,320 Z"/></g></svg>
+  <svg class="t-sea r2" viewBox="0 0 1440 320" preserveAspectRatio="none"><g class="drift"><path fill="var(--l2)" d="M-60,238 C80,222 200,252 340,240 C480,228 600,258 740,246 C880,234 1000,262 1140,250 C1280,238 1380,258 1500,248 L1500,320 L-60,320 Z"/></g></svg>
+  <svg class="t-sea r1" viewBox="0 0 1440 320" preserveAspectRatio="none"><g class="drift"><path fill="var(--l1)" d="M-60,276 C100,264 240,288 400,278 C560,268 700,292 860,282 C1020,272 1160,294 1320,284 C1400,280 1500,288 1500,288 L1500,320 L-60,320 Z"/></g></svg>
+  <!-- 森林（鋸齒樹冠線） -->
+  <svg class="t-for r3" viewBox="0 0 1440 320" preserveAspectRatio="none"><path fill="var(--l3)" d="M0,230 C180,190 300,225 460,200 C640,175 780,215 960,195 C1140,175 1300,210 1440,190 L1440,320 L0,320 Z"/></svg>
+  <svg class="t-for r2" viewBox="0 0 1440 320" preserveAspectRatio="none"><path fill="var(--l2)" d="M0,260 L60,230 L110,262 L170,225 L230,265 L290,232 L350,268 L420,228 L480,266 L560,235 L620,270 L700,238 L770,272 L850,240 L920,274 L1000,242 L1080,276 L1160,244 L1240,278 L1320,246 L1440,270 L1440,320 L0,320 Z"/></svg>
+  <svg class="t-for r1" viewBox="0 0 1440 320" preserveAspectRatio="none"><path fill="var(--l1)" d="M0,305 L70,255 L130,306 L210,250 L280,308 L370,258 L450,310 L540,255 L620,308 L720,260 L800,312 L900,258 L990,310 L1090,262 L1180,312 L1290,258 L1380,310 L1440,280 L1440,320 L0,320 Z"/></svg>
+  <div class="mist"></div>
+  <svg class="t-mtn r1" viewBox="0 0 1440 320" preserveAspectRatio="none"><path fill="var(--l1)" d="M0,300 C240,240 380,290 560,262 C740,234 900,292 1080,258 C1260,224 1360,280 1440,252 L1440,320 L0,320 Z"/></svg>
+  <!-- 天氣層 -->
+  <div class="wx clouds"><i></i><i></i><i></i></div>
+  <div class="wx rain"></div>
+  <div class="wx snow"></div>
+  <div class="wx fogL"><i></i><i></i></div>
+  <div class="wx flash"></div>
+</div>
+
+<!-- ============ 待機畫面 ============ -->
+<div id="home">
+  <div class="eyebrow boot d1">FEB · GRAD EXAM HUB</div>
+  <div class="clock boot d2" id="clock">--:--</div>
+  <div class="date boot d3" id="homeDate"></div>
+  <div class="count boot d3" id="homeCount"></div>
+  <div class="wxline boot d3" id="wxBadge"></div>
+  <div class="modes boot d4">
+    <button class="lq gold" id="btnExam"><b>考古題</b><i>簡章・題庫・選校比對</i></button>
+    <button class="lq ember" id="btnStudy"><b>讀書</b><i>進度日程・待辦・倒數</i></button>
+  </div>
+  <div class="themes boot d5" id="themePills">
+    <button class="pill lq mist2" data-theme="mountain">山稜</button>
+    <button class="pill lq mist2" data-theme="ocean">海岸</button>
+    <button class="pill lq mist2" data-theme="forest">森林</button>
+    <button class="pill lq mist2" data-theme="peaks">雲海</button>
+    <button class="pill lq mist2" data-theme="village">小鎮</button>
+    <button class="pill lq mist2" data-theme="valley">綠谷</button>
+    <button class="pill lq mist2" data-theme="lake">湖畔</button>
+  </div>
+  <div class="hint boot d5">二月見。</div>
+</div>
+
+<header class="top glass boot">
+  <button class="brand" id="brandHome" title="回待機畫面">Feb<em>.</em></button>
+  <nav class="menu" id="menu">
+    <a class="lq gold seclink only-exam" href="#overview">總覽</a>
+    <a class="lq mist2 seclink only-exam" href="#finder">反向選校</a>
+    <button class="lq ember only-exam" id="toStudy">讀書模式</button>
+    <button class="lq gold only-study" id="toExam">考古題模式</button>
+  </nav>
+</header>
+
+<div class="wrap">
+  <section class="hero">
+    <div class="eyebrow boot d1">電機控制組 · 116 學年度</div>
+    <h1 class="boot d2">八校<span>總覽</span></h1>
+    <p class="sub boot d3">台大、清大、陽明交大、中央、中山、成大、台科大、北科大——電機控制組的簡章、推甄與考試資訊、近十年考古題與精準考科比對，整合在這一頁。</p>
+    <div class="stats boot d4" id="stats"></div>
+  </section>
+
+  <section id="overview" class="reveal">
+    <h2>總覽</h2>
+    <p class="sec-note">八校一張表：報名日、筆試日、考科、免筆試路徑、題庫與分析進度。點<b>學校名稱</b>開該校完整資料：系所組考科、名額審查、十年題庫、各科章節出題分析。</p>
+    <div class="ov-wrap"><table class="ov"><thead><tr>
+      <th>學校</th><th>報名</th><th>筆試</th><th>筆試科目</th><th>免筆試</th><th>題庫</th><th>分析</th>
+    </tr></thead><tbody id="ovBody"></tbody></table></div>
+    <p class="ov-note">日程與考科逐字核對自 115 學年度官方簡章；116 簡章公告後（每年 10–11 月）需再核對一次。</p>
+    <h3 class="agg-h">共同必考章節</h3>
+    <p class="agg-note">已完成的 NotebookLM 分析跨校彙整，隨進度自動更新。</p>
+    <div class="agg" id="aggArea"></div>
+  </section>
+
+  <div id="schoolModal" class="modal" hidden>
+    <div class="modal-back" data-close></div>
+    <div class="modal-panel glass" role="dialog" aria-modal="true">
+      <button class="modal-x lq" type="button" data-close aria-label="關閉">✕</button>
+      <div class="modal-body school" id="modalBody"></div>
+    </div>
+  </div>
+
+  <section id="finder" class="reveal acc">
+    <div class="sec-head" data-acc><h2>反向選校</h2><span class="hintline">勾強項 → 看哪裡能考</span><span class="arrow">▸</span></div>
+    <div class="sec-body"><div class="sec-inner">
+      <p class="sec-note">勾選你的<b>強項科目</b>（工數可細到章節），即時比對各校筆試要求。資料來源是 115 簡章逐字核對的考科組合，含「二選一」選考規則與各校工數卷別範圍。</p>
+      <div class="glass finder">
+        <h4>我的強項科目</h4>
+        <div class="pills" id="subjPills"></div>
+        <h4>工程數學章節（勾了「工程數學」後細選）</h4>
+        <div class="pills" id="chapPills"></div>
+        <div class="verdicts" id="verdicts"></div>
+        <div class="disclaimer">⚠ 章節比對依據各校簡章載明範圍與考卷實測；「各校特別愛出的章節」由考題分析（NotebookLM）完成後回填，屆時此區會加上出題頻率權重。標示「範圍未載明」者以歷年考卷為準。</div>
+      </div>
+    </div></div>
+  </section>
+
+  <!-- ============ 讀書模式：進度追蹤器 ============ -->
+  <section id="study">
+    <h2>進度追蹤器</h2>
+    <p class="sec-note">把要看完的線上課程逐堂列出，看完一堂就打勾。綁衝刺日，系統即時算出<b>今天各科該看幾堂</b>、還剩多少、有沒有落後。改衝刺日全部重算。</p>
+
+    <div class="tk-top glass" id="tkTop"></div>
+
+    <div class="panel glass tk-week">
+      <h3>本週各科配額<span class="tk-sub">平均分攤 · 週一～週日</span></h3>
+      <div id="tkWeekBody"></div>
+    </div>
+
+    <div id="tkGroups"></div>
+
+    <div class="panel glass tk-add">
+      <h3>新增課程</h3>
+      <div class="tk-form">
+        <select id="tkSubj"></select>
+        <input id="tkName" placeholder="課程名稱，例：112暑訊號(張)">
+        <label class="tk-file">逐堂標題（每行一堂，可留空）
+          <textarea id="tkList" rows="3" placeholder="每行一堂標題；留空則只用下方總堂數自動編號"></textarea>
+        </label>
+        <input id="tkCount" type="number" min="1" placeholder="或只填總堂數">
+        <button class="lq gold" id="tkAdd">新增</button>
+      </div>
+      <p class="tk-hint">貼上逐堂標題（每行一堂）；或留空、只填總堂數，自動編「第N講」。</p>
+    </div>
+  </section>
+
+  <footer id="foot"></footer>
+</div>
+
+<div id="wipe" aria-hidden="true"></div>
+
+<script>
+const YEARS = [106,107,108,109,110,111,112,113,114,115];
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+let DATA=null, INDEX=null;
+const state = { subjects:new Set(), chapters:new Set() };
+
+/* ============ 模式切換（液態轉場） ============ */
+function setMode(m){
+  document.body.dataset.mode = m;
+  if(m!=='home') scrollTo({top:0});
+}
+function wipeTo(fn){
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches){ fn(); return; }
+  const w=document.getElementById('wipe');
+  w.classList.remove('go'); void w.offsetWidth; w.classList.add('go');
+  setTimeout(fn,480);
+  setTimeout(()=>w.classList.remove('go'),1150);
+}
+function switchMode(m){ wipeTo(()=>setMode(m)); }
+document.getElementById('btnExam').onclick = ()=>switchMode('exam');
+document.getElementById('btnStudy').onclick = ()=>switchMode('study');
+document.getElementById('toStudy').onclick = ()=>switchMode('study');
+document.getElementById('toExam').onclick = ()=>switchMode('exam');
+document.getElementById('brandHome').onclick = ()=>switchMode('home');
+
+/* ============ 收合區塊（一次只開一個）＋點擊液爆 ============ */
+function openSec(sec){
+  document.querySelectorAll('section.acc.open').forEach(s=>s!==sec&&s.classList.remove('open'));
+  if(sec) sec.classList.add('open');
+}
+document.addEventListener('click',e=>{
+  if(e.target.closest('[data-close]')){ closeSchool(); return; }
+  const row=e.target.closest('#ovBody [data-open]');
+  if(row){ openSchool(row.dataset.open); return; }
+  const h=e.target.closest('[data-acc]');
+  if(h){
+    const sec=h.closest('section');
+    sec.classList.contains('open') ? sec.classList.remove('open') : openSec(sec);
+  }
+  const a=e.target.closest('a.seclink, a[href^="#sc-"]');
+  if(a){
+    const sec=document.querySelector(a.getAttribute('href'));
+    if(sec&&sec.classList.contains('acc')) openSec(sec);
+  }
+  // 液爆：所有 liquid 元件點擊時波紋圈＋飛濺液滴
+  const b=e.target.closest('.lq');
+  if(!b||matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const burst=document.createElement('span'); burst.className='burst';
+  burst.style.left=e.clientX+'px'; burst.style.top=e.clientY+'px';
+  const col=getComputedStyle(b).getPropertyValue('--lq-color').trim();
+  if(col) burst.style.setProperty('--bc',col);
+  for(let i=0;i<8;i++){
+    const d=document.createElement('i');
+    const ang=Math.random()*Math.PI*2, v=28+Math.random()*50;
+    d.style.setProperty('--dx',Math.cos(ang)*v+'px');
+    d.style.setProperty('--dy',Math.sin(ang)*v-34+'px');
+    d.style.animationDelay=(Math.random()*.07)+'s';
+    burst.appendChild(d);
+  }
+  document.body.appendChild(burst);
+  setTimeout(()=>burst.remove(),950);
+});
+
+/* ============ 風景風格＋即時天氣（Open-Meteo，免金鑰） ============ */
+const PHOTO_THEMES=['peaks','village','valley','lake'];
+function applyTheme(t){
+  document.body.dataset.theme=t;
+  document.body.classList.toggle('swiss',PHOTO_THEMES.includes(t));
+}
+function initTheme(){
+  const t=localStorage.getItem('feb-theme')||'mountain';
+  applyTheme(t);
+  document.querySelectorAll('#themePills [data-theme]').forEach(b=>{
+    b.classList.toggle('on',b.dataset.theme===t);
+    b.addEventListener('click',()=>{
+      applyTheme(b.dataset.theme);
+      localStorage.setItem('feb-theme',b.dataset.theme);
+      document.querySelectorAll('#themePills [data-theme]').forEach(x=>x.classList.toggle('on',x===b));
+    });
+  });
+}
+function wxOf(c){
+  if(c<=1) return ['clear','晴'];
+  if(c<=3) return ['cloud',c===2?'多雲':'陰'];
+  if(c===45||c===48) return ['fog','霧'];
+  if((c>=51&&c<=67)||(c>=80&&c<=82)) return ['rain','雨'];
+  if((c>=71&&c<=77)||c===85||c===86) return ['snow','雪'];
+  if(c>=95) return ['storm','雷雨'];
+  return ['cloud','多雲'];
+}
+async function fetchWx(){
+  const geo = JSON.parse(localStorage.getItem('feb-geo')||'null') || {lat:25.04,lon:121.56};
+  try{
+    const r=await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${geo.lat}&longitude=${geo.lon}&current=weather_code,is_day,temperature_2m`);
+    const c=(await r.json()).current;
+    const [wx,label]=wxOf(c.weather_code);
+    document.body.dataset.wx=wx;
+    document.body.classList.toggle('day',c.is_day===1);
+    document.getElementById('wxBadge').textContent=`${label} ${Math.round(c.temperature_2m)}°C`;
+  }catch(e){ /* 離線時保持上次狀態 */ }
+}
+function initWeather(){
+  if(!localStorage.getItem('feb-geo') && navigator.geolocation){
+    navigator.geolocation.getCurrentPosition(p=>{
+      localStorage.setItem('feb-geo',JSON.stringify({lat:+p.coords.latitude.toFixed(3),lon:+p.coords.longitude.toFixed(3)}));
+      fetchWx();
+    },()=>{},{timeout:8000,maximumAge:36e5});
+  }
+  fetchWx();
+  setInterval(fetchWx,30*60*1000);
+}
+initTheme(); initWeather();
+
+/* ============ 待機時鐘＋倒數 ============ */
+const EXAM_DAY = new Date('2027-02-01T08:00:00+08:00'); // 116 筆試估約 2027/2 上旬，簡章公告後修正
+function tickClock(){
+  const n=new Date();
+  document.getElementById('clock').innerHTML =
+    `${String(n.getHours()).padStart(2,'0')}:${String(n.getMinutes()).padStart(2,'0')}<small>${String(n.getSeconds()).padStart(2,'0')}</small>`;
+  document.getElementById('homeDate').textContent =
+    `${n.getFullYear()}.${String(n.getMonth()+1).padStart(2,'0')}.${String(n.getDate()).padStart(2,'0')} 週${'日一二三四五六'[n.getDay()]}`;
+  const d=Math.ceil((EXAM_DAY-n)/864e5);
+  document.getElementById('homeCount').textContent = d>0?`距 116 學年度筆試 約 ${d} 天`:'筆試季';
+}
+tickClock(); setInterval(tickClock,1000);
+
+/* ============ 資料載入 ============ */
+async function load(){
+  try{
+    [DATA, INDEX] = await Promise.all([
+      fetch('../data/schools.json').then(r=>r.json()),
+      fetch('../data/exam-index.json').then(r=>r.json())
+    ]);
+    await loadAna();
+    renderStats(); renderOverview(); renderAgg();
+    renderFinderControls(); renderVerdicts();
+    initStudy();
+    document.getElementById('foot').innerHTML =
+      `資料更新：${esc(DATA.updated)} ・ 簡章基準：${esc(DATA.baseAcademicYear)} 學年度 ・ ${esc(DATA.note)}`;
+    initReveal(); initSpy(); initParallax();
+  }catch(e){
+    document.getElementById('ovBody').innerHTML =
+      `<tr><td colspan="7"><div class="glass err">讀不到資料（${esc(e.message)}）。請從專案根目錄啟動：<code>python -m http.server</code>，再開 <code>http://localhost:8000/site/</code></div></td></tr>`;
+    initStudy();
+  }
+}
+
+/* ---------- hero ---------- */
+function renderStats(){
+  const got = INDEX.filter(e=>e.status==='downloaded').length;
+  const progs = DATA.channels.reduce((n,c)=>n+c.programs.length,0);
+  const defs = [[DATA.channels.length,'份簡章來源'],[progs,'個目標系所組'],[got,'份考古題已收'],[YEARS.length,'年題庫縱深']];
+  document.getElementById('stats').innerHTML =
+    defs.map(([n,l])=>`<div class="stat glass"><b class="cnt" data-n="${n}">0</b><i>${l}</i></div>`).join('');
+  document.querySelectorAll('.cnt').forEach(el=>{
+    const target=+el.dataset.n, t0=performance.now(), dur=1100;
+    (function tick(t){const p=Math.min(1,(t-t0)/dur);
+      el.textContent=Math.round(target*(1-Math.pow(1-p,3)));
+      if(p<1) requestAnimationFrame(tick);})(t0);
+  });
+}
+/* ---------- 招生管道 ---------- */
+function writtenBadges(p){
+  if(!p.written.length) return `<span class="hot">無筆試：${esc(p.nonWritten.join('＋')||'審查')}</span>`;
+  return p.written.map(slot=>{
+    const names = slot.options.map(o=>o.paper||o.subject);
+    const s = names.join(' / ');
+    return `<span title="${esc(slot.note||'')}">${esc(s)}${slot.options.length>1?'（擇一）':''}</span>`;
+  }).join('');
+}
+/* ---------- 學校為軸：總覽表＋作戰卡 ---------- */
+const SCHOOL_ORDER = ['ntu','ust','ncu','nthu-pme','ncku','nsysu','ntust','ntut'];
+// 分析檔 key → [題庫學校id, 題庫科目名]（nsysu 兩份分析共掛同一份合集）
+const ANA_MAP = {
+ 'ust-control':['ust','控制系統'], 'ust-math':['ust','工程數學C'], 'ust-elec':['ust','電子學'],
+ 'ntu-control':['ntu','控制系統'], 'ntu-math':['ntu','工程數學'],
+ 'nthupme-control':['nthu-pme','控制系統'],
+ 'ncku-control':['ncku','控制系統'], 'ncku-math':['ncku','工程數學'],
+ 'nckues-control':['ncku','工科-控制系統'], 'nckues-math':['ncku','工科-工程數學'],
+ 'nckues-circ':['ncku','工科-電子電路'], 'nckues-sig':['ncku','工科-訊號與系統'], 'nckues-la':['ncku','工科-線性代數'],
+ 'nsysu-control':['nsysu','全系試題合集(含乙組工數乙+控制系統)'],
+ 'nsysu-math':['nsysu','全系試題合集(含乙組工數乙+控制系統)'],
+ 'ntust-math':['ntust','工程數學'],
+ 'ntut-control':['ntut','控制系統'], 'ntut-math':['ntut','工程數學'],
+ 'ncu-math':['ncu','工程數學（不含複變）'], 'ncu-elec':['ncu','電子學'], 'ncu-sig':['ncu','信號與系統'],
+};
+// 已停考科目：保留題庫存檔、不做分析
+const DISCONTINUED = {ntust:{'自動控制系統':'113 起未再公布'}};
+let ANA = {};
+async function loadAna(){
+  try{
+    const list = await fetch('../data/analysis/index.json').then(r=>{if(!r.ok)throw 0;return r.json();});
+    const docs = await Promise.all(list.map(m=>
+      fetch('../data/analysis/'+m.file).then(r=>r.json()).then(d=>[m.file.replace(/\.json$/,''),d])));
+    ANA = Object.fromEntries(docs);
+  }catch(e){ ANA = {}; }
+}
+const chanById = id => DATA.channels.find(c=>c.id===id);
+function examRows(sid){
+  const rows=new Map();
+  for(const e of INDEX){
+    if(e.school!==sid) continue;
+    if(!rows.has(e.subject)) rows.set(e.subject,{dept:e.dept,years:{}});
+    rows.get(e.subject).years[e.year]=e;
+  }
+  return rows;
+}
+const anaOf=(sid,subject)=>Object.entries(ANA)
+  .filter(([k])=>ANA_MAP[k]&&ANA_MAP[k][0]===sid&&ANA_MAP[k][1]===subject).map(([,d])=>d);
+const chapTotals=d=>(d.chapters||[])
+  .map(ch=>[ch.name,(d.years||[]).reduce((s,y)=>s+(+ch.years?.[y]||0),0)])
+  .filter(([,t])=>t>0).sort((a,b)=>b[1]-a[1]);
+
+function renderAgg(){
+  const groups=[
+    ['控制系統', k=>k.includes('control')],
+    ['工程數學', k=>k.includes('math')],
+    ['電子學',   k=>k.includes('elec')||k.includes('circ')],
+    ['線性代數', k=>k.includes('la')],
+  ];
+  document.getElementById('aggArea').innerHTML = groups.map(([title,match])=>{
+    const docs=Object.entries(ANA).filter(([k])=>match(k)).map(([,d])=>d);
+    if(!docs.length) return '';
+    const agg={};
+    docs.forEach(d=>chapTotals(d).forEach(([name,t])=>{
+      (agg[name]??={n:0,total:0}); agg[name].n++; agg[name].total+=t;
+    }));
+    const rows=Object.entries(agg).filter(([n])=>n!=='其他')
+      .sort((a,b)=>b[1].n-a[1].n||b[1].total-a[1].total).slice(0,8);
+    if(!rows.length) return '';
+    const max=Math.max(...rows.map(([,v])=>v.total));
+    return `<div class="panel glass"><h3>${esc(title)}<small>${docs.length} 份分析彙整</small></h3>
+      <div class="bars">${rows.map(([name,v],i)=>`
+        <div class="bar-row"><span class="nm" title="${esc(name)}">${esc(name)}</span>
+          <span class="tk"><i style="transform:scaleX(${Math.max(.05,v.total/max)});--i:${i}"></i></span>
+          <span class="val"><b>${v.n} 校考</b> ・${v.total} 大題</span></div>`).join('')}
+      </div></div>`;
+  }).join('');
+}
+
+function anaHTML(d){
+  const ys=d.years||[];
+  let tbl='';
+  if(d.chapters?.length){
+    tbl = `<table><thead><tr><th></th>${ys.map(y=>`<th>${esc(y)}</th>`).join('')}<th>計</th></tr></thead><tbody>`+
+      d.chapters.map(ch=>{
+        const tot = ys.reduce((s,y)=>s+(+ch.years?.[y]||0),0);
+        return `<tr><td class="n">${esc(ch.name)}</td>${ys.map(y=>{
+          const v=+ch.years?.[y]||0;
+          const bg=v?`background:rgba(242,217,160,${Math.min(.85,.15+v*.2)});color:#132033`:'color:rgba(234,242,247,.25)';
+          return `<td><span class="heat" style="${bg}">${v||'·'}</span></td>`;}).join('')}
+          <td><b style="font-family:var(--mono)">${tot}</b></td></tr>`;
+      }).join('')+`</tbody></table>`;
+  }
+  return `<details class="more"><summary>完整分析：${esc(d.subject)}（章節×年度熱度・必考重點・命題趨勢）</summary>
+    <div class="ana">
+      <div class="upd">NotebookLM 分析 ・ ${esc(d.updated||'')}</div>
+      <div class="ana-scroll">${tbl}</div>
+      ${d.mustKnow?.length?`<ul>${d.mustKnow.map(m=>`<li><b>${esc(m.split('：')[0])}</b>${esc(m.includes('：')?'：'+m.split('：').slice(1).join('：'):'')}</li>`).join('')}</ul>`:''}
+      ${d.trend?`<div class="trend">${esc(d.trend)}</div>`:''}
+      ${d.notebook?`<div style="margin-top:12px"><a class="lq mist2" style="font-size:.74rem;padding:6px 16px;color:var(--ink);text-decoration:none" href="https://notebooklm.google.com/notebook/${esc(d.notebook)}" target="_blank" rel="noopener">開啟 NotebookLM 筆記本 → 直接追問</a></div>`:''}
+    </div></details>`;
+}
+
+// 收合表：一列一校，學校名可點開懸浮視窗
+function renderOverview(){
+  document.getElementById('ovBody').innerHTML = SCHOOL_ORDER.map(sid=>{
+    const c=chanById(sid); if(!c) return '';
+    const joint=c.channel.includes('聯合');
+    const er=examRows(sid);
+    const subjSet=new Set(), free=[];
+    for(const p of c.programs){
+      if(!p.written.length){ free.push(`${p.dept}${p.group}`); continue; }
+      for(const slot of p.written) for(const o of slot.options) subjSet.add(o.paper||o.subject);
+    }
+    const got=[...er.values()].reduce((n,r)=>n+Object.values(r.years).filter(e=>e.status==='downloaded').length,0);
+    const planned=Object.keys(ANA_MAP).filter(k=>ANA_MAP[k][0]===sid);
+    const done=planned.filter(k=>ANA[k]).length;
+    return `<tr data-open="${esc(sid)}">
+      <td><button class="sch" type="button">${esc(c.shortName)}<small>${joint?'聯合招生':'自辦招生'}</small></button></td>
+      <td class="dt">${esc(c.schedule.apply)}</td>
+      <td class="dt">${esc(c.schedule.writtenExam)}</td>
+      <td>${[...subjSet].map(s=>`<span class="subj-chip">${esc(s)}</span>`).join('')||'—'}</td>
+      <td class="free">${free.length?free.map(esc).join('<br>'):'—'}</td>
+      <td class="st">${got?`<b>${got}</b> 份`:'—'}</td>
+      <td class="st">${planned.length?`<b>${done}</b>/${planned.length} 科`:'—'}</td>
+    </tr>`;
+  }).join('');
+}
+
+// 懸浮視窗內容：該校完整資料（招生管道、系所組、每科題庫年份格＋章節出題分析）
+function schoolDetailHTML(sid){
+  const c=chanById(sid); if(!c) return '';
+  const joint=c.channel.includes('聯合');
+  const er=examRows(sid), dead=DISCONTINUED[sid]||{};
+  const progs=c.programs.map(p=>`
+    <div class="prog">
+      <b>${esc(p.dept)}</b> <span class="grp">${esc(p.group)}</span>
+      <div class="subj">${writtenBadges(p)}</div>
+      <details class="more"><summary>名額・審查・備註</summary>
+        <div class="quota">${esc(p.quota?.exam||'')}${p.quota?.recommend?'｜'+esc(p.quota.recommend):''}</div>
+        ${p.nonWritten.length&&p.written.length?`<div class="note">併採：${esc(p.nonWritten.join('、'))}</div>`:''}
+        ${p.recommend?`<div class="note">推甄：${esc(p.recommend)}</div>`:''}
+        <div class="note ${p.notes&&p.notes.startsWith('★')?'star':''}">${esc(p.notes||'')}</div>
+      </details>
+    </div>`).join('');
+  let subj='';
+  for(const [name,r] of er){
+    const deadNote=dead[name];
+    const anas=deadNote?[]:anaOf(sid,name);
+    const quick=anas.map(d=>{
+      const top=chapTotals(d).filter(([n])=>n!=='其他').slice(0,3);
+      return top.length?`<div class="quick">重點章節${anas.length>1?`（${esc(d.subject)}）`:''}：${
+        top.map(([n,t])=>`<b>${esc(n)}</b> ×${t}`).join('　')}</div>`:'';
+    }).join('');
+    const years=YEARS.map(y=>{
+      const e=r.years[y];
+      if(e&&e.status==='downloaded')
+        return `<a class="lq" href="../data/exams/${esc(e.path)}" target="_blank" rel="noopener" title="${esc(name)} ${y}年">${y}</a>`;
+      const why=e?(e.reason||e.status):'該年份不在來源清單（可能未招生或未公開）';
+      return `<span title="${esc(why)}">${y}</span>`;
+    }).join('');
+    subj+=`<div class="sb">
+      <div class="sbh"><h4>${esc(name)}<small>${esc(r.dept)}</small></h4>
+        ${deadNote?`<span class="badge dead">已停考・${esc(deadNote)}・題庫僅存檔</span>`:''}</div>
+      ${quick}
+      <div class="yrow">${years}</div>
+      ${anas.length?anas.map(anaHTML).join('')
+        :(!deadNote&&Object.values(ANA_MAP).some(([s,n])=>s===sid&&n===name)
+          ?`<div class="pending">章節分析產生中——完成後自動出現（run_analysis.bat 可續跑）。</div>`:'')}
+    </div>`;
+  }
+  if(!er.size) subj=`<div class="sb"><div class="pending">此校未收考古題（未公開或走台聯大共同筆試）；筆試科目見上方系所組。</div></div>`;
+  return `
+    <div class="dhead"><h2>${esc(c.shortName)}</h2>
+      <span class="badge ${joint?'joint':''}">${joint?'聯合招生':'自辦招生'}</span></div>
+    <div class="chow">${esc(c.channel)}</div>
+    <div class="sched">報名 ${esc(c.schedule.apply)} ・ 筆試 ${esc(c.schedule.writtenExam)}</div>
+    <div class="links">
+      <a class="lq gold" href="../data/${esc(c.brochure)}" target="_blank" rel="noopener">簡章 PDF</a>
+      <a class="lq mist2" href="${esc(c.admissionUrl)}" target="_blank" rel="noopener">招生網站</a>
+      <a class="lq mist2" href="${esc(c.pastExamsSource)}" target="_blank" rel="noopener">考古題來源</a>
+    </div>
+    <div class="progs">${progs}</div>
+    ${subj}`;
+}
+function openSchool(sid){
+  const m=document.getElementById('schoolModal');
+  document.getElementById('modalBody').innerHTML = schoolDetailHTML(sid);
+  m.querySelector('.modal-panel').scrollTop=0;
+  m.hidden=false; document.body.classList.add('modal-open');
+}
+function closeSchool(){
+  document.getElementById('schoolModal').hidden=true;
+  document.body.classList.remove('modal-open');
+}
+addEventListener('keydown',e=>{
+  if(e.key==='Escape'&&!document.getElementById('schoolModal').hidden) closeSchool();
+});
+
+/* ---------- 反向選校 ---------- */
+function renderFinderControls(){
+  const sp=document.getElementById('subjPills');
+  sp.innerHTML = DATA.subjectCatalog.map(s=>
+    `<button class="pill lq ${s==='工程數學'?'mist2':'gold'}" data-s="${esc(s)}">${esc(s)}</button>`).join('');
+  const cp=document.getElementById('chapPills');
+  cp.innerHTML = DATA.mathChapters.map(c=>
+    `<button class="pill chap lq mist2" data-c="${esc(c)}">${esc(c)}</button>`).join('');
+  sp.addEventListener('click',e=>{
+    const b=e.target.closest('[data-s]'); if(!b) return;
+    toggle(state.subjects,b.dataset.s,b); renderVerdicts();
+  });
+  cp.addEventListener('click',e=>{
+    const b=e.target.closest('[data-c]'); if(!b) return;
+    toggle(state.chapters,b.dataset.c,b); renderVerdicts();
+  });
+}
+function toggle(set,v,btn){ set.has(v)?set.delete(v):set.add(v); btn.classList.toggle('on'); }
+
+function optionOK(o){
+  if(o.subject==='工程數學'){
+    if(!state.subjects.has('工程數學')) return false;
+    const need = o.chapters===null ? DATA.mathChapters : o.chapters;
+    return need.every(ch=>state.chapters.has(ch));
+  }
+  if(o.subject==='線性代數')
+    return state.subjects.has('線性代數') || state.chapters.has('線性代數');
+  return state.subjects.has(o.subject);
+}
+function verdictOf(p){
+  if(!p.written.length) return {cls:'doc',label:'無筆試門檻',detail:'審查／口試取才，不受筆試科目限制'};
+  const missing=[];
+  for(const slot of p.written){
+    if(!slot.options.some(optionOK)){
+      missing.push(slot.options.map(o=>o.paper||o.subject).join('或'));
+    }
+  }
+  if(!missing.length) return {cls:'ok',label:'✓ 筆試全對口',detail:''};
+  return {cls:'no',label:'缺 '+missing.length+' 科',detail:missing.join('、')};
+}
+function reqText(p){
+  if(!p.written.length) return esc(p.nonWritten.join('＋'));
+  return p.written.map(slot=>{
+    const parts = slot.options.map(o=>{
+      const nm = o.paper||o.subject;
+      const scope = o.scope?`〔${o.scope}〕`:'';
+      return `<em>${esc(nm)}</em>${esc(scope)}`;
+    }).join(' 或 ');
+    return parts + (slot.note?`<s title="規則">（${esc(slot.note)}）</s>`:'');
+  }).join('　＋　');
+}
+function renderVerdicts(){
+  const nothing = !state.subjects.size && !state.chapters.size;
+  const cards=[];
+  for(const c of DATA.channels){
+    for(const p of c.programs){
+      const v = nothing && p.written.length ? {cls:'no',label:'請先勾選強項',detail:''} : verdictOf(p);
+      cards.push({c,p,v});
+    }
+  }
+  cards.sort((a,b)=>({ok:0,doc:1,no:2}[a.v.cls]-{ok:0,doc:1,no:2}[b.v.cls]));
+  document.getElementById('verdicts').innerHTML = cards.map(({c,p,v})=>`
+    <div class="verdict ${v.cls==='no'?'dim':''}">
+      <div class="vh"><b>${esc(c.shortName)}｜${esc(p.dept)} ${esc(p.group)}</b>
+        <span class="tag ${v.cls}">${esc(v.label)}</span></div>
+      <div class="req">${reqText(p)}</div>
+      ${v.detail?`<div class="req">→ ${esc(v.detail)}</div>`:''}
+      ${p.nonWritten.length&&p.written.length?`<div class="req">併採：${esc(p.nonWritten.join('、'))}</div>`:''}
+    </div>`).join('');
+}
+
+/* ============ 讀書模式：進度追蹤器 ============ */
+const TK_LS='feb-tracker-v1';
+const SPRINT_DEFAULT='2026-09-01';
+const SUBJECT_ORDER=['多益','工數','線性代數','自動控制','電子學'];
+
+/* 種子課程：截圖擷取＝待看；被切掉者＝已看、不列入。base=起始堂號 */
+const _C=[
+ {id:'duo',subject:'多益',name:'115春多益（揚洋）',base:2,titles:[
+  'P.8~P.12、P.221~P.222、P.266~P.268 高頻詞彙文法、聽力Part3、4',
+  'P38~48 聽力(第二回試題)',
+  'P.74~P.84、P.268~P.270 第三回Part1~Part5+多益96式',
+  'P107~122 part1~4、part5~6(部分)',
+  'P.143-153~P.154-159 TEST5:Listening全 Reading5、6',
+  'P.177~P.188 第六回題目:聽力(全)',
+  'P.2-12+P.271~P.274、P.43-46 多益96式+聽力',
+  '第八回聽力與閱讀解析',
+  '第八回聽力與閱讀解析',
+  '新聽力1~2',
+  '新聽力題庫2、3']},
+ {id:'complex',subject:'工數',name:'複變向量矩陣（喻·113暑）',base:1,titles:[
+  '(下)P.687~697 CH13複變分析',
+  '(下)P.697~700 函數/極限與連續/複變函數的微分',
+  '(下)P.700~719 例25 可解析定義',
+  '(下)P.719~728 複變函數的積分、柯西積分公式',
+  '(下)P.733~771 Rouche定理、Taylor級數&Laurent級數',
+  '(下)p.771~780 殘值~殘值定理',
+  '(下)P783~794 殘值定理',
+  '(下)P.799~819 實變函數的定積分~傅立葉積分',
+  '(下)P819~853 特殊型式的積分',
+  '(下)P.501~512 向量函數的微分',
+  '(下)P521~533 12.4 與del有關的運算',
+  '(下)P538~552 空間曲面的法向量~12.5線積分及其應用',
+  '(下)P.552~575 保守場、座標變換',
+  '(下)P.575~588 Jacobian行列式',
+  '(下)P.590~614 坐標的變換、面積分',
+  '(下)P.614~634 12.7面積分~12.8積分定理',
+  '(下)12.8.2~12.8.3 散度定理、Stokes定理']},
+ {id:'micro',subject:'工數',name:'微方（喻·115春）',base:6,titles:[
+  'P.171~204 2.5~3.1',
+  'P203~207 高階ODE',
+  'P.208~236 待定係數',
+  'P236~371 常係數線性ODE',
+  'P.268~284 常係數線性ODE',
+  'P.285~337 高階ODE及應用',
+  'P.330~345',
+  'P335~397 CH3-4自變數變換法',
+  'p.395~437']},
+ {id:'linalg',subject:'線性代數',name:'線代（喻·114暑）',base:1,titles:[
+  '講義P1~課本P.215 常見的數學符號',
+  'p215~218 常見的向量空間',
+  'P.219~239 生成空間(簡化空間集合)',
+  'P.218~256 Rank',
+  'P252~280 基底變換',
+  'P252~280 基底變換',
+  'P.290~310 線性變換',
+  'P.292~320 線性變換',
+  'p331~359 線性變換矩陣表示法',
+  'P336~380 座標轉換、基底變換',
+  'P.354~392 特徵值系統與仰角化',
+  'P.409~453 Householder矩陣',
+  'p.453~470 正交集合、QR分解',
+  'P.478~509 正交投影、最小二乘方',
+  'P.509~565 伴隨運算',
+  'P.565~575 正交運算']},
+ {id:'matrix',subject:'線性代數',name:'矩陣（喻·115春）',base:1,titles:[
+  '(下)P.247~300 矩陣代數運算',
+  '(下)P.397~299 聯立方程式的解',
+  '(下)p.319~324 特徵值與特徵向量',
+  '(下)P329~343 特徵值與特徵向量',
+  '(下)P.353~366 相似轉換',
+  'P125~128 解方陣函數',
+  'p.374~407 常係數齊次聯立',
+  'P.420~432 定理與最小多項式',
+  'P.433~445 二次式其及應用',
+  'P.436~452 實數二次式']},
+ {id:'control',subject:'自動控制',name:'自動控制（T Video）',base:1,titles:[
+  '26-02 倒單擺系統 p558',
+  '26-01 ex13-2 p543',
+  '25-02 狀態迴授與觀察 p534',
+  '25-01 觀察器設計 p528',
+  '24-02 性質四 p495',
+  '24-01 控制性與觀察性 p482',
+  '23-02 控制性與觀察性 p471',
+  '23-01 動態方程式之解 p455',
+  '22-02 並聯分解法 p451',
+  '22-01 轉移函數之分解',
+  '21-02 動態方程式 p432',
+  '21-01 相位領先的時域補償 p391',
+  '19-02 相位領先補償器 p356',
+  '19-01 PID控制器 p344',
+  '18-02 控制系統的設計+補償 p340',
+  '18-01 時間延遲元件的波德圖 p318',
+  '17-02 ex7-23 p315',
+  '17-01 增益邊限 p306',
+  '15-02 奈氏穩定準則 p272',
+  '15-01 p252',
+  '14-02 全通系統與極小相應系統 p252',
+  '14-01 波德圖 p245',
+  '13-02 標準二階系統的頻率響應分析 p231',
+  '13-01 CH5-5 p217',
+  '12-02 加入極點對根軌跡影響 P211',
+  '12-01 ex5-11 例題解析 P190',
+  '10-02 穩態誤差 P162',
+  '10-01 穩態響應 P148',
+  '09-02 穩態響應 P141',
+  '09-01 響應分析 P132',
+  '08-02 系統極點與暫態性能關係 p127',
+  '08-01 尖峰時間 p118']},
+ {id:'elec',subject:'電子學',name:'114暑電子（劉明彰）',base:2,titles:[
+  'P.4~8 戴維寧等效電路解析',
+  'P.11~18 O-3模型近似解、二極體-電阻電路',
+  'P.18~23 開路跨壓檢測',
+  '(補01)P35~37 倍壓器、半導體',
+  '(補01)P35~37 倍壓器、半導體',
+  'P37~43 接面空乏區',
+  '(補01)P.40~45 (I-V)特性',
+  '(補01)P.48~50 集極回授偏壓法',
+  '(補01)P48~54 多顆偏壓~主動區的限制',
+  '(補01)P.60~61 IV特性圖',
+  '(補01)p.65~67 Amplifier(放大器)',
+  '(補01)P.73~79 BJT的小訊號模型',
+  '(補01)p.40~88 BJT直流偏壓、重要阻抗',
+  '(補01)P.87~89、P.150~163',
+  '(補01)p.163~193 多級放大器的分析',
+  'P.90~106 電流',
+  'P.105~109 高階鏡',
+  '(補01)P.108~122 實擺幅高階鏡',
+  '(補01)P.122~130 差動放大器',
+  '(補01)P130~134 頻率響應',
+  '(補01)P.132~144 波德圖、CE(CS)的低頻',
+  '補充P145、課本P323 CC(CD)高頻、CASCODE',
+  'P58~59 非完美OD、OP波德圖',
+  '(補01)P.160~173 非線性OD、回授',
+  '(補01)P.170~180 回授響應、尼奎斯特穩定準則',
+  '(補01)P.180~182 頻率補償、米勒補償',
+  '(補01)P.183~195 IC-CG、IC-CD',
+  '(補01)p.195~211 反向器(Inverter)',
+  '(補01)P.211~217 輸出級、推拉式B類、交叉失真',
+  '(補01)P217~225 二極體偏壓AB類、濾波器',
+  '(補01)P227~228 萬用阻抗轉換器、穩壓器、齊納穩壓器']},
+];
+const SEED=_C.map(c=>({id:c.id,subject:c.subject,name:c.name,
+  sessions:c.titles.map((t,i)=>({n:c.base+i,title:t}))}));
+
+/* ---------- 日期工具（本地時區） ---------- */
+function todayStr(d=new Date()){return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;}
+function parseD(s){const[y,m,dd]=s.split('-').map(Number);return new Date(y,m-1,dd);}
+function dayDiff(a,b){return Math.round((parseD(a)-parseD(b))/864e5);}
+function weekRange(s){const d=parseD(s),wd=(d.getDay()+6)%7;const mon=new Date(d);mon.setDate(d.getDate()-wd);
+  const sun=new Date(mon);sun.setDate(mon.getDate()+6);return{mon:todayStr(mon),sun:todayStr(sun),idx:wd+1};}
+
+/* ---------- 狀態 ---------- */
+let TK=loadTK();
+const tkOpen=new Set();
+function loadTK(){
+  const raw=JSON.parse(localStorage.getItem(TK_LS)||'null');
+  if(raw&&raw.courses) return raw;
+  const total=SEED.reduce((a,c)=>a+c.sessions.length,0);
+  const start=todayStr();
+  const totalDays=Math.max(1,dayDiff(SPRINT_DEFAULT,start));
+  const t={courses:SEED,done:{},sprint:SPRINT_DEFAULT,startDate:start,pace0:Math.ceil(total/totalDays)};
+  localStorage.setItem(TK_LS,JSON.stringify(t));return t;
+}
+const saveTK=()=>localStorage.setItem(TK_LS,JSON.stringify(TK));
+function idSubjIndex(){const m={};for(const c of TK.courses)for(const s of c.sessions)m[c.id+'-'+s.n]=c.subject;return m;}
+
+/* ---------- 指標計算 ---------- */
+function metrics(){
+  const today=todayStr();
+  const D=Math.max(1,dayDiff(TK.sprint,today));
+  const subjRem={};let X=0;
+  for(const c of TK.courses)for(const s of c.sessions){
+    if(!TK.done[c.id+'-'+s.n]){subjRem[c.subject]=(subjRem[c.subject]||0)+1;X++;}
+  }
+  const perDay={},perWeek={};let todayQuota=0;
+  for(const sub in subjRem){const rem=subjRem[sub];if(rem<=0)continue;
+    perDay[sub]=Math.ceil(rem/D);perWeek[sub]=Math.min(rem,perDay[sub]*7);todayQuota+=perDay[sub];}
+  const wr=weekRange(today),idSub=idSubjIndex();
+  let doneToday=0;const weekDone={};
+  for(const id in TK.done){const dt=TK.done[id];
+    if(dt===today)doneToday++;
+    if(dt>=wr.mon&&dt<=wr.sun){const s=idSub[id];if(s)weekDone[s]=(weekDone[s]||0)+1;}}
+  return{today,D,X,subjRem,perDay,perWeek,todayQuota,doneToday,
+    todayLeft:Math.max(0,todayQuota-doneToday),weekDone,weekIdx:wr.idx,
+    behind:X>0&&todayQuota>TK.pace0};
+}
+
+/* ---------- 進入點 ---------- */
+function initStudy(){
+  _febSelfCheck();
+  document.getElementById('tkSubj').innerHTML=SUBJECT_ORDER.map(s=>`<option>${esc(s)}</option>`).join('');
+  document.getElementById('tkAdd').onclick=addCourse;
+  renderTracker();
+}
+function renderTracker(){renderTop();renderWeek();renderGroups();}
+
+function renderTop(){
+  const m=metrics(),el=document.getElementById('tkTop');
+  el.classList.toggle('behind',m.behind);
+  el.innerHTML=`
+    <label class="tk-stat tk-date">衝刺日<input type="date" id="sprintDate" value="${TK.sprint}"></label>
+    <div class="tk-stat"><i>離衝刺</i><b>${m.X>0?m.D+' 天':'—'}</b></div>
+    <div class="tk-stat"><i>全部剩</i><b>${m.X} 堂</b></div>
+    <div class="tk-stat hi"><i>今天該看</i><b>${m.todayQuota} 堂</b></div>
+    <div class="tk-stat"><i>已登記</i><b>${m.doneToday}</b></div>
+    <div class="tk-stat"><i>還差</i><b>${m.todayLeft}</b></div>
+    ${m.X===0?'<div class="tk-done-all">全部看完 🎉</div>':''}`;
+  document.getElementById('sprintDate').onchange=e=>{
+    if(!e.target.value)return;TK.sprint=e.target.value;saveTK();renderTracker();};
+}
+function renderWeek(){
+  const m=metrics();
+  const rows=SUBJECT_ORDER.filter(s=>(m.subjRem[s]||0)>0).map(s=>{
+    const per=m.perWeek[s]||0,day=m.perDay[s]||0,wd=m.weekDone[s]||0;
+    const frac=per?Math.min(1,wd/per):1;
+    const behind=wd<day*m.weekIdx;
+    return `<div class="tk-wrow ${behind?'behind':''}">
+      <span class="nm">${esc(s)}</span>
+      <span class="q">本週 <b>${per}</b> 堂 · 每天約 ${day}</span>
+      <span class="tk-bar"><i style="transform:scaleX(${frac})"></i></span>
+      <span class="wd">${wd}/${per}</span></div>`;
+  });
+  document.getElementById('tkWeekBody').innerHTML=rows.length?rows.join(''):'<div class="empty">沒有待看課程了 🎉</div>';
+}
+function renderGroups(){
+  const done=TK.done;
+  const html=SUBJECT_ORDER.map(sub=>{
+    const courses=TK.courses.filter(c=>c.subject===sub);
+    if(!courses.length)return '';
+    const cards=courses.map(c=>{
+      const total=c.sessions.length;
+      const doneN=c.sessions.filter(s=>done[c.id+'-'+s.n]).length;
+      const rem=total-doneN,frac=total?doneN/total:0,open=tkOpen.has(c.id);
+      const sess=c.sessions.map(s=>{const id=c.id+'-'+s.n,dn=!!done[id];
+        return `<label class="tk-sess ${dn?'done':''}"><input type="checkbox" data-id="${id}" ${dn?'checked':''}>
+          <span class="sn">${esc(s.n)}</span><span class="st">${esc(s.title||'')}</span></label>`;}).join('');
+      return `<div class="tk-card glass ${open?'open':''}" data-cid="${esc(c.id)}">
+        <div class="tk-chead">
+          <div class="tk-cn"><b>${esc(c.name)}</b>${rem===0?'<span class="ok">✓ 已完成</span>':''}</div>
+          <div class="tk-cmeta"><span class="tk-bar"><i style="transform:scaleX(${frac})"></i></span>
+            <span class="val">${doneN}/${total}${rem?` · 剩 ${rem}`:''}</span>
+            <button class="tk-x" data-del="${esc(c.id)}" title="刪除課程">✕</button>
+            <span class="tk-caret">▸</span></div>
+        </div>
+        <div class="tk-sessions">${sess}</div></div>`;
+    }).join('');
+    return `<div class="tk-grp"><h3 class="tk-gh">${esc(sub)}</h3><div class="tk-courses">${cards}</div></div>`;
+  }).join('');
+  const host=document.getElementById('tkGroups');
+  host.innerHTML=html;
+  host.querySelectorAll('.tk-chead').forEach(h=>h.onclick=e=>{
+    if(e.target.closest('[data-del]'))return;
+    const card=h.closest('.tk-card'),cid=card.dataset.cid;
+    if(tkOpen.has(cid))tkOpen.delete(cid);else tkOpen.add(cid);
+    card.classList.toggle('open');});
+  host.querySelectorAll('input[type=checkbox][data-id]').forEach(cb=>cb.onchange=()=>{
+    const id=cb.dataset.id;
+    if(cb.checked)TK.done[id]=todayStr();else delete TK.done[id];
+    saveTK();renderTracker();});
+  host.querySelectorAll('[data-del]').forEach(b=>b.onclick=()=>{
+    const cid=b.dataset.del;
+    if(!confirm('刪除這門課程及其打勾紀錄？'))return;
+    TK.courses=TK.courses.filter(c=>c.id!==cid);
+    for(const k in TK.done)if(k.startsWith(cid+'-'))delete TK.done[k];
+    tkOpen.delete(cid);saveTK();renderTracker();});
+}
+function addCourse(){
+  const sub=document.getElementById('tkSubj').value;
+  const name=document.getElementById('tkName').value.trim();
+  if(!name){alert('請填課程名稱');return;}
+  const listRaw=document.getElementById('tkList').value.trim();
+  const count=parseInt(document.getElementById('tkCount').value,10);
+  let sessions=[];
+  if(listRaw)sessions=listRaw.split('\n').map(x=>x.trim()).filter(Boolean).map((title,i)=>({n:i+1,title}));
+  else if(count>0)sessions=Array.from({length:count},(_,i)=>({n:i+1,title:'第'+(i+1)+'講'}));
+  if(!sessions.length){alert('請貼逐堂標題或填總堂數');return;}
+  const id='u'+Date.now().toString(36);
+  TK.courses.push({id,subject:sub,name,sessions});saveTK();
+  document.getElementById('tkName').value='';document.getElementById('tkList').value='';document.getElementById('tkCount').value='';
+  tkOpen.add(id);renderTracker();
+}
+function _febSelfCheck(){
+  console.assert(dayDiff('2026-09-01','2026-07-24')===39,'dayDiff 39');
+  console.assert(Math.ceil(126/39)===4,'quota 4');
+  console.assert(dayDiff('2026-09-01','2026-09-01')===0,'same day 0');
+  console.assert(SEED.reduce((a,c)=>a+c.sessions.length,0)===126,'seed 126');
+}
+/* ---------- 動畫：捲動顯示、目錄 spy、山稜視差 ---------- */
+function initReveal(){
+  const io=new IntersectionObserver(es=>es.forEach(e=>{
+    if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}
+  }),{threshold:.12});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+}
+function initSpy(){
+  const links=[...document.querySelectorAll('#menu a.seclink')];
+  const secs=links.map(a=>document.querySelector(a.getAttribute('href')));
+  const io=new IntersectionObserver(es=>{
+    es.forEach(e=>{
+      if(e.isIntersecting){
+        links.forEach(a=>a.classList.toggle('active', a.getAttribute('href')==='#'+e.target.id));
+      }
+    });
+  },{rootMargin:'-30% 0px -60% 0px'});
+  secs.forEach(s=>s&&io.observe(s));
+}
+function initParallax(){
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const r1=[...document.querySelectorAll('.r1')], r2=[...document.querySelectorAll('.r2')], r3=[...document.querySelectorAll('.r3')];
+  let ticking=false;
+  addEventListener('scroll',()=>{
+    if(ticking) return; ticking=true;
+    requestAnimationFrame(()=>{
+      const y=scrollY;
+      r3.forEach(el=>el.style.transform=`translateY(${y*0.06}px)`);
+      r2.forEach(el=>el.style.transform=`translateY(${y*0.03}px)`);
+      r1.forEach(el=>el.style.transform=`translateY(${y*0.012}px)`);
+      ticking=false;
+    });
+  },{passive:true});
+}
+load();
+
+</script>
+</body>
+</html>
