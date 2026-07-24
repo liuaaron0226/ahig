@@ -501,8 +501,10 @@ body.modal-open{overflow:hidden}
 .tk-x:hover{color:var(--ember);border-color:rgba(232,146,124,.4)}
 .tk-caret{color:var(--ink-dim);transition:transform .3s ease;font-size:.8rem}
 .tk-card.open .tk-caret{transform:rotate(90deg)}
-.tk-sessions{max-height:0;overflow:hidden;transition:max-height .45s ease;padding:0 18px}
-.tk-card.open .tk-sessions{max-height:3000px;padding-bottom:14px}
+.tk-sessions{display:grid;grid-template-rows:0fr;transition:grid-template-rows .45s cubic-bezier(.2,.7,.2,1)}
+.tk-card.open .tk-sessions{grid-template-rows:1fr}
+.tk-sinner{overflow:hidden;min-height:0}
+.tk-spad{padding:0 18px 14px}
 .tk-sess{display:flex;align-items:flex-start;gap:9px;padding:6px 0;font-size:.8rem;
   border-top:1px solid rgba(255,255,255,.05);cursor:pointer}
 .tk-sess input{margin-top:2px;accent-color:var(--ember);width:15px;height:15px;flex:none;cursor:pointer}
@@ -538,6 +540,67 @@ body.modal-open{overflow:hidden}
 
 footer{padding:60px 0 40px;color:rgba(234,242,247,.4);font-size:.75rem;text-align:center}
 .err{padding:30px;color:#F2B8A0}
+
+/* ============ !Boring 版面風格（data-skin=boring）· 目前套用於進度追蹤器 ============ */
+:root{--bo-red:#FF3B30;--bo-ink:#111;--bo-dim:#6b6b6b;--bo-line:#e7e7e7;
+  --bo-grotesk:'Space Grotesk','Helvetica Neue',Arial,sans-serif;
+  --bo-mono:'JetBrains Mono',ui-monospace,'SF Mono',monospace}
+.tk-head{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:4px}
+.skin-toggle{font-size:.72rem;letter-spacing:.06em;padding:8px 16px;white-space:nowrap;color:var(--ink);font-family:var(--sans)}
+body[data-skin=boring][data-mode=study]{background:#fff}
+body[data-skin=boring][data-mode=study] .scene{opacity:0}
+.bo-grain{display:none}
+body[data-skin=boring][data-mode=study] .bo-grain{display:block;position:fixed;inset:0;z-index:2;pointer-events:none;
+  opacity:.3;mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+body[data-skin=boring][data-mode=study] header.top{background:rgba(255,255,255,.72);border-color:var(--bo-line)}
+body[data-skin=boring][data-mode=study] header.top .brand,
+body[data-skin=boring][data-mode=study] header.top .lq{color:var(--bo-ink)}
+body[data-skin=boring] #study{color:var(--bo-ink)}
+body[data-skin=boring] #study h2{font-family:var(--bo-grotesk);font-weight:700;color:var(--bo-ink);
+  font-size:clamp(2.4rem,6vw,3.8rem);letter-spacing:-.03em;line-height:.96}
+body[data-skin=boring] #study .sec-note{font-family:var(--bo-grotesk);color:#333;font-size:1.05rem;line-height:1.5}
+body[data-skin=boring] #study .sec-note b{color:var(--bo-red);font-weight:700}
+body[data-skin=boring] .skin-toggle{background:var(--bo-ink);color:#fff;border:none;border-radius:999px;
+  font-family:var(--bo-mono);text-transform:uppercase;box-shadow:none;backdrop-filter:none}
+body[data-skin=boring] .tk-top,body[data-skin=boring] .panel,body[data-skin=boring] .tk-card{
+  background:#fff;border:1px solid var(--bo-line);box-shadow:0 2px 0 var(--bo-line);
+  backdrop-filter:none;-webkit-backdrop-filter:none;border-radius:14px}
+body[data-skin=boring] .panel h3,body[data-skin=boring] .tk-gh{font-family:var(--bo-grotesk);color:var(--bo-ink);font-weight:700}
+body[data-skin=boring] .tk-gh{border-bottom:2px solid var(--bo-ink)}
+body[data-skin=boring] .tk-sub{font-family:var(--bo-mono);text-transform:uppercase;font-size:.62rem;letter-spacing:.1em;color:var(--bo-dim)}
+body[data-skin=boring] .tk-stat i{font-family:var(--bo-mono);text-transform:uppercase;color:var(--bo-dim);font-size:.62rem;letter-spacing:.12em}
+body[data-skin=boring] .tk-stat b{font-family:var(--bo-grotesk);color:var(--bo-ink)}
+body[data-skin=boring] .tk-stat.hi b{color:var(--bo-red);font-size:2rem}
+body[data-skin=boring] .tk-top.behind .tk-stat.hi b{color:var(--bo-red)}
+body[data-skin=boring] .tk-done-all{color:var(--bo-red);font-family:var(--bo-grotesk);font-weight:700}
+body[data-skin=boring] .tk-date input{background:#fff;border:1px solid var(--bo-line);color:var(--bo-ink);
+  color-scheme:light;font-family:var(--bo-mono)}
+body[data-skin=boring] .tk-wrow{border-top-color:var(--bo-line)}
+body[data-skin=boring] .tk-wrow .nm{font-family:var(--bo-grotesk);font-weight:500;color:var(--bo-ink)}
+body[data-skin=boring] .tk-wrow .q{color:var(--bo-dim)}
+body[data-skin=boring] .tk-wrow .q b{color:var(--bo-ink);font-family:var(--bo-mono)}
+body[data-skin=boring] .tk-wrow.behind .q b{color:var(--bo-red)}
+body[data-skin=boring] .tk-wrow .wd{font-family:var(--bo-mono);color:var(--bo-dim)}
+body[data-skin=boring] .tk-bar{background:#ececec}
+body[data-skin=boring] .tk-bar i{background:var(--bo-ink)}
+body[data-skin=boring] .tk-wrow.behind .tk-bar i{background:var(--bo-red)}
+body[data-skin=boring] .tk-cn b{font-family:var(--bo-grotesk);font-weight:700;color:var(--bo-ink)}
+body[data-skin=boring] .tk-cn .ok{color:var(--bo-red);font-family:var(--bo-mono);font-size:.62rem;text-transform:uppercase}
+body[data-skin=boring] .tk-cmeta .val{font-family:var(--bo-mono);color:var(--bo-dim)}
+body[data-skin=boring] .tk-caret,body[data-skin=boring] .tk-x{color:var(--bo-dim)}
+body[data-skin=boring] .tk-x:hover{color:var(--bo-red);border-color:var(--bo-red)}
+body[data-skin=boring] .tk-sess{border-top-color:#f0f0f0}
+body[data-skin=boring] .tk-sess .sn{font-family:var(--bo-mono);color:var(--bo-red)}
+body[data-skin=boring] .tk-sess .st{color:#222}
+body[data-skin=boring] .tk-sess.done .sn,body[data-skin=boring] .tk-sess.done .st{color:#bbb}
+body[data-skin=boring] .tk-sess input{accent-color:var(--bo-red)}
+body[data-skin=boring] .tk-add select,body[data-skin=boring] .tk-add input,body[data-skin=boring] .tk-add textarea{
+  background:#fff;border:1px solid var(--bo-line);color:var(--bo-ink);font-family:var(--bo-mono)}
+body[data-skin=boring] #study .lq.gold{background:var(--bo-ink);color:#fff;border:none;border-radius:999px;
+  box-shadow:none;backdrop-filter:none;font-family:var(--bo-mono);text-transform:uppercase;letter-spacing:.06em}
+body[data-skin=boring] #study .lq.gold:hover{background:var(--bo-red)}
+body[data-skin=boring] .tk-hint,body[data-skin=boring] .empty,body[data-skin=boring] .tk-file{color:var(--bo-dim)}
 </style>
 </head>
 <body data-mode="home" data-theme="mountain" data-wx="clear">
@@ -646,7 +709,10 @@ footer{padding:60px 0 40px;color:rgba(234,242,247,.4);font-size:.75rem;text-alig
 
   <!-- ============ 讀書模式：進度追蹤器 ============ -->
   <section id="study">
-    <h2>進度追蹤器</h2>
+    <div class="tk-head">
+      <h2>進度追蹤器</h2>
+      <button class="skin-toggle lq mist2" id="skinToggle" type="button" title="切換版面風格：深色氛圍 ⇄ !Boring 白"></button>
+    </div>
     <p class="sec-note">把要看完的線上課程逐堂列出，看完一堂就打勾。綁衝刺日，系統即時算出<b>今天各科該看幾堂</b>、還剩多少、有沒有落後。改衝刺日全部重算。</p>
 
     <div class="tk-top glass" id="tkTop"></div>
@@ -676,6 +742,7 @@ footer{padding:60px 0 40px;color:rgba(234,242,247,.4);font-size:.75rem;text-alig
   <footer id="foot"></footer>
 </div>
 
+<div class="bo-grain" aria-hidden="true"></div>
 <div id="wipe" aria-hidden="true"></div>
 
 <script>
@@ -1297,8 +1364,20 @@ function metrics(){
 }
 
 /* ---------- 進入點 ---------- */
+/* ---------- 版面風格：深色氛圍 ⇄ !Boring 白，可切換 ---------- */
+const SKIN_LS='feb-skin';
+function applySkin(s){
+  document.body.dataset.skin=s;
+  const b=document.getElementById('skinToggle');
+  if(b)b.textContent=s==='boring'?'🌙 氛圍版':'☀︎ !Boring';
+  localStorage.setItem(SKIN_LS,s);
+}
+applySkin(localStorage.getItem(SKIN_LS)||'ambient');
+
 function initStudy(){
   _febSelfCheck();
+  const st=document.getElementById('skinToggle');
+  st.onclick=()=>applySkin(document.body.dataset.skin==='boring'?'ambient':'boring');
   document.getElementById('tkSubj').innerHTML=SUBJECT_ORDER.map(s=>`<option>${esc(s)}</option>`).join('');
   document.getElementById('tkAdd').onclick=addCourse;
   renderTracker();
@@ -1353,7 +1432,7 @@ function renderGroups(){
             <button class="tk-x" data-del="${esc(c.id)}" title="刪除課程">✕</button>
             <span class="tk-caret">▸</span></div>
         </div>
-        <div class="tk-sessions">${sess}</div></div>`;
+        <div class="tk-sessions"><div class="tk-sinner"><div class="tk-spad">${sess}</div></div></div></div>`;
     }).join('');
     return `<div class="tk-grp"><h3 class="tk-gh">${esc(sub)}</h3><div class="tk-courses">${cards}</div></div>`;
   }).join('');
