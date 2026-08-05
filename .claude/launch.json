@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "poster-sim",
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["-m", "http.server", "8791", "--directory", "C:/Users/User/Desktop/bixlink-munich-2026/posters"],
+      "port": 8791
+    }
+  ]
+}

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Portiva — Creative Agency</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  html,body{font-family:'Inter',system-ui,sans-serif}
+  .word{display:inline-block;opacity:0;transform:translateY(22px);
+        transition:opacity .7s cubic-bezier(.22,.61,.36,1),transform .7s cubic-bezier(.22,.61,.36,1)}
+  .fade{opacity:0;transform:translateY(14px);
+        transition:opacity .8s cubic-bezier(.22,.61,.36,1),transform .8s cubic-bezier(.22,.61,.36,1)}
+  .in{opacity:1!important;transform:translateY(0)!important}
+  @media (prefers-reduced-motion:reduce){.word,.fade{transition:none}}
+</style>
+</head>
+<body class="min-h-screen flex flex-col text-white overflow-x-hidden">
+
+<!-- background video -->
+<video class="fixed inset-0 -z-10 w-full h-full object-cover pointer-events-none"
+       autoplay loop muted playsinline
+       src="https://cdn.sceneai.art/Hero%20section%20video%20file%20(2)/13c2a27f-30ac-44f1-866d-94fca9c614d7.mp4"></video>
+
+<!-- header -->
+<header class="fade relative z-10 flex items-center justify-between gap-6 px-6 md:px-12 py-6">
+  <a href="#" class="text-2xl font-medium text-white">Portiva</a>
+  <nav class="hidden md:flex items-center gap-9 text-sm text-white">
+    <a href="#" class="text-white hover:opacity-70 transition">About</a>
+    <a href="#" class="text-white hover:opacity-70 transition">Brands</a>
+    <a href="#" class="text-white hover:opacity-70 transition">Careers</a>
+    <a href="#" class="text-white hover:opacity-70 transition">Partners</a>
+  </nav>
+  <a href="#" class="rounded-full bg-white px-5 py-2.5 text-sm font-medium text-black hover:opacity-90 transition">Chat with us</a>
+</header>
+
+<!-- hero -->
+<main class="relative z-10 flex-1 flex items-center px-6 md:px-12 pb-16">
+  <div class="max-w-3xl">
+    <p class="fade text-sm text-white mb-6">| Creative Agency</p>
+
+    <h1 id="heading" class="font-semibold leading-[1.08] tracking-tight text-white text-[38px] sm:text-[48px] md:text-[62px]">
+      <span class="block">Less complexity,</span>
+      <span class="block">more impact in</span>
+      <span class="block">every project.</span>
+    </h1>
+
+    <div class="fade mt-8 flex items-center gap-3">
+      <div class="flex gap-1" aria-hidden="true">
+        <svg viewBox="0 0 20 20" class="w-4 h-4" fill="#c25e2e"><path d="M10 1.5l2.6 5.3 5.9.85-4.25 4.15 1 5.85L10 14.9l-5.25 2.75 1-5.85L1.5 7.65l5.9-.85z"/></svg>
+        <svg viewBox="0 0 20 20" class="w-4 h-4" fill="#c25e2e"><path d="M10 1.5l2.6 5.3 5.9.85-4.25 4.15 1 5.85L10 14.9l-5.25 2.75 1-5.85L1.5 7.65l5.9-.85z"/></svg>
+        <svg viewBox="0 0 20 20" class="w-4 h-4" fill="#c25e2e"><path d="M10 1.5l2.6 5.3 5.9.85-4.25 4.15 1 5.85L10 14.9l-5.25 2.75 1-5.85L1.5 7.65l5.9-.85z"/></svg>
+        <svg viewBox="0 0 20 20" class="w-4 h-4" fill="#c25e2e"><path d="M10 1.5l2.6 5.3 5.9.85-4.25 4.15 1 5.85L10 14.9l-5.25 2.75 1-5.85L1.5 7.65l5.9-.85z"/></svg>
+        <svg viewBox="0 0 20 20" class="w-4 h-4" fill="#c25e2e"><path d="M10 1.5l2.6 5.3 5.9.85-4.25 4.15 1 5.85L10 14.9l-5.25 2.75 1-5.85L1.5 7.65l5.9-.85z"/></svg>
+      </div>
+      <span class="text-sm text-white">3000+ Customers</span>
+    </div>
+
+    <div class="fade mt-8 flex flex-row items-center gap-3">
+      <a href="#" class="inline-flex items-center gap-2.5 rounded-full bg-white pl-5 pr-1.5 py-1.5 text-sm font-medium text-black hover:opacity-90 transition">
+        Chat With Us
+        <span class="inline-flex h-7 w-7 items-center justify-center rounded-full bg-black">
+          <svg viewBox="0 0 24 24" class="h-3.5 w-3.5" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg>
+        </span>
+      </a>
+      <a href="#" class="inline-flex items-center rounded-full border border-white/25 bg-white/10 backdrop-blur px-5 py-3 text-sm font-medium text-white hover:bg-white/20 transition">Our Works</a>
+    </div>
+  </div>
+</main>
+
+<script>
+(() => {
+  const heading = document.getElementById('heading');
+  const lines = [...heading.querySelectorAll('span.block')];
+  const words = [];
+
+  lines.forEach(line => {
+    const parts = line.textContent.trim().split(/\s+/);
+    line.textContent = '';
+    parts.forEach((w, i) => {
+      const s = document.createElement('span');
+      s.className = 'word';
+      s.textContent = w;
+      line.appendChild(s);
+      if (i < parts.length - 1) line.appendChild(document.createTextNode(' '));
+      words.push(s);
+    });
+  });
+
+  requestAnimationFrame(() => {
+    words.forEach((w, i) => { w.style.transitionDelay = (i * 120) + 'ms'; w.classList.add('in'); });
+    // header / label / stars / buttons come in shortly after the words start
+    document.querySelectorAll('.fade').forEach((el, i) => {
+      el.style.transitionDelay = (300 + i * 140) + 'ms';
+      el.classList.add('in');
+    });
+  });
+})();
+</script>
+</body>
+</html>

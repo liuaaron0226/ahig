@@ -7,13 +7,13 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⛰️</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+TC:wght@300;400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@600;900&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root{
-  --night:#0B0D10; --ridge:#1E3A5F; --mist:rgba(255,255,255,.72); --dawn:#FFFFFF; --ember:#C25E2E;
-  --ink:#FFFFFF; --ink-dim:rgba(255,255,255,.62);
+  --night:#0F1B2D; --ridge:#1E3A5F; --mist:#7FB4C7; --dawn:#F2D9A0; --ember:#E8927C;
+  --ink:#EAF2F7; --ink-dim:rgba(234,242,247,.62);
   --glass:rgba(255,255,255,.07); --glass-line:rgba(255,255,255,.14);
-  --serif:"Inter","Noto Sans TC",sans-serif; --sans:"Inter","Noto Sans TC",sans-serif; --mono:"IBM Plex Mono",monospace;
+  --serif:"Noto Serif TC",serif; --sans:"Noto Sans TC",sans-serif; --mono:"IBM Plex Mono",monospace;
 }
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -36,20 +36,6 @@ body[data-theme="forest"]{
   --l1:#0B1911;--l2:#16301F;--l3:#234A30}
 .sky{position:absolute;inset:0;background:var(--skyN)}
 body.day .sky{background:var(--skyD)}
-/* 媒體背景（內建影片／自訂影片或照片）：整屏鋪滿，向量地景與星月退場，天氣層照舊疊在上面 */
-.bgvid,.cbg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;
-  opacity:0;transition:opacity 1.2s ease}
-.bgvid{object-fit:cover}
-.cbg{background-size:cover;background-position:center}
-body.vid-on .bgvid{opacity:1}
-body.img-on .cbg{opacity:1}
-body.media .stars,body.media .sun2,body.media .moon,body.media .aurora{opacity:0!important}
-body.media .meteor{display:none!important}
-body.media .scene::before{background:rgba(8,10,14,.34)}
-body.media.day .scene::before{background:rgba(8,10,14,.44)}
-/* 待機畫面留給背景表現，進到有大量文字的模式就把背景壓下去 */
-body.media[data-mode="exam"] .scene::before,
-body.media[data-mode="study"] .scene::before{background:rgba(8,10,14,.74)}
 /* 瑞士實景主題：照片鋪滿＋緩慢推近；晝夜與天氣用濾鏡同步 */
 .photo{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;
   will-change:transform;transition:opacity 1.2s ease,filter 1.4s ease;
@@ -74,21 +60,20 @@ body.day[data-mode="exam"] .scene::before,body.day[data-mode="study"] .scene::be
 /* 照片主題白天：待機畫面加暗角讓文字浮出來 */
 body.swiss.day[data-mode="home"] .scene::before{
   background:radial-gradient(62% 58% at 50% 46%,rgba(8,16,26,.52),rgba(8,16,26,.14))}
-/* 星點半徑 ≥2px 且中心到邊緣都有漸層過渡：1px 的點在高解析度螢幕上會被取樣成硬邊像素點 */
 .stars{position:absolute;inset:0 0 40% 0;transition:opacity 1.2s ease;
-  background-image:radial-gradient(2.4px 2.4px at 12% 30%,rgba(255,255,255,.85) 0,rgba(255,255,255,.5) 40%,transparent 70%),
-   radial-gradient(2.2px 2.2px at 34% 12%,rgba(255,255,255,.65) 0,rgba(255,255,255,.35) 40%,transparent 70%),
-   radial-gradient(3px 3px at 58% 24%,rgba(255,255,255,.75) 0,rgba(255,255,255,.4) 40%,transparent 70%),
-   radial-gradient(2.2px 2.2px at 72% 8%,rgba(255,255,255,.55) 0,rgba(255,255,255,.3) 40%,transparent 70%),
-   radial-gradient(2.4px 2.4px at 88% 34%,rgba(255,255,255,.65) 0,rgba(255,255,255,.35) 40%,transparent 70%),
-   radial-gradient(2.6px 2.6px at 45% 40%,rgba(255,255,255,.5) 0,rgba(255,255,255,.28) 40%,transparent 70%),
-   radial-gradient(2.2px 2.2px at 20% 55%,rgba(255,255,255,.45) 0,rgba(255,255,255,.25) 40%,transparent 70%);
+  background-image:radial-gradient(1px 1px at 12% 30%,rgba(255,255,255,.8),transparent),
+   radial-gradient(1px 1px at 34% 12%,rgba(255,255,255,.6),transparent),
+   radial-gradient(1.5px 1.5px at 58% 24%,rgba(255,255,255,.7),transparent),
+   radial-gradient(1px 1px at 72% 8%,rgba(255,255,255,.5),transparent),
+   radial-gradient(1px 1px at 88% 34%,rgba(255,255,255,.6),transparent),
+   radial-gradient(1.2px 1.2px at 45% 40%,rgba(255,255,255,.45),transparent),
+   radial-gradient(1px 1px at 20% 55%,rgba(255,255,255,.4),transparent);
   animation:twinkle 6s ease-in-out infinite alternate}
 @keyframes twinkle{from{opacity:.9}to{opacity:.45}}
 body.day .stars,body[data-wx="rain"] .stars,body[data-wx="storm"] .stars,body[data-wx="fog"] .stars{opacity:0!important}
 /* 日：太陽　夜：月亮 */
 .sun2{position:absolute;right:16%;top:12%;width:20vmin;height:20vmin;border-radius:50%;opacity:0;transition:opacity 1.2s;
-  background:radial-gradient(circle,rgba(255,244,214,.95) 18%,rgba(255,255,255,.5) 40%,transparent 70%)}
+  background:radial-gradient(circle,rgba(255,244,214,.95) 18%,rgba(242,217,160,.5) 40%,transparent 70%)}
 body.day .sun2{opacity:1}
 body.day[data-wx="rain"] .sun2,body.day[data-wx="storm"] .sun2,body.day[data-wx="fog"] .sun2{opacity:.18}
 .moon{position:absolute;right:18%;top:14%;width:9vmin;height:9vmin;border-radius:50%;opacity:1;transition:opacity 1.2s;
@@ -107,7 +92,7 @@ body[data-theme="forest"] svg.t-for{display:block}
 .t-sea.r3 .drift{animation-duration:19s;animation-delay:-8s}
 @keyframes sway{from{transform:translateX(-1.6%)}to{transform:translateX(1.6%)}}
 .mist{position:absolute;bottom:6vh;left:-20%;width:140%;height:16vh;display:none;
-  background:linear-gradient(90deg,transparent,rgba(255,255,255,.14) 30%,rgba(255,255,255,.05) 60%,transparent);
+  background:linear-gradient(90deg,transparent,rgba(127,180,199,.14) 30%,rgba(127,180,199,.05) 60%,transparent);
   filter:blur(18px);animation:mistflow 46s linear infinite}
 body[data-theme="mountain"] .mist,body[data-theme="forest"] .mist{display:block}
 @keyframes mistflow{from{transform:translateX(-6%)}to{transform:translateX(10%)}}
@@ -124,17 +109,19 @@ body[data-theme="mountain"] .mist,body[data-theme="forest"] .mist{display:block}
 body[data-wx="cloud"] .clouds,body[data-wx="rain"] .clouds,body[data-wx="storm"] .clouds,body[data-wx="snow"] .clouds{opacity:1}
 body[data-wx="storm"] .clouds i{background:rgba(180,195,215,.13)}
 /* 雨 */
-/* canvas 逐滴繪製，落點每次重抽、依遠近分深淺。不用重複貼圖就沒有規律斜紋，
-   也不會在高解析度螢幕上跟像素格干涉出波紋 */
-canvas.wx.rain{inset:0;width:100%;height:100%}
-body[data-wx="rain"] .rain,body[data-wx="storm"] .rain{opacity:1}
+.wx.rain{inset:auto;top:-100%;left:-4%;right:-4%;height:200%;will-change:transform;
+  background:repeating-linear-gradient(102deg,transparent 0 11px,rgba(196,224,255,.15) 11px 12px,transparent 12px 24px);
+  animation:rainfall .75s linear infinite}
+@keyframes rainfall{from{transform:translate3d(1.5vw,-50%,0)}to{transform:translate3d(0,0,0)}}
+body[data-wx="rain"] .rain{opacity:.85}
+body[data-wx="storm"] .rain{opacity:1;animation-duration:.5s}
 /* 雪 */
 .wx.snow{inset:auto;top:-100%;left:0;right:0;height:200%;will-change:transform;
-  background-image:radial-gradient(3.6px 3.6px at 20% 30%,rgba(255,255,255,.85) 0,rgba(255,255,255,.5) 45%,transparent 72%),
-   radial-gradient(2.8px 2.8px at 60% 70%,rgba(255,255,255,.6) 0,rgba(255,255,255,.34) 45%,transparent 72%),
-   radial-gradient(3.2px 3.2px at 85% 15%,rgba(255,255,255,.7) 0,rgba(255,255,255,.4) 45%,transparent 72%),
-   radial-gradient(2.6px 2.6px at 40% 85%,rgba(255,255,255,.5) 0,rgba(255,255,255,.28) 45%,transparent 72%);
-  background-size:260px 260px;animation:snowfall 7s linear infinite}
+  background-image:radial-gradient(3px 3px at 20% 30%,rgba(255,255,255,.85),transparent),
+   radial-gradient(2px 2px at 60% 70%,rgba(255,255,255,.6),transparent),
+   radial-gradient(2.5px 2.5px at 85% 15%,rgba(255,255,255,.7),transparent),
+   radial-gradient(1.8px 1.8px at 40% 85%,rgba(255,255,255,.5),transparent);
+  background-size:220px 220px;animation:snowfall 7s linear infinite}
 @keyframes snowfall{from{transform:translate3d(0,-50%,0)}to{transform:translate3d(-30px,0,0)}}
 body[data-wx="snow"] .snow{opacity:1}
 /* 霧 */
@@ -154,12 +141,12 @@ body[data-wx="storm"] .flash{opacity:1;animation:zap 8.5s infinite}
 .aurora{position:absolute;inset:-20%;pointer-events:none;mix-blend-mode:screen;
   filter:blur(58px);opacity:0;transition:opacity 1.4s ease}
 .aurora i{position:absolute;display:block;width:62vw;height:28vh;border-radius:50%;
-  background:linear-gradient(100deg,rgba(255,255,255,.55),rgba(255,255,255,.4) 55%,rgba(194,94,46,.32));
+  background:linear-gradient(100deg,rgba(127,180,199,.55),rgba(242,217,160,.4) 55%,rgba(232,146,124,.32));
   animation:aur 28s ease-in-out infinite alternate}
 .aurora i:nth-child(1){top:8%;left:2%}
 .aurora i:nth-child(2){top:18%;left:32%;width:74vw;animation-duration:38s;animation-delay:-9s}
 .aurora i:nth-child(3){top:4%;left:50%;animation-duration:47s;animation-delay:-19s;
-  background:linear-gradient(80deg,rgba(255,255,255,.35),rgba(255,255,255,.45))}
+  background:linear-gradient(80deg,rgba(242,217,160,.35),rgba(127,180,199,.45))}
 @keyframes aur{from{transform:translateX(-13%) rotate(-7deg) scaleY(.75)}
   to{transform:translateX(11%) rotate(6deg) scaleY(1.3)}}
 body:not(.day)[data-wx="clear"] .aurora{opacity:.55}
@@ -175,14 +162,14 @@ body:not(.day)[data-wx="clear"][data-mode="study"] .aurora{opacity:.14}
 body:not(.day)[data-wx="clear"][data-mode="home"] .meteor{display:block}
 /* 專注時整片天色亮起（讀書狀態的畫面語言） */
 .scene::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:0;
-  background:radial-gradient(62% 52% at 50% 86%,rgba(255,255,255,.24),transparent 70%);
+  background:radial-gradient(62% 52% at 50% 86%,rgba(242,217,160,.24),transparent 70%);
   transition:opacity 1.6s ease}
 body.running .scene::after{opacity:1}
-body.running.break .scene::after{background:radial-gradient(62% 52% at 50% 86%,rgba(255,255,255,.28),transparent 70%)}
+body.running.break .scene::after{background:radial-gradient(62% 52% at 50% 86%,rgba(127,180,199,.28),transparent 70%)}
 @media (prefers-reduced-motion:reduce){
   .sky,.mist,.stars,.aurora i,.wx.rain,.wx.snow,.wx.clouds i,.wx.fogL i,.wx.flash,.t-sea .drift,.photo{animation:none}
   .meteor{display:none!important}
-  .reveal,.hero h1 .ch{opacity:1!important;transform:none!important}
+  .reveal{opacity:1!important;transform:none!important}
 }
 
 /* ============ liquid glass 基底 ============ */
@@ -203,7 +190,7 @@ body.running.break .scene::after{background:radial-gradient(62% 52% at 50% 86%,r
 .lq::before,.lq::after{content:"";position:absolute;z-index:-1;left:-25%;width:150%;padding-top:150%;
   top:105%;border-radius:42% 46% 44% 48%;
   background:radial-gradient(circle at 50% 28%,rgba(255,255,255,.5),transparent 42%),
-    var(--lq-color,rgba(255,255,255,.55));
+    var(--lq-color,rgba(242,217,160,.55));
   transition:top .7s cubic-bezier(.34,1.45,.5,1);
   animation:lqspin 7s linear infinite}
 .lq::after{opacity:.6;animation-duration:9s;animation-direction:reverse;transition-duration:.9s;
@@ -211,24 +198,24 @@ body.running.break .scene::after{background:radial-gradient(62% 52% at 50% 86%,r
 @keyframes lqspin{to{transform:rotate(360deg)}}
 .lq:hover,.lq:focus-visible,.lq.on{border-color:transparent;
   box-shadow:inset 0 1px 1px rgba(255,255,255,.5), inset 0 -10px 20px rgba(255,255,255,.14),
-    0 10px 34px var(--lq-glow,rgba(255,255,255,.45)), 0 2px 10px var(--lq-glow,rgba(255,255,255,.35))}
+    0 10px 34px var(--lq-glow,rgba(242,217,160,.45)), 0 2px 10px var(--lq-glow,rgba(242,217,160,.35))}
 .lq:hover,.lq:focus-visible{transform:translateY(-2px)}
 .lq:hover::before,.lq:focus-visible::before,.lq.on::before{top:-28%}
 .lq:hover::after,.lq:focus-visible::after,.lq.on::after{top:-38%}
 .lq:active{transform:scale(.95)}
-/* 液體灌滿後底色是亮的，字一定要轉黑。!important 是必要的：站內多處 #id 層級規則
-   （#home .modes button、.chan .links a…）會把字染回白，在白色液體上等於看不見 */
-.lq:hover,.lq:focus-visible,.lq.on{color:#000!important}
-.lq.ember:hover,.lq.ember:focus-visible,.lq.ember.on{color:#fff!important}
+.lq:hover,.lq:focus-visible,.lq.on{color:#132033}
 @media (prefers-reduced-motion:reduce){
   .lq::before,.lq::after{animation:none;transition:none}
   .lq:hover,.lq:focus-visible{transform:none}
   .lq:hover::before,.lq.on::before{top:-28%}
 }
-/* 三段液體色階：主要動作最實、次要動作較淡、警示用燒橘 */
-.lq.gold {--lq-color:rgba(255,255,255,.92);--lq-glow:rgba(255,255,255,.4)}
-.lq.mist2{--lq-color:rgba(255,255,255,.78);--lq-glow:rgba(255,255,255,.3)}
-.lq.ember{--lq-color:rgba(194,94,46,.92);--lq-glow:rgba(194,94,46,.45)}
+/* 高 specificity 按鈕在液體灌滿時仍要轉深色字 */
+.pomo .ctrl button.lq:hover,.pomo .ctrl button.lq:focus-visible,
+#cvBack:hover,#cvBack:focus-visible,
+#camCities button:hover,#camCities button.on{color:#132033}
+.lq.gold {--lq-color:rgba(242,217,160,.85);--lq-glow:rgba(242,217,160,.4)}
+.lq.mist2{--lq-color:rgba(127,180,199,.85);--lq-glow:rgba(127,180,199,.4)}
+.lq.ember{--lq-color:rgba(232,146,124,.85);--lq-glow:rgba(232,146,124,.4)}
 
 /* ============ 模式切換：home / exam / study ============ */
 body[data-mode="home"] header.top, body[data-mode="home"] .wrap{display:none}
@@ -239,31 +226,30 @@ body[data-mode="exam"] .only-study{display:none!important}
 body[data-mode="study"] .only-exam{display:none!important}
 
 /* ============ 待機畫面 ============ */
-#home{min-height:100vh;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;
-  gap:12px;text-align:left;padding:0 clamp(20px,6vw,64px) 60px}
-#home .eyebrow{font-size:.8rem;color:var(--ink);letter-spacing:.02em;font-weight:400}
-#home .eyebrow::before{content:"| ";opacity:.55}
-#home .clock{font-weight:600;font-size:clamp(4rem,15vw,9rem);line-height:1;
-  letter-spacing:-.035em;text-shadow:0 4px 40px rgba(4,10,18,.5)}
-#home .clock small{font-size:.3em;color:var(--ink);opacity:.55;font-weight:400;vertical-align:.22em;margin-left:.18em;letter-spacing:0}
-#home .date{font-family:var(--mono);font-size:.82rem;color:var(--ink-dim);letter-spacing:.06em}
-#home .count{font-size:.85rem;color:var(--ink);letter-spacing:.01em;margin-top:2px}
-#home .modes{display:flex;gap:12px;flex-wrap:wrap;justify-content:flex-start;margin-top:30px}
-#home .modes button{font-family:var(--sans);font-weight:500;color:var(--ink);
-  font-size:.92rem;letter-spacing:0;padding:12px 26px;text-align:left}
-#home .modes button b{display:block;font-weight:600;font-size:1.05rem;
-  letter-spacing:.01em;margin-bottom:1px}
-#home .modes button i{font-style:normal;font-size:.72rem;color:inherit;opacity:.7;letter-spacing:0}
-#home .hint{font-size:.72rem;color:rgba(255,255,255,.4);margin-top:20px;letter-spacing:.02em}
-#home .wxline{font-family:var(--mono);font-size:.78rem;color:var(--ink-dim);letter-spacing:.06em;min-height:1.4em}
-#home .themes{display:flex;flex-wrap:wrap;gap:8px;justify-content:flex-start;margin-top:20px;max-width:min(92vw,560px)}
-#home .themes .pill{font-size:.74rem;padding:6px 16px;color:var(--ink)}
+#home{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:14px;text-align:center;padding:0 20px 40px}
+#home .eyebrow{font-family:var(--mono);font-size:.78rem;color:var(--mist);letter-spacing:.34em}
+#home .clock{font-family:var(--serif);font-weight:900;font-size:clamp(4rem,15vw,9rem);line-height:1;
+  letter-spacing:.04em;text-shadow:0 4px 40px rgba(4,10,18,.5)}
+#home .clock small{font-size:.32em;color:var(--dawn);font-weight:600;vertical-align:.18em;margin-left:.2em}
+#home .date{font-family:var(--mono);font-size:.85rem;color:var(--ink-dim);letter-spacing:.18em}
+#home .count{font-size:.85rem;color:var(--dawn);letter-spacing:.1em;margin-top:2px}
+#home .modes{display:flex;gap:18px;flex-wrap:wrap;justify-content:center;margin-top:34px}
+#home .modes button{font-family:var(--sans);font-weight:400;color:var(--ink);
+  font-size:1.02rem;letter-spacing:.14em;padding:10px 26px}
+#home .modes button b{display:block;font-family:var(--serif);font-weight:900;font-size:1.5rem;
+  letter-spacing:.2em;margin-bottom:2px}
+#home .modes button i{font-style:normal;font-size:.72rem;color:inherit;opacity:.75;letter-spacing:.1em}
+#home .hint{font-size:.72rem;color:rgba(234,242,247,.4);margin-top:20px;letter-spacing:.12em}
+#home .wxline{font-family:var(--mono);font-size:.8rem;color:var(--mist);letter-spacing:.12em;min-height:1.4em}
+#home .themes{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:22px;max-width:min(92vw,520px);margin-inline:auto}
+#home .themes .pill{font-size:.74rem;padding:6px 18px;color:var(--ink)}
 
 /* ============ 模式切換液態轉場：整片液體從山下湧上蓋過畫面再退去 ============ */
 #wipe{position:fixed;inset:0;z-index:60;pointer-events:none;overflow:hidden;visibility:hidden}
 #wipe::before,#wipe::after{content:"";position:absolute;left:-25%;top:0;width:150%;padding-top:150%;
   border-radius:42% 46% 44% 48%;will-change:transform;transform:translateY(110%);
-  background:linear-gradient(120deg,rgba(255,255,255,.9),rgba(255,255,255,.94) 60%,rgba(194,94,46,.85))}
+  background:linear-gradient(120deg,rgba(127,180,199,.9),rgba(242,217,160,.94) 60%,rgba(232,146,124,.85))}
 #wipe.go{visibility:visible}
 #wipe.go::before{animation:wipeup 1.05s cubic-bezier(.5,.08,.4,1) forwards}
 #wipe.go::after{opacity:.55;animation:wipeup2 1.13s cubic-bezier(.5,.08,.4,1) forwards}
@@ -280,36 +266,29 @@ body[data-mode="study"] .only-exam{display:none!important}
   border:2px solid rgba(255,255,255,.9);animation:burstring .7s ease-out forwards}
 @keyframes burstring{to{transform:scale(10) rotate(70deg);opacity:0;border-width:1px}}
 .burst i{position:absolute;width:7px;height:7px;border-radius:47% 53% 44% 56%;
-  background:var(--bc,rgba(255,255,255,.95));box-shadow:0 0 8px var(--bc,rgba(255,255,255,.6));
+  background:var(--bc,rgba(242,217,160,.95));box-shadow:0 0 8px var(--bc,rgba(242,217,160,.6));
   animation:drop .8s cubic-bezier(.2,.6,.3,1) forwards}
 @keyframes drop{0%{transform:translate(0,0) scale(1);opacity:1}
   100%{transform:translate(var(--dx),calc(var(--dy) + 52px)) scale(.15);opacity:0}}
 
 /* ============ layout ============ */
 .wrap{max-width:1120px;margin:0 auto;padding:0 clamp(16px,4vw,40px) 70px}
-header.top{position:sticky;top:0;z-index:20;margin:0 auto;max-width:1220px;
-  display:flex;align-items:center;justify-content:space-between;gap:10px;padding:22px clamp(16px,4vw,40px);
-  background:none;border:0;border-radius:0;box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none;
-  text-shadow:0 1px 14px rgba(4,10,18,.55)}
-.brand{font-weight:500;font-size:1.5rem;letter-spacing:-.01em;white-space:nowrap;cursor:pointer;background:none;border:none;color:var(--ink)}
-.brand em{color:var(--ink);font-style:normal}
-nav.menu{display:flex;align-items:center;gap:4px;flex-wrap:wrap}
-nav.menu a,nav.menu button{color:var(--ink);text-decoration:none;font-size:.86rem;letter-spacing:0;
-  padding:9px 16px;display:inline-block;font-family:var(--sans);font-weight:400}
-nav.menu a.active{color:#000!important}
+header.top{position:sticky;top:12px;z-index:20;margin:12px auto;max-width:1120px;
+  display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 16px 10px 22px}
+.brand{font-family:var(--serif);font-weight:900;font-size:1.05rem;letter-spacing:.12em;white-space:nowrap;cursor:pointer;background:none;border:none;color:var(--ink)}
+.brand em{color:var(--dawn);font-style:normal}
+nav.menu{display:flex;gap:8px;flex-wrap:wrap}
+nav.menu a,nav.menu button{color:var(--ink);text-decoration:none;font-size:.82rem;letter-spacing:.06em;
+  padding:7px 16px;display:inline-block;font-family:var(--sans);font-weight:300}
+nav.menu a.active{color:#132033}
 nav.menu a.active.lq::before{top:-28%}
 nav.menu a.active.lq::after{top:-38%}
 a:focus-visible,button:focus-visible{outline:2px solid var(--dawn);outline-offset:3px;border-radius:6px}
 
 .hero{padding:clamp(56px,11vh,120px) 0 40px}
-.hero .eyebrow{font-size:.82rem;color:var(--ink);letter-spacing:.01em}
-.hero .eyebrow::before{content:"| ";opacity:.55}
-.hero h1{font-weight:600;font-size:clamp(2.4rem,7vw,62px);line-height:1.08;letter-spacing:-.03em;margin:.3em 0 .45em}
-.hero h1 span{color:var(--ink)}
-/* 逐字浮現（載入時由 JS 拆字） */
-.hero h1 .ch{display:inline-block;opacity:0;transform:translateY(22px);
-  transition:opacity .7s cubic-bezier(.22,.61,.36,1),transform .7s cubic-bezier(.22,.61,.36,1)}
-.hero h1 .ch.in{opacity:1;transform:none}
+.hero .eyebrow{font-family:var(--mono);font-size:.8rem;color:var(--mist);letter-spacing:.28em}
+.hero h1{font-family:var(--serif);font-weight:900;font-size:clamp(2.2rem,6vw,4rem);line-height:1.25;margin:.35em 0 .4em}
+.hero h1 span{color:var(--dawn)}
 .hero p.sub{max-width:36em;color:var(--ink-dim)}
 .stats{display:flex;gap:14px;flex-wrap:wrap;margin-top:30px}
 .stat{padding:14px 22px;min-width:132px}
@@ -318,15 +297,15 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--dawn);outline-offse
 .jump{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px}
 .jump a{color:var(--ink);text-decoration:none;font-size:.8rem;padding:8px 18px}
 
-.boot{opacity:0;transform:translateY(22px);animation:bootin .8s cubic-bezier(.22,.61,.36,1) forwards}
-.boot.d1{animation-delay:.06s}.boot.d2{animation-delay:.18s}.boot.d3{animation-delay:.3s}
-.boot.d4{animation-delay:.42s}.boot.d5{animation-delay:.54s}
+.boot{opacity:0;transform:translateY(26px);animation:bootin .9s cubic-bezier(.2,.7,.2,1) forwards}
+.boot.d1{animation-delay:.08s}.boot.d2{animation-delay:.2s}.boot.d3{animation-delay:.34s}
+.boot.d4{animation-delay:.5s}.boot.d5{animation-delay:.66s}
 @keyframes bootin{to{opacity:1;transform:none}}
-.reveal{opacity:0;transform:translateY(28px);transition:opacity .8s ease,transform .8s cubic-bezier(.22,.61,.36,1)}
+.reveal{opacity:0;transform:translateY(34px);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.7,.2,1)}
 .reveal.in{opacity:1;transform:none}
 
 section{padding:56px 0 8px}
-h2{font-family:var(--serif);font-weight:600;font-size:clamp(1.4rem,3vw,1.9rem);letter-spacing:-.02em;margin-bottom:6px}
+h2{font-family:var(--serif);font-weight:900;font-size:clamp(1.4rem,3vw,1.9rem);margin-bottom:6px}
 .sec-note{color:var(--ink-dim);font-size:.88rem;margin-bottom:26px;max-width:46em}
 .sec-note b{color:var(--dawn);font-weight:500}
 
@@ -335,7 +314,7 @@ section.acc{padding:0;margin:16px 0;background:var(--glass);border:1px solid var
   border-radius:20px;backdrop-filter:blur(14px) saturate(1.3);-webkit-backdrop-filter:blur(14px) saturate(1.3);
   box-shadow:0 8px 32px rgba(4,10,18,.35);overflow:hidden;
   transition:border-color .5s ease, box-shadow .5s ease}
-section.acc.open{border-color:rgba(255,255,255,.35);box-shadow:0 14px 44px rgba(4,10,18,.5)}
+section.acc.open{border-color:rgba(242,217,160,.35);box-shadow:0 14px 44px rgba(4,10,18,.5)}
 .sec-head{display:flex;justify-content:space-between;align-items:center;gap:14px;
   cursor:pointer;padding:20px 26px;user-select:none}
 .sec-head:hover h2{color:var(--dawn)}
@@ -364,15 +343,15 @@ details.more[open] summary::before{content:"▾ "}
 .chan h3{font-family:var(--serif);font-weight:600;font-size:1.15rem}
 .badge{font-size:.68rem;letter-spacing:.12em;padding:3px 10px;border-radius:999px;white-space:nowrap;
   border:1px solid var(--glass-line);color:var(--mist)}
-.badge.joint{color:var(--dawn);border-color:rgba(255,255,255,.4)}
+.badge.joint{color:var(--dawn);border-color:rgba(242,217,160,.4)}
 .chan .how{font-size:.8rem;color:var(--ink-dim)}
 .prog{border-top:1px solid var(--glass-line);padding-top:10px}
 .prog b{font-weight:500;font-size:.92rem}
 .prog .grp{color:var(--dawn);font-size:.85rem}
 .subj{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0 4px}
 .subj span{font-family:var(--mono);font-size:.72rem;padding:2px 9px;border-radius:6px;
-  background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);color:var(--mist)}
-.subj span.hot{background:rgba(194,94,46,.14);border-color:rgba(194,94,46,.4);color:var(--ember)}
+  background:rgba(127,180,199,.12);border:1px solid rgba(127,180,199,.25);color:var(--mist)}
+.subj span.hot{background:rgba(232,146,124,.14);border-color:rgba(232,146,124,.4);color:var(--ember)}
 .prog .note{font-size:.76rem;color:var(--ink-dim)}
 .prog .note.star{color:var(--dawn)}
 .prog .quota{font-family:var(--mono);font-size:.72rem;color:var(--mist)}
@@ -423,7 +402,7 @@ body.modal-open{overflow:hidden}
 .bar-row .nm{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .bar-row .tk{height:10px;border-radius:6px;background:rgba(255,255,255,.06);overflow:hidden}
 .bar-row .tk i{display:block;height:100%;width:100%;border-radius:6px;
-  background:linear-gradient(90deg,rgba(255,255,255,.7),rgba(255,255,255,.85));
+  background:linear-gradient(90deg,rgba(127,180,199,.7),rgba(242,217,160,.85));
   transform-origin:left;transition:transform .6s cubic-bezier(.2,.7,.2,1);
   animation:barin .8s cubic-bezier(.2,.8,.2,1) backwards;animation-delay:calc(var(--i,0)*70ms)}
 @keyframes barin{from{transform:scaleX(0)}}
@@ -454,16 +433,16 @@ body.modal-open{overflow:hidden}
 .sb .sbh{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
 .sb h4{font-family:var(--serif);font-weight:600;font-size:1.02rem;color:var(--ink)}
 .sb h4 small{font-family:var(--sans);font-weight:300;font-size:.72rem;color:var(--ink-dim);margin-left:8px}
-.badge.dead{color:var(--ember);border-color:rgba(194,94,46,.4)}
+.badge.dead{color:var(--ember);border-color:rgba(232,146,124,.4)}
 .quick{font-size:.78rem;color:var(--mist);margin-top:4px}
 .quick b{color:var(--dawn);font-weight:500}
 .yrow{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0 2px}
 .yrow a,.yrow span{display:inline-block;width:44px;height:28px;line-height:28px;text-align:center;
   font-family:var(--mono);font-size:.7rem;text-decoration:none;color:var(--ink);border-radius:9px}
-.yrow a.lq{--lq-color:rgba(255,255,255,.9);--lq-glow:rgba(255,255,255,.4);
-  background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.4)}
+.yrow a.lq{--lq-color:rgba(242,217,160,.9);--lq-glow:rgba(242,217,160,.4);
+  background:rgba(242,217,160,.14);border:1px solid rgba(242,217,160,.4)}
 .yrow span{background:rgba(255,255,255,.03);border:1px dashed rgba(255,255,255,.12);
-  color:rgba(255,255,255,.28);cursor:help}
+  color:rgba(234,242,247,.28);cursor:help}
 
 /* 反向選校 */
 .finder{padding:26px}
@@ -480,12 +459,12 @@ body.modal-open{overflow:hidden}
 .verdict .vh{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
 .verdict b{font-weight:500;font-size:.9rem}
 .verdict .tag{font-size:.72rem;padding:2px 11px;border-radius:999px;white-space:nowrap}
-.tag.ok{background:rgba(255,255,255,.18);color:var(--dawn);border:1px solid rgba(255,255,255,.5)}
-.tag.no{background:rgba(194,94,46,.1);color:var(--ember);border:1px solid rgba(194,94,46,.35)}
-.tag.doc{background:rgba(255,255,255,.14);color:var(--mist);border:1px solid rgba(255,255,255,.4)}
+.tag.ok{background:rgba(242,217,160,.18);color:var(--dawn);border:1px solid rgba(242,217,160,.5)}
+.tag.no{background:rgba(232,146,124,.1);color:var(--ember);border:1px solid rgba(232,146,124,.35)}
+.tag.doc{background:rgba(127,180,199,.14);color:var(--mist);border:1px solid rgba(127,180,199,.4)}
 .verdict .req{font-size:.76rem;color:var(--ink-dim);margin-top:8px;line-height:1.65}
 .verdict .req em{font-style:normal;color:var(--dawn)}
-.verdict .req s{color:rgba(194,94,46,.9);text-decoration:none;border-bottom:1px dotted rgba(194,94,46,.6)}
+.verdict .req s{color:rgba(232,146,124,.9);text-decoration:none;border-bottom:1px dotted rgba(232,146,124,.6)}
 .verdict.dim{opacity:.55}
 .finder .disclaimer{margin-top:20px;font-size:.74rem;color:var(--ink-dim);border-top:1px solid var(--glass-line);padding-top:14px}
 
@@ -514,9 +493,9 @@ body.modal-open{overflow:hidden}
 .tk-wrow .wd{font-family:var(--mono);font-size:.74rem;color:var(--ink-dim);text-align:right}
 .tk-bar{height:9px;border-radius:6px;background:rgba(255,255,255,.06);overflow:hidden;display:block}
 .tk-bar i{display:block;height:100%;width:100%;border-radius:6px;transform-origin:left;
-  background:linear-gradient(90deg,rgba(255,255,255,.7),rgba(255,255,255,.9));
+  background:linear-gradient(90deg,rgba(127,180,199,.7),rgba(242,217,160,.9));
   transition:transform .5s cubic-bezier(.2,.7,.2,1)}
-.tk-wrow.behind .tk-bar i{background:linear-gradient(90deg,rgba(194,94,46,.55),rgba(194,94,46,.9))}
+.tk-wrow.behind .tk-bar i{background:linear-gradient(90deg,rgba(232,146,124,.55),rgba(232,146,124,.9))}
 .tk-grp{margin-bottom:26px}
 .tk-gh{font-family:var(--serif);font-weight:600;font-size:1.05rem;color:var(--dawn);
   letter-spacing:.1em;margin:0 0 12px;padding-bottom:6px;border-bottom:1px solid var(--glass-line)}
@@ -530,7 +509,7 @@ body.modal-open{overflow:hidden}
 .tk-cmeta .tk-bar{flex:1}
 .tk-cmeta .val{font-family:var(--mono);font-size:.72rem;color:var(--ink-dim);white-space:nowrap}
 .tk-x{font-size:.7rem;color:var(--ink-dim);padding:2px 7px;border-radius:7px;border:1px solid transparent;background:none;cursor:pointer;font-family:var(--sans)}
-.tk-x:hover{color:var(--ember);border-color:rgba(194,94,46,.4)}
+.tk-x:hover{color:var(--ember);border-color:rgba(232,146,124,.4)}
 .tk-caret{color:var(--ink-dim);transition:transform .3s ease;font-size:.8rem}
 .tk-card.open .tk-caret{transform:rotate(90deg)}
 .tk-sessions{display:grid;grid-template-rows:0fr;transition:grid-template-rows .45s cubic-bezier(.2,.7,.2,1)}
@@ -570,36 +549,7 @@ body.modal-open{overflow:hidden}
 .ana .trend{font-size:.78rem;color:var(--ink-dim);margin-top:8px;border-top:1px solid var(--glass-line);padding-top:8px}
 .pending{font-size:.76rem;color:var(--ink-dim);margin-top:8px}
 
-/* ============ 角落設定面板 ============ */
-.setbtn{position:fixed;right:18px;bottom:18px;z-index:80;width:46px;height:46px;padding:0;
-  font-size:1.1rem;line-height:44px;text-align:center;color:var(--ink);border-radius:50%}
-.setpanel{position:fixed;right:18px;bottom:74px;z-index:80;width:min(340px,calc(100vw - 36px));
-  max-height:min(74vh,620px);overflow:auto;padding:20px 22px 24px;
-  /* 面板要壓在任何背景上都讀得到，不能只靠 7% 白玻璃 */
-  background:rgba(10,13,18,.88);
-  animation:setin .32s cubic-bezier(.22,.61,.36,1) forwards}
-.setpanel[hidden]{display:none}
-@keyframes setin{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
-@media(prefers-reduced-motion:reduce){.setpanel{animation:none}}
-.setpanel h3{font-weight:600;font-size:1rem;letter-spacing:-.01em;margin-bottom:2px}
-.setpanel .note{font-size:.72rem;color:var(--ink-dim);margin-bottom:14px}
-.setpanel h4{font-weight:500;font-size:.76rem;color:var(--ink-dim);letter-spacing:.1em;
-  margin:18px 0 8px;text-transform:uppercase}
-.setpanel .pills{gap:7px}
-.setpanel .pill{font-size:.74rem;padding:5px 14px;color:var(--ink)}
-.setpanel .pill i{font-style:normal;margin-left:7px;opacity:.5;font-size:.7em}
-.setpanel .pill i:hover{opacity:1;color:var(--ember)}
-.setrow{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}
-.setpanel input[type=text],.setpanel input[type=date]{flex:1;min-width:0;
-  background:rgba(255,255,255,.07);border:1px solid var(--glass-line);color:var(--ink);
-  border-radius:10px;padding:7px 11px;font-family:var(--sans);font-size:.78rem;color-scheme:dark}
-.setpanel input#bgName{flex:0 0 84px}
-.setpanel .setrow button{font-size:.76rem;padding:7px 16px;color:var(--ink)}
-.setfile{display:block;font-size:.72rem;color:var(--ink-dim);margin-top:9px}
-.setfile input{display:block;margin-top:5px;font-size:.7rem;max-width:100%;color:var(--ink-dim)}
-.setmsg{font-size:.72rem;color:var(--ember);margin-top:8px;min-height:1.2em}
-
-footer{padding:60px 0 40px;color:rgba(255,255,255,.4);font-size:.75rem;text-align:center}
+footer{padding:60px 0 40px;color:rgba(234,242,247,.4);font-size:.75rem;text-align:center}
 .err{padding:30px;color:#F2B8A0}
 
 /* ============ !Boring 版面風格（data-skin=boring）· 目前套用於進度追蹤器 ============ */
@@ -611,12 +561,10 @@ footer{padding:60px 0 40px;color:rgba(255,255,255,.4);font-size:.75rem;text-alig
 body[data-skin=boring][data-mode=study]{background:#fff}
 body[data-skin=boring][data-mode=study] .scene{opacity:0}
 .bo-grain{display:none}
-/* 紙張顆粒：頻率調低、透明度減半，原本 0.85 的高頻雜訊在高解析度螢幕上就是一層像素點 */
 body[data-skin=boring][data-mode=study] .bo-grain{display:block;position:fixed;inset:0;z-index:2;pointer-events:none;
-  opacity:.14;mix-blend-mode:multiply;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.55' numOctaves='3' stitchTiles='stitch'/%3E%3CfeGaussianBlur stdDeviation='0.4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
-body[data-skin=boring][data-mode=study] header.top{background:rgba(255,255,255,.72);border-color:var(--bo-line);
-  text-shadow:none;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+  opacity:.3;mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+body[data-skin=boring][data-mode=study] header.top{background:rgba(255,255,255,.72);border-color:var(--bo-line)}
 body[data-skin=boring][data-mode=study] header.top .brand,
 body[data-skin=boring][data-mode=study] header.top .lq{color:var(--bo-ink)}
 body[data-skin=boring] #study{color:var(--bo-ink)}
@@ -660,19 +608,16 @@ body[data-skin=boring] .tk-sess.done .sn,body[data-skin=boring] .tk-sess.done .s
 body[data-skin=boring] .tk-sess input{accent-color:var(--bo-red)}
 body[data-skin=boring] .tk-add select,body[data-skin=boring] .tk-add input,body[data-skin=boring] .tk-add textarea{
   background:#fff;border:1px solid var(--bo-line);color:var(--bo-ink);font-family:var(--bo-mono)}
-body[data-skin=boring] #study .lq.gold{background:var(--bo-ink);color:#fff!important;border:none;border-radius:999px;
+body[data-skin=boring] #study .lq.gold{background:var(--bo-ink);color:#fff;border:none;border-radius:999px;
   box-shadow:none;backdrop-filter:none;font-family:var(--bo-mono);text-transform:uppercase;letter-spacing:.06em}
 body[data-skin=boring] #study .lq.gold:hover{background:var(--bo-red)}
 body[data-skin=boring] .tk-hint,body[data-skin=boring] .empty,body[data-skin=boring] .tk-file{color:var(--bo-dim)}
 </style>
 </head>
-<body data-mode="home" data-theme="portiva" data-wx="clear">
+<body data-mode="home" data-theme="mountain" data-wx="clear">
 
 <div class="scene" aria-hidden="true">
-  <div class="sky"></div>
-  <video class="bgvid" loop muted playsinline preload="auto"></video>
-  <div class="cbg"></div>
-  <div class="photo"></div><div class="stars"></div>
+  <div class="sky"></div><div class="photo"></div><div class="stars"></div>
   <div class="sun2"></div><div class="moon"></div>
   <div class="aurora"><i></i><i></i><i></i></div>
   <div class="meteor m1"></div><div class="meteor m2"></div><div class="meteor m3"></div>
@@ -691,7 +636,7 @@ body[data-skin=boring] .tk-hint,body[data-skin=boring] .empty,body[data-skin=bor
   <svg class="t-mtn r1" viewBox="0 0 1440 320" preserveAspectRatio="none"><path fill="var(--l1)" d="M0,300 C240,240 380,290 560,262 C740,234 900,292 1080,258 C1260,224 1360,280 1440,252 L1440,320 L0,320 Z"/></svg>
   <!-- 天氣層 -->
   <div class="wx clouds"><i></i><i></i><i></i></div>
-  <canvas class="wx rain" id="rainCv"></canvas>
+  <div class="wx rain"></div>
   <div class="wx snow"></div>
   <div class="wx fogL"><i></i><i></i></div>
   <div class="wx flash"></div>
@@ -708,7 +653,15 @@ body[data-skin=boring] .tk-hint,body[data-skin=boring] .empty,body[data-skin=bor
     <button class="lq gold" id="btnExam"><b>考古題</b><i>簡章・題庫・選校比對</i></button>
     <button class="lq ember" id="btnStudy"><b>讀書</b><i>進度日程・待辦・倒數</i></button>
   </div>
-  <div class="themes boot d5" id="themePills"></div>
+  <div class="themes boot d5" id="themePills">
+    <button class="pill lq mist2" data-theme="mountain">山稜</button>
+    <button class="pill lq mist2" data-theme="ocean">海岸</button>
+    <button class="pill lq mist2" data-theme="forest">森林</button>
+    <button class="pill lq mist2" data-theme="peaks">雲海</button>
+    <button class="pill lq mist2" data-theme="village">小鎮</button>
+    <button class="pill lq mist2" data-theme="valley">綠谷</button>
+    <button class="pill lq mist2" data-theme="lake">湖畔</button>
+  </div>
   <div class="hint boot d5">二月見。</div>
 </div>
 
@@ -803,52 +756,6 @@ body[data-skin=boring] .tk-hint,body[data-skin=boring] .empty,body[data-skin=bor
 <div class="bo-grain" aria-hidden="true"></div>
 <div id="wipe" aria-hidden="true"></div>
 
-<!-- ============ 角落設定 ============ -->
-<button class="setbtn lq mist2" id="setBtn" type="button" aria-label="設定" aria-expanded="false">⚙</button>
-<div class="setpanel glass" id="setPanel" hidden>
-  <h3>設定</h3>
-  <p class="note">全部存在這台電腦的瀏覽器裡</p>
-
-  <h4>背景</h4>
-  <div class="pills" id="bgPills"></div>
-  <div class="setrow">
-    <input type="text" id="bgUrl" placeholder="影片或圖片網址／assets/xxx.mp4">
-    <input type="text" id="bgName" placeholder="名稱">
-    <button class="lq gold" id="bgAdd" type="button">新增</button>
-  </div>
-  <label class="setfile">或從電腦挑一張圖片（存進瀏覽器，上限 1.5MB）
-    <input type="file" id="bgFile" accept="image/*">
-  </label>
-  <p class="setmsg" id="bgMsg"></p>
-
-  <h4>晝夜</h4>
-  <div class="pills" id="dayPills">
-    <button class="pill lq mist2" data-day="auto">自動</button>
-    <button class="pill lq mist2" data-day="day">白天</button>
-    <button class="pill lq mist2" data-day="night">夜晚</button>
-  </div>
-
-  <h4>天氣</h4>
-  <div class="pills" id="wxPills">
-    <button class="pill lq mist2" data-wxset="auto">自動</button>
-    <button class="pill lq mist2" data-wxset="clear">晴</button>
-    <button class="pill lq mist2" data-wxset="cloud">雲</button>
-    <button class="pill lq mist2" data-wxset="rain">雨</button>
-    <button class="pill lq mist2" data-wxset="snow">雪</button>
-    <button class="pill lq mist2" data-wxset="fog">霧</button>
-    <button class="pill lq mist2" data-wxset="storm">雷雨</button>
-  </div>
-
-  <h4>版面風格</h4>
-  <div class="pills" id="skinPills">
-    <button class="pill lq mist2" data-skinset="ambient">氛圍</button>
-    <button class="pill lq mist2" data-skinset="boring">!Boring 白</button>
-  </div>
-
-  <h4>筆試日（倒數目標）</h4>
-  <div class="setrow"><input type="date" id="examDate"></div>
-</div>
-
 <script>
 const YEARS = [106,107,108,109,110,111,112,113,114,115];
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -914,60 +821,22 @@ document.addEventListener('click',e=>{
 
 /* ============ 風景風格＋即時天氣（Open-Meteo，免金鑰） ============ */
 const PHOTO_THEMES=['peaks','village','valley','lake'];
-const PORTIVA_MP4='https://cdn.sceneai.art/Hero%20section%20video%20file%20(2)/13c2a27f-30ac-44f1-866d-94fca9c614d7.mp4';
-const BUILTIN_BG=[['portiva','影片'],['mountain','山稜'],['ocean','海岸'],['forest','森林'],
-  ['peaks','雲海'],['village','小鎮'],['valley','綠谷'],['lake','湖畔']];
-const readJSON=(k,d)=>{try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}};
-const customBgs=()=>readJSON('feb-bg',[]);
-const curBg=()=>localStorage.getItem('feb-theme')||'portiva';
-/* 副檔名判型；認不出來就當圖片 */
-const bgTypeOf=u=>/\.(mp4|webm|ogv|mov|m4v)(\?|#|$)/i.test(u)?'video':'image';
-/* 只收得進 <video src> 或 CSS url() 的來源：站內相對路徑、http(s)、data:image */
-const bgUrlOk=u=>/^(https?:\/\/|data:image\/|[.\w][^:]*$)/i.test(u.trim());
-
 function applyTheme(t){
-  const bg=customBgs().find(b=>b.id===t);
-  const isVid=t==='portiva'||(bg&&bg.type==='video');
-  const isImg=!!(bg&&bg.type==='image');
-  document.body.dataset.theme=bg?'custom':t;
+  document.body.dataset.theme=t;
   document.body.classList.toggle('swiss',PHOTO_THEMES.includes(t));
-  document.body.classList.toggle('media',isVid||isImg);
-  document.body.classList.toggle('vid-on',isVid);
-  document.body.classList.toggle('img-on',isImg);
-  const v=document.querySelector('.bgvid'), c=document.querySelector('.cbg');
-  c.style.backgroundImage=isImg?`url("${bg.url.replace(/"/g,'%22')}")`:'';
-  if(!isVid){ v.pause(); v.removeAttribute('src'); v.load(); return; }
-  const src=t==='portiva'?PORTIVA_MP4:bg.url;
-  if(v.getAttribute('src')!==src){ v.setAttribute('src',src); v.load(); }
-  // 使用者要求減少動態時定格在第一幀
-  if(matchMedia('(prefers-reduced-motion: reduce)').matches) v.pause();
-  else v.play().catch(()=>{});
 }
-function bgPills(del){
-  const list=[...BUILTIN_BG.map(([id,name])=>({id,name,builtin:1})),...customBgs()], cur=curBg();
-  return list.map(b=>`<button class="pill lq mist2${b.id===cur?' on':''}" data-theme="${esc(b.id)}">`
-    +esc(b.name)+(del&&!b.builtin?`<i data-del="${esc(b.id)}" title="刪除">✕</i>`:'')+'</button>').join('');
+function initTheme(){
+  const t=localStorage.getItem('feb-theme')||'mountain';
+  applyTheme(t);
+  document.querySelectorAll('#themePills [data-theme]').forEach(b=>{
+    b.classList.toggle('on',b.dataset.theme===t);
+    b.addEventListener('click',()=>{
+      applyTheme(b.dataset.theme);
+      localStorage.setItem('feb-theme',b.dataset.theme);
+      document.querySelectorAll('#themePills [data-theme]').forEach(x=>x.classList.toggle('on',x===b));
+    });
+  });
 }
-function renderBgs(){
-  const a=document.getElementById('themePills'), b=document.getElementById('bgPills');
-  if(a) a.innerHTML=bgPills(false);
-  if(b) b.innerHTML=bgPills(true);
-}
-function selectBg(id){ localStorage.setItem('feb-theme',id); applyTheme(id); renderBgs(); }
-function initTheme(){ applyTheme(curBg()); renderBgs(); }
-/* 背景膠囊只在這兩個容器裡認（body 自己也有 data-theme，全域 closest 會誤中） */
-document.addEventListener('click',e=>{
-  const d=e.target.closest('#bgPills [data-del]');
-  if(d){
-    e.stopPropagation();
-    const id=d.dataset.del;
-    localStorage.setItem('feb-bg',JSON.stringify(customBgs().filter(b=>b.id!==id)));
-    if(curBg()===id) selectBg('portiva'); else renderBgs();
-    return;
-  }
-  const p=e.target.closest('#themePills [data-theme],#bgPills [data-theme]');
-  if(p) selectBg(p.dataset.theme);
-});
 function wxOf(c){
   if(c<=1) return ['clear','晴'];
   if(c<=3) return ['cloud',c===2?'多雲':'陰'];
@@ -977,78 +846,15 @@ function wxOf(c){
   if(c>=95) return ['storm','雷雨'];
   return ['cloud','多雲'];
 }
-/* ============ 綿綿細雨：canvas 逐滴，落點隨機、依遠近分層 ============ */
-function initRain(){
-  const cv=document.getElementById('rainCv');
-  if(!cv||!cv.getContext) return ()=>{};
-  const ctx=cv.getContext('2d');
-  let W=0,H=0,drops=[],raf=0,running=false,storm=false,last=0;
-  function resize(){
-    const dpr=Math.min(devicePixelRatio||1,2);   // 依實際像素密度繪製，2K 下雨絲才不會糊
-    W=cv.clientWidth||innerWidth; H=cv.clientHeight||innerHeight;
-    cv.width=Math.round(W*dpr); cv.height=Math.round(H*dpr);
-    ctx.setTransform(dpr,0,0,dpr,0,0);
-  }
-  /* z：0 遠 → 1 近。遠的短、慢、淡、細，近的長、快、亮、粗，疊起來才有景深 */
-  const mk=()=>{ const z=Math.random()**1.5; return {
-    x:Math.random()*W, y:Math.random()*H,
-    len:4+z*7+(storm?z*18:0),
-    v:70+z*130+(storm?z*430:0),
-    a:.07+z*.16+(storm?.14:0),
-    w:.5+z*.45+(storm?.3:0),
-    ph:Math.random()*6.28 };
-  };
-  function build(){
-    const n=Math.round((storm?460:260)*Math.max(.6,Math.min(W*H/2e6,2.4)));
-    drops=Array.from({length:n},mk);
-  }
-  function frame(t){
-    if(!running) return;
-    const dt=Math.min((t-last)/1000||0,.05); last=t;
-    ctx.clearRect(0,0,W,H);
-    ctx.lineCap='round';
-    const tilt=storm?.3:.14;
-    for(const d of drops){
-      d.y+=d.v*dt; d.ph+=dt*1.1;
-      // 細雨會被風輕輕吹歪，每滴擺動相位不同
-      const dx=d.len*tilt+(storm?0:Math.sin(d.ph)*.7);
-      ctx.strokeStyle=`rgba(198,226,255,${d.a})`;
-      ctx.lineWidth=d.w;
-      ctx.beginPath(); ctx.moveTo(d.x,d.y); ctx.lineTo(d.x-dx,d.y-d.len); ctx.stroke();
-      if(d.y-d.len>H){ d.y=-Math.random()*60; d.x=Math.random()*W; }  // 落點每輪重抽
-    }
-    raf=requestAnimationFrame(frame);
-  }
-  addEventListener('resize',()=>{ if(running){ resize(); build(); } });
-  return function sync(){
-    const wx=document.body.dataset.wx;
-    const want=(wx==='rain'||wx==='storm')&&!matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const wasStorm=storm; storm=wx==='storm';
-    if(want&&running){ if(wasStorm!==storm) build(); return; }
-    running=want;
-    if(!want){ cancelAnimationFrame(raf); if(W) ctx.clearRect(0,0,W,H); return; }
-    resize(); build(); last=performance.now(); raf=requestAnimationFrame(frame);
-  };
-}
-const rainSync=initRain();
-
-/* API 的實測值；設定裡改成手動時只是不套用，值仍持續更新 */
-const live={wx:'clear',day:true,label:''};
-function applySky(){
-  document.body.dataset.wx = SET.wx==='auto'?live.wx:SET.wx;
-  document.body.classList.toggle('day', SET.day==='auto'?live.day:SET.day==='day');
-  rainSync();
-}
 async function fetchWx(){
-  const geo = readJSON('feb-geo',null) || {lat:25.04,lon:121.56};
+  const geo = JSON.parse(localStorage.getItem('feb-geo')||'null') || {lat:25.04,lon:121.56};
   try{
     const r=await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${geo.lat}&longitude=${geo.lon}&current=weather_code,is_day,temperature_2m`);
     const c=(await r.json()).current;
     const [wx,label]=wxOf(c.weather_code);
-    live.wx=wx; live.day=c.is_day===1;
-    live.label=`${label} ${Math.round(c.temperature_2m)}°C`;
-    applySky();
-    document.getElementById('wxBadge').textContent=live.label;
+    document.body.dataset.wx=wx;
+    document.body.classList.toggle('day',c.is_day===1);
+    document.getElementById('wxBadge').textContent=`${label} ${Math.round(c.temperature_2m)}°C`;
   }catch(e){ /* 離線時保持上次狀態 */ }
 }
 function initWeather(){
@@ -1061,73 +867,17 @@ function initWeather(){
   fetchWx();
   setInterval(fetchWx,30*60*1000);
 }
-/* ============ 角落設定：背景、晝夜、天氣、版面、筆試日 ============ */
-const SET=Object.assign({day:'auto',wx:'auto',exam:'2027-02-01'},readJSON('feb-set',{}));
-const saveSet=()=>localStorage.setItem('feb-set',JSON.stringify(SET));
-function setMsg(t){ const el=document.getElementById('bgMsg'); if(el) el.textContent=t||''; }
-function addBg(name,url,type){
-  const list=customBgs();
-  list.push({id:'c'+Date.now().toString(36),name:(name||'自訂').slice(0,12),url,type});
-  try{ localStorage.setItem('feb-bg',JSON.stringify(list)); }
-  catch(e){ setMsg('瀏覽器儲存空間滿了，先刪掉幾個自訂背景'); return false; }
-  renderBgs(); selectBg(list[list.length-1].id); setMsg(''); return true;
-}
-function syncSetPills(){
-  const mark=(sel,attr,val)=>document.querySelectorAll(sel).forEach(b=>b.classList.toggle('on',b.dataset[attr]===val));
-  mark('#dayPills [data-day]','day',SET.day);
-  mark('#wxPills [data-wxset]','wxset',SET.wx);
-  mark('#skinPills [data-skinset]','skinset',document.body.dataset.skin||'ambient');
-}
-function initSettings(){
-  const btn=document.getElementById('setBtn'), panel=document.getElementById('setPanel');
-  const open=v=>{ panel.hidden=!v; btn.setAttribute('aria-expanded',v); if(v) syncSetPills(); };
-  btn.onclick=e=>{ e.stopPropagation(); open(panel.hidden); };
-  document.addEventListener('click',e=>{
-    if(!panel.hidden && !panel.contains(e.target) && e.target!==btn) open(false);
-  });
-  document.addEventListener('keydown',e=>{ if(e.key==='Escape') open(false); });
-
-  document.getElementById('bgAdd').onclick=()=>{
-    const url=document.getElementById('bgUrl').value.trim();
-    const name=document.getElementById('bgName').value.trim();
-    if(!url) return setMsg('先填網址');
-    if(!bgUrlOk(url)) return setMsg('只收 http(s) 網址或站內相對路徑');
-    if(addBg(name||url.split('/').pop().slice(0,12),url,bgTypeOf(url))){
-      document.getElementById('bgUrl').value=''; document.getElementById('bgName').value='';
-    }
-  };
-  document.getElementById('bgFile').onchange=e=>{
-    const f=e.target.files[0]; if(!f) return;
-    if(f.size>1.5*1024*1024) return setMsg('超過 1.5MB，請先縮圖或改用網址');
-    const r=new FileReader();
-    r.onload=()=>addBg(f.name.replace(/\.[^.]+$/,''),r.result,'image');
-    r.readAsDataURL(f);
-    e.target.value='';
-  };
-  panel.addEventListener('click',e=>{
-    const d=e.target.closest('[data-day]'), w=e.target.closest('[data-wxset]'),
-          s=e.target.closest('[data-skinset]');
-    if(d){ SET.day=d.dataset.day; saveSet(); applySky(); }
-    if(w){ SET.wx=w.dataset.wxset; saveSet(); applySky(); }
-    if(s){ applySkin(s.dataset.skinset); }
-    if(d||w||s) syncSetPills();
-  });
-  const ed=document.getElementById('examDate');
-  ed.value=SET.exam;
-  ed.onchange=()=>{ if(ed.value){ SET.exam=ed.value; saveSet(); tickClock(); } };
-}
-initTheme(); initWeather(); applySky(); initSettings();
+initTheme(); initWeather();
 
 /* ============ 待機時鐘＋倒數 ============ */
-// 116 筆試估約 2027/2 上旬，簡章公告後可在角落設定裡改
-const examDay=()=>{ const d=new Date(SET.exam+'T08:00:00+08:00'); return isNaN(d)?new Date('2027-02-01T08:00:00+08:00'):d; };
+const EXAM_DAY = new Date('2027-02-01T08:00:00+08:00'); // 116 筆試估約 2027/2 上旬，簡章公告後修正
 function tickClock(){
   const n=new Date();
   document.getElementById('clock').innerHTML =
     `${String(n.getHours()).padStart(2,'0')}:${String(n.getMinutes()).padStart(2,'0')}<small>${String(n.getSeconds()).padStart(2,'0')}</small>`;
   document.getElementById('homeDate').textContent =
     `${n.getFullYear()}.${String(n.getMonth()+1).padStart(2,'0')}.${String(n.getDate()).padStart(2,'0')} 週${'日一二三四五六'[n.getDay()]}`;
-  const d=Math.ceil((examDay()-n)/864e5);
+  const d=Math.ceil((EXAM_DAY-n)/864e5);
   document.getElementById('homeCount').textContent = d>0?`距 116 學年度筆試 約 ${d} 天`:'筆試季';
 }
 tickClock(); setInterval(tickClock,1000);
@@ -1145,7 +895,7 @@ async function load(){
     initStudy();
     document.getElementById('foot').innerHTML =
       `資料更新：${esc(DATA.updated)} ・ 簡章基準：${esc(DATA.baseAcademicYear)} 學年度 ・ ${esc(DATA.note)}`;
-    initHeadingReveal(); initReveal(); initSpy(); initParallax();
+    initReveal(); initSpy(); initParallax();
   }catch(e){
     document.getElementById('ovBody').innerHTML =
       `<tr><td colspan="7"><div class="glass err">讀不到資料（${esc(e.message)}）。請從專案根目錄啟動：<code>python -m http.server</code>，再開 <code>http://localhost:8000/site/</code></div></td></tr>`;
@@ -1255,7 +1005,7 @@ function anaHTML(d){
         const tot = ys.reduce((s,y)=>s+(+ch.years?.[y]||0),0);
         return `<tr><td class="n">${esc(ch.name)}</td>${ys.map(y=>{
           const v=+ch.years?.[y]||0;
-          const bg=v?`background:rgba(255,255,255,${Math.min(.85,.15+v*.2)});color:#000`:'color:rgba(255,255,255,.25)';
+          const bg=v?`background:rgba(242,217,160,${Math.min(.85,.15+v*.2)});color:#132033`:'color:rgba(234,242,247,.25)';
           return `<td><span class="heat" style="${bg}">${v||'·'}</span></td>`;}).join('')}
           <td><b style="font-family:var(--mono)">${tot}</b></td></tr>`;
       }).join('')+`</tbody></table>`;
@@ -1632,7 +1382,6 @@ function applySkin(s){
   const b=document.getElementById('skinToggle');
   if(b)b.textContent=s==='boring'?'🌙 氛圍版':'☀︎ !Boring';
   localStorage.setItem(SKIN_LS,s);
-  syncSetPills();
 }
 applySkin(localStorage.getItem(SKIN_LS)||'ambient');
 
@@ -1736,36 +1485,7 @@ function _febSelfCheck(){
   console.assert(Math.ceil(126/39)===4,'quota 4');
   console.assert(dayDiff('2026-09-01','2026-09-01')===0,'same day 0');
   console.assert(SEED.reduce((a,c)=>a+c.sessions.length,0)===126,'seed 126');
-  console.assert(bgTypeOf('assets/a.mp4')==='video'&&bgTypeOf('https://x/y.MP4?t=1')==='video','bgType video');
-  console.assert(bgTypeOf('assets/a.jpg')==='image'&&bgTypeOf('https://x/pic')==='image','bgType image');
-  console.assert(bgUrlOk('assets/a.mp4')&&bgUrlOk('https://x/y.jpg')&&bgUrlOk('data:image/png;base64,AA'),'url ok');
-  console.assert(!bgUrlOk('javascript:alert(1)')&&!bgUrlOk('file:///c:/a.mp4'),'url rejected');
-  console.assert(document.querySelectorAll('#bgPills [data-theme]').length>=8,'bg pills rendered');
 }
-/* ---------- 動畫：主標逐字浮現（每字 120ms） ---------- */
-function initHeadingReveal(){
-  const h=document.querySelector('.hero h1');
-  if(!h||h.dataset.split) return;
-  h.dataset.split='1';
-  let i=0;
-  const wrap=node=>{
-    [...node.childNodes].forEach(n=>{
-      if(n.nodeType===3){
-        const frag=document.createDocumentFragment();
-        [...n.textContent].forEach(c=>{
-          const s=document.createElement('span');
-          s.className='ch'; s.textContent=c;
-          s.style.transitionDelay=(i++*120)+'ms';
-          frag.appendChild(s);
-        });
-        n.replaceWith(frag);
-      } else if(n.nodeType===1) wrap(n);
-    });
-  };
-  wrap(h);
-  requestAnimationFrame(()=>h.querySelectorAll('.ch').forEach(s=>s.classList.add('in')));
-}
-
 /* ---------- 動畫：捲動顯示、目錄 spy、山稜視差 ---------- */
 function initReveal(){
   const io=new IntersectionObserver(es=>es.forEach(e=>{

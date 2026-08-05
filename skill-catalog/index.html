@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Skill 目錄</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>%F0%9F%A7%B0</text></svg>">
+<style>
+:root{--bg:#EEF1EF;--raised:#FFF;--ink:#1A2321;--soft:#4B5652;--line:#D6DBD7;--accent:#3F5B8C;--accent-soft:#EAEFF8;--gold:#A97C33;--gold-soft:#F5EEE0;--r:6px}
+:root[data-theme=dark]{--bg:#14181A;--raised:#1B2124;--ink:#E7EAE7;--soft:#9BA6A1;--line:#2C3437;--accent:#8CA7DE;--accent-soft:#232C3B;--gold:#D6A85C;--gold-soft:#2E2718}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#14181A;--raised:#1B2124;--ink:#E7EAE7;--soft:#9BA6A1;--line:#2C3437;--accent:#8CA7DE;--accent-soft:#232C3B;--gold:#D6A85C;--gold-soft:#2E2718}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,"Segoe UI",system-ui,"Noto Sans TC",sans-serif;line-height:1.55}
+.wrap{max-width:1240px;margin:0 auto;padding:40px 24px 80px}
+header{border-bottom:1px solid var(--line);padding-bottom:22px;margin-bottom:26px;display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap}
+h1{font-family:Georgia,"Noto Serif TC",serif;font-size:2rem;font-weight:600;margin:0 0 6px;letter-spacing:.01em}
+.sub{color:var(--soft);margin:0;font-size:.94rem}
+.theme{background:none;border:1px solid var(--line);color:var(--soft);border-radius:var(--r);padding:7px 13px;cursor:pointer;font-size:.85rem}
+.theme:hover{color:var(--accent);border-color:var(--accent)}
+.search{position:sticky;top:0;z-index:10;background:var(--bg);padding:14px 0 12px;margin-bottom:4px}
+#q{width:100%;padding:13px 16px;font-size:1rem;border:1px solid var(--line);border-radius:var(--r);background:var(--raised);color:var(--ink);font-family:inherit}
+#q:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+.hint{color:var(--soft);font-size:.8rem;margin-top:7px}
+.cats{display:flex;flex-wrap:wrap;gap:7px;margin:14px 0 22px}
+.cat-btn{background:var(--raised);border:1px solid var(--line);color:var(--ink);border-radius:99px;padding:6px 14px;cursor:pointer;font-size:.85rem;font-family:inherit;white-space:nowrap}
+.cat-btn:hover{border-color:var(--accent);color:var(--accent)}
+.cat-btn[aria-pressed=true]{background:var(--accent);border-color:var(--accent);color:#fff}
+.cat-btn .n{opacity:.65;font-size:.8em;margin-left:5px;font-variant-numeric:tabular-nums}
+.stat{color:var(--soft);font-size:.86rem;margin-bottom:14px;font-variant-numeric:tabular-nums}
+.group{margin-bottom:34px}
+.group h2{font-family:Georgia,"Noto Serif TC",serif;font-size:1.15rem;font-weight:600;margin:0 0 12px;display:flex;align-items:baseline;gap:9px}
+.group h2 .n{font-family:ui-monospace,Consolas,monospace;color:var(--gold);font-size:.8rem;font-weight:500}
+.list{background:var(--raised);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.item{display:grid;grid-template-columns:210px minmax(0,1fr);gap:16px;padding:12px 16px;border-top:1px solid var(--line);align-items:start}
+.item:first-child{border-top:none}
+.item:hover{background:var(--accent-soft)}
+.nm{font-family:ui-monospace,Consolas,monospace;font-size:.82rem;color:var(--accent);background:var(--accent-soft);padding:3px 8px;border-radius:4px;cursor:pointer;border:1px solid transparent;text-align:left;font-weight:500;width:100%;overflow:hidden;text-overflow:ellipsis}
+.item:hover .nm{background:var(--raised);border-color:var(--accent)}
+.nm.copied{background:var(--gold-soft);color:var(--gold);border-color:var(--gold)}
+.desc{margin:0;font-size:.88rem;color:var(--soft)}
+.src{display:inline-block;font-size:.68rem;padding:1px 6px;border-radius:3px;margin-left:7px;vertical-align:1px;border:1px solid var(--line);color:var(--soft)}
+.src.mcp{color:var(--gold);border-color:var(--gold)}
+mark{background:var(--gold-soft);color:var(--ink);padding:0 2px;border-radius:2px}
+.empty{text-align:center;padding:60px 20px;color:var(--soft)}
+@media(max-width:760px){.item{grid-template-columns:1fr;gap:6px}}
+</style>
+
+<div class="wrap">
+  <header>
+    <div>
+      <h1>Skill 目錄</h1>
+      <p class="sub" id="meta">載入中…</p>
+    </div>
+    <button class="theme" id="theme">切換亮／暗</button>
+  </header>
+
+  <div class="search">
+    <input id="q" type="search" placeholder="搜尋想做的事 —— 例如：動畫、寄信、SEO、重構、簡報" autocomplete="off" autofocus>
+    <div class="hint">搜尋名稱與說明。點擊 skill 名稱可複製指令。按 <kbd>/</kbd> 聚焦搜尋、<kbd>Esc</kbd> 清除。</div>
+  </div>
+
+  <div class="cats" id="cats"></div>
+  <div class="stat" id="stat"></div>
+  <div id="out"></div>
+</div>
+
+<script>
+const $ = (s) => document.querySelector(s);
+let DATA = null, activeCat = null;
+
+// Theme: explicit choice wins, otherwise follow the OS.
+const saved = localStorage.getItem('skillcat-theme');
+if (saved) document.documentElement.dataset.theme = saved;
+$('#theme').onclick = () => {
+  const dark = getComputedStyle(document.body).backgroundColor === 'rgb(20, 24, 26)';
+  const next = dark ? 'light' : 'dark';
+  document.documentElement.dataset.theme = next;
+  localStorage.setItem('skillcat-theme', next);
+};
+
+const esc = (s) => s.replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+
+function highlight(text, terms) {
+  let out = esc(text);
+  for (const t of terms) {
+    if (t.length < 2) continue;
+    out = out.replace(new RegExp(`(${t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi'), '<mark>$1</mark>');
+  }
+  return out;
+}
+
+// Truncate long descriptions — many are 500+ chars of trigger phrases, which
+// would bury the actual meaning.
+function short(d) {
+  if (!d) return '<em style="opacity:.5">（無說明）</em>';
+  const cut = d.length > 190 ? d.slice(0, 190).replace(/\s+\S*$/, '') + '…' : d;
+  return cut;
+}
+
+function render() {
+  const raw = $('#q').value.trim().toLowerCase();
+  const terms = raw.split(/\s+/).filter(Boolean);
+
+  let hits = DATA.skills.filter((s) => {
+    if (activeCat && s.category !== activeCat) return false;
+    if (!terms.length) return true;
+    const hay = (s.name + ' ' + s.description + ' ' + (DATA.labels[s.category] || '')).toLowerCase();
+    return terms.every((t) => hay.includes(t)); // AND: each extra word narrows
+  });
+
+  // Name matches are what people usually mean; float them up.
+  if (terms.length) {
+    hits.sort((a, b) => {
+      const an = terms.some((t) => a.name.toLowerCase().includes(t)) ? 0 : 1;
+      const bn = terms.some((t) => b.name.toLowerCase().includes(t)) ? 0 : 1;
+      return an - bn || a.name.localeCompare(b.name);
+    });
+  }
+
+  $('#stat').textContent = `顯示 ${hits.length} 個` +
+    (activeCat ? `（分類：${DATA.labels[activeCat]}）` : '') +
+    (terms.length ? `　搜尋：${raw}` : '');
+
+  if (!hits.length) {
+    $('#out').innerHTML = '<div class="empty">找不到符合的 skill。試試更短的關鍵字，或清除分類篩選。</div>';
+    return;
+  }
+
+  // Flat sorted list while searching; grouped by category when just browsing.
+  const groups = terms.length
+    ? [['', hits]]
+    : Object.entries(hits.reduce((a, s) => ((a[s.category] = a[s.category] || []).push(s), a), {}))
+        .sort((a, b) => b[1].length - a[1].length);
+
+  $('#out').innerHTML = groups.map(([cat, items]) => `
+    <div class="group">
+      ${cat ? `<h2>${esc(DATA.labels[cat] || cat)}<span class="n">${items.length}</span></h2>` : ''}
+      <div class="list">
+        ${items.map((s) => `
+          <div class="item">
+            <button class="nm" data-cmd="/${esc(s.name)}" title="點擊複製 /${esc(s.name)}">/${highlight(s.name, terms)}</button>
+            <p class="desc">${highlight(short(s.description), terms)}${
+              s.source === 'mcp' ? '<span class="src mcp">MCP</span>' : ''
+            }</p>
+          </div>`).join('')}
+      </div>
+    </div>`).join('');
+}
+
+$('#out').addEventListener('click', async (e) => {
+  const btn = e.target.closest('.nm');
+  if (!btn) return;
+  try { await navigator.clipboard.writeText(btn.dataset.cmd); } catch {}
+  btn.classList.add('copied');
+  setTimeout(() => btn.classList.remove('copied'), 900);
+});
+
+$('#q').addEventListener('input', render);
+document.addEventListener('keydown', (e) => {
+  if (e.key === '/' && document.activeElement !== $('#q')) { e.preventDefault(); $('#q').focus(); }
+  if (e.key === 'Escape') { $('#q').value = ''; activeCat = null; syncCats(); render(); }
+});
+
+function syncCats() {
+  for (const b of document.querySelectorAll('.cat-btn')) {
+    b.setAttribute('aria-pressed', String(b.dataset.cat === (activeCat || '')));
+  }
+}
+
+fetch('skills.json')
+  .then((r) => r.json())
+  .then((d) => {
+    DATA = d;
+    DATA.labels = Object.fromEntries(d.categories.map((c) => [c.id, c.label]));
+    const when = new Date(d.generatedAt).toLocaleString('zh-TW', { dateStyle: 'medium', timeStyle: 'short' });
+    $('#meta').textContent = `${d.total} 個可用 skill　·　本機 ${d.bySource.local || 0}　外掛 ${d.bySource.plugin || 0}　MCP ${d.bySource.mcp || 0}　·　更新於 ${when}`;
+
+    $('#cats').innerHTML =
+      `<button class="cat-btn" data-cat="" aria-pressed="true">全部<span class="n">${d.total}</span></button>` +
+      d.categories.filter((c) => c.count).map((c) =>
+        `<button class="cat-btn" data-cat="${c.id}">${esc(c.label)}<span class="n">${c.count}</span></button>`).join('');
+
+    $('#cats').addEventListener('click', (e) => {
+      const b = e.target.closest('.cat-btn');
+      if (!b) return;
+      activeCat = b.dataset.cat || null;
+      syncCats();
+      render();
+    });
+    render();
+  })
+  .catch(() => {
+    $('#meta').textContent = '無法載入 skills.json';
+    $('#out').innerHTML = '<div class="empty">找不到 <code>skills.json</code>。請先執行 <code>node scan.js</code>。</div>';
+  });
+</script>

@@ -1,0 +1,288 @@
+<title>可用 Skill 總覽</title>
+<style>
+:root{--bg:#EEF1EF;--bg-raised:#FFFFFF;--ink:#1A2321;--ink-soft:#4B5652;--line:#D6DBD7;--accent:#3F5B8C;--accent-soft:#EAEFF8;--gold:#A97C33;--gold-soft:#F5EEE0;--radius:6px;}
+:root[data-theme="dark"]{--bg:#14181A;--bg-raised:#1B2124;--ink:#E7EAE7;--ink-soft:#9BA6A1;--line:#2C3437;--accent:#8CA7DE;--accent-soft:#232C3B;--gold:#D6A85C;--gold-soft:#2E2718;}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#14181A;--bg-raised:#1B2124;--ink:#E7EAE7;--ink-soft:#9BA6A1;--line:#2C3437;--accent:#8CA7DE;--accent-soft:#232C3B;--gold:#D6A85C;--gold-soft:#2E2718;}}
+*{box-sizing:border-box;}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,"Segoe UI",system-ui,sans-serif;line-height:1.55;}
+.wrap{max-width:1180px;margin:0 auto;padding:48px 24px 96px;display:grid;grid-template-columns:220px minmax(0,1fr);gap:40px;}
+header.page-head{grid-column:1/-1;border-bottom:1px solid var(--line);padding-bottom:28px;margin-bottom:8px;}
+header.page-head h1{font-family:Georgia,"Iowan Old Style","Noto Serif TC",serif;font-size:2.1rem;font-weight:600;margin:0 0 8px;text-wrap:balance;letter-spacing:.01em;}
+header.page-head p{color:var(--ink-soft);margin:0;max-width:60ch;font-size:.98rem;}
+nav.toc{align-self:start;position:sticky;top:32px;font-size:.86rem;}
+nav.toc .toc-title{text-transform:uppercase;letter-spacing:.08em;font-size:.72rem;color:var(--ink-soft);margin-bottom:10px;}
+nav.toc ol{list-style:none;margin:0;padding:0;counter-reset:sec;}
+nav.toc li{counter-increment:sec;}
+nav.toc a{display:block;color:var(--ink);text-decoration:none;padding:6px 0;border-left:2px solid transparent;padding-left:10px;margin-left:-1px;}
+nav.toc a::before{content:counter(sec, decimal-leading-zero) " ";color:var(--gold);font-variant-numeric:tabular-nums;font-family:ui-monospace,"SFMono-Regular",Consolas,monospace;font-size:.8em;margin-right:2px;}
+nav.toc a:hover{border-left-color:var(--accent);color:var(--accent);}
+main{min-width:0;}
+section.cat{margin-bottom:44px;scroll-margin-top:24px;}
+section.cat h2{font-family:Georgia,"Iowan Old Style","Noto Serif TC",serif;font-size:1.3rem;font-weight:600;margin:0 0 4px;display:flex;align-items:baseline;gap:10px;}
+section.cat h2 .num{font-family:ui-monospace,"SFMono-Regular",Consolas,monospace;color:var(--gold);font-size:.85rem;font-weight:500;}
+section.cat .cat-desc{color:var(--ink-soft);font-size:.9rem;margin:0 0 18px;max-width:68ch;}
+.skill-list{background:var(--bg-raised);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;}
+.skill{display:grid;grid-template-columns:172px minmax(0,1fr);gap:18px;padding:13px 18px;border-top:1px solid var(--line);}
+.skill:first-child{border-top:none;}
+.skill code{font-family:ui-monospace,"SFMono-Regular",Consolas,monospace;font-size:.82rem;color:var(--accent);background:var(--accent-soft);padding:2px 7px;border-radius:4px;align-self:start;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.skill p{margin:0;font-size:.9rem;color:var(--ink);}
+.skill p .use{color:var(--ink-soft);}
+.skill.tag-rec code{color:var(--gold);background:var(--gold-soft);}
+.dense-grid{columns:2;column-gap:0;}
+@media (max-width:720px){.dense-grid{columns:1;}}
+.dense-grid .skill{break-inside:avoid;}
+@media (max-width:860px){.wrap{grid-template-columns:1fr;}nav.toc{position:static;border-bottom:1px solid var(--line);padding-bottom:20px;margin-bottom:8px;}.skill{grid-template-columns:140px minmax(0,1fr);}}
+footer.note{grid-column:1/-1;border-top:1px solid var(--line);padding-top:20px;color:var(--ink-soft);font-size:.85rem;}
+</style>
+
+<div class="wrap">
+  <header class="page-head">
+    <h1>可用 Skill 總覽</h1>
+    <p>依用途分成 11 類，每項列出「做什麼」與典型使用時機。金色標籤代表「recipe」— 串接多個服務完成單一具體任務的現成流程，非獨立技能。最後更新：2026-07-12。</p>
+  </header>
+
+  <nav class="toc">
+    <div class="toc-title">目錄</div>
+    <ol>
+      <li><a href="#dev-flow">開發流程</a></li>
+      <li><a href="#code-review">審查與精簡</a></li>
+      <li><a href="#design">設計與前端</a></li>
+      <li><a href="#gws-core">Workspace 核心</a></li>
+      <li><a href="#gws-quick">Workspace 單一動作</a></li>
+      <li><a href="#gws-recipe">Workspace 組合流程</a></li>
+      <li><a href="#persona">角色工作流</a></li>
+      <li><a href="#browser">瀏覽器與應用操作</a></li>
+      <li><a href="#content">內容生成</a></li>
+      <li><a href="#ops">環境與流程管理</a></li>
+      <li><a href="#claude">Claude / Codex 專屬</a></li>
+    </ol>
+  </nav>
+
+  <main>
+
+    <section class="cat" id="dev-flow">
+      <h2><span class="num">01</span>開發流程</h2>
+      <p class="cat-desc">寫程式前中後各階段該接哪一棒，避免跳過需求釐清或驗證就直接動手。</p>
+      <div class="skill-list">
+        <div class="skill"><code>brainstorming</code><p>做任何新功能/新元件前先釐清使用者意圖、需求邊界與設計方向。<span class="use"> 用於：「我想做 X」這類創意起點，動手寫之前。</span></p></div>
+        <div class="skill"><code>writing-plans</code><p>已有明確需求，寫成分步驟的實作計畫。<span class="use"> 用於：多步驟任務要開新 session 執行前。</span></p></div>
+        <div class="skill"><code>executing-plans</code><p>依照已寫好的計畫逐步執行，中途設審查檢查點。<span class="use"> 用於：計畫已定案，要在獨立 session 落地。</span></p></div>
+        <div class="skill"><code>test-driven-development</code><p>先寫測試再寫實作。<span class="use"> 用於：任何新功能或修 bug 之前。</span></p></div>
+        <div class="skill"><code>systematic-debugging</code><p>遇到 bug、測試失敗或行為異常時，先系統化定位根因再動手修，而非猜測式修補。<span class="use"> 用於：提出修法之前。</span></p></div>
+        <div class="skill"><code>requesting-code-review</code><p>完成任務或大功能後主動請求審查，核對是否符合需求。</p></div>
+        <div class="skill"><code>receiving-code-review</code><p>收到審查意見時要求實證與技術嚴謹，不盲目照做，尤其意見含糊或技術上可疑時。</p></div>
+        <div class="skill"><code>verification-before-completion</code><p>宣稱「完成/修好/測試通過」之前，強制先跑驗證指令並確認實際輸出。<span class="use"> 用於：commit 或開 PR 之前。</span></p></div>
+        <div class="skill"><code>using-git-worktrees</code><p>開始需要獨立工作環境的功能開發時，建立 git worktree 隔離。</p></div>
+        <div class="skill"><code>finishing-a-development-branch</code><p>實作完成、測試都過後，決定要 merge、開 PR 還是清理分支。</p></div>
+        <div class="skill"><code>dispatching-parallel-agents</code><p>面對 2 個以上互不依賴的任務時，平行派工給多個 agent。</p></div>
+        <div class="skill"><code>subagent-driven-development</code><p>在目前 session 內，用子 agent 執行計畫中彼此獨立的任務。</p></div>
+      </div>
+    </section>
+
+    <section class="cat" id="code-review">
+      <h2><span class="num">02</span>審查與精簡</h2>
+      <p class="cat-desc">針對「這段程式碼寫得好不好」的各種角度審查，含正確性、過度工程、安全性三條主線。</p>
+      <div class="skill-list">
+        <div class="skill"><code>code-review</code><p>審查目前 diff 的正確性 bug 與可精簡之處，依 low/medium/high/ultra 力度調整覆蓋範圍；<code>--fix</code> 可直接套用修正，<code>ultra</code> 會啟動雲端多 agent 深度審查（需另外付費觸發，我不能自動幫你啟動）。</p></div>
+        <div class="skill"><code>simplify</code><p>只做重複利用/精簡/效能面向的審查，找到問題直接套用修正，不找 bug。</p></div>
+        <div class="skill"><code>security-review</code><p>對目前分支的變更做安全性審查（OWASP 類漏洞等）。</p></div>
+        <div class="skill"><code>review</code><p>審查一個 GitHub PR（跨遠端），本機 diff 請改用 <code>code-review</code>。</p></div>
+        <div class="skill"><code>ponytail</code><p>強制採用最簡單能動的寫法：能刪就刪、優先用標準庫/原生功能，拒絕未被要求的抽象層。<span class="use"> 用於：任何寫/改/審查程式碼的場合，或你抱怨「太肥、太複雜」時。</span></p></div>
+        <div class="skill"><code>ponytail-audit</code><p>對整個 repo 做過度工程健檢，列出可刪除/簡化/改用標準庫的清單（不動手改）。</p></div>
+        <div class="skill"><code>ponytail-review</code><p>只針對 diff 抓「過度設計」，如重造標準庫輪子、非必要依賴、投機性抽象。</p></div>
+        <div class="skill"><code>ponytail-debt</code><p>彙整程式碼中 <code>ponytail:</code> 註記的刻意捷徑，做成技術債清單，避免「以後再說」變成永遠不做。</p></div>
+        <div class="skill"><code>ponytail-gain</code><p>顯示 ponytail 模式帶來的效益指標（少寫多少程式碼、省多少成本）一次性看板。</p></div>
+        <div class="skill"><code>ponytail-help</code><p>ponytail 全部指令與模式的速查表。</p></div>
+      </div>
+    </section>
+
+    <section class="cat" id="design">
+      <h2><span class="num">03</span>設計與前端</h2>
+      <p class="cat-desc">從品牌識別、UI 元件到資料視覺化的設計類技能。</p>
+      <div class="skill-list">
+        <div class="skill"><code>design</code><p>大型整合設計技能：品牌識別、Design Token、Logo（55 種風格）、企業識別系統（50 項交付物）、HTML 簡報、Banner（22 種風格）、Icon、社群圖片產出，一站式。</p></div>
+        <div class="skill"><code>design-system</code><p>建立三層 Token 架構（primitive → semantic → component）、CSS 變數、元件規格書，以及依此系統產出簡報。</p></div>
+        <div class="skill"><code>ui-styling</code><p>用 shadcn/ui（Radix + Tailwind）打造可存取、風格一致的 UI 元件，含深色模式。</p></div>
+        <div class="skill"><code>ui-ux-pro-max</code><p>UI/UX 設計知識庫：67 種視覺風格、161 組配色、57 組字體搭配、25 種圖表、21 種技術棧（React/Vue/SwiftUI 等），用於規劃、審查、修正介面程式碼。</p></div>
+        <div class="skill"><code>banner-design</code><p>設計各平台（FB/IG/YouTube/LinkedIn/Google Display 等）的廣告與活動橫幅。</p></div>
+        <div class="skill"><code>brand</code><p>品牌語氣、視覺識別、訊息框架、素材一致性管理。</p></div>
+        <div class="skill"><code>dataviz</code><p>建立任何圖表/儀表板前必看，統一色彩與視覺語言，含亮/暗主題配色驗證器。</p></div>
+        <div class="skill"><code>artifact-design</code><p>Artifact 頁面本身的設計方法論（我剛才產出這頁時用的就是這個）。</p></div>
+        <div class="skill"><code>impeccable</code><p>前端介面的深度審查與重新設計：資訊架構、可存取性、排版、色彩、動效、UX 文案等全方位優化。</p></div>
+      </div>
+    </section>
+
+    <section class="cat" id="gws-core">
+      <h2><span class="num">04</span>Google Workspace 核心服務</h2>
+      <p class="cat-desc">各服務的完整讀寫能力，涵蓋該服務的所有操作。</p>
+      <div class="skill-list">
+        <div class="skill"><code>gws-gmail</code><p>寄信、讀信、標籤、篩選、草稿等 Gmail 完整操作。</p></div>
+        <div class="skill"><code>gws-calendar</code><p>行事曆與事件的建立、查詢、修改。</p></div>
+        <div class="skill"><code>gws-drive</code><p>檔案、資料夾、共用雲端硬碟的管理。</p></div>
+        <div class="skill"><code>gws-docs</code><p>讀寫 Google 文件內容。</p></div>
+        <div class="skill"><code>gws-sheets</code><p>讀寫 Google 試算表。</p></div>
+        <div class="skill"><code>gws-slides</code><p>讀寫 Google 簡報。</p></div>
+        <div class="skill"><code>gws-chat</code><p>管理 Google Chat 空間與訊息。</p></div>
+        <div class="skill"><code>gws-tasks</code><p>管理工作清單與待辦事項。</p></div>
+        <div class="skill"><code>gws-classroom</code><p>管理課程、學生名冊與作業。</p></div>
+        <div class="skill"><code>gws-keep</code><p>管理 Google Keep 記事。</p></div>
+        <div class="skill"><code>gws-forms</code><p>讀寫 Google 表單。</p></div>
+        <div class="skill"><code>gws-people</code><p>管理聯絡人與個人檔案。</p></div>
+        <div class="skill"><code>gws-meet</code><p>管理 Google Meet 視訊會議。</p></div>
+        <div class="skill"><code>gws-script</code><p>管理 Apps Script 專案。</p></div>
+        <div class="skill"><code>gws-admin-reports</code><p>Workspace 管理員審計日誌與使用報告。</p></div>
+        <div class="skill"><code>gws-events</code><p>訂閱 Workspace 事件通知（webhook 類）。</p></div>
+        <div class="skill"><code>gws-modelarmor</code><p>用 Google Model Armor 過濾使用者產生內容的安全性。</p></div>
+        <div class="skill"><code>gws-shared</code><p>gws CLI 共用的認證/參數/輸出格式規則（底層技能，通常不需直接呼叫）。</p></div>
+      </div>
+    </section>
+
+    <section class="cat" id="gws-quick">
+      <h2><span class="num">05</span>Workspace 單一動作捷徑</h2>
+      <p class="cat-desc">上面核心服務底下最常用的「只做一件事」版本，比呼叫完整服務技能更快、更直接。</p>
+      <div class="skill-list dense-grid">
+        <div class="skill"><code>gws-gmail-send</code><p>寄一封信。</p></div>
+        <div class="skill"><code>gws-gmail-read</code><p>讀一封信的內文或標頭。</p></div>
+        <div class="skill"><code>gws-gmail-reply</code><p>回覆一封信（自動處理討論串）。</p></div>
+        <div class="skill"><code>gws-gmail-reply-all</code><p>全部回覆一封信。</p></div>
+        <div class="skill"><code>gws-gmail-forward</code><p>轉寄一封信給新收件人。</p></div>
+        <div class="skill"><code>gws-gmail-triage</code><p>顯示收件匣未讀摘要（寄件人/主旨/日期）。</p></div>
+        <div class="skill"><code>gws-gmail-watch</code><p>監看新郵件並以 NDJSON 串流輸出。</p></div>
+        <div class="skill"><code>gws-calendar-agenda</code><p>顯示所有行事曆的近期活動。</p></div>
+        <div class="skill"><code>gws-calendar-insert</code><p>建立一個新的行事曆活動。</p></div>
+        <div class="skill"><code>gws-docs-write</code><p>在文件末尾附加文字。</p></div>
+        <div class="skill"><code>gws-sheets-append</code><p>在試算表新增一列。</p></div>
+        <div class="skill"><code>gws-sheets-read</code><p>讀取試算表數值。</p></div>
+        <div class="skill"><code>gws-drive-upload</code><p>上傳檔案並自動帶入 metadata。</p></div>
+        <div class="skill"><code>gws-events-subscribe</code><p>訂閱 Workspace 事件並串流成 NDJSON。</p></div>
+        <div class="skill"><code>gws-events-renew</code><p>更新/重新啟用既有的事件訂閱。</p></div>
+        <div class="skill"><code>gws-script-push</code><p>把本機檔案上傳到 Apps Script 專案。</p></div>
+        <div class="skill"><code>gws-modelarmor-create-template</code><p>建立新的 Model Armor 過濾範本。</p></div>
+        <div class="skill"><code>gws-modelarmor-sanitize-prompt</code><p>用範本過濾使用者輸入的 prompt。</p></div>
+        <div class="skill"><code>gws-modelarmor-sanitize-response</code><p>用範本過濾模型回應內容。</p></div>
+      </div>
+    </section>
+
+    <section class="cat" id="gws-recipe">
+      <h2><span class="num">06</span>Workspace 常見組合流程<span style="color:var(--gold);font-family:ui-monospace,monospace;font-size:.65em;vertical-align:middle;margin-left:6px;">recipe</span></h2>
+      <p class="cat-desc">串接 2-3 個 Workspace 服務、一次完成某個具體目的的現成配方，約 40 個，這裡列出全部但用較密的排版。</p>
+      <div class="skill-list dense-grid">
+        <div class="skill tag-rec"><code>backup-sheet-as-csv</code><p>把試算表匯出成 CSV 備份。</p></div>
+        <div class="skill tag-rec"><code>batch-invite-to-event</code><p>把名單批次加入行事曆活動並發通知。</p></div>
+        <div class="skill tag-rec"><code>block-focus-time</code><p>建立週期性的專注時段。</p></div>
+        <div class="skill tag-rec"><code>bulk-download-folder</code><p>列出並下載 Drive 資料夾內所有檔案。</p></div>
+        <div class="skill tag-rec"><code>collect-form-responses</code><p>擷取並檢視表單回覆。</p></div>
+        <div class="skill tag-rec"><code>compare-sheet-tabs</code><p>比對試算表兩個分頁的差異。</p></div>
+        <div class="skill tag-rec"><code>copy-sheet-for-new-month</code><p>複製範本分頁做新一個月的紀錄表。</p></div>
+        <div class="skill tag-rec"><code>create-classroom-course</code><p>建立課程並邀請學生。</p></div>
+        <div class="skill tag-rec"><code>create-doc-from-template</code><p>複製文件範本、填內容、分享給協作者。</p></div>
+        <div class="skill tag-rec"><code>create-events-from-sheet</code><p>從試算表資料批次建立行事曆活動。</p></div>
+        <div class="skill tag-rec"><code>create-expense-tracker</code><p>建立含表頭與初始紀錄的記帳表。</p></div>
+        <div class="skill tag-rec"><code>create-feedback-form</code><p>建立意見回饋表單並用信件分享。</p></div>
+        <div class="skill tag-rec"><code>create-gmail-filter</code><p>建立自動加標籤/加星號的 Gmail 篩選器。</p></div>
+        <div class="skill tag-rec"><code>create-meet-space</code><p>建立 Meet 會議空間並分享連結。</p></div>
+        <div class="skill tag-rec"><code>create-presentation</code><p>建立新簡報並加入初始投影片。</p></div>
+        <div class="skill tag-rec"><code>create-shared-drive</code><p>建立共用雲端硬碟並設定成員權限。</p></div>
+        <div class="skill tag-rec"><code>create-task-list</code><p>建立新的工作清單與初始項目。</p></div>
+        <div class="skill tag-rec"><code>create-vacation-responder</code><p>設定 Gmail 自動回覆（休假期間）。</p></div>
+        <div class="skill tag-rec"><code>draft-email-from-doc</code><p>用文件內容當作信件草稿內文。</p></div>
+        <div class="skill tag-rec"><code>email-drive-link</code><p>分享 Drive 檔案並寄送連結。</p></div>
+        <div class="skill tag-rec"><code>find-free-time</code><p>查詢多人共同的空閒時段。</p></div>
+        <div class="skill tag-rec"><code>find-large-files</code><p>找出佔用儲存空間的大型檔案。</p></div>
+        <div class="skill tag-rec"><code>forward-labeled-emails</code><p>把特定標籤的信轉寄出去。</p></div>
+        <div class="skill tag-rec"><code>generate-report-from-sheet</code><p>用試算表資料產出格式化的文件報告。</p></div>
+        <div class="skill tag-rec"><code>label-and-archive-emails</code><p>對符合條件的信加標籤並封存。</p></div>
+        <div class="skill tag-rec"><code>log-deal-update</code><p>把交易狀態更新寫入業務追蹤表。</p></div>
+        <div class="skill tag-rec"><code>organize-drive-folder</code><p>建立資料夾結構並歸位檔案。</p></div>
+        <div class="skill tag-rec"><code>plan-weekly-schedule</code><p>檢視本週行事曆空檔並補上安排。</p></div>
+        <div class="skill tag-rec"><code>post-mortem-setup</code><p>建立事後檢討文件、排review會議、Chat通知。</p></div>
+        <div class="skill tag-rec"><code>reschedule-meeting</code><p>改期並自動通知所有與會者。</p></div>
+        <div class="skill tag-rec"><code>review-meet-participants</code><p>檢視會議出席者與出席時長。</p></div>
+        <div class="skill tag-rec"><code>review-overdue-tasks</code><p>找出逾期未完成的工作項目。</p></div>
+        <div class="skill tag-rec"><code>save-email-attachments</code><p>把信件附件存到 Drive 資料夾。</p></div>
+        <div class="skill tag-rec"><code>save-email-to-doc</code><p>把信件內容存成文件封存。</p></div>
+        <div class="skill tag-rec"><code>schedule-recurring-event</code><p>建立含與會者的週期性活動。</p></div>
+        <div class="skill tag-rec"><code>send-team-announcement</code><p>同時用信件與Chat發送團隊公告。</p></div>
+        <div class="skill tag-rec"><code>share-doc-and-notify</code><p>分享文件編輯權並寄信通知。</p></div>
+        <div class="skill tag-rec"><code>share-event-materials</code><p>把 Drive 檔案分享給活動全部與會者。</p></div>
+        <div class="skill tag-rec"><code>share-folder-with-team</code><p>把資料夾及內容分享給協作名單。</p></div>
+        <div class="skill tag-rec"><code>sync-contacts-to-sheet</code><p>把聯絡人匯出到試算表。</p></div>
+        <div class="skill tag-rec"><code>watch-drive-changes</code><p>訂閱檔案/資料夾的變更通知。</p></div>
+        <div class="skill tag-rec"><code>email-to-task</code><p>把一封信轉成 Tasks 待辦項目。</p></div>
+        <div class="skill tag-rec"><code>file-announce</code><p>在 Chat 空間宣布新上傳的 Drive 檔案。</p></div>
+        <div class="skill tag-rec"><code>meeting-prep</code><p>整理下一場會議的議程、與會者、相關文件。</p></div>
+        <div class="skill tag-rec"><code>standup-report</code><p>彙整今日會議＋待辦事項成站會摘要。</p></div>
+        <div class="skill tag-rec"><code>weekly-digest</code><p>彙整本週會議與未讀信件成週報。</p></div>
+      </div>
+    </section>
+
+    <section class="cat" id="persona">
+      <h2><span class="num">07</span>角色工作流</h2>
+      <p class="cat-desc">依職務打包好的一組 Workspace 操作邏輯，比單一 recipe 更貼近某個角色的日常。</p>
+      <div class="skill-list dense-grid">
+        <div class="skill"><code>persona-exec-assistant</code><p>管理主管的行事曆、收件匣與對外溝通。</p></div>
+        <div class="skill"><code>persona-project-manager</code><p>追蹤任務、排會議、分享文件協調專案。</p></div>
+        <div class="skill"><code>persona-sales-ops</code><p>追蹤交易進度、排電話、客戶溝通。</p></div>
+        <div class="skill"><code>persona-hr-coordinator</code><p>入職流程、公告、員工溝通處理。</p></div>
+        <div class="skill"><code>persona-it-admin</code><p>監控安全性、設定 Workspace 管理項目。</p></div>
+        <div class="skill"><code>persona-team-lead</code><p>主持站會、協調任務、團隊溝通。</p></div>
+        <div class="skill"><code>persona-researcher</code><p>整理研究資料、參考文獻、筆記與協作。</p></div>
+        <div class="skill"><code>persona-event-coordinator</code><p>活動排程、邀請、後勤安排。</p></div>
+        <div class="skill"><code>persona-content-creator</code><p>跨 Workspace 建立、整理、發佈內容。</p></div>
+        <div class="skill"><code>persona-customer-support</code><p>追蹤工單、回覆客戶、升級問題。</p></div>
+      </div>
+    </section>
+
+    <section class="cat" id="browser">
+      <h2><span class="num">08</span>瀏覽器與應用操作</h2>
+      <p class="cat-desc">實際操作瀏覽器、跑起你的專案、或看影片理解內容。</p>
+      <div class="skill-list">
+        <div class="skill"><code>claude-in-chrome</code><p>操作你目前開著的 Chrome：點擊、填表、截圖、讀 console log、瀏覽網頁。使用任何 <code>mcp__claude-in-chrome__*</code> 工具前都要先呼叫這個。</p></div>
+        <div class="skill"><code>run</code><p>啟動並在真實環境中跑你的 app，驗證修改真的有效，而不只是測試通過。</p></div>
+        <div class="skill"><code>watch</code><p>看一段影片（URL 或本機檔案），下載/抽字幕/擷取畫面後回答內容相關問題。</p></div>
+      </div>
+    </section>
+
+    <section class="cat" id="content">
+      <h2><span class="num">09</span>內容生成</h2>
+      <p class="cat-desc">產生圖片、Podcast、簡報等實際輸出物。</p>
+      <div class="skill-list">
+        <div class="skill"><code>notebooklm</code><p>Google NotebookLM 完整 API：建立筆記本、加來源、產生各類輸出（含網頁版沒有的功能）。</p></div>
+        <div class="skill"><code>stock-podcast</code><p>針對股票代號自動生成技術分析 Podcast。</p></div>
+        <div class="skill"><code>nano-banana</code><p>用 Gemini 生成 AI 圖片：多解析度、參考圖風格轉換、去背素材，適合 UI mockup、遊戲素材、行銷圖。</p></div>
+        <div class="skill"><code>slides</code><p>用 HTML + Chart.js 打造有策略、有設計系統的簡報。</p></div>
+      </div>
+    </section>
+
+    <section class="cat" id="ops">
+      <h2><span class="num">10</span>環境與流程管理</h2>
+      <p class="cat-desc">設定 Claude Code 本身的行為、排程與自訂 skill。</p>
+      <div class="skill-list">
+        <div class="skill"><code>loop</code><p>讓某個指令/skill 以固定間隔或自訂步調重複執行。<span class="use"> 用於：「每 5 分鐘檢查一次部署狀態」這類需求。</span></p></div>
+        <div class="skill"><code>schedule</code><p>建立/管理雲端排程 agent（cron 排程任務），含單次定時執行。</p></div>
+        <div class="skill"><code>update-config</code><p>修改 <code>settings.json</code>：權限允許清單、hook、環境變數等。</p></div>
+        <div class="skill"><code>fewer-permission-prompts</code><p>掃描過去操作紀錄，自動整理常用但安全的指令加入白名單，減少每次都要按允許。</p></div>
+        <div class="skill"><code>keybindings-help</code><p>自訂鍵盤快捷鍵/組合鍵。</p></div>
+        <div class="skill"><code>skill-creator</code><p>建立新 skill、優化既有 skill、跑效能評測。</p></div>
+      </div>
+    </section>
+
+    <section class="cat" id="claude">
+      <h2><span class="num">11</span>Claude / Codex 專屬</h2>
+      <p class="cat-desc">與 Claude 生態系、Codex 整合、專案理解相關的技能。</p>
+      <div class="skill-list">
+        <div class="skill"><code>claude-api</code><p>Claude API / SDK 完整參考：模型 ID、價格、串流、工具呼叫、MCP、快取等，凡是提到 Claude/Anthropic 或 LLM 相關問題都應先查這個，而非憑記憶回答。</p></div>
+        <div class="skill"><code>codex:rescue</code><p>卡關、需要第二意見、或要做深度根因診斷時，把任務交給 Codex 處理。</p></div>
+        <div class="skill"><code>codex:setup</code><p>檢查本機 Codex CLI 是否就緒，並可切換是否要求 review。</p></div>
+        <div class="skill"><code>graphify</code><p>把任何輸入（程式碼、文件、論文、圖片、影片）轉成可查詢的知識圖譜，適合理解整個專案的架構與檔案關聯。</p></div>
+        <div class="skill"><code>init</code><p>幫新專案建立 <code>CLAUDE.md</code> 說明文件。</p></div>
+        <div class="skill"><code>dot-skill</code><p>把某個同事/名人的說話與決策風格蒸餾成可重複使用的 skill 人格。</p></div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="note">
+    分類與描述基於目前系統提供的 skill 清單整理，若你常做某一類任務（例如只在意 Google Workspace 或只在意程式碼審查），我可以只保留該類別做成更精簡的版本。
+  </footer>
+</div>

@@ -1,0 +1,128 @@
+{
+  "answer": "{\"years\":[1-10],\"chapters\":[{\"name\":\"系統建模與方塊圖\",\"years\":{\"109\":1,\"110\":1,\"111\":1}},{\"name\":\"時域響應與穩態誤差\",\"years\":{\"106\":1,\"107\":1,\"108\":1,\"111\":2,\"112\":1,\"114\":1,\"115\":2}},{\"name\":\"穩定度(Routh)\",\"years\":{\"109\":1,\"112\":2,\"113\":1,\"114\":1,\"115\":1}},{\"name\":\"根軌跡\",\"years\":{\"109\":1,\"111\":1,\"112\":1,\"113\":1,\"114\":1}},{\"name\":\"頻域分析(Bode/Nyquist)\",\"years\":{\"106\":2,\"108\":2,\"109\":1,\"110\":1,\"112\":1,\"113\":3,\"114\":3,\"115\":1}},{\"name\":\"狀態空間\",\"years\":{\"106\":1,\"110\":1,\"111\":2,\"112\":2,\"113\":4,\"114\":5}},{\"name\":\"控制器設計(PID/補償器)\",\"years\":{\"106\":2,\"107\":2,\"108\":1,\"109\":1,\"110\":2,\"112\":1,\"113\":1,\"114\":2,\"115\":1}},{\"name\":\"數位控制\",\"years\":{}},{\"name\":\"其他\",\"years\":{\"107\":1,\"114\":1}}],\"mustKnow\":[\"狀態空間：極常考非線性系統求平衡點並線性化、可控性與可觀性判別，以及 Luenberger 觀測器與狀態回授控制器的設計。\",\"頻域分析：熟練 Bode Plot 與 Nyquist Plot 的繪製與判讀，並藉此求取增益邊界與相位邊界以判斷系統穩定度。\",\"控制器設計：經常要求設計 PID 控制器或相位超前/落後補償器，以滿足特定的穩態誤差或頻域（相位邊界）規格。\",\"時域響應與穩態誤差：必考二階系統步階響應特性，包含阻尼比對超越量、安定時間的影響，以及轉移函數與圖形的配對。\"],\"trend\":\"近年命題趨勢顯示「狀態空間」與「頻域分析」為重中之重，尤其 113 與 114 學年度狀態空間題型大幅增加，且常結合非線性系統線性化。整體題型從早期的選擇與計算混合，轉變為深度計算與設計題為主，難度與計算量明顯提升，極度強調系統分析與綜合設計能力。\"}",
+  "conversation_id": "2f557ed9-beee-4b78-82fe-9eaa5c796f5d",
+  "turn_number": 1,
+  "is_follow_up": true,
+  "references": [
+    {
+      "source_id": "2fc62569-3de8-4016-b8f4-42f6360bcfa2",
+      "citation_number": 1,
+      "cited_text": null,
+      "start_char": 6,
+      "end_char": 7,
+      "chunk_id": "daf05256-d22b-49c8-90e0-c4fe0fd54237",
+      "passage_id": null,
+      "answer_start_char": 6,
+      "answer_end_char": 7,
+      "score": 0.7654845784513282
+    },
+    {
+      "source_id": "2fc62569-3de8-4016-b8f4-42f6360bcfa2",
+      "citation_number": 2,
+      "cited_text": null,
+      "start_char": 7,
+      "end_char": 8,
+      "chunk_id": "2595a2a8-a6f9-4b15-940c-876218600b21",
+      "passage_id": null,
+      "answer_start_char": 7,
+      "answer_end_char": 8,
+      "score": 0.7410233950518922
+    },
+    {
+      "source_id": "2fc62569-3de8-4016-b8f4-42f6360bcfa2",
+      "citation_number": 3,
+      "cited_text": null,
+      "start_char": 8,
+      "end_char": 9,
+      "chunk_id": "7189cc7b-3f87-42cb-9ff2-2f98ff863458",
+      "passage_id": null,
+      "answer_start_char": 8,
+      "answer_end_char": 9,
+      "score": 0.7509829168366429
+    },
+    {
+      "source_id": "2fc62569-3de8-4016-b8f4-42f6360bcfa2",
+      "citation_number": 4,
+      "cited_text": null,
+      "start_char": 9,
+      "end_char": 10,
+      "chunk_id": "f937acb0-a6a9-4960-8f36-9436ce0107e1",
+      "passage_id": null,
+      "answer_start_char": 9,
+      "answer_end_char": 10,
+      "score": 0.6254847373369483
+    },
+    {
+      "source_id": "2fc62569-3de8-4016-b8f4-42f6360bcfa2",
+      "citation_number": 5,
+      "cited_text": null,
+      "start_char": 10,
+      "end_char": 11,
+      "chunk_id": "de9ed3cb-2259-416a-ae3f-0f412b44b00f",
+      "passage_id": null,
+      "answer_start_char": 10,
+      "answer_end_char": 11,
+      "score": 0.737910212059692
+    },
+    {
+      "source_id": "2fc62569-3de8-4016-b8f4-42f6360bcfa2",
+      "citation_number": 6,
+      "cited_text": null,
+      "start_char": 11,
+      "end_char": 12,
+      "chunk_id": "b37a9117-94e3-4d47-9e53-8b70518b45d4",
+      "passage_id": null,
+      "answer_start_char": 11,
+      "answer_end_char": 12,
+      "score": 0.7816931249047028
+    },
+    {
+      "source_id": "2fc62569-3de8-4016-b8f4-42f6360bcfa2",
+      "citation_number": 7,
+      "cited_text": null,
+      "start_char": 12,
+      "end_char": 13,
+      "chunk_id": "f78705e4-e15e-4f32-bca8-3d002be01b71",
+      "passage_id": null,
+      "answer_start_char": 12,
+      "answer_end_char": 13,
+      "score": 0.749692774129322
+    },
+    {
+      "source_id": "2fc62569-3de8-4016-b8f4-42f6360bcfa2",
+      "citation_number": 8,
+      "cited_text": null,
+      "start_char": 13,
+      "end_char": 14,
+      "chunk_id": "7f0c685b-6f71-4fa9-8783-043ba933128a",
+      "passage_id": null,
+      "answer_start_char": 13,
+      "answer_end_char": 14,
+      "score": 0.7381885381698143
+    },
+    {
+      "source_id": "2fc62569-3de8-4016-b8f4-42f6360bcfa2",
+      "citation_number": 9,
+      "cited_text": null,
+      "start_char": 14,
+      "end_char": 15,
+      "chunk_id": "1ec1289b-d42c-4f74-b1e3-60d88be398a1",
+      "passage_id": null,
+      "answer_start_char": 14,
+      "answer_end_char": 15,
+      "score": 0.7384555384673568
+    },
+    {
+      "source_id": "2fc62569-3de8-4016-b8f4-42f6360bcfa2",
+      "citation_number": 10,
+      "cited_text": null,
+      "start_char": 15,
+      "end_char": 16,
+      "chunk_id": "d9da2ff4-c168-44a1-9812-e81b2490236b",
+      "passage_id": null,
+      "answer_start_char": 15,
+      "answer_end_char": 16,
+      "score": 0.7407038054809467
+    }
+  ]
+}

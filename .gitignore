@@ -1,0 +1,20 @@
+# Captured browser profile — contains saved-login/cookie databases
+istudy-private-backup/data/chrome-profile/
+istudy-private-backup/downloads/
+istudy-private-backup/reports/
+istudy-private-backup/test-output.txt
+
+# Source PDF corpora (169 MB, re-downloadable)
+grad-exam-hub/data/exams/
+grad-exam-hub/data/brochures/
+
+# Tool output
+.playwright-mcp/
+test-results/
+.scratch/rec/
+.scratch/*.jpg
+.scratch/*.png
+
+# Machine-local
+.claude/settings.local.json
+UsersUser.claudesettings.json

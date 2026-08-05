@@ -883,7 +883,7 @@ Note: confirm `.env` and `prisma/dev.db` are listed in `.gitignore` (Next.js's d
 - Produces: `seed(): Promise<void>` — idempotent (safe to run multiple times; uses `upsert`).
 - Consumed by: manual `npx prisma db seed` runs; not imported by other tasks.
 
-This seeds the full 67-row `類別架構` lookup (transcribed verbatim from the sheet) and the partial, reference-only cell vendor codes and customer region ranges.
+This seeds the full 66-row `類別架構` lookup (transcribed verbatim from the sheet — its 67 spreadsheet rows include one header row) and the partial, reference-only cell vendor codes and customer region ranges.
 
 - [ ] **Step 1: Write the failing test**
 
@@ -906,9 +906,9 @@ describe('seed', () => {
     await db.$disconnect();
   });
 
-  it('seeds all 67 category lookup rows', async () => {
+  it('seeds all 66 category lookup rows', async () => {
     const count = await db.categoryLookup.count();
-    expect(count).toBe(67);
+    expect(count).toBe(66);
   });
 
   it('maps a known subcategory to its major category', async () => {
@@ -929,7 +929,7 @@ describe('seed', () => {
   it('is idempotent: running seed twice does not duplicate rows', async () => {
     await seed();
     const count = await db.categoryLookup.count();
-    expect(count).toBe(67);
+    expect(count).toBe(66);
   });
 });
 ```

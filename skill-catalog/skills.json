@@ -1,0 +1,2925 @@
+{
+  "generatedAt": "2026-07-31T13:15:52.790Z",
+  "total": 318,
+  "categories": [
+    {
+      "id": "workspace",
+      "label": "Google Workspace",
+      "count": 90
+    },
+    {
+      "id": "persona",
+      "label": "角色工作流",
+      "count": 10
+    },
+    {
+      "id": "dev-flow",
+      "label": "開發流程",
+      "count": 75
+    },
+    {
+      "id": "review",
+      "label": "審查與精簡",
+      "count": 18
+    },
+    {
+      "id": "marketing",
+      "label": "行銷與成長",
+      "count": 49
+    },
+    {
+      "id": "design",
+      "label": "設計與前端",
+      "count": 30
+    },
+    {
+      "id": "media",
+      "label": "影音與圖像",
+      "count": 5
+    },
+    {
+      "id": "content",
+      "label": "內容生成",
+      "count": 13
+    },
+    {
+      "id": "ops",
+      "label": "環境與工具",
+      "count": 16
+    },
+    {
+      "id": "uncategorised",
+      "label": "未分類",
+      "count": 12
+    }
+  ],
+  "bySource": {
+    "local": 132,
+    "plugin": 81,
+    "mcp": 105
+  },
+  "skills": [
+    {
+      "name": "ab-testing",
+      "description": "When the user wants to plan, design, or implement an A/B test or experiment, or build a growth experimentation program. Also use when the user mentions \"A/B test,\" \"split test,\" \"experiment,\" \"test this change,\" \"variant copy,\" \"multivariate test,\" \"hypothesis,\" \"should I test this,\" \"which version is better,\" \"test two versions,\" \"statistical significance,\" \"how long should I run this test,\" \"growth experiments,\" \"experiment velocity,\" \"experiment backlog,\" \"ICE score,\" \"experimentation program,\" or \"experiment playbook.\" Use this whenever someone is comparing two approaches and wants to measure which performs better, or when they want to build a systematic experimentation practice. For tracking implementation, see analytics. For page-level conversion optimization, see cro.",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\ab-testing\\SKILL.md",
+      "category": "marketing"
+    },
+    {
+      "name": "ad-creative",
+      "description": "When the user wants to generate, iterate, or scale ad creative — headlines, descriptions, primary text, or full ad variations — for any paid advertising platform. Also use when the user mentions 'ad copy variations,' 'ad creative,' 'generate headlines,' 'RSA headlines,' 'bulk ad copy,' 'ad iterations,' 'creative testing,' 'ad performance optimization,' 'write me some ads,' 'Facebook ad copy,' 'Google ad headlines,' 'LinkedIn ad text,' 'static ads,' 'static ad concepts,' 'ad templates,' 'iMessage ad,' 'chat reveal ad,' 'text message ad,' 'fake DM ad,' 'ChatGPT ad,' 'Apple Notes ad,' 'creative strategy,' 'creative roadmap,' 'creative retro,' 'hook writing,' 'motion video ad,' 'faceless video ad,' 'animated explainer ad,' 'motion collage ad,' or 'I need more ad variations.' Use this whenever someone needs to produce ad copy at scale or iterate on existing ads. For campaign strategy and targeting, see ads. For landing page copy, see copywriting.",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\ad-creative\\SKILL.md",
+      "category": "marketing"
+    },
+    {
+      "name": "ads",
+      "description": "When the user wants help with paid advertising campaigns on Google Ads, Meta (Facebook/Instagram), LinkedIn, Twitter/X, or other ad platforms. Also use when the user mentions 'PPC,' 'paid media,' 'ROAS,' 'CPA,' 'ad campaign,' 'retargeting,' 'audience targeting,' 'Google Ads,' 'Facebook ads,' 'LinkedIn ads,' 'ad budget,' 'cost per click,' 'ad spend,' 'should I run ads,' 'ABM,' 'account-based marketing,' 'B2B ads,' 'lead quality,' 'negative keywords,' 'Performance Max,' 'thought leader ads,' or 'when should I kill an ad.' Use this for campaign strategy, audience targeting, bidding, and optimization. For bulk ad creative generation and iteration, see ad-creative. For landing page optimization, see cro.",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\ads\\SKILL.md",
+      "category": "marketing"
+    },
+    {
+      "name": "ai-seo",
+      "description": "When the user wants to optimize content for AI search engines, get cited by LLMs, or appear in AI-generated answers. Also use when the user mentions 'AI SEO,' 'AEO,' 'GEO,' 'LLMO,' 'answer engine optimization,' 'generative engine optimization,' 'LLM optimization,' 'AI Overviews,' 'optimize for ChatGPT,' 'optimize for Perplexity,' 'AI citations,' 'AI visibility,' 'zero-click search,' 'how do I show up in AI answers,' 'LLM mentions,' 'optimize for Claude/Gemini,' 'llms.txt,' 'OKF,' 'Open Knowledge Format,' 'knowledge bundle,' or 'agent-readable site.' Use this whenever someone wants their content to be cited or surfaced by AI assistants and AI search engines. For traditional technical and on-page SEO audits, see seo-audit. For structured data implementation, see schema.",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\ai-seo\\SKILL.md",
+      "category": "marketing"
+    },
+    {
+      "name": "algorithmic-art",
+      "description": "Creating algorithmic art using p5.js with seeded randomness and interactive parameter exploration. Use this when users request creating art using code, generative art, algorithmic art, flow fields, or particle systems. Create original algorithmic art rather than copying existing artists' work to avoid copyright violations.",
+      "source": "local",
+      "copies": 2,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\algorithmic-art\\SKILL.md",
+      "category": "content"
+    },
+    {
+      "name": "analytics",
+      "description": "When the user wants to set up, improve, or audit analytics tracking and measurement. Also use when the user mentions \"set up tracking,\" \"GA4,\" \"Google Analytics,\" \"conversion tracking,\" \"event tracking,\" \"UTM parameters,\" \"tag manager,\" \"GTM,\" \"analytics implementation,\" \"tracking plan,\" \"how do I measure this,\" \"track conversions,\" \"attribution,\" \"Mixpanel,\" \"Segment,\" \"are my events firing,\" or \"analytics isn't working.\" Use this whenever someone asks how to know if something is working or wants to measure marketing results. For A/B test measurement, see ab-testing.",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\analytics\\SKILL.md",
+      "category": "marketing"
+    },
+    {
+      "name": "ask-matt",
+      "description": "Ask which skill or flow fits your situation. A router over the skills in this repo.",
+      "source": "plugin",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\plugins\\cache\\mattpocock\\mattpocock-skills\\1.2.0\\skills\\engineering\\ask-matt\\SKILL.md",
+      "category": "ops"
+    },
+    {
+      "name": "aso",
+      "description": "When the user wants to audit or optimize an App Store or Google Play listing. Also use when the user mentions 'ASO audit,' 'app store optimization,' 'optimize my app listing,' 'improve app visibility,' 'app store ranking,' 'audit my listing,' 'why aren't people downloading my app,' 'improve my app conversion,' 'keyword optimization for app,' or 'compare my app to competitors.' Use when the user shares an App Store or Google Play URL and wants to improve it.",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\aso\\SKILL.md",
+      "category": "marketing"
+    },
+    {
+      "name": "banner-design",
+      "description": "Design banners for social media, ads, website heroes, creative assets, and print. Multiple art direction options with AI-generated visuals. Actions: design, create, generate banner. Platforms: Facebook, Twitter/X, LinkedIn, YouTube, Instagram, Google Display, website hero, print. Styles: minimalist, gradient, bold typography, photo-based, illustrated, geometric, retro, glassmorphism, 3D, neon, duotone, editorial, collage. Uses ui-ux-pro-max, frontend-design, ai-artist, ai-multimodal skills.",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\banner-design\\SKILL.md",
+      "category": "marketing"
+    },
+    {
+      "name": "batch-grill-me",
+      "description": "A relentless interview that asks every frontier question at once, round by round.",
+      "source": "plugin",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\plugins\\cache\\mattpocock\\mattpocock-skills\\1.2.0\\skills\\in-progress\\batch-grill-me\\SKILL.md",
+      "category": "uncategorised"
+    },
+    {
+      "name": "brainstorming",
+      "description": "You MUST use this before any creative work - creating features, building components, adding functionality, or modifying behavior. Explores user intent, requirements and design before implementation.",
+      "source": "plugin",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\plugins\\cache\\claude-plugins-official\\superpowers\\6.1.1\\skills\\brainstorming\\SKILL.md",
+      "category": "design"
+    },
+    {
+      "name": "brand",
+      "description": "Brand voice, visual identity, messaging frameworks, asset management, brand consistency. Activate for branded content, tone of voice, marketing assets, brand compliance, style guides.",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\brand\\SKILL.md",
+      "category": "marketing"
+    },
+    {
+      "name": "brand-guidelines",
+      "description": "Applies Anthropic's official brand colors and typography to any sort of artifact that may benefit from having Anthropic's look-and-feel. Use it when brand colors or style guidelines, visual formatting, or company design standards apply.",
+      "source": "plugin",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\plugins\\cache\\anthropic-agent-skills\\example-skills\\fa0fa64bdc96\\skills\\brand-guidelines\\SKILL.md",
+      "category": "design"
+    },
+    {
+      "name": "canvas-design",
+      "description": "Create beautiful visual art in .png and .pdf documents using design philosophy. You should use this skill when the user asks to create a poster, piece of art, design, or other static piece. Create original visual designs, never copying existing artists' work to avoid copyright violations.",
+      "source": "local",
+      "copies": 2,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\canvas-design\\SKILL.md",
+      "category": "design"
+    },
+    {
+      "name": "churn-prevention",
+      "description": "When the user wants to reduce churn, build cancellation flows, set up save offers, recover failed payments, or implement retention strategies. Also use when the user mentions 'churn,' 'cancel flow,' 'offboarding,' 'save offer,' 'dunning,' 'failed payment recovery,' 'win-back,' 'retention,' 'exit survey,' 'pause subscription,' 'involuntary churn,' 'people keep canceling,' 'churn rate is too high,' 'how do I keep users,' or 'customers are leaving.' Use this whenever someone is losing subscribers or wants to build systems to prevent it. For post-cancel win-back email sequences, see emails. For in-app upgrade paywalls, see paywalls.",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\churn-prevention\\SKILL.md",
+      "category": "marketing"
+    },
+    {
+      "name": "claude-api",
+      "description": "Reference for the Claude API / Anthropic SDK — model ids, pricing, params, streaming, tool use, MCP, agents, caching, token counting, model migration. TRIGGER — read BEFORE opening the target file; don't skip because it \"looks like a one-liner\" — whenever: the prompt names Claude/Anthropic in any form (Claude, Anthropic, Fable, Opus, Sonnet, Haiku, `anthropic`, `@anthropic-ai`, `claude-*`, `us.anthropic.*`, `[1m]`); the user asks about an LLM (pricing/model choice/limits/caching) — never answer from memory; OR the task is LLM-shaped with provider unstated (agent/MCP/tool-definition/multi-agent/RAG/LLM-judge/computer-use; generate/summarize/extract/classify/rewrite/converse over NL; debugging refusals/cutoffs/streaming/tool-calls/tokens). SKIP only when another provider is being worked on (overrides all triggers): OpenAI/GPT/Gemini/Llama/Mistral/Cohere/Ollama named in the query; OR `grep -rE 'openai|langchain_openai|google.generativeai|genai|mistralai|cohere|ollama'` over the project hits (run this grep FIRST if no provider named — don't Read the file).",
+      "source": "plugin",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\plugins\\cache\\anthropic-agent-skills\\example-skills\\fa0fa64bdc96\\skills\\claude-api\\SKILL.md",
+      "category": "review"
+    },
+    {
+      "name": "claude-handoff",
+      "description": "Hand the current conversation off to a fresh background agent that picks up the work immediately.",
+      "source": "plugin",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\plugins\\cache\\mattpocock\\mattpocock-skills\\1.2.0\\skills\\in-progress\\claude-handoff\\SKILL.md",
+      "category": "ops"
+    },
+    {
+      "name": "co-marketing",
+      "description": "When the user wants to find co-marketing partners, plan joint campaigns, or brainstorm partnership opportunities. Use when the user says 'co-marketing,' 'partner marketing,' 'joint campaign,' 'who should we partner with,' 'integration marketing,' 'cross-promotion,' 'collaborate with another company,' 'partnership ideas,' or 'co-brand.' For customer referral programs, see referrals. For launch-specific partnerships, see launch.",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\co-marketing\\SKILL.md",
+      "category": "marketing"
+    },
+    {
+      "name": "code-review",
+      "description": "Review the changes since a fixed point (commit, branch, tag, or merge-base) along two axes — Standards (does the code follow this repo's documented coding standards?) and Spec (does the code match what the originating issue/PRD asked for?). Runs both reviews in parallel sub-agents and reports them side by side. Use when the user wants to review a branch, a PR, work-in-progress changes, or asks to \"review since X\".",
+      "source": "plugin",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\plugins\\cache\\mattpocock\\mattpocock-skills\\1.2.0\\skills\\engineering\\code-review\\SKILL.md",
+      "category": "dev-flow"
+    },
+    {
+      "name": "codebase-design",
+      "description": "Shared vocabulary for designing deep modules. Use when the user wants to design or improve a module's interface, find deepening opportunities, decide where a seam goes, make code more testable or AI-navigable, or when another skill needs the deep-module vocabulary.",
+      "source": "plugin",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\plugins\\cache\\mattpocock\\mattpocock-skills\\1.2.0\\skills\\engineering\\codebase-design\\SKILL.md",
+      "category": "design"
+    },
+    {
+      "name": "codex-cli-runtime",
+      "description": "Internal helper contract for calling the codex-companion runtime from Claude Code",
+      "source": "plugin",
+      "copies": 1,
+      "invocable": false,
+      "path": "C:\\Users\\User\\.claude\\plugins\\cache\\openai-codex\\codex\\1.0.5\\skills\\codex-cli-runtime\\SKILL.md",
+      "category": "ops"
+    },
+    {
+      "name": "codex-result-handling",
+      "description": "Internal guidance for presenting Codex helper output back to the user",
+      "source": "plugin",
+      "copies": 1,
+      "invocable": false,
+      "path": "C:\\Users\\User\\.claude\\plugins\\cache\\openai-codex\\codex\\1.0.5\\skills\\codex-result-handling\\SKILL.md",
+      "category": "ops"
+    },
+    {
+      "name": "cold-email",
+      "description": "Write B2B cold emails and follow-up sequences that get replies. Use when the user wants to write cold outreach emails, prospecting emails, cold email campaigns, sales development emails, or SDR emails. Also use when the user mentions \"cold outreach,\" \"prospecting email,\" \"outbound email,\" \"email to leads,\" \"reach out to prospects,\" \"sales email,\" \"follow-up email sequence,\" \"nobody's replying to my emails,\" or \"how do I write a cold email.\" Covers subject lines, opening lines, body copy, CTAs, personalization, and multi-touch follow-up sequences. For warm/lifecycle email sequences, see emails. For sales collateral beyond emails, see sales-enablement.",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\cold-email\\SKILL.md",
+      "category": "marketing"
+    },
+    {
+      "name": "community-marketing",
+      "description": "Build and leverage online communities to drive product growth and brand loyalty. Use when the user wants to create a community strategy, grow a Discord or Slack community, manage a forum or subreddit, build brand advocates, increase word-of-mouth, drive community-led growth, engage users post-signup, or turn customers into evangelists. Trigger phrases: \\\"build a community,\\\" \\\"community strategy,\\\" \\\"Discord community,\\\" \\\"Slack community,\\\" \\\"community-led growth,\\\" \\\"brand advocates,\\\" \\\"user community,\\\" \\\"forum strategy,\\\" \\\"community engagement,\\\" \\\"grow our community,\\\" \\\"ambassador program,\\\" \\\"community flywheel.\\\"",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\community-marketing\\SKILL.md",
+      "category": "marketing"
+    },
+    {
+      "name": "competitive-ads-extractor",
+      "description": "Extracts and analyzes competitors' ads from ad libraries (Facebook, LinkedIn, etc.) to understand what messaging, problems, and creative approaches are working. Helps inspire and improve your own ad campaigns.",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\competitive-ads-extractor\\SKILL.md",
+      "category": "marketing"
+    },
+    {
+      "name": "competitor-profiling",
+      "description": "When the user wants to research, profile, or analyze competitors from their URLs. Also use when the user mentions 'competitor profile,' 'competitor research,' 'competitor analysis,' 'profile this competitor,' 'analyze competitor,' 'competitive intelligence,' 'competitor deep dive,' 'who are my competitors,' 'competitor landscape,' 'competitor dossier,' 'competitive audit,' or 'research these competitors.' Input is a list of competitor URLs. Output is structured competitor profile markdown files. For creating comparison/alternative pages from profiles, see competitors. For sales-specific battle cards, see sales-enablement.",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\competitor-profiling\\SKILL.md",
+      "category": "marketing"
+    },
+    {
+      "name": "competitors",
+      "description": "When the user wants to create competitor comparison or alternative pages for SEO and sales enablement. Also use when the user mentions 'alternative page,' 'vs page,' 'competitor comparison,' 'comparison page,' '[Product] vs [Product],' '[Product] alternative,' 'competitive landing pages,' 'how do we compare to X,' 'battle card,' or 'competitor teardown.' Use this for any content that positions your product against competitors. Covers four formats: singular alternative, plural alternatives, you vs competitor, and competitor vs competitor. For sales-specific competitor docs, see sales-enablement.",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\competitors\\SKILL.md",
+      "category": "marketing"
+    },
+    {
+      "name": "content-strategy",
+      "description": "When the user wants to plan a content strategy, decide what content to create, or figure out what topics to cover. Also use when the user mentions \"content strategy,\" \"what should I write about,\" \"content ideas,\" \"blog strategy,\" \"topic clusters,\" \"content planning,\" \"editorial calendar,\" \"content marketing,\" \"content roadmap,\" \"what content should I create,\" \"blog topics,\" \"content pillars,\" or \"I don't know what to write.\" Use this whenever someone needs help deciding what content to produce, not just writing it. For writing individual pieces, see copywriting. For SEO-specific audits, see seo-audit. For social media content specifically, see social.",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\content-strategy\\SKILL.md",
+      "category": "marketing"
+    },
+    {
+      "name": "copy-editing",
+      "description": "When the user wants to edit, review, or improve existing marketing copy, or refresh outdated content. Also use when the user mentions 'edit this copy,' 'review my copy,' 'copy feedback,' 'proofread,' 'polish this,' 'make this better,' 'copy sweep,' 'tighten this up,' 'this reads awkwardly,' 'clean up this text,' 'too wordy,' 'sharpen the messaging,' 'refresh this content,' 'update this page,' 'this content is outdated,' or 'content audit.' Use this when the user already has copy and wants it improved or refreshed rather than rewritten from scratch. For writing new copy, see copywriting.",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\copy-editing\\SKILL.md",
+      "category": "marketing"
+    },
+    {
+      "name": "copywriting",
+      "description": "When the user wants to write, rewrite, or improve marketing copy for any page — including homepage, landing pages, pricing pages, feature pages, about pages, or product pages. Also use when the user says \"write copy for,\" \"improve this copy,\" \"rewrite this page,\" \"marketing copy,\" \"headline help,\" \"CTA copy,\" \"value proposition,\" \"tagline,\" \"subheadline,\" \"hero section copy,\" \"above the fold,\" \"this copy is weak,\" \"make this more compelling,\" or \"help me describe my product.\" Use this whenever someone is working on website text that needs to persuade or convert. For email copy, see emails. For popup copy, see popups. For editing existing copy, see copy-editing. For the offer underneath the copy (bonuses, guarantees, value framing), see offers.",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\copywriting\\SKILL.md",
+      "category": "marketing"
+    },
+    {
+      "name": "cro",
+      "description": "When the user wants to optimize, improve, or increase conversions on any marketing page or form — including homepage, landing pages, pricing pages, feature pages, lead capture forms, or contact forms. Also use when the user says 'CRO,' 'conversion rate optimization,' 'this page isn't converting,' 'improve conversions,' 'why isn't this page working,' 'my landing page sucks,' 'form abandonment,' 'nobody's converting,' 'low conversion rate,' or 'this page needs work.' Use this even if the user just shares a URL and asks for feedback. For signup/registration flows, see signup. For post-signup activation, see onboarding. For popups/modals, see popups.",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\cro\\SKILL.md",
+      "category": "marketing"
+    },
+    {
+      "name": "customer-research",
+      "description": "When the user wants to conduct, analyze, or synthesize customer research. Use when the user mentions \"customer research,\" \"ICP research,\" \"talk to customers,\" \"analyze transcripts,\" \"customer interviews,\" \"survey analysis,\" \"support ticket analysis,\" \"voice of customer,\" \"VOC,\" \"build personas,\" \"customer personas,\" \"jobs to be done,\" \"JTBD,\" \"what do customers say,\" \"what are customers struggling with,\" \"Reddit mining,\" \"G2 reviews,\" \"review mining,\" \"digital watering holes,\" \"community research,\" \"forum research,\" \"competitor reviews,\" \"customer sentiment,\" or \"find out why customers churn/convert/buy.\" Use for both analyzing existing research assets AND gathering new research from online sources. For writing copy informed by research, see copywriting. For acting on research to improve pages, see cro.",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\customer-research\\SKILL.md",
+      "category": "marketing"
+    },
+    {
+      "name": "dataviz",
+      "description": "圖表與資料視覺化設計系統，含配色與可及性驗證",
+      "source": "mcp",
+      "copies": 1,
+      "invocable": true,
+      "path": null,
+      "category": "design"
+    },
+    {
+      "name": "design",
+      "description": "Comprehensive design skill: brand identity, design tokens, UI styling, logo generation (55 styles, Gemini AI), corporate identity program (50 deliverables, CIP mockups), HTML presentations (Chart.js), banner design (22 styles, social/ads/web/print), icon design (15 styles, SVG, Gemini 3.1 Pro), social photos (HTML→screenshot, multi-platform). Actions: design logo, create CIP, generate mockups, build slides, design banner, generate icon, create social photos, social media images, brand identity, design system. Platforms: Facebook, Twitter, LinkedIn, YouTube, Instagram, Pinterest, TikTok, Threads, Google Ads.",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\design\\SKILL.md",
+      "category": "marketing"
+    },
+    {
+      "name": "design-an-interface",
+      "description": "Generate multiple radically different interface designs for a module using parallel sub-agents. Use when user wants to design an API, explore interface options, compare module shapes, or mentions \"design it twice\".",
+      "source": "plugin",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\plugins\\cache\\mattpocock\\mattpocock-skills\\1.2.0\\skills\\deprecated\\design-an-interface\\SKILL.md",
+      "category": "design"
+    },
+    {
+      "name": "design-system",
+      "description": "Token architecture, component specifications, and slide generation. Three-layer tokens (primitive→semantic→component), CSS variables, spacing/typography scales, component specs, strategic slide creation. Use for design tokens, systematic design, brand-compliant presentations.",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\design-system\\SKILL.md",
+      "category": "design"
+    },
+    {
+      "name": "diagnosing-bugs",
+      "description": "Diagnosis loop for hard bugs and performance regressions. Use when the user says \"diagnose\"/\"debug this\", or reports something broken/throwing/failing/slow.",
+      "source": "plugin",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\plugins\\cache\\mattpocock\\mattpocock-skills\\1.2.0\\skills\\engineering\\diagnosing-bugs\\SKILL.md",
+      "category": "review"
+    },
+    {
+      "name": "directory-submissions",
+      "description": "When the user wants to submit their product to startup, SaaS, AI, agent, MCP, no-code, or review directories for backlinks, domain rating, and discovery. Also use when the user mentions \"directory submissions,\" \"submit to directories,\" \"backlinks from directories,\" \"list my product,\" \"submit to Product Hunt,\" \"BetaList,\" \"TAAFT,\" \"Futurepedia,\" \"G2 listing,\" \"Capterra listing,\" \"AlternativeTo,\" \"SaaSHub,\" \"AI directories,\" \"MCP registry,\" \"agent directory,\" \"dofollow backlinks,\" \"launch directories,\" or \"directory tracker.\" Use this whenever someone is planning the directory layer of a product launch or an ongoing backlink campaign. For the broader launch moment, see launch. For programmatic SEO pages that should live behind these backlinks, see programmatic-seo. For AI citation optimization, see ai-seo.",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\directory-submissions\\SKILL.md",
+      "category": "marketing"
+    },
+    {
+      "name": "dispatching-parallel-agents",
+      "description": "Use when facing 2+ independent tasks that can be worked on without shared state or sequential dependencies",
+      "source": "plugin",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\plugins\\cache\\claude-plugins-official\\superpowers\\6.1.1\\skills\\dispatching-parallel-agents\\SKILL.md",
+      "category": "ops"
+    },
+    {
+      "name": "doc-coauthoring",
+      "description": "Guide users through a structured workflow for co-authoring documentation. Use when user wants to write documentation, proposals, technical specs, decision docs, or similar structured content. This workflow helps users efficiently transfer context, refine content through iteration, and verify the doc works for readers. Trigger when user mentions writing docs, creating proposals, drafting specs, or similar documentation tasks.",
+      "source": "plugin",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\plugins\\cache\\anthropic-agent-skills\\example-skills\\fa0fa64bdc96\\skills\\doc-coauthoring\\SKILL.md",
+      "category": "design"
+    },
+    {
+      "name": "docx",
+      "description": "Use this skill whenever the user wants to create, read, edit, or manipulate Word documents (.docx files) or Word templates (.dotx files). Triggers include: any mention of 'Word doc', 'word document', '.docx', '.dotx', or requests to produce professional documents with formatting like tables of contents, headings, page numbers, or letterheads. Also use when extracting or reorganizing content from .docx or .dotx files, inserting or replacing images in documents, performing find-and-replace in Word files, working with tracked changes or comments, or converting content into a polished Word document. If the user asks for a 'report', 'memo', 'letter', 'template', or similar deliverable as a Word or .docx file, use this skill. Do NOT use for PDFs, spreadsheets, Google Docs, or general coding tasks unrelated to document generation.",
+      "source": "plugin",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\plugins\\cache\\anthropic-agent-skills\\example-skills\\fa0fa64bdc96\\skills\\docx\\SKILL.md",
+      "category": "workspace"
+    },
+    {
+      "name": "domain-modeling",
+      "description": "Build and sharpen a project's domain model. Use when the user wants to pin down domain terminology or a ubiquitous language, record an architectural decision, or when another skill needs to maintain the domain model.",
+      "source": "plugin",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\plugins\\cache\\mattpocock\\mattpocock-skills\\1.2.0\\skills\\engineering\\domain-modeling\\SKILL.md",
+      "category": "design"
+    },
+    {
+      "name": "dot-skill",
+      "description": "Unified meta-skill engine for distilling colleague, relationship, or celebrity characters into reusable Skills. | 统一的 meta-skill 引擎，把 colleague、relationship、celebrity 三类对象蒸馏成可复用 Skill。",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\dot-skill\\SKILL.md",
+      "category": "ops"
+    },
+    {
+      "name": "edit-article",
+      "description": "Edit and improve articles by restructuring sections, improving clarity, and tightening prose. Use when user wants to edit, revise, or improve an article draft.",
+      "source": "plugin",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\plugins\\cache\\mattpocock\\mattpocock-skills\\1.2.0\\skills\\personal\\edit-article\\SKILL.md",
+      "category": "content"
+    },
+    {
+      "name": "emails",
+      "description": "When the user wants to create or optimize an email sequence, drip campaign, automated email flow, or lifecycle email program. Also use when the user mentions \"email sequence,\" \"drip campaign,\" \"nurture sequence,\" \"onboarding emails,\" \"welcome sequence,\" \"re-engagement emails,\" \"email automation,\" \"lifecycle emails,\" \"trigger-based emails,\" \"email funnel,\" \"email workflow,\" \"what emails should I send,\" \"welcome series,\" or \"email cadence.\" Use this for any multi-email automated flow. For cold outreach emails, see cold-email. For in-app onboarding, see onboarding.",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\emails\\SKILL.md",
+      "category": "marketing"
+    },
+    {
+      "name": "executing-plans",
+      "description": "Use when you have a written implementation plan to execute in a separate session with review checkpoints",
+      "source": "plugin",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\plugins\\cache\\claude-plugins-official\\superpowers\\6.1.1\\skills\\executing-plans\\SKILL.md",
+      "category": "uncategorised"
+    },
+    {
+      "name": "fewer-permission-prompts",
+      "description": "掃描 transcript 產生允許清單，減少權限詢問",
+      "source": "mcp",
+      "copies": 1,
+      "invocable": true,
+      "path": null,
+      "category": "media"
+    },
+    {
+      "name": "finishing-a-development-branch",
+      "description": "Use when implementation is complete, all tests pass, and you need to decide how to integrate the work - guides completion of development work by presenting structured options for merge, PR, or cleanup",
+      "source": "plugin",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\plugins\\cache\\claude-plugins-official\\superpowers\\6.1.1\\skills\\finishing-a-development-branch\\SKILL.md",
+      "category": "design"
+    },
+    {
+      "name": "free-tools",
+      "description": "When the user wants to plan, evaluate, or build a free tool for marketing purposes — lead generation, SEO value, or brand awareness. Also use when the user mentions \"engineering as marketing,\" \"free tool,\" \"marketing tool,\" \"calculator,\" \"generator,\" \"interactive tool,\" \"lead gen tool,\" \"build a tool for leads,\" \"free resource,\" \"ROI calculator,\" \"grader tool,\" \"audit tool,\" \"should I build a free tool,\" or \"tools for lead gen.\" Use this whenever someone wants to build something useful and give it away to attract leads or earn links. For downloadable content lead magnets (ebooks, checklists, templates), see lead-magnets.",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\free-tools\\SKILL.md",
+      "category": "marketing"
+    },
+    {
+      "name": "frontend-design",
+      "description": "Guidance for distinctive, intentional visual design when building new UI or reshaping an existing one. Helps with aesthetic direction, typography, and making choices that don't read as templated defaults.",
+      "source": "local",
+      "copies": 2,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\frontend-design\\SKILL.md",
+      "category": "design"
+    },
+    {
+      "name": "git-guardrails-claude-code",
+      "description": "Set up Claude Code hooks to block dangerous git commands (push, reset --hard, clean, branch -D, etc.) before they execute. Use when user wants to prevent destructive git operations, add git safety hooks, or block git push/reset in Claude Code.",
+      "source": "plugin",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\plugins\\cache\\mattpocock\\mattpocock-skills\\1.2.0\\skills\\misc\\git-guardrails-claude-code\\SKILL.md",
+      "category": "ops"
+    },
+    {
+      "name": "gpt-5-4-prompting",
+      "description": "Internal guidance for composing Codex and GPT-5.4 prompts for coding, review, diagnosis, and research tasks inside the Codex Claude Code plugin",
+      "source": "plugin",
+      "copies": 1,
+      "invocable": false,
+      "path": "C:\\Users\\User\\.claude\\plugins\\cache\\openai-codex\\codex\\1.0.5\\skills\\gpt-5-4-prompting\\SKILL.md",
+      "category": "review"
+    },
+    {
+      "name": "graphify",
+      "description": "Use for any question about a codebase, its architecture, file relationships, or project content — especially when graphify-out/ exists, where the question should be treated as a graphify query first. Turns any input (code, docs, papers, images, videos) into a persistent knowledge graph with god nodes, community detection, and query/path/explain tools.",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\graphify\\SKILL.md",
+      "category": "marketing"
+    },
+    {
+      "name": "grill-me",
+      "description": "A relentless interview to sharpen a plan or design.",
+      "source": "plugin",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\plugins\\cache\\mattpocock\\mattpocock-skills\\1.2.0\\skills\\productivity\\grill-me\\SKILL.md",
+      "category": "design"
+    },
+    {
+      "name": "grill-with-docs",
+      "description": "A relentless interview to sharpen a plan or design, which also creates docs (ADR's and glossary) as we go.",
+      "source": "plugin",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\plugins\\cache\\mattpocock\\mattpocock-skills\\1.2.0\\skills\\engineering\\grill-with-docs\\SKILL.md",
+      "category": "design"
+    },
+    {
+      "name": "grilling",
+      "description": "Grill the user relentlessly about a plan, decision, or idea. Use when the user wants to stress-test their thinking, or uses any 'grill' trigger phrases.",
+      "source": "plugin",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\plugins\\cache\\mattpocock\\mattpocock-skills\\1.2.0\\skills\\productivity\\grilling\\SKILL.md",
+      "category": "uncategorised"
+    },
+    {
+      "name": "gsd-add-tests",
+      "description": "Generate tests for a completed phase based on UAT criteria and implementation",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\gsd-add-tests\\SKILL.md",
+      "category": "dev-flow"
+    },
+    {
+      "name": "gsd-ai-integration-phase",
+      "description": "Generate an AI-SPEC.md design contract for phases that involve building AI systems.",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\gsd-ai-integration-phase\\SKILL.md",
+      "category": "dev-flow"
+    },
+    {
+      "name": "gsd-audit-fix",
+      "description": "Autonomous audit-to-fix pipeline — find issues, classify, fix, test, commit",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\gsd-audit-fix\\SKILL.md",
+      "category": "dev-flow"
+    },
+    {
+      "name": "gsd-audit-milestone",
+      "description": "Audit milestone completion against original intent before archiving",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\gsd-audit-milestone\\SKILL.md",
+      "category": "dev-flow"
+    },
+    {
+      "name": "gsd-audit-uat",
+      "description": "Cross-phase audit of all outstanding UAT and verification items",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\gsd-audit-uat\\SKILL.md",
+      "category": "dev-flow"
+    },
+    {
+      "name": "gsd-autonomous",
+      "description": "Run all remaining phases autonomously — discuss→plan→execute per phase",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\gsd-autonomous\\SKILL.md",
+      "category": "dev-flow"
+    },
+    {
+      "name": "gsd-capture",
+      "description": "Capture ideas, tasks, notes, and seeds to their destination",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\gsd-capture\\SKILL.md",
+      "category": "dev-flow"
+    },
+    {
+      "name": "gsd-cleanup",
+      "description": "Archive accumulated phase directories from completed milestones",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\gsd-cleanup\\SKILL.md",
+      "category": "dev-flow"
+    },
+    {
+      "name": "gsd-code-review",
+      "description": "Review source files changed during a phase for bugs, security issues, and code quality problems",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\gsd-code-review\\SKILL.md",
+      "category": "dev-flow"
+    },
+    {
+      "name": "gsd-complete-milestone",
+      "description": "Archive completed milestone and prepare for next version",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\gsd-complete-milestone\\SKILL.md",
+      "category": "dev-flow"
+    },
+    {
+      "name": "gsd-config",
+      "description": "Configure GSD settings — workflow toggles, advanced knobs, integrations, and model profile",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\gsd-config\\SKILL.md",
+      "category": "dev-flow"
+    },
+    {
+      "name": "gsd-debug",
+      "description": "Systematic debugging with persistent state across context resets",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\gsd-debug\\SKILL.md",
+      "category": "dev-flow"
+    },
+    {
+      "name": "gsd-discuss-phase",
+      "description": "Gather phase context through adaptive questioning before planning.",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\gsd-discuss-phase\\SKILL.md",
+      "category": "dev-flow"
+    },
+    {
+      "name": "gsd-docs-update",
+      "description": "Generate or update project documentation verified against the codebase",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\gsd-docs-update\\SKILL.md",
+      "category": "dev-flow"
+    },
+    {
+      "name": "gsd-eval-review",
+      "description": "Audit an executed AI phase's evaluation coverage and produce an EVAL-REVIEW.md remediation plan.",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\gsd-eval-review\\SKILL.md",
+      "category": "dev-flow"
+    },
+    {
+      "name": "gsd-execute-phase",
+      "description": "Execute all plans in a phase with wave-based parallelization",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\gsd-execute-phase\\SKILL.md",
+      "category": "dev-flow"
+    },
+    {
+      "name": "gsd-explore",
+      "description": "Socratic ideation and idea routing — think through ideas before committing to plans",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\gsd-explore\\SKILL.md",
+      "category": "dev-flow"
+    },
+    {
+      "name": "gsd-extract-learnings",
+      "description": "Extract decisions, lessons, patterns, and surprises from completed phase artifacts",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\gsd-extract-learnings\\SKILL.md",
+      "category": "dev-flow"
+    },
+    {
+      "name": "gsd-fast",
+      "description": "Execute a trivial task inline — no subagents, no planning overhead",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\gsd-fast\\SKILL.md",
+      "category": "dev-flow"
+    },
+    {
+      "name": "gsd-forensics",
+      "description": "Post-mortem investigation for failed GSD workflows — diagnoses what went wrong.",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\gsd-forensics\\SKILL.md",
+      "category": "dev-flow"
+    },
+    {
+      "name": "gsd-graphify",
+      "description": "Build, query, and inspect the project knowledge graph in .planning/graphs/",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\gsd-graphify\\SKILL.md",
+      "category": "dev-flow"
+    },
+    {
+      "name": "gsd-health",
+      "description": "Diagnose planning directory health and optionally repair issues",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\gsd-health\\SKILL.md",
+      "category": "dev-flow"
+    },
+    {
+      "name": "gsd-help",
+      "description": "Show available GSD commands and usage guide",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\gsd-help\\SKILL.md",
+      "category": "dev-flow"
+    },
+    {
+      "name": "gsd-import",
+      "description": "Ingest external plans with conflict detection against project decisions before writing anything.",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\gsd-import\\SKILL.md",
+      "category": "dev-flow"
+    },
+    {
+      "name": "gsd-inbox",
+      "description": "Triage and review open GitHub issues and PRs against project templates and contribution guidelines.",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\gsd-inbox\\SKILL.md",
+      "category": "dev-flow"
+    },
+    {
+      "name": "gsd-ingest-docs",
+      "description": "Bootstrap or merge a .planning/ setup from existing ADRs, PRDs, SPECs, and docs in a repo.",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\gsd-ingest-docs\\SKILL.md",
+      "category": "dev-flow"
+    },
+    {
+      "name": "gsd-manager",
+      "description": "Interactive command center for managing multiple phases from one terminal",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\gsd-manager\\SKILL.md",
+      "category": "dev-flow"
+    },
+    {
+      "name": "gsd-map-codebase",
+      "description": "Analyze codebase with parallel mapper agents to produce .planning/codebase/ documents",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\gsd-map-codebase\\SKILL.md",
+      "category": "dev-flow"
+    },
+    {
+      "name": "gsd-milestone-summary",
+      "description": "Generate a comprehensive project summary from milestone artifacts for team onboarding and review",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\gsd-milestone-summary\\SKILL.md",
+      "category": "dev-flow"
+    },
+    {
+      "name": "gsd-mvp-phase",
+      "description": "Plan a phase as a vertical MVP slice — user story, SPIDR splitting, then plan-phase",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\gsd-mvp-phase\\SKILL.md",
+      "category": "dev-flow"
+    },
+    {
+      "name": "gsd-new-milestone",
+      "description": "Start a new milestone cycle — update PROJECT.md and route to requirements",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\gsd-new-milestone\\SKILL.md",
+      "category": "dev-flow"
+    },
+    {
+      "name": "gsd-new-project",
+      "description": "Initialize a new project with deep context gathering and PROJECT.md",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\gsd-new-project\\SKILL.md",
+      "category": "dev-flow"
+    },
+    {
+      "name": "gsd-ns-context",
+      "description": "codebase intelligence | map graphify docs learnings",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\gsd-ns-context\\SKILL.md",
+      "category": "dev-flow"
+    },
+    {
+      "name": "gsd-ns-ideate",
+      "description": "exploration capture | explore sketch spike spec capture",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\gsd-ns-ideate\\SKILL.md",
+      "category": "dev-flow"
+    },
+    {
+      "name": "gsd-ns-manage",
+      "description": "config workspace | workstreams thread update ship inbox",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\gsd-ns-manage\\SKILL.md",
+      "category": "dev-flow"
+    },
+    {
+      "name": "gsd-ns-project",
+      "description": "project lifecycle | milestones audits summary",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\gsd-ns-project\\SKILL.md",
+      "category": "dev-flow"
+    },
+    {
+      "name": "gsd-ns-review",
+      "description": "quality gates | code review debug audit security eval ui",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\gsd-ns-review\\SKILL.md",
+      "category": "dev-flow"
+    },
+    {
+      "name": "gsd-ns-workflow",
+      "description": "workflow | discuss plan execute verify phase progress",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\gsd-ns-workflow\\SKILL.md",
+      "category": "dev-flow"
+    },
+    {
+      "name": "gsd-pause-work",
+      "description": "Create context handoff when pausing work mid-phase",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\gsd-pause-work\\SKILL.md",
+      "category": "dev-flow"
+    },
+    {
+      "name": "gsd-phase",
+      "description": "CRUD for phases in ROADMAP.md — add, insert, remove, or edit phases",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\gsd-phase\\SKILL.md",
+      "category": "dev-flow"
+    },
+    {
+      "name": "gsd-plan-phase",
+      "description": "Create detailed phase plan (PLAN.md) with verification loop",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\gsd-plan-phase\\SKILL.md",
+      "category": "dev-flow"
+    },
+    {
+      "name": "gsd-plan-review-convergence",
+      "description": "Cross-AI plan convergence loop — replan with review feedback until no HIGH concerns remain.",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\gsd-plan-review-convergence\\SKILL.md",
+      "category": "dev-flow"
+    },
+    {
+      "name": "gsd-pr-branch",
+      "description": "Create a clean PR branch by filtering out .planning/ commits — ready for code review",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\gsd-pr-branch\\SKILL.md",
+      "category": "dev-flow"
+    },
+    {
+      "name": "gsd-profile-user",
+      "description": "Generate developer behavioral profile and create Claude-discoverable artifacts",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\gsd-profile-user\\SKILL.md",
+      "category": "dev-flow"
+    },
+    {
+      "name": "gsd-progress",
+      "description": "Check progress, advance workflow, or dispatch freeform intent — the unified GSD situational command",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\gsd-progress\\SKILL.md",
+      "category": "dev-flow"
+    },
+    {
+      "name": "gsd-quick",
+      "description": "Execute a quick task with GSD guarantees (atomic commits, state tracking) but skip optional agents",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\gsd-quick\\SKILL.md",
+      "category": "dev-flow"
+    },
+    {
+      "name": "gsd-resume-work",
+      "description": "Resume work from previous session with full context restoration",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\gsd-resume-work\\SKILL.md",
+      "category": "dev-flow"
+    },
+    {
+      "name": "gsd-review",
+      "description": "Request cross-AI peer review of phase plans from external AI CLIs",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\gsd-review\\SKILL.md",
+      "category": "dev-flow"
+    },
+    {
+      "name": "gsd-review-backlog",
+      "description": "Review and promote backlog items to active milestone",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\gsd-review-backlog\\SKILL.md",
+      "category": "dev-flow"
+    },
+    {
+      "name": "gsd-secure-phase",
+      "description": "Retroactively verify threat mitigations for a completed phase",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\gsd-secure-phase\\SKILL.md",
+      "category": "dev-flow"
+    },
+    {
+      "name": "gsd-settings",
+      "description": "Configure GSD workflow toggles and model profile",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\gsd-settings\\SKILL.md",
+      "category": "dev-flow"
+    },
+    {
+      "name": "gsd-ship",
+      "description": "Create PR, run review, and prepare for merge after verification passes",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\gsd-ship\\SKILL.md",
+      "category": "dev-flow"
+    },
+    {
+      "name": "gsd-sketch",
+      "description": "Sketch UI/design ideas with throwaway HTML mockups, or propose what to sketch next (frontier mode)",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\gsd-sketch\\SKILL.md",
+      "category": "dev-flow"
+    },
+    {
+      "name": "gsd-spec-phase",
+      "description": "Clarify WHAT a phase delivers with ambiguity scoring; produces a SPEC.md before discuss-phase.",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\gsd-spec-phase\\SKILL.md",
+      "category": "dev-flow"
+    },
+    {
+      "name": "gsd-spike",
+      "description": "Spike an idea through experiential exploration, or propose what to spike next (frontier mode)",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\gsd-spike\\SKILL.md",
+      "category": "dev-flow"
+    },
+    {
+      "name": "gsd-stats",
+      "description": "Display project statistics — phases, plans, requirements, git metrics, and timeline",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\gsd-stats\\SKILL.md",
+      "category": "dev-flow"
+    },
+    {
+      "name": "gsd-surface",
+      "description": "Toggle which skills are surfaced — apply a profile, list, or disable a cluster without reinstall",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\gsd-surface\\SKILL.md",
+      "category": "dev-flow"
+    },
+    {
+      "name": "gsd-thread",
+      "description": "Manage persistent context threads for cross-session work",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\gsd-thread\\SKILL.md",
+      "category": "dev-flow"
+    },
+    {
+      "name": "gsd-ui-phase",
+      "description": "Generate UI design contract (UI-SPEC.md) for frontend phases",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\gsd-ui-phase\\SKILL.md",
+      "category": "dev-flow"
+    },
+    {
+      "name": "gsd-ui-review",
+      "description": "Retroactive 6-pillar visual audit of implemented frontend code",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\gsd-ui-review\\SKILL.md",
+      "category": "dev-flow"
+    },
+    {
+      "name": "gsd-ultraplan-phase",
+      "description": "[BETA] Offload plan phase to Claude Code's ultraplan cloud; review in browser and import back.",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\gsd-ultraplan-phase\\SKILL.md",
+      "category": "dev-flow"
+    },
+    {
+      "name": "gsd-undo",
+      "description": "Safe git revert. Roll back phase or plan commits using the phase manifest with dependency checks.",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\gsd-undo\\SKILL.md",
+      "category": "dev-flow"
+    },
+    {
+      "name": "gsd-update",
+      "description": "Update GSD to latest version with changelog display",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\gsd-update\\SKILL.md",
+      "category": "dev-flow"
+    },
+    {
+      "name": "gsd-validate-phase",
+      "description": "Retroactively audit and fill Nyquist validation gaps for a completed phase",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\gsd-validate-phase\\SKILL.md",
+      "category": "dev-flow"
+    },
+    {
+      "name": "gsd-verify-work",
+      "description": "Validate built features through conversational UAT",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\gsd-verify-work\\SKILL.md",
+      "category": "dev-flow"
+    },
+    {
+      "name": "gsd-workspace",
+      "description": "Manage GSD workspaces — create, list, or remove isolated workspace environments",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\gsd-workspace\\SKILL.md",
+      "category": "dev-flow"
+    },
+    {
+      "name": "gsd-workstreams",
+      "description": "Manage parallel workstreams — list, create, switch, status, progress, complete, and resume",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\gsd-workstreams\\SKILL.md",
+      "category": "dev-flow"
+    },
+    {
+      "name": "gws-admin-reports",
+      "description": "Workspace 管理報表",
+      "source": "mcp",
+      "copies": 1,
+      "invocable": true,
+      "path": null,
+      "category": "workspace"
+    },
+    {
+      "name": "gws-calendar",
+      "description": "Google 日曆行程查詢與管理",
+      "source": "mcp",
+      "copies": 1,
+      "invocable": true,
+      "path": null,
+      "category": "workspace"
+    },
+    {
+      "name": "gws-calendar-agenda",
+      "description": "取得日曆議程總覽",
+      "source": "mcp",
+      "copies": 1,
+      "invocable": true,
+      "path": null,
+      "category": "workspace"
+    },
+    {
+      "name": "gws-calendar-insert",
+      "description": "新增日曆行程",
+      "source": "mcp",
+      "copies": 1,
+      "invocable": true,
+      "path": null,
+      "category": "workspace"
+    },
+    {
+      "name": "gws-chat",
+      "description": "Google Chat 訊息",
+      "source": "mcp",
+      "copies": 1,
+      "invocable": true,
+      "path": null,
+      "category": "workspace"
+    },
+    {
+      "name": "gws-chat-send",
+      "description": "發送 Google Chat 訊息",
+      "source": "mcp",
+      "copies": 1,
+      "invocable": true,
+      "path": null,
+      "category": "workspace"
+    },
+    {
+      "name": "gws-classroom",
+      "description": "Google Classroom 課程管理",
+      "source": "mcp",
+      "copies": 1,
+      "invocable": true,
+      "path": null,
+      "category": "workspace"
+    },
+    {
+      "name": "gws-docs",
+      "description": "Google Docs 文件讀取",
+      "source": "mcp",
+      "copies": 1,
+      "invocable": true,
+      "path": null,
+      "category": "workspace"
+    },
+    {
+      "name": "gws-docs-write",
+      "description": "建立或編輯 Google Docs 文件",
+      "source": "mcp",
+      "copies": 1,
+      "invocable": true,
+      "path": null,
+      "category": "workspace"
+    },
+    {
+      "name": "gws-drive",
+      "description": "Google Drive 檔案瀏覽與搜尋",
+      "source": "mcp",
+      "copies": 1,
+      "invocable": true,
+      "path": null,
+      "category": "workspace"
+    },
+    {
+      "name": "gws-drive-upload",
+      "description": "上傳檔案到 Google Drive",
+      "source": "mcp",
+      "copies": 1,
+      "invocable": true,
+      "path": null,
+      "category": "workspace"
+    },
+    {
+      "name": "gws-events",
+      "description": "Workspace 事件訂閱管理",
+      "source": "mcp",
+      "copies": 1,
+      "invocable": true,
+      "path": null,
+      "category": "workspace"
+    },
+    {
+      "name": "gws-events-renew",
+      "description": "更新事件訂閱",
+      "source": "mcp",
+      "copies": 1,
+      "invocable": true,
+      "path": null,
+      "category": "workspace"
+    },
+    {
+      "name": "gws-events-subscribe",
+      "description": "訂閱 Workspace 事件",
+      "source": "mcp",
+      "copies": 1,
+      "invocable": true,
+      "path": null,
+      "category": "workspace"
+    },
+    {
+      "name": "gws-forms",
+      "description": "Google Forms 表單與回應",
+      "source": "mcp",
+      "copies": 1,
+      "invocable": true,
+      "path": null,
+      "category": "workspace"
+    },
+    {
+      "name": "gws-gmail",
+      "description": "Gmail 郵件讀取、搜尋與管理",
+      "source": "mcp",
+      "copies": 1,
+      "invocable": true,
+      "path": null,
+      "category": "workspace"
+    },
+    {
+      "name": "gws-gmail-forward",
+      "description": "轉寄 Gmail 郵件",
+      "source": "mcp",
+      "copies": 1,
+      "invocable": true,
+      "path": null,
+      "category": "workspace"
+    },
+    {
+      "name": "gws-gmail-read",
+      "description": "讀取指定 Gmail 郵件內容",
+      "source": "mcp",
+      "copies": 1,
+      "invocable": true,
+      "path": null,
+      "category": "workspace"
+    },
+    {
+      "name": "gws-gmail-reply",
+      "description": "回覆 Gmail 郵件",
+      "source": "mcp",
+      "copies": 1,
+      "invocable": true,
+      "path": null,
+      "category": "workspace"
+    },
+    {
+      "name": "gws-gmail-reply-all",
+      "description": "回覆全部收件者",
+      "source": "mcp",
+      "copies": 1,
+      "invocable": true,
+      "path": null,
+      "category": "workspace"
+    },
+    {
+      "name": "gws-gmail-send",
+      "description": "寄送 Gmail 郵件",
+      "source": "mcp",
+      "copies": 1,
+      "invocable": true,
+      "path": null,
+      "category": "workspace"
+    },
+    {
+      "name": "gws-gmail-triage",
+      "description": "Gmail 收件匣分類整理",
+      "source": "mcp",
+      "copies": 1,
+      "invocable": true,
+      "path": null,
+      "category": "workspace"
+    },
+    {
+      "name": "gws-gmail-watch",
+      "description": "監控 Gmail 新郵件事件",
+      "source": "mcp",
+      "copies": 1,
+      "invocable": true,
+      "path": null,
+      "category": "workspace"
+    },
+    {
+      "name": "gws-keep",
+      "description": "Google Keep 記事",
+      "source": "mcp",
+      "copies": 1,
+      "invocable": true,
+      "path": null,
+      "category": "workspace"
+    },
+    {
+      "name": "gws-meet",
+      "description": "Google Meet 會議管理",
+      "source": "mcp",
+      "copies": 1,
+      "invocable": true,
+      "path": null,
+      "category": "workspace"
+    },
+    {
+      "name": "gws-modelarmor",
+      "description": "Model Armor 內容安全防護",
+      "source": "mcp",
+      "copies": 1,
+      "invocable": true,
+      "path": null,
+      "category": "workspace"
+    },
+    {
+      "name": "gws-modelarmor-create-template",
+      "description": "建立 Model Armor 範本",
+      "source": "mcp",
+      "copies": 1,
+      "invocable": true,
+      "path": null,
+      "category": "workspace"
+    },
+    {
+      "name": "gws-modelarmor-sanitize-prompt",
+      "description": "淨化輸入提示",
+      "source": "mcp",
+      "copies": 1,
+      "invocable": true,
+      "path": null,
+      "category": "workspace"
+    },
+    {
+      "name": "gws-modelarmor-sanitize-response",
+      "description": "淨化模型回應",
+      "source": "mcp",
+      "copies": 1,
+      "invocable": true,
+      "path": null,
+      "category": "workspace"
+    },
+    {
+      "name": "gws-people",
+      "description": "Google 聯絡人管理",
+      "source": "mcp",
+      "copies": 1,
+      "invocable": true,
+      "path": null,
+      "category": "workspace"
+    },
+    {
+      "name": "gws-script",
+      "description": "Google Apps Script 操作",
+      "source": "mcp",
+      "copies": 1,
+      "invocable": true,
+      "path": null,
+      "category": "workspace"
+    },
+    {
+      "name": "gws-script-push",
+      "description": "推送 Apps Script 程式碼",
+      "source": "mcp",
+      "copies": 1,
+      "invocable": true,
+      "path": null,
+      "category": "workspace"
+    },
+    {
+      "name": "gws-shared",
+      "description": "Workspace 共用資源存取",
+      "source": "mcp",
+      "copies": 1,
+      "invocable": true,
+      "path": null,
+      "category": "workspace"
+    },
+    {
+      "name": "gws-sheets",
+      "description": "Google Sheets 試算表操作",
+      "source": "mcp",
+      "copies": 1,
+      "invocable": true,
+      "path": null,
+      "category": "workspace"
+    },
+    {
+      "name": "gws-sheets-append",
+      "description": "附加資料列到試算表",
+      "source": "mcp",
+      "copies": 1,
+      "invocable": true,
+      "path": null,
+      "category": "workspace"
+    },
+    {
+      "name": "gws-sheets-read",
+      "description": "讀取試算表資料",
+      "source": "mcp",
+      "copies": 1,
+      "invocable": true,
+      "path": null,
+      "category": "workspace"
+    },
+    {
+      "name": "gws-slides",
+      "description": "Google Slides 簡報操作",
+      "source": "mcp",
+      "copies": 1,
+      "invocable": true,
+      "path": null,
+      "category": "workspace"
+    },
+    {
+      "name": "gws-tasks",
+      "description": "Google Tasks 待辦事項",
+      "source": "mcp",
+      "copies": 1,
+      "invocable": true,
+      "path": null,
+      "category": "workspace"
+    },
+    {
+      "name": "gws-workflow",
+      "description": "Workspace 跨服務流程",
+      "source": "mcp",
+      "copies": 1,
+      "invocable": true,
+      "path": null,
+      "category": "workspace"
+    },
+    {
+      "name": "gws-workflow-email-to-task",
+      "description": "郵件轉待辦事項",
+      "source": "mcp",
+      "copies": 1,
+      "invocable": true,
+      "path": null,
+      "category": "workspace"
+    },
+    {
+      "name": "gws-workflow-file-announce",
+      "description": "檔案更新通知流程",
+      "source": "mcp",
+      "copies": 1,
+      "invocable": true,
+      "path": null,
+      "category": "workspace"
+    },
+    {
+      "name": "gws-workflow-meeting-prep",
+      "description": "會議準備流程",
+      "source": "mcp",
+      "copies": 1,
+      "invocable": true,
+      "path": null,
+      "category": "workspace"
+    },
+    {
+      "name": "gws-workflow-standup-report",
+      "description": "每日站會report流程",
+      "source": "mcp",
+      "copies": 1,
+      "invocable": true,
+      "path": null,
+      "category": "workspace"
+    },
+    {
+      "name": "gws-workflow-weekly-digest",
+      "description": "每週摘要流程",
+      "source": "mcp",
+      "copies": 1,
+      "invocable": true,
+      "path": null,
+      "category": "workspace"
+    },
+    {
+      "name": "handoff",
+      "description": "Compact the current conversation into a handoff document for another agent to pick up.",
+      "source": "plugin",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\plugins\\cache\\mattpocock\\mattpocock-skills\\1.2.0\\skills\\productivity\\handoff\\SKILL.md",
+      "category": "content"
+    },
+    {
+      "name": "humanizer",
+      "description": "Remove signs of AI-generated writing from text. Use when editing or reviewing text to make it sound more natural and human-written. Based on Wikipedia's comprehensive \"Signs of AI writing\" guide. Detects and fixes patterns including: inflated symbolism, promotional language, superficial -ing analyses, vague attributions, em dash overuse, rule of three, AI vocabulary words, passive voice, negative parallelisms, and filler phrases.",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\humanizer\\SKILL.md",
+      "category": "design"
+    },
+    {
+      "name": "image",
+      "description": "When the user wants to create, generate, edit, or optimize images for marketing — blog heroes, social graphics, product mockups, profile banners, listing visuals, or brand assets. Also use when the user mentions 'AI image generation,' 'generate an image,' 'create a graphic,' 'product mockup,' 'hero image,' 'social media graphic,' 'banner image,' 'cover photo,' 'profile banner,' 'listing screenshot,' 'Flux,' 'Flux Kontext,' 'Midjourney,' 'DALL-E,' 'GPT Image,' 'ChatGPT Images,' 'Ideogram,' 'Gemini image,' 'Nano Banana,' 'Recraft,' 'Stable Diffusion,' 'Canva,' 'Figma,' 'image optimization,' 'compress images,' 'WebP,' or 'OG image.' Use this for general-purpose marketing image creation and optimization. For paid ad image creative and platform-specific ad specs, see ad-creative. For video production, see video.",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\image\\SKILL.md",
+      "category": "marketing"
+    },
+    {
+      "name": "impeccable",
+      "description": "Use when the user wants to design, redesign, shape, critique, audit, polish, clarify, distill, harden, optimize, adapt, animate, colorize, extract, or otherwise improve a frontend interface. Covers websites, landing pages, dashboards, product UI, app shells, components, forms, settings, onboarding, and empty states. Handles UX review, visual hierarchy, information architecture, cognitive load, accessibility, performance, responsive behavior, theming, anti-patterns, typography, fonts, spacing, layout, alignment, color, motion, micro-interactions, UX copy, error states, edge cases, i18n, and reusable design systems or tokens. Also use for bland designs that need to become bolder or more delightful, loud designs that should become quieter, live browser iteration on UI elements, or ambitious visual effects that should feel technically extraordinary. Not for backend-only or non-UI tasks.",
+      "source": "plugin",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\plugins\\cache\\impeccable\\impeccable\\3.9.1\\skills\\impeccable\\SKILL.md",
+      "category": "review"
+    },
+    {
+      "name": "implement",
+      "description": "Implement a piece of work based on a spec or set of tickets.",
+      "source": "plugin",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\plugins\\cache\\mattpocock\\mattpocock-skills\\1.2.0\\skills\\engineering\\implement\\SKILL.md",
+      "category": "uncategorised"
+    },
+    {
+      "name": "improve-codebase-architecture",
+      "description": "Scan a codebase for deepening opportunities, present them as a visual HTML report, then grill through whichever one you pick.",
+      "source": "plugin",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\plugins\\cache\\mattpocock\\mattpocock-skills\\1.2.0\\skills\\engineering\\improve-codebase-architecture\\SKILL.md",
+      "category": "design"
+    },
+    {
+      "name": "init",
+      "description": "初始化專案設定",
+      "source": "mcp",
+      "copies": 1,
+      "invocable": true,
+      "path": null,
+      "category": "uncategorised"
+    },
+    {
+      "name": "internal-comms",
+      "description": "A set of resources to help me write all kinds of internal communications, using the formats that my company likes to use. Claude should use this skill whenever asked to write some sort of internal communications (status reports, leadership updates, 3P updates, company newsletters, FAQs, incident reports, project updates, etc.).",
+      "source": "plugin",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\plugins\\cache\\anthropic-agent-skills\\example-skills\\fa0fa64bdc96\\skills\\internal-comms\\SKILL.md",
+      "category": "content"
+    },
+    {
+      "name": "keybindings-help",
+      "description": "自訂鍵盤快捷鍵與 keybindings.json",
+      "source": "mcp",
+      "copies": 1,
+      "invocable": true,
+      "path": null,
+      "category": "ops"
+    },
+    {
+      "name": "launch",
+      "description": "When the user wants to plan a product launch, feature announcement, or release strategy. Also use when the user mentions 'launch,' 'Product Hunt,' 'feature release,' 'announcement,' 'go-to-market,' 'beta launch,' 'early access,' 'waitlist,' 'product update,' 'how do I launch this,' 'launch checklist,' 'GTM plan,' or 'we're about to ship.' Use this whenever someone is preparing to release something publicly. For ongoing marketing after launch, see marketing-ideas. For the offer being launched (bonuses, guarantees, scarcity, naming), see offers.",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\launch\\SKILL.md",
+      "category": "marketing"
+    },
+    {
+      "name": "lead-magnets",
+      "description": "When the user wants to create, plan, or optimize a lead magnet for email capture or lead generation. Also use when the user mentions \"lead magnet,\" \"gated content,\" \"content upgrade,\" \"downloadable,\" \"ebook,\" \"cheat sheet,\" \"checklist,\" \"template download,\" \"opt-in,\" \"freebie,\" \"PDF download,\" \"resource library,\" \"content offer,\" \"email capture content,\" \"Notion template,\" \"spreadsheet template,\" or \"what should I give away for emails.\" Use this for planning what to create and how to distribute it. For interactive tools as lead magnets, see free-tools. For writing the actual content, see copywriting. For the email sequence after capture, see emails.",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\lead-magnets\\SKILL.md",
+      "category": "marketing"
+    },
+    {
+      "name": "loop",
+      "description": "依間隔重複執行提示或指令，或自行決定節奏",
+      "source": "mcp",
+      "copies": 1,
+      "invocable": true,
+      "path": null,
+      "category": "ops"
+    },
+    {
+      "name": "loop-me",
+      "description": "Grill me about specs for the workflows I want to build, within this workspace.",
+      "source": "plugin",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\plugins\\cache\\mattpocock\\mattpocock-skills\\1.2.0\\skills\\in-progress\\loop-me\\SKILL.md",
+      "category": "workspace"
+    },
+    {
+      "name": "marketing-council",
+      "description": "When the user wants multiple expert perspectives on a marketing question — a simulated board of advisors staffed by legendary marketers (Seth Godin, David Ogilvy, Eugene Schwartz, April Dunford, Rory Sutherland, Alex Hormozi, Byron Sharp, and more). Also use when the user mentions 'marketing council,' 'board of advisors,' 'advisory board,' 'what would Seth Godin say,' 'what would Ogilvy think,' 'channel Hormozi,' 'get multiple perspectives,' 'debate this,' 'have the council review,' 'marketing mentors,' or asks how a famous marketer would approach their problem. The council gives each advisor's take through their documented frameworks, surfaces where they disagree, and synthesizes a recommendation. For executing the winning direction, hand off to positioning, offers, copywriting, ads, or the relevant skill.",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\marketing-council\\SKILL.md",
+      "category": "marketing"
+    },
+    {
+      "name": "marketing-ideas",
+      "description": "When the user needs marketing ideas, inspiration, or strategies for their SaaS or software product. Also use when the user asks for 'marketing ideas,' 'growth ideas,' 'how to market,' 'marketing strategies,' 'marketing tactics,' 'ways to promote,' 'ideas to grow,' 'what else can I try,' 'I don't know how to market this,' 'brainstorm marketing,' or 'what marketing should I do.' Use this as a starting point whenever someone is stuck or looking for inspiration on how to grow. For specific channel execution, see the relevant skill (ads, social, emails, etc.).",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\marketing-ideas\\SKILL.md",
+      "category": "marketing"
+    },
+    {
+      "name": "marketing-loops",
+      "description": "When the user wants to set up a recurring, self-running marketing workflow — a repeatable loop an AI agent runs on a cadence (weekly, daily, on a trigger) rather than a one-off task. Also use when the user mentions 'marketing loop,' 'recurring marketing workflow,' 'automate my marketing,' 'marketing on autopilot,' 'weekly marketing review,' 'ad fatigue check,' 'content refresh loop,' 'churn watch,' 'ranking drop alert,' 'always-on marketing,' 'marketing automation workflow,' or 'run this every week.' Use this to pick, adapt, and schedule an ongoing marketing loop that orchestrates the other marketing skills. For one-off marketing ideas, see marketing-ideas. For the experimentation loop specifically, see ab-testing.",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\marketing-loops\\SKILL.md",
+      "category": "marketing"
+    },
+    {
+      "name": "marketing-plan",
+      "description": "When the user needs a comprehensive marketing plan for a client, a company they advise, or their own product. Also use when the user mentions \"marketing plan,\" \"growth plan,\" \"GTM plan,\" \"go-to-market plan,\" \"AARRR plan,\" \"90-day marketing plan,\" \"12-month marketing roadmap,\" \"fractional CMO plan,\" or \"fCMO plan.\" Generates an exhaustive 13-section plan structured by AARRR (Acquisition, Activation, Retention, Referral, Revenue), customized to the client's current budget, team, and stage, mapped to future funding milestones, cross-referenced with the 139-idea marketing-ideas library and an embedded 17-section current-state audit rubric, with a full marketing operations stack showing which skills and MCP/API integrations execute each part. Outputs a Notion-paste-ready markdown document. For positioning and ICP context before planning, see product-marketing. For stage-specific deep work, see onboarding, signup, emails, referrals, pricing.",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\marketing-plan\\SKILL.md",
+      "category": "marketing"
+    },
+    {
+      "name": "marketing-psychology",
+      "description": "When the user wants to apply psychological principles, mental models, or behavioral science to marketing. Also use when the user mentions 'psychology,' 'mental models,' 'cognitive bias,' 'persuasion,' 'behavioral science,' 'why people buy,' 'decision-making,' 'consumer behavior,' 'anchoring,' 'social proof,' 'scarcity,' 'loss aversion,' 'framing,' or 'nudge.' Use this whenever someone wants to understand or leverage how people think and make decisions in a marketing context. For applying psychology to specific pages, see cro; for pricing tactics, see pricing; for copy framing, see copywriting.",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\marketing-psychology\\SKILL.md",
+      "category": "marketing"
+    },
+    {
+      "name": "mcp-builder",
+      "description": "Guide for creating high-quality MCP (Model Context Protocol) servers that enable LLMs to interact with external services through well-designed tools. Use when building MCP servers to integrate external APIs or services, whether in Python (FastMCP) or Node/TypeScript (MCP SDK).",
+      "source": "plugin",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\plugins\\cache\\anthropic-agent-skills\\example-skills\\fa0fa64bdc96\\skills\\mcp-builder\\SKILL.md",
+      "category": "design"
+    },
+    {
+      "name": "migrate-to-shoehorn",
+      "description": "Migrate test files from `as` type assertions to @total-typescript/shoehorn. Use when user mentions shoehorn, wants to replace `as` in tests, or needs partial test data.",
+      "source": "plugin",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\plugins\\cache\\mattpocock\\mattpocock-skills\\1.2.0\\skills\\misc\\migrate-to-shoehorn\\SKILL.md",
+      "category": "uncategorised"
+    },
+    {
+      "name": "nano-banana",
+      "description": "Generates AI images using the nano-banana CLI (Gemini 3.1 Flash default, Pro available). Handles multi-resolution (512-4K), aspect ratios, reference images for style transfer, green screen workflow for transparent assets, cost tracking, and exact dimension control. Use when asked to \"generate an image\", \"create a sprite\", \"make an asset\", \"generate artwork\", or any image generation task for UI mockups, game assets, videos, or marketing materials.",
+      "source": "plugin",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\plugins\\cache\\nano-banana-2-skill-marketplace\\nano-banana\\2.0.0\\skills\\nano-banana\\SKILL.md",
+      "category": "media"
+    },
+    {
+      "name": "notebooklm",
+      "description": "Complete API for Google NotebookLM - full programmatic access including features not in the web UI. Create notebooks, add sources, generate all artifact types, download in multiple formats. Activates on explicit /notebooklm or intent like \"create a podcast about X\"",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\notebooklm\\SKILL.md",
+      "category": "design"
+    },
+    {
+      "name": "obsidian-vault",
+      "description": "Search, create, and manage notes in the Obsidian vault with wikilinks and index notes. Use when user wants to find, create, or organize notes in Obsidian.",
+      "source": "plugin",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\plugins\\cache\\mattpocock\\mattpocock-skills\\1.2.0\\skills\\personal\\obsidian-vault\\SKILL.md",
+      "category": "content"
+    },
+    {
+      "name": "offers",
+      "description": "When the user wants to design, construct, or improve an offer — the thing they actually sell — including value framing, bonus stacking, guarantee design, scarcity/urgency, naming, and payment structure. Also use when the user mentions 'offer,' 'offer design,' 'build an offer,' 'grand slam offer,' 'irresistible offer,' 'value stack,' 'bonus stack,' 'guarantee,' 'risk reversal,' 'money-back guarantee,' 'scarcity,' 'urgency,' 'high-ticket offer,' 'productize a service,' 'naming an offer,' 'payment plan,' 'down-sell,' 'upsell offer,' or 'why isn't my offer converting.' Best for services, agencies, courses, coaching, info products, high-ticket B2B, and direct-response. If you run pure self-serve SaaS, read pricing first — tiers and packaging do more work there. For price level itself (tiers, freemium, value metric), see pricing. For the page that presents the offer, see copywriting. For the launch moment, see launch. For sales collateral, see sales-enablement.",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\offers\\SKILL.md",
+      "category": "marketing"
+    },
+    {
+      "name": "onboarding",
+      "description": "When the user wants to optimize post-signup onboarding, user activation, first-run experience, or time-to-value. Also use when the user mentions \"onboarding flow,\" \"activation rate,\" \"user activation,\" \"first-run experience,\" \"empty states,\" \"onboarding checklist,\" \"aha moment,\" \"new user experience,\" \"users aren't activating,\" \"nobody completes setup,\" \"low activation rate,\" \"users sign up but don't use the product,\" \"time to value,\" or \"first session experience.\" Use this whenever users are signing up but not sticking around. For signup/registration optimization, see signup. For ongoing email sequences, see emails.",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\onboarding\\SKILL.md",
+      "category": "marketing"
+    },
+    {
+      "name": "paywalls",
+      "description": "When the user wants to create or optimize in-app paywalls, upgrade screens, upsell modals, or feature gates. Also use when the user mentions \"paywall,\" \"upgrade screen,\" \"upgrade modal,\" \"upsell,\" \"feature gate,\" \"convert free to paid,\" \"freemium conversion,\" \"trial expiration screen,\" \"limit reached screen,\" \"plan upgrade prompt,\" \"in-app pricing,\" \"free users won't upgrade,\" \"trial to paid conversion,\" or \"how do I get users to pay.\" Use this for any in-product moment where you're asking users to upgrade. Distinct from public pricing pages (see cro) — this focuses on in-product upgrade moments where the user has already experienced value. For pricing decisions, see pricing.",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\paywalls\\SKILL.md",
+      "category": "marketing"
+    },
+    {
+      "name": "pdf",
+      "description": "Use this skill whenever the user wants to do anything with PDF files. This includes reading or extracting text/tables from PDFs, combining or merging multiple PDFs into one, splitting PDFs apart, rotating pages, adding watermarks, creating new PDFs, filling PDF forms, encrypting/decrypting PDFs, extracting images, and OCR on scanned PDFs to make them searchable. If the user mentions a .pdf file or asks to produce one, use this skill.",
+      "source": "plugin",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\plugins\\cache\\anthropic-agent-skills\\example-skills\\fa0fa64bdc96\\skills\\pdf\\SKILL.md",
+      "category": "ops"
+    },
+    {
+      "name": "persona-content-creator",
+      "description": "內容創作者角色工作流",
+      "source": "mcp",
+      "copies": 1,
+      "invocable": true,
+      "path": null,
+      "category": "persona"
+    },
+    {
+      "name": "persona-customer-support",
+      "description": "客服角色工作流",
+      "source": "mcp",
+      "copies": 1,
+      "invocable": true,
+      "path": null,
+      "category": "persona"
+    },
+    {
+      "name": "persona-event-coordinator",
+      "description": "活動統籌角色工作流",
+      "source": "mcp",
+      "copies": 1,
+      "invocable": true,
+      "path": null,
+      "category": "persona"
+    },
+    {
+      "name": "persona-exec-assistant",
+      "description": "行政助理角色工作流",
+      "source": "mcp",
+      "copies": 1,
+      "invocable": true,
+      "path": null,
+      "category": "persona"
+    },
+    {
+      "name": "persona-hr-coordinator",
+      "description": "人資角色工作流",
+      "source": "mcp",
+      "copies": 1,
+      "invocable": true,
+      "path": null,
+      "category": "persona"
+    },
+    {
+      "name": "persona-it-admin",
+      "description": "IT 管理角色工作流",
+      "source": "mcp",
+      "copies": 1,
+      "invocable": true,
+      "path": null,
+      "category": "persona"
+    },
+    {
+      "name": "persona-project-manager",
+      "description": "專案經理角色工作流",
+      "source": "mcp",
+      "copies": 1,
+      "invocable": true,
+      "path": null,
+      "category": "persona"
+    },
+    {
+      "name": "persona-researcher",
+      "description": "研究員角色工作流",
+      "source": "mcp",
+      "copies": 1,
+      "invocable": true,
+      "path": null,
+      "category": "persona"
+    },
+    {
+      "name": "persona-sales-ops",
+      "description": "業務營運角色工作流",
+      "source": "mcp",
+      "copies": 1,
+      "invocable": true,
+      "path": null,
+      "category": "persona"
+    },
+    {
+      "name": "persona-team-lead",
+      "description": "團隊主管角色工作流",
+      "source": "mcp",
+      "copies": 1,
+      "invocable": true,
+      "path": null,
+      "category": "persona"
+    },
+    {
+      "name": "ponytail",
+      "description": "Lazy senior dev mode for any coding task (write, refactor, fix, review): YAGNI, stdlib first, no unrequested abstractions. Not for non-coding requests.",
+      "source": "plugin",
+      "copies": 2,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\plugins\\cache\\ponytail\\ponytail\\4.8.4\\.openclaw\\skills\\ponytail\\SKILL.md",
+      "category": "review"
+    },
+    {
+      "name": "ponytail-audit",
+      "description": "Audit the whole repo for over-engineering. A ranked list of what to delete, simplify, or replace with stdlib or native features.",
+      "source": "plugin",
+      "copies": 2,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\plugins\\cache\\ponytail\\ponytail\\4.8.4\\.openclaw\\skills\\ponytail-audit\\SKILL.md",
+      "category": "review"
+    },
+    {
+      "name": "ponytail-debt",
+      "description": "Harvest every ponytail: shortcut comment into one debt ledger, so deferrals get tracked instead of forgotten. One-shot report.",
+      "source": "plugin",
+      "copies": 2,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\plugins\\cache\\ponytail\\ponytail\\4.8.4\\.openclaw\\skills\\ponytail-debt\\SKILL.md",
+      "category": "review"
+    },
+    {
+      "name": "ponytail-gain",
+      "description": "Show ponytail measured impact as a scoreboard: less code, less cost, more speed, from the benchmark medians. One-shot display.",
+      "source": "plugin",
+      "copies": 2,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\plugins\\cache\\ponytail\\ponytail\\4.8.4\\.openclaw\\skills\\ponytail-gain\\SKILL.md",
+      "category": "review"
+    },
+    {
+      "name": "ponytail-help",
+      "description": "Quick reference for ponytail's modes, skills, and commands. One-shot display.",
+      "source": "plugin",
+      "copies": 2,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\plugins\\cache\\ponytail\\ponytail\\4.8.4\\.openclaw\\skills\\ponytail-help\\SKILL.md",
+      "category": "review"
+    },
+    {
+      "name": "ponytail-review",
+      "description": "Review a diff for over-engineering. Finds what to delete: reinvented stdlib, needless deps, speculative abstractions. One line per finding.",
+      "source": "plugin",
+      "copies": 2,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\plugins\\cache\\ponytail\\ponytail\\4.8.4\\.openclaw\\skills\\ponytail-review\\SKILL.md",
+      "category": "review"
+    },
+    {
+      "name": "popups",
+      "description": "When the user wants to create or optimize popups, modals, overlays, slide-ins, or banners for conversion purposes. Also use when the user mentions \"exit intent,\" \"popup conversions,\" \"modal optimization,\" \"lead capture popup,\" \"email popup,\" \"announcement banner,\" \"overlay,\" \"collect emails with a popup,\" \"exit popup,\" \"scroll trigger,\" \"sticky bar,\" or \"notification bar.\" Use this for any overlay or interrupt-style conversion element. For forms outside of popups, see cro. For general page conversion optimization, see cro.",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\popups\\SKILL.md",
+      "category": "marketing"
+    },
+    {
+      "name": "pptx",
+      "description": "Use this skill any time a .pptx or .potx file is involved in any way — as input, output, or both. This includes: creating slide decks, pitch decks, or presentations; reading, parsing, or extracting text from any .pptx or .potx file (even if the extracted content will be used elsewhere, like in an email or summary); editing, modifying, or updating existing presentations; combining or splitting slide files; working with templates (.potx), layouts, speaker notes, or comments. Trigger whenever the user mentions \\\"deck,\\\" \\\"slides,\\\" \\\"presentation,\\\" or references a .pptx or .potx filename, regardless of what they plan to do with the content afterward. If a .pptx or .potx file needs to be opened, created, or touched, use this skill.",
+      "source": "plugin",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\plugins\\cache\\anthropic-agent-skills\\example-skills\\fa0fa64bdc96\\skills\\pptx\\SKILL.md",
+      "category": "design"
+    },
+    {
+      "name": "pricing",
+      "description": "When the user wants help with pricing decisions, packaging, or monetization strategy. Also use when the user mentions 'pricing,' 'pricing tiers,' 'freemium,' 'free trial,' 'packaging,' 'price increase,' 'value metric,' 'Van Westendorp,' 'willingness to pay,' 'monetization,' 'how much should I charge,' 'my pricing is wrong,' 'pricing page,' 'annual vs monthly,' 'per seat pricing,' or 'should I offer a free plan.' Use this whenever someone is figuring out what to charge or how to structure their plans. For in-app upgrade screens, see paywalls. For offer construction (bonuses, guarantees, value framing, naming) on services/courses/coaching/high-ticket B2B, see offers.",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\pricing\\SKILL.md",
+      "category": "marketing"
+    },
+    {
+      "name": "product-marketing",
+      "description": "When the user wants to create or update their product marketing context document. Also use when the user mentions 'product context,' 'marketing context,' 'set up context,' 'positioning,' 'who is my target audience,' 'describe my product,' 'ICP,' 'ideal customer profile,' or wants to avoid repeating foundational information across marketing tasks. Use this at the start of any new project before using other marketing skills — it creates `.agents/product-marketing.md` that all other skills reference for product, audience, and positioning context.",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\product-marketing\\SKILL.md",
+      "category": "marketing"
+    },
+    {
+      "name": "programmatic-seo",
+      "description": "When the user wants to create SEO-driven pages at scale using templates and data. Also use when the user mentions \"programmatic SEO,\" \"template pages,\" \"pages at scale,\" \"directory pages,\" \"location pages,\" \"[keyword] + [city] pages,\" \"comparison pages,\" \"integration pages,\" \"building many pages for SEO,\" \"pSEO,\" \"generate 100 pages,\" \"data-driven pages,\" or \"templated landing pages.\" Use this whenever someone wants to create many similar pages targeting different keywords or locations. For auditing existing SEO issues, see seo-audit. For content strategy planning, see content-strategy.",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\programmatic-seo\\SKILL.md",
+      "category": "marketing"
+    },
+    {
+      "name": "prospecting",
+      "description": "When the user wants to find, qualify, and build a list of prospects to reach out to — across B2B SaaS, general B2B, or local small businesses. Also use when the user mentions \"prospecting,\" \"build a prospect list,\" \"find prospects,\" \"find leads,\" \"lead gen list,\" \"find SaaS companies that,\" \"find B2B companies,\" \"find local businesses,\" \"ICP-fit accounts,\" \"who should we go after,\" \"outbound list,\" \"target account list,\" \"find clients near me,\" \"businesses without websites,\" \"prospect research,\" or \"qualified leads.\" Use this for the list-building and qualification phase. For writing the outbound copy after the list is built, see cold-email. For deep competitive research on specific accounts, see competitor-profiling.",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\prospecting\\SKILL.md",
+      "category": "marketing"
+    },
+    {
+      "name": "prototype",
+      "description": "Build a throwaway prototype to answer a design question. Use when the user wants to sanity-check whether a state model or logic feels right, or explore what a UI should look like.",
+      "source": "plugin",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\plugins\\cache\\mattpocock\\mattpocock-skills\\1.2.0\\skills\\engineering\\prototype\\SKILL.md",
+      "category": "design"
+    },
+    {
+      "name": "public-relations",
+      "description": "When the user wants help with public relations, earned media, press coverage, journalist outreach, or media strategy (not pull requests). Also use when the user mentions 'PR,' 'public relations,' 'press,' 'press release,' 'press coverage,' 'media outreach,' 'pitch a journalist,' 'get featured,' 'media list,' 'media kit,' 'press kit,' 'newsjacking,' 'news hijack,' 'HARO,' 'Qwoted,' 'Featured,' 'Help A Reporter,' 'reporter request,' 'tech press,' 'TechCrunch,' 'earned media,' 'thought leadership placement,' 'op-ed,' 'guest article,' 'press contacts,' or 'how do I get press.' Use this for earned media work — finding journalists, pitching stories, newsjacking, and responding to press requests. For startup/SaaS/AI directory submissions, see directory-submissions. For product launches, see launch. For social-media engagement, see social. For cold-email outreach to prospects, see cold-email.",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\public-relations\\SKILL.md",
+      "category": "dev-flow"
+    },
+    {
+      "name": "qa",
+      "description": "Interactive QA session where user reports bugs or issues conversationally, and the agent files GitHub issues. Explores the codebase in the background for context and domain language. Use when user wants to report bugs, do QA, file issues conversationally, or mentions \"QA session\".",
+      "source": "plugin",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\plugins\\cache\\mattpocock\\mattpocock-skills\\1.2.0\\skills\\deprecated\\qa\\SKILL.md",
+      "category": "ops"
+    },
+    {
+      "name": "receiving-code-review",
+      "description": "Use when receiving code review feedback, before implementing suggestions, especially if feedback seems unclear or technically questionable - requires technical rigor and verification, not performative agreement or blind implementation",
+      "source": "plugin",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\plugins\\cache\\claude-plugins-official\\superpowers\\6.1.1\\skills\\receiving-code-review\\SKILL.md",
+      "category": "review"
+    },
+    {
+      "name": "recipe-backup-sheet-as-csv",
+      "description": "備份試算表為 CSV",
+      "source": "mcp",
+      "copies": 1,
+      "invocable": true,
+      "path": null,
+      "category": "workspace"
+    },
+    {
+      "name": "recipe-batch-invite-to-event",
+      "description": "批次邀請參加活動",
+      "source": "mcp",
+      "copies": 1,
+      "invocable": true,
+      "path": null,
+      "category": "workspace"
+    },
+    {
+      "name": "recipe-block-focus-time",
+      "description": "在日曆封鎖專注時段",
+      "source": "mcp",
+      "copies": 1,
+      "invocable": true,
+      "path": null,
+      "category": "workspace"
+    },
+    {
+      "name": "recipe-bulk-download-folder",
+      "description": "批次下載 Drive 資料夾",
+      "source": "mcp",
+      "copies": 1,
+      "invocable": true,
+      "path": null,
+      "category": "workspace"
+    },
+    {
+      "name": "recipe-collect-form-responses",
+      "description": "收集表單回應",
+      "source": "mcp",
+      "copies": 1,
+      "invocable": true,
+      "path": null,
+      "category": "workspace"
+    },
+    {
+      "name": "recipe-compare-sheet-tabs",
+      "description": "比對試算表分頁差異",
+      "source": "mcp",
+      "copies": 1,
+      "invocable": true,
+      "path": null,
+      "category": "workspace"
+    },
+    {
+      "name": "recipe-copy-sheet-for-new-month",
+      "description": "複製試算表供新月份使用",
+      "source": "mcp",
+      "copies": 1,
+      "invocable": true,
+      "path": null,
+      "category": "workspace"
+    },
+    {
+      "name": "recipe-create-classroom-course",
+      "description": "建立 Classroom 課程",
+      "source": "mcp",
+      "copies": 1,
+      "invocable": true,
+      "path": null,
+      "category": "workspace"
+    },
+    {
+      "name": "recipe-create-doc-from-template",
+      "description": "依範本建立文件",
+      "source": "mcp",
+      "copies": 1,
+      "invocable": true,
+      "path": null,
+      "category": "workspace"
+    },
+    {
+      "name": "recipe-create-events-from-sheet",
+      "description": "從試算表批次建立行程",
+      "source": "mcp",
+      "copies": 1,
+      "invocable": true,
+      "path": null,
+      "category": "workspace"
+    },
+    {
+      "name": "recipe-create-expense-tracker",
+      "description": "建立支出追蹤表",
+      "source": "mcp",
+      "copies": 1,
+      "invocable": true,
+      "path": null,
+      "category": "workspace"
+    },
+    {
+      "name": "recipe-create-feedback-form",
+      "description": "建立意見回饋表單",
+      "source": "mcp",
+      "copies": 1,
+      "invocable": true,
+      "path": null,
+      "category": "workspace"
+    },
+    {
+      "name": "recipe-create-gmail-filter",
+      "description": "建立 Gmail 篩選器",
+      "source": "mcp",
+      "copies": 1,
+      "invocable": true,
+      "path": null,
+      "category": "workspace"
+    },
+    {
+      "name": "recipe-create-meet-space",
+      "description": "建立 Meet 會議空間",
+      "source": "mcp",
+      "copies": 1,
+      "invocable": true,
+      "path": null,
+      "category": "workspace"
+    },
+    {
+      "name": "recipe-create-presentation",
+      "description": "建立簡報",
+      "source": "mcp",
+      "copies": 1,
+      "invocable": true,
+      "path": null,
+      "category": "workspace"
+    },
+    {
+      "name": "recipe-create-shared-drive",
+      "description": "建立共用雲端硬碟",
+      "source": "mcp",
+      "copies": 1,
+      "invocable": true,
+      "path": null,
+      "category": "workspace"
+    },
+    {
+      "name": "recipe-create-task-list",
+      "description": "建立待辦清單",
+      "source": "mcp",
+      "copies": 1,
+      "invocable": true,
+      "path": null,
+      "category": "workspace"
+    },
+    {
+      "name": "recipe-create-vacation-responder",
+      "description": "設定休假自動回覆",
+      "source": "mcp",
+      "copies": 1,
+      "invocable": true,
+      "path": null,
+      "category": "workspace"
+    },
+    {
+      "name": "recipe-draft-email-from-doc",
+      "description": "從文件草擬郵件",
+      "source": "mcp",
+      "copies": 1,
+      "invocable": true,
+      "path": null,
+      "category": "workspace"
+    },
+    {
+      "name": "recipe-email-drive-link",
+      "description": "寄送 Drive 檔案連結",
+      "source": "mcp",
+      "copies": 1,
+      "invocable": true,
+      "path": null,
+      "category": "workspace"
+    },
+    {
+      "name": "recipe-find-free-time",
+      "description": "尋找共同空檔時段",
+      "source": "mcp",
+      "copies": 1,
+      "invocable": true,
+      "path": null,
+      "category": "workspace"
+    },
+    {
+      "name": "recipe-find-large-files",
+      "description": "找出佔空間的大型檔案",
+      "source": "mcp",
+      "copies": 1,
+      "invocable": true,
+      "path": null,
+      "category": "workspace"
+    },
+    {
+      "name": "recipe-forward-labeled-emails",
+      "description": "轉寄特定標籤郵件",
+      "source": "mcp",
+      "copies": 1,
+      "invocable": true,
+      "path": null,
+      "category": "workspace"
+    },
+    {
+      "name": "recipe-generate-report-from-sheet",
+      "description": "從試算表產生報告",
+      "source": "mcp",
+      "copies": 1,
+      "invocable": true,
+      "path": null,
+      "category": "workspace"
+    },
+    {
+      "name": "recipe-label-and-archive-emails",
+      "description": "標記並封存郵件",
+      "source": "mcp",
+      "copies": 1,
+      "invocable": true,
+      "path": null,
+      "category": "workspace"
+    },
+    {
+      "name": "recipe-log-deal-update",
+      "description": "記錄交易進度更新",
+      "source": "mcp",
+      "copies": 1,
+      "invocable": true,
+      "path": null,
+      "category": "workspace"
+    },
+    {
+      "name": "recipe-organize-drive-folder",
+      "description": "整理 Drive 資料夾",
+      "source": "mcp",
+      "copies": 1,
+      "invocable": true,
+      "path": null,
+      "category": "workspace"
+    },
+    {
+      "name": "recipe-plan-weekly-schedule",
+      "description": "規劃每週行程",
+      "source": "mcp",
+      "copies": 1,
+      "invocable": true,
+      "path": null,
+      "category": "workspace"
+    },
+    {
+      "name": "recipe-post-mortem-setup",
+      "description": "建立事後檢討文件",
+      "source": "mcp",
+      "copies": 1,
+      "invocable": true,
+      "path": null,
+      "category": "workspace"
+    },
+    {
+      "name": "recipe-reschedule-meeting",
+      "description": "重新安排會議時間",
+      "source": "mcp",
+      "copies": 1,
+      "invocable": true,
+      "path": null,
+      "category": "workspace"
+    },
+    {
+      "name": "recipe-review-meet-participants",
+      "description": "檢視會議參與者",
+      "source": "mcp",
+      "copies": 1,
+      "invocable": true,
+      "path": null,
+      "category": "workspace"
+    },
+    {
+      "name": "recipe-review-overdue-tasks",
+      "description": "檢視逾期待辦",
+      "source": "mcp",
+      "copies": 1,
+      "invocable": true,
+      "path": null,
+      "category": "workspace"
+    },
+    {
+      "name": "recipe-save-email-attachments",
+      "description": "儲存郵件附件",
+      "source": "mcp",
+      "copies": 1,
+      "invocable": true,
+      "path": null,
+      "category": "workspace"
+    },
+    {
+      "name": "recipe-save-email-to-doc",
+      "description": "將郵件存成文件",
+      "source": "mcp",
+      "copies": 1,
+      "invocable": true,
+      "path": null,
+      "category": "workspace"
+    },
+    {
+      "name": "recipe-schedule-recurring-event",
+      "description": "排定重複性行程",
+      "source": "mcp",
+      "copies": 1,
+      "invocable": true,
+      "path": null,
+      "category": "workspace"
+    },
+    {
+      "name": "recipe-send-team-announcement",
+      "description": "發送團隊公告",
+      "source": "mcp",
+      "copies": 1,
+      "invocable": true,
+      "path": null,
+      "category": "workspace"
+    },
+    {
+      "name": "recipe-share-doc-and-notify",
+      "description": "分享文件並通知",
+      "source": "mcp",
+      "copies": 1,
+      "invocable": true,
+      "path": null,
+      "category": "workspace"
+    },
+    {
+      "name": "recipe-share-event-materials",
+      "description": "分享活動資料",
+      "source": "mcp",
+      "copies": 1,
+      "invocable": true,
+      "path": null,
+      "category": "workspace"
+    },
+    {
+      "name": "recipe-share-folder-with-team",
+      "description": "與團隊分享資料夾",
+      "source": "mcp",
+      "copies": 1,
+      "invocable": true,
+      "path": null,
+      "category": "workspace"
+    },
+    {
+      "name": "recipe-sync-contacts-to-sheet",
+      "description": "同步聯絡人到試算表",
+      "source": "mcp",
+      "copies": 1,
+      "invocable": true,
+      "path": null,
+      "category": "workspace"
+    },
+    {
+      "name": "recipe-watch-drive-changes",
+      "description": "監控 Drive 檔案異動",
+      "source": "mcp",
+      "copies": 1,
+      "invocable": true,
+      "path": null,
+      "category": "workspace"
+    },
+    {
+      "name": "referrals",
+      "description": "When the user wants to create, optimize, or analyze a referral program, affiliate program, or word-of-mouth strategy. Also use when the user mentions 'referral,' 'affiliate,' 'ambassador,' 'word of mouth,' 'viral loop,' 'refer a friend,' 'partner program,' 'referral incentive,' 'how to get referrals,' 'customers referring customers,' or 'affiliate payout.' Use this whenever someone wants existing users or partners to bring in new customers. For launch-specific virality, see launch.",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\referrals\\SKILL.md",
+      "category": "marketing"
+    },
+    {
+      "name": "request-refactor-plan",
+      "description": "Create a detailed refactor plan with tiny commits via user interview, then file it as a GitHub issue. Use when user wants to plan a refactor, create a refactoring RFC, or break a refactor into safe incremental steps.",
+      "source": "plugin",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\plugins\\cache\\mattpocock\\mattpocock-skills\\1.2.0\\skills\\deprecated\\request-refactor-plan\\SKILL.md",
+      "category": "dev-flow"
+    },
+    {
+      "name": "requesting-code-review",
+      "description": "Use when completing tasks, implementing major features, or before merging to verify work meets requirements",
+      "source": "plugin",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\plugins\\cache\\claude-plugins-official\\superpowers\\6.1.1\\skills\\requesting-code-review\\SKILL.md",
+      "category": "design"
+    },
+    {
+      "name": "research",
+      "description": "Investigate a question against high-trust primary sources and capture the findings as a Markdown file in the repo. Use when the user wants a topic researched, docs or API facts gathered, or reading legwork delegated to a background agent.",
+      "source": "plugin",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\plugins\\cache\\mattpocock\\mattpocock-skills\\1.2.0\\skills\\engineering\\research\\SKILL.md",
+      "category": "content"
+    },
+    {
+      "name": "resolving-merge-conflicts",
+      "description": "Use when you need to resolve an in-progress git merge/rebase conflict.",
+      "source": "plugin",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\plugins\\cache\\mattpocock\\mattpocock-skills\\1.2.0\\skills\\engineering\\resolving-merge-conflicts\\SKILL.md",
+      "category": "uncategorised"
+    },
+    {
+      "name": "review",
+      "description": "程式碼審查",
+      "source": "mcp",
+      "copies": 1,
+      "invocable": true,
+      "path": null,
+      "category": "uncategorised"
+    },
+    {
+      "name": "revops",
+      "description": "When the user wants help with revenue operations, lead lifecycle management, or marketing-to-sales handoff processes. Also use when the user mentions 'RevOps,' 'revenue operations,' 'lead scoring,' 'lead routing,' 'MQL,' 'SQL,' 'pipeline stages,' 'deal desk,' 'CRM automation,' 'marketing-to-sales handoff,' 'data hygiene,' 'leads aren't getting to sales,' 'pipeline management,' 'lead qualification,' or 'when should marketing hand off to sales.' Use this for anything involving the systems and processes that connect marketing to revenue. For cold outreach emails, see cold-email. For email drip campaigns, see emails. For pricing decisions, see pricing.",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\revops\\SKILL.md",
+      "category": "marketing"
+    },
+    {
+      "name": "run",
+      "description": "啟動並操作專案應用程式以驗證變更",
+      "source": "mcp",
+      "copies": 1,
+      "invocable": true,
+      "path": null,
+      "category": "uncategorised"
+    },
+    {
+      "name": "sales-enablement",
+      "description": "When the user wants to create sales collateral, pitch decks, one-pagers, objection handling docs, or demo scripts. Also use when the user mentions 'sales deck,' 'pitch deck,' 'one-pager,' 'leave-behind,' 'objection handling,' 'deal-specific ROI analysis,' 'demo script,' 'talk track,' 'sales playbook,' 'proposal template,' 'buyer persona card,' 'help my sales team,' 'sales materials,' or 'what should I give my sales reps.' Use this for any document or asset that helps a sales team close deals. For competitor comparison pages and battle cards, see competitors. For marketing website copy, see copywriting. For cold outreach emails, see cold-email. For the offer being sold (bonuses, guarantees, pricing structure), see offers.",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\sales-enablement\\SKILL.md",
+      "category": "marketing"
+    },
+    {
+      "name": "scaffold-exercises",
+      "description": "Create exercise directory structures with sections, problems, solutions, and explainers that pass linting. Use when user wants to scaffold exercises, create exercise stubs, or set up a new course section.",
+      "source": "plugin",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\plugins\\cache\\mattpocock\\mattpocock-skills\\1.2.0\\skills\\misc\\scaffold-exercises\\SKILL.md",
+      "category": "review"
+    },
+    {
+      "name": "schema",
+      "description": "When the user wants to add, fix, or optimize schema markup and structured data on their site. Also use when the user mentions \"schema markup,\" \"structured data,\" \"JSON-LD,\" \"rich snippets,\" \"schema.org,\" \"FAQ schema,\" \"product schema,\" \"review schema,\" \"breadcrumb schema,\" \"Google rich results,\" \"knowledge panel,\" \"star ratings in search,\" or \"add structured data.\" Use this whenever someone wants their pages to show enhanced results in Google. For broader SEO issues, see seo-audit. For AI search optimization, see ai-seo.",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\schema\\SKILL.md",
+      "category": "marketing"
+    },
+    {
+      "name": "security-review",
+      "description": "安全性審查",
+      "source": "mcp",
+      "copies": 1,
+      "invocable": true,
+      "path": null,
+      "category": "uncategorised"
+    },
+    {
+      "name": "seo-audit",
+      "description": "When the user wants to audit, review, or diagnose SEO issues on their site. Also use when the user mentions \"SEO audit,\" \"technical SEO,\" \"why am I not ranking,\" \"SEO issues,\" \"on-page SEO,\" \"meta tags review,\" \"SEO health check,\" \"my traffic dropped,\" \"lost rankings,\" \"not showing up in Google,\" \"site isn't ranking,\" \"Google update hit me,\" \"page speed,\" \"core web vitals,\" \"crawl errors,\" or \"indexing issues.\" Use this even if the user just says something vague like \"my SEO is bad\" or \"help with SEO\" — start with an audit. For building pages at scale to target keywords, see programmatic-seo. For adding structured data, see schema. For AI search optimization, see ai-seo.",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\seo-audit\\SKILL.md",
+      "category": "review"
+    },
+    {
+      "name": "setup-matt-pocock-skills",
+      "description": "Configure this repo for the engineering skills — set up its issue tracker, triage label vocabulary, and domain doc layout. Run once before first use of the other engineering skills.",
+      "source": "plugin",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\plugins\\cache\\mattpocock\\mattpocock-skills\\1.2.0\\skills\\engineering\\setup-matt-pocock-skills\\SKILL.md",
+      "category": "design"
+    },
+    {
+      "name": "setup-pre-commit",
+      "description": "Set up Husky pre-commit hooks with lint-staged (Prettier), type checking, and tests in the current repo. Use when user wants to add pre-commit hooks, set up Husky, configure lint-staged, or add commit-time formatting/typechecking/testing.",
+      "source": "plugin",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\plugins\\cache\\mattpocock\\mattpocock-skills\\1.2.0\\skills\\misc\\setup-pre-commit\\SKILL.md",
+      "category": "dev-flow"
+    },
+    {
+      "name": "setup-ts-deep-modules",
+      "description": "Wire dependency-cruiser into a TypeScript repo so each package is a deep module — implementation hidden in subfolders, reachable only through its entry-point files. User-invoked.",
+      "source": "plugin",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\plugins\\cache\\mattpocock\\mattpocock-skills\\1.2.0\\skills\\in-progress\\setup-ts-deep-modules\\SKILL.md",
+      "category": "design"
+    },
+    {
+      "name": "signup",
+      "description": "When the user wants to optimize signup, registration, account creation, or trial activation flows. Also use when the user mentions \"signup conversions,\" \"registration friction,\" \"signup form optimization,\" \"free trial signup,\" \"reduce signup dropoff,\" \"account creation flow,\" \"people aren't signing up,\" \"signup abandonment,\" \"trial conversion rate,\" \"nobody completes registration,\" \"too many steps to sign up,\" or \"simplify our signup.\" Use this whenever the user has a signup or registration flow that isn't performing. For post-signup onboarding, see onboarding. For lead capture forms (not account creation), see cro.",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\signup\\SKILL.md",
+      "category": "review"
+    },
+    {
+      "name": "simplify",
+      "description": "審視變更中的程式碼，套用重用與簡化修正",
+      "source": "mcp",
+      "copies": 1,
+      "invocable": true,
+      "path": null,
+      "category": "review"
+    },
+    {
+      "name": "site-architecture",
+      "description": "When the user wants to plan, map, or restructure their website's page hierarchy, navigation, URL structure, or internal linking. Also use when the user mentions \"sitemap,\" \"site map,\" \"visual sitemap,\" \"site structure,\" \"page hierarchy,\" \"information architecture,\" \"IA,\" \"navigation design,\" \"URL structure,\" \"breadcrumbs,\" \"internal linking strategy,\" \"website planning,\" \"what pages do I need,\" \"how should I organize my site,\" or \"site navigation.\" Use this whenever someone is planning what pages a website should have and how they connect. NOT for XML sitemaps (that's technical SEO — see seo-audit). For SEO audits, see seo-audit. For structured data, see schema.",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\site-architecture\\SKILL.md",
+      "category": "marketing"
+    },
+    {
+      "name": "skill-creator",
+      "description": "Create new skills, modify and improve existing skills, and measure skill performance. Use when users want to create a skill from scratch, edit, or optimize an existing skill, run evals to test a skill, benchmark skill performance with variance analysis, or optimize a skill's description for better triggering accuracy.",
+      "source": "local",
+      "copies": 2,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\skill-creator\\SKILL.md",
+      "category": "ops"
+    },
+    {
+      "name": "slack-gif-creator",
+      "description": "Knowledge and utilities for creating animated GIFs optimized for Slack. Provides constraints, validation tools, and animation concepts. Use when users request animated GIFs for Slack like \"make me a GIF of X doing Y for Slack.\"",
+      "source": "plugin",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\plugins\\cache\\anthropic-agent-skills\\example-skills\\fa0fa64bdc96\\skills\\slack-gif-creator\\SKILL.md",
+      "category": "design"
+    },
+    {
+      "name": "slides",
+      "description": "Create strategic HTML presentations with Chart.js, design tokens, responsive layouts, copywriting formulas, and contextual slide strategies.",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\slides\\SKILL.md",
+      "category": "marketing"
+    },
+    {
+      "name": "sms",
+      "description": "When the user wants to plan, build, or optimize SMS or MMS marketing — including welcome flows, abandoned cart texts, post-purchase, win-back, promotional sends, or transactional/auth SMS. Also use when the user mentions \"SMS marketing,\" \"text message campaigns,\" \"SMS sequence,\" \"SMS automation,\" \"abandoned cart text,\" \"post-purchase SMS,\" \"Klaviyo SMS,\" \"Postscript,\" \"Attentive,\" \"Twilio,\" \"A2P 10DLC,\" \"TCPA,\" \"SMS compliance,\" \"short code,\" \"toll-free SMS,\" \"MMS campaign,\" \"should I do SMS,\" or \"SMS vs email.\" For email sequences, see emails. For SMS copy framing, see copywriting. For opt-in popups that capture phone numbers, see popups.",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\sms\\SKILL.md",
+      "category": "marketing"
+    },
+    {
+      "name": "social",
+      "description": "When the user wants help creating, scheduling, or optimizing social media content for LinkedIn, Twitter/X, Instagram, TikTok, Facebook, or other platforms, or wants to do social listening and engagement triage. Also use when the user mentions 'LinkedIn post,' 'Twitter thread,' 'social media,' 'content calendar,' 'social scheduling,' 'engagement,' 'viral content,' 'what should I post,' 'repurpose this content,' 'tweet ideas,' 'LinkedIn carousel,' 'social media strategy,' 'grow my following,' 'TikTok video,' 'Reels,' 'Shorts,' 'video script,' 'video hook,' 'short-form video,' 'create a reel,' 'social listening,' 'brand mentions,' 'competitor monitoring,' 'top posts to comment on,' 'find people asking for,' 'carousel,' 'slide-by-slide,' or 'document post.' Use this for social media content creation, repurposing, scheduling, short-form video scripting, and social listening. For broader content strategy, see content-strategy. For paid ads, see ad-creative. For earned media, see public-relations.",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\social\\SKILL.md",
+      "category": "marketing"
+    },
+    {
+      "name": "stock-podcast",
+      "description": "Generate a NotebookLM technical-analysis podcast for a stock ticker. Activates on \"幫我做一個關於 <代號/股名> 的技術面分析 podcast\" or similar stock+podcast requests.",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\stock-podcast\\SKILL.md",
+      "category": "media"
+    },
+    {
+      "name": "subagent-driven-development",
+      "description": "Use when executing implementation plans with independent tasks in the current session",
+      "source": "plugin",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\plugins\\cache\\claude-plugins-official\\superpowers\\6.1.1\\skills\\subagent-driven-development\\SKILL.md",
+      "category": "dev-flow"
+    },
+    {
+      "name": "systematic-debugging",
+      "description": "Use when encountering any bug, test failure, or unexpected behavior, before proposing fixes",
+      "source": "plugin",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\plugins\\cache\\claude-plugins-official\\superpowers\\6.1.1\\skills\\systematic-debugging\\SKILL.md",
+      "category": "review"
+    },
+    {
+      "name": "tdd",
+      "description": "Test-driven development. Use when the user wants to build features or fix bugs test-first, mentions \"red-green-refactor\", or wants integration tests.",
+      "source": "plugin",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\plugins\\cache\\mattpocock\\mattpocock-skills\\1.2.0\\skills\\engineering\\tdd\\SKILL.md",
+      "category": "dev-flow"
+    },
+    {
+      "name": "teach",
+      "description": "Teach the user a new skill or concept, within this workspace.",
+      "source": "plugin",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\plugins\\cache\\mattpocock\\mattpocock-skills\\1.2.0\\skills\\productivity\\teach\\SKILL.md",
+      "category": "workspace"
+    },
+    {
+      "name": "template-skill",
+      "description": "Replace with description of the skill and when Claude should use it.",
+      "source": "plugin",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\plugins\\cache\\anthropic-agent-skills\\example-skills\\fa0fa64bdc96\\template\\SKILL.md",
+      "category": "ops"
+    },
+    {
+      "name": "test-driven-development",
+      "description": "Use when implementing any feature or bugfix, before writing implementation code",
+      "source": "plugin",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\plugins\\cache\\claude-plugins-official\\superpowers\\6.1.1\\skills\\test-driven-development\\SKILL.md",
+      "category": "dev-flow"
+    },
+    {
+      "name": "theme-factory",
+      "description": "Toolkit for styling artifacts with a theme. These artifacts can be slides, docs, reportings, HTML landing pages, etc. There are 10 pre-set themes with colors/fonts that you can apply to any artifact that has been creating, or can generate a new theme on-the-fly.",
+      "source": "plugin",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\plugins\\cache\\anthropic-agent-skills\\example-skills\\fa0fa64bdc96\\skills\\theme-factory\\SKILL.md",
+      "category": "design"
+    },
+    {
+      "name": "to-questionnaire",
+      "description": "Turn a decision you can't fully answer into a questionnaire for someone else to fill in.",
+      "source": "plugin",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\plugins\\cache\\mattpocock\\mattpocock-skills\\1.2.0\\skills\\in-progress\\to-questionnaire\\SKILL.md",
+      "category": "uncategorised"
+    },
+    {
+      "name": "to-spec",
+      "description": "Turn the current conversation into a spec and publish it to the project issue tracker — no interview, just synthesis of what you've already discussed.",
+      "source": "plugin",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\plugins\\cache\\mattpocock\\mattpocock-skills\\1.2.0\\skills\\engineering\\to-spec\\SKILL.md",
+      "category": "uncategorised"
+    },
+    {
+      "name": "to-tickets",
+      "description": "Break a plan, spec, or the current conversation into a set of tracer-bullet tickets, each declaring its blocking edges, published to the configured tracker — edges as text in one file per ticket locally, or native blocking links on a real tracker.",
+      "source": "plugin",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\plugins\\cache\\mattpocock\\mattpocock-skills\\1.2.0\\skills\\engineering\\to-tickets\\SKILL.md",
+      "category": "ops"
+    },
+    {
+      "name": "triage",
+      "description": "Move issues and external PRs through a state machine of triage roles — categorise, verify, grill if needed, and write agent-ready briefs.",
+      "source": "plugin",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\plugins\\cache\\mattpocock\\mattpocock-skills\\1.2.0\\skills\\engineering\\triage\\SKILL.md",
+      "category": "content"
+    },
+    {
+      "name": "ubiquitous-language",
+      "description": "Extract a DDD-style ubiquitous language glossary from the current conversation, flagging ambiguities and proposing canonical terms. Saves to UBIQUITOUS_LANGUAGE.md. Use when user wants to define domain terms, build a glossary, harden terminology, create a ubiquitous language, or mentions \"domain model\" or \"DDD\".",
+      "source": "plugin",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\plugins\\cache\\mattpocock\\mattpocock-skills\\1.2.0\\skills\\deprecated\\ubiquitous-language\\SKILL.md",
+      "category": "design"
+    },
+    {
+      "name": "ui-styling",
+      "description": "Create beautiful, accessible user interfaces with shadcn/ui components (built on Radix UI + Tailwind), Tailwind CSS utility-first styling, and canvas-based visual designs. Use when building user interfaces, implementing design systems, creating responsive layouts, adding accessible components (dialogs, dropdowns, forms, tables), customizing themes and colors, implementing dark mode, generating visual designs and posters, or establishing consistent styling patterns across applications.",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\ui-styling\\SKILL.md",
+      "category": "design"
+    },
+    {
+      "name": "ui-ux-pro-max",
+      "description": "UI/UX design intelligence. 67 styles, 161 palettes, 57 font pairings, 25 charts, 21 stacks (React, Next.js, Vue, Svelte, Astro, SwiftUI, React Native, Flutter, WPF, WinUI 3, UWP, Avalonia, Uno Platform, Nuxt, Nuxt UI, Tailwind, shadcn/ui, Jetpack Compose, Three.js, Angular, Laravel). Actions: plan, build, create, design, implement, review, fix, improve, optimize, enhance, refactor, check UI/UX code. Projects: website, landing page, dashboard, admin panel, e-commerce, SaaS, portfolio, blog, mobile app, desktop app, .html, .tsx, .vue, .svelte, .xaml. Elements: button, modal, navbar, sidebar, card, table, form, chart. Styles: glassmorphism, claymorphism, minimalism, brutalism, neumorphism, bento grid, dark mode, responsive, skeuomorphism, flat design. Topics: color palette, accessibility, animation, layout, typography, font pairing, spacing, hover, shadow, gradient. Integrations: shadcn/ui MCP for component search and examples.",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\ui-ux-pro-max\\SKILL.md",
+      "category": "review"
+    },
+    {
+      "name": "update-config",
+      "description": "設定 Claude Code settings.json、hooks、權限與環境變數",
+      "source": "mcp",
+      "copies": 1,
+      "invocable": true,
+      "path": null,
+      "category": "ops"
+    },
+    {
+      "name": "using-git-worktrees",
+      "description": "Use when starting feature work that needs isolation from current workspace or before executing implementation plans - ensures an isolated workspace exists via native tools or git worktree fallback",
+      "source": "plugin",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\plugins\\cache\\claude-plugins-official\\superpowers\\6.1.1\\skills\\using-git-worktrees\\SKILL.md",
+      "category": "workspace"
+    },
+    {
+      "name": "using-superpowers",
+      "description": "Use when starting any conversation - establishes how to find and use skills, requiring skill invocation before ANY response including clarifying questions",
+      "source": "plugin",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\plugins\\cache\\claude-plugins-official\\superpowers\\6.1.1\\skills\\using-superpowers\\SKILL.md",
+      "category": "design"
+    },
+    {
+      "name": "verification-before-completion",
+      "description": "Use when about to claim work is complete, fixed, or passing, before committing or creating PRs - requires running verification commands and confirming output before making any success claims; evidence before assertions always",
+      "source": "plugin",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\plugins\\cache\\claude-plugins-official\\superpowers\\6.1.1\\skills\\verification-before-completion\\SKILL.md",
+      "category": "dev-flow"
+    },
+    {
+      "name": "video",
+      "description": "When the user wants to create, generate, or produce video content using AI tools or programmatic frameworks. Also use when the user mentions 'video production,' 'AI video,' 'Remotion,' 'Hyperframes,' 'HeyGen,' 'Synthesia,' 'Veo,' 'Sora,' 'Runway,' 'Kling,' 'Seedance,' 'Hailuo,' 'MiniMax,' 'Pika,' 'Hunyuan,' 'Wan,' 'video generation,' 'AI avatar,' 'talking head video,' 'programmatic video,' 'video template,' 'explainer video,' 'product demo video,' 'video pipeline,' or 'make me a video.' Use this for video creation, generation, and production workflows. For video content strategy and what to post, see social. For paid video ad creative, see ad-creative.",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\video\\SKILL.md",
+      "category": "media"
+    },
+    {
+      "name": "watch",
+      "description": "Watch a video (URL or local path). Downloads with yt-dlp, extracts auto-scaled frames with ffmpeg, pulls the transcript from captions (or Whisper API fallback), and hands the result to Claude so it can answer questions about what's in the video.",
+      "source": "plugin",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\plugins\\cache\\claude-video\\watch\\0.2.0\\skills\\watch\\SKILL.md",
+      "category": "media"
+    },
+    {
+      "name": "watch-ui",
+      "description": "Record a web page while scroll-driving it, then turn the recording into frames so you can actually see the animation — entrance transitions, ScrollTrigger scrubs, parallax, sticky behaviour. Use after building or changing UI, when a screenshot can't show whether the motion is right. Also accepts a pre-recorded video file for interactions scrolling can't trigger (hover, click, drag).",
+      "source": "local",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\skills\\watch-ui\\SKILL.md",
+      "category": "design"
+    },
+    {
+      "name": "wayfinder",
+      "description": "Plan a huge chunk of work — more than one agent session can hold — as a shared map of decision tickets on your issue tracker, and resolve them one at a time until the way to the destination is clear.",
+      "source": "plugin",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\plugins\\cache\\mattpocock\\mattpocock-skills\\1.2.0\\skills\\engineering\\wayfinder\\SKILL.md",
+      "category": "ops"
+    },
+    {
+      "name": "web-artifacts-builder",
+      "description": "Suite of tools for creating elaborate, multi-component claude.ai HTML artifacts using modern frontend web technologies (React, Tailwind CSS, shadcn/ui). Use for complex artifacts requiring state management, routing, or shadcn/ui components - not for simple single-file HTML/JSX artifacts.",
+      "source": "plugin",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\plugins\\cache\\anthropic-agent-skills\\example-skills\\fa0fa64bdc96\\skills\\web-artifacts-builder\\SKILL.md",
+      "category": "design"
+    },
+    {
+      "name": "webapp-testing",
+      "description": "Toolkit for interacting with and testing local web applications using Playwright. Supports verifying frontend functionality, debugging UI behavior, capturing browser screenshots, and viewing browser logs.",
+      "source": "plugin",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\plugins\\cache\\anthropic-agent-skills\\example-skills\\fa0fa64bdc96\\skills\\webapp-testing\\SKILL.md",
+      "category": "review"
+    },
+    {
+      "name": "wizard",
+      "description": "Generate an interactive bash wizard that walks a human through a manual procedure — third-party setup, a one-off migration, an A→B state transition — opening URLs, capturing values, confirming each step, and writing .env files and GitHub Actions secrets.",
+      "source": "plugin",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\plugins\\cache\\mattpocock\\mattpocock-skills\\1.2.0\\skills\\in-progress\\wizard\\SKILL.md",
+      "category": "content"
+    },
+    {
+      "name": "writing-beats",
+      "description": "Writing, exploit — assemble raw material into a journey of beats, grounding each term before a beat leans on it.",
+      "source": "plugin",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\plugins\\cache\\mattpocock\\mattpocock-skills\\1.2.0\\skills\\in-progress\\writing-beats\\SKILL.md",
+      "category": "content"
+    },
+    {
+      "name": "writing-fragments",
+      "description": "Writing, explore — mine raw fragments, no structure yet.",
+      "source": "plugin",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\plugins\\cache\\mattpocock\\mattpocock-skills\\1.2.0\\skills\\in-progress\\writing-fragments\\SKILL.md",
+      "category": "content"
+    },
+    {
+      "name": "writing-great-skills",
+      "description": "Reference for writing and editing skills well — the vocabulary and principles that make a skill predictable.",
+      "source": "plugin",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\plugins\\cache\\mattpocock\\mattpocock-skills\\1.2.0\\skills\\productivity\\writing-great-skills\\SKILL.md",
+      "category": "content"
+    },
+    {
+      "name": "writing-plans",
+      "description": "Use when you have a spec or requirements for a multi-step task, before touching code",
+      "source": "plugin",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\plugins\\cache\\claude-plugins-official\\superpowers\\6.1.1\\skills\\writing-plans\\SKILL.md",
+      "category": "design"
+    },
+    {
+      "name": "writing-shape",
+      "description": "Writing, exploit — shape raw material into an article, paragraph by paragraph.",
+      "source": "plugin",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\plugins\\cache\\mattpocock\\mattpocock-skills\\1.2.0\\skills\\in-progress\\writing-shape\\SKILL.md",
+      "category": "content"
+    },
+    {
+      "name": "writing-skills",
+      "description": "Use when creating new skills, editing existing skills, or verifying skills work before deployment",
+      "source": "plugin",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\plugins\\cache\\claude-plugins-official\\superpowers\\6.1.1\\skills\\writing-skills\\SKILL.md",
+      "category": "content"
+    },
+    {
+      "name": "xlsx",
+      "description": "Use this skill any time a spreadsheet file is the primary input or output. This means any task where the user wants to: open, read, edit, or fix an existing .xlsx, .xlsm, .xltx, .csv, or .tsv file (e.g., adding columns, computing formulas, formatting, charting, cleaning messy data); create a new spreadsheet from scratch or from other data sources; or convert between tabular file formats. Trigger especially when the user references a spreadsheet file by name or path — even casually (like \\\"the xlsx in my downloads\\\") — and wants something done to it or produced from it. Also trigger for cleaning or restructuring messy tabular data files (malformed rows, misplaced headers, junk data) into proper spreadsheets. The deliverable must be a spreadsheet file. Do NOT trigger when the primary deliverable is a Word document, HTML report, standalone Python script, database pipeline, or Google Sheets API integration, even if tabular data is involved.",
+      "source": "plugin",
+      "copies": 1,
+      "invocable": true,
+      "path": "C:\\Users\\User\\.claude\\plugins\\cache\\anthropic-agent-skills\\example-skills\\fa0fa64bdc96\\skills\\xlsx\\SKILL.md",
+      "category": "workspace"
+    }
+  ]
+}

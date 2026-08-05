@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="refresh" content="300">
+<title>Claude 用量儀表板</title>
+<style>
+  :root {
+    --bg: #f7f6f3; --card: #ffffff; --text: #1f1f1f; --muted: #767267;
+    --accent: #c96a43; --track: #ece8e0; --border: #e5e1d8;
+    --ok:#3f8f5f; --warn2:#c98a2c; --danger:#c9483f;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg:#1c1a17; --card:#26231f; --text:#f1ede4; --muted:#a39c8c; --accent:#e08a5f; --track:#38342c; --border:#3a362e;
+             --ok:#6bc78e; --warn2:#e0ac52; --danger:#e07a6f; }
+  }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--text); font-family:-apple-system,"Segoe UI",system-ui,sans-serif; padding:32px 20px; }
+  .wrap { max-width:920px; margin:0 auto; }
+  h1 { font-size:1.4rem; margin:0 0 4px; }
+  .sub { color:var(--muted); font-size:0.85rem; margin-bottom:28px; }
+  .hero { background:var(--card); border:1px solid var(--border); border-radius:18px; padding:28px; margin-bottom:20px;
+           display:flex; align-items:center; gap:32px; flex-wrap:wrap; }
+  .ring-label { font-size:0.78rem; color:var(--muted); text-transform:uppercase; letter-spacing:.04em; margin-bottom:14px; }
+  .ring-pct { font-size:2.6rem; font-weight:800; }
+  .ring-sub { font-size:0.8rem; color:var(--muted); margin-top:4px; }
+  .hero-side { flex:1; min-width:220px; }
+  .hero-side .row { display:flex; justify-content:space-between; padding:6px 0; border-bottom:1px solid var(--border); font-size:0.88rem; }
+  .hero-side .row:last-child { border-bottom:none; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:16px; margin-bottom:24px; }
+  .card { background:var(--card); border:1px solid var(--border); border-radius:14px; padding:20px; }
+  .card h2 { font-size:0.8rem; text-transform:uppercase; letter-spacing:.04em; color:var(--muted); margin:0 0 10px; font-weight:600; }
+  .big { font-size:1.9rem; font-weight:700; }
+  .official .big { color:var(--accent); }
+  .muted { color:var(--muted); font-size:0.82rem; }
+  .bars { display:flex; align-items:flex-end; gap:10px; height:160px; padding-top:10px; }
+  .bar-col { flex:1; display:flex; flex-direction:column; align-items:center; height:100%; justify-content:flex-end; }
+  .bar-track { width:100%; max-width:36px; height:120px; background:var(--track); border-radius:6px; display:flex; align-items:flex-end; overflow:hidden; }
+  .bar-fill { width:100%; background:var(--accent); border-radius:6px 6px 0 0; min-height:2px; }
+  .bar-label { font-size:0.7rem; color:var(--muted); margin-top:6px; }
+  .bar-value { font-size:0.65rem; color:var(--muted); }
+  table { width:100%; border-collapse:collapse; font-size:0.85rem; }
+  th,td { text-align:left; padding:7px 6px; border-bottom:1px solid var(--border); }
+  th { color:var(--muted); font-weight:600; font-size:0.75rem; text-transform:uppercase; }
+  .howto { background:var(--card); border:1px dashed var(--border); border-radius:14px; padding:18px 20px; font-size:0.85rem; line-height:1.7; }
+  code { background:var(--track); padding:2px 6px; border-radius:5px; font-size:0.85em; }
+  .warn { font-size:0.78rem; color:var(--muted); margin-top:6px; }
+  .banner { background:var(--card); border:1px solid var(--warn2); border-radius:12px; padding:12px 16px; font-size:0.82rem; margin-bottom:20px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Claude 用量儀表板</h1>
+  <div class="sub">更新時間 2026-07-13 14:34:13　·　校準基準：Claude Pro 方案</div>
+
+  <div class="banner">⏰ 提醒：Anthropic 目前的每週用量上限暫時提高 50%，這個加成到 <strong>2026-07-13</strong> 就會結束——屆時週用量會變緊，本工具目前沒有可靠的公開數字能估算週上限，請以手動記錄的 <code>/usage</code> 為準。</div>
+
+  <div class="hero">
+    <div>
+      <div class="ring-label">5 小時視窗 · 估算剩餘空間</div>
+      <svg width="170" height="170" viewBox="0 0 170 170">
+        <circle cx="85" cy="85" r="70" fill="none" stroke="var(--track)" stroke-width="16"/>
+        <circle cx="85" cy="85" r="70" fill="none" stroke="var(--danger)" stroke-width="16"
+                stroke-dasharray="439.8 439.8" stroke-linecap="round"
+                transform="rotate(-90 85 85)"/>
+        <text x="85" y="80" text-anchor="middle" font-size="34" font-weight="800" fill="var(--text)">0%</text>
+        <text x="85" y="102" text-anchor="middle" font-size="12" fill="var(--muted)">還剩</text>
+      </svg>
+    </div>
+    <div class="hero-side">
+      <div class="row"><span>過去 5 小時已送出提示</span><strong>67 則</strong></div>
+      <div class="row"><span>Pro 方案 5 小時參考值</span><strong>約 45 則</strong></div>
+      <div class="row"><span>估算已使用</span><strong>100%</strong></div>
+      <div class="row"><span>官方回報（你手動記的 /usage）</span><strong><span class="muted">尚未記錄</span></strong></div>
+      <div class="muted" style="margin-top:10px">估算值只算這台電腦的 Claude Code 用量；若你也用 claude.ai 網頁版或 Cowork，實際剩餘空間會比這裡顯示的更少。訊息長度、附件、模型都會讓實際額度跟 45 則這個參考值有落差。</div>
+    </div>
+  </div>
+
+  <div class="grid">
+    <div class="card official">
+      <h2>官方回報｜本週</h2>
+      <div class="big"><span class="muted">尚未記錄</span></div>
+      <div class="warn">週上限沒有公開則數基準，僅能靠手動記錄</div>
+    </div>
+    <div class="card">
+      <h2>本地估算｜今天</h2>
+      <div class="big">74 <span class="muted" style="font-size:1rem">則</span></div>
+      <div class="muted">115,104,195 tokens（含快取讀寫）</div>
+    </div>
+    <div class="card">
+      <h2>本地估算｜本週累計</h2>
+      <div class="big">381 <span class="muted" style="font-size:1rem">則</span></div>
+      <div class="muted">1,455,288,983 tokens</div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-bottom:24px">
+    <h2>本地活躍度趨勢（過去 8 天，訊息數對應的 token 量）</h2>
+    <div class="bars">
+        <div class="bar-col">
+          <div class="bar-track"><div class="bar-fill" style="height:0%"></div></div>
+          <div class="bar-label">07-06</div>
+          <div class="bar-value">1,333,429</div>
+        </div>
+        <div class="bar-col">
+          <div class="bar-track"><div class="bar-fill" style="height:0%"></div></div>
+          <div class="bar-label">07-07</div>
+          <div class="bar-value">0</div>
+        </div>
+        <div class="bar-col">
+          <div class="bar-track"><div class="bar-fill" style="height:0%"></div></div>
+          <div class="bar-label">07-08</div>
+          <div class="bar-value">0</div>
+        </div>
+        <div class="bar-col">
+          <div class="bar-track"><div class="bar-fill" style="height:1%"></div></div>
+          <div class="bar-label">07-09</div>
+          <div class="bar-value">8,049,803</div>
+        </div>
+        <div class="bar-col">
+          <div class="bar-track"><div class="bar-fill" style="height:10%"></div></div>
+          <div class="bar-label">07-10</div>
+          <div class="bar-value">89,285,322</div>
+        </div>
+        <div class="bar-col">
+          <div class="bar-track"><div class="bar-fill" style="height:100%"></div></div>
+          <div class="bar-label">07-11</div>
+          <div class="bar-value">938,388,273</div>
+        </div>
+        <div class="bar-col">
+          <div class="bar-track"><div class="bar-fill" style="height:32%"></div></div>
+          <div class="bar-label">07-12</div>
+          <div class="bar-value">304,378,678</div>
+        </div>
+        <div class="bar-col">
+          <div class="bar-track"><div class="bar-fill" style="height:12%"></div></div>
+          <div class="bar-label">07-13</div>
+          <div class="bar-value">115,104,195</div>
+        </div>
+    </div>
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <h2>過去 7 天各模型用量（本地估算）</h2>
+      <table><tr><th>模型</th><th>Tokens</th><th>訊息數</th></tr><tr><td>claude-sonnet-5</td><td>1,152,352,484</td><td>4614</td></tr><tr><td>claude-fable-5</td><td>256,663,086</td><td>1405</td></tr><tr><td>claude-opus-4-8</td><td>28,824,053</td><td>277</td></tr><tr><td>claude-haiku-4-5-20251001</td><td>17,449,360</td><td>580</td></tr><tr><td><synthetic></td><td>0</td><td>13</td></tr></table>
+    </div>
+    <div class="card">
+      <h2>官方數字記錄歷史</h2>
+      <table><tr><th>時間</th><th>類型</th><th>%</th><th>備註</th></tr><tr><td colspan="4" class="muted">尚未記錄，見下方說明</td></tr></table>
+    </div>
+  </div>
+
+  <div class="howto">
+    <strong>想校準得更準？記錄官方數字：</strong><br>
+    1. 在 Claude Code 互動 session 裡輸入 <code>/usage</code>，記下顯示的百分比。<br>
+    2. 回到終端機執行：<code>python claude_usage_report.py --log 42</code>（5 小時視窗）或
+    <code>python claude_usage_report.py --log 60 --type week</code>（本週）。<br>
+    <span class="warn">中央圓環的「估算剩餘空間」是拿 Anthropic 公開的「Pro 方案約 45 則/5小時」參考值換算，不是官方即時查詢——官方原文本身也註明這只是估計值。</span>
+  </div>
+</div>
+</body>
+</html>

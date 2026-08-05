@@ -1,0 +1,1323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BixLink Next-Generation Sodium-Ion Battery | NFPP Custom Battery Pack Solutions</title>
+<meta name="description" content="Ultimate safety meets advanced pack engineering. NFPP sodium-ion cells: nail-penetration and 12-hour short-circuit tests passed, -40 to 60 °C operation, 8,000-10,000 cycles. From cell supply to pack design and technology transfer.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>&#9889;</text></svg>">
+<link rel="stylesheet" href="lib/fonts.css">
+<style>
+  :root{
+    --bg:#07090d; --bg2:#0b0e14;
+    --line:rgba(255,255,255,.08); --line2:rgba(255,255,255,.16);
+    --text:#eef1f6; --muted:#a6b0c2; --dim:#69758c;
+    --na:#ffb648; --na-d:#d98e1c; --na-glow:rgba(255,182,72,.45);
+    --pass:#4ade80;
+    --glass:linear-gradient(160deg,rgba(255,255,255,.05),rgba(255,255,255,.012));
+    --body:'Segoe UI',system-ui,-apple-system,Arial,sans-serif;
+    --display:'Chakra Petch','Segoe UI',system-ui,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:var(--body);background:var(--bg);color:var(--text);line-height:1.7;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%;display:block}
+  .wrap{max-width:1200px;margin:0 auto;padding:0 24px}
+  section{position:relative}
+
+  /* ambient background — BixLink brand DNA: charcoal base, corporate-blue glow
+     blended with sodium amber, referencing the official bixlink-tech.com look */
+  :root{--amb-hue:0deg;--amb-x:22%;--amb-y:26%}
+  body::before{content:"";position:fixed;inset:-25%;z-index:-1;pointer-events:none;
+    background:
+      radial-gradient(38% 30% at var(--amb-x) var(--amb-y),rgba(255,182,72,.07),transparent 60%),
+      radial-gradient(40% 34% at 70% 4%,rgba(0,144,213,.09),transparent 62%),
+      radial-gradient(44% 40% at 22% 88%,rgba(0,123,255,.06),transparent 62%);
+    filter:blur(52px) hue-rotate(var(--amb-hue));
+    animation:drift 34s ease-in-out infinite alternate}
+  /* flowing colour orbs — the live, visibly-moving background layer (Stripe-style) */
+  .bg-fx{position:fixed;inset:0;z-index:-1;overflow:hidden;pointer-events:none}
+  .orb{position:absolute;border-radius:50%;filter:blur(75px);opacity:.55;will-change:transform;mix-blend-mode:screen}
+  .o1{width:54vw;height:54vw;left:-10vw;top:-12vw;background:radial-gradient(circle,rgba(0,144,213,.55),transparent 68%);animation:orb1 26s ease-in-out infinite}
+  .o2{width:46vw;height:46vw;right:-8vw;top:0;background:radial-gradient(circle,rgba(255,168,60,.42),transparent 68%);animation:orb2 33s ease-in-out infinite}
+  .o3{width:50vw;height:50vw;left:26vw;bottom:-16vw;background:radial-gradient(circle,rgba(0,123,255,.5),transparent 68%);animation:orb3 30s ease-in-out infinite}
+  .o4{width:38vw;height:38vw;right:8vw;bottom:-8vw;background:radial-gradient(circle,rgba(0,170,220,.36),transparent 68%);animation:orb4 38s ease-in-out infinite}
+  @keyframes orb1{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(26vw,20vh) scale(1.2)}66%{transform:translate(12vw,42vh) scale(.9)}}
+  @keyframes orb2{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(-24vw,26vh) scale(1.14)}66%{transform:translate(-8vw,-10vh) scale(.94)}}
+  @keyframes orb3{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-22vw,-28vh) scale(1.18)}}
+  @keyframes orb4{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-18vw,-14vh) scale(1.1)}}
+  @keyframes drift{to{transform:rotate(9deg) scale(1.14) translate(-3%,-5%)}}
+  /* halftone dot field — echoes the faded dot world-map on the official site */
+  body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.85;
+    background-image:radial-gradient(rgba(150,185,225,.11) 1.3px,transparent 1.5px);
+    background-size:26px 26px;
+    -webkit-mask-image:radial-gradient(150% 120% at 50% -8%,#000,rgba(0,0,0,.32) 52%,transparent 86%);
+    mask-image:radial-gradient(150% 120% at 50% -8%,#000,rgba(0,0,0,.32) 52%,transparent 86%);
+    animation:gridpan 46s linear infinite}
+  @keyframes gridpan{to{background-position:26px 26px}}
+  /* faint engineering blueprint of the cell — technical brand motif, drifts + draws slowly */
+  .blueprint{position:fixed;right:-5vw;top:50%;transform:translateY(-50%);height:88vh;width:auto;z-index:0;pointer-events:none;
+    opacity:.55;filter:drop-shadow(0 0 24px rgba(0,144,213,.14));
+    animation:bpfloat 46s ease-in-out infinite alternate}
+  .blueprint .bp-line{stroke:rgba(0,144,213,.11);stroke-width:1.2;vector-effect:non-scaling-stroke;fill:none;stroke-linejoin:round}
+  .blueprint .bp-faint{stroke:rgba(120,175,235,.07)}
+  .blueprint .bp-dash{stroke-dasharray:6 6;animation:bpdash 70s linear infinite}
+  @keyframes bpdash{to{stroke-dashoffset:-240}}
+  @keyframes bpfloat{to{transform:translateY(-55%) translateX(-1.8vw) rotate(1.4deg)}}
+  @media(prefers-reduced-motion:reduce){body::before,body::after,.blueprint,.blueprint .bp-dash,.orb{animation:none}}
+
+  /* ===== liquid glass surface ===== */
+  .glass{position:relative;background:var(--glass);
+    backdrop-filter:blur(30px) saturate(165%);-webkit-backdrop-filter:blur(30px) saturate(165%);
+    border:1px solid rgba(255,255,255,.055);border-radius:20px;overflow:hidden}
+  .glass::before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;
+    background:linear-gradient(180deg,rgba(255,255,255,.07),transparent 22%)}
+  .glass.shine::after{content:"";position:absolute;top:-8%;bottom:-8%;left:-75%;width:46%;pointer-events:none;
+    background:linear-gradient(105deg,transparent,rgba(255,255,255,.09) 48%,transparent);
+    transform:skewX(-18deg);transition:left .8s cubic-bezier(.2,.6,.2,1)}
+  .glass.shine:hover::after{left:130%}
+  .glass:hover{border-color:var(--line2)}
+
+  /* ===== header ===== */
+  header{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(7,9,13,.55);
+    backdrop-filter:blur(26px) saturate(160%);-webkit-backdrop-filter:blur(26px) saturate(160%)}
+  header::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;
+    background:linear-gradient(90deg,transparent,rgba(255,255,255,.14) 30%,rgba(255,255,255,.14) 70%,transparent)}
+  .nav{display:flex;align-items:center;gap:24px;height:64px}
+  .logo{display:flex;flex-direction:column;line-height:1;margin-right:auto}
+  .logo b{font-family:var(--display);font-size:21px;letter-spacing:2px;font-weight:700}
+  .logo b i{color:var(--na);font-style:normal}
+  .logo span{font-size:9.5px;letter-spacing:3px;color:var(--dim);margin-top:4px;text-transform:uppercase}
+  .nav a.lk{color:var(--muted);font-size:13.5px;font-weight:600;transition:color .2s;display:none}
+  .nav a.lk:hover{color:var(--text)}
+  @media(min-width:980px){.nav a.lk{display:inline}}
+  .btn{display:inline-block;padding:12px 26px;border-radius:12px;font-weight:700;font-size:14px;color:#1a1206;
+    background:linear-gradient(165deg,#ffd88f 0%,#f5a83a 46%,#cd7f15 100%);
+    border:1px solid rgba(255,220,150,.55);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.5),0 8px 26px -10px var(--na-glow);
+    transition:transform .16s,box-shadow .16s}
+  .btn:hover{transform:translateY(-2px);box-shadow:inset 0 1px 0 rgba(255,255,255,.5),0 14px 34px -10px var(--na-glow)}
+  .btn.ghost{background:rgba(255,255,255,.04);color:var(--text);border:1px solid var(--line2);box-shadow:inset 0 1px 0 rgba(255,255,255,.08)}
+  .btn.ghost:hover{border-color:rgba(255,255,255,.3)}
+  .langs{display:flex;border:1px solid var(--line2);border-radius:100px;padding:3px;gap:2px;background:rgba(255,255,255,.03)}
+  .langs button{font-family:var(--display);border:0;background:transparent;color:var(--muted);font-size:12.5px;font-weight:700;letter-spacing:1px;padding:6px 13px;border-radius:100px;cursor:pointer;transition:all .2s}
+  .langs button.on{background:linear-gradient(165deg,#ffd88f,#f0a231);color:#1a1206}
+
+  /* ===== hero (center stage, nothing over the product) ===== */
+  .hero{padding:130px 0 40px;text-align:center}
+  .badge{display:inline-flex;align-items:center;gap:9px;padding:8px 18px;border-radius:100px;
+    background:rgba(255,182,72,.07);border:1px solid rgba(255,182,72,.3);color:var(--na);
+    font-size:12.5px;font-weight:700;letter-spacing:.6px;margin-bottom:26px;
+    backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+  .badge::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--na);box-shadow:0 0 12px var(--na)}
+  h1{font-family:var(--display);font-size:clamp(38px,5.6vw,72px);line-height:1.06;font-weight:700;letter-spacing:.5px;
+    background:linear-gradient(100deg,#f6f8fb 0%,#c6cfdb 24%,#fafcff 42%,#95a2b5 60%,#e9edf4 78%,#c2ccd9 100%);
+    background-size:220% 100%;
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+    animation:chrome 9s linear infinite}
+  @keyframes chrome{to{background-position:220% 0}}
+  @media(prefers-reduced-motion:reduce){h1{animation:none}}
+  .hero .sub{font-size:clamp(15px,1.7vw,19px);color:var(--muted);font-weight:500;max-width:640px;margin:20px auto 0;line-height:1.65}
+  .hero-cta{display:flex;flex-wrap:wrap;gap:14px;margin-top:30px;justify-content:center}
+
+  .na-tile{position:absolute;top:92px;right:26px;width:74px;padding:8px 10px;text-align:center;font-family:var(--display);z-index:5;display:none;
+    background:rgba(255,182,72,.05);border:1px solid rgba(255,182,72,.35);border-radius:12px;
+    backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+  @media(min-width:1060px){.na-tile{display:block}}
+  .na-tile .num{font-size:11px;color:var(--muted);text-align:left}
+  .na-tile .sym{font-size:30px;font-weight:700;color:var(--na);line-height:1.05}
+  .na-tile .nm{font-size:9px;color:var(--dim);letter-spacing:.5px}
+  .na-tile .mass{font-size:10px;color:var(--muted)}
+
+  /* stage: unobstructed 3D */
+  .stage{position:relative;height:clamp(390px,56vh,580px);margin-top:8px}
+  #cell3d{position:absolute;inset:0;cursor:grab;touch-action:none}
+  #cell3d:active{cursor:grabbing}
+  .stage .hint{position:absolute;left:50%;bottom:10px;transform:translateX(-50%);font-size:11px;color:var(--dim);letter-spacing:1.6px;pointer-events:none;display:flex;align-items:center;gap:8px;text-transform:uppercase}
+  .stage .hint::before{content:"⟲"}
+
+  /* glass dock under the product: switcher + live specs, no overlap */
+  .dock{max-width:1020px;margin:18px auto 0;padding:16px 18px}
+  .dock-top{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:12px;margin-bottom:14px}
+  .switcher{display:flex;gap:4px;background:rgba(255,255,255,.045);border:1px solid var(--line);border-radius:100px;padding:4px}
+  .switcher button{font-family:var(--display);border:0;background:transparent;color:var(--muted);font-size:13px;font-weight:600;padding:9px 22px;border-radius:100px;cursor:pointer;transition:all .22s;white-space:nowrap}
+  .switcher button.on{background:linear-gradient(165deg,#ffd88f,#f0a231);color:#1a1206;box-shadow:inset 0 1px 0 rgba(255,255,255,.5)}
+  .dockspecs{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border-radius:12px;overflow:hidden}
+  @media(min-width:760px){.dockspecs{grid-template-columns:repeat(6,1fr)}}
+  .dockspecs>div{background:rgba(10,13,18,.55);padding:12px 10px;text-align:center}
+  .dockspecs span{display:block;font-size:10.5px;color:var(--dim);letter-spacing:.8px;text-transform:uppercase}
+  .dockspecs b{font-family:var(--display);font-size:15px;font-weight:700;color:var(--text)}
+
+  /* product headline figures — reads as the cell's key specs, not a floating card */
+  .band{padding:14px 0 64px}
+  .band-kick{font-family:var(--display);font-size:12px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--na);text-align:center;margin-bottom:26px}
+  .band-kick::before,.band-kick::after{content:"";display:inline-block;width:34px;height:1px;background:var(--na-d);vertical-align:middle;margin:0 14px;opacity:.6}
+  .bandin{display:grid;grid-template-columns:repeat(2,1fr);gap:0}
+  @media(min-width:860px){.bandin{grid-template-columns:repeat(4,1fr)}}
+  .bstat{padding:16px 20px;text-align:center;border-left:1px solid var(--line)}
+  .bstat:first-child{border-left:0}
+  @media(max-width:859px){.bstat:nth-child(2n+1){border-left:0}}
+  .bstat b{font-family:var(--display);font-size:clamp(26px,3vw,36px);font-weight:700;white-space:nowrap}
+  .bstat b small{font-size:.5em;color:var(--muted);font-weight:600;margin-left:2px}
+  .bstat b span{display:inline;font-size:inherit;color:inherit}
+  .bstat>span{display:block;font-size:11px;color:var(--dim);letter-spacing:1.2px;margin-top:6px;text-transform:uppercase}
+  .bstat .cond{font-size:10px;color:var(--dim);letter-spacing:.2px;text-transform:none}
+
+  /* cinematic full-bleed number (ref: giant stat over imagery) */
+  .cine{position:relative;min-height:76vh;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden}
+  .cine-bg{position:absolute;inset:-10% 0;background:url(assets/cells-bare.jpg) center/cover no-repeat;will-change:transform}
+  .cine::after{content:"";position:absolute;inset:0;background:radial-gradient(120% 100% at 50% 42%,rgba(7,9,13,.55),rgba(7,9,13,.88) 62%,var(--bg))}
+  .cine-in{position:relative;z-index:2;padding:64px 24px}
+  .cine .kick{font-family:var(--display);font-size:13px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--na);margin-bottom:12px}
+  .cine .big{font-family:var(--display);font-weight:700;line-height:.95;font-size:clamp(56px,13vw,172px);letter-spacing:-2px;color:var(--text);text-shadow:0 8px 60px rgba(0,0,0,.55)}
+  .cine .sub{margin-top:16px;font-size:14px;color:var(--muted);letter-spacing:.4px}
+
+  /* marquee */
+  .strip{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:rgba(255,255,255,.015);padding:18px 0;overflow:hidden}
+  .strip-inner{display:flex;gap:56px;white-space:nowrap;width:max-content;animation:mq 36s linear infinite}
+  .strip-inner span{font-family:var(--display);font-size:13.5px;color:var(--dim);letter-spacing:2px;display:flex;align-items:center;gap:12px}
+  .strip-inner span::before{content:"◆";color:var(--na);font-size:8px}
+  @keyframes mq{to{transform:translateX(-50%)}}
+  @media(prefers-reduced-motion:reduce){.strip-inner{animation:none}}
+
+  /* ===== Apple-style pinned statement ===== */
+  .stmt{height:340vh}
+  .stmt-pin{position:sticky;top:0;height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(10px,2.2vh,26px);padding:0 24px}
+  .stmt .line{font-family:var(--display);font-weight:700;font-size:clamp(30px,5.4vw,64px);line-height:1.15;color:var(--text);opacity:.1;text-align:center;letter-spacing:.5px}
+  .stmt .line.final{color:var(--na);text-shadow:0 0 44px rgba(255,182,72,.35)}
+  @media(prefers-reduced-motion:reduce){.stmt{height:auto;padding:120px 0}.stmt-pin{position:static;height:auto}.stmt .line{opacity:1}}
+
+  /* ===== sections ===== */
+  .sec{padding:110px 0}
+  #pack{padding-bottom:56px}
+  #apps{padding-top:56px}
+  .kicker{font-family:var(--display);color:var(--na);font-size:13px;font-weight:700;letter-spacing:4px;text-transform:uppercase}
+  .sec h2{font-size:clamp(26px,3.3vw,42px);font-weight:800;margin:14px 0 12px;letter-spacing:.3px}
+  .sec h2 .en{font-family:var(--display);display:block;font-size:.42em;color:var(--dim);font-weight:500;letter-spacing:2px;margin-top:8px}
+  .lead{color:var(--muted);max-width:680px}
+  .sec-head{margin-bottom:52px}
+
+  .bignums{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-bottom:60px}
+  @media(min-width:860px){.bignums{grid-template-columns:repeat(4,1fr)}}
+  .bignum{padding:30px 20px;text-align:center}
+  .bignum b{font-family:var(--display);font-size:clamp(30px,3.2vw,42px);font-weight:700;color:var(--na);display:block;line-height:1.1}
+  .bignum b small{font-size:.45em;color:var(--muted)}
+  .bignum .lbl{font-size:13px;color:var(--text);font-weight:600;margin-top:10px}
+  .bignum .cond{font-size:11px;color:var(--dim);margin-top:3px;line-height:1.5}
+  .bignum .pass{display:inline-block;margin-top:12px;font-family:var(--display);font-size:10.5px;font-weight:700;letter-spacing:1.4px;color:var(--pass);border:1px solid rgba(74,222,128,.35);background:rgba(74,222,128,.07);border-radius:100px;padding:4px 12px}
+
+  .tests{display:grid;gap:22px}
+  @media(min-width:900px){.tests{grid-template-columns:1fr 1fr}}
+  .test{padding:30px;transition:transform .25s}
+  .test:hover{transform:translateY(-4px)}
+  .test .tag{font-family:var(--display);display:inline-block;font-size:11px;font-weight:700;letter-spacing:2px;color:var(--na);border:1px solid rgba(255,182,72,.35);border-radius:100px;padding:5px 14px;margin-bottom:16px;background:rgba(255,182,72,.05)}
+  .test h3{font-size:20px;font-weight:700;margin-bottom:14px}
+  .test ul{list-style:none;margin:0 0 18px}
+  .test li{font-size:14px;color:var(--muted);padding:5px 0 5px 20px;position:relative}
+  .test li::before{content:"▸";position:absolute;left:2px;color:var(--na)}
+  .test li b{color:var(--text)}
+  .shot{position:relative;border-radius:16px;overflow:hidden;border:1px solid var(--line);background:#000}
+  .shot img{width:100%;display:block}
+  .shot::after{content:"";position:absolute;inset:0;pointer-events:none;
+    background:linear-gradient(0deg,rgba(0,0,0,.82) 0%,rgba(0,0,0,.35) 22%,transparent 46%),
+               linear-gradient(160deg,rgba(255,182,72,.10),transparent 55%)}
+  .shot .cap{position:absolute;left:16px;right:16px;bottom:12px;font-family:var(--display);
+    font-style:italic;font-size:11.5px;letter-spacing:.3px;color:var(--muted);line-height:1.5;z-index:2}
+  .peak{position:absolute;left:var(--px);top:var(--py);transform:translate(-50%,-50%);z-index:2;
+    background:rgba(7,9,13,.86);border:1px solid rgba(255,182,72,.55);border-radius:10px;
+    padding:6px 11px 5px;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+    box-shadow:0 8px 22px -8px var(--na-glow);pointer-events:none;white-space:nowrap}
+  .peak b{display:block;font-family:var(--display);font-size:15px;font-weight:700;color:var(--na);line-height:1.1}
+  .peak em{display:block;font-style:normal;font-size:8.5px;letter-spacing:.4px;color:var(--dim);margin-top:2px}
+
+  .temp-panel{padding:42px 36px;max-width:880px;margin:0 auto}
+  .temp-read{display:flex;align-items:baseline;justify-content:center;gap:8px;margin-bottom:8px}
+  .temp-read b{font-family:var(--display);font-size:clamp(52px,7vw,80px);font-weight:700;color:var(--text);line-height:1}
+  .temp-read span{font-family:var(--display);font-size:24px;color:var(--muted)}
+  .temp-state{text-align:center;min-height:56px;margin-bottom:22px}
+  .temp-state .st{font-size:16px;font-weight:700}
+  .temp-state .st.ok{color:var(--pass)}
+  .temp-state .st.warn{color:var(--na)}
+  .temp-state .st.no{color:#f87171}
+  .temp-state .sub{font-size:12.5px;color:var(--dim);margin-top:2px}
+  input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:12px;border-radius:100px;outline:none;
+    background:linear-gradient(90deg,#38bdf8 0%,#38bdf8 20%,#3f4f6e 20%,#5a6b8c 40%,#f5b04c 40%,#e08f1f 100%);cursor:pointer;
+    box-shadow:inset 0 1px 3px rgba(0,0,0,.5)}
+  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:32px;height:32px;border-radius:50%;cursor:grab;
+    background:radial-gradient(circle at 32% 28%,#ffffff 0%,#dfe5ec 34%,#98a3b3 68%,#e8edf3 100%);
+    border:1px solid rgba(255,255,255,.7);
+    box-shadow:0 6px 18px rgba(0,0,0,.6),inset 0 -2px 5px rgba(0,0,0,.25)}
+  .temp-scale{display:flex;justify-content:space-between;font-family:var(--display);font-size:12px;color:var(--dim);margin-top:10px}
+  .temp-zones{display:grid;grid-template-columns:1fr;gap:10px;margin-top:26px}
+  @media(min-width:680px){.temp-zones{grid-template-columns:repeat(3,1fr)}}
+  .zone{border:1px solid var(--line);border-radius:14px;padding:14px 16px;transition:all .25s;opacity:.5;background:rgba(255,255,255,.02)}
+  .zone.on{opacity:1;border-color:rgba(255,182,72,.5);background:rgba(255,182,72,.06)}
+  .zone b{font-size:13.5px;display:block}
+  .zone span{font-family:var(--display);font-size:12px;color:var(--muted)}
+  .temp-note{font-size:11.5px;color:var(--dim);margin-top:20px;text-align:center}
+
+  .ico{width:46px;height:46px;border-radius:13px;display:grid;place-items:center;margin-bottom:16px;background:rgba(255,182,72,.09);border:1px solid rgba(255,182,72,.28);font-size:22px}
+  /* features as editorial numbered rows (de-boxed) */
+  .feat-list{border-top:1px solid var(--line)}
+  .feat{display:grid;grid-template-columns:auto 1fr auto;gap:28px;align-items:center;padding:32px 6px;border-bottom:1px solid var(--line)}
+  .feat-n{font-family:var(--display);font-size:clamp(30px,4.4vw,54px);font-weight:700;line-height:1;letter-spacing:-1px;color:transparent;-webkit-text-stroke:1.4px var(--na-d);opacity:.8;transition:opacity .3s,-webkit-text-stroke-color .3s}
+  .feat:hover .feat-n{opacity:1;-webkit-text-stroke-color:var(--na)}
+  .feat-body h3{font-family:var(--display);font-size:clamp(18px,2.1vw,23px);font-weight:700;margin-bottom:12px}
+  .feat-body ul{list-style:none;display:grid;grid-template-columns:1fr;gap:7px}
+  @media(min-width:760px){.feat-body ul{grid-template-columns:1fr 1fr;gap:7px 30px}}
+  .feat-body li{color:var(--muted);font-size:14px;padding-left:18px;position:relative}
+  .feat-body li::before{content:"";position:absolute;left:0;top:.62em;width:6px;height:6px;border-radius:50%;background:var(--na);opacity:.75}
+  .feat .ico{margin-bottom:0;flex-shrink:0}
+  @media(max-width:640px){.feat{grid-template-columns:auto 1fr;gap:14px 16px;padding:24px 4px}.feat .ico{display:none}}
+  html.js .feat{opacity:0}
+
+
+  .divider{display:flex;height:clamp(140px,18vw,220px);overflow:hidden}
+  .divider .half{flex:1 1 50%;display:flex;align-items:center;justify-content:center;
+    font-family:var(--display);font-weight:700;font-size:clamp(22px,3.2vw,44px);letter-spacing:2px;text-transform:uppercase}
+  .divider .a{background:#0b0e14;color:var(--muted);clip-path:polygon(0 0,100% 0,82% 100%,0 100%)}
+  .divider .b{background:linear-gradient(120deg,#3a2609,#150e06);color:var(--na);margin-left:-16%;
+    clip-path:polygon(64% 0,100% 0,100% 100%,46% 100%);text-shadow:0 0 30px rgba(255,182,72,.35);
+    justify-content:flex-end;padding-right:6%}
+
+  .cellmosaic{display:grid;grid-template-columns:1.3fr 1fr;grid-auto-rows:1fr;gap:14px}
+  .cellmosaic .cm-a{grid-column:1;grid-row:1/3}
+  .cellmosaic .cm-b{grid-column:2;grid-row:1;align-self:start}
+  .cellmosaic .cm-c{grid-column:2;grid-row:2;margin-top:26px}
+  .cellmosaic .cm img{height:100%;object-fit:cover}
+  @media(max-width:640px){.cellmosaic{grid-template-columns:1fr}.cellmosaic .cm-b,.cellmosaic .cm-c{margin-top:0}}
+  .cells-grid{display:grid;gap:26px;align-items:center;margin-bottom:56px}
+  @media(min-width:900px){.cells-grid{grid-template-columns:1.1fr .9fr}}
+  /* spec comparison — clean card, no forced horizontal scroll */
+  .tbl-scroll{border:1px solid var(--line2);border-radius:18px;overflow:hidden;
+    background:linear-gradient(180deg,rgba(255,255,255,.022),rgba(255,255,255,.006))}
+  table.spec{border-collapse:collapse;width:100%;font-size:13px;table-layout:fixed}
+  .spec th,.spec td{padding:12px 14px;text-align:left;border-bottom:1px solid var(--line);vertical-align:middle;overflow-wrap:break-word}
+  .spec thead th{color:var(--dim);font-family:var(--display);font-weight:700;font-size:11px;letter-spacing:1px;text-transform:uppercase;
+    background:rgba(255,255,255,.04);border-bottom:1px solid var(--line2);padding-top:14px;padding-bottom:14px}
+  .spec thead th:not(:first-child){text-align:center;color:var(--na)}
+  .spec thead th small{display:block;color:var(--muted);font-size:10px;font-weight:600;letter-spacing:.3px;margin-top:2px;text-transform:none}
+  .spec col.c-item{width:44%}
+  .spec tbody th{color:var(--muted);font-weight:600;font-size:12.5px}
+  .spec tbody th small{color:var(--dim);font-weight:400;display:block;font-size:10.5px;margin-top:1px}
+  .spec td{font-family:var(--display);font-weight:600;text-align:center;color:var(--text)}
+  .spec th:not(:first-child),.spec td:not(:first-child){border-left:1px solid var(--line)}
+  .spec tbody tr:nth-child(2n) th,.spec tbody tr:nth-child(2n) td{background:rgba(255,255,255,.017)}
+  .spec tbody tr:last-child th,.spec tbody tr:last-child td{border-bottom:0}
+  .spec tbody tr:hover th,.spec tbody tr:hover td{background:rgba(255,182,72,.06)}
+  .spec td.hl{color:var(--na);font-size:14.5px;font-weight:700}
+  html.js .spec tbody tr{opacity:0}
+
+  .charts{margin-top:48px}
+  .chart-tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px;padding:5px;background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:100px}
+  .chart-tabs button{font-family:var(--display);border:0;background:transparent;color:var(--muted);font-size:12.5px;font-weight:700;letter-spacing:.4px;padding:10px 20px;border-radius:100px;cursor:pointer;transition:all .22s}
+  .chart-tabs button.on{background:linear-gradient(165deg,#ffd88f,#f0a231);color:#1a1206;box-shadow:inset 0 1px 0 rgba(255,255,255,.5)}
+  .chart-view{padding:18px;background:#0a0d13;border:1px solid var(--line2);border-radius:16px;position:relative;overflow:hidden}
+  .chart-view img{max-height:440px;width:auto;max-width:100%;border-radius:8px;display:block;margin:0 auto}
+  .chart-view .cap{position:static;left:auto;right:auto;bottom:auto;display:block;margin:14px auto 0;max-width:660px;text-align:center;font-family:var(--display);font-style:italic;font-size:12px;letter-spacing:.3px;color:var(--muted);line-height:1.5}
+  .chart-view .peak{left:16px;top:16px;transform:none;background:rgba(7,9,13,.92);box-shadow:0 6px 18px -8px rgba(0,0,0,.6)}
+  .chart-cap{font-size:12px;color:var(--dim);margin-top:12px;text-align:center}
+
+  .pack-grid{display:grid;gap:26px;align-items:center}
+  @media(min-width:900px){.pack-grid{grid-template-columns:.95fr 1.05fr}}
+  /* case as a cut-out on a lit studio stage so the glossy black reads true (pseudo-3D) */
+  .pack-stage{position:relative;display:grid;place-items:center;padding:36px 20px 26px;border-radius:22px;overflow:hidden;
+    background:radial-gradient(125% 95% at 50% 20%,#eef1f6,#ccd4e0 70%,#a9b3c3);border:1px solid var(--line2)}
+  .pack-3d{perspective:1100px;position:relative}
+  .pack-3d img{max-width:100%;max-height:340px;display:block;transform:rotateX(6deg) rotateY(-14deg);
+    filter:drop-shadow(0 34px 30px rgba(18,24,36,.5));animation:packfloat 6.5s ease-in-out infinite alternate;transition:transform .4s ease}
+  @keyframes packfloat{to{transform:rotateX(6deg) rotateY(-8deg) translateY(-12px)}}
+  .pack-stage:hover .pack-3d img{transform:rotateX(4deg) rotateY(-5deg) scale(1.03);animation-play-state:paused}
+  .pack-stage .concept{position:absolute;top:12px;left:12px;z-index:1;font-family:var(--display);font-size:10.5px;font-weight:700;letter-spacing:1.5px;background:rgba(12,16,22,.82);color:#dfe4ec;border-radius:100px;padding:6px 14px}
+  .pack-stage .cap{display:block;text-align:center;margin-top:12px;font-family:var(--display);font-size:12px;color:#3a4354;letter-spacing:.4px}
+  @media(prefers-reduced-motion:reduce){.pack-3d img{animation:none}}
+  .biz{display:grid}
+  .biz>div{padding:20px 8px;display:grid;grid-template-columns:46px 170px 1fr;gap:14px;align-items:center;border-bottom:1px solid var(--line)}
+  .biz>div:last-child{border-bottom:0}
+  .biz b{display:block;font-size:13.5px;color:var(--na);margin-bottom:3px}
+  .biz span{display:block;font-size:14px;color:var(--muted)}
+  .biz .ico,.app .ico{margin-bottom:0;flex-shrink:0}
+  @media(max-width:560px){.biz>div{grid-template-columns:46px 1fr;gap:10px 14px}.biz>div>div:last-child{grid-column:2}}
+  html.js .biz>div{opacity:0}
+
+  .apps{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+  @media(min-width:620px){.apps{grid-template-columns:repeat(3,1fr)}}
+  .app{position:relative;overflow:hidden;padding:20px 18px;display:flex;align-items:center;gap:14px;transition:transform .25s,border-color .25s;border-radius:16px}
+  .app::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--na);transform:scaleY(0);transform-origin:top;transition:transform .35s ease}
+  .app:hover{transform:translateY(-3px);border-color:var(--na-d)}
+  .app:hover::before{transform:scaleY(1)}
+  .app b{font-family:var(--display);font-size:14.5px;font-weight:600;transition:color .25s}
+  .app:hover b{color:var(--na)}
+  .app span{display:block;font-size:11.5px;color:var(--dim);margin-top:3px}
+  /* desktop with a real pointer + motion ok: collapse the description, reveal on hover.
+     touch / reduced-motion always see it (below this rule). */
+  @media(hover:hover) and (prefers-reduced-motion:no-preference){
+    .app span{max-height:0;opacity:0;margin-top:0;overflow:hidden;transition:max-height .3s ease,opacity .3s ease,margin-top .3s ease}
+    .app:hover span{max-height:48px;opacity:1;margin-top:3px}
+  }
+  html.js .app{opacity:0}
+
+  .cta{text-align:center;padding:120px 0;border-top:1px solid var(--line);
+    background:radial-gradient(760px 380px at 50% -10%,rgba(255,182,72,.12),transparent 62%)}
+  .cta h2{font-size:clamp(26px,3.6vw,44px);font-weight:800;margin:14px 0 16px}
+  .cta p{color:var(--muted);max-width:620px;margin:0 auto 34px}
+  .contact{display:flex;flex-wrap:wrap;justify-content:center;gap:16px 42px;margin-top:40px;font-size:15px}
+  .contact a{display:inline-flex;align-items:center;gap:9px;color:var(--text);font-weight:600}
+  .contact a:hover{color:var(--na)}
+
+  footer{border-top:1px solid var(--line);padding:36px 0;background:rgba(0,0,0,.25)}
+  .foot{color:var(--dim);font-size:12.5px;line-height:2}
+  .foot b{color:var(--muted)}
+  .foot .row{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;margin-top:14px;border-top:1px solid var(--line);padding-top:16px}
+
+  .rv{opacity:1}
+  html.js .rv{opacity:0;transform:translateY(34px)}
+  html.js .reveal-img{clip-path:inset(0 0 0 100%)}
+  html.js .bstat,html.js .bignum{opacity:0}
+  html.js .tests .peak{opacity:0}
+  html.js .temp-panel{clip-path:inset(0 100% 0 0)}
+  /* click-to-zoom for data images */
+  .zoomable{cursor:zoom-in}
+  .zoom-badge{position:absolute;top:12px;right:12px;z-index:3;display:flex;align-items:center;gap:6px;font-family:var(--display);font-size:10.5px;font-weight:700;letter-spacing:1px;color:var(--muted);background:rgba(7,9,13,.7);border:1px solid var(--line2);border-radius:100px;padding:5px 11px;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);pointer-events:none}
+  .lightbox{position:fixed;inset:0;z-index:100;display:none;place-items:center;padding:4vmin;background:rgba(4,6,10,.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+  .lightbox.on{display:grid}
+  .lightbox img{max-width:96vw;max-height:90vh;border-radius:12px;border:1px solid var(--line2);box-shadow:0 30px 90px rgba(0,0,0,.6)}
+  .lightbox .lx-close{position:absolute;top:18px;right:24px;font-family:var(--display);font-size:24px;color:var(--muted);cursor:pointer;line-height:1;background:none;border:0}
+  .lightbox .lx-hint{position:absolute;bottom:18px;left:0;right:0;text-align:center;font-size:12px;color:var(--dim);letter-spacing:.5px}
+  .word{display:inline-block;will-change:transform,filter,opacity}
+</style>
+</head>
+<body>
+<div class="bg-fx" aria-hidden="true"><span class="orb o1"></span><span class="orb o2"></span><span class="orb o3"></span><span class="orb o4"></span></div>
+<svg class="blueprint" aria-hidden="true" viewBox="0 0 300 460" xmlns="http://www.w3.org/2000/svg">
+  <!-- pouch cell body -->
+  <rect class="bp-line bp-dash" x="66" y="80" width="168" height="330" rx="15"/>
+  <!-- terminal tabs -->
+  <rect class="bp-line" x="100" y="52" width="36" height="30" rx="4"/>
+  <rect class="bp-line" x="164" y="52" width="36" height="30" rx="4"/>
+  <!-- inner seam -->
+  <rect class="bp-line bp-faint" x="82" y="98" width="136" height="294" rx="9"/>
+  <!-- right dimension line -->
+  <path class="bp-line bp-faint" d="M254 80 v330 M248 80 h12 M248 410 h12"/>
+  <!-- centre crosshair + circle -->
+  <circle class="bp-line bp-faint bp-dash" cx="150" cy="245" r="34"/>
+  <path class="bp-line bp-faint" d="M150 205 v80 M110 245 h80"/>
+</svg>
+
+<header>
+  <div class="wrap nav">
+    <div class="logo"><b>B<i>I</i>XLINK</b><span>Power to The Life</span></div>
+    <a class="lk" href="#safety" data-i="nav.safety">Safety Data</a>
+    <a class="lk" href="#temp" data-i="nav.temp">Temperature</a>
+    <a class="lk" href="#cells" data-i="nav.cells">Cell Specs</a>
+    <a class="lk" href="#pack" data-i="nav.pack">Pack Solutions</a>
+    <div class="langs" role="group" aria-label="Language">
+      <button id="lang-en" class="on">EN</button>
+      <button id="lang-de">DE</button>
+    </div>
+    <a class="btn" href="#contact" data-i="nav.contact">Contact</a>
+  </div>
+</header>
+
+<div class="na-tile" data-depth="0.6" aria-hidden="true">
+  <div class="num">11</div>
+  <div class="sym">Na</div>
+  <div class="nm">SODIUM</div>
+  <div class="mass">22.990</div>
+</div>
+
+<!-- ================= HERO: center stage ================= -->
+<section class="hero" id="top">
+  <div class="wrap">
+    <span class="badge" data-i="hero.badge">Ultimate Safety × Advanced Pack Engineering</span>
+    <h1 data-i="hero.h1">Next-Generation<br>Sodium-Ion Battery</h1>
+    <p class="sub" data-i="hero.sub">NFPP Custom Battery Pack Solutions, from single cells to turnkey production lines.</p>
+    <div class="hero-cta">
+      <a class="btn" href="#safety" data-i="hero.cta1">View safety data</a>
+      <a class="btn ghost" href="#cells" data-i="hero.cta2">Cell specifications</a>
+    </div>
+  </div>
+  <div class="wrap hero-stage">
+    <div class="stage">
+      <div id="cell3d" aria-label="Interactive 3D model of the sodium-ion cell. Drag to rotate."></div>
+      <div class="hint" data-i="hero.hint">Drag to rotate</div>
+    </div>
+    <div class="dock glass shine">
+      <div class="dock-top">
+        <div class="switcher" role="tablist">
+          <button id="sw-13" class="on">70155250 · 13Ah</button>
+          <button id="sw-5">70110140 · 5.3Ah</button>
+        </div>
+      </div>
+      <div class="dockspecs" id="cellspecs">
+        <div><span data-i="cs.cap">Capacity (0.2C)</span><b id="cs-cap">13 Ah</b></div>
+        <div><span data-i="cs.wh">Energy</span><b id="cs-wh">37.05 Wh</b></div>
+        <div><span data-i="cs.wt">Weight</span><b id="cs-wt">403 g</b></div>
+        <div><span data-i="cs.dim">T×W×L (mm)</span><b id="cs-dim">7.0×155×250</b></div>
+        <div><span data-i="cs.ed">Energy density</span><b id="cs-ed">135 Wh/L</b></div>
+        <div><span data-i="cs.pd">Power density</span><b id="cs-pd">5100 W/L</b></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- product headline figures — belong to the cell above (format-independent) -->
+<section class="band" aria-label="Key figures for every NFPP cell">
+  <div class="wrap">
+    <div class="band-kick" data-i="hero.figs">Every NFPP cell — both formats</div>
+    <div class="bandin">
+      <div class="bstat"><b data-count="2.85" data-dec="2">0<small>V</small></b><span data-i="hero.s1">Nominal voltage</span></div>
+      <div class="bstat"><b><span data-count="-40">0</span>&hairsp;…&hairsp;<span data-count="60">0</span><small>°C</small></b><span data-i="hero.s2">Discharge temperature</span></div>
+      <div class="bstat"><b data-count="40">0<small>C</small></b><span data-i="hero.s3">Max. pulse discharge</span></div>
+      <div class="bstat"><b><span data-count="8000">0</span><small>–10,000</small></b><span><span data-i="hero.s4">Cycle life</span> <span class="cond" data-i="hero.s4c">(1C, ≥80% retention)</span></span></div>
+    </div>
+  </div>
+</section>
+
+<div class="strip" aria-hidden="true">
+  <div class="strip-inner" id="mq">
+    <span>NFPP · Sodium Iron Pyrophosphate</span><span>-40…60 °C DISCHARGE</span><span>MAX 40C PULSE</span>
+    <span>NAIL PENETRATION TEST CLEARED</span><span>12 H CONTINUOUS SHORT-CIRCUIT TEST</span><span>8,000–10,000 CYCLES (1C, ≥80%)</span>
+    <span>FAIL-SAFE BMS + SMART FUSE</span><span>CELL SUPPLY → PACK DESIGN → TECH TRANSFER</span>
+  </div>
+</div>
+
+<!-- ================= PINNED STATEMENT (scroll story) ================= -->
+<section class="stmt" id="story" aria-label="Abuse test story">
+  <div class="stmt-pin">
+    <p class="line" data-i="st.1">Shorted for 12 hours.</p>
+    <p class="line" data-i="st.2">Pierced twice.</p>
+    <p class="line" data-i="st.3">Frozen to −40 °C.</p>
+    <p class="line final" data-i="st.4">Still standing.</p>
+  </div>
+</section>
+
+<!-- ================= SAFETY ================= -->
+<section class="sec" id="safety">
+  <div class="wrap">
+    <div class="safety-stage">
+    <div class="sec-head rv">
+      <span class="kicker" data-i="sf.k">Safety, Verified</span>
+      <h2><span data-i="sf.h2">Numbers, not promises.</span><span class="en" data-i="sf.h2s">Every figure below is measured data.</span></h2>
+      <p class="lead" data-i="sf.lead">Fully charged cells were pushed through the two harshest abuse tests in the book: a 12-hour continuous short circuit and double nail penetration.</p>
+    </div>
+
+    <div class="bignums">
+      <div class="bignum glass shine"><b><span data-count="449.7" data-dec="1">0</span><small>A</small></b>
+        <div class="lbl" data-i="bn1.l">Peak short-circuit current (88C)</div><div class="cond" data-i="bn1.c">3 mΩ, 12 h continuous short</div><span class="pass" data-i="bn1.p">NO FIRE · NO RUPTURE</span></div>
+      <div class="bignum glass shine"><b><span data-count="98.69" data-dec="2">0</span><small>°C</small></b>
+        <div class="lbl" data-i="bn2.l">Max. temperature, short-circuit test</div><div class="cond" data-i="bn2.c">No leakage, no thermal runaway</div><span class="pass" data-i="bn2.p">PASS</span></div>
+      <div class="bignum glass shine"><b><span data-count="55">0</span><small>°C</small></b>
+        <div class="lbl" data-i="bn3.l">Max. temperature, nail test</div><div class="cond" data-i="bn3.c">Two penetrations, then cooling down</div><span class="pass" data-i="bn3.p">NO FIRE · NO RUPTURE</span></div>
+      <div class="bignum glass shine"><b><span data-count="3.1" data-dec="1">0</span><small>V</small></b>
+        <div class="lbl" data-i="bn4.l">Voltage retained after nail test</div><div class="cond" data-i="bn4.c">Still functional after physical damage</div><span class="pass" data-i="bn4.p">PASS</span></div>
+    </div>
+    </div>
+
+    <div class="tests">
+      <div class="test glass shine rv">
+        <span class="tag">CONTINUOUS SHORT-CIRCUIT TEST</span>
+        <h3 data-i="t1.h">12 hours of dead short. Zero drama.</h3>
+        <ul>
+          <li data-i="t1.l1">Condition: fully charged cell shorted through <b>3 mΩ for 12 hours</b></li>
+          <li data-i="t1.l2">Measured: peak current <b>449.7 A (88C)</b>, max. temperature <b>98.69 °C</b></li>
+          <li data-i="t1.l3">Result: <b>no fire, no rupture, no leakage</b></li>
+        </ul>
+        <div class="shot">
+          <span class="zoom-badge">⤢ ENLARGE</span>
+          <img class="reveal-img zoomable" src="assets/chart-short-circuit.png" alt="Measured short-circuit test chart: current peaks at 449.7 A, surface temperature peaks at 98.69 °C, then declines" loading="lazy">
+          <span class="peak" style="--px:38%;--py:9%"><b>449.7 A</b><em data-i="pk1.a">peak current · 88C</em></span>
+          <span class="peak" style="--px:38%;--py:22%"><b>98.69 °C</b><em data-i="pk1.b">max. surface temp.</em></span>
+          <span class="cap" data-i="t1.n">Tested at −20 °C, 25 °C and 60 °C, based on IEC 60079-11.</span>
+        </div>
+      </div>
+      <div class="test glass shine rv">
+        <span class="tag">NAIL PENETRATION TEST</span>
+        <h3 data-i="t2.h">Pierced twice. Never caught fire.</h3>
+        <ul>
+          <li data-i="t2.l1">Condition: physical destruction by <b>two nail penetrations</b></li>
+          <li data-i="t2.l2">Measured: max. <b>55 °C</b> after penetration, then declining</li>
+          <li data-i="t2.l3">Result: <b>3.1 V retained</b>, no fire, no rupture</li>
+        </ul>
+        <div class="shot">
+          <span class="zoom-badge">⤢ ENLARGE</span>
+          <img class="reveal-img zoomable" src="assets/nail-test-cell.png" alt="Actual cell after the nail penetration test: two puncture marks, no swelling or rupture" loading="lazy">
+          <span class="peak" style="--px:80%;--py:12%"><b>55 °C</b><em data-i="pk2.a">peak after penetration</em></span>
+          <span class="peak" style="--px:80%;--py:86%"><b>3.1 V</b><em data-i="pk2.b">retained</em></span>
+          <span class="cap" data-i="t2.n">Photo: the actual cell after testing. NFPP chemistry plus fail-safe BMS and smart fuse form a multi-layer safety system.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= TEMPERATURE ================= -->
+<section class="sec" id="temp">
+  <div class="wrap">
+    <div class="sec-head rv" style="text-align:center;margin-left:auto;margin-right:auto">
+      <span class="kicker" data-i="tp.k">Extreme Environments</span>
+      <h2><span data-i="tp.h2">From −40 °C permafrost to 60 °C summer heat.</span><span class="en" data-i="tp.h2s">Drag the slider and see what the cell can do.</span></h2>
+    </div>
+    <div class="temp-panel glass shine">
+      <div class="temp-read"><b id="t-val">25</b><span>°C</span></div>
+      <div class="temp-state">
+        <div class="st ok" id="t-state">Discharge ✓ · Charge ✓</div>
+        <div class="sub" id="t-sub">Within the standard operating range. Full performance.</div>
+      </div>
+      <input type="range" id="t-slider" min="-50" max="70" step="1" value="25" aria-label="Temperature simulator">
+      <div class="temp-scale"><span>-50°C</span><span>-20°C</span><span>0°C</span><span>25°C</span><span>70°C</span></div>
+      <div class="temp-zones">
+        <div class="zone" id="z-dis"><b data-i="tp.z1">Discharge</b><span>-40…60 °C</span></div>
+        <div class="zone" id="z-chg"><b data-i="tp.z2">Charge</b><span>-20…60 °C</span></div>
+        <div class="zone" id="z-low"><b data-i="tp.z3">Sub-zero charging</b><span>0.3C (CC to 3.5 V)</span></div>
+      </div>
+      <p class="temp-note" data-i="tp.n">Stable cell behaviour without external thermal management. Degradation-resistant design even at temperature extremes. Ideal for outdoor installations and special industrial equipment.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FEATURES + CYCLE ================= -->
+<section class="sec" id="features">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="kicker" data-i="ft.k">Why NFPP</span>
+      <h2><span data-i="ft.h2">Long life, high power, full support.</span><span class="en" data-i="ft.h2s">Four reasons engineers pick sodium.</span></h2>
+    </div>
+    <div class="feat-list">
+      <div class="feat"><div class="feat-n">01</div>
+        <div class="feat-body"><h3 data-i="f1.h">Ultimate safety</h3><ul>
+          <li data-i="f1.l1">NFPP cell chemistry suppresses thermal-runaway risk</li>
+          <li data-i="f1.l2">Nail-penetration and short-circuit tests passed</li>
+          <li data-i="f1.l3">Proprietary fail-safe BMS with smart fuse as standard</li></ul></div>
+        <div class="ico" data-depth="1.2">🛡️</div></div>
+      <div class="feat"><div class="feat-n">02</div>
+        <div class="feat-body"><h3 data-i="f2.h">Long life &amp; top-class power</h3><ul>
+          <li data-i="f2.l1">8,000–10,000 cycles (1C charge/discharge, ≥80% capacity retention)</li>
+          <li data-i="f2.l2">Continuous discharge up to 20C, pulse up to 40C</li>
+          <li data-i="f2.l3">Long-term stable operation cuts maintenance and running costs</li></ul></div>
+        <div class="ico" data-depth="1.2">⚡</div></div>
+      <div class="feat"><div class="feat-n">03</div>
+        <div class="feat-body"><h3 data-i="f3.h">Extreme-environment capability</h3><ul>
+          <li data-i="f3.l1">Stable discharge from −40 to 60 °C, low-temperature charging supported</li>
+          <li data-i="f3.l2">No dependence on external thermal management</li>
+          <li data-i="f3.l3">Degradation-resistant design at temperature extremes</li>
+          <li data-i="f3.l4">Ideal for outdoor and special industrial equipment</li></ul></div>
+        <div class="ico" data-depth="1.2">🌡️</div></div>
+      <div class="feat"><div class="feat-n">04</div>
+        <div class="feat-body"><h3 data-i="f4.h">From cell supply to deployment</h3><ul>
+          <li data-i="f4.l1">Reliable NFPP cell supply and professional pack design</li>
+          <li data-i="f4.l2">Custom cell and pack production from small lots</li>
+          <li data-i="f4.l3">BMS protection-board design based on advanced BMS know-how</li>
+          <li data-i="f4.l4">Technology transfer for cell production</li></ul></div>
+        <div class="ico" data-depth="1.2">🤝</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider rv" aria-hidden="true">
+  <div class="half a">ENGINEERING</div>
+  <div class="half b">THE NUMBERS</div>
+</div>
+
+<!-- ================= CELLS ================= -->
+<section class="sec" id="cells">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="kicker" data-i="cl.k">Base Cell Specifications</span>
+      <h2><span data-i="cl.h2">Two NFPP cells, one DNA.</span><span class="en">70110140 (5.3 Ah) &amp; 70155250 (13 Ah)</span></h2>
+      <p class="lead" data-i="cl.lead">Two sizes for different application scales. Voltage, rate capability and temperature behaviour are identical.</p>
+    </div>
+
+    <div class="cells-grid rv">
+      <div class="cellmosaic para">
+        <div class="cm cm-a shot"><img class="reveal-img" src="assets/cells-duo.jpg" alt="BixLink sodium-ion cells: 70155250 (13 Ah) and 70110140 (5.3 Ah) pouch cells" loading="lazy">
+          <span class="cap" data-i="cm.a">Both cell sizes, side by side</span></div>
+        <div class="cm cm-b shot"><img class="reveal-img" src="assets/cells-bare.jpg" alt="Bare NFPP pouch cells before final labeling" loading="lazy">
+          <span class="cap" data-i="cm.b">Bare cell bodies, pre-label</span></div>
+        <div class="cm cm-c shot"><img class="reveal-img" src="assets/cells-duo-2.jpg" alt="70155250 and 70110140 cells, alternate angle" loading="lazy"></div>
+      </div>
+      <div class="tbl-scroll">
+        <table class="spec">
+          <colgroup><col class="c-item"><col><col></colgroup>
+          <thead><tr><th data-i="sp.item">Item</th><th>70110140<small>5.3 Ah</small></th><th>70155250<small>13 Ah</small></th></tr></thead>
+          <tbody>
+            <tr><th data-i="sp.cap">Capacity <small>0.2C @27±3 °C</small></th><td class="hl"><b data-count="5.3" data-dec="1">0<small> Ah</small></b></td><td class="hl"><b data-count="13" data-dec="0">0<small> Ah</small></b></td></tr>
+            <tr><th data-i="sp.nv">Nominal voltage</th><td>2.85 V</td><td>2.85 V</td></tr>
+            <tr><th data-i="sp.ov">Operating voltage</th><td>1.8–3.5 V</td><td>1.8–3.5 V</td></tr>
+            <tr><th data-i="sp.cc">Max. charge current <small data-i="sp.ccs">continuous / peak</small></th><td>12C / 15C</td><td>12C / 15C</td></tr>
+            <tr><th data-i="sp.dc">Max. discharge current <small data-i="sp.dcs">continuous / peak (5 s pulse @2.5 V)</small></th><td>30C / 40C</td><td>30C / 40C</td></tr>
+            <tr><th data-i="sp.ct">Charge temperature</th><td>-20…60 °C</td><td>-20…60 °C</td></tr>
+            <tr><th data-i="sp.dt">Discharge temperature</th><td>-40…60 °C</td><td>-40…60 °C</td></tr>
+            <tr><th data-i="sp.wt">Weight</th><td>171 g</td><td>403 g</td></tr>
+            <tr><th data-i="sp.dim">Dimensions <small>T×W×L (mm)</small></th><td>7.1×110×140</td><td>7.0×155×250</td></tr>
+            <tr><th data-i="sp.ed">Energy density</th><td>138 Wh/L</td><td>135 Wh/L</td></tr>
+            <tr><th data-i="sp.pd">Power density</th><td class="hl">5400 W/L</td><td class="hl">5100 W/L</td></tr>
+            <tr><th data-i="sp.cyc">Cycle life <small>≥70% @3C, RT</small></th><td>6000</td><td>6000</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="charts rv">
+      <div class="chart-tabs" id="ctabs">
+        <button class="on" data-k="c13" data-img="assets/chart-13ah-temp.png">13 Ah: discharge vs. temperature</button>
+        <button data-k="c5" data-img="assets/chart-5ah-temp.png">5.3 Ah: discharge vs. temperature</button>
+        <button data-k="cdr" data-img="assets/chart-discharge-rate.png">Discharge rate 0.2C–9C</button>
+        <button data-k="ccr" data-img="assets/chart-charge-rate.png">Charge rate 0.2C–9C</button>
+      </div>
+      <div class="chart-view">
+        <span class="zoom-badge">⤢ ENLARGE</span>
+        <img id="cimg" class="zoomable" src="assets/chart-13ah-temp.png" alt="Cell performance chart" loading="lazy">
+        <span class="peak" id="cpeak" style="--px:20%;--py:12%"><b id="cpeak-v">13 Ah</b><em id="cpeak-s">60→−30 °C sweep</em></span>
+        <span class="cap" id="ccap">70155250 (13 Ah): 1C discharge curves from 60 °C down to −30 °C (measured data)</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CINEMATIC CYCLE-LIFE BAND ================= -->
+<section class="cine" aria-label="Cycle life">
+  <div class="cine-bg" data-depth="0.5"></div>
+  <div class="cine-in rv">
+    <div class="kick" data-i="hero.s4">Cycle life</div>
+    <div class="big"><span data-count="8000">0</span>–<span data-count="10000">0</span></div>
+    <div class="sub" data-i="hero.s4c">(1C, ≥80% retention)</div>
+  </div>
+</section>
+
+<!-- ================= PACK ================= -->
+<section class="sec" id="pack">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="kicker" data-i="pk.k">Business &amp; Engineering Solutions</span>
+      <h2><span data-i="pk.h2">The cell is just the beginning.</span><span class="en" data-i="pk.h2s">Packs, plants, and everything in between.</span></h2>
+    </div>
+    <div class="pack-grid rv">
+      <div class="pack-stage">
+        <span class="concept" data-i="pk.badge">CONCEPT MODEL: multi-cell integration enclosure</span>
+        <div class="pack-3d"><img src="assets/pack-case-cut.png" alt="Concept model of a pack enclosure integrating multiple sodium-ion cells: black resin case with brass terminals" loading="lazy"></div>
+        <span class="cap" data-i="pk.cap">Series/parallel 12V–48V configurations</span>
+      </div>
+      <div class="biz">
+        <div><div class="ico">📦</div><div><b>Custom Pack Capabilities</b><span data-i="pk.b1">12 V / 24 V / 48 V battery solutions with series/parallel configurations</span></div></div>
+        <div><div class="ico">🛠️</div><div><b>Enclosure &amp; Structure</b><span data-i="pk.b2">Professional mechanical design &amp; precision assembly</span></div></div>
+        <div><div class="ico">🔁</div><div><b>Technology Transfer</b><span data-i="pk.b3">Turnkey solutions for cell manufacturing &amp; assembly lines</span></div></div>
+        <div><div class="ico">📜</div><div><b>Business Model (Cell)</b><span data-i="pk.b4">Licensing, technical consulting, plant export</span></div></div>
+      </div>
+    </div>
+    <p class="chart-cap" style="margin-top:16px" data-i="pk.note">Note: pack-level specifications (dimensions, weight, charge/discharge limits) depend on the actual module design and operating conditions.</p>
+  </div>
+</section>
+
+<!-- ================= APPLICATIONS ================= -->
+<section class="sec" id="apps">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="kicker">Applications</span>
+      <h2 data-i="ap.h2">Built for harsh duty.</h2>
+    </div>
+    <div class="apps">
+      <div class="app glass"><div class="ico">🚜</div><div><b>AGV / AMR</b><span data-i="ap.1">Guided vehicles &amp; mobile robots</span></div></div>
+      <div class="app glass"><div class="ico">🔋</div><div><b>UPS Systems</b><span data-i="ap.2">Uninterruptible power supply</span></div></div>
+      <div class="app glass"><div class="ico">⚡</div><div><b>Backup Power</b><span data-i="ap.3">Emergency backup power</span></div></div>
+      <div class="app glass"><div class="ico">🏥</div><div><b>Medical Equipment</b><span data-i="ap.4">Medical devices</span></div></div>
+      <div class="app glass"><div class="ico">🏭</div><div><b>Industrial Primary Power</b><span data-i="ap.5">Primary industrial power</span></div></div>
+      <div class="app glass"><div class="ico">📡</div><div><b>Telecom</b><span data-i="ap.6">Telecom infrastructure</span></div></div>
+      <div class="app glass"><div class="ico">🦾</div><div><b>Robot</b><span data-i="ap.7">Robotics</span></div></div>
+      <div class="app glass"><div class="ico">🛴</div><div><b>Mobility</b><span data-i="ap.8">Light mobility</span></div></div>
+      <div class="app glass"><div class="ico">🏔️</div><div><b>Outdoor / Extreme</b><span data-i="ap.9">Outdoor &amp; special equipment</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CTA ================= -->
+<section class="cta" id="contact">
+  <div class="wrap">
+    <span class="kicker" data-i="ct.k">Contact</span>
+    <h2 data-i="ct.h2">From one cell to a whole plant.</h2>
+    <p data-i="ct.p">Custom cell and pack production starts at small lots. Talk to us about BMS protection-board design and technology transfer for cell manufacturing.</p>
+    <a class="btn" href="mailto:sales@bixlink-tech.com?subject=Sodium-Ion%20Battery%20Inquiry" data-i="ct.btn">Request a quote</a>
+    <div class="contact">
+      <a href="mailto:sales@bixlink-tech.com">✉️ sales@bixlink-tech.com</a>
+      <a href="tel:+886333666906">☎️ +886-3-366-6906</a>
+      <a href="http://bixlink-tech.com/jp/" target="_blank" rel="noopener">🌐 bixlink-tech.com</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot">
+    <b>BixLink International Ltd.</b> · Power to The Life<br>
+    <span data-i="fo.1">► Charging below 0 °C: 0.3C (CC to 3.5 V) ► All values are subject to tolerances ► Specifications are subject to change without notice</span><br>
+    <span data-i="fo.2">► Short-circuit test performed at −20 / 25 / 60 °C, based on IEC 60079-11 ► The enclosure photo shows a multi-cell integration concept model</span>
+    <div class="row">
+      <span>© 2026 BixLink International Ltd. · NFPP Sodium-Ion Solutions</span>
+      <span style="font-family:var(--display)">Na · 11 · 22.990</span>
+    </div>
+  </div>
+</footer>
+
+<!-- three is 594 KB and only feeds #cell3d; defer it so text paints first -->
+<script src="lib/three.min.js" defer></script>
+<script src="lib/gsap.min.js"></script>
+<script src="lib/ScrollTrigger.min.js"></script>
+<script>
+document.documentElement.classList.add('js');
+const REDUCED = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ============ i18n (EN default / DE) ============ */
+const I18N = {
+  'nav.safety':['Safety Data','Sicherheitsdaten'],
+  'nav.temp':['Temperature','Temperatur'],
+  'nav.cells':['Cell Specs','Zellspezifikationen'],
+  'nav.pack':['Pack Solutions','Pack-Lösungen'],
+  'nav.contact':['Contact','Kontakt'],
+  'hero.badge':['Ultimate Safety × Advanced Pack Engineering','Höchste Sicherheit × fortschrittliche Pack-Technik'],
+  'hero.h1':['Next-Generation<br>Sodium-Ion Battery','Natrium-Ionen-Batterie<br>der nächsten Generation'],
+  'hero.sub':['NFPP Custom Battery Pack Solutions, from single cells to turnkey production lines.','Individuelle NFPP-Batteriepack-Lösungen, von der Einzelzelle bis zur schlüsselfertigen Produktionslinie.'],
+  'hero.s1':['Nominal voltage','Nennspannung'],
+  'hero.s2':['Discharge temperature','Entladetemperatur'],
+  'hero.s3':['Max. pulse discharge','Max. Impulsentladung'],
+  'hero.s4':['Cycle life','Zyklenlebensdauer'],
+  'hero.s4c':['(1C, ≥80% retention)','(1C, ≥80 % Kapazitätserhalt)'],
+  'hero.figs':['Every NFPP cell — both formats','Jede NFPP-Zelle – beide Formate'],
+  'hero.cta1':['View safety data','Sicherheitsdaten ansehen'],
+  'hero.cta2':['Cell specifications','Zellspezifikationen'],
+  'hero.hint':['Drag to rotate','Zum Drehen ziehen'],
+  'cs.cap':['Capacity (0.2C)','Kapazität (0,2C)'],
+  'cs.wh':['Energy','Energie'],
+  'cs.wt':['Weight','Gewicht'],
+  'cs.dim':['T×W×L (mm)','T×B×L (mm)'],
+  'cs.ed':['Energy density','Energiedichte'],
+  'cs.pd':['Power density','Leistungsdichte'],
+  'st.1':['Shorted for 12 hours.','12 Stunden kurzgeschlossen.'],
+  'st.2':['Pierced twice.','Zweimal durchstoßen.'],
+  'st.3':['Frozen to −40 °C.','Auf −40 °C gefroren.'],
+  'st.4':['Still standing.','Steht immer noch.'],
+  'sf.k':['Safety, Verified','Sicherheit, belegt'],
+  'sf.h2':['Numbers, not promises.','Zahlen statt Versprechen.'],
+  'sf.h2s':['Every figure below is measured data.','Alle folgenden Werte sind Messdaten.'],
+  'sf.lead':['Fully charged cells were pushed through the two harshest abuse tests in the book: a 12-hour continuous short circuit and double nail penetration.','Vollgeladene Zellen durchliefen die zwei härtesten Missbrauchstests überhaupt: 12 Stunden Dauerkurzschluss und doppelte Nagelpenetration.'],
+  'bn1.l':['Peak short-circuit current (88C)','Max. Kurzschlussstrom (88C)'],
+  'bn1.c':['3 mΩ, 12 h continuous short','3 mΩ, 12 h Dauerkurzschluss'],
+  'bn1.p':['NO FIRE · NO RUPTURE','KEIN BRAND · KEIN BERSTEN'],
+  'bn2.l':['Max. temperature, short-circuit test','Max. Temperatur im Kurzschlusstest'],
+  'bn2.c':['No leakage, no thermal runaway','Kein Auslaufen, kein Thermal Runaway'],
+  'bn2.p':['PASS','BESTANDEN'],
+  'bn3.l':['Max. temperature, nail test','Max. Temperatur im Nageltest'],
+  'bn3.c':['Two penetrations, then cooling down','Zwei Durchstiche, danach abkühlend'],
+  'bn3.p':['NO FIRE · NO RUPTURE','KEIN BRAND · KEIN BERSTEN'],
+  'bn4.l':['Voltage retained after nail test','Spannung nach Nageltest erhalten'],
+  'bn4.c':['Still functional after physical damage','Funktionsfähig trotz mechanischer Beschädigung'],
+  'bn4.p':['PASS','BESTANDEN'],
+  't1.h':['12 hours of dead short. Zero drama.','12 Stunden Kurzschluss. Null Drama.'],
+  't1.l1':['Condition: fully charged cell shorted through <b>3 mΩ for 12 hours</b>','Bedingung: vollgeladene Zelle, <b>12 h über 3 mΩ kurzgeschlossen</b>'],
+  't1.l2':['Measured: peak current <b>449.7 A (88C)</b>, max. temperature <b>98.69 °C</b>','Gemessen: Spitzenstrom <b>449,7 A (88C)</b>, max. Temperatur <b>98,69 °C</b>'],
+  't1.l3':['Result: <b>no fire, no rupture, no leakage</b>','Ergebnis: <b>kein Brand, kein Bersten, kein Auslaufen</b>'],
+  't1.n':['Tested at −20 °C, 25 °C and 60 °C, based on IEC 60079-11.','Getestet bei −20 °C, 25 °C und 60 °C nach IEC 60079-11.'],
+  'pk1.a':['peak current · 88C','Spitzenstrom · 88C'],
+  'pk1.b':['max. surface temp.','max. Oberflächentemp.'],
+  't2.h':['Pierced twice. Never caught fire.','Zweimal durchstoßen. Nie entflammt.'],
+  't2.l1':['Condition: physical destruction by <b>two nail penetrations</b>','Bedingung: mechanische Zerstörung durch <b>zwei Nageldurchstiche</b>'],
+  't2.l2':['Measured: max. <b>55 °C</b> after penetration, then declining','Gemessen: max. <b>55 °C</b> nach Durchstich, danach fallend'],
+  't2.l3':['Result: <b>3.1 V retained</b>, no fire, no rupture','Ergebnis: <b>3,1 V erhalten</b>, kein Brand, kein Bersten'],
+  't2.n':['Photo: the actual cell after testing. NFPP chemistry plus fail-safe BMS and smart fuse form a multi-layer safety system.','Foto: die Zelle nach dem Test. NFPP-Chemie plus Fail-Safe-BMS und Smart Fuse bilden ein mehrstufiges Sicherheitssystem.'],
+  'pk2.a':['peak after penetration','Spitzenwert nach Durchstich'],
+  'pk2.b':['retained','erhalten'],
+  'tp.k':['Extreme Environments','Extreme Umgebungen'],
+  'tp.h2':['From −40 °C permafrost to 60 °C summer heat.','Von −40 °C Dauerfrost bis 60 °C Sommerhitze.'],
+  'tp.h2s':['Drag the slider and see what the cell can do.','Bewegen Sie den Regler und sehen Sie, was die Zelle kann.'],
+  'tp.z1':['Discharge','Entladen'],
+  'tp.z2':['Charge','Laden'],
+  'tp.z3':['Sub-zero charging','Laden unter 0 °C'],
+  'tp.n':['Stable cell behaviour without external thermal management. Degradation-resistant design even at temperature extremes. Ideal for outdoor installations and special industrial equipment.','Stabiles Zellverhalten ohne externes Thermomanagement. Alterungsarmes Design auch bei Temperaturextremen. Ideal für Außenanlagen und industrielle Sonderausrüstung.'],
+  'ft.k':['Why NFPP','Warum NFPP'],
+  'ft.h2':['Long life, high power, full support.','Lange Lebensdauer, hohe Leistung, voller Support.'],
+  'ft.h2s':['Four reasons engineers pick sodium.','Vier Gründe, warum Ingenieure Natrium wählen.'],
+  'f1.h':['Ultimate safety','Maximale Sicherheit'],
+  'f1.l1':['NFPP cell chemistry suppresses thermal-runaway risk','NFPP-Zellchemie minimiert das Thermal-Runaway-Risiko'],
+  'f1.l2':['Nail-penetration and short-circuit tests passed','Nagelpenetrations- und Kurzschlusstests bestanden'],
+  'f1.l3':['Proprietary fail-safe BMS with smart fuse as standard','Eigenes Fail-Safe-BMS mit Smart Fuse serienmäßig'],
+  'f2.h':['Long life & top-class power','Lange Lebensdauer & hohe Leistung'],
+  'f2.l1':['8,000–10,000 cycles (1C charge/discharge, ≥80% capacity retention)','8.000–10.000 Zyklen (1C Laden/Entladen, ≥80 % Kapazitätserhalt)'],
+  'f2.l2':['Continuous discharge up to 20C, pulse up to 40C','Dauerentladung bis 20C, Impuls bis 40C'],
+  'f2.l3':['Long-term stable operation cuts maintenance and running costs','Langzeitstabiler Betrieb senkt Wartungs- und Betriebskosten'],
+  'f3.h':['Extreme-environment capability','Für extreme Umgebungen'],
+  'f3.l1':['Stable discharge from −40 to 60 °C, low-temperature charging supported','Stabiles Entladen von −40 bis 60 °C, Laden bei Kälte möglich'],
+  'f3.l2':['No dependence on external thermal management','Unabhängig von externem Thermomanagement'],
+  'f3.l3':['Degradation-resistant design at temperature extremes','Alterungsarmes Design bei Temperaturextremen'],
+  'f3.l4':['Ideal for outdoor and special industrial equipment','Ideal für Außen- und Sonderanlagen'],
+  'f4.h':['From cell supply to deployment','Von der Zelllieferung bis zum Einsatz'],
+  'f4.l1':['Reliable NFPP cell supply and professional pack design','Zuverlässige NFPP-Zelllieferung und professionelles Pack-Design'],
+  'f4.l2':['Custom cell and pack production from small lots','Kundenspezifische Zell- und Packfertigung ab Kleinserie'],
+  'f4.l3':['BMS protection-board design based on advanced BMS know-how','BMS-Schutzplatinen-Design auf Basis fundierten BMS-Know-hows'],
+  'f4.l4':['Technology transfer for cell production','Technologietransfer für die Zellfertigung'],
+  'cy.l':['Cycle life (cycles)','Zyklenlebensdauer (Zyklen)'],
+  'cy.c':['1C charge/discharge, ≥80% capacity retention · cell-level test value: 6,000 cycles (≥70% @3C, RT)','1C Laden/Entladen, ≥80 % Kapazitätserhalt · Zellebene: 6.000 Zyklen (≥70 % @3C, RT)'],
+  'cl.k':['Base Cell Specifications','Basiszell-Spezifikationen'],
+  'cl.h2':['Two NFPP cells, one DNA.','Zwei NFPP-Zellen, eine DNA.'],
+  'cl.lead':['Two sizes for different application scales. Voltage, rate capability and temperature behaviour are identical.','Zwei Größen für unterschiedliche Anwendungen. Spannung, Belastbarkeit und Temperaturverhalten sind identisch.'],
+  'cm.a':['Both cell sizes, side by side','Beide Zellgrößen im Vergleich'],
+  'cm.b':['Bare cell bodies, pre-label','Zellkörper vor der Etikettierung'],
+  'sp.item':['Item','Merkmal'],
+  'sp.cap':['Capacity <small>0.2C @27±3 °C</small>','Kapazität <small>0,2C @27±3 °C</small>'],
+  'sp.nv':['Nominal voltage','Nennspannung'],
+  'sp.ov':['Operating voltage','Betriebsspannung'],
+  'sp.cc':['Max. charge current <small>continuous / peak</small>','Max. Ladestrom <small>Dauer / Spitze</small>'],
+  'sp.dc':['Max. discharge current <small>continuous / peak (5 s pulse @2.5 V)</small>','Max. Entladestrom <small>Dauer / Spitze (5-s-Impuls @2,5 V)</small>'],
+  'sp.ct':['Charge temperature','Ladetemperatur'],
+  'sp.dt':['Discharge temperature','Entladetemperatur'],
+  'sp.wt':['Weight','Gewicht'],
+  'sp.dim':['Dimensions <small>T×W×L (mm)</small>','Abmessungen <small>T×B×L (mm)</small>'],
+  'sp.ed':['Energy density','Energiedichte'],
+  'sp.pd':['Power density','Leistungsdichte'],
+  'sp.cyc':['Cycle life <small>≥70% @3C, RT</small>','Zyklen <small>≥70 % @3C, RT</small>'],
+  'pk.k':['Business & Engineering Solutions','Business- & Engineering-Lösungen'],
+  'pk.h2':['The cell is just the beginning.','Die Zelle ist erst der Anfang.'],
+  'pk.h2s':['Packs, plants, and everything in between.','Packs, Werke und alles dazwischen.'],
+  'pk.badge':['CONCEPT MODEL: multi-cell integration enclosure','KONZEPTMODELL: Gehäuse für Multi-Zellen-Integration'],
+  'pk.cap':['Series/parallel 12V–48V configurations','Serien-/Parallelschaltung 12V–48V'],
+  'pk.b1':['12 V / 24 V / 48 V battery solutions with series/parallel configurations','12-V-/24-V-/48-V-Batterielösungen in Reihen-/Parallelschaltung'],
+  'pk.b2':['Professional mechanical design & precision assembly','Professionelle Konstruktion & Präzisionsmontage'],
+  'pk.b3':['Turnkey solutions for cell manufacturing & assembly lines','Schlüsselfertige Lösungen für Zellfertigung & Montagelinien'],
+  'pk.b4':['Licensing, technical consulting, plant export','Lizenzierung, technische Beratung, Anlagenexport'],
+  'pk.note':['Note: pack-level specifications (dimensions, weight, charge/discharge limits) depend on the actual module design and operating conditions.','Hinweis: Pack-Spezifikationen (Abmessungen, Gewicht, Lade-/Entladegrenzen) hängen vom tatsächlichen Moduldesign und den Betriebsbedingungen ab.'],
+  'ap.h2':['Built for harsh duty.','Gemacht für den harten Einsatz.'],
+  'ap.1':['Guided vehicles & mobile robots','Fahrerlose Transportsysteme & mobile Roboter'],
+  'ap.2':['Uninterruptible power supply','Unterbrechungsfreie Stromversorgung'],
+  'ap.3':['Emergency backup power','Notstromversorgung'],
+  'ap.4':['Medical devices','Medizintechnik'],
+  'ap.5':['Primary industrial power','Industrielle Primärversorgung'],
+  'ap.6':['Telecom infrastructure','Telekommunikation'],
+  'ap.7':['Robotics','Robotik'],
+  'ap.8':['Light mobility','Leichte Mobilität'],
+  'ap.9':['Outdoor & special equipment','Außen- & Sonderanlagen'],
+  'ct.k':['Contact','Kontakt'],
+  'ct.h2':['From one cell to a whole plant.','Von der einzelnen Zelle bis zum ganzen Werk.'],
+  'ct.p':['Custom cell and pack production starts at small lots. Talk to us about BMS protection-board design and technology transfer for cell manufacturing.','Kundenspezifische Zell- und Packfertigung ab Kleinserien. Sprechen Sie uns an: BMS-Schutzplatinen-Design und Technologietransfer für die Zellfertigung.'],
+  'ct.btn':['Request a quote','Angebot anfragen'],
+  'fo.1':['► Charging below 0 °C: 0.3C (CC to 3.5 V) ► All values are subject to tolerances ► Specifications are subject to change without notice','► Laden unter 0 °C: 0,3C (CC bis 3,5 V) ► Alle Werte unterliegen Toleranzen ► Änderungen vorbehalten'],
+  'fo.2':['► Short-circuit test performed at −20 / 25 / 60 °C, based on IEC 60079-11 ► The enclosure photo shows a multi-cell integration concept model','► Kurzschlusstest bei −20 / 25 / 60 °C nach IEC 60079-11 ► Das Gehäusefoto zeigt ein Konzeptmodell für Multi-Zellen-Integration']
+};
+const CHART_CAPS = {
+  c13:['70155250 (13 Ah): 1C discharge curves from 60 °C down to −30 °C (measured data)','70155250 (13 Ah): 1C-Entladekurven von 60 °C bis −30 °C (Messdaten)'],
+  c5:['70110140 (5.3 Ah): 1C discharge curves from 60 °C down to −30 °C (measured data)','70110140 (5,3 Ah): 1C-Entladekurven von 60 °C bis −30 °C (Messdaten)'],
+  cdr:['NFPP series: discharge rate capability 0.2C–9C, ≥86% capacity ratio even at 9C (measured data)','NFPP-Serie: Entladeraten 0,2C–9C, ≥86 % Kapazität selbst bei 9C (Messdaten)'],
+  ccr:['NFPP series: charge rate capability 0.2C–9C (measured data)','NFPP-Serie: Lade-Raten 0,2C–9C (Messdaten)']
+};
+const CHART_TABS = {
+  c13:['13 Ah: discharge vs. temperature','13 Ah: Entladung nach Temperatur'],
+  c5:['5.3 Ah: discharge vs. temperature','5,3 Ah: Entladung nach Temperatur'],
+  cdr:['Discharge rate 0.2C–9C','Entladerate 0,2C–9C'],
+  ccr:['Charge rate 0.2C–9C','Laderate 0,2C–9C']
+};
+const CHART_PEAK = {
+  c13:[['13 Ah','60→−30 °C sweep'],['13 Ah','60→−30 °C Bereich']],
+  c5: [['5.3 Ah','60→−30 °C sweep'],['5,3 Ah','60→−30 °C Bereich']],
+  cdr:[['86.21%','capacity retained at 9C'],['86,21 %','Kapazität bei 9C']],
+  ccr:[['86.50%','capacity retained at 9C'],['86,50 %','Kapazität bei 9C (Laden)']]
+};
+const TEMP_TXT = {
+  ok:[['Discharge ✓ · Charge ✓','Within the standard operating range. Full performance.'],
+      ['Entladen ✓ · Laden ✓','Im Standard-Betriebsbereich. Volle Leistung.']],
+  low:[['Discharge ✓ · Charge: low current','Below 0 °C, charging at 0.3C (CC to 3.5 V). Discharging unrestricted.'],
+       ['Entladen ✓ · Laden: reduzierter Strom','Unter 0 °C Laden mit 0,3C (CC bis 3,5 V). Entladen uneingeschränkt.']],
+  dis:[['Discharge ✓ · Charge: not rated','−40 to −20 °C is a discharge-only range. Stable discharge below freezing.'],
+       ['Entladen ✓ · Laden: nicht spezifiziert','−40 bis −20 °C ist ein reiner Entladebereich. Stabiles Entladen bei Frost.']],
+  hi:[['Out of rated range','Above the rated maximum of 60 °C.'],
+      ['Außerhalb des Nennbereichs','Über der Obergrenze von 60 °C.']],
+  lo:[['Out of rated range','Below the discharge minimum of −40 °C.'],
+      ['Unterhalb des Nennbereichs','Unter der Entladeuntergrenze von −40 °C.']]
+};
+let LANG = 0;
+function applyLang(idx){
+  LANG = idx;
+  document.documentElement.lang = idx? 'de':'en';
+  document.getElementById('lang-en').classList.toggle('on',idx===0);
+  document.getElementById('lang-de').classList.toggle('on',idx===1);
+  document.querySelectorAll('[data-i]').forEach(n=>{
+    const v=I18N[n.dataset.i]; if(v) n.innerHTML=v[idx];
+  });
+  document.querySelectorAll('#ctabs button').forEach(b=>{
+    const t=CHART_TABS[b.dataset.k]; if(t) b.textContent=t[idx];
+  });
+  const on=document.querySelector('#ctabs button.on');
+  if(on){
+    document.getElementById('ccap').textContent=CHART_CAPS[on.dataset.k][idx];
+    const pk=CHART_PEAK[on.dataset.k];
+    if(pk){document.getElementById('cpeak-v').textContent=pk[idx][0];document.getElementById('cpeak-s').textContent=pk[idx][1];}
+  }
+  if(window.updTemp) updTemp();
+  try{localStorage.setItem('bxl-lang',idx)}catch(e){}
+}
+document.getElementById('lang-en').addEventListener('click',()=>applyLang(0));
+document.getElementById('lang-de').addEventListener('click',()=>applyLang(1));
+
+/* ============ 3D pouch cell (dimensions & label from the official datasheet) ============ */
+const MODELS = {
+  m13:{name:'70155250', W:155, L:250, T:7.0, cap:'13 Ah', wh:'37.05 Wh', wt:'403 g', dim:'7.0×155×250', ed:'135 Wh/L', pd:'5100 W/L', lbl:['70155250','2.85V 13Ah 37.05Wh']},
+  m5 :{name:'70110140', W:110, L:140, T:7.1, cap:'5.3 Ah', wh:'15.105 Wh', wt:'171 g', dim:'7.1×110×140', ed:'138 Wh/L', pd:'5400 W/L', lbl:['70110140','2.85V 5.3Ah 15.105Wh']}
+};
+
+function makeLabelTexture(m){
+  const c=document.createElement('canvas'); c.width=512; c.height=Math.round(512*m.L/m.W);
+  const x=c.getContext('2d');
+  const g=x.createLinearGradient(0,0,c.width,c.height);
+  g.addColorStop(0,'#c9cdd3'); g.addColorStop(.45,'#e9ecef'); g.addColorStop(.55,'#b4bac2'); g.addColorStop(1,'#d7dade');
+  x.fillStyle=g; x.fillRect(0,0,c.width,c.height);
+  const lw=c.width*.78, lh=c.height*.62, lx=(c.width-lw)/2, ly=c.height*.10;
+  x.fillStyle='#f7f8f9'; x.strokeStyle='#d0d3d8'; x.lineWidth=2;
+  x.beginPath(); x.roundRect(lx,ly,lw,lh,10); x.fill(); x.stroke();
+  x.lineWidth=7; x.strokeStyle='#111';
+  x.beginPath(); x.arc(lx+lw*.16,ly+lh*.14,26,0,7); x.stroke();
+  x.beginPath(); x.moveTo(lx+lw*.16-13,ly+lh*.14); x.lineTo(lx+lw*.16+13,ly+lh*.14); x.stroke();
+  x.strokeStyle='#c22'; x.beginPath(); x.arc(lx+lw*.84,ly+lh*.14,26,0,7); x.stroke();
+  x.beginPath(); x.moveTo(lx+lw*.84-13,ly+lh*.14); x.lineTo(lx+lw*.84+13,ly+lh*.14);
+  x.moveTo(lx+lw*.84,ly+lh*.14-13); x.lineTo(lx+lw*.84,ly+lh*.14+13); x.stroke();
+  x.textAlign='center'; x.fillStyle='#0a0a0a';
+  x.font='700 46px "Chakra Petch","Arial Black",sans-serif';
+  const cx=c.width/2;
+  x.fillText('B I X L I N K',cx,ly+lh*.38);
+  x.font='500 17px "Chakra Petch",Arial,sans-serif'; x.fillStyle='#555';
+  x.fillText('P o w e r   t o   T h e   L i f e',cx,ly+lh*.46);
+  x.fillStyle='#0a0a0a'; x.font='700 32px Arial,sans-serif';
+  x.fillText('Sodium-Ion Battery',cx,ly+lh*.62);
+  x.font='600 22px "Chakra Petch",Arial,sans-serif'; x.fillStyle='#333';
+  x.fillText(m.lbl[0],cx,ly+lh*.76);
+  x.font='700 24px "Chakra Petch",Arial,sans-serif'; x.fillStyle='#0a0a0a';
+  x.fillText(m.lbl[1],cx,ly+lh*.88);
+  const t=new THREE.CanvasTexture(c); t.anisotropy=4; return t;
+}
+
+function buildCell(m){
+  const g=new THREE.Group(); const S=1/130;
+  const W=m.W*S, L=m.L*S, T=Math.max(m.T*S,.075);
+  const foil=new THREE.MeshStandardMaterial({color:0xdfe3e8,metalness:.92,roughness:.2,transparent:true});
+  const shape=new THREE.Shape(); const r=W*.035;
+  shape.moveTo(-W/2+r,-L/2); shape.lineTo(W/2-r,-L/2); shape.quadraticCurveTo(W/2,-L/2,W/2,-L/2+r);
+  shape.lineTo(W/2,L/2-r); shape.quadraticCurveTo(W/2,L/2,W/2-r,L/2);
+  shape.lineTo(-W/2+r,L/2); shape.quadraticCurveTo(-W/2,L/2,-W/2,L/2-r);
+  shape.lineTo(-W/2,-L/2+r); shape.quadraticCurveTo(-W/2,-L/2,-W/2+r,-L/2);
+  const body=new THREE.Mesh(new THREE.ExtrudeGeometry(shape,{depth:T,bevelEnabled:true,bevelThickness:T*.18,bevelSize:T*.35,bevelSegments:3}),foil);
+  body.position.z=-T/2; g.add(body);
+  const sealM=new THREE.MeshStandardMaterial({color:0xc3c8cf,metalness:.8,roughness:.32,transparent:true});
+  [-1,1].forEach(s=>{
+    const seal=new THREE.Mesh(new THREE.BoxGeometry(W*.045,L*.94,T*.28),sealM);
+    seal.position.set(s*(W/2+W*.02),0,0); g.add(seal);
+  });
+  const tabM=new THREE.MeshStandardMaterial({color:0xaab1b9,metalness:.95,roughness:.22,transparent:true});
+  [-1,1].forEach(s=>{
+    const tab=new THREE.Mesh(new THREE.BoxGeometry(W*.22,L*.09,T*.14),tabM);
+    tab.position.set(s*W*.24,L/2+L*.045,0); g.add(tab);
+  });
+  const tex=makeLabelTexture(m);
+  const lab=new THREE.MeshStandardMaterial({map:tex,metalness:.4,roughness:.38,transparent:true});
+  const lp=new THREE.Mesh(new THREE.PlaneGeometry(W*.985,L*.985),lab);
+  lp.position.z=T/2+T*.36+0.002; g.add(lp);
+  const lp2=lp.clone(); lp2.rotation.y=Math.PI; lp2.position.z=-(T/2+T*.36+0.002); g.add(lp2);
+  return g;
+}
+
+let heroFx=0; // scroll-driven camera dolly + extra spin
+function init3D(){
+  const el=document.getElementById('cell3d'); if(!el||!window.THREE) return;
+  const renderer=new THREE.WebGLRenderer({antialias:true,alpha:true});
+  renderer.setPixelRatio(Math.min(devicePixelRatio,1.75));
+  renderer.outputEncoding=THREE.sRGBEncoding;
+  el.appendChild(renderer.domElement);
+  const scene=new THREE.Scene();
+  const cam=new THREE.PerspectiveCamera(34,1,.1,50); cam.position.set(0,.12,4.5);
+
+  /* striped studio environment → liquid-metal streak reflections */
+  const pm=new THREE.PMREMGenerator(renderer);
+  const env=new THREE.Scene();
+  const em=c=>new THREE.MeshBasicMaterial({color:c});
+  const top=new THREE.Mesh(new THREE.PlaneGeometry(12,12),em(0xffffff)); top.position.y=4; top.rotation.x=Math.PI/2; env.add(top);
+  for(let i=0;i<5;i++){
+    const strip=new THREE.Mesh(new THREE.PlaneGeometry(.6,8),em(i%2?0xbfd2e6:0xffffff));
+    strip.position.set(-4.5,0,-3+i*1.6); strip.rotation.y=Math.PI/2; env.add(strip);
+  }
+  const warm=new THREE.Mesh(new THREE.PlaneGeometry(7,7),em(0xffb648)); warm.position.set(5,.5,-1); warm.rotation.y=-Math.PI/2; env.add(warm);
+  scene.environment=pm.fromScene(env).texture;
+
+  scene.add(new THREE.HemisphereLight(0xdfe6f0,0x14181f,.8));
+  const key=new THREE.DirectionalLight(0xffffff,1.0); key.position.set(3,4,5); scene.add(key);
+  const rim=new THREE.DirectionalLight(0xffb648,.55); rim.position.set(-4,2,-4); scene.add(rim);
+
+  const sc=document.createElement('canvas'); sc.width=sc.height=256;
+  const sx=sc.getContext('2d'); const rg=sx.createRadialGradient(128,128,10,128,128,120);
+  rg.addColorStop(0,'rgba(0,0,0,.45)'); rg.addColorStop(1,'rgba(0,0,0,0)');
+  sx.fillStyle=rg; sx.fillRect(0,0,256,256);
+  const shadow=new THREE.Mesh(new THREE.PlaneGeometry(3.4,1.7),
+    new THREE.MeshBasicMaterial({map:new THREE.CanvasTexture(sc),transparent:true,depthWrite:false}));
+  shadow.rotation.x=-Math.PI/2; shadow.position.y=-1.35; scene.add(shadow);
+
+  const g13=buildCell(MODELS.m13), g5=buildCell(MODELS.m5);
+  g5.visible=false; scene.add(g13,g5);
+  let current=g13;
+  const setOpacity=(grp,v)=>grp.traverse(o=>{if(o.material){o.material.opacity=v}});
+
+  function resize(){
+    const w=el.clientWidth,h=el.clientHeight;
+    renderer.setSize(w,h); cam.aspect=w/h; cam.updateProjectionMatrix();
+  }
+  resize(); addEventListener('resize',resize);
+
+  let rx=-.06, ry=.5, vx=0, vy=0, dragging=false, px=0, py=0, idle=0;
+  el.addEventListener('pointerdown',e=>{dragging=true;px=e.clientX;py=e.clientY;el.setPointerCapture(e.pointerId)});
+  el.addEventListener('pointermove',e=>{
+    if(!dragging)return;
+    vy=(e.clientX-px)*.006; vx=(e.clientY-py)*.004;
+    ry+=vy; rx+=vx; px=e.clientX; py=e.clientY; idle=0;
+  });
+  el.addEventListener('pointerup',()=>dragging=false);
+  el.addEventListener('pointercancel',()=>dragging=false);
+
+  let visible=true;
+  new IntersectionObserver(en=>{visible=en[0].isIntersecting},{threshold:.02}).observe(el);
+
+  const clock=new THREE.Clock();
+  (function loop(){
+    requestAnimationFrame(loop);
+    if(!visible)return;
+    const dt=clock.getDelta(); idle+=dt;
+    if(!dragging){ vy*=.94; vx*=.94; ry+=vy; rx+=vx;
+      if(!REDUCED && idle>2.2) ry+=dt*.28; }
+    rx=Math.max(-.75,Math.min(.75,rx));
+    current.rotation.set(rx,ry+heroFx*Math.PI*1.5,0);   /* scroll drives a ~3/4 showcase turn while pinned */
+    current.position.y=Math.sin(clock.elapsedTime*1.1)*.03;
+    cam.position.z=4.5-Math.sin(heroFx*Math.PI)*.35;    /* gentle push-in mid-pin, back to rest at the ends */
+    renderer.render(scene,cam);
+  })();
+
+  const ui={cap:document.getElementById('cs-cap'),wh:document.getElementById('cs-wh'),
+            wt:document.getElementById('cs-wt'),dim:document.getElementById('cs-dim'),ed:document.getElementById('cs-ed'),pd:document.getElementById('cs-pd')};
+  function apply(mkey){
+    const m=MODELS[mkey];
+    ui.cap.textContent=m.cap; ui.wh.textContent=m.wh;
+    ui.wt.textContent=m.wt; ui.dim.textContent=m.dim; ui.ed.textContent=m.ed; ui.pd.textContent=m.pd;
+    if(window.gsap) gsap.fromTo('#cellspecs b',{opacity:.2},{opacity:1,duration:.5,stagger:.05});
+  }
+  const b13=document.getElementById('sw-13'), b5=document.getElementById('sw-5');
+  function swap(toKey){
+    const to=toKey==='m13'?g13:g5;
+    if(to===current)return;
+    b13.classList.toggle('on',toKey==='m13'); b5.classList.toggle('on',toKey==='m5');
+    const from=current; current=to;
+    to.rotation.copy(from.rotation);
+    if(REDUCED||!window.gsap){from.visible=false;to.visible=true;setOpacity(to,1);apply(toKey);return}
+    gsap.timeline()
+      .to({},{duration:.22,onStart:()=>gsap.to(from.scale,{x:.85,y:.85,z:.85,duration:.22}),onUpdate:function(){setOpacity(from,1-this.progress())}})
+      .call(()=>{from.visible=false;from.scale.set(1,1,1);setOpacity(from,1);to.visible=true;setOpacity(to,0);to.scale.set(.85,.85,.85);apply(toKey)})
+      .to(to.scale,{x:1,y:1,z:1,duration:.3,ease:'back.out(1.6)'})
+      .to({},{duration:.3,onUpdate:function(){setOpacity(to,this.progress())}},'<');
+  }
+  b13.addEventListener('click',()=>swap('m13'));
+  b5.addEventListener('click',()=>swap('m5'));
+  window.heroCellSwap=swap;   /* let the pinned scroll auto-cycle the two formats */
+}
+
+// three.js is deferred, so it may not be parsed yet when this inline script runs.
+if(window.THREE) init3D();
+else window.addEventListener('DOMContentLoaded',init3D);   // deferred scripts land before this fires
+
+/* ============ scroll choreography ============ */
+if(window.gsap){
+  gsap.registerPlugin(ScrollTrigger);
+
+  if(REDUCED){
+    gsap.set('.rv',{opacity:1,y:0});
+    gsap.set('.reveal-img',{clipPath:'inset(0 0 0 0%)'});
+    gsap.set('.spec tbody tr, .biz>div, .app, .feat, .bstat, .bignum, .tests .peak',{opacity:1,y:0,x:0,scale:1,filter:'none'});
+    gsap.set('.temp-panel',{clipPath:'inset(0 0% 0 0)'});
+  }
+  else{
+    /* section reveals */
+    document.querySelectorAll('.rv').forEach(n=>{
+      gsap.fromTo(n,{opacity:0,y:34,scale:.985},{opacity:1,y:0,scale:1,duration:.9,ease:'power3.out',
+        scrollTrigger:{trigger:n,start:'top 86%'}});
+    });
+
+    /* hero: pin the product, rotate it + auto-cycle the two formats as you scroll (ref: Relats pinned showcase) */
+    ScrollTrigger.create({trigger:'.hero-stage',start:'top top',end:'+=85%',pin:true,scrub:.5,
+      onUpdate:s=>{
+        heroFx=s.progress;
+        if(window.heroCellSwap) window.heroCellSwap(s.progress>.5?'m5':'m13');
+      }});
+    gsap.to('.hero .wrap:first-child',{opacity:0,y:-60,ease:'none',
+      scrollTrigger:{trigger:'.hero',start:'top top',end:'45% top',scrub:.5}});
+
+    /* pinned statement: light each line in sequence */
+    const lines=gsap.utils.toArray('.stmt .line');
+    const tl=gsap.timeline({scrollTrigger:{trigger:'.stmt',start:'top top',end:'bottom bottom',scrub:.4}});
+    lines.forEach((ln,i)=>{
+      tl.fromTo(ln,{opacity:.1,y:26,filter:'blur(2px)'},{opacity:1,y:0,filter:'blur(0px)',duration:1,ease:'power2.out'},i);
+      if(i<lines.length-1) tl.to(ln,{opacity:.28,duration:.7,ease:'none'},i+1.15);
+    });
+    tl.to(lines[lines.length-1],{scale:1.06,duration:.8,ease:'power1.inOut'},lines.length);
+
+    /* gentle parallax on photos */
+    gsap.utils.toArray('.para img').forEach(img=>{
+      gsap.fromTo(img,{y:-24},{y:24,ease:'none',
+        scrollTrigger:{trigger:img,start:'top bottom',end:'bottom top',scrub:.6}});
+    });
+
+    /* depth parallax: foreground elements drift faster than their section */
+    gsap.utils.toArray('[data-depth]').forEach(el=>{
+      const d=+el.dataset.depth||.3;
+      gsap.fromTo(el,{y:-30*d},{y:30*d,ease:'none',
+        scrollTrigger:{trigger:el,start:'top bottom',end:'bottom top',scrub:.6}});
+    });
+
+    /* image reveal: wipe in from the right as each photo enters view */
+    gsap.utils.toArray('.reveal-img').forEach(img=>{
+      gsap.fromTo(img,{clipPath:'inset(0 0 0 100%)',scale:1.08,filter:'blur(6px)'},
+        {clipPath:'inset(0 0 0 0%)',scale:1,filter:'blur(0px)',duration:1.1,ease:'power3.out',
+          scrollTrigger:{trigger:img,start:'top 85%'}});
+    });
+
+    /* cell specs: the datasheet streams in row-by-row, linked to scroll */
+    gsap.fromTo('.spec tbody tr',{opacity:0,x:-26,filter:'blur(4px)'},
+      {opacity:1,x:0,filter:'blur(0px)',stagger:.5,ease:'none',
+        scrollTrigger:{trigger:'.tbl-scroll',start:'top 80%',end:'bottom 60%',scrub:.6}});
+    /* cell specs: charts stay as clean interactive tabs (no pin — avoids overlapping the spec table) */
+    gsap.fromTo('.biz>div',{opacity:0,x:-16},{opacity:1,x:0,stagger:.09,duration:.5,ease:'power2.out',
+      scrollTrigger:{trigger:'.biz',start:'top 80%'}});
+    gsap.fromTo('.app',{opacity:0,y:20},{opacity:1,y:0,stagger:{each:.06,grid:[3,3],from:'start'},duration:.5,ease:'power2.out',
+      scrollTrigger:{trigger:'.apps',start:'top 85%'}});
+
+    /* per-section signature transitions */
+    /* features: editorial rows slide in from the left */
+    gsap.fromTo('.feat',{opacity:0,x:-44},{opacity:1,x:0,stagger:.12,duration:.7,ease:'power3.out',
+      scrollTrigger:{trigger:'.feat-list',start:'top 80%'}});
+    /* stat band: numbers deal in one-by-one, horizontally */
+    gsap.fromTo('.bstat',{opacity:0,x:40},{opacity:1,x:0,stagger:.1,duration:.6,ease:'power3.out',
+      scrollTrigger:{trigger:'.band',start:'top 82%'}});
+    /* safety: pin the evidence row, deal in each proof number one-by-one as you scroll */
+    const fmtCount=(v,dec)=>v.toLocaleString('en-US',{minimumFractionDigits:dec,maximumFractionDigits:dec});
+    const bnStage=gsap.timeline({scrollTrigger:{trigger:'.safety-stage',start:'top 24%',end:'+=120%',pin:true,scrub:.6}});
+    gsap.utils.toArray('.bignum').forEach((bn,i)=>{
+      const num=bn.querySelector('[data-count]'), end=parseFloat(num.dataset.count), dec=+(num.dataset.dec||0), o={v:0}, at=i*1;
+      bnStage.fromTo(bn,{opacity:.12,scale:.86,y:16,filter:'blur(9px)'},
+                        {opacity:1,scale:1,y:0,filter:'blur(0px)',duration:.6,ease:'power2.out'},at)
+             .to(o,{v:end,duration:.6,ease:'power1.out',onUpdate:()=>{num.childNodes[0].nodeValue=fmtCount(o.v,dec);}},at)
+             .fromTo(bn.querySelector('.pass'),{opacity:0,scale:.6,y:6},{opacity:1,scale:1,y:0,duration:.3,ease:'back.out(2.2)'},at+.5);
+    });
+    /* evidence photos: peak callouts stamp onto each shot after it wipes in */
+    gsap.utils.toArray('.tests .shot').forEach(shot=>{
+      gsap.fromTo(shot.querySelectorAll('.peak'),{opacity:0,scale:.7,filter:'blur(4px)'},
+        {opacity:1,scale:1,filter:'blur(0px)',stagger:.2,duration:.42,ease:'back.out(2)',
+          scrollTrigger:{trigger:shot,start:'top 68%'}});
+    });
+    /* temperature panel: horizontal clip-wipe reveal */
+    gsap.fromTo('.temp-panel',{clipPath:'inset(0 100% 0 0)'},{clipPath:'inset(0 0% 0 0)',duration:1,ease:'power3.inOut',
+      scrollTrigger:{trigger:'.temp-panel',start:'top 82%'}});
+
+    /* heading text: words sharpen into place as the section arrives */
+    document.querySelectorAll('.sec h2>span:first-child, .cta h2').forEach(h=>{
+      if(h.dataset.split)return; h.dataset.split='1';
+      h.innerHTML=h.textContent.split(/(\s+)/).map(w=>w.trim()?`<span class="word">${w}</span>`:w).join('');
+      gsap.fromTo(h.querySelectorAll('.word'),{opacity:0,y:16,filter:'blur(6px)'},
+        {opacity:1,y:0,filter:'blur(0px)',duration:.7,ease:'power2.out',stagger:.035,
+          scrollTrigger:{trigger:h,start:'top 88%'}});
+    });
+
+    /* ambient mood: background hue/position drift toward whichever section is centered */
+    const AMBIENT=[
+      {id:'top',hue:0,x:22,y:26},{id:'safety',hue:-6,x:30,y:18},{id:'temp',hue:34,x:62,y:30},
+      {id:'features',hue:10,x:40,y:40},{id:'cells',hue:-4,x:26,y:55},{id:'pack',hue:8,x:55,y:20},
+      {id:'contact',hue:0,x:22,y:26}
+    ].map(a=>({...a,el:document.getElementById(a.id)})).filter(a=>a.el);
+    const lerp=(a,b,k)=>a+(b-a)*k;
+    function updateAmbient(){
+      const mid=innerHeight*.4; let cur=AMBIENT[0],next=AMBIENT[0],t=0;
+      for(let i=0;i<AMBIENT.length;i++){
+        const r=AMBIENT[i].el.getBoundingClientRect();
+        /* only start blending toward the next section in the final 35% of this one,
+           so the mood holds steady through the section and shifts near the boundary */
+        if(r.top<=mid){ cur=AMBIENT[i]; next=AMBIENT[i+1]||AMBIENT[i];
+          const raw=(mid-r.top)/Math.max(r.height,1);
+          t=Math.min(1,Math.max(0,(raw-.65)/.35)); }
+      }
+      document.documentElement.style.setProperty('--amb-hue',lerp(cur.hue,next.hue,t)+'deg');
+      document.documentElement.style.setProperty('--amb-x',lerp(cur.x,next.x,t)+'%');
+      document.documentElement.style.setProperty('--amb-y',lerp(cur.y,next.y,t)+'%');
+    }
+    ScrollTrigger.create({trigger:document.body,start:'top top',end:'bottom bottom',scrub:true,onUpdate:updateAmbient});
+    updateAmbient();
+  }
+
+  /* counters */
+  document.querySelectorAll('[data-count]').forEach(n=>{
+    if(!REDUCED && n.closest('.bignum')) return; /* safety proof numbers are dealt in by the pinned stage */
+    const end=parseFloat(n.dataset.count), dec=+(n.dataset.dec||0);
+    const obj={v:0};
+    gsap.to(obj,{v:end,duration:REDUCED?0:1.6,ease:'power1.out',
+      scrollTrigger:{trigger:n,start:'top 88%'},
+      onUpdate:()=>{ n.childNodes[0].nodeValue=obj.v.toLocaleString('en-US',{minimumFractionDigits:dec,maximumFractionDigits:dec}); }});
+  });
+}else{
+  document.querySelectorAll('[data-count]').forEach(n=>{
+    const dec=+(n.dataset.dec||0);
+    n.childNodes[0].nodeValue=parseFloat(n.dataset.count).toLocaleString('en-US',{minimumFractionDigits:dec});
+  });
+}
+
+/* ============ temperature simulator (rules straight from the datasheet) ============ */
+(function(){
+  const s=document.getElementById('t-slider'); if(!s)return;
+  const val=document.getElementById('t-val'), st=document.getElementById('t-state'), sub=document.getElementById('t-sub');
+  const zD=document.getElementById('z-dis'), zC=document.getElementById('z-chg'), zL=document.getElementById('z-low');
+  window.updTemp=function(){
+    const t=+s.value; val.textContent=t;
+    const dis = t>=-40 && t<=60;
+    const chg = t>=-20 && t<=60;
+    const low = chg && t<0;
+    zD.classList.toggle('on',dis); zC.classList.toggle('on',chg&&!low); zL.classList.toggle('on',low);
+    let k,cls;
+    if(!dis&&!chg){ k = t>60?'hi':'lo'; cls='st no'; }
+    else if(low){ k='low'; cls='st warn'; }
+    else if(dis&&!chg){ k='dis'; cls='st warn'; }
+    else{ k='ok'; cls='st ok'; }
+    st.className=cls; st.textContent=TEMP_TXT[k][LANG][0]; sub.textContent=TEMP_TXT[k][LANG][1];
+  };
+  s.addEventListener('input',updTemp); updTemp();
+})();
+
+/* ============ chart tabs ============ */
+(function(){
+  const tabs=document.getElementById('ctabs'); if(!tabs)return;
+  const img=document.getElementById('cimg'), cap=document.getElementById('ccap');
+  const pv=document.getElementById('cpeak-v'), ps=document.getElementById('cpeak-s');
+  tabs.addEventListener('click',e=>{
+    const b=e.target.closest('button'); if(!b)return;
+    tabs.querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b));
+    if(window.gsap&&!REDUCED){gsap.fromTo(img,{opacity:0},{opacity:1,duration:.4});}
+    img.src=b.dataset.img; cap.textContent=CHART_CAPS[b.dataset.k][LANG];
+    const pk=CHART_PEAK[b.dataset.k]; pv.textContent=pk[LANG][0]; ps.textContent=pk[LANG][1];
+  });
+})();
+
+/* duplicate marquee content for a seamless loop */
+(function(){const m=document.getElementById('mq');if(m)m.innerHTML+=m.innerHTML;})();
+
+/* lightbox: click any data image to enlarge */
+(function(){
+  const box=document.createElement('div'); box.className='lightbox';
+  box.innerHTML='<button class="lx-close" aria-label="Close">✕</button><img alt=""><div class="lx-hint">Click anywhere or press Esc to close</div>';
+  document.body.appendChild(box);
+  const lximg=box.querySelector('img');
+  const close=()=>{box.classList.remove('on'); lximg.src='';};
+  box.addEventListener('click',close);
+  document.addEventListener('keydown',e=>{if(e.key==='Escape')close();});
+  document.querySelectorAll('.zoomable').forEach(img=>{
+    img.addEventListener('click',()=>{lximg.src=img.currentSrc||img.src; lximg.alt=img.alt; box.classList.add('on');});
+  });
+})();
+
+/* restore saved language */
+try{const sv=localStorage.getItem('bxl-lang'); if(sv==='1')applyLang(1);}catch(e){}
+</script>
+</body>
+</html>

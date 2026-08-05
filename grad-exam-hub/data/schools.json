@@ -1,0 +1,290 @@
+{
+  "updated": "2026-07-17",
+  "baseAcademicYear": 115,
+  "note": "各組考科與名額均逐字核對自 115 學年度官方簡章（存於 data/brochures/）。116 簡章預計 2026 年 10–11 月公告後更新。",
+  "mathChapters": ["線性代數", "常微分方程", "偏微分方程", "拉氏與傅立葉轉換", "機率與統計", "複變", "向量分析"],
+  "subjectCatalog": ["控制系統", "電子學", "電子電路", "電路學", "線性代數", "訊號與系統", "通訊系統", "英文", "工程數學"],
+  "channels": [
+    {
+      "id": "ntu",
+      "school": "國立臺灣大學",
+      "shortName": "台大",
+      "channel": "台大自辦碩士班招生",
+      "admissionUrl": "https://graduate.ee.ntu.edu.tw/",
+      "brochure": "brochures/ntu-ee-114.pdf",
+      "pastExamsSource": "https://exam.lib.ntu.edu.tw/graduate",
+      "schedule": { "apply": "約12月初", "writtenExam": "2月上旬（兩天）", "announce": "3月上旬" },
+      "programs": [
+        {
+          "id": "ntu-ee-a",
+          "dept": "電機工程學系碩士班（電機所）",
+          "group": "甲組（主修自動控制）",
+          "quota": { "exam": "正取 7、備取 20", "recommend": "甄試 17 名" },
+          "written": [
+            { "options": [{ "subject": "英文" }], "note": "英文(B)：100分命題、成績以20%計" },
+            { "options": [{ "subject": "工程數學", "paper": "工程數學(C)", "chapters": ["線性代數", "常微分方程", "偏微分方程", "拉氏與傅立葉轉換"], "scope": "簡章載明：含微分方程、線性代數" }] },
+            { "options": [{ "subject": "控制系統", "scope": "簡章載明：含電路系統分析" }] }
+          ],
+          "nonWritten": [],
+          "recommend": "甄試＝審查100%（歷年成績單＋名次證明＋考生審查資料表＋研究報告/競賽/推薦函選繳）",
+          "notes": "筆試100%、無口試無書審。錄取後指導教授限控制組專任教師。",
+          "verified": "114簡章逐字核對；115考科相同（英文、工數C、控制系統）"
+        }
+      ]
+    },
+    {
+      "id": "ust",
+      "school": "台灣聯合大學系統（清大＋陽明交大＋中央）",
+      "shortName": "台聯大",
+      "channel": "電機類碩士班聯合招生：一份簡章、一場筆試、可同時選填多校系組",
+      "admissionUrl": "https://exam.nycu.edu.tw/",
+      "brochure": "brochures/ust-115.pdf",
+      "pastExamsSource": "https://rapid.lib.ncu.edu.tw/cexamn/tai.html",
+      "schedule": { "apply": "114/11/21–11/24", "writtenExam": "115/02/01–02/02", "announce": "3月上旬" },
+      "programs": [
+        {
+          "id": "nycu-ece-a",
+          "dept": "陽明交大 電控工程研究所",
+          "group": "甲組（控制理論、智慧系統、機器人、電機控制等）",
+          "quota": { "exam": "一般生 5 名" },
+          "written": [],
+          "nonWritten": ["資料審查", "口試（依審查成績擇優參加，口試 115/2/3）"],
+          "recommend": "另有各校自辦甄試（約每年10月）",
+          "notes": "★ 甲組無筆試：純資料審查＋口試，適合專題／成績強的考生。",
+          "verified": "115台聯大簡章 p.16 逐字核對"
+        },
+        {
+          "id": "nycu-ece-bA",
+          "dept": "陽明交大 電控工程研究所",
+          "group": "乙A組（主修同甲組，筆試入學）",
+          "quota": { "exam": "一般生 12 名" },
+          "written": [
+            { "options": [{ "subject": "控制系統" }] },
+            { "options": [
+              { "subject": "工程數學", "paper": "工程數學B(3004)", "chapters": null, "scope": "簡章未載明範圍（以歷年考卷為準）" },
+              { "subject": "工程數學", "paper": "工程數學C(3005)", "chapters": ["線性代數", "常微分方程", "偏微分方程", "拉氏與傅立葉轉換"], "scope": "115考卷實測：線代＋ODE＋PDE＋拉氏" }
+            ], "note": "工數B或C擇一" }
+          ],
+          "nonWritten": ["資料審查（與筆試同權重1:1:1，任一科0分不錄取）"],
+          "notes": "筆試採級分制；各科須達該考科全體考生前90%。",
+          "verified": "115台聯大簡章逐字核對"
+        },
+        {
+          "id": "nthu-ee-b",
+          "dept": "清大 電機工程學系碩士班",
+          "group": "乙組（系統領域）",
+          "quota": { "exam": "一般生 18 名" },
+          "written": [
+            { "options": [{ "subject": "訊號與系統" }, { "subject": "通訊系統" }], "note": "二選一" }
+          ],
+          "nonWritten": ["資料審查"],
+          "notes": "⚠ 不考工數、不考控制——清大電機筆試對控制組考生較不對口。",
+          "verified": "115台聯大簡章（班組代碼326）逐字核對"
+        },
+        {
+          "id": "nthu-ee-c",
+          "dept": "清大 電機工程學系碩士班",
+          "group": "丙組（系統領域）",
+          "quota": { "exam": "一般生 23 名" },
+          "written": [
+            { "options": [{ "subject": "電子學" }] }
+          ],
+          "nonWritten": ["資料審查"],
+          "notes": "⚠ 只考電子學＋書審。",
+          "verified": "115台聯大簡章（班組代碼327）逐字核對"
+        }
+      ]
+    },
+    {
+      "id": "ncu",
+      "school": "國立中央大學",
+      "shortName": "中央",
+      "channel": "中央自辦碩士班考試入學（電機系僅『電子組』走台聯大，其餘組走自辦）",
+      "admissionUrl": "https://admission.ncu.edu.tw/",
+      "brochure": "brochures/ncu-115.pdf",
+      "pastExamsSource": "https://admission.ncu.edu.tw/",
+      "schedule": { "apply": "約12月", "writtenExam": "115/02/08", "announce": "依簡章" },
+      "programs": [
+        {
+          "id": "ncu-ee-smart",
+          "dept": "電機工程學系碩士班",
+          "group": "智慧系統組（控制相關）",
+          "quota": { "exam": "固態＋智慧系統＋電波三組合計 57 名" },
+          "written": [
+            { "options": [{ "subject": "工程數學", "paper": "工程數學（不含複變）", "chapters": ["線性代數", "常微分方程", "偏微分方程", "拉氏與傅立葉轉換", "機率與統計", "向量分析"], "scope": "簡章載明：不含複變；其餘範圍未明列" }] },
+            { "options": [{ "subject": "電子學" }] }
+          ],
+          "nonWritten": [],
+          "notes": "不考控制系統筆試；工數＋電子學兩科。筆試 115/2/8，無複試（智慧系統組）。",
+          "verified": "115中央自辦簡章逐字核對"
+        }
+      ]
+    },
+    {
+      "id": "nthu-pme",
+      "school": "國立清華大學",
+      "shortName": "清大（動機）",
+      "channel": "清大自辦碩士班招生",
+      "admissionUrl": "https://adms.site.nthu.edu.tw/",
+      "brochure": "brochures/nthu-115.pdf",
+      "pastExamsSource": "https://www.lib.nthu.edu.tw/library/department/lrs/exam/e/pme.html",
+      "schedule": { "apply": "約12月", "writtenExam": "115/02/04", "announce": "依簡章" },
+      "programs": [
+        {
+          "id": "nthu-pme-b",
+          "dept": "動力機械工程學系碩士班",
+          "group": "乙組（電機控制組，代碼0513）",
+          "quota": { "exam": "一般生 7 名" },
+          "written": [
+            { "options": [{ "subject": "控制系統" }], "note": "可使用任何型式計算器" }
+          ],
+          "nonWritten": ["資料審查（線上，與筆試併計）"],
+          "recommend": "建議修畢：工數/應數≥6學分、電工/電路≥2學分、電子學≥2學分、控制≥3學分",
+          "notes": "★ 清大的控制組正解：只考控制系統一科＋書審。",
+          "verified": "115清大自辦簡章（0513）逐字核對"
+        }
+      ]
+    },
+    {
+      "id": "nsysu",
+      "school": "國立中山大學",
+      "shortName": "中山",
+      "channel": "中山自辦研究所招生",
+      "admissionUrl": "https://exam-acad.nsysu.edu.tw/",
+      "brochure": "brochures/nsysu-ee-115.pdf",
+      "pastExamsSource": "https://lis.nsysu.edu.tw/p/412-1001-6014.php",
+      "schedule": { "apply": "約12月", "writtenExam": "約2月", "announce": "依簡章" },
+      "programs": [
+        {
+          "id": "nsysu-ee-b",
+          "dept": "電機工程學系碩士班",
+          "group": "乙組（控制組）",
+          "quota": { "exam": "一般生 6 名" },
+          "written": [
+            { "options": [
+              { "subject": "工程數學", "paper": "工程數學乙", "chapters": ["線性代數", "常微分方程"], "scope": "簡章載明：含常微分方程、線性代數" },
+              { "subject": "電子學" }
+            ], "note": "二選一（第一節）" },
+            { "options": [{ "subject": "控制系統" }], "note": "★ 加權 200%（第二節）" }
+          ],
+          "nonWritten": [],
+          "notes": "控制系統雙倍計分＝決勝科目；同分時比控制系統。無書審。",
+          "verified": "115中山簡章逐字核對"
+        }
+      ]
+    },
+    {
+      "id": "ntust",
+      "school": "國立臺灣科技大學",
+      "shortName": "台科大",
+      "channel": "台科大自辦碩士班招生",
+      "admissionUrl": "https://www.admission.ntust.edu.tw/",
+      "brochure": "brochures/ntust-115.pdf",
+      "pastExamsSource": "https://library.ntust.edu.tw/p/404-1049-102162.php",
+      "schedule": { "apply": "114/11/28–12/11", "writtenExam": "約2月", "announce": "115/03/18" },
+      "programs": [
+        {
+          "id": "ntust-gsac",
+          "dept": "自動化及控制研究所碩士班",
+          "group": "不分組（代碼1200）",
+          "quota": { "exam": "14 名" },
+          "written": [
+            { "options": [{ "subject": "工程數學", "paper": "工程數學（自控所卷）", "chapters": null, "scope": "簡章未載明範圍（以歷年考卷為準）" }], "note": "占50%" }
+          ],
+          "nonWritten": ["審查（占50%）：成績單＋名次證明＋其他文件"],
+          "notes": "113 年起筆試只考工數（不再考自動控制系統）；控制實力靠書審呈現。",
+          "verified": "115台科大簡章逐字核對"
+        },
+        {
+          "id": "ntust-ee-c",
+          "dept": "電機工程系碩士班",
+          "group": "丙組（系統工程＝控制相關）",
+          "quota": { "exam": "15 名" },
+          "written": [],
+          "nonWritten": ["審查（50%）", "口試（50%）：審查前50%直接錄取免口試"],
+          "notes": "★ 115 已改制：無筆試。舊丁二組（控制系統筆試）已走入歷史（考古題留存至110年）。",
+          "verified": "115台科大簡章逐字核對"
+        }
+      ]
+    },
+    {
+      "id": "ncku",
+      "school": "國立成功大學",
+      "shortName": "成大",
+      "channel": "成大自辦碩士班招生（甄試另有獨立簡章，約10月公告）",
+      "admissionUrl": "https://adms-acad.ncku.edu.tw/",
+      "brochure": "brochures/ncku-115.pdf",
+      "pastExamsSource": "https://exam.lib.ncku.edu.tw/",
+      "schedule": { "apply": "114/11/24–12/02", "writtenExam": "115/02/03", "announce": "依簡章" },
+      "programs": [
+        {
+          "id": "ncku-ee-b",
+          "dept": "電機工程學系碩士班",
+          "group": "乙組（系統控制／智慧型系統／機器人／自駕技術）",
+          "quota": { "exam": "37 名（含甄試 24 → 考試入學約 13）" },
+          "written": [
+            { "options": [{ "subject": "工程數學", "paper": "工程數學（電機）", "chapters": null, "scope": "簡章未載明範圍（以歷年考卷為準）" }] },
+            { "options": [{ "subject": "控制系統", "scope": "簡章載明：含控制工程、線性系統" }] }
+          ],
+          "nonWritten": ["資料審查（50%）：成績單含排名＋審查資料表＋專題/競賽/實習等"],
+          "notes": "審查50%＋筆試50%；筆試任一科零分不錄取；同分先比筆試。",
+          "verified": "115成大簡章（代碼522）逐字核對"
+        },
+        {
+          "id": "ncku-es-a",
+          "dept": "工程科學系碩士班",
+          "group": "甲組（控制與通訊：電機控制與通訊）",
+          "quota": { "exam": "21 名（含甄試 12）" },
+          "written": [
+            { "options": [
+              { "subject": "工程數學", "paper": "工程數學（工科）", "chapters": null, "scope": "簡章未載明範圍（以歷年考卷為準）" },
+              { "subject": "線性代數" }
+            ], "note": "二選一（第一節）" },
+            { "options": [{ "subject": "控制系統" }, { "subject": "訊號與系統" }], "note": "二選一（第二節，控制系統可用計算機）" },
+            { "options": [{ "subject": "電子電路" }, { "subject": "通訊系統" }], "note": "二選一（第三節，電子電路可用計算機）" }
+          ],
+          "nonWritten": [],
+          "notes": "筆試100%；可組出「線代＋控制＋電子電路」完全避開工數；任一科零分不錄取。",
+          "verified": "115成大簡章（代碼611）逐字核對"
+        },
+        {
+          "id": "ncku-me-e",
+          "dept": "機械工程學系碩士班",
+          "group": "戊組（機械系統自動控制組）",
+          "quota": { "exam": "22 名（含甄試）" },
+          "written": [],
+          "nonWritten": ["審查（100%）：總表＋名次證明＋成績單＋自傳讀書計畫（各300字內）等"],
+          "notes": "★ 無筆試：純審查。適合書審資料強的考生加開的免筆試選項。",
+          "verified": "115成大簡章（代碼515）逐字核對"
+        }
+      ]
+    },
+    {
+      "id": "ntut",
+      "school": "國立臺北科技大學",
+      "shortName": "北科大",
+      "channel": "北科大自辦碩士班招生",
+      "admissionUrl": "https://graduate.ntut.edu.tw/",
+      "brochure": "brochures/ntut-115.pdf",
+      "pastExamsSource": "https://library.ntut.edu.tw/p/405-1024-108736,c15236.php",
+      "schedule": { "apply": "114/12/04–12/16", "writtenExam": "約2–3月", "announce": "依簡章" },
+      "programs": [
+        {
+          "id": "ntut-ee-c",
+          "dept": "電機工程系碩士班",
+          "group": "丙組（控制工程）",
+          "quota": { "exam": "16 名" },
+          "written": [
+            { "options": [
+              { "subject": "工程數學", "paper": "工程數學（代碼2131）", "chapters": null, "scope": "簡章未載明範圍（以歷年考卷為準）" },
+              { "subject": "控制系統" }
+            ], "note": "★ 二選一（占50%），成績轉T分數計算" }
+          ],
+          "nonWritten": ["資料審查（占50%）：成績單＋名次證明等"],
+          "notes": "可完全避開工數只考控制系統，或反之；同分比審查。",
+          "verified": "115北科大簡章逐字核對"
+        }
+      ]
+    }
+  ]
+}

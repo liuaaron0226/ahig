@@ -1,0 +1,128 @@
+{
+  "answer": "{\"years\":[1-10],\"chapters\":[{\"name\":\"線性代數\",\"years\":{\"106\":10,\"107\":10,\"108\":10,\"109\":10,\"110\":10,\"111\":10,\"112\":10,\"113\":10,\"114\":10,\"115\":7}},{\"name\":\"常微分方程\",\"years\":{\"106\":5,\"107\":7,\"108\":8,\"109\":7,\"110\":7,\"111\":6,\"112\":6,\"113\":6,\"114\":10,\"115\":1}},{\"name\":\"拉氏與傅立葉轉換\",\"years\":{\"106\":4,\"107\":2,\"108\":2,\"109\":2,\"110\":2,\"111\":2,\"112\":2,\"113\":2,\"114\":0,\"115\":1}},{\"name\":\"偏微分方程\",\"years\":{\"106\":1,\"107\":1,\"108\":0,\"109\":1,\"110\":1,\"111\":2,\"112\":2,\"113\":2,\"114\":0,\"115\":1}},{\"name\":\"機率與統計\",\"years\":{\"106\":0,\"107\":0,\"108\":0,\"109\":0,\"110\":0,\"111\":0,\"112\":0,\"113\":0,\"114\":0,\"115\":0}},{\"name\":\"複變\",\"years\":{\"106\":0,\"107\":0,\"108\":0,\"109\":0,\"110\":0,\"111\":0,\"112\":0,\"113\":0,\"114\":0,\"115\":0}},{\"name\":\"向量分析\",\"years\":{\"106\":0,\"107\":0,\"108\":0,\"109\":0,\"110\":0,\"111\":0,\"112\":0,\"113\":0,\"114\":0,\"115\":0}},{\"name\":\"其他\",\"years\":{\"106\":0,\"107\":0,\"108\":0,\"109\":0,\"110\":0,\"111\":0,\"112\":0,\"113\":0,\"114\":0,\"115\":0}}],\"mustKnow\":[\"矩陣理論與空間：矩陣的四大基本空間、正交投影、特徵值問題以及對角化是每年選擇題的基本盤。\",\"一階與高階常微分方程：常見題型包含各種標準型ODE求解、變化參數法、以及一階聯立常微分方程組系統。\",\"級數解法：針對常微分方程的冪級數解以及Frobenius級數解，常要求判斷指數方程式或前幾項係數。\",\"拉氏與傅立葉轉換：頻繁利用拉氏轉換求解積分微分方程或含單位階梯、Dirac函數的問題；傅立葉則側重級數展開。\",\"偏微分方程：固定出現一至兩題，多以分離變數法求解二變數邊界值問題，近年亦有結合拉氏轉換求解的題型。\"],\"trend\":\"台聯大工數C歷年命題極度規律，線性代數固定佔據約半數題量，其餘半數為常微分方程、拉氏/傅立葉轉換及偏微分方程；且幾乎不考機率統計、複變與向量分析。106至114學年度全為單/多選題，但115學年度起出現重大題型變化，後半部改為非選擇的計算證明題，雖然偏好的核心章節不變，但要求考生具備更嚴謹的手寫推導能力。\"}",
+  "conversation_id": "d8e3b810-085f-4ca4-a6c7-111fe2f62c2e",
+  "turn_number": 1,
+  "is_follow_up": true,
+  "references": [
+    {
+      "source_id": "47fa9881-3f88-43d9-a904-5be2377f8512",
+      "citation_number": 1,
+      "cited_text": null,
+      "start_char": 7,
+      "end_char": 8,
+      "chunk_id": "a63ddf20-daf6-4ebf-9ed2-49ce72f59f59",
+      "passage_id": null,
+      "answer_start_char": 7,
+      "answer_end_char": 8,
+      "score": 0.7422968022772459
+    },
+    {
+      "source_id": "b927f67b-bbde-40ab-948e-54c02b725b34",
+      "citation_number": 2,
+      "cited_text": null,
+      "start_char": 0,
+      "end_char": 1,
+      "chunk_id": "84e18598-6f34-4e72-822b-ee3bbb3bd0b6",
+      "passage_id": null,
+      "answer_start_char": 0,
+      "answer_end_char": 1,
+      "score": 0.7728177110626484
+    },
+    {
+      "source_id": "b927f67b-bbde-40ab-948e-54c02b725b34",
+      "citation_number": 3,
+      "cited_text": null,
+      "start_char": 1,
+      "end_char": 2,
+      "chunk_id": "ca10777f-2d67-4649-9530-c48f3e9e122b",
+      "passage_id": null,
+      "answer_start_char": 1,
+      "answer_end_char": 2,
+      "score": 0.7802896768002239
+    },
+    {
+      "source_id": "b927f67b-bbde-40ab-948e-54c02b725b34",
+      "citation_number": 4,
+      "cited_text": null,
+      "start_char": 2,
+      "end_char": 3,
+      "chunk_id": "00cbea98-99f6-40a2-ac43-0cd0349754c8",
+      "passage_id": null,
+      "answer_start_char": 2,
+      "answer_end_char": 3,
+      "score": 0.7805443725857024
+    },
+    {
+      "source_id": "b927f67b-bbde-40ab-948e-54c02b725b34",
+      "citation_number": 5,
+      "cited_text": null,
+      "start_char": 3,
+      "end_char": 4,
+      "chunk_id": "607677cb-56f6-4717-b015-1ef24132c76e",
+      "passage_id": null,
+      "answer_start_char": 3,
+      "answer_end_char": 4,
+      "score": 0.7560239472087074
+    },
+    {
+      "source_id": "b927f67b-bbde-40ab-948e-54c02b725b34",
+      "citation_number": 6,
+      "cited_text": null,
+      "start_char": 4,
+      "end_char": 5,
+      "chunk_id": "c8bb0575-d6c2-44ee-a324-11633f9336cb",
+      "passage_id": null,
+      "answer_start_char": 4,
+      "answer_end_char": 5,
+      "score": 0.7265847371711366
+    },
+    {
+      "source_id": "b927f67b-bbde-40ab-948e-54c02b725b34",
+      "citation_number": 7,
+      "cited_text": null,
+      "start_char": 5,
+      "end_char": 6,
+      "chunk_id": "0efcdd54-5624-41f2-994b-8c13cc4a0109",
+      "passage_id": null,
+      "answer_start_char": 5,
+      "answer_end_char": 6,
+      "score": 0.7737751809504854
+    },
+    {
+      "source_id": "b927f67b-bbde-40ab-948e-54c02b725b34",
+      "citation_number": 8,
+      "cited_text": null,
+      "start_char": 6,
+      "end_char": 7,
+      "chunk_id": "1199df33-b2f5-4369-b080-6e020026807f",
+      "passage_id": null,
+      "answer_start_char": 6,
+      "answer_end_char": 7,
+      "score": 0.7692940036897837
+    },
+    {
+      "source_id": "b927f67b-bbde-40ab-948e-54c02b725b34",
+      "citation_number": 9,
+      "cited_text": null,
+      "start_char": 7,
+      "end_char": 8,
+      "chunk_id": "682f5159-678b-4df1-a74c-cd4cc72cc3ac",
+      "passage_id": null,
+      "answer_start_char": 7,
+      "answer_end_char": 8,
+      "score": 0.7673082123507569
+    },
+    {
+      "source_id": "b927f67b-bbde-40ab-948e-54c02b725b34",
+      "citation_number": 10,
+      "cited_text": null,
+      "start_char": 8,
+      "end_char": 9,
+      "chunk_id": "c55f53f3-101d-4dfb-a09f-ecf449b65232",
+      "passage_id": null,
+      "answer_start_char": 8,
+      "answer_end_char": 9,
+      "score": 0.765110064719227
+    }
+  ]
+}
