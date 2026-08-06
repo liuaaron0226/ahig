@@ -12,6 +12,24 @@
       "runtimeExecutable": "python",
       "runtimeArgs": ["-m", "http.server", "8792", "--directory", "C:/Users/User/Desktop/claude"],
       "port": 8792
+    },
+    {
+      "name": "bixlink-products",
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["-m", "http.server", "8793", "--directory", "C:/Users/User/Desktop/bixlink-product-pages"],
+      "port": 8793
+    },
+    {
+      "name": "bixlink-expo",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["--prefix", "C:/Users/User/Desktop/bixlink-product-pages/site", "run", "dev"],
+      "port": 3457,
+      "autoPort": true
+    },
+    {
+      "name": "bixlink-expo-attach",
+      "url": "http://localhost:3457",
+      "port": 3457
     }
   ]
 }
