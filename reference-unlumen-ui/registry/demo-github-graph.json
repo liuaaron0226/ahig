@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "demo-github-graph",
+  "title": "GitHub Graph Demo",
+  "description": "An animated GitHub contribution graph with an editable account field.",
+  "registryDependencies": [
+    "@unlumen-ui/github-graph"
+  ],
+  "files": [
+    {
+      "path": "registry/demo/components/unlumen/github-graph/index.tsx",
+      "content": "\"use client\";\n\nimport * as React from \"react\";\n\nimport {\n  GithubGraph,\n  normalizeGithubAccount,\n  type GithubGraphProps,\n} from \"@/components/unlumen-ui/github-graph\";\n\ntype GithubGraphDemoProps = Pick<\n  GithubGraphProps,\n  | \"variant\"\n  | \"animation\"\n  | \"animationSpeed\"\n  | \"cellSize\"\n  | \"cellGap\"\n  | \"cellRadius\"\n  | \"showLegend\"\n  | \"ambientEffect\"\n  | \"ambientIntensity\"\n> & {\n  months?: number | string;\n};\n\nexport function GithubGraphDemo({\n  variant = \"github\",\n  animation = \"wave\",\n  animationSpeed = 1,\n  cellSize = 18,\n  cellGap = 4,\n  cellRadius = 3,\n  showLegend = false,\n  ambientEffect = \"twinkle\",\n  ambientIntensity = 0.65,\n  months = 6,\n}: GithubGraphDemoProps) {\n  const [draftAccount, setDraftAccount] = React.useState(\"shadcn\");\n  const [account, setAccount] = React.useState(\"shadcn\");\n  const [error, setError] = React.useState<string | null>(null);\n  const resolvedMonths = Number(months) || 6;\n\n  const submit = (event: React.FormEvent<HTMLFormElement>) => {\n    event.preventDefault();\n    const nextAccount = normalizeGithubAccount(draftAccount);\n\n    if (!nextAccount) {\n      setError(\"Enter a valid GitHub username.\");\n      return;\n    }\n\n    setError(null);\n    setDraftAccount(nextAccount);\n    setAccount(nextAccount);\n  };\n\n  return (\n    <div className=\"flex w-full justify-center p-4 sm:p-6\">\n      <div className=\"w-fit max-w-full\">\n        <form onSubmit={submit} className=\"mb-5\">\n          <div className=\"flex items-baseline gap-0.5 text-lg font-medium tracking-tight text-foreground\">\n            <span aria-hidden=\"true\">@</span>\n            <label htmlFor=\"github-graph-account\" className=\"sr-only\">\n              GitHub username\n            </label>\n            <input\n              id=\"github-graph-account\"\n              value={draftAccount}\n              onChange={(event) => setDraftAccount(event.target.value)}\n              placeholder=\"github\"\n              aria-invalid={error ? true : undefined}\n              className=\"w-[11ch] border-0 bg-transparent p-0 text-lg font-medium tracking-tight outline-none placeholder:text-muted-foreground focus-visible:text-foreground\"\n            />\n          </div>\n          {error && <p className=\"mt-1 text-xs text-destructive\">{error}</p>}\n        </form>\n\n        <GithubGraph\n          account={account}\n          months={resolvedMonths}\n          variant={variant}\n          animation={animation}\n          animationSpeed={animationSpeed}\n          cellSize={cellSize}\n          cellGap={cellGap}\n          cellRadius={cellRadius}\n          showLegend={showLegend}\n          ambientEffect={ambientEffect}\n          ambientIntensity={ambientIntensity}\n          showAccount={false}\n        />\n      </div>\n    </div>\n  );\n}\n",
+      "type": "registry:example"
+    }
+  ],
+  "type": "registry:example"
+}

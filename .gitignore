@@ -18,3 +18,15 @@ test-results/
 # Machine-local
 .claude/settings.local.json
 UsersUser.claudesettings.json
+
+# 根目錄的 UI 驗證截圖（43MB，與 .scratch/*.png 同性質，可重新產生）
+/*.png
+/*.jpg
+/*.jpeg
+_bc_shots/
+
+# 編輯前備份檔
+*.bak.*
+
+# Trading desk 每日抓取的原始資料快取（可重跑 scripts/fetch_daily.sh 重建）
+trading-desk/data/
