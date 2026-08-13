@@ -1,0 +1,26 @@
+# 零容忍：StudyResult 沒有範圍契約授權
+# 契約 A.2：StudyResult 的存在必須由 ExtractionScopeContract 授權，
+# 不由論文內容決定。缺 scopeContractHash / scopeRuleId 就無法回推
+# 「為什麼這個組合被抽取」，粒度也就不可控。
+#
+# 必填欄位是純結構條件，屬 Core 的責任範圍 —— 這個 canary 同時證明
+# 「Core 獨力就擋得住」，不需要 SPARQL 幫忙。
+#
+# @expect-core: PS-scopeContractHash, PS-scopeRuleId, PS-derivedFromOutcomeInventory
+# @profiles: core
+@prefix ahig: <https://ahig.local/ns/> .
+
+<urn:ahig:canary:sr-no-scope> a ahig:StudyResult ;
+    ahig:study <urn:ahig:canary:study-9> ;
+    ahig:population <urn:ahig:canary:pop-1> ;
+    ahig:intervention <urn:ahig:canary:int-1> ;
+    ahig:comparator <urn:ahig:canary:cmp-1> ;
+    ahig:outcome <urn:ahig:canary:out-1> ;
+    ahig:timepoint <urn:ahig:canary:tp-1> ;
+    ahig:analysisSet "ITT" ;
+    ahig:effectMeasure "MD" ;
+    ahig:statisticalModel "unadjusted" ;
+    ahig:sourceVersion "v1" ;
+    ahig:quantityKind <urn:ahig:qk:pct-1rm> ;
+    ahig:citationAnchor <urn:ahig:canary:anchor-1> ;
+    ahig:deterministicCheckReport <urn:ahig:canary:dcr-1> .

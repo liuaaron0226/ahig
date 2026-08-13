@@ -1,0 +1,263 @@
+{
+  "scopeContractId": "ahig:scope:b11-exogenous-cho-endurance",
+  "version": "1.0.0",
+  "status": "draft",
+  "canonicalCompetency": [
+    "ahig:cc:carbohydrate-availability-and-glycogen-management"
+  ],
+  "sourceCompetencyEntries": [
+    "competency-map:B.11"
+  ],
+  "derivedFromSearchContract": {
+    "searchContractId": "ahig:search:b11-exogenous-cho-endurance",
+    "version": "1.0.0",
+    "hash": "sha256:0000000000000000000000000000000000000000000000000000000000000000"
+  },
+  "researchQuestion": {
+    "population": {
+      "label": "受過訓練的成年耐力運動員",
+      "ageRange": {
+        "minYears": 18,
+        "maxYears": 45
+      },
+      "sex": "any",
+      "trainingStatus": [
+        "trained",
+        "highly-trained",
+        "elite"
+      ],
+      "inclusionCriteria": [
+        "規律耐力訓練，且研究已報告訓練狀態的客觀指標（VO2max、FTP、週訓練量或競賽等級）",
+        "健康成人"
+      ],
+      "exclusionCriteria": [
+        "RED-S（relative energy deficiency in sport）族群或以 RED-S 為研究主題者",
+        "low energy availability 介入或以能量可用性操弄為主要自變項者",
+        "rapid weight loss／製造體重（含脫水製造體重）族群",
+        "第一型或第二型糖尿病、已診斷之腸胃疾病（IBD、乳糜瀉）族群",
+        "18 歲以下青少年與 45 歲以上族群（分開的範圍契約處理）",
+        "臥床、術後或臨床復健族群"
+      ]
+    },
+    "interventionOrExposure": {
+      "label": "運動中攝取外源性碳水化合物",
+      "doseRange": {
+        "min": 10,
+        "max": 150,
+        "unit": "g/h",
+        "perBodyMass": false
+      },
+      "durationRange": {
+        "min": 1,
+        "max": 1,
+        "unit": "session"
+      },
+      "separateStudyResultPerDoseBand": true,
+      "doseBands": [
+        {
+          "bandId": "low",
+          "min": 10,
+          "max": 29.9,
+          "unit": "g/h"
+        },
+        {
+          "bandId": "moderate",
+          "min": 30,
+          "max": 59.9,
+          "unit": "g/h"
+        },
+        {
+          "bandId": "high",
+          "min": 60,
+          "max": 89.9,
+          "unit": "g/h"
+        },
+        {
+          "bandId": "very-high",
+          "min": 90,
+          "max": 150,
+          "unit": "g/h"
+        }
+      ]
+    },
+    "comparator": {
+      "types": [
+        "placebo",
+        "no-intervention",
+        "dose-comparison"
+      ],
+      "activeComparatorAllowlist": [
+        "non-caloric-flavour-matched-placebo",
+        "water-only",
+        "lower-cho-dose-arm"
+      ]
+    },
+    "questionType": "efficacy",
+    "narrative": "受過訓練的成年耐力運動員，在單次耐力運動中攝取外源性碳水化合物，相較安慰劑、無碳水或較低劑量，對耐力表現、外源性碳水氧化速率與腸胃道不適的影響。腸胃道不適在本契約中是 critical outcome，不是附帶觀察。"
+  },
+  "inScopeOutcomes": [
+    {
+      "outcomeId": "tt-completion-time",
+      "label": "計時賽完成時間",
+      "role": "critical",
+      "quantityKind": "ahig:qk:time-trial-completion-time",
+      "comparabilityClass": "endurance-performance-time-trial",
+      "allowedInstruments": [
+        "cycling-time-trial-fixed-distance",
+        "cycling-time-trial-fixed-work",
+        "running-time-trial-fixed-distance"
+      ],
+      "midRef": null,
+      "directionOfBenefit": "lower-is-better"
+    },
+    {
+      "outcomeId": "time-to-exhaustion",
+      "label": "力竭時間",
+      "role": "important",
+      "quantityKind": "ahig:qk:time-to-exhaustion",
+      "comparabilityClass": "endurance-capacity-tte",
+      "allowedInstruments": [
+        "cycling-tte-fixed-intensity",
+        "running-tte-fixed-intensity"
+      ],
+      "midRef": null,
+      "directionOfBenefit": "higher-is-better"
+    },
+    {
+      "outcomeId": "exogenous-cho-oxidation-peak",
+      "label": "外源性碳水氧化速率（峰值）",
+      "role": "important",
+      "quantityKind": "ahig:qk:exogenous-cho-oxidation-rate",
+      "comparabilityClass": "substrate-oxidation-rate-exogenous",
+      "allowedInstruments": [
+        "13c-tracer-indirect-calorimetry"
+      ],
+      "midRef": null,
+      "directionOfBenefit": "higher-is-better"
+    },
+    {
+      "outcomeId": "gi-symptom-incidence",
+      "label": "腸胃道症狀發生率",
+      "role": "critical",
+      "quantityKind": "ahig:qk:gi-symptom-incidence",
+      "comparabilityClass": "harm-event-incidence-gi",
+      "allowedInstruments": [],
+      "midRef": null,
+      "directionOfBenefit": "lower-is-better"
+    },
+    {
+      "outcomeId": "gi-symptom-severity",
+      "label": "腸胃道症狀嚴重度",
+      "role": "important",
+      "quantityKind": "ahig:qk:gi-symptom-severity-0-10",
+      "comparabilityClass": "gi-symptom-severity-selfreport",
+      "allowedInstruments": [],
+      "midRef": null,
+      "directionOfBenefit": "lower-is-better"
+    },
+    {
+      "outcomeId": "muscle-glycogen-post-exercise",
+      "label": "運動後肌肉肝醣濃度（乾重基準）",
+      "role": "supporting",
+      "quantityKind": "ahig:qk:muscle-glycogen-dry-weight",
+      "comparabilityClass": "muscle-glycogen-dry-basis",
+      "allowedInstruments": [
+        "needle-biopsy-vastus-lateralis"
+      ],
+      "midRef": null,
+      "directionOfBenefit": "higher-is-better"
+    }
+  ],
+  "inScopeTimepoints": [
+    {
+      "timepointId": "during-exercise",
+      "label": "運動中（含運動結束當下的完成時間）",
+      "windowStart": 0,
+      "windowEnd": 0.9,
+      "unit": "hour",
+      "onMultipleMatchesWithinWindow": "escalate"
+    },
+    {
+      "timepointId": "immediate-post",
+      "label": "運動後 1–4 小時",
+      "windowStart": 1,
+      "windowEnd": 4,
+      "unit": "hour",
+      "onMultipleMatchesWithinWindow": "escalate"
+    },
+    {
+      "timepointId": "next-day",
+      "label": "運動後 24 小時（±6 小時）",
+      "windowStart": 18,
+      "windowEnd": 30,
+      "unit": "hour",
+      "onMultipleMatchesWithinWindow": "escalate"
+    }
+  ],
+  "inScopeAnalysisSets": [
+    "ITT",
+    "mITT",
+    "complete-case"
+  ],
+  "inScopeEffectMeasures": [
+    "MD",
+    "SMD",
+    "RR",
+    "RD",
+    "mean",
+    "proportion"
+  ],
+  "inScopeStatisticalModels": [
+    "unadjusted",
+    "adjusted-prespecified",
+    "mixed-effects"
+  ],
+  "inScopeStudyDesigns": [
+    "RCT-parallel",
+    "RCT-crossover"
+  ],
+  "extractionPolicy": {
+    "subgroupPolicy": "prespecified-only",
+    "sensitivityAnalysisPolicy": "exclude",
+    "adjustedModelPolicy": "primary-model-only",
+    "onOutOfScope": "record-in-outcome-inventory-only",
+    "maxStudyResultsPerStudy": 12,
+    "onExceedMax": "escalate"
+  },
+  "outcomeInventoryPolicy": {
+    "required": true,
+    "completeness": "all-reported-outcomes-plus-registry-comparison",
+    "registrySources": [
+      "ClinicalTrials.gov",
+      "ANZCTR",
+      "ISRCTN",
+      "UMIN-CTR",
+      "OSF"
+    ]
+  },
+  "backfillPolicy": {
+    "triggers": [
+      "scope-contract-version-bump",
+      "search-contract-version-bump",
+      "mid-registry-update",
+      "user-ad-hoc-question-outside-scope"
+    ],
+    "backfillFromInventory": true
+  },
+  "provenance": {
+    "authoredBy": "aaron",
+    "createdAt": "2026-08-13T00:00:00Z",
+    "approvedBy": [
+      {
+        "agent": "aaron",
+        "agentClass": "human-self",
+        "at": "2026-08-13T00:00:00Z",
+        "note": "校準用契約。人工核准僅涵蓋範圍界定；由此產生的任何 Claim 若屬 safety-critical，仍需 human-expert 裁決。"
+      }
+    ],
+    "modelAssistance": {
+      "llmDrafted": true,
+      "modelVersion": "claude-opus-5"
+    }
+  }
+}

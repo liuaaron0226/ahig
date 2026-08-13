@@ -1,0 +1,245 @@
+{
+  "metric": "deterministic-resolution-coverage",
+  "quality_metrics_not_implied": [
+    "accuracy",
+    "major-error-rate"
+  ],
+  "policy_target_3y_10h_week": 0.875,
+  "required_coverage": [
+    {
+      "scenario": "樂觀",
+      "weekly_h": 10,
+      "target_years": 2,
+      "feasible": true,
+      "budget_h": 920,
+      "fixed_human_h": 281,
+      "adjudication_h_if_no_automation": 1075,
+      "adjudication_h_budget": 639,
+      "required_deterministic_resolution_coverage": 0.4056
+    },
+    {
+      "scenario": "樂觀",
+      "weekly_h": 10,
+      "target_years": 3,
+      "feasible": true,
+      "budget_h": 1380,
+      "fixed_human_h": 281,
+      "adjudication_h_if_no_automation": 1075,
+      "adjudication_h_budget": 1099,
+      "required_deterministic_resolution_coverage": 0.0
+    },
+    {
+      "scenario": "樂觀",
+      "weekly_h": 10,
+      "target_years": 5,
+      "feasible": true,
+      "budget_h": 2300,
+      "fixed_human_h": 281,
+      "adjudication_h_if_no_automation": 1075,
+      "adjudication_h_budget": 2019,
+      "required_deterministic_resolution_coverage": 0.0
+    },
+    {
+      "scenario": "樂觀",
+      "weekly_h": 20,
+      "target_years": 2,
+      "feasible": true,
+      "budget_h": 1840,
+      "fixed_human_h": 281,
+      "adjudication_h_if_no_automation": 1075,
+      "adjudication_h_budget": 1559,
+      "required_deterministic_resolution_coverage": 0.0
+    },
+    {
+      "scenario": "樂觀",
+      "weekly_h": 20,
+      "target_years": 3,
+      "feasible": true,
+      "budget_h": 2760,
+      "fixed_human_h": 281,
+      "adjudication_h_if_no_automation": 1075,
+      "adjudication_h_budget": 2479,
+      "required_deterministic_resolution_coverage": 0.0
+    },
+    {
+      "scenario": "樂觀",
+      "weekly_h": 20,
+      "target_years": 5,
+      "feasible": true,
+      "budget_h": 4600,
+      "fixed_human_h": 281,
+      "adjudication_h_if_no_automation": 1075,
+      "adjudication_h_budget": 4319,
+      "required_deterministic_resolution_coverage": 0.0
+    },
+    {
+      "scenario": "基準",
+      "weekly_h": 10,
+      "target_years": 2,
+      "feasible": true,
+      "budget_h": 920,
+      "fixed_human_h": 869,
+      "adjudication_h_if_no_automation": 4032,
+      "adjudication_h_budget": 51,
+      "required_deterministic_resolution_coverage": 0.9874
+    },
+    {
+      "scenario": "基準",
+      "weekly_h": 10,
+      "target_years": 3,
+      "feasible": true,
+      "budget_h": 1380,
+      "fixed_human_h": 869,
+      "adjudication_h_if_no_automation": 4032,
+      "adjudication_h_budget": 511,
+      "required_deterministic_resolution_coverage": 0.8733
+    },
+    {
+      "scenario": "基準",
+      "weekly_h": 10,
+      "target_years": 5,
+      "feasible": true,
+      "budget_h": 2300,
+      "fixed_human_h": 869,
+      "adjudication_h_if_no_automation": 4032,
+      "adjudication_h_budget": 1431,
+      "required_deterministic_resolution_coverage": 0.6451
+    },
+    {
+      "scenario": "基準",
+      "weekly_h": 20,
+      "target_years": 2,
+      "feasible": true,
+      "budget_h": 1840,
+      "fixed_human_h": 869,
+      "adjudication_h_if_no_automation": 4032,
+      "adjudication_h_budget": 971,
+      "required_deterministic_resolution_coverage": 0.7592
+    },
+    {
+      "scenario": "基準",
+      "weekly_h": 20,
+      "target_years": 3,
+      "feasible": true,
+      "budget_h": 2760,
+      "fixed_human_h": 869,
+      "adjudication_h_if_no_automation": 4032,
+      "adjudication_h_budget": 1891,
+      "required_deterministic_resolution_coverage": 0.531
+    },
+    {
+      "scenario": "基準",
+      "weekly_h": 20,
+      "target_years": 5,
+      "feasible": true,
+      "budget_h": 4600,
+      "fixed_human_h": 869,
+      "adjudication_h_if_no_automation": 4032,
+      "adjudication_h_budget": 3731,
+      "required_deterministic_resolution_coverage": 0.0747
+    },
+    {
+      "scenario": "保守",
+      "weekly_h": 10,
+      "target_years": 2,
+      "feasible": false,
+      "reason": "固定人工項已超出總預算",
+      "budget_h": 920,
+      "fixed_h": 2772,
+      "adjudication_h_needed": 12600
+    },
+    {
+      "scenario": "保守",
+      "weekly_h": 10,
+      "target_years": 3,
+      "feasible": false,
+      "reason": "固定人工項已超出總預算",
+      "budget_h": 1380,
+      "fixed_h": 2772,
+      "adjudication_h_needed": 12600
+    },
+    {
+      "scenario": "保守",
+      "weekly_h": 10,
+      "target_years": 5,
+      "feasible": false,
+      "reason": "固定人工項已超出總預算",
+      "budget_h": 2300,
+      "fixed_h": 2772,
+      "adjudication_h_needed": 12600
+    },
+    {
+      "scenario": "保守",
+      "weekly_h": 20,
+      "target_years": 2,
+      "feasible": false,
+      "reason": "固定人工項已超出總預算",
+      "budget_h": 1840,
+      "fixed_h": 2772,
+      "adjudication_h_needed": 12600
+    },
+    {
+      "scenario": "保守",
+      "weekly_h": 20,
+      "target_years": 3,
+      "feasible": false,
+      "reason": "固定人工項已超出總預算",
+      "budget_h": 2760,
+      "fixed_h": 2772,
+      "adjudication_h_needed": 12600
+    },
+    {
+      "scenario": "保守",
+      "weekly_h": 20,
+      "target_years": 5,
+      "feasible": true,
+      "budget_h": 4600,
+      "fixed_human_h": 2772,
+      "adjudication_h_if_no_automation": 12600,
+      "adjudication_h_budget": 1828,
+      "required_deterministic_resolution_coverage": 0.8549
+    }
+  ],
+  "weekly_capacity_by_coverage_base_3y": [
+    {
+      "auto_rate": 0.0,
+      "total_human_h": 4901,
+      "weekly_h_for_3y": 35.5
+    },
+    {
+      "auto_rate": 0.5,
+      "total_human_h": 2885,
+      "weekly_h_for_3y": 20.9
+    },
+    {
+      "auto_rate": 0.6,
+      "total_human_h": 2482,
+      "weekly_h_for_3y": 18.0
+    },
+    {
+      "auto_rate": 0.7,
+      "total_human_h": 2079,
+      "weekly_h_for_3y": 15.1
+    },
+    {
+      "auto_rate": 0.8,
+      "total_human_h": 1675,
+      "weekly_h_for_3y": 12.1
+    },
+    {
+      "auto_rate": 0.85,
+      "total_human_h": 1474,
+      "weekly_h_for_3y": 10.7
+    },
+    {
+      "auto_rate": 0.9,
+      "total_human_h": 1272,
+      "weekly_h_for_3y": 9.2
+    },
+    {
+      "auto_rate": 0.95,
+      "total_human_h": 1071,
+      "weekly_h_for_3y": 7.8
+    }
+  ]
+}

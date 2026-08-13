@@ -1,0 +1,469 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ahig.local/schema/monitoring/1.0.0",
+  "title": "AHIG Monitoring 節點集",
+  "description": "Gap D：rights gate 有 fail-closed，時間維度沒有。回掃排程若靜默失敗，sourceStatusCheckedAt 只是停在舊時間，Approved Claim 仍然 active。本 schema 讓『監控失效』與『來源被撤稿』在安全方向上表現一致。",
+  "$defs": {
+    "MonitoringPolicy": {
+      "type": "object",
+      "required": [
+        "policyId",
+        "version",
+        "riskTier",
+        "sourceStatusSLA",
+        "evidenceRevalidationInterval",
+        "onSLABreach"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "policyId": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        },
+        "riskTier": {
+          "enum": [
+            "safety-critical",
+            "general-clinical",
+            "stable-basic-science",
+            "wada-dependent"
+          ],
+          "description": "safety-critical 對應腦震盪、REDs、熱傷害、重返運動、補劑禁忌、緊急處置"
+        },
+        "sourceStatusSLA": {
+          "type": "object",
+          "required": [
+            "maxAgeHours"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "maxAgeHours": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "graceHours": {
+              "type": "integer",
+              "minimum": 0,
+              "default": 0,
+              "description": "允許的短暫排程抖動。超過 maxAgeHours+graceHours 即觸發 onSLABreach。"
+            }
+          }
+        },
+        "evidenceRevalidationInterval": {
+          "type": "object",
+          "required": [
+            "months"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "months": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        },
+        "onSLABreach": {
+          "type": "object",
+          "required": [
+            "autoTransitionTo",
+            "blocksHealthReasoning"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "autoTransitionTo": {
+              "enum": [
+                "stale-monitoring",
+                "flagged",
+                "suspended"
+              ]
+            },
+            "blocksHealthReasoning": {
+              "type": "boolean"
+            },
+            "notifyOwner": {
+              "type": "boolean",
+              "default": true
+            }
+          },
+          "description": "safety-critical 必須 blocksHealthReasoning=true。監控壞掉時系統必須停用該主張，而不是假設一切正常。"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "riskTier": {
+                "const": "safety-critical"
+              }
+            },
+            "required": [
+              "riskTier"
+            ]
+          },
+          "then": {
+            "properties": {
+              "onSLABreach": {
+                "properties": {
+                  "blocksHealthReasoning": {
+                    "const": true
+                  }
+                },
+                "required": [
+                  "blocksHealthReasoning"
+                ]
+              }
+            }
+          }
+        }
+      ]
+    },
+    "MonitoringRun": {
+      "type": "object",
+      "required": [
+        "runId",
+        "startedAt",
+        "finishedAt",
+        "feed",
+        "outcome",
+        "coveredSourceCount"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "runId": {
+          "type": "string"
+        },
+        "startedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "finishedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "feed": {
+          "type": "object",
+          "required": [
+            "feedType",
+            "strategy"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "feedType": {
+              "enum": [
+                "crossref-retraction-watch-dump",
+                "crossref-updates-filter",
+                "pubmed-publication-type-query",
+                "europepmc-annotations",
+                "publisher-notice-feed",
+                "guideline-issuer-feed",
+                "wada-prohibited-list",
+                "per-doi-poll"
+              ]
+            },
+            "strategy": {
+              "enum": [
+                "change-feed-diff",
+                "per-item-poll"
+              ],
+              "description": "change-feed-diff 為預設。per-item-poll 只在 change feed 不存在時使用，且必須記錄理由 —— 每日輪詢數千個 DOI 是設計錯誤，不是規模問題。"
+            },
+            "perItemPollJustification": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "endpoint": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "apiVersion": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "snapshotHash": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "pattern": "^sha256:[0-9a-f]{64}$"
+            },
+            "snapshotRecordCount": {
+              "type": [
+                "integer",
+                "null"
+              ]
+            }
+          },
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "strategy": {
+                    "const": "per-item-poll"
+                  }
+                },
+                "required": [
+                  "strategy"
+                ]
+              },
+              "then": {
+                "required": [
+                  "perItemPollJustification"
+                ],
+                "properties": {
+                  "perItemPollJustification": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "outcome": {
+          "enum": [
+            "success",
+            "partial",
+            "failed-network",
+            "failed-auth",
+            "failed-parse",
+            "failed-rate-limited",
+            "skipped"
+          ]
+        },
+        "coveredSourceCount": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "matchedSourceCount": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "statusEventsEmitted": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "errorDetail": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "consecutiveFailureCount": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "同一 feed 連續失敗次數。用於觸發 SLA breach，而非等到下一次成功。"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "outcome": {
+                "const": "success"
+              },
+              "feed": {
+                "properties": {
+                  "strategy": {
+                    "const": "change-feed-diff"
+                  }
+                },
+                "required": [
+                  "strategy"
+                ]
+              }
+            },
+            "required": [
+              "outcome",
+              "feed"
+            ]
+          },
+          "then": {
+            "properties": {
+              "feed": {
+                "required": [
+                  "snapshotHash",
+                  "snapshotRecordCount"
+                ],
+                "properties": {
+                  "snapshotHash": {
+                    "type": "string",
+                    "pattern": "^sha256:[0-9a-f]{64}$"
+                  },
+                  "snapshotRecordCount": {
+                    "type": "integer",
+                    "minimum": 0
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "SourceStatusRecord": {
+      "type": "object",
+      "required": [
+        "source",
+        "checkedAt",
+        "checkOutcome",
+        "status"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "source": {
+          "type": "string"
+        },
+        "checkedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "checkOutcome": {
+          "enum": [
+            "confirmed-current",
+            "confirmed-changed",
+            "check-failed"
+          ],
+          "description": "關鍵區分：check-failed 不得更新 lastSuccessfulCheckAt。契約原文的 sourceStatusCheckedAt 語意不清，在此拆成兩個欄位。"
+        },
+        "lastSuccessfulCheckAt": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "status": {
+          "enum": [
+            "active",
+            "retracted",
+            "removed",
+            "expression-of-concern",
+            "corrected",
+            "withdrawn",
+            "superseded-by-newer-guideline",
+            "unknown"
+          ]
+        },
+        "statusEvidence": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "noticeDOI": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "noticeURL": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "noticeDate": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "format": "date"
+            },
+            "feedRunId": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          }
+        },
+        "affectsClaimVersions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "StaleMonitoringEvent": {
+      "type": "object",
+      "required": [
+        "eventId",
+        "claimVersion",
+        "detectedAt",
+        "policyId",
+        "ageHoursAtDetection",
+        "transitionedTo"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "eventId": {
+          "type": "string"
+        },
+        "claimVersion": {
+          "type": "string"
+        },
+        "detectedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "policyId": {
+          "type": "string"
+        },
+        "ageHoursAtDetection": {
+          "type": "number"
+        },
+        "transitionedTo": {
+          "enum": [
+            "stale-monitoring",
+            "flagged",
+            "suspended"
+          ]
+        },
+        "reason": {
+          "enum": [
+            "sla-exceeded-no-successful-check",
+            "feed-consecutive-failures",
+            "feed-decommissioned",
+            "credentials-expired"
+          ]
+        },
+        "clearedAt": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "clearedByRunId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "description": "stale-monitoring 是可自動清除的狀態（一次成功回掃即恢復），這點與 suspended 不同 —— suspended 需要重新審查。兩者不可混用。"
+    }
+  },
+  "oneOf": [
+    {
+      "$ref": "#/$defs/MonitoringPolicy"
+    },
+    {
+      "$ref": "#/$defs/MonitoringRun"
+    },
+    {
+      "$ref": "#/$defs/SourceStatusRecord"
+    },
+    {
+      "$ref": "#/$defs/StaleMonitoringEvent"
+    }
+  ]
+}

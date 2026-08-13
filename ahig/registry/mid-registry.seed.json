@@ -1,0 +1,66 @@
+{
+  "registryId": "ahig:registry:mid",
+  "version": "0.1.0",
+  "status": "seed",
+  "warning": "本檔的所有項目皆為 project-defined-provisional 或 distribution-based 預設值，並非文獻共識 MID。任何由其導出的 GRADE imprecision 評級必須帶 midProvisional 標記。正式使用前必須為每個 outcome 查找並登錄以文獻為依據的 MID，或明確記錄『該 outcome 無可得 MID』。",
+  "entries": [
+    {
+      "midId": "ahig:mid:generic-smd-distribution-default",
+      "version": "0.1.0",
+      "status": "provisional",
+      "outcomeRef": "__any-continuous-outcome__",
+      "instrument": null,
+      "quantityKind": "ahig:qk:standardised-mean-difference",
+      "population": { "label": "未指定（通用預設）" },
+      "value": {
+        "scale": "standardised",
+        "magnitude": 0.2,
+        "unit": "SMD",
+        "thresholdSet": { "trivialUpper": 0.2, "smallUpper": 0.5, "moderateUpper": 0.8 }
+      },
+      "derivationMethod": "distribution-based-0.5SD",
+      "provenance": {
+        "sourceType": "project-internal",
+        "sourceCitation": null,
+        "sourceDOI": null,
+        "citationAnchor": null,
+        "approvedBy": [
+          { "agent": "aaron", "agentClass": "human-self", "at": "2026-08-13T00:00:00Z" }
+        ],
+        "createdAt": "2026-08-13T00:00:00Z"
+      },
+      "revalidateBy": "2026-11-13",
+      "notes": "僅作為 fallback。使用時 imprecision 評級必須同時帶 midProvisional 與 genericThreshold 兩個旗標，且不得評為 high certainty。"
+    },
+    {
+      "midId": "ahig:mid:1rm-squat-trained-adults-placeholder",
+      "version": "0.1.0",
+      "status": "provisional",
+      "outcomeRef": "1rm-squat",
+      "instrument": "barbell-back-squat",
+      "quantityKind": "ahig:qk:pct-1rm",
+      "population": {
+        "label": "resistance-trained adults",
+        "trainingStatus": ["trained"],
+        "clinicalContext": null
+      },
+      "value": { "scale": "relative-percent", "magnitude": 5.0, "unit": "%" },
+      "derivationMethod": "project-defined-provisional",
+      "provenance": {
+        "sourceType": "project-internal",
+        "approvedBy": [
+          { "agent": "aaron", "agentClass": "human-self", "at": "2026-08-13T00:00:00Z" }
+        ],
+        "createdAt": "2026-08-13T00:00:00Z"
+      },
+      "revalidateBy": "2026-11-13",
+      "notes": "PLACEHOLDER。此數值未經文獻支持，僅示範 schema 用法。正式使用前必須以 smallest worthwhile change 或 typical error 為依據重新導出，並分別為 trained / untrained 族群登錄。"
+    }
+  ],
+  "requiredNextActions": [
+    "為每個 inScopeOutcome 建立對應的 MID 項目，或明確登錄 midStatus=unavailable",
+    "區分 trained / untrained / clinical 三類族群的 MID",
+    "凡採用 typical-error-derived 或 smallest-worthwhile-change 者，必須連結導出所依據的信度研究與其 CitationAnchor",
+    "建立 MID 版本升級時的 Claim 重評觸發（見 search-contract-version.schema.json 的 backfillTrigger: mid-registry-update）"
+  ]
+}

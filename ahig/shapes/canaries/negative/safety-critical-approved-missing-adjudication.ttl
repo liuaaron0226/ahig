@@ -1,0 +1,25 @@
+# FAIL-OPEN 回歸：safety-critical 已晉升但完全沒有 adjudicationLevel
+#
+# 修正前的 SPARQL 只擋顯式的 adjudicationLevel="self-adjudicated"，
+# 欄位整個缺漏時 safety-critical 主張可以直接晉升 Approved ——
+# 而「高風險主張沒有規定的裁決者」正是契約 C.8 零容忍清單的最後一項。
+#
+# @expect-core: HighRiskAdjudicationShape
+# @expect-sparql: HighRiskAdjudicationShape
+@prefix ahig: <https://ahig.local/ns/> .
+
+<urn:ahig:canary:claim-sc-missing-adj> a ahig:SynthesizedClaim ;
+    ahig:riskTier "safety-critical" ;
+    ahig:status "approved" ;
+    ahig:certainty "moderate" ;
+    ahig:certaintyDerivation "deterministic-rule" ;
+    ahig:studyCount 12 ;
+    ahig:gradeDomainRating <urn:ahig:canary:g-rob>, <urn:ahig:canary:g-inc>,
+                           <urn:ahig:canary:g-ind>, <urn:ahig:canary:g-imp>,
+                           <urn:ahig:canary:g-pub> .
+
+<urn:ahig:canary:g-rob> ahig:domain "risk-of-bias" ;      ahig:rating "not-serious" .
+<urn:ahig:canary:g-inc> ahig:domain "inconsistency" ;     ahig:rating "not-serious" .
+<urn:ahig:canary:g-ind> ahig:domain "indirectness" ;      ahig:rating "not-serious" .
+<urn:ahig:canary:g-imp> ahig:domain "imprecision" ;       ahig:rating "not-serious" .
+<urn:ahig:canary:g-pub> ahig:domain "publication-bias" ;  ahig:rating "not-serious" .

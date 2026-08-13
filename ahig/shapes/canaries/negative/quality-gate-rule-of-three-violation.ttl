@@ -1,0 +1,18 @@
+# 零容忍：宣稱的 error ceiling 低於 3/n（rule of three）
+# 契約 C：n=30、0 錯誤下可證明的 95% 上界約 9.5%，宣稱 1% 是不可驗證的。
+# 要證明 error rate ≤ 1% 需要 n ≥ 299（verify.py 第 5 節有封閉解交叉驗證）。
+#
+# 這是純算術比較，Core 表達不了 —— 這正是 SPARQL profile 存在的理由。
+#
+# @expect-sparql: QualityGateShape
+# @profiles: sparql
+@prefix ahig: <https://ahig.local/ns/> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+
+<urn:ahig:canary:gate-underpowered> a ahig:BatchQualityGate ;
+    ahig:nonCriticalErrorCeiling "0.01"^^xsd:decimal ;
+    ahig:sampleSize 30 ;
+    ahig:agreementStatistic "gwet-ac1" ;
+    ahig:alsoReported "positive-agreement", "negative-agreement",
+                      "full-cross-tabulation", "cohen-kappa" ;
+    ahig:goldSetAccuracy "0.96"^^xsd:decimal .

@@ -1,0 +1,15 @@
+# 零容忍（P0-1）：NotebookLM 執行期座標洩漏進 CitationAnchor
+# 契約 F：NotebookLM ID 不是 CitationAnchor，只能存在於 RetrievalHint。
+# 這些 ID 隨 notebook 重建而改變，拿來當引用錨點等於引用會漂移的座標。
+#
+# @expect-core: PS-noNotebookSourceId, PS-noNotebookChunkId
+# @expect-sparql: NotebookIsolationShape
+@prefix ahig: <https://ahig.local/ns/> .
+
+<urn:ahig:canary:anchor-notebook-leak> a ahig:CitationAnchor ;
+    ahig:sourceManifestation "sha256:1111111111111111111111111111111111111111111111111111111111111111" ;
+    ahig:exactQuote "Creatine supplementation increased 1RM squat by 5.2 kg." ;
+    ahig:anchorMethod "exact" ;
+    ahig:uniqueMatch true ;
+    ahig:notebookSourceId "src-00417" ;
+    ahig:notebookChunkId "chunk-93" .

@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ahig.local/schema/time-log/1.0.0",
+  "title": "TimeLogEntry",
+  "type": "object",
+  "required": ["entryId", "batchId", "activityType", "startedAt", "endedAt", "durationMinutes", "agentClass", "targetRef"],
+  "additionalProperties": false,
+  "properties": {
+    "entryId": {"type": "string"},
+    "batchId": {"type": "string"},
+    "activityType": {"enum": ["read-paper-for-gold", "author-gold-field", "adjudicate-disagreement", "confirm-manual-anchor", "adjudicate-highrisk-claim", "screen-record", "author-scope-contract", "rate-indirectness", "resolve-study-family-tier2"]},
+    "startedAt": {"type": "string", "format": "date-time"},
+    "endedAt": {"type": "string", "format": "date-time"},
+    "durationMinutes": {"type": "number", "minimum": 0},
+    "interruptionMinutes": {"type": "number", "minimum": 0, "default": 0},
+    "agentClass": {"enum": ["human-self", "human-expert", "model", "deterministic"]},
+    "targetRef": {"type": "string"},
+    "note": {"type": "string"}
+  }
+}

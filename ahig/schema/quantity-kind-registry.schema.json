@@ -1,0 +1,237 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ahig.local/schema/quantity-kind-registry/1.0.0",
+  "title": "QuantityKindRegistryEntry",
+  "description": "契約原文寫『所有劑量與臨床單位使用 UCUM』。運動科學有大量量不是 UCUM 單位（%1RM、RPE、Borg CR10、TRIMP、ACWR、a.u.），若強行套 UCUM 會導致靜默錯誤或大量無法映射。本註冊表把『可用 UCUM 表達』與『需本地定義』分開，並顯性標記可比性等級。",
+  "type": "object",
+  "required": [
+    "quantityKindId",
+    "label",
+    "representation",
+    "comparabilityClass",
+    "crossStudyComparability"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "quantityKindId": {
+      "type": "string",
+      "pattern": "^ahig:qk:[a-z0-9-]+$"
+    },
+    "label": {
+      "type": "string"
+    },
+    "aliases": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "representation": {
+      "type": "object",
+      "required": [
+        "kind"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "enum": [
+            "ucum",
+            "local-ratio",
+            "local-ordinal",
+            "local-index",
+            "dimensionless-count"
+          ]
+        },
+        "ucumCode": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "kind=ucum 時必填，例如 mL/(kg.min)、mg/(kg.d)、W/kg"
+        },
+        "localDefinition": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "range": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "min": {
+              "type": "number"
+            },
+            "max": {
+              "type": "number"
+            },
+            "step": {
+              "type": [
+                "number",
+                "null"
+              ]
+            }
+          }
+        },
+        "isDiscreteIntegerScale": {
+          "type": "boolean",
+          "default": false,
+          "description": "GRIM/GRIMMER 只在此為 true 且平均由整數項目構成時適用。"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "ucum"
+              }
+            },
+            "required": [
+              "kind"
+            ]
+          },
+          "then": {
+            "required": [
+              "ucumCode"
+            ],
+            "properties": {
+              "ucumCode": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "enum": [
+                  "local-ratio",
+                  "local-ordinal",
+                  "local-index",
+                  "dimensionless-count"
+                ]
+              }
+            },
+            "required": [
+              "kind"
+            ]
+          },
+          "then": {
+            "required": [
+              "localDefinition"
+            ],
+            "properties": {
+              "localDefinition": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        }
+      ]
+    },
+    "comparabilityClass": {
+      "type": "string",
+      "description": "同一 class 內的量可直接合併。不同 class 需明確換算規則或不得合併。"
+    },
+    "crossStudyComparability": {
+      "type": "object",
+      "required": [
+        "level"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "level": {
+          "enum": [
+            "directly-comparable",
+            "comparable-after-declared-conversion",
+            "comparable-only-as-SMD",
+            "not-comparable"
+          ]
+        },
+        "rationale": {
+          "type": "string"
+        },
+        "conversionRule": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "blockingConditions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "即使 level 允許，滿足任一條件時仍禁止合併（例如不同版本的 RPE 量表）。"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "level": {
+                "const": "comparable-after-declared-conversion"
+              }
+            },
+            "required": [
+              "level"
+            ]
+          },
+          "then": {
+            "required": [
+              "conversionRule"
+            ],
+            "properties": {
+              "conversionRule": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "level": {
+                "const": "not-comparable"
+              }
+            },
+            "required": [
+              "level"
+            ]
+          },
+          "then": {
+            "required": [
+              "blockingConditions"
+            ],
+            "properties": {
+              "blockingConditions": {
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "bodyMassNormalised": {
+      "type": "boolean",
+      "default": false
+    },
+    "requiresInstrumentMatch": {
+      "type": "boolean",
+      "default": false,
+      "description": "true 時，跨研究合併必須先確認測量工具相同。"
+    },
+    "notes": {
+      "type": "string"
+    }
+  }
+}

@@ -1,0 +1,24 @@
+# 正向對照：一般風險主張以 self-adjudicated 晉升，合法
+#
+# 契約 B.4：self-adjudicated 可支撐一般主張，只有 safety-critical 才限定
+# expert-adjudicated。這個 canary 確保修正後的高風險規則沒有溢出到
+# 所有 tier —— 否則整個系統會需要外部專家才能晉升任何主張。
+#
+@prefix ahig: <https://ahig.local/ns/> .
+
+<urn:ahig:canary:claim-general-ok> a ahig:SynthesizedClaim ;
+    ahig:riskTier "general-clinical" ;
+    ahig:status "approved" ;
+    ahig:adjudicationLevel "self-adjudicated" ;
+    ahig:certainty "low" ;
+    ahig:certaintyDerivation "deterministic-rule" ;
+    ahig:studyCount 9 ;
+    ahig:gradeDomainRating <urn:ahig:canary:gen-rob>, <urn:ahig:canary:gen-inc>,
+                           <urn:ahig:canary:gen-ind>, <urn:ahig:canary:gen-imp>,
+                           <urn:ahig:canary:gen-pub> .
+
+<urn:ahig:canary:gen-rob> ahig:domain "risk-of-bias" ;     ahig:rating "serious" .
+<urn:ahig:canary:gen-inc> ahig:domain "inconsistency" ;    ahig:rating "serious" .
+<urn:ahig:canary:gen-ind> ahig:domain "indirectness" ;     ahig:rating "not-serious" .
+<urn:ahig:canary:gen-imp> ahig:domain "imprecision" ;      ahig:rating "not-serious" .
+<urn:ahig:canary:gen-pub> ahig:domain "publication-bias" ; ahig:rating "not-serious" .

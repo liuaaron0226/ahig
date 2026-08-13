@@ -1,0 +1,25 @@
+# 零容忍：k<10 仍以 Egger 檢定支撐 publication bias 評級
+# 契約 E.3：漏斗圖不對稱檢定在小 k 下功效不足且易誤判。
+#
+# k 與 usedEggerTest 的跨節點算術比較，Core 表達不了。
+#
+# @expect-sparql: SynthesizedClaimGradeShape
+# @profiles: sparql
+@prefix ahig: <https://ahig.local/ns/> .
+
+<urn:ahig:canary:claim-egger> a ahig:SynthesizedClaim ;
+    ahig:riskTier "general-clinical" ;
+    ahig:status "draft" ;
+    ahig:certainty "moderate" ;
+    ahig:certaintyDerivation "deterministic-rule" ;
+    ahig:studyCount 6 ;
+    ahig:gradeDomainRating <urn:ahig:canary:eg-rob>, <urn:ahig:canary:eg-inc>,
+                           <urn:ahig:canary:eg-ind>, <urn:ahig:canary:eg-imp>,
+                           <urn:ahig:canary:eg-pub> .
+
+<urn:ahig:canary:eg-rob> ahig:domain "risk-of-bias" ;     ahig:rating "not-serious" .
+<urn:ahig:canary:eg-inc> ahig:domain "inconsistency" ;    ahig:rating "not-serious" .
+<urn:ahig:canary:eg-ind> ahig:domain "indirectness" ;     ahig:rating "not-serious" .
+<urn:ahig:canary:eg-imp> ahig:domain "imprecision" ;      ahig:rating "not-serious" .
+<urn:ahig:canary:eg-pub> ahig:domain "publication-bias" ; ahig:rating "not-serious" ;
+                         ahig:usedEggerTest true .

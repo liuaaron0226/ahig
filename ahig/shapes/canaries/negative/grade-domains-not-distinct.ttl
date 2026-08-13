@@ -1,0 +1,25 @@
+# FAIL-OPEN 回歸：五筆 gradeDomainRating 但全是同一個 domain
+#
+# 修正前的條件是 `sh:minCount 5` —— 只數個數不看內容。五筆全是
+# imprecision 也通過。GRADE 的意義在於「五個各自不同的 domain 都被評過」，
+# 數量相同不等於覆蓋相同。
+#
+# @expect-core: PS-gradeDomainRiskOfBias, PS-gradeDomainInconsistency, PS-gradeDomainIndirectness, PS-gradeDomainPublicationBias
+# @expect-sparql: SynthesizedClaimGradeShape
+@prefix ahig: <https://ahig.local/ns/> .
+
+<urn:ahig:canary:claim-same-domain> a ahig:SynthesizedClaim ;
+    ahig:riskTier "general-clinical" ;
+    ahig:status "draft" ;
+    ahig:certainty "moderate" ;
+    ahig:certaintyDerivation "deterministic-rule" ;
+    ahig:studyCount 11 ;
+    ahig:gradeDomainRating <urn:ahig:canary:sd-1>, <urn:ahig:canary:sd-2>,
+                           <urn:ahig:canary:sd-3>, <urn:ahig:canary:sd-4>,
+                           <urn:ahig:canary:sd-5> .
+
+<urn:ahig:canary:sd-1> ahig:domain "imprecision" ; ahig:rating "not-serious" .
+<urn:ahig:canary:sd-2> ahig:domain "imprecision" ; ahig:rating "not-serious" .
+<urn:ahig:canary:sd-3> ahig:domain "imprecision" ; ahig:rating "not-serious" .
+<urn:ahig:canary:sd-4> ahig:domain "imprecision" ; ahig:rating "not-serious" .
+<urn:ahig:canary:sd-5> ahig:domain "imprecision" ; ahig:rating "not-serious" .

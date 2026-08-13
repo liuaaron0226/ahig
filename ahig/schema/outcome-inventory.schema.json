@@ -1,0 +1,405 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ahig.local/schema/outcome-inventory/2.0.0",
+  "title": "OutcomeInventory",
+  "description": "一篇 Report 所報告之全部 outcome 的完整清單，具兩個 lifecycle 狀態。draft 由模型或人工登錄，只描述論文說了什麼，不含任何範圍判定；scoped 由確定性 ScopeMatcher 逐項加上具名規則的 scopeDecision。刻意設計為廉價節點：不含 effect estimate、不需 anchor 驗證、不進入雙審。它的唯一職責是 (a) outcome-switching 偵測 (b) 範圍契約擴張時的 backfill 依據 (c) 讓『未抽取』與『不存在』可區分。缺少本節點時，任何 notExtracted-outOfScope 標記都不可信。",
+  "type": "object",
+  "required": [
+    "inventoryId", "report", "manifestation", "scopeContractHash", "lifecycle",
+    "reportedOutcomes", "registryComparison", "createdBy", "completenessAttestation"
+  ],
+  "additionalProperties": false,
+
+  "properties": {
+    "inventoryId": { "type": "string" },
+    "report": { "type": "string", "description": "Expression 層級 ID" },
+    "manifestation": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+    "scopeContractHash": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+
+    "lifecycle": {
+      "enum": ["draft", "scoped"],
+      "description": "draft = 登錄完成、尚未做範圍判定；scoped = 已由確定性 ScopeMatcher 逐項判定。模型只能產生 draft。"
+    },
+
+    "reportedOutcomes": {
+      "type": "array",
+      "minItems": 1,
+      "description": "不得為空。空清單無法支撐任何 notExtracted 標記，也無法區分『未抽取』與『不存在』。",
+      "items": { "$ref": "#/$defs/reportedOutcome" }
+    },
+
+    "registryComparison": { "$ref": "#/$defs/registryComparison" },
+    "createdBy": { "$ref": "#/$defs/createdBy" },
+    "completenessAttestation": { "$ref": "#/$defs/completenessAttestation" },
+
+    "scopeDecisionSummary": { "$ref": "#/$defs/scopeDecisionSummary" },
+    "scopedAt": { "type": "string", "format": "date-time" }
+  },
+
+  "allOf": [
+    {
+      "$comment": "lifecycle=draft：不得攜帶任何範圍判定。範圍判定是確定性層的職責，模型自行填寫等同繞過範圍契約。",
+      "if": { "properties": { "lifecycle": { "const": "draft" } },
+              "required": ["lifecycle"] },
+      "then": {
+        "not": {
+          "anyOf": [
+            { "required": ["scopedAt"] },
+            { "required": ["scopeDecisionSummary"] }
+          ]
+        },
+        "properties": {
+          "reportedOutcomes": {
+            "items": { "not": { "required": ["scopeDecision"] } }
+          }
+        }
+      }
+    },
+    {
+      "$comment": "lifecycle=scoped：每一項都必須帶具名規則的判定，且必須有彙總與時戳。",
+      "if": { "properties": { "lifecycle": { "const": "scoped" } },
+              "required": ["lifecycle"] },
+      "then": {
+        "required": ["scopedAt", "scopeDecisionSummary"],
+        "properties": {
+          "reportedOutcomes": {
+            "items": { "required": ["scopeDecision"] }
+          }
+        }
+      }
+    },
+    {
+      "$comment": "status=compared 時必須留下可稽核的比對痕跡；outcomeSwitchingFlags 欄位缺席不等於沒有 flag。",
+      "if": {
+        "properties": {
+          "registryComparison": {
+            "properties": { "status": { "const": "compared" } },
+            "required": ["status"]
+          }
+        },
+        "required": ["registryComparison"]
+      },
+      "then": {
+        "properties": {
+          "registryComparison": {
+            "required": ["registryId", "registryRetrievedAt",
+                         "registryPrimaryOutcomes", "outcomeSwitchingFlags"],
+            "properties": {
+              "registryId": { "type": "string", "minLength": 1 },
+              "registryRetrievedAt": { "type": "string", "format": "date-time" }
+            }
+          }
+        }
+      }
+    },
+    {
+      "$comment": "任一 outcome-switching flag 非空時，該研究的 prespecification status 不得由單一模型判定；本清單必須雙重抽取。",
+      "if": {
+        "properties": {
+          "registryComparison": {
+            "properties": { "outcomeSwitchingFlags": { "minItems": 1 } },
+            "required": ["outcomeSwitchingFlags"]
+          }
+        },
+        "required": ["registryComparison"]
+      },
+      "then": {
+        "properties": {
+          "createdBy": {
+            "required": ["dualExtracted"],
+            "properties": { "dualExtracted": { "const": true } }
+          }
+        }
+      }
+    },
+    {
+      "$comment": "宣稱掃描到 harm 時，清單內必須真的有 safety 條目，否則該宣稱不可稽核。",
+      "if": {
+        "properties": {
+          "completenessAttestation": {
+            "properties": {
+              "harmsScan": {
+                "properties": { "harmOutcomesFound": { "minimum": 1 } },
+                "required": ["harmOutcomesFound"]
+              }
+            },
+            "required": ["harmsScan"]
+          }
+        },
+        "required": ["completenessAttestation"]
+      },
+      "then": {
+        "properties": {
+          "reportedOutcomes": {
+            "contains": {
+              "properties": { "outcomeRoleAsStated": { "const": "safety" } },
+              "required": ["outcomeRoleAsStated"]
+            }
+          }
+        }
+      }
+    }
+  ],
+
+  "$defs": {
+
+    "reportedOutcome": {
+      "type": "object",
+      "required": ["localLabel", "sourceLocation"],
+      "additionalProperties": false,
+      "properties": {
+        "localLabel": { "type": "string", "description": "論文自己的用詞，逐字，不做正規化" },
+        "normalisedOutcomeRef": { "type": ["string", "null"] },
+        "instrument": { "type": ["string", "null"] },
+        "unitAsReported": { "type": ["string", "null"] },
+        "reportedTimepoints": { "type": "array", "items": { "type": "string" } },
+        "reportedAnalysisSets": { "type": "array", "items": { "type": "string" } },
+        "outcomeRoleAsStated": {
+          "enum": ["primary", "secondary", "exploratory", "safety", "unstated"]
+        },
+        "hasNumericResult": { "type": "boolean" },
+
+        "timepointDays": { "type": ["number", "null"] },
+        "timepointSessions": { "type": ["number", "null"] },
+        "multipleMeasurementsInWindow": { "type": "boolean" },
+        "analysisSet": {
+          "type": ["string", "null"],
+          "description": "候選 StudyResult 的 analysis set 軸值。與 reportedAnalysisSets（論文原文用詞）分開。"
+        },
+        "effectMeasure": { "type": ["string", "null"] },
+        "statisticalModel": { "type": ["string", "null"] },
+        "isSubgroup": { "type": "boolean" },
+        "subgroupId": { "type": ["string", "null"] },
+        "subgroupPrespecified": { "type": "boolean" },
+        "isSensitivityAnalysis": { "type": "boolean" },
+        "primaryAnalysisFailedRoB": { "type": "boolean" },
+        "dose": { "type": ["number", "null"] },
+        "doseUnit": { "type": ["string", "null"] },
+
+        "sourceLocation": {
+          "type": "object",
+          "required": ["section"],
+          "additionalProperties": false,
+          "properties": {
+            "section": { "type": "string" },
+            "pageIndex": { "type": "integer" },
+            "tableOrFigure": { "type": ["string", "null"] }
+          },
+          "description": "粗座標即可。OutcomeInventory 不要求完整 CitationAnchor —— 這是它廉價的原因。"
+        },
+
+        "scopeDecision": { "$ref": "#/$defs/scopeDecision" }
+      }
+    },
+
+    "scopeDecision": {
+      "type": "object",
+      "required": ["inScope", "reasonCode", "ruleId", "matchedScopeElements", "decidedBy"],
+      "additionalProperties": false,
+      "properties": {
+        "inScope": { "type": "boolean" },
+        "reasonCode": {
+          "enum": [
+            "in-scope",
+            "notExtracted-outcome-not-in-scope",
+            "notExtracted-timepoint-outside-window",
+            "notExtracted-analysis-set-not-in-scope",
+            "notExtracted-effect-measure-not-in-scope",
+            "notExtracted-subgroup-excluded-by-policy",
+            "notExtracted-sensitivity-analysis-excluded-by-policy",
+            "notExtracted-model-not-in-scope",
+            "notExtracted-instrument-not-in-allowlist",
+            "notExtracted-dose-outside-bands",
+            "notExtracted-no-numeric-result",
+            "escalated-multiple-matches-in-window",
+            "escalated-exceeds-max-studyresults"
+          ]
+        },
+        "ruleId": {
+          "enum": [
+            "SCOPE-000-no-numeric-result",
+            "SCOPE-001-outcome",
+            "SCOPE-001b-instrument",
+            "SCOPE-002-timepoint",
+            "SCOPE-002b-multiple-timepoint-match",
+            "SCOPE-002c-multiple-measurements",
+            "SCOPE-003-analysis-set",
+            "SCOPE-004-effect-measure",
+            "SCOPE-005-model",
+            "SCOPE-006-subgroup",
+            "SCOPE-007-sensitivity",
+            "SCOPE-007b-sensitivity-conditional",
+            "SCOPE-008-dose",
+            "SCOPE-100-exceeds-max",
+            "SCOPE-999-in-scope"
+          ],
+          "description": "具名規則。判定必須可回溯到 ScopeMatcher 的某一條規則，不得是自由文字或未列舉值。"
+        },
+        "matchedScopeElements": {
+          "type": "object",
+          "required": ["outcomeId", "timepointId", "analysisSet",
+                       "effectMeasure", "doseBandId"],
+          "additionalProperties": false,
+          "properties": {
+            "outcomeId": { "type": ["string", "null"] },
+            "timepointId": { "type": ["string", "null"] },
+            "analysisSet": { "type": ["string", "null"] },
+            "effectMeasure": { "type": ["string", "null"] },
+            "doseBandId": { "type": ["string", "null"] }
+          },
+          "description": "五個軸一律顯性寫出。未比對到者為 null，不得省略欄位 —— 省略無法與『比對到空值』區分。"
+        },
+        "decidedBy": {
+          "type": "object",
+          "required": ["agentClass", "matcherVersion"],
+          "additionalProperties": false,
+          "properties": {
+            "agentClass": {
+              "const": "deterministic",
+              "description": "範圍判定只能由確定性層做出。模型或人工填寫的 scopeDecision 一律無效。"
+            },
+            "matcherVersion": { "type": "string", "minLength": 1 }
+          }
+        }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "reasonCode": { "const": "in-scope" } },
+                  "required": ["reasonCode"] },
+          "then": { "properties": { "inScope": { "const": true } } },
+          "else": { "properties": { "inScope": { "const": false } } }
+        }
+      ]
+    },
+
+    "scopeDecisionSummary": {
+      "type": "object",
+      "required": ["candidateCount", "inScopeCount", "maxStudyResultsPerStudy",
+                   "escalated", "escalationReason"],
+      "additionalProperties": false,
+      "properties": {
+        "candidateCount": { "type": "integer", "minimum": 0 },
+        "inScopeCount": { "type": "integer", "minimum": 0 },
+        "maxStudyResultsPerStudy": { "type": "integer", "minimum": 1 },
+        "escalated": { "type": "boolean" },
+        "escalationReason": { "type": ["string", "null"] }
+      },
+      "if": { "properties": { "escalated": { "const": true } },
+              "required": ["escalated"] },
+      "then": {
+        "$comment": "超過上限即 escalate：不得截斷、不得自動擴張，且不得宣稱任何 in-scope 結果。",
+        "properties": {
+          "inScopeCount": { "const": 0 },
+          "escalationReason": { "type": "string", "minLength": 1 }
+        }
+      },
+      "else": {
+        "properties": { "escalationReason": { "type": "null" } }
+      }
+    },
+
+    "registryComparison": {
+      "type": "object",
+      "required": ["status"],
+      "additionalProperties": false,
+      "properties": {
+        "status": {
+          "enum": ["compared", "no-registration-found", "registry-record-inaccessible",
+                   "not-applicable-non-interventional", "pending"]
+        },
+        "registryId": { "type": ["string", "null"] },
+        "registryRetrievedAt": { "type": ["string", "null"], "format": "date-time" },
+        "registryPrimaryOutcomes": { "type": "array", "items": { "type": "string" } },
+        "outcomeSwitchingFlags": {
+          "type": "array",
+          "items": {
+            "enum": ["registry-primary-demoted-to-secondary",
+                     "registry-primary-not-reported",
+                     "new-primary-not-in-registry",
+                     "primary-timepoint-changed",
+                     "primary-instrument-changed",
+                     "registered-after-enrolment-start"]
+          },
+          "description": "任一 flag 非空時，該研究的 prespecification status 不得由模型單獨判定為 prespecified；須進確定性規則與人工確認，且本清單必須雙重抽取。"
+        }
+      }
+    },
+
+    "createdBy": {
+      "type": "object",
+      "required": ["agentClass"],
+      "additionalProperties": false,
+      "properties": {
+        "agentClass": { "enum": ["model", "human-self", "human-expert", "deterministic"] },
+        "modelVersion": { "type": ["string", "null"] },
+        "promptHash": { "type": ["string", "null"] },
+        "dualExtracted": {
+          "type": "boolean",
+          "description": "OutcomeInventory 預設單模型即可（它不支撐 Claim）。但 registryComparison 有 flag 時必須為 true 且必須顯性宣告 —— 省略欄位即 fail-open。"
+        }
+      }
+    },
+
+    "completenessAttestation": {
+      "type": "object",
+      "required": ["sectionsScanned", "supplementaryScanned", "harmsScan", "attestedBy"],
+      "additionalProperties": false,
+      "description": "必填。沒有具結就無法主張『論文報告的全部 outcome 都在這裡』，整個 notExtracted 語意隨之失效。",
+      "properties": {
+        "sectionsScanned": {
+          "type": "array", "minItems": 1, "items": { "type": "string" }
+        },
+        "supplementaryScanned": { "type": "boolean" },
+        "note": { "type": "string" },
+        "attestedBy": {
+          "type": "object",
+          "required": ["agentClass", "at"],
+          "additionalProperties": false,
+          "properties": {
+            "agentClass": { "enum": ["model", "human-self", "human-expert", "deterministic"] },
+            "at": { "type": "string", "format": "date-time" }
+          }
+        },
+        "harmsScan": {
+          "type": "object",
+          "required": ["performed", "sectionsScanned", "harmOutcomesFound",
+                       "harmsReportingStatement"],
+          "additionalProperties": false,
+          "description": "harms 與 safety outcome 的掃描必須可稽核：掃了哪些章節、找到幾項、論文怎麼說，三者互相對帳。",
+          "properties": {
+            "performed": {
+              "const": true,
+              "description": "不得宣告未執行。harms 掃描是完整性具結的一部分，跳過等同讓 safety outcome 靜默消失。"
+            },
+            "sectionsScanned": {
+              "type": "array", "minItems": 1, "items": { "type": "string" }
+            },
+            "harmOutcomesFound": { "type": "integer", "minimum": 0 },
+            "harmsReportingStatement": {
+              "enum": ["harms-reported", "explicit-none-reported", "not-mentioned"]
+            }
+          },
+          "allOf": [
+            {
+              "if": { "properties": { "harmOutcomesFound": { "minimum": 1 } },
+                      "required": ["harmOutcomesFound"] },
+              "then": {
+                "properties": {
+                  "harmsReportingStatement": { "const": "harms-reported" }
+                }
+              }
+            },
+            {
+              "if": { "properties": {
+                        "harmsReportingStatement": { "const": "harms-reported" } },
+                      "required": ["harmsReportingStatement"] },
+              "then": {
+                "properties": { "harmOutcomesFound": { "minimum": 1 } }
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

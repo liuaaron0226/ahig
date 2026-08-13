@@ -1,0 +1,29 @@
+# FAIL-OPEN 回歸：四個相異 domain ＋ 一筆重複，總數仍是 5
+#
+# 這是比 grade-domains-not-distinct 更陰險的版本：資料看起來很正常
+# （五筆評級、四個不同 domain），只有 publication-bias 沒被評到，
+# 而 imprecision 被評了兩次。`sh:minCount 5` 完全擋不住。
+#
+# 重複評級本身也是問題：同一個 domain 有兩筆不同評級時，以哪一筆為準是
+# 未定義行為。Core 的 qualifiedMaxCount 1 一併擋掉。
+#
+# @expect-core: PS-gradeDomainPublicationBias, PS-gradeDomainImprecision
+# @expect-sparql: SynthesizedClaimGradeShape
+@prefix ahig: <https://ahig.local/ns/> .
+
+<urn:ahig:canary:claim-missing-domain> a ahig:SynthesizedClaim ;
+    ahig:riskTier "general-clinical" ;
+    ahig:status "draft" ;
+    ahig:certainty "low" ;
+    ahig:certaintyDerivation "deterministic-rule" ;
+    ahig:studyCount 14 ;
+    ahig:gradeDomainRating <urn:ahig:canary:md-1>, <urn:ahig:canary:md-2>,
+                           <urn:ahig:canary:md-3>, <urn:ahig:canary:md-4>,
+                           <urn:ahig:canary:md-5> .
+
+<urn:ahig:canary:md-1> ahig:domain "risk-of-bias" ;  ahig:rating "not-serious" .
+<urn:ahig:canary:md-2> ahig:domain "inconsistency" ; ahig:rating "serious" .
+<urn:ahig:canary:md-3> ahig:domain "indirectness" ;  ahig:rating "not-serious" .
+<urn:ahig:canary:md-4> ahig:domain "imprecision" ;   ahig:rating "not-serious" .
+# 重複的 imprecision，publication-bias 從缺
+<urn:ahig:canary:md-5> ahig:domain "imprecision" ;   ahig:rating "serious" .

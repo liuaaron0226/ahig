@@ -1,0 +1,11 @@
+# 正向對照：StudyFamily 由人裁決，合法
+# 對照 negative/study-family-model-resolved.ttl —— 建立 StudyFamily 本身
+# 不是違規，「由模型單獨判定」才是。
+#
+@prefix ahig: <https://ahig.local/ns/> .
+
+<urn:ahig:canary:fam-ok> a ahig:StudyFamily ;
+    ahig:resolutionRuleId "FAM-001-shared-registry-id" ;
+    ahig:resolvedBy <urn:ahig:canary:agent-self> .
+
+<urn:ahig:canary:agent-self> ahig:agentClass "human-self" .

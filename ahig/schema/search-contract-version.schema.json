@@ -1,0 +1,343 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ahig.local/schema/search-contract-version/1.0.0",
+  "title": "SearchContract 版本化與 backfill 規則",
+  "description": "Gap G：流水線是『凍結 SearchContract → 搜尋』，但第一批必然學到更好的檢索式。若不定義版本升級與向後補搜，前 12 個領域用 v1、後 128 個用 v3，完成度報表卻看起來一樣。",
+  "type": "object",
+  "required": [
+    "searchContractId",
+    "version",
+    "changeClass",
+    "appliesTo",
+    "backfillObligation",
+    "provenance"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "searchContractId": {
+      "type": "string"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "supersedes": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "contractHash": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "changeClass": {
+      "enum": [
+        "editorial",
+        "recall-neutral",
+        "recall-expanding",
+        "recall-restricting"
+      ],
+      "description": "決定 backfill 義務。recall-expanding 表示新版可能找到舊版找不到的文獻，因此舊領域必須補搜。"
+    },
+    "changeSummary": {
+      "type": "string"
+    },
+    "diffFromPrevious": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "addedTerms": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "removedTerms": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "addedDatabases": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "changedLimits": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "appliesTo": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string"
+      },
+      "description": "canonical competency ID 清單"
+    },
+    "backfillObligation": {
+      "type": "object",
+      "required": [
+        "required",
+        "scope",
+        "deadlinePolicy",
+        "blocksNewBatches"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "required": {
+          "type": "boolean"
+        },
+        "scope": {
+          "enum": [
+            "none",
+            "affected-domains-only",
+            "all-domains-at-lower-version"
+          ]
+        },
+        "deadlinePolicy": {
+          "enum": [
+            "before-next-batch",
+            "within-n-batches",
+            "before-any-approved-claim-in-domain"
+          ],
+          "description": "recall-expanding 的預設為 before-any-approved-claim-in-domain：舊版本搜尋的領域可以繼續處理，但不得晉升 Claim。"
+        },
+        "withinNBatches": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1
+        },
+        "blocksNewBatches": {
+          "type": "boolean",
+          "description": "true 時，未完成 backfill 前不得啟動新批次。避免版本債累積。"
+        }
+      }
+    },
+    "recallEvaluation": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "knownItemSeedSet": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "預先指定必須被搜尋策略命中的已知文獻（DOI/PMID）。"
+        },
+        "seedRecallPrevious": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 1
+        },
+        "seedRecallCurrent": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 1
+        },
+        "minAcceptableSeedRecall": {
+          "type": "number",
+          "default": 0.95
+        },
+        "note": {
+          "type": "string"
+        }
+      },
+      "description": "changeClass 的宣告必須有證據。用 known-item seed set 客觀量測 recall 變化，不接受僅憑判斷宣告 recall-neutral。"
+    },
+    "pressReview": {
+      "type": "object",
+      "required": [
+        "status"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "status": {
+          "enum": [
+            "press-reviewed",
+            "peer-reviewed-non-press",
+            "notPRESSReviewed",
+            "pending"
+          ]
+        },
+        "reviewerAgentClass": {
+          "enum": [
+            "human-information-specialist",
+            "human-self",
+            "model",
+            "none"
+          ]
+        },
+        "reviewedAt": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        }
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "required": [
+        "authoredBy",
+        "approvedBy",
+        "createdAt",
+        "llmDrafted"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "authoredBy": {
+          "type": "string"
+        },
+        "llmDrafted": {
+          "type": "boolean"
+        },
+        "modelVersion": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "promptHash": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "approvedBy": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": [
+              "agent",
+              "agentClass",
+              "at"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "agent": {
+                "type": "string"
+              },
+              "agentClass": {
+                "enum": [
+                  "human-information-specialist",
+                  "human-self",
+                  "human-expert",
+                  "model",
+                  "deterministic"
+                ]
+              },
+              "at": {
+                "type": "string",
+                "format": "date-time"
+              }
+            }
+          },
+          "contains": {
+            "properties": {
+              "agentClass": {
+                "enum": [
+                  "human-information-specialist",
+                  "human-self",
+                  "human-expert"
+                ]
+              }
+            },
+            "required": [
+              "agentClass"
+            ]
+          },
+          "minContains": 1
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "changeClass": {
+            "const": "recall-expanding"
+          }
+        },
+        "required": [
+          "changeClass"
+        ]
+      },
+      "then": {
+        "required": [
+          "recallEvaluation"
+        ],
+        "properties": {
+          "backfillObligation": {
+            "properties": {
+              "required": {
+                "const": true
+              },
+              "scope": {
+                "const": "all-domains-at-lower-version"
+              },
+              "deadlinePolicy": {
+                "const": "before-any-approved-claim-in-domain"
+              }
+            }
+          },
+          "recallEvaluation": {
+            "required": [
+              "knownItemSeedSet",
+              "seedRecallCurrent",
+              "minAcceptableSeedRecall"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "changeClass": {
+            "const": "recall-neutral"
+          }
+        },
+        "required": [
+          "changeClass"
+        ]
+      },
+      "then": {
+        "required": [
+          "recallEvaluation"
+        ],
+        "properties": {
+          "recallEvaluation": {
+            "required": [
+              "knownItemSeedSet",
+              "seedRecallPrevious",
+              "seedRecallCurrent",
+              "minAcceptableSeedRecall"
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+# 零容忍：StudyFamily 由模型單獨判定
+# 契約 G：合併會改變證據權重，屬納入決定，模型不得單獨判定。
+# 兩篇其實是同一個試驗的報告被當成兩個獨立證據，等於憑空放大 k。
+#
+# @expect-core: PS-familyResolvedByHuman
+# @expect-sparql: StudyFamilyShape
+@prefix ahig: <https://ahig.local/ns/> .
+
+<urn:ahig:canary:fam-model> a ahig:StudyFamily ;
+    ahig:resolutionRuleId "FAM-002-registry-id-match" ;
+    ahig:resolvedBy <urn:ahig:canary:agent-model-2> .
+
+<urn:ahig:canary:agent-model-2> ahig:agentClass "model" .

@@ -1,0 +1,29 @@
+# AHIG is whitelist-tracked: public code/contracts only.
+*
+!*/
+!*.py
+!*.json
+!*.ttl
+!*.md
+!pyproject.toml
+!.gitignore
+
+# Private or generated data must never be committed.
+corpus/
+fulltext/
+data/
+indexes/
+databases/
+jobs/
+logs/
+secrets/
+notebooks/
+artifacts/
+**/__pycache__/
+**/.pytest_cache/
+**/*.pyc
+**/*.pyo
+**/*.tmp
+**/*.log
+**/.env
+**/.env.*

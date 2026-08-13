@@ -1,0 +1,24 @@
+# 零容忍：帶 possibleDuplicateEvidence 卻評為 high certainty
+# 契約 G：疑似重複證據代表 k 可能被高估，證據量沒有表面上那麼多。
+# 在確認之前不得給 high。
+#
+# @expect-core: DuplicateEvidenceCeilingShape
+# @expect-sparql: DuplicateEvidenceCeilingShape
+@prefix ahig: <https://ahig.local/ns/> .
+
+<urn:ahig:canary:claim-dup-high> a ahig:SynthesizedClaim ;
+    ahig:riskTier "general-clinical" ;
+    ahig:status "draft" ;
+    ahig:flag "possibleDuplicateEvidence" ;
+    ahig:certainty "high" ;
+    ahig:certaintyDerivation "deterministic-rule" ;
+    ahig:studyCount 6 ;
+    ahig:gradeDomainRating <urn:ahig:canary:dup-rob>, <urn:ahig:canary:dup-inc>,
+                           <urn:ahig:canary:dup-ind>, <urn:ahig:canary:dup-imp>,
+                           <urn:ahig:canary:dup-pub> .
+
+<urn:ahig:canary:dup-rob> ahig:domain "risk-of-bias" ;     ahig:rating "not-serious" .
+<urn:ahig:canary:dup-inc> ahig:domain "inconsistency" ;    ahig:rating "not-serious" .
+<urn:ahig:canary:dup-ind> ahig:domain "indirectness" ;     ahig:rating "not-serious" .
+<urn:ahig:canary:dup-imp> ahig:domain "imprecision" ;      ahig:rating "not-serious" .
+<urn:ahig:canary:dup-pub> ahig:domain "publication-bias" ; ahig:rating "not-serious" .

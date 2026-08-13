@@ -1,0 +1,27 @@
+# 零容忍：safety-critical 以 self-adjudicated 晉升。
+# 契約 B.4：高風險主張的唯一可接受裁決者是 expert-adjudicated。
+#
+# 這個 canary 在修正前就會被擋（原 SPARQL 有涵蓋這個顯式值）。留著是為了
+# 證明修正沒有把原本擋得住的情況放掉 —— fail-open 的修法不能只是換條件，
+# 得是嚴格放大守備範圍。
+#
+# @expect-core: HighRiskAdjudicationShape
+# @expect-sparql: HighRiskAdjudicationShape
+@prefix ahig: <https://ahig.local/ns/> .
+
+<urn:ahig:canary:claim-sc-self-adj> a ahig:SynthesizedClaim ;
+    ahig:riskTier "safety-critical" ;
+    ahig:status "approved" ;
+    ahig:adjudicationLevel "self-adjudicated" ;
+    ahig:certainty "moderate" ;
+    ahig:certaintyDerivation "deterministic-rule" ;
+    ahig:studyCount 8 ;
+    ahig:gradeDomainRating <urn:ahig:canary:g2-rob>, <urn:ahig:canary:g2-inc>,
+                           <urn:ahig:canary:g2-ind>, <urn:ahig:canary:g2-imp>,
+                           <urn:ahig:canary:g2-pub> .
+
+<urn:ahig:canary:g2-rob> ahig:domain "risk-of-bias" ;     ahig:rating "not-serious" .
+<urn:ahig:canary:g2-inc> ahig:domain "inconsistency" ;    ahig:rating "not-serious" .
+<urn:ahig:canary:g2-ind> ahig:domain "indirectness" ;     ahig:rating "not-serious" .
+<urn:ahig:canary:g2-imp> ahig:domain "imprecision" ;      ahig:rating "not-serious" .
+<urn:ahig:canary:g2-pub> ahig:domain "publication-bias" ; ahig:rating "not-serious" .

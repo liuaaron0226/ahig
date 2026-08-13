@@ -1,0 +1,26 @@
+# FAIL-OPEN 回歸：safety-critical policy 缺 blocksHealthReasoning
+#
+# 修正前的 SPARQL 要求 `?p ahig:blocksHealthReasoning false` 才觸發，
+# 所以「誠實寫 false」會被擋，但「整個欄位不寫」卻通過。契約 D.3 要求
+# safety-critical 必須 blocksHealthReasoning=true；缺漏不得被解讀成
+# 任何比 false 更寬鬆的東西。
+#
+# 注意這裡 SLA 完全正常（age 1 < 36+6），所以本 canary 只可能因為
+# blocksHealthReasoning 而被擋 —— 排除了「被別條規則順手擋掉」的可能。
+#
+# @expect-core: ClaimVersionSafetyCriticalBlockShape
+# @expect-sparql: ClaimVersionMonitoringShape
+@prefix ahig: <https://ahig.local/ns/> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+
+<urn:ahig:canary:cv-sc-noblock> a ahig:ClaimVersion ;
+    ahig:status "approved" ;
+    ahig:monitoringPolicy <urn:ahig:canary:pol-sc-noblock> ;
+    ahig:lastSuccessfulSourceCheckAt "2026-08-13T00:00:00Z"^^xsd:dateTime ;
+    ahig:sourceCheckAgeHours 1 .
+
+# safety-critical 但沒有 blocksHealthReasoning
+<urn:ahig:canary:pol-sc-noblock>
+    ahig:riskTier "safety-critical" ;
+    ahig:maxAgeHours 36 ;
+    ahig:graceHours 6 .

@@ -1,0 +1,61 @@
+{
+  "note": "e = 每位評分者的獨立誤分類率。這是把 AC1 門檻反解成可解釋的抽取品質要求。",
+  "rows": [
+    {
+      "field_shape": "二分類，平衡 (0.50/0.50)",
+      "error_model": "uniform",
+      "ac1_at_zero_error": 1.0,
+      "max_per_rater_error_for_AC1_0.8": 0.0528,
+      "max_per_rater_error_for_AC1_0.85": 0.039,
+      "max_per_rater_error_for_AC1_0.9": 0.0257
+    },
+    {
+      "field_shape": "二分類，中度偏斜 (0.75/0.25)",
+      "error_model": "uniform",
+      "ac1_at_zero_error": 1.0,
+      "max_per_rater_error_for_AC1_0.8": 0.0636,
+      "max_per_rater_error_for_AC1_0.85": 0.0474,
+      "max_per_rater_error_for_AC1_0.9": 0.0315
+    },
+    {
+      "field_shape": "二分類，高度偏斜 (0.90/0.10)",
+      "error_model": "uniform",
+      "ac1_at_zero_error": 1.0,
+      "max_per_rater_error_for_AC1_0.8": 0.0789,
+      "max_per_rater_error_for_AC1_0.85": 0.0597,
+      "max_per_rater_error_for_AC1_0.9": 0.0401
+    },
+    {
+      "field_shape": "三分類，平衡",
+      "error_model": "uniform",
+      "ac1_at_zero_error": 1.0,
+      "max_per_rater_error_for_AC1_0.8": 0.0704,
+      "max_per_rater_error_for_AC1_0.85": 0.052,
+      "max_per_rater_error_for_AC1_0.9": 0.0342
+    },
+    {
+      "field_shape": "四分類，RoB2 típ (0.25/0.35/0.25/0.15)",
+      "error_model": "uniform",
+      "ac1_at_zero_error": 1.0,
+      "max_per_rater_error_for_AC1_0.8": 0.0798,
+      "max_per_rater_error_for_AC1_0.85": 0.059,
+      "max_per_rater_error_for_AC1_0.9": 0.0388
+    },
+    {
+      "field_shape": "四分類，unclear 主導 (0.08/0.80/0.07/0.05)",
+      "error_model": "modal",
+      "ac1_at_zero_error": 1.0,
+      "max_per_rater_error_for_AC1_0.8": 0.095,
+      "max_per_rater_error_for_AC1_0.85": 0.0698,
+      "max_per_rater_error_for_AC1_0.9": 0.0457
+    },
+    {
+      "field_shape": "六分類，effect measure 類型",
+      "error_model": "uniform",
+      "ac1_at_zero_error": 1.0,
+      "max_per_rater_error_for_AC1_0.8": 0.088,
+      "max_per_rater_error_for_AC1_0.85": 0.065,
+      "max_per_rater_error_for_AC1_0.9": 0.0428
+    }
+  ]
+}

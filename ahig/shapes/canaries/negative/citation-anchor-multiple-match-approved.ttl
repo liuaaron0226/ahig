@@ -1,0 +1,14 @@
+# 零容忍：多重命中卻建立支撐 Approved Claim 的正式 anchor
+# 契約 C.8：「多重命中卻自動選第一筆」是零容忍項。多重命中代表這段引文
+# 在原文出現多次，取第一筆等於猜。
+#
+# @expect-core: CitationAnchorUniqueMatchShape
+# @expect-sparql: CitationAnchorShape
+@prefix ahig: <https://ahig.local/ns/> .
+
+<urn:ahig:canary:anchor-multi> a ahig:CitationAnchor ;
+    ahig:sourceManifestation "sha256:2222222222222222222222222222222222222222222222222222222222222222" ;
+    ahig:exactQuote "p < 0.05" ;
+    ahig:anchorMethod "exact" ;
+    ahig:uniqueMatch false ;
+    ahig:supportsApprovedClaim true .

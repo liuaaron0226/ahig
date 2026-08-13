@@ -1,0 +1,17 @@
+# 正向對照：抽樣量足以驗證所宣稱的門檻
+#
+# n=300、ceiling=0.01：3/300 = 0.01，ceiling 不低於 rule-of-three 下界，
+# 通過。（verify.py 第 5 節的封閉解：0 錯誤下要證明 ≤1% 需 n ≥ 299。）
+#
+# 這是 negative/quality-gate-rule-of-three-violation.ttl（n=30）的對照組。
+#
+@prefix ahig: <https://ahig.local/ns/> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+
+<urn:ahig:canary:gate-ok> a ahig:BatchQualityGate ;
+    ahig:nonCriticalErrorCeiling "0.01"^^xsd:decimal ;
+    ahig:sampleSize 300 ;
+    ahig:agreementStatistic "gwet-ac1" ;
+    ahig:alsoReported "positive-agreement", "negative-agreement",
+                      "full-cross-tabulation", "cohen-kappa" ;
+    ahig:goldSetAccuracy "0.97"^^xsd:decimal .

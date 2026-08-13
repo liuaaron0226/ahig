@@ -1,0 +1,21 @@
+# FAIL-OPEN 回歸：MonitoringPolicy 缺 maxAgeHours（與 graceHours）
+#
+# 沒有 maxAgeHours，SLA 根本沒有可比較的門檻。修正前的 SPARQL 對這種
+# policy 完全不觸發 —— 也就是「沒有 SLA 的 policy」比「有 SLA 但逾期」
+# 更容易通過。
+#
+# @expect-core: ClaimVersionMonitoringMeasurableShape
+# @expect-sparql: ClaimVersionMonitoringShape
+@prefix ahig: <https://ahig.local/ns/> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+
+<urn:ahig:canary:cv-missing-maxage> a ahig:ClaimVersion ;
+    ahig:status "approved" ;
+    ahig:monitoringPolicy <urn:ahig:canary:pol-nomax> ;
+    ahig:lastSuccessfulSourceCheckAt "2026-08-12T00:00:00Z"^^xsd:dateTime ;
+    ahig:sourceCheckAgeHours 5 .
+
+# policy 存在，但沒有任何 SLA 門檻
+<urn:ahig:canary:pol-nomax>
+    ahig:riskTier "stable-basic-science" ;
+    ahig:blocksHealthReasoning false .

@@ -1,0 +1,35 @@
+# FAIL-OPEN 回歸：outcome switching 缺裁決者
+#
+# 修正前的 SPARQL 要求 `?agent ahig:agentClass "model"` 才觸發，所以
+# 「完全沒記錄誰判定的」比「誠實記錄是模型判定的」更容易通過 ——
+# 剛好獎勵了資料缺漏。缺漏裁決者正是最該擋的情況。
+#
+# @expect-core: OutcomeSwitchingShape
+# @expect-sparql: OutcomeSwitchingShape
+@prefix ahig: <https://ahig.local/ns/> .
+
+<urn:ahig:canary:inv-switch-2> a ahig:OutcomeInventory ;
+    ahig:reportedOutcome <urn:ahig:canary:ro-2> ;
+    ahig:registryComparisonStatus "compared" ;
+    ahig:outcomeSwitchingFlag "secondary-promoted-to-primary" .
+
+# 完全沒有 ahig:prespecificationDecidedBy
+<urn:ahig:canary:sr-switch-2> a ahig:StudyResult ;
+    ahig:derivedFromOutcomeInventory <urn:ahig:canary:inv-switch-2> ;
+    ahig:prespecificationStatus "prespecified" ;
+
+    ahig:scopeContractHash "sha256:0000000000000000000000000000000000000000000000000000000000000000" ;
+    ahig:scopeRuleId "SCOPE-001" ;
+    ahig:study <urn:ahig:canary:study-2> ;
+    ahig:population <urn:ahig:canary:pop-1> ;
+    ahig:intervention <urn:ahig:canary:int-1> ;
+    ahig:comparator <urn:ahig:canary:cmp-1> ;
+    ahig:outcome <urn:ahig:canary:out-1> ;
+    ahig:timepoint <urn:ahig:canary:tp-1> ;
+    ahig:analysisSet "ITT" ;
+    ahig:effectMeasure "MD" ;
+    ahig:statisticalModel "unadjusted" ;
+    ahig:sourceVersion "v1" ;
+    ahig:quantityKind <urn:ahig:qk:pct-1rm> ;
+    ahig:citationAnchor <urn:ahig:canary:anchor-1> ;
+    ahig:deterministicCheckReport <urn:ahig:canary:dcr-1> .

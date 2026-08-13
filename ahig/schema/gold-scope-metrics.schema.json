@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ahig.local/schema/gold-scope-metrics/1.0.0",
+  "title": "GoldScopeMetrics",
+  "type": "object",
+  "required": ["batchId", "goldShouldExtractCount", "matchedInScopeCount", "falseExclusionCount", "scopeRecall", "falseExclusionRate", "criticalHarmsFalseExclusionCount", "byReasonCode"],
+  "additionalProperties": false,
+  "properties": {
+    "batchId": {"type": "string"},
+    "goldShouldExtractCount": {"type": "integer", "minimum": 1},
+    "matchedInScopeCount": {"type": "integer", "minimum": 0},
+    "falseExclusionCount": {"type": "integer", "minimum": 0},
+    "scopeRecall": {"type": "number", "minimum": 0, "maximum": 1},
+    "falseExclusionRate": {"type": "number", "minimum": 0, "maximum": 1},
+    "criticalHarmsFalseExclusionCount": {"type": "integer", "minimum": 0},
+    "multipleTimepointWindowContractErrorCount": {"type": "integer", "minimum": 0},
+    "multipleMeasurementsWithinWindowCount": {"type": "integer", "minimum": 0},
+    "exceedsMaxStudyResultsStudyCount": {"type": "integer", "minimum": 0},
+    "byReasonCode": {"type": "object", "additionalProperties": {"type": "integer", "minimum": 0}},
+    "decision": {"enum": ["pass", "fail", "insufficient-evidence"]}
+  }
+}

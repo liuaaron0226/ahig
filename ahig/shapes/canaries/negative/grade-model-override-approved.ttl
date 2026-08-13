@@ -1,0 +1,32 @@
+# 零容忍：模型 override 未經人工確認即用於 Approved Claim
+# 契約 E.5：agentClass=model 的 override 自動帶 effectiveForApprovedClaim=false。
+# 這裡刻意寫成 true —— 模型自己把自己的降級撤銷掉。
+#
+# 這條規則是跨節點的存在性條件，Core 亦可表達，但保留在 SPARQL 作為
+# audit；本 canary 因此指定只跑 sparql profile。
+#
+# @expect-sparql: SynthesizedClaimGradeShape
+# @profiles: sparql
+@prefix ahig: <https://ahig.local/ns/> .
+
+<urn:ahig:canary:claim-model-override> a ahig:SynthesizedClaim ;
+    ahig:riskTier "general-clinical" ;
+    ahig:status "approved" ;
+    ahig:adjudicationLevel "self-adjudicated" ;
+    ahig:certainty "moderate" ;
+    ahig:certaintyDerivation "deterministic-rule-with-logged-override" ;
+    ahig:studyCount 12 ;
+    ahig:gradeOverride <urn:ahig:canary:ovr-1> ;
+    ahig:gradeDomainRating <urn:ahig:canary:mo-rob>, <urn:ahig:canary:mo-inc>,
+                           <urn:ahig:canary:mo-ind>, <urn:ahig:canary:mo-imp>,
+                           <urn:ahig:canary:mo-pub> .
+
+<urn:ahig:canary:ovr-1>
+    ahig:agentClass "model" ;
+    ahig:effectiveForApprovedClaim true .
+
+<urn:ahig:canary:mo-rob> ahig:domain "risk-of-bias" ;     ahig:rating "not-serious" .
+<urn:ahig:canary:mo-inc> ahig:domain "inconsistency" ;    ahig:rating "not-serious" .
+<urn:ahig:canary:mo-ind> ahig:domain "indirectness" ;     ahig:rating "not-serious" .
+<urn:ahig:canary:mo-imp> ahig:domain "imprecision" ;      ahig:rating "not-serious" .
+<urn:ahig:canary:mo-pub> ahig:domain "publication-bias" ; ahig:rating "not-serious" .

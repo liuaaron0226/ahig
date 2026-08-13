@@ -1,0 +1,258 @@
+{
+  "registryId": "ahig:registry:quantity-kinds:b11-carbohydrate",
+  "version": "0.1.0",
+  "status": "seed",
+  "note": "B.11 碳水化合物策略與肝醣管理校準集所需的最小量綱集合。設計原則：凡是『數值相同但意義不同』的兩個量，一律各自登錄並以 blockingConditions 擋住自動合併，而不是靠抽取者記得。最典型的是肝醣濃度的 dry weight 與 wet weight 基準——兩者相差約 4 倍，若混用會產生量級錯誤而非細微偏差。",
+  "entries": [
+    {
+      "quantityKindId": "ahig:qk:cho-intake-rate-absolute",
+      "label": "運動中碳水攝取速率（絕對）",
+      "aliases": [
+        "CHO intake rate",
+        "carbohydrate ingestion rate",
+        "g/h CHO"
+      ],
+      "representation": {
+        "kind": "ucum",
+        "ucumCode": "g/h",
+        "isDiscreteIntegerScale": false
+      },
+      "comparabilityClass": "cho-intake-rate-absolute",
+      "crossStudyComparability": {
+        "level": "comparable-after-declared-conversion",
+        "rationale": "本領域劑量反應的主軸即為 g/h。單位常以 g/min 或每 15 分鐘給予量報告，須先正規化。但『攝取速率』與『被氧化速率』是不同的量，不得互換。",
+        "conversionRule": "僅做 UCUM 時間基準正規化（g/min ×60 → g/h）。以每次給予量報告者，須有明確給予間隔才可換算；間隔不明確則不換算並升級人工。",
+        "blockingConditions": [
+          "ingestion-interval-not-reported",
+          "intake-prescribed-but-actual-not-verified",
+          "gel-bar-solid-vs-fluid-not-separable"
+        ]
+      },
+      "bodyMassNormalised": false,
+      "requiresInstrumentMatch": false,
+      "notes": "與 ahig:qk:cho-intake-rate-per-mass 不可自動互換：換算需要體重，而體重是研究層級變數，不在單一 StudyResult 內。"
+    },
+    {
+      "quantityKindId": "ahig:qk:cho-intake-rate-per-mass",
+      "label": "運動中碳水攝取速率（每公斤體重）",
+      "aliases": [
+        "g/kg/h CHO",
+        "relative carbohydrate intake rate"
+      ],
+      "representation": {
+        "kind": "ucum",
+        "ucumCode": "g/(kg.h)",
+        "isDiscreteIntegerScale": false
+      },
+      "comparabilityClass": "cho-intake-rate-normalised",
+      "crossStudyComparability": {
+        "level": "comparable-after-declared-conversion",
+        "rationale": "與絕對速率屬不同 comparabilityClass。互換需要該組平均體重，屬研究層級資訊，必須顯性提供而非由單位推導。",
+        "conversionRule": "僅做時間基準正規化。與絕對速率互換須顯性提供 armMeanBodyMass 並標記 derivedFromGroupMean=true；缺體重時禁止換算。",
+        "blockingConditions": [
+          "arm-mean-body-mass-not-reported",
+          "body-mass-measured-at-different-timepoint",
+          "fat-free-mass-used-as-denominator"
+        ]
+      },
+      "bodyMassNormalised": true,
+      "requiresInstrumentMatch": false
+    },
+    {
+      "quantityKindId": "ahig:qk:exogenous-cho-oxidation-rate",
+      "label": "外源性碳水氧化速率",
+      "aliases": [
+        "exogenous CHO oxidation",
+        "ExoCHOox",
+        "exogenous carbohydrate oxidation rate"
+      ],
+      "representation": {
+        "kind": "ucum",
+        "ucumCode": "g/min",
+        "isDiscreteIntegerScale": false
+      },
+      "comparabilityClass": "substrate-oxidation-rate-exogenous",
+      "crossStudyComparability": {
+        "level": "comparable-after-declared-conversion",
+        "rationale": "以 13C 或 14C 示蹤搭配間接測熱法測得。示蹤劑類型、背景 13C 豐度校正方式與計算穩定期的選擇會系統性影響數值；不同的計算窗會產生不同的『峰值』。",
+        "conversionRule": "僅做時間基準正規化（g/h ÷60 → g/min）。示蹤方法或計算窗不一致時禁止合併。",
+        "blockingConditions": [
+          "tracer-type-differs",
+          "background-13c-correction-absent",
+          "oxidation-window-differs",
+          "steady-state-not-attained"
+        ]
+      },
+      "bodyMassNormalised": false,
+      "requiresInstrumentMatch": true,
+      "notes": "峰值氧化速率與時段平均氧化速率是兩個不同的 outcome，須以 instrument 軸分辨，不得混入同一合成。"
+    },
+    {
+      "quantityKindId": "ahig:qk:muscle-glycogen-dry-weight",
+      "label": "肌肉肝醣濃度（乾重基準）",
+      "aliases": [
+        "muscle glycogen mmol/kg dw",
+        "glycogen dry weight basis"
+      ],
+      "representation": {
+        "kind": "ucum",
+        "ucumCode": "mmol/kg",
+        "isDiscreteIntegerScale": false
+      },
+      "comparabilityClass": "muscle-glycogen-dry-basis",
+      "crossStudyComparability": {
+        "level": "comparable-after-declared-conversion",
+        "rationale": "UCUM 的 mmol/kg 無法承載分母是乾組織還是濕組織。乾重值約為濕重值的四倍餘，混用會產生量級錯誤。基準不同即屬不同 comparabilityClass。",
+        "conversionRule": "同為乾重基準且同為生檢法時可直接合併。與濕重基準之間不得自動換算——換算係數取決於該研究實測的組織含水量，未實測者一律升級人工。",
+        "blockingConditions": [
+          "basis-differs-dry-vs-wet",
+          "tissue-water-content-not-measured",
+          "biopsy-vs-mrs-method-differs",
+          "muscle-group-differs"
+        ]
+      },
+      "bodyMassNormalised": false,
+      "requiresInstrumentMatch": true
+    },
+    {
+      "quantityKindId": "ahig:qk:muscle-glycogen-wet-weight",
+      "label": "肌肉肝醣濃度（濕重基準）",
+      "aliases": [
+        "muscle glycogen mmol/kg ww",
+        "glycogen wet weight basis"
+      ],
+      "representation": {
+        "kind": "ucum",
+        "ucumCode": "mmol/kg",
+        "isDiscreteIntegerScale": false
+      },
+      "comparabilityClass": "muscle-glycogen-wet-basis",
+      "crossStudyComparability": {
+        "level": "not-comparable",
+        "rationale": "與乾重基準的 UCUM code 完全相同但意義不同。標記 not-comparable 是刻意的：本專案不接受以文獻通用係數（約 4.3）代替該研究實測含水量的自動換算。",
+        "blockingConditions": [
+          "basis-differs-dry-vs-wet",
+          "tissue-water-content-not-measured",
+          "biopsy-vs-mrs-method-differs",
+          "muscle-group-differs"
+        ]
+      },
+      "bodyMassNormalised": false,
+      "requiresInstrumentMatch": true
+    },
+    {
+      "quantityKindId": "ahig:qk:time-trial-completion-time",
+      "label": "計時賽完成時間",
+      "aliases": [
+        "time trial performance",
+        "TT completion time"
+      ],
+      "representation": {
+        "kind": "ucum",
+        "ucumCode": "s",
+        "isDiscreteIntegerScale": false
+      },
+      "comparabilityClass": "endurance-performance-time-trial",
+      "crossStudyComparability": {
+        "level": "comparable-only-as-SMD",
+        "rationale": "不同距離、不同模式（跑步／自行車）、不同前置負荷的完成時間，其絕對秒數不具共同尺度。同一距離＋同一模式的子集可退回絕對值合併，但須由抽取端顯性宣告。",
+        "conversionRule": "時間單位正規化為秒。跨距離或跨運動模式僅能以 SMD 合成。",
+        "blockingConditions": [
+          "distance-differs",
+          "exercise-mode-differs",
+          "preload-protocol-differs",
+          "familiarisation-trials-absent"
+        ]
+      },
+      "bodyMassNormalised": false,
+      "requiresInstrumentMatch": true,
+      "notes": "方向性與 TTE 相反（時間越短越好），directionOfBenefit 由範圍契約宣告，不在此登錄。"
+    },
+    {
+      "quantityKindId": "ahig:qk:time-to-exhaustion",
+      "label": "力竭時間",
+      "aliases": [
+        "TTE",
+        "time to exhaustion",
+        "endurance capacity"
+      ],
+      "representation": {
+        "kind": "ucum",
+        "ucumCode": "s",
+        "isDiscreteIntegerScale": false
+      },
+      "comparabilityClass": "endurance-capacity-tte",
+      "crossStudyComparability": {
+        "level": "comparable-only-as-SMD",
+        "rationale": "TTE 與 TT 測的是不同構念，且 TTE 的變異係數顯著較高。固定強度百分比不同時，絕對秒數不可比。",
+        "conversionRule": "時間單位正規化為秒。與 TT 屬不同 comparabilityClass，任何情況下都不得併入同一效果量。",
+        "blockingConditions": [
+          "intensity-anchor-differs",
+          "exercise-mode-differs",
+          "preload-protocol-differs"
+        ]
+      },
+      "bodyMassNormalised": false,
+      "requiresInstrumentMatch": true
+    },
+    {
+      "quantityKindId": "ahig:qk:gi-symptom-incidence",
+      "label": "腸胃道症狀發生率",
+      "aliases": [
+        "GI symptom incidence",
+        "gastrointestinal distress incidence"
+      ],
+      "representation": {
+        "kind": "dimensionless-count",
+        "localDefinition": "在該試驗期間回報至少一項指定腸胃道症狀的受試者人數（分子）與該組人數（分母）。以事件數／總數登錄，不以百分比登錄。",
+        "isDiscreteIntegerScale": true
+      },
+      "comparabilityClass": "harm-event-incidence-gi",
+      "crossStudyComparability": {
+        "level": "comparable-after-declared-conversion",
+        "rationale": "以事件數合併需要相同的症狀定義與相同的判定門檻。『任一症狀』與『中重度症狀』是不同的事件定義。",
+        "conversionRule": "僅在症狀集合與嚴重度門檻一致時可直接合併事件數。百分比回報但未提供分母者不得反推事件數。",
+        "blockingConditions": [
+          "symptom-set-differs",
+          "severity-threshold-differs",
+          "denominator-not-reported",
+          "per-event-vs-per-participant-counting-differs"
+        ]
+      },
+      "bodyMassNormalised": false,
+      "requiresInstrumentMatch": false,
+      "notes": "GI harms 在 B.11 是 critical outcome。此量綱刻意要求事件數而非百分比，好讓 crude 2×2 重算（ADJ-004）可用於裁決。"
+    },
+    {
+      "quantityKindId": "ahig:qk:gi-symptom-severity-0-10",
+      "label": "腸胃道症狀嚴重度（0–10）",
+      "aliases": [
+        "GI symptom severity score",
+        "GI distress VAS 0-10"
+      ],
+      "representation": {
+        "kind": "local-ordinal",
+        "localDefinition": "0–10 之腸胃道不適嚴重度自評。多數研究改編自不同母量表，錨定文字不一致。",
+        "range": {
+          "min": 0,
+          "max": 10,
+          "step": null
+        },
+        "isDiscreteIntegerScale": false
+      },
+      "comparabilityClass": "gi-symptom-severity-selfreport",
+      "crossStudyComparability": {
+        "level": "not-comparable",
+        "rationale": "各研究自行改編量表且錨定文字不同；序位分數的均值差在不同錨定下不具相同意義。",
+        "blockingConditions": [
+          "different-anchor-wording",
+          "different-symptom-inventory",
+          "summed-vs-single-item",
+          "recall-window-differs"
+        ]
+      },
+      "bodyMassNormalised": false,
+      "requiresInstrumentMatch": true
+    }
+  ]
+}

@@ -1,0 +1,469 @@
+@prefix sh:     <http://www.w3.org/ns/shacl#> .
+@prefix xsd:    <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:    <http://www.w3.org/2002/07/owl#> .
+@prefix prov:   <http://www.w3.org/ns/prov#> .
+@prefix ahig:   <https://ahig.local/ns/> .
+@prefix ahigsh: <https://ahig.local/shapes/> .
+
+#################################################################
+# AHIG 契約補丁 v2.1 —— SHACL SPARQL profile（pinned audit）
+#
+# 這個 profile 的定位不是「唯一防線」。結構阻擋的責任在
+# shapes/core/ahig-core.shacl.ttl（純 SHACL 1.0 Core，任何合格驗證器
+# 都能完整執行）。本檔負責 Core 表達不了的部分：跨節點的算術比較與
+# 集合條件。
+#
+# 為什麼要拆：SPARQL-based constraint 是 SHACL 的擴充，各家驗證器支援
+# 程度不一。把零容忍條件單獨押在這類擴充上，等於接受「換一個驗證器就
+# 全面 fail-open」。本檔的行為對 pySHACL 版本敏感，因此在
+# ahig/gates/shacl.py 中 pin 住版本並於測試中檢查。
+#
+# 前綴自足（本輪修正）：
+#
+#   原檔的 sh:prefixes 指向 ahigsh:，但 ahigsh: 從未以 sh:declare
+#   宣告任何前綴。pySHACL 在此情況下會回退到「shapes graph 的 Turtle
+#   前綴綁定」，所以用 .ttl 直接讀進來時看起來一切正常 —— 這是僥倖，
+#   不是正確。一旦 shapes 以 N-Triples／JSON-LD 交付，或經過任何不保留
+#   前綴綁定的 SPARQL store 往返，同一份形狀就會拋
+#   「Unknown namespace prefix」或靜默失效。
+#
+#   已實測：把 shapes 與 data 兩個 graph 的前綴綁定都剝除後，原檔直接
+#   拋 Exception；補上 sh:declare 後行為不變且不再依賴外部綁定。
+#################################################################
+
+ahigsh: a owl:Ontology ;
+    rdfs:label "AHIG SHACL shapes namespace" ;
+    rdfs:comment "sh:prefixes 的宣告來源。所有查詢只准使用此處 sh:declare 過的前綴。" ;
+    sh:declare [
+        sh:prefix "ahig" ;
+        sh:namespace "https://ahig.local/ns/"^^xsd:anyURI ;
+    ] , [
+        sh:prefix "ahigsh" ;
+        sh:namespace "https://ahig.local/shapes/"^^xsd:anyURI ;
+    ] , [
+        sh:prefix "sh" ;
+        sh:namespace "http://www.w3.org/ns/shacl#"^^xsd:anyURI ;
+    ] , [
+        sh:prefix "xsd" ;
+        sh:namespace "http://www.w3.org/2001/XMLSchema#"^^xsd:anyURI ;
+    ] , [
+        sh:prefix "rdf" ;
+        sh:namespace "http://www.w3.org/1999/02/22-rdf-syntax-ns#"^^xsd:anyURI ;
+    ] , [
+        sh:prefix "rdfs" ;
+        sh:namespace "http://www.w3.org/2000/01/rdf-schema#"^^xsd:anyURI ;
+    ] .
+
+
+#################################################################
+# Gap A —— StudyResult 必須可回溯到凍結的抽取範圍契約
+#################################################################
+
+# StudyResult 的 11 個原子 tuple 維度、scopeContractHash / scopeRuleId /
+# derivedFromOutcomeInventory 的必填與格式，全部是**結構條件**，已完整
+# 落在 shapes/core/ahig-core.shacl.ttl 的 ahigsh:StudyResultShape。
+#
+# 此處刻意不重複：同一條規則寫兩份會漂移，而且重複的部分若只改一邊，
+# 兩個 profile 的行為就會分歧而沒人發現。本檔只保留 Core 表達不了的條件。
+# OutcomeInventory、QuantitativeStudyResult、CitationAnchor 的必填欄位同理。
+
+# outcome switching 被偵測到時，prespecification 不得由模型單獨判定
+#
+# 修正兩個 fail-open：
+#
+# (1) 關係方向寫反。原查詢走 `$this ahig:supports ?sr`（OutcomeInventory
+#     → StudyResult），但契約 A.2 與 outcome-inventory.schema.json 定義的
+#     正式關係是反向的：StudyResult ahig:derivedFromOutcomeInventory
+#     OutcomeInventory（見 Core 的 PS-derivedFromOutcomeInventory，該欄位
+#     為 StudyResult 的必填項）。ahig:supports 在 schema 中根本不存在，
+#     所以這條 SPARQL 在真實資料上永遠不會匹配 —— 形狀存在，但從未生效。
+#     已改為 target StudyResult 並走真實方向。
+#
+# (2) 缺裁決者反而通過。原查詢要求 `?agent ahig:agentClass "model"` 才
+#     觸發，因此「完全沒記錄誰判定的」比「誠實記錄是模型判定的」更容易
+#     通過。缺漏裁決者恰恰是最該擋的情況。改為：宣稱 prespecified 就
+#     必須有裁決者，且裁決者必須是人類類別。
+ahigsh:OutcomeSwitchingShape
+    a sh:NodeShape ;
+    sh:targetClass ahig:StudyResult ;
+    sh:sparql [
+        sh:severity sh:Violation ;
+        sh:message "偵測到 outcome switching flag，但該 StudyResult 的 prespecificationStatus 未經人類裁決即標為 prespecified（含裁決者缺漏）。" ;
+        sh:prefixes ahigsh: ;
+        sh:select """
+            SELECT $this WHERE {
+              $this ahig:derivedFromOutcomeInventory ?inv .
+              ?inv ahig:outcomeSwitchingFlag ?f .
+              $this ahig:prespecificationStatus "prespecified" .
+              FILTER NOT EXISTS {
+                $this ahig:prespecificationDecidedBy ?agent .
+                ?agent ahig:agentClass ?cls .
+                FILTER (?cls IN ("human-self", "human-expert"))
+              }
+            }
+        """ ;
+    ] .
+
+
+#################################################################
+# Gap C —— 品質閘門：抽樣量與門檻必須相容
+#################################################################
+
+# 必填欄位（nonCriticalErrorCeiling、sampleSize、agreementStatistic、
+# alsoReported、goldSetAccuracy）已在 Core 的 ahigsh:QualityGateShape。
+# 此處只留 Core 表達不了的算術：rule of three。
+ahigsh:QualityGateShape
+    a sh:NodeShape ;
+    sh:targetClass ahig:BatchQualityGate ;
+    rdfs:comment "抽樣數必須足以驗證所宣稱的門檻。實算結果：0 錯誤下要證明 error rate <= 1% 需 n >= 299。" ;
+
+    sh:sparql [
+        sh:severity sh:Violation ;
+        sh:message "宣稱的 error ceiling 低於 3/n（rule of three），該樣本數無法驗證此門檻。" ;
+        sh:prefixes ahigsh: ;
+        sh:select """
+            SELECT $this ?ceiling ?n WHERE {
+              $this ahig:nonCriticalErrorCeiling ?ceiling .
+              $this ahig:sampleSize ?n .
+              FILTER (?ceiling < (3.0 / ?n))
+            }
+        """ ;
+    ] .
+
+
+#################################################################
+# Gap D —— 監控 fail-safe
+#################################################################
+
+# monitoringPolicy 與 lastSuccessfulSourceCheckAt 的必填已在 Core 的
+# ahigsh:ClaimVersionMonitoringShape；SLA 三個運算元的在場性也已由
+# Core 的 ahigsh:ClaimVersionMonitoringMeasurableShape 結構強制。
+# 此處保留的是算術比較，以及與 Core 重疊的一層 fail-closed 稽核。
+ahigsh:ClaimVersionMonitoringShape
+    a sh:NodeShape ;
+    sh:targetClass ahig:ClaimVersion ;
+    rdfs:comment "監控失效與來源撤稿在安全方向上必須表現一致。" ;
+
+    # SLA 逾期判準（契約 D.3）：
+    #     now − lastSuccessfulCheckAt > (maxAgeHours + graceHours)
+    #
+    # 修正兩個 fail-open：
+    #
+    # (1) graceHours 從未被實作。原查詢只比 maxAgeHours，等於把 grace
+    #     當成 0。契約明訂 grace 用來吸收排程抖動，漏掉它會讓正常抖動
+    #     被誤判為逾期；同時真正的判準（含 grace）從未被任何形狀執行。
+    #     已改用 COALESCE(?grace, 0) 補齊 —— grace 缺漏時退回最嚴格的 0，
+    #     方向是 fail-closed。
+    #
+    # (2) 欄位缺漏即通過。原查詢的三個 triple pattern 任一不匹配（沒有
+    #     maxAgeHours、沒有 sourceCheckAgeHours）就整條不觸發。監控欄位
+    #     缺漏正是監控壞掉的徵兆，卻被當成「一切正常」。此處以
+    #     FILTER NOT EXISTS 補上 fail-closed 分支；Core 那邊另有
+    #     ClaimVersionMonitoringMeasurableShape 做結構強制，兩層都擋。
+    sh:sparql [
+        sh:severity sh:Violation ;
+        sh:message "狀態為 approved 但超過監控 SLA（maxAgeHours + graceHours）且未轉為 stale-monitoring。" ;
+        sh:prefixes ahigsh: ;
+        sh:select """
+            SELECT $this WHERE {
+              $this ahig:status "approved" .
+              $this ahig:monitoringPolicy ?p .
+              ?p ahig:maxAgeHours ?maxAge .
+              $this ahig:sourceCheckAgeHours ?age .
+              OPTIONAL { ?p ahig:graceHours ?g }
+              BIND (COALESCE(?g, 0) AS ?grace)
+              FILTER (?age > (?maxAge + ?grace))
+            }
+        """ ;
+    ] ;
+    sh:sparql [
+        sh:severity sh:Violation ;
+        sh:message "approved 的 ClaimVersion 缺少 SLA 計算所需欄位（sourceCheckAgeHours / maxAgeHours / graceHours）；監控資料缺漏必須 fail-closed。" ;
+        sh:prefixes ahigsh: ;
+        sh:select """
+            SELECT $this WHERE {
+              $this ahig:status "approved" .
+              OPTIONAL { $this ahig:monitoringPolicy ?p }
+              FILTER (
+                !BOUND(?p)
+                || NOT EXISTS { ?p ahig:maxAgeHours ?maxAge }
+                || NOT EXISTS { ?p ahig:graceHours ?graceHours }
+                || NOT EXISTS { $this ahig:sourceCheckAgeHours ?age }
+              )
+            }
+        """ ;
+    ] ;
+    # safety-critical 必須顯式 blocksHealthReasoning=true。
+    #
+    # 修正 fail-open：原查詢要求 `?p ahig:blocksHealthReasoning false`
+    # 才觸發，所以「誠實寫 false」會被擋，但「整個欄位不寫」卻通過 ——
+    # 剛好獎勵了資料缺漏。改為 FILTER NOT EXISTS ... true。
+    sh:sparql [
+        sh:severity sh:Violation ;
+        sh:message "safety-critical 的 MonitoringPolicy 必須顯式設 blocksHealthReasoning=true（欄位缺漏亦違規）。" ;
+        sh:prefixes ahigsh: ;
+        sh:select """
+            SELECT $this WHERE {
+              $this ahig:monitoringPolicy ?p .
+              ?p ahig:riskTier "safety-critical" .
+              FILTER NOT EXISTS { ?p ahig:blocksHealthReasoning true }
+            }
+        """ ;
+    ] .
+
+
+#################################################################
+# Gap E —— GRADE 不得由模型直接給分
+#################################################################
+
+ahigsh:SynthesizedClaimGradeShape
+    a sh:NodeShape ;
+    sh:targetClass ahig:SynthesizedClaim ;
+
+    # 修正 fail-open：原條件是 `sh:minCount 5`，只數個數不看內容 ——
+    # 五筆全是 imprecision 也通過，四個 domain 加一筆重複也通過。
+    # GRADE 的意義在於「五個各自不同的 domain 都被評過」，數量相同
+    # 不等於覆蓋相同。
+    #
+    # 這裡以 COUNT(DISTINCT ?domain) 做稽核；Core 那邊用五個
+    # sh:qualifiedValueShape 做結構強制（並額外以 qualifiedMaxCount 1
+    # 擋掉同一 domain 重複評級 —— 否則以哪一筆為準是未定義行為）。
+    sh:sparql [
+        sh:severity sh:Violation ;
+        sh:message "GRADE 必須有五個相異 domain 的評級，不得只湊滿五筆或只給 overall certainty。" ;
+        sh:prefixes ahigsh: ;
+        sh:select """
+            SELECT $this (COUNT(DISTINCT ?domain) AS ?distinctDomains) WHERE {
+              OPTIONAL {
+                $this ahig:gradeDomainRating ?r .
+                ?r ahig:domain ?domain .
+                FILTER (?domain IN ("risk-of-bias", "inconsistency", "indirectness",
+                                    "imprecision", "publication-bias"))
+              }
+            }
+            GROUP BY $this
+            HAVING (COUNT(DISTINCT ?domain) < 5)
+        """ ;
+    ] ;
+    # certaintyDerivation 的必填與列舉已在 Core 的 PS-certaintyDerivation。
+    sh:sparql [
+        sh:severity sh:Violation ;
+        sh:message "imprecision 使用了 MID，但該 MID 未登錄於 MIDRegistry 或狀態非 active。" ;
+        sh:prefixes ahigsh: ;
+        sh:select """
+            SELECT $this WHERE {
+              $this ahig:gradeDomainRating ?r .
+              ?r ahig:domain "imprecision" .
+              ?r ahig:usedMID ?mid .
+              FILTER NOT EXISTS { ?mid a ahig:MIDRegistryEntry ; ahig:status "active" }
+            }
+        """ ;
+    ] ;
+    sh:sparql [
+        sh:severity sh:Violation ;
+        sh:message "Egger 檢定在 k<10 時被用來支撐 publication bias 評級。" ;
+        sh:prefixes ahigsh: ;
+        sh:select """
+            SELECT $this WHERE {
+              $this ahig:gradeDomainRating ?r .
+              ?r ahig:domain "publication-bias" .
+              ?r ahig:usedEggerTest true .
+              $this ahig:studyCount ?k .
+              FILTER (?k < 10)
+            }
+        """ ;
+    ] ;
+    sh:sparql [
+        sh:severity sh:Violation ;
+        sh:message "模型 override 未經人工確認即用於 Approved Claim。" ;
+        sh:prefixes ahigsh: ;
+        sh:select """
+            SELECT $this WHERE {
+              $this ahig:gradeOverride ?o .
+              ?o ahig:agentClass "model" .
+              ?o ahig:effectiveForApprovedClaim true .
+            }
+        """ ;
+    ] ;
+    # 單一研究證據必須顯性標記
+    sh:sparql [
+        sh:severity sh:Violation ;
+        sh:message "證據集僅含一篇研究但未標記 single-study-evidence。" ;
+        sh:prefixes ahigsh: ;
+        sh:select """
+            SELECT $this WHERE {
+              $this ahig:studyCount 1 .
+              FILTER NOT EXISTS { $this ahig:flag "single-study-evidence" }
+            }
+        """ ;
+    ] .
+
+
+#################################################################
+# Gap G —— StudyFamily 與重複證據
+#################################################################
+
+# resolutionRuleId 的必填與格式已在 Core 的 PS-resolutionRuleId。
+ahigsh:StudyFamilyShape
+    a sh:NodeShape ;
+    sh:targetClass ahig:StudyFamily ;
+    sh:sparql [
+        sh:severity sh:Violation ;
+        sh:message "StudyFamily 由模型判定。合併會改變證據權重，屬納入決定，模型不得單獨判定。" ;
+        sh:prefixes ahigsh: ;
+        sh:select """
+            SELECT $this WHERE {
+              $this ahig:resolvedBy ?a .
+              ?a ahig:agentClass "model" .
+            }
+        """ ;
+    ] .
+
+ahigsh:DuplicateEvidenceCeilingShape
+    a sh:NodeShape ;
+    sh:targetClass ahig:SynthesizedClaim ;
+    sh:sparql [
+        sh:severity sh:Violation ;
+        sh:message "帶 possibleDuplicateEvidence 的主張不得評為 high certainty。" ;
+        sh:prefixes ahigsh: ;
+        sh:select """
+            SELECT $this WHERE {
+              $this ahig:flag "possibleDuplicateEvidence" .
+              $this ahig:certainty "high" .
+            }
+        """ ;
+    ] .
+
+
+#################################################################
+# Gap G —— SearchContract 版本債
+#################################################################
+
+ahigsh:SearchContractBackfillShape
+    a sh:NodeShape ;
+    sh:targetClass ahig:CanonicalCompetency ;
+    sh:sparql [
+        sh:severity sh:Violation ;
+        sh:message "該領域以較舊的 recall-expanding SearchContract 版本搜尋，尚未 backfill，不得晉升 Claim。" ;
+        sh:prefixes ahigsh: ;
+        sh:select """
+            SELECT $this WHERE {
+              $this ahig:searchedWithContractVersion ?used .
+              $this ahig:currentSearchContractVersion ?current .
+              ?current ahig:changeClass "recall-expanding" .
+              FILTER (?used != ?current)
+              $this ahig:hasApprovedClaim ?c .
+              FILTER NOT EXISTS { $this ahig:backfillCompletedForVersion ?current }
+            }
+        """ ;
+    ] .
+
+
+#################################################################
+# 人工裁決者分級（B 項）
+#################################################################
+
+ahigsh:HighRiskAdjudicationShape
+    a sh:NodeShape ;
+    sh:targetClass ahig:SynthesizedClaim ;
+    # 修正 fail-open：原條件只擋顯式的 adjudicationLevel="self-adjudicated"。
+    # 欄位整個缺漏時，safety-critical 主張可以直接晉升 Approved ——
+    # 而「沒有記錄誰裁決的」正是契約 C.8 零容忍清單的最後一項
+    # （高風險主張沒有規定的裁決者）。改為正面表列：必須顯式為
+    # expert-adjudicated，其餘（含缺漏、含任何未知值）一律違規。
+    sh:sparql [
+        sh:severity sh:Violation ;
+        sh:message "高風險主張未以 expert-adjudicated 晉升。高風險僅接受 expert-adjudicated，adjudicationLevel 缺漏亦不得晉升。" ;
+        sh:prefixes ahigsh: ;
+        sh:select """
+            SELECT $this WHERE {
+              $this ahig:riskTier "safety-critical" .
+              $this ahig:status "approved" .
+              FILTER NOT EXISTS { $this ahig:adjudicationLevel "expert-adjudicated" }
+            }
+        """ ;
+    ] ;
+    sh:sparql [
+        sh:severity sh:Violation ;
+        sh:message "數值分歧以第三模型或多數決裁決。數值矛盾只能由確定性驗證器或人類專家裁決。" ;
+        sh:prefixes ahigsh: ;
+        sh:select """
+            SELECT $this WHERE {
+              $this ahig:adjudication ?a .
+              ?a ahig:conflictType "numeric" .
+              ?a ahig:resolvedBy ?r .
+              FILTER (?r IN ("third-model", "majority-vote"))
+            }
+        """ ;
+    ] .
+
+
+#################################################################
+# CitationAnchor（沿用 v1，此處補上未涵蓋的硬性條件）
+#################################################################
+
+# sourceManifestation / exactQuote / anchorMethod / uniqueMatch 的必填、
+# 格式與列舉已在 Core 的 ahigsh:CitationAnchorShape；NotebookLM 隔離
+# 已在 Core 以 sh:maxCount 0 做結構阻擋（不需要 SPARQL）。
+ahigsh:CitationAnchorShape
+    a sh:NodeShape ;
+    sh:targetClass ahig:CitationAnchor ;
+    sh:sparql [
+        sh:severity sh:Violation ;
+        sh:message "多重命中卻建立正式 anchor。多重命中不得取第一筆。" ;
+        sh:prefixes ahigsh: ;
+        sh:select """
+            SELECT $this WHERE {
+              $this ahig:uniqueMatch false .
+              $this ahig:supportsApprovedClaim true .
+            }
+        """ ;
+    ] ;
+    sh:sparql [
+        sh:severity sh:Violation ;
+        sh:message "fuzzy anchor 未經人工確認即支撐 Approved Claim。" ;
+        sh:prefixes ahigsh: ;
+        sh:select """
+            SELECT $this WHERE {
+              $this ahig:anchorMethod "fuzzy-accepted" .
+              $this ahig:supportsApprovedClaim true .
+              FILTER NOT EXISTS { $this ahig:humanConfirmedAt ?t }
+            }
+        """ ;
+    ] ;
+    sh:sparql [
+        sh:severity sh:Violation ;
+        sh:message "來源 manifestation hash 已變更但 anchor 未標記 requiresReanchoring。" ;
+        sh:prefixes ahigsh: ;
+        sh:select """
+            SELECT $this WHERE {
+              $this ahig:sourceManifestation ?h .
+              $this ahig:currentManifestationHash ?c .
+              FILTER (?h != ?c)
+              FILTER NOT EXISTS { $this ahig:requiresReanchoring true }
+            }
+        """ ;
+    ] .
+
+
+#################################################################
+# NotebookLM 隔離（P0-1）
+#################################################################
+
+ahigsh:NotebookIsolationShape
+    a sh:NodeShape ;
+    sh:targetClass ahig:CitationAnchor ;
+    sh:sparql [
+        sh:severity sh:Violation ;
+        sh:message "CitationAnchor 直接引用 NotebookLM 執行期座標。這些只能存在於 RetrievalHint。" ;
+        sh:prefixes ahigsh: ;
+        sh:select """
+            SELECT $this WHERE {
+              { $this ahig:notebookSourceId ?x } UNION
+              { $this ahig:notebookChunkId ?x } UNION
+              { $this ahig:notebookCitationNumber ?x } UNION
+              { $this ahig:notebookId ?x }
+            }
+        """ ;
+    ] .

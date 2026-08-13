@@ -1,0 +1,15 @@
+# 零容忍：fuzzy anchor 未經人工確認即支撐 Approved Claim
+# fuzzy 命中代表引文與原文不完全相符，可能是 OCR 差異，也可能是引錯段落。
+# 不經人眼確認就拿來支撐 Approved Claim，等於把不確定性靜默吸收掉。
+#
+# @expect-core: CitationAnchorFuzzyConfirmationShape
+# @expect-sparql: CitationAnchorShape
+@prefix ahig: <https://ahig.local/ns/> .
+
+<urn:ahig:canary:anchor-fuzzy> a ahig:CitationAnchor ;
+    ahig:sourceManifestation "sha256:3333333333333333333333333333333333333333333333333333333333333333" ;
+    ahig:exactQuote "significant improvement in lean body mass" ;
+    ahig:anchorMethod "fuzzy-accepted" ;
+    ahig:uniqueMatch true ;
+    ahig:supportsApprovedClaim true .
+    # 沒有 ahig:humanConfirmedAt

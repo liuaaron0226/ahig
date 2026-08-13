@@ -1,0 +1,22 @@
+# FAIL-OPEN 回歸：approved 但缺 sourceCheckAgeHours
+#
+# 修正前的 SPARQL 需要三個 triple pattern 同時匹配才觸發；少了
+# sourceCheckAgeHours 就整條不執行 = 通過。監控欄位缺漏正是監控壞掉的
+# 徵兆，卻被當成「一切正常」—— 這正是契約 D.1 要解決的問題本身。
+#
+# @expect-core: ClaimVersionMonitoringMeasurableShape
+# @expect-sparql: ClaimVersionMonitoringShape
+@prefix ahig: <https://ahig.local/ns/> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+
+<urn:ahig:canary:cv-missing-age> a ahig:ClaimVersion ;
+    ahig:status "approved" ;
+    ahig:monitoringPolicy <urn:ahig:canary:pol-ga> ;
+    ahig:lastSuccessfulSourceCheckAt "2026-08-01T00:00:00Z"^^xsd:dateTime .
+    # 沒有 ahig:sourceCheckAgeHours
+
+<urn:ahig:canary:pol-ga>
+    ahig:riskTier "general-clinical" ;
+    ahig:maxAgeHours 240 ;
+    ahig:graceHours 12 ;
+    ahig:blocksHealthReasoning false .

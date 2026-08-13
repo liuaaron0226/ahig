@@ -1,0 +1,153 @@
+{
+  "samplingFrameId": "ahig:calibration:b11-carbohydrate:strata",
+  "version": "1.0.0",
+  "scopeContractId": "ahig:scope:b11-exogenous-cho-endurance",
+  "scopeContractHash": "sha256:e027825fce7522cf3965dc9a3d075fa7de12074db7778ca31c7c21e42a0c4e33",
+  "status": "frozen",
+  "frozenAt": "2026-08-13T00:00:00Z",
+  "totalSampleSize": 60,
+  "purpose": "校準集的分層配額。本檔只定義『要抽到什麼形狀的文獻』，不含任何具體文獻。文獻取得屬下一階段，需另行的權利與取得流程。",
+  "samplingMethod": {
+    "design": "stratified-quota",
+    "withinStratumSelection": "random-without-replacement-from-eligible-pool",
+    "seedPolicy": "抽樣種子在文獻池建立當下記錄於批次紀錄，不預先寫入本檔，避免『先看池子再挑種子』。",
+    "ineligibleReplacement": "同層內以下一個隨機序位遞補，並記錄被剔除者的理由碼；不得跨層挪用配額。"
+  },
+  "strata": [
+    {
+      "stratumId": "S1-tt-moderate-dose",
+      "stratumKind": "performance",
+      "label": "計時賽表現 × 中等劑量（30–59.9 g/h）",
+      "quota": 12,
+      "primaryOutcomes": [
+        "tt-completion-time"
+      ],
+      "doseBands": [
+        "moderate"
+      ],
+      "rationale": "本領域最密集的證據區塊。配額最大，用來量測『常見情境』的抽取品質基準。"
+    },
+    {
+      "stratumId": "S2-tt-high-and-very-high-dose",
+      "stratumKind": "performance",
+      "label": "計時賽表現 × 高與極高劑量（≥60 g/h）",
+      "quota": 10,
+      "primaryOutcomes": [
+        "tt-completion-time"
+      ],
+      "doseBands": [
+        "high",
+        "very-high"
+      ],
+      "rationale": "多重可運輸醣類的劑量區。劑量分帶邊界最容易被錯判，且常見多臂設計，用來壓測 SCOPE-008 與 maxStudyResultsPerStudy。"
+    },
+    {
+      "stratumId": "S3-tte",
+      "stratumKind": "performance",
+      "label": "力竭時間",
+      "quota": 8,
+      "primaryOutcomes": [
+        "time-to-exhaustion"
+      ],
+      "doseBands": [
+        "low",
+        "moderate",
+        "high",
+        "very-high"
+      ],
+      "rationale": "與 TT 屬不同 comparabilityClass。刻意納入，用來檢驗抽取端是否會把 TT 與 TTE 併入同一 outcome。"
+    },
+    {
+      "stratumId": "S4-exogenous-oxidation",
+      "stratumKind": "mechanism",
+      "label": "外源性碳水氧化速率（示蹤法）",
+      "quota": 10,
+      "primaryOutcomes": [
+        "exogenous-cho-oxidation-peak"
+      ],
+      "doseBands": [
+        "moderate",
+        "high",
+        "very-high"
+      ],
+      "rationale": "測量方法異質性最高的一層（示蹤劑、背景校正、計算窗）。用來檢驗 blockingConditions 是否真的擋得住不當合併。"
+    },
+    {
+      "stratumId": "S5-gi-harms-primary",
+      "stratumKind": "harms",
+      "label": "以腸胃道不適為主要或共同主要結果",
+      "quota": 8,
+      "primaryOutcomes": [
+        "gi-symptom-incidence",
+        "gi-symptom-severity"
+      ],
+      "doseBands": [
+        "moderate",
+        "high",
+        "very-high"
+      ],
+      "rationale": "GI harms 是本契約的 critical outcome。單獨成層，確保它不是靠 S1–S4 的附帶回報湊數。"
+    },
+    {
+      "stratumId": "S6-gi-harms-secondary-only",
+      "stratumKind": "harms",
+      "label": "GI 症狀僅作為次要或安全性結果回報",
+      "quota": 7,
+      "primaryOutcomes": [
+        "gi-symptom-incidence"
+      ],
+      "doseBands": [
+        "low",
+        "moderate",
+        "high",
+        "very-high"
+      ],
+      "rationale": "harms 最常見的埋藏方式：只出現在正文一句話或補充材料。本層直接量測 completenessAttestation.harmsScan 抓不抓得到。"
+    },
+    {
+      "stratumId": "S7-glycogen",
+      "stratumKind": "mechanism",
+      "label": "肌肉肝醣濃度（生檢法）",
+      "quota": 5,
+      "primaryOutcomes": [
+        "muscle-glycogen-post-exercise"
+      ],
+      "doseBands": [
+        "moderate",
+        "high"
+      ],
+      "rationale": "乾重／濕重基準混用的高風險層。篇數少但必須存在，否則量綱設計得不到任何實證檢驗。"
+    }
+  ],
+  "scopeGoldTargets": {
+    "confidence": 0.95,
+    "scopeRecallMin": 0.95,
+    "falseExclusionRateMax": 0.05,
+    "criticalHarmsFalseExclusionMax": 0,
+    "provableErrorRateUpperBoundAtZeroErrors": 0.0487029,
+    "sufficientForOnePercentCeiling": false,
+    "sampleSizeNoteForOnePercentCeiling": "1% 的 95% 精確上界需要零錯誤下 n=299。60 篇即使零錯誤，可證明的只有 ≤4.87%。本校準集的目的是暴露契約缺陷與量測工時，不是證明品質閘門達標。",
+    "timepointWindowContractErrors": {
+      "mode": "must-be-zero-before-freeze",
+      "rationale": "SCOPE-002b（單一測量點同時落入兩個 in-scope 時窗）純由契約決定，凍結前即可確定性檢出，因此要求為 0，由 freeze_preflight 強制。"
+    },
+    "multipleMeasurementsWithinWindow": {
+      "mode": "measure-only",
+      "rationale": "SCOPE-002c（同一時窗內該研究有多個測量點）取決於文獻本身，凍結前無從得知比率。先量測其分佈，再決定契約要不要改用 take-nearest-to-window-midpoint；先設通過率等於先射箭再畫靶。"
+    }
+  },
+  "calibrationMeasurements": [
+    "autoResolutionCoverage（分歧中由確定性規則消解的比率）",
+    "autoResolutionAccuracy（對照 gold 的正確率）與 majorErrorCount",
+    "雙模型一致但共同錯誤的件數（commonWrongAgreement）",
+    "每篇實際工時，依 TimeLog 的 activityType 分項",
+    "雙審 disagreement rate，依欄位類型分項",
+    "GoldScopeMetrics：scope recall、false exclusion 與 byReasonCode 分佈"
+  ],
+  "deferred": [
+    "文獻搜尋、取得與權利處理",
+    "NotebookLM notebook 建立與引用線索 recall/precision 實測",
+    "各 outcome 的文獻型 MID 登錄（本階段所有 midRef 為 null）",
+    "由本校準集產生任何 Approved Claim"
+  ]
+}

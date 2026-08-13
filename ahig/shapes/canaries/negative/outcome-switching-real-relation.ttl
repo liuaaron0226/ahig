@@ -1,0 +1,43 @@
+# FAIL-OPEN 回歸：outcome switching 的關係方向
+#
+# 修正前的 SPARQL 走 `OutcomeInventory ahig:supports ?sr`，但契約 A.2 與
+# outcome-inventory.schema.json 的正式關係是反向的：
+#   StudyResult ahig:derivedFromOutcomeInventory OutcomeInventory
+# ahig:supports 在 schema 中根本不存在。方向寫反 = 這條規則在真實資料上
+# 永遠不匹配 = 形狀存在但從未生效。
+#
+# 本 canary 刻意「只」使用真實方向（完全不寫 ahig:supports），因此修正前
+# 的形狀對它視而不見。
+#
+# @expect-core: OutcomeSwitchingShape
+# @expect-sparql: OutcomeSwitchingShape
+@prefix ahig: <https://ahig.local/ns/> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+
+<urn:ahig:canary:inv-switch-1> a ahig:OutcomeInventory ;
+    ahig:reportedOutcome <urn:ahig:canary:ro-1> ;
+    ahig:registryComparisonStatus "compared" ;
+    ahig:outcomeSwitchingFlag "primary-outcome-changed-after-registration" .
+
+<urn:ahig:canary:sr-switch-1> a ahig:StudyResult ;
+    ahig:derivedFromOutcomeInventory <urn:ahig:canary:inv-switch-1> ;
+    ahig:prespecificationStatus "prespecified" ;
+    ahig:prespecificationDecidedBy <urn:ahig:canary:agent-model-1> ;
+
+    ahig:scopeContractHash "sha256:0000000000000000000000000000000000000000000000000000000000000000" ;
+    ahig:scopeRuleId "SCOPE-001" ;
+    ahig:study <urn:ahig:canary:study-1> ;
+    ahig:population <urn:ahig:canary:pop-1> ;
+    ahig:intervention <urn:ahig:canary:int-1> ;
+    ahig:comparator <urn:ahig:canary:cmp-1> ;
+    ahig:outcome <urn:ahig:canary:out-1> ;
+    ahig:timepoint <urn:ahig:canary:tp-1> ;
+    ahig:analysisSet "ITT" ;
+    ahig:effectMeasure "MD" ;
+    ahig:statisticalModel "unadjusted" ;
+    ahig:sourceVersion "v1" ;
+    ahig:quantityKind <urn:ahig:qk:pct-1rm> ;
+    ahig:citationAnchor <urn:ahig:canary:anchor-1> ;
+    ahig:deterministicCheckReport <urn:ahig:canary:dcr-1> .
+
+<urn:ahig:canary:agent-model-1> ahig:agentClass "model" .

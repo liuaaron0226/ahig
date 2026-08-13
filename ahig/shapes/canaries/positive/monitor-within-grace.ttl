@@ -1,0 +1,23 @@
+# 正向對照：SLA 在 grace window 內，必須放行
+#
+# age=40，maxAgeHours=36，graceHours=6 → 36+6=42 > 40，未逾期。
+# 這是 negative/monitor-sla-grace-exceeded.ttl（age=45）的對照組。
+#
+# 兩者一起才釘得住「graceHours 真的被計入」：
+#   只有 negative → 把門檻改成 age > 0 也會通過測試
+#   只有 positive → 把整條規則刪掉也會通過測試
+#
+@prefix ahig: <https://ahig.local/ns/> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+
+<urn:ahig:canary:cv-in-grace> a ahig:ClaimVersion ;
+    ahig:status "approved" ;
+    ahig:monitoringPolicy <urn:ahig:canary:pol-grace-ok> ;
+    ahig:lastSuccessfulSourceCheckAt "2026-08-11T08:00:00Z"^^xsd:dateTime ;
+    ahig:sourceCheckAgeHours 40 .
+
+<urn:ahig:canary:pol-grace-ok>
+    ahig:riskTier "safety-critical" ;
+    ahig:maxAgeHours 36 ;
+    ahig:graceHours 6 ;
+    ahig:blocksHealthReasoning true .

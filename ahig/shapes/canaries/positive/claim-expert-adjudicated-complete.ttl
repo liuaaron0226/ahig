@@ -1,0 +1,25 @@
+# 正向對照：safety-critical 主張以 expert-adjudicated 合法晉升
+#
+# 五個相異 GRADE domain 各一筆、certaintyDerivation 由規則導出、
+# 裁決層級為 expert-adjudicated。這是契約允許的高風險晉升路徑。
+#
+# 沒有這個 canary 的話，「把所有 safety-critical 都擋掉」會是滿分解。
+#
+@prefix ahig: <https://ahig.local/ns/> .
+
+<urn:ahig:canary:claim-ok-expert> a ahig:SynthesizedClaim ;
+    ahig:riskTier "safety-critical" ;
+    ahig:status "approved" ;
+    ahig:adjudicationLevel "expert-adjudicated" ;
+    ahig:certainty "moderate" ;
+    ahig:certaintyDerivation "deterministic-rule" ;
+    ahig:studyCount 14 ;
+    ahig:gradeDomainRating <urn:ahig:canary:ok-rob>, <urn:ahig:canary:ok-inc>,
+                           <urn:ahig:canary:ok-ind>, <urn:ahig:canary:ok-imp>,
+                           <urn:ahig:canary:ok-pub> .
+
+<urn:ahig:canary:ok-rob> ahig:domain "risk-of-bias" ;     ahig:rating "not-serious" .
+<urn:ahig:canary:ok-inc> ahig:domain "inconsistency" ;    ahig:rating "serious" .
+<urn:ahig:canary:ok-ind> ahig:domain "indirectness" ;     ahig:rating "not-serious" .
+<urn:ahig:canary:ok-imp> ahig:domain "imprecision" ;      ahig:rating "not-serious" .
+<urn:ahig:canary:ok-pub> ahig:domain "publication-bias" ; ahig:rating "not-serious" .

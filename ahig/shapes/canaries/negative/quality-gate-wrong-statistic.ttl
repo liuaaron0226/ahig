@@ -1,0 +1,20 @@
+# 零容忍：以 Cohen κ 取代 Gwet AC1 作為主指標
+# 契約 C.7 實測：在 prevalence 偏斜的欄位上，κ 系統性低估一致性約 0.2
+# （AC1 0.830 vs κ 0.622）。κ 仍需併同報告，但不得當主指標。
+#
+# 這裡同時缺 goldSetAccuracy —— agreement 達標不得取代 gold-set accuracy。
+#
+# 這些全是必填／列舉條件，屬 Core 的責任範圍；SPARQL profile 不重複，
+# 所以本 canary 只跑 core。
+#
+# @expect-core: PS-agreementStatistic, PS-alsoReported, PS-goldSetAccuracy
+# @profiles: core
+@prefix ahig: <https://ahig.local/ns/> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+
+<urn:ahig:canary:gate-wrong-stat> a ahig:BatchQualityGate ;
+    ahig:nonCriticalErrorCeiling "0.05"^^xsd:decimal ;
+    ahig:sampleSize 300 ;
+    ahig:agreementStatistic "cohen-kappa" ;
+    ahig:alsoReported "positive-agreement" .
+    # 沒有 goldSetAccuracy，alsoReported 也只有 1 項（需 4 項）

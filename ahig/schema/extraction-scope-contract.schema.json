@@ -1,0 +1,717 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ahig.local/schema/extraction-scope-contract/1.0.0",
+  "title": "ExtractionScopeContract",
+  "description": "抽取範圍契約。解決 StudyResult 粒度爆炸：StudyResult 的產生量不由『論文報告了什麼』決定，而由本契約預先凍結的研究問題決定。凍結後 hash 寫入每一個由此產生的 StudyResult 的 provenance。",
+  "type": "object",
+  "required": [
+    "scopeContractId",
+    "version",
+    "status",
+    "canonicalCompetency",
+    "derivedFromSearchContract",
+    "researchQuestion",
+    "inScopeOutcomes",
+    "inScopeTimepoints",
+    "inScopeAnalysisSets",
+    "inScopeEffectMeasures",
+    "extractionPolicy",
+    "outcomeInventoryPolicy",
+    "provenance"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "scopeContractId": {
+      "type": "string",
+      "pattern": "^ahig:scope:[a-z0-9-]+$"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "status": {
+      "enum": [
+        "draft",
+        "frozen",
+        "superseded"
+      ]
+    },
+    "frozenAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "scopeContractHash": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$",
+      "description": "對本文件正規化 JCS 序列化後的 SHA-256。status=frozen 時必填。"
+    },
+    "supersedes": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "canonicalCompetency": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string"
+      },
+      "description": "本契約服務的 canonical 能力節點。可多個（共享節點）。"
+    },
+    "sourceCompetencyEntries": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "映射到上述 canonical 節點的原始 140 條目 ID，供分母報表使用。"
+    },
+    "derivedFromSearchContract": {
+      "type": "object",
+      "required": [
+        "searchContractId",
+        "version",
+        "hash"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "searchContractId": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        },
+        "hash": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        }
+      }
+    },
+    "researchQuestion": {
+      "type": "object",
+      "required": [
+        "population",
+        "interventionOrExposure",
+        "comparator",
+        "questionType"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "population": {
+          "$ref": "#/$defs/populationSpec"
+        },
+        "interventionOrExposure": {
+          "$ref": "#/$defs/interventionSpec"
+        },
+        "comparator": {
+          "$ref": "#/$defs/comparatorSpec"
+        },
+        "questionType": {
+          "enum": [
+            "efficacy",
+            "harm",
+            "prognosis",
+            "diagnosis",
+            "prevalence",
+            "mechanism",
+            "measurement-property"
+          ]
+        },
+        "narrative": {
+          "type": "string"
+        }
+      }
+    },
+    "inScopeOutcomes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "outcomeId",
+          "label",
+          "role",
+          "quantityKind",
+          "comparabilityClass"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "outcomeId": {
+            "type": "string"
+          },
+          "label": {
+            "type": "string"
+          },
+          "conceptRef": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "外部詞彙 IRI（SNOMED CT / LOINC / MeSH / 本地）"
+          },
+          "role": {
+            "enum": [
+              "critical",
+              "important",
+              "supporting"
+            ],
+            "description": "GRADE 意義下的重要性，決定是否進入 SoF 表"
+          },
+          "quantityKind": {
+            "type": "string",
+            "description": "指向 QuantityKindRegistry 的 ID。決定單位換算與可比性。"
+          },
+          "comparabilityClass": {
+            "type": "string",
+            "description": "同一 class 內的測量工具才可跨研究直接合併。"
+          },
+          "allowedInstruments": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "空陣列 = 不限制。列出時，非清單內的測量工具即為 out-of-scope。"
+          },
+          "midRef": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "指向 MIDRegistry 的 ID。GRADE imprecision 判定必要；為 null 時 imprecision 只能以 OIS 判定並標記 midUnavailable。"
+          },
+          "directionOfBenefit": {
+            "enum": [
+              "higher-is-better",
+              "lower-is-better",
+              "non-directional"
+            ]
+          }
+        }
+      }
+    },
+    "inScopeTimepoints": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "timepointId",
+          "label",
+          "windowStart",
+          "windowEnd",
+          "unit"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "timepointId": {
+            "type": "string"
+          },
+          "label": {
+            "type": "string"
+          },
+          "windowStart": {
+            "type": "number"
+          },
+          "windowEnd": {
+            "type": "number"
+          },
+          "unit": {
+            "enum": [
+              "hour",
+              "day",
+              "week",
+              "month",
+              "year",
+              "session"
+            ]
+          },
+          "onMultipleMatchesWithinWindow": {
+            "enum": [
+              "take-nearest-to-window-midpoint",
+              "take-latest",
+              "take-all",
+              "escalate"
+            ],
+            "default": "escalate",
+            "description": "同一研究在同一時窗內有多個測量點時的確定性規則。預設 escalate，避免靜默選擇。"
+          }
+        }
+      }
+    },
+    "inScopeAnalysisSets": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "enum": [
+          "ITT",
+          "mITT",
+          "PP",
+          "AT",
+          "complete-case",
+          "unspecified"
+        ]
+      }
+    },
+    "inScopeEffectMeasures": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "enum": [
+          "MD",
+          "SMD",
+          "ratio-of-means",
+          "RR",
+          "OR",
+          "HR",
+          "RD",
+          "IRR",
+          "correlation",
+          "AUC",
+          "sensitivity-specificity",
+          "proportion",
+          "mean",
+          "median"
+        ]
+      }
+    },
+    "inScopeStatisticalModels": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "unadjusted",
+          "adjusted-prespecified",
+          "adjusted-posthoc",
+          "mixed-effects",
+          "ancova",
+          "survival",
+          "any"
+        ]
+      },
+      "default": [
+        "unadjusted",
+        "adjusted-prespecified"
+      ]
+    },
+    "inScopeStudyDesigns": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "RCT-parallel",
+          "RCT-crossover",
+          "RCT-cluster",
+          "non-randomised-intervention",
+          "cohort-prospective",
+          "cohort-retrospective",
+          "case-control",
+          "cross-sectional",
+          "case-series",
+          "case-report",
+          "systematic-review",
+          "guideline",
+          "consensus-statement",
+          "narrative-review",
+          "in-vitro",
+          "animal"
+        ]
+      }
+    },
+    "extractionPolicy": {
+      "type": "object",
+      "required": [
+        "subgroupPolicy",
+        "sensitivityAnalysisPolicy",
+        "adjustedModelPolicy",
+        "onOutOfScope",
+        "maxStudyResultsPerStudy"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "subgroupPolicy": {
+          "enum": [
+            "exclude-all",
+            "prespecified-only",
+            "listed-only",
+            "all"
+          ],
+          "default": "prespecified-only"
+        },
+        "listedSubgroups": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "sensitivityAnalysisPolicy": {
+          "enum": [
+            "exclude",
+            "extract-if-primary-fails-rob",
+            "extract-all"
+          ],
+          "default": "exclude"
+        },
+        "adjustedModelPolicy": {
+          "enum": [
+            "primary-model-only",
+            "both-unadjusted-and-primary",
+            "all"
+          ],
+          "default": "primary-model-only"
+        },
+        "onOutOfScope": {
+          "const": "record-in-outcome-inventory-only",
+          "description": "超出範圍者一律只登錄於 OutcomeInventory，不建立 StudyResult。不得靜默丟棄。"
+        },
+        "maxStudyResultsPerStudy": {
+          "type": "integer",
+          "minimum": 1,
+          "default": 12,
+          "description": "硬上限。超過即 escalate，代表範圍契約定義過寬，須人工複審而非自動擴張。"
+        },
+        "onExceedMax": {
+          "enum": [
+            "escalate",
+            "truncate-never"
+          ],
+          "default": "escalate"
+        }
+      }
+    },
+    "outcomeInventoryPolicy": {
+      "type": "object",
+      "required": [
+        "required",
+        "completeness"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "required": {
+          "const": true,
+          "description": "必須完整登錄該論文報告的所有 outcome，即使絕大多數不抽取。這是 outcome-switching 偵測與日後 backfill 的唯一依據。"
+        },
+        "completeness": {
+          "enum": [
+            "all-reported-outcomes",
+            "all-reported-outcomes-plus-registry-comparison"
+          ],
+          "default": "all-reported-outcomes-plus-registry-comparison"
+        },
+        "registrySources": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "ClinicalTrials.gov",
+              "ANZCTR",
+              "ISRCTN",
+              "ChiCTR",
+              "UMIN-CTR",
+              "EudraCT",
+              "CTIS",
+              "OSF",
+              "PROSPERO",
+              "other"
+            ]
+          }
+        }
+      }
+    },
+    "backfillPolicy": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "triggers": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "scope-contract-version-bump",
+              "new-canonical-competency-mapped",
+              "user-ad-hoc-question-outside-scope",
+              "mid-registry-update",
+              "search-contract-version-bump"
+            ]
+          }
+        },
+        "backfillFromInventory": {
+          "type": "boolean",
+          "default": true,
+          "description": "true 時，範圍擴張不必重讀論文，直接從 OutcomeInventory 找出新進範圍的組合。"
+        }
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "required": [
+        "authoredBy",
+        "approvedBy",
+        "createdAt"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "authoredBy": {
+          "type": "string"
+        },
+        "approvedBy": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": [
+              "agent",
+              "agentClass",
+              "at"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "agent": {
+                "type": "string"
+              },
+              "agentClass": {
+                "enum": [
+                  "human-expert",
+                  "human-self",
+                  "model",
+                  "deterministic"
+                ]
+              },
+              "at": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "note": {
+                "type": "string"
+              }
+            }
+          },
+          "description": "範圍契約是知識判斷，不得僅由模型核准。至少一名 agentClass 為 human-* 者。",
+          "contains": {
+            "properties": {
+              "agentClass": {
+                "enum": [
+                  "human-self",
+                  "human-expert"
+                ]
+              }
+            },
+            "required": [
+              "agentClass"
+            ]
+          },
+          "minContains": 1
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "modelAssistance": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "modelVersion": {
+              "type": "string"
+            },
+            "promptHash": {
+              "type": "string"
+            },
+            "llmDrafted": {
+              "type": "boolean"
+            }
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "populationSpec": {
+      "type": "object",
+      "required": [
+        "label"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "label": {
+          "type": "string"
+        },
+        "ageRange": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "minYears": {
+              "type": "number"
+            },
+            "maxYears": {
+              "type": "number"
+            }
+          }
+        },
+        "sex": {
+          "enum": [
+            "any",
+            "female",
+            "male",
+            "mixed-reported-separately"
+          ]
+        },
+        "trainingStatus": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "untrained",
+              "recreationally-active",
+              "trained",
+              "highly-trained",
+              "elite",
+              "clinical",
+              "any"
+            ]
+          }
+        },
+        "inclusionCriteria": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "exclusionCriteria": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "interventionSpec": {
+      "type": "object",
+      "required": [
+        "label"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "label": {
+          "type": "string"
+        },
+        "doseRange": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "min": {
+              "type": "number"
+            },
+            "max": {
+              "type": "number"
+            },
+            "unit": {
+              "type": "string",
+              "description": "UCUM code 或 QuantityKindRegistry ID"
+            },
+            "perBodyMass": {
+              "type": "boolean",
+              "default": false
+            }
+          }
+        },
+        "durationRange": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "min": {
+              "type": "number"
+            },
+            "max": {
+              "type": "number"
+            },
+            "unit": {
+              "enum": [
+                "day",
+                "week",
+                "month",
+                "year",
+                "session"
+              ]
+            }
+          }
+        },
+        "separateStudyResultPerDoseBand": {
+          "type": "boolean",
+          "default": true
+        },
+        "doseBands": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "bandId",
+              "min",
+              "max",
+              "unit"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "bandId": {
+                "type": "string"
+              },
+              "min": {
+                "type": "number"
+              },
+              "max": {
+                "type": "number"
+              },
+              "unit": {
+                "type": "string"
+              }
+            }
+          },
+          "description": "明確列出劑量分帶，避免『不同劑量就拆一個 StudyResult』被無限套用。"
+        }
+      }
+    },
+    "comparatorSpec": {
+      "type": "object",
+      "required": [
+        "types"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "types": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "enum": [
+              "placebo",
+              "no-intervention",
+              "usual-care",
+              "active-comparator",
+              "dose-comparison",
+              "within-subject-baseline",
+              "other"
+            ]
+          }
+        },
+        "activeComparatorAllowlist": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "frozen"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "required": [
+          "frozenAt",
+          "scopeContractHash"
+        ]
+      }
+    }
+  ]
+}

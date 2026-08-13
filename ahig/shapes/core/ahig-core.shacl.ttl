@@ -1,0 +1,763 @@
+@prefix sh:     <http://www.w3.org/ns/shacl#> .
+@prefix xsd:    <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:    <http://www.w3.org/2002/07/owl#> .
+@prefix ahig:   <https://ahig.local/ns/> .
+@prefix ahigsh: <https://ahig.local/shapes/> .
+
+#################################################################
+# AHIG v2.1 —— SHACL 1.0 Core profile
+#
+# 本檔的定位（與 shapes/sparql/ahig-v2.1.shacl.ttl 的分工）：
+#
+#   Core   = 結構阻擋的唯一必要防線。純 SHACL 1.0 Core，不含任何
+#            sh:sparql。任何合格的 SHACL 驗證器都必須能完整執行它。
+#   SPARQL = pinned audit。表達 Core 表達不了的跨節點條件，但它是
+#            「額外的一層」，不是唯一防線。SPARQL 擴充在不同驗證器上
+#            的支援程度不一，把零容忍條件單獨押在 sh:sparql 上，等於
+#            接受「換一個驗證器就全面 fail-open」。
+#
+# 兩條硬性慣例：
+#
+#   1. 每個 property shape 都有具名 IRI（ahigsh:PS-*）。匿名 property
+#      shape 會讓違規報告的 sh:sourceShape 變成 blank node，稽核時
+#      無法回推是哪一條規則被觸發。
+#   2. 每個 property shape 自帶 sh:severity。繼承而來的 severity 無法
+#      逐條調整，也無法在報告裡分辨零容忍項與提示項。
+#
+# fail-closed 原則：缺欄位一律視為違規，不得因為「沒有資料可比對」
+# 而讓節點通過。所有條件式規則都寫成
+#     sh:or ( [ sh:not <前提> ] <結論> )
+# 這個 Core 慣用法：前提不成立 → 通過；前提成立 → 必須滿足結論。
+#################################################################
+
+ahigsh: a owl:Ontology ;
+    rdfs:label "AHIG SHACL shapes namespace" .
+
+
+#################################################################
+# Gap A —— StudyResult 必須可回溯到凍結的抽取範圍契約
+#################################################################
+
+ahigsh:PS-scopeContractHash a sh:PropertyShape ;
+    sh:path ahig:scopeContractHash ;
+    sh:minCount 1 ; sh:maxCount 1 ;
+    sh:nodeKind sh:Literal ;
+    sh:pattern "^sha256:[0-9a-f]{64}$" ;
+    sh:severity sh:Violation ;
+    sh:message "每個 StudyResult 必須記錄產生它的 ExtractionScopeContract hash。" .
+
+ahigsh:PS-scopeRuleId a sh:PropertyShape ;
+    sh:path ahig:scopeRuleId ;
+    sh:minCount 1 ;
+    sh:nodeKind sh:Literal ;
+    sh:pattern "^SCOPE-" ;
+    sh:severity sh:Violation ;
+    sh:message "必須記錄判定其在範圍內的具名規則 ID。" .
+
+ahigsh:PS-derivedFromOutcomeInventory a sh:PropertyShape ;
+    sh:path ahig:derivedFromOutcomeInventory ;
+    sh:minCount 1 ; sh:maxCount 1 ;
+    sh:nodeKind sh:IRI ;
+    sh:severity sh:Violation ;
+    sh:message "StudyResult 必須連回 OutcomeInventory；否則無法區分『未抽取』與『不存在』。" .
+
+ahigsh:PS-study a sh:PropertyShape ;
+    sh:path ahig:study ; sh:minCount 1 ; sh:maxCount 1 ;
+    sh:severity sh:Violation ; sh:message "原子 tuple 維度缺漏：study。" .
+
+ahigsh:PS-population a sh:PropertyShape ;
+    sh:path ahig:population ; sh:minCount 1 ; sh:maxCount 1 ;
+    sh:severity sh:Violation ; sh:message "原子 tuple 維度缺漏：population。" .
+
+ahigsh:PS-intervention a sh:PropertyShape ;
+    sh:path ahig:intervention ; sh:minCount 1 ; sh:maxCount 1 ;
+    sh:severity sh:Violation ; sh:message "原子 tuple 維度缺漏：intervention。" .
+
+ahigsh:PS-comparator a sh:PropertyShape ;
+    sh:path ahig:comparator ; sh:minCount 1 ; sh:maxCount 1 ;
+    sh:severity sh:Violation ; sh:message "原子 tuple 維度缺漏：comparator。" .
+
+ahigsh:PS-outcome a sh:PropertyShape ;
+    sh:path ahig:outcome ; sh:minCount 1 ; sh:maxCount 1 ;
+    sh:severity sh:Violation ; sh:message "原子 tuple 維度缺漏：outcome。" .
+
+ahigsh:PS-timepoint a sh:PropertyShape ;
+    sh:path ahig:timepoint ; sh:minCount 1 ; sh:maxCount 1 ;
+    sh:severity sh:Violation ; sh:message "原子 tuple 維度缺漏：timepoint。" .
+
+ahigsh:PS-analysisSet a sh:PropertyShape ;
+    sh:path ahig:analysisSet ; sh:minCount 1 ; sh:maxCount 1 ;
+    sh:severity sh:Violation ; sh:message "原子 tuple 維度缺漏：analysisSet。" .
+
+ahigsh:PS-effectMeasure a sh:PropertyShape ;
+    sh:path ahig:effectMeasure ; sh:minCount 1 ; sh:maxCount 1 ;
+    sh:severity sh:Violation ; sh:message "原子 tuple 維度缺漏：effectMeasure。" .
+
+ahigsh:PS-statisticalModel a sh:PropertyShape ;
+    sh:path ahig:statisticalModel ; sh:minCount 1 ; sh:maxCount 1 ;
+    sh:severity sh:Violation ; sh:message "原子 tuple 維度缺漏：statisticalModel。" .
+
+ahigsh:PS-sourceVersion a sh:PropertyShape ;
+    sh:path ahig:sourceVersion ; sh:minCount 1 ; sh:maxCount 1 ;
+    sh:severity sh:Violation ; sh:message "原子 tuple 維度缺漏：sourceVersion。" .
+
+ahigsh:PS-quantityKind a sh:PropertyShape ;
+    sh:path ahig:quantityKind ;
+    sh:minCount 1 ; sh:maxCount 1 ;
+    sh:nodeKind sh:IRI ;
+    sh:severity sh:Violation ;
+    sh:message "必須指向 QuantityKindRegistry；不得只寫自由文字單位。" .
+
+ahigsh:PS-citationAnchor a sh:PropertyShape ;
+    sh:path ahig:citationAnchor ;
+    sh:minCount 1 ;
+    sh:nodeKind sh:IRI ;
+    sh:severity sh:Violation ;
+    sh:message "每個 StudyResult 至少需一個穩定 CitationAnchor。" .
+
+ahigsh:PS-deterministicCheckReport a sh:PropertyShape ;
+    sh:path ahig:deterministicCheckReport ;
+    sh:minCount 1 ; sh:maxCount 1 ;
+    sh:severity sh:Violation ;
+    sh:message "必須附確定性統計檢查報告。" .
+
+ahigsh:StudyResultShape a sh:NodeShape ;
+    sh:targetClass ahig:StudyResult ;
+    rdfs:comment "StudyResult 的存在必須有範圍契約授權，否則粒度無法控制。" ;
+    sh:property ahigsh:PS-scopeContractHash ,
+                ahigsh:PS-scopeRuleId ,
+                ahigsh:PS-derivedFromOutcomeInventory ,
+                ahigsh:PS-study ,
+                ahigsh:PS-population ,
+                ahigsh:PS-intervention ,
+                ahigsh:PS-comparator ,
+                ahigsh:PS-outcome ,
+                ahigsh:PS-timepoint ,
+                ahigsh:PS-analysisSet ,
+                ahigsh:PS-effectMeasure ,
+                ahigsh:PS-statisticalModel ,
+                ahigsh:PS-sourceVersion ,
+                ahigsh:PS-quantityKind ,
+                ahigsh:PS-citationAnchor ,
+                ahigsh:PS-deterministicCheckReport .
+
+
+ahigsh:PS-pointEstimate a sh:PropertyShape ;
+    sh:path ahig:pointEstimate ;
+    sh:minCount 1 ; sh:maxCount 1 ;
+    sh:datatype xsd:decimal ;
+    sh:severity sh:Violation ;
+    sh:message "量化 StudyResult 必須有點估計。" .
+
+ahigsh:PS-uncertaintyInterval a sh:PropertyShape ;
+    sh:path ahig:uncertaintyInterval ;
+    sh:minCount 1 ;
+    sh:severity sh:Violation ;
+    sh:message "量化 StudyResult 必須有不確定性區間；原文未提供時只能存為缺失事實，不得建立量化節點。" .
+
+ahigsh:QuantitativeStudyResultShape a sh:NodeShape ;
+    sh:targetClass ahig:QuantitativeStudyResult ;
+    sh:property ahigsh:PS-pointEstimate ,
+                ahigsh:PS-uncertaintyInterval .
+
+
+#################################################################
+# Gap A —— OutcomeInventory 完整性
+#################################################################
+
+ahigsh:PS-reportedOutcome a sh:PropertyShape ;
+    sh:path ahig:reportedOutcome ;
+    sh:minCount 1 ;
+    sh:severity sh:Violation ;
+    sh:message "OutcomeInventory 不得為空；空清單無法支撐任何 notExtracted 標記。" .
+
+ahigsh:PS-registryComparisonStatus a sh:PropertyShape ;
+    sh:path ahig:registryComparisonStatus ;
+    sh:minCount 1 ; sh:maxCount 1 ;
+    sh:in ( "compared" "no-registration-found" "registry-record-inaccessible"
+            "not-applicable-non-interventional" "pending" ) ;
+    sh:severity sh:Violation ;
+    sh:message "registryComparisonStatus 必須是列舉值之一。" .
+
+ahigsh:OutcomeInventoryShape a sh:NodeShape ;
+    sh:targetClass ahig:OutcomeInventory ;
+    sh:property ahigsh:PS-reportedOutcome ,
+                ahigsh:PS-registryComparisonStatus .
+
+
+#################################################################
+# Gap A —— outcome switching：prespecification 的裁決者必須是人
+#
+# 已修正的 fail-open：
+#
+#   (1) 關係方向。舊 SPARQL 走 `OutcomeInventory ahig:supports ?sr`，
+#       但契約與 schema 的正式關係是反向的：
+#       `StudyResult ahig:derivedFromOutcomeInventory OutcomeInventory`。
+#       方向寫反 → 真實資料永遠不匹配 → 靜默 fail-open。
+#       Core 版本改由 StudyResult 這一側 target，走真實方向。
+#
+#   (2) 缺欄位。舊 SPARQL 要求 `?agent ahig:agentClass "model"` 才觸發；
+#       完全沒記錄裁決者的 StudyResult 反而通過。現在改為：宣稱
+#       prespecified 就必須有裁決者、且該裁決者必須是人類。
+#
+# 前提：StudyResult 的 prespecificationStatus = "prespecified"，
+#       且其來源 OutcomeInventory 帶有 outcomeSwitchingFlag。
+# 結論：必須有 prespecificationDecidedBy，且其 agentClass 為人類類別。
+#################################################################
+
+ahigsh:PS-switchingFlaggedInventory a sh:PropertyShape ;
+    sh:path ( ahig:derivedFromOutcomeInventory ahig:outcomeSwitchingFlag ) ;
+    sh:minCount 1 ;
+    sh:severity sh:Violation ;
+    sh:message "來源 OutcomeInventory 帶有 outcome switching flag。" .
+
+ahigsh:PS-claimsPrespecified a sh:PropertyShape ;
+    sh:path ahig:prespecificationStatus ;
+    sh:hasValue "prespecified" ;
+    sh:minCount 1 ;
+    sh:severity sh:Violation ;
+    sh:message "prespecificationStatus 宣稱為 prespecified。" .
+
+ahigsh:OutcomeSwitchingPreconditionShape a sh:NodeShape ;
+    rdfs:comment "前提：被 switching flag 標記的來源，且自稱 prespecified。" ;
+    sh:property ahigsh:PS-switchingFlaggedInventory ,
+                ahigsh:PS-claimsPrespecified .
+
+ahigsh:PS-prespecificationDecidedByHuman a sh:PropertyShape ;
+    sh:path ( ahig:prespecificationDecidedBy ahig:agentClass ) ;
+    sh:minCount 1 ;
+    sh:in ( "human-self" "human-expert" ) ;
+    sh:severity sh:Violation ;
+    sh:message "prespecification 的裁決者必須存在且為人類（human-self 或 human-expert）。" .
+
+ahigsh:OutcomeSwitchingDecidedByHumanShape a sh:NodeShape ;
+    sh:property ahigsh:PS-prespecificationDecidedByHuman .
+
+ahigsh:OutcomeSwitchingShape a sh:NodeShape ;
+    sh:targetClass ahig:StudyResult ;
+    rdfs:comment "偵測到 outcome switching 時，prespecification 不得由模型單獨判定，也不得無人裁決。" ;
+    sh:severity sh:Violation ;
+    sh:message "偵測到 outcome switching flag，但關聯 StudyResult 的 prespecificationStatus 未經人類裁決即標為 prespecified。" ;
+    sh:or ( [ sh:not ahigsh:OutcomeSwitchingPreconditionShape ]
+            ahigsh:OutcomeSwitchingDecidedByHumanShape ) .
+
+
+#################################################################
+# Gap C —— 品質閘門
+#################################################################
+
+ahigsh:PS-nonCriticalErrorCeiling a sh:PropertyShape ;
+    sh:path ahig:nonCriticalErrorCeiling ;
+    sh:minCount 1 ; sh:maxCount 1 ;
+    sh:datatype xsd:decimal ;
+    sh:severity sh:Violation ;
+    sh:message "必須宣告 nonCriticalErrorCeiling。" .
+
+ahigsh:PS-sampleSize a sh:PropertyShape ;
+    sh:path ahig:sampleSize ;
+    sh:minCount 1 ; sh:maxCount 1 ;
+    sh:datatype xsd:integer ;
+    sh:minInclusive 1 ;
+    sh:severity sh:Violation ;
+    sh:message "必須宣告 sampleSize。" .
+
+ahigsh:PS-agreementStatistic a sh:PropertyShape ;
+    sh:path ahig:agreementStatistic ;
+    sh:minCount 1 ;
+    sh:in ( "gwet-ac1" ) ;
+    sh:severity sh:Violation ;
+    sh:message "類別型抽取的主指標必須是 Gwet AC1（對 prevalence 偏斜穩健）。" .
+
+ahigsh:PS-alsoReported a sh:PropertyShape ;
+    sh:path ahig:alsoReported ;
+    sh:minCount 4 ;
+    sh:severity sh:Violation ;
+    sh:message "必須同時報告 positive agreement、negative agreement、完整交叉表與 Cohen κ。" .
+
+ahigsh:PS-goldSetAccuracy a sh:PropertyShape ;
+    sh:path ahig:goldSetAccuracy ;
+    sh:minCount 1 ;
+    sh:severity sh:Violation ;
+    sh:message "agreement 達標不得取代 gold-set accuracy，後者必須獨立報告。" .
+
+ahigsh:QualityGateShape a sh:NodeShape ;
+    sh:targetClass ahig:BatchQualityGate ;
+    rdfs:comment "抽樣數必須足以驗證所宣稱的門檻。rule of three 的算術比較留在 SPARQL profile。" ;
+    sh:property ahigsh:PS-nonCriticalErrorCeiling ,
+                ahigsh:PS-sampleSize ,
+                ahigsh:PS-agreementStatistic ,
+                ahigsh:PS-alsoReported ,
+                ahigsh:PS-goldSetAccuracy .
+
+
+#################################################################
+# Gap D —— 監控 fail-safe
+#
+# 已修正的 fail-open：
+#
+#   (1) 缺欄位即通過。舊 SPARQL 的 FILTER 只在
+#       maxAgeHours 與 sourceCheckAgeHours 同時存在時才可能匹配；
+#       任一缺漏 → 不匹配 → 通過。監控資料缺漏正是監控壞掉的徵兆，
+#       必須 fail-closed。Core 在此強制兩個欄位都必填。
+#
+#   (2) graceHours 被忽略。契約 D.3 的判準是
+#       `now − lastSuccessfulCheckAt > (maxAgeHours + graceHours)`，
+#       舊 SPARQL 只比 maxAgeHours，等於把 grace 當成 0，
+#       在 grace 內的正常抖動會被誤擋（fail-closed 過頭），
+#       而真正的判準從未被實作。算術比較在 SPARQL profile，
+#       Core 這邊負責確保 graceHours 一定存在、可被比較。
+#
+#   (3) safety-critical 只擋顯式 false。舊 SPARQL 要求
+#       `?p ahig:blocksHealthReasoning false` 才觸發；整個欄位缺漏時通過。
+#       現在改為：safety-critical 的 policy 必須顯式帶 true。
+#################################################################
+
+ahigsh:PS-monitoringPolicy a sh:PropertyShape ;
+    sh:path ahig:monitoringPolicy ;
+    sh:minCount 1 ; sh:maxCount 1 ;
+    sh:nodeKind sh:IRI ;
+    sh:severity sh:Violation ;
+    sh:message "每個 ClaimVersion 必須綁定一個 MonitoringPolicy。" .
+
+ahigsh:PS-lastSuccessfulSourceCheckAt a sh:PropertyShape ;
+    sh:path ahig:lastSuccessfulSourceCheckAt ;
+    sh:minCount 1 ; sh:maxCount 1 ;
+    sh:datatype xsd:dateTime ;
+    sh:severity sh:Violation ;
+    sh:message "必須記錄『最近一次成功』的來源狀態檢查時間，而非最近一次嘗試時間。" .
+
+# 數值型別刻意不鎖死 xsd:decimal —— 這是計算出來的欄位，寫成 12 或 12.5
+# 都合理。改以 nodeKind + minInclusive 保證它「可被比較」，缺漏或非數值
+# 一律違規。
+ahigsh:PS-sourceCheckAgeHours a sh:PropertyShape ;
+    sh:path ahig:sourceCheckAgeHours ;
+    sh:minCount 1 ; sh:maxCount 1 ;
+    sh:nodeKind sh:Literal ;
+    sh:minInclusive 0 ;
+    sh:severity sh:Violation ;
+    sh:message "缺少 sourceCheckAgeHours 時 SLA 無法計算；監控資料缺漏必須 fail-closed，不得視為新鮮。" .
+
+# maxAgeHours / graceHours 的型別與 schema/monitoring.schema.json 對齊
+# （兩者在該 schema 中都是 integer）。
+ahigsh:PS-policyMaxAgeHours a sh:PropertyShape ;
+    sh:path ( ahig:monitoringPolicy ahig:maxAgeHours ) ;
+    sh:minCount 1 ; sh:maxCount 1 ;
+    sh:datatype xsd:integer ;
+    sh:minInclusive 1 ;
+    sh:severity sh:Violation ;
+    sh:message "MonitoringPolicy 必須宣告 maxAgeHours，否則 SLA 無從比較。" .
+
+ahigsh:PS-policyGraceHours a sh:PropertyShape ;
+    sh:path ( ahig:monitoringPolicy ahig:graceHours ) ;
+    sh:minCount 1 ; sh:maxCount 1 ;
+    sh:datatype xsd:integer ;
+    sh:minInclusive 0 ;
+    sh:severity sh:Violation ;
+    sh:message "MonitoringPolicy 必須顯式宣告 graceHours（可為 0），否則 SLA 判準不可重現。" .
+
+ahigsh:PS-approvedStatus a sh:PropertyShape ;
+    sh:path ahig:status ;
+    sh:hasValue "approved" ;
+    sh:minCount 1 ;
+    sh:severity sh:Violation ;
+    sh:message "status = approved。" .
+
+ahigsh:ApprovedClaimVersionShape a sh:NodeShape ;
+    rdfs:comment "前提：ClaimVersion 已晉升為 approved。" ;
+    sh:property ahigsh:PS-approvedStatus .
+
+ahigsh:MonitoringMeasurableShape a sh:NodeShape ;
+    rdfs:comment "結論：SLA 的三個運算元都必須在場且型別正確。" ;
+    sh:property ahigsh:PS-sourceCheckAgeHours ,
+                ahigsh:PS-policyMaxAgeHours ,
+                ahigsh:PS-policyGraceHours .
+
+ahigsh:PS-policySafetyCritical a sh:PropertyShape ;
+    sh:path ( ahig:monitoringPolicy ahig:riskTier ) ;
+    sh:hasValue "safety-critical" ;
+    sh:minCount 1 ;
+    sh:severity sh:Violation ;
+    sh:message "riskTier = safety-critical。" .
+
+ahigsh:SafetyCriticalPolicyShape a sh:NodeShape ;
+    rdfs:comment "前提：綁定的 MonitoringPolicy 屬 safety-critical。" ;
+    sh:property ahigsh:PS-policySafetyCritical .
+
+ahigsh:PS-policyBlocksHealthReasoning a sh:PropertyShape ;
+    sh:path ( ahig:monitoringPolicy ahig:blocksHealthReasoning ) ;
+    sh:minCount 1 ; sh:maxCount 1 ;
+    sh:datatype xsd:boolean ;
+    sh:hasValue true ;
+    sh:severity sh:Violation ;
+    sh:message "safety-critical 的 MonitoringPolicy 必須顯式設 blocksHealthReasoning=true；欄位缺漏不得視為 false 以外的任何寬鬆解讀。" .
+
+ahigsh:BlocksHealthReasoningShape a sh:NodeShape ;
+    sh:property ahigsh:PS-policyBlocksHealthReasoning .
+
+ahigsh:ClaimVersionMonitoringShape a sh:NodeShape ;
+    sh:targetClass ahig:ClaimVersion ;
+    rdfs:comment "監控失效與來源撤稿在安全方向上必須表現一致。" ;
+    sh:property ahigsh:PS-monitoringPolicy ,
+                ahigsh:PS-lastSuccessfulSourceCheckAt .
+
+ahigsh:ClaimVersionMonitoringMeasurableShape a sh:NodeShape ;
+    sh:targetClass ahig:ClaimVersion ;
+    rdfs:comment "approved 的 ClaimVersion 必須讓 SLA 可被實際計算。" ;
+    sh:severity sh:Violation ;
+    sh:message "approved 的 ClaimVersion 缺少 SLA 計算所需欄位（sourceCheckAgeHours / maxAgeHours / graceHours）。" ;
+    sh:or ( [ sh:not ahigsh:ApprovedClaimVersionShape ]
+            ahigsh:MonitoringMeasurableShape ) .
+
+ahigsh:ClaimVersionSafetyCriticalBlockShape a sh:NodeShape ;
+    sh:targetClass ahig:ClaimVersion ;
+    sh:severity sh:Violation ;
+    sh:message "safety-critical 的 MonitoringPolicy 必須設 blocksHealthReasoning=true。" ;
+    sh:or ( [ sh:not ahigsh:SafetyCriticalPolicyShape ]
+            ahigsh:BlocksHealthReasoningShape ) .
+
+
+#################################################################
+# Gap E —— GRADE 不得由模型直接給分
+#
+# 已修正的 fail-open：舊形狀是 `sh:minCount 5`，只數個數不看內容，
+# 五筆全是 imprecision 也通過。GRADE 的意義在於「五個不同 domain 各自
+# 被評過」，數量相同不等於覆蓋相同。
+#
+# Core 版本改用 sh:qualifiedValueShape 逐一要求：五個 domain 各恰好一筆。
+# qualifiedMaxCount 1 同時擋掉「同一 domain 重複評級」——那會讓
+# 到底以哪一筆為準變成未定義行為。
+#################################################################
+
+ahigsh:PS-domainIsRiskOfBias a sh:PropertyShape ;
+    sh:path ahig:domain ; sh:hasValue "risk-of-bias" ;
+    sh:severity sh:Violation ; sh:message "domain = risk-of-bias。" .
+
+ahigsh:PS-domainIsInconsistency a sh:PropertyShape ;
+    sh:path ahig:domain ; sh:hasValue "inconsistency" ;
+    sh:severity sh:Violation ; sh:message "domain = inconsistency。" .
+
+ahigsh:PS-domainIsIndirectness a sh:PropertyShape ;
+    sh:path ahig:domain ; sh:hasValue "indirectness" ;
+    sh:severity sh:Violation ; sh:message "domain = indirectness。" .
+
+ahigsh:PS-domainIsImprecision a sh:PropertyShape ;
+    sh:path ahig:domain ; sh:hasValue "imprecision" ;
+    sh:severity sh:Violation ; sh:message "domain = imprecision。" .
+
+ahigsh:PS-domainIsPublicationBias a sh:PropertyShape ;
+    sh:path ahig:domain ; sh:hasValue "publication-bias" ;
+    sh:severity sh:Violation ; sh:message "domain = publication-bias。" .
+
+ahigsh:GradeDomainRiskOfBiasShape a sh:NodeShape ;
+    sh:property ahigsh:PS-domainIsRiskOfBias .
+
+ahigsh:GradeDomainInconsistencyShape a sh:NodeShape ;
+    sh:property ahigsh:PS-domainIsInconsistency .
+
+ahigsh:GradeDomainIndirectnessShape a sh:NodeShape ;
+    sh:property ahigsh:PS-domainIsIndirectness .
+
+ahigsh:GradeDomainImprecisionShape a sh:NodeShape ;
+    sh:property ahigsh:PS-domainIsImprecision .
+
+ahigsh:GradeDomainPublicationBiasShape a sh:NodeShape ;
+    sh:property ahigsh:PS-domainIsPublicationBias .
+
+ahigsh:PS-gradeDomainRiskOfBias a sh:PropertyShape ;
+    sh:path ahig:gradeDomainRating ;
+    sh:qualifiedValueShape ahigsh:GradeDomainRiskOfBiasShape ;
+    sh:qualifiedMinCount 1 ; sh:qualifiedMaxCount 1 ;
+    sh:severity sh:Violation ;
+    sh:message "GRADE domain risk-of-bias 必須恰有一筆評級。" .
+
+ahigsh:PS-gradeDomainInconsistency a sh:PropertyShape ;
+    sh:path ahig:gradeDomainRating ;
+    sh:qualifiedValueShape ahigsh:GradeDomainInconsistencyShape ;
+    sh:qualifiedMinCount 1 ; sh:qualifiedMaxCount 1 ;
+    sh:severity sh:Violation ;
+    sh:message "GRADE domain inconsistency 必須恰有一筆評級。" .
+
+ahigsh:PS-gradeDomainIndirectness a sh:PropertyShape ;
+    sh:path ahig:gradeDomainRating ;
+    sh:qualifiedValueShape ahigsh:GradeDomainIndirectnessShape ;
+    sh:qualifiedMinCount 1 ; sh:qualifiedMaxCount 1 ;
+    sh:severity sh:Violation ;
+    sh:message "GRADE domain indirectness 必須恰有一筆評級。" .
+
+ahigsh:PS-gradeDomainImprecision a sh:PropertyShape ;
+    sh:path ahig:gradeDomainRating ;
+    sh:qualifiedValueShape ahigsh:GradeDomainImprecisionShape ;
+    sh:qualifiedMinCount 1 ; sh:qualifiedMaxCount 1 ;
+    sh:severity sh:Violation ;
+    sh:message "GRADE domain imprecision 必須恰有一筆評級。" .
+
+ahigsh:PS-gradeDomainPublicationBias a sh:PropertyShape ;
+    sh:path ahig:gradeDomainRating ;
+    sh:qualifiedValueShape ahigsh:GradeDomainPublicationBiasShape ;
+    sh:qualifiedMinCount 1 ; sh:qualifiedMaxCount 1 ;
+    sh:severity sh:Violation ;
+    sh:message "GRADE domain publication-bias 必須恰有一筆評級。" .
+
+ahigsh:PS-certaintyDerivation a sh:PropertyShape ;
+    sh:path ahig:certaintyDerivation ;
+    sh:minCount 1 ; sh:maxCount 1 ;
+    sh:in ( "deterministic-rule" "deterministic-rule-with-logged-override" ) ;
+    sh:severity sh:Violation ;
+    sh:message "certainty 必須由規則導出；模型不得直接輸出 overall certainty。" .
+
+ahigsh:SynthesizedClaimGradeShape a sh:NodeShape ;
+    sh:targetClass ahig:SynthesizedClaim ;
+    rdfs:comment "GRADE 五個 domain 必須各自被評過，不是湊滿五筆就好。" ;
+    sh:property ahigsh:PS-gradeDomainRiskOfBias ,
+                ahigsh:PS-gradeDomainInconsistency ,
+                ahigsh:PS-gradeDomainIndirectness ,
+                ahigsh:PS-gradeDomainImprecision ,
+                ahigsh:PS-gradeDomainPublicationBias ,
+                ahigsh:PS-certaintyDerivation .
+
+
+#################################################################
+# 人工裁決者分級（B 項）
+#
+# 已修正的 fail-open：舊 SPARQL 只擋顯式的
+# `adjudicationLevel = "self-adjudicated"`；欄位整個缺漏時，
+# safety-critical 主張可以直接晉升 Approved。缺漏「誰裁決的」
+# 恰恰是最該擋的情況。
+#
+# 前提：riskTier = safety-critical 且 status = approved
+# 結論：adjudicationLevel 必須存在且為 expert-adjudicated
+#################################################################
+
+ahigsh:PS-riskTierSafetyCritical a sh:PropertyShape ;
+    sh:path ahig:riskTier ;
+    sh:hasValue "safety-critical" ;
+    sh:minCount 1 ;
+    sh:severity sh:Violation ;
+    sh:message "riskTier = safety-critical。" .
+
+ahigsh:PS-claimApproved a sh:PropertyShape ;
+    sh:path ahig:status ;
+    sh:hasValue "approved" ;
+    sh:minCount 1 ;
+    sh:severity sh:Violation ;
+    sh:message "status = approved。" .
+
+ahigsh:HighRiskApprovedPreconditionShape a sh:NodeShape ;
+    rdfs:comment "前提：高風險且已晉升。" ;
+    sh:property ahigsh:PS-riskTierSafetyCritical ,
+                ahigsh:PS-claimApproved .
+
+ahigsh:PS-expertAdjudicated a sh:PropertyShape ;
+    sh:path ahig:adjudicationLevel ;
+    sh:minCount 1 ; sh:maxCount 1 ;
+    sh:in ( "expert-adjudicated" ) ;
+    sh:severity sh:Violation ;
+    sh:message "高風險主張的 adjudicationLevel 必須存在且為 expert-adjudicated。" .
+
+ahigsh:ExpertAdjudicatedShape a sh:NodeShape ;
+    sh:property ahigsh:PS-expertAdjudicated .
+
+ahigsh:HighRiskAdjudicationShape a sh:NodeShape ;
+    sh:targetClass ahig:SynthesizedClaim ;
+    rdfs:comment "高風險僅接受 expert-adjudicated；缺漏裁決層級亦不得晉升。" ;
+    sh:severity sh:Violation ;
+    sh:message "高風險主張未以 expert-adjudicated 晉升（含 adjudicationLevel 缺漏）。" ;
+    sh:or ( [ sh:not ahigsh:HighRiskApprovedPreconditionShape ]
+            ahigsh:ExpertAdjudicatedShape ) .
+
+
+#################################################################
+# Gap G —— StudyFamily
+#################################################################
+
+ahigsh:PS-resolutionRuleId a sh:PropertyShape ;
+    sh:path ahig:resolutionRuleId ;
+    sh:minCount 1 ;
+    sh:nodeKind sh:Literal ;
+    sh:pattern "^FAM-" ;
+    sh:severity sh:Violation ;
+    sh:message "StudyFamily 必須記錄具名的 resolution rule ID。" .
+
+ahigsh:PS-familyResolvedByHuman a sh:PropertyShape ;
+    sh:path ( ahig:resolvedBy ahig:agentClass ) ;
+    sh:minCount 1 ;
+    sh:in ( "human-self" "human-expert" ) ;
+    sh:severity sh:Violation ;
+    sh:message "StudyFamily 合併會改變證據權重，屬納入決定，必須由人裁決。" .
+
+ahigsh:StudyFamilyShape a sh:NodeShape ;
+    sh:targetClass ahig:StudyFamily ;
+    sh:property ahigsh:PS-resolutionRuleId ,
+                ahigsh:PS-familyResolvedByHuman .
+
+
+#################################################################
+# CitationAnchor
+#################################################################
+
+ahigsh:PS-sourceManifestation a sh:PropertyShape ;
+    sh:path ahig:sourceManifestation ;
+    sh:minCount 1 ; sh:maxCount 1 ;
+    sh:nodeKind sh:Literal ;
+    sh:pattern "^sha256:[0-9a-f]{64}$" ;
+    sh:severity sh:Violation ;
+    sh:message "CitationAnchor 必須綁定 source manifestation hash。" .
+
+ahigsh:PS-exactQuote a sh:PropertyShape ;
+    sh:path ahig:exactQuote ;
+    sh:minCount 1 ; sh:maxCount 1 ;
+    sh:minLength 1 ;
+    sh:severity sh:Violation ;
+    sh:message "cited_text 為空不得建立正式 Citation 節點。" .
+
+ahigsh:PS-anchorMethod a sh:PropertyShape ;
+    sh:path ahig:anchorMethod ;
+    sh:minCount 1 ; sh:maxCount 1 ;
+    sh:in ( "exact" "normalized-exact" "fuzzy-accepted" "manual-required"
+            "unresolved-anchor" ) ;
+    sh:severity sh:Violation ;
+    sh:message "anchorMethod 必須是列舉值之一。" .
+
+ahigsh:PS-uniqueMatch a sh:PropertyShape ;
+    sh:path ahig:uniqueMatch ;
+    sh:minCount 1 ; sh:maxCount 1 ;
+    sh:datatype xsd:boolean ;
+    sh:severity sh:Violation ;
+    sh:message "必須顯式記錄 uniqueMatch。" .
+
+ahigsh:CitationAnchorShape a sh:NodeShape ;
+    sh:targetClass ahig:CitationAnchor ;
+    sh:property ahigsh:PS-sourceManifestation ,
+                ahigsh:PS-exactQuote ,
+                ahigsh:PS-anchorMethod ,
+                ahigsh:PS-uniqueMatch .
+
+
+# 支撐 Approved Claim 的 anchor 必須是唯一命中
+ahigsh:PS-supportsApprovedClaim a sh:PropertyShape ;
+    sh:path ahig:supportsApprovedClaim ;
+    sh:hasValue true ;
+    sh:minCount 1 ;
+    sh:severity sh:Violation ;
+    sh:message "supportsApprovedClaim = true。" .
+
+ahigsh:SupportsApprovedClaimShape a sh:NodeShape ;
+    rdfs:comment "前提：此 anchor 支撐 Approved Claim。" ;
+    sh:property ahigsh:PS-supportsApprovedClaim .
+
+ahigsh:PS-mustBeUniqueMatch a sh:PropertyShape ;
+    sh:path ahig:uniqueMatch ;
+    sh:minCount 1 ; sh:maxCount 1 ;
+    sh:hasValue true ;
+    sh:severity sh:Violation ;
+    sh:message "多重命中不得取第一筆。" .
+
+ahigsh:UniqueMatchRequiredShape a sh:NodeShape ;
+    sh:property ahigsh:PS-mustBeUniqueMatch .
+
+ahigsh:CitationAnchorUniqueMatchShape a sh:NodeShape ;
+    sh:targetClass ahig:CitationAnchor ;
+    sh:severity sh:Violation ;
+    sh:message "多重命中卻建立支撐 Approved Claim 的正式 anchor。" ;
+    sh:or ( [ sh:not ahigsh:SupportsApprovedClaimShape ]
+            ahigsh:UniqueMatchRequiredShape ) .
+
+
+# fuzzy anchor 支撐 Approved Claim 必須有人工確認
+ahigsh:PS-fuzzyAndApproved-method a sh:PropertyShape ;
+    sh:path ahig:anchorMethod ;
+    sh:hasValue "fuzzy-accepted" ;
+    sh:minCount 1 ;
+    sh:severity sh:Violation ;
+    sh:message "anchorMethod = fuzzy-accepted。" .
+
+ahigsh:FuzzyApprovedPreconditionShape a sh:NodeShape ;
+    rdfs:comment "前提：fuzzy anchor 且支撐 Approved Claim。" ;
+    sh:property ahigsh:PS-fuzzyAndApproved-method ,
+                ahigsh:PS-supportsApprovedClaim .
+
+ahigsh:PS-humanConfirmedAt a sh:PropertyShape ;
+    sh:path ahig:humanConfirmedAt ;
+    sh:minCount 1 ; sh:maxCount 1 ;
+    sh:datatype xsd:dateTime ;
+    sh:severity sh:Violation ;
+    sh:message "fuzzy anchor 必須有人工確認時間。" .
+
+ahigsh:HumanConfirmedShape a sh:NodeShape ;
+    sh:property ahigsh:PS-humanConfirmedAt .
+
+ahigsh:CitationAnchorFuzzyConfirmationShape a sh:NodeShape ;
+    sh:targetClass ahig:CitationAnchor ;
+    sh:severity sh:Violation ;
+    sh:message "fuzzy anchor 未經人工確認即支撐 Approved Claim。" ;
+    sh:or ( [ sh:not ahigsh:FuzzyApprovedPreconditionShape ]
+            ahigsh:HumanConfirmedShape ) .
+
+
+#################################################################
+# NotebookLM 隔離（P0-1）
+#
+# NotebookLM 的執行期座標只能存在於 RetrievalHint。這是 Core 就能做的
+# 結構阻擋（sh:maxCount 0），不需要 SPARQL。
+#################################################################
+
+ahigsh:PS-noNotebookSourceId a sh:PropertyShape ;
+    sh:path ahig:notebookSourceId ; sh:maxCount 0 ;
+    sh:severity sh:Violation ;
+    sh:message "CitationAnchor 不得帶 notebookSourceId；只能存在於 RetrievalHint。" .
+
+ahigsh:PS-noNotebookChunkId a sh:PropertyShape ;
+    sh:path ahig:notebookChunkId ; sh:maxCount 0 ;
+    sh:severity sh:Violation ;
+    sh:message "CitationAnchor 不得帶 notebookChunkId；只能存在於 RetrievalHint。" .
+
+ahigsh:PS-noNotebookCitationNumber a sh:PropertyShape ;
+    sh:path ahig:notebookCitationNumber ; sh:maxCount 0 ;
+    sh:severity sh:Violation ;
+    sh:message "CitationAnchor 不得帶 notebookCitationNumber；只能存在於 RetrievalHint。" .
+
+ahigsh:PS-noNotebookId a sh:PropertyShape ;
+    sh:path ahig:notebookId ; sh:maxCount 0 ;
+    sh:severity sh:Violation ;
+    sh:message "CitationAnchor 不得帶 notebookId；只能存在於 RetrievalHint。" .
+
+ahigsh:NotebookIsolationShape a sh:NodeShape ;
+    sh:targetClass ahig:CitationAnchor ;
+    rdfs:comment "NotebookLM 執行期座標不是 CitationAnchor。" ;
+    sh:property ahigsh:PS-noNotebookSourceId ,
+                ahigsh:PS-noNotebookChunkId ,
+                ahigsh:PS-noNotebookCitationNumber ,
+                ahigsh:PS-noNotebookId .
+
+
+#################################################################
+# 重複證據上限
+#################################################################
+
+ahigsh:PS-duplicateEvidenceFlag a sh:PropertyShape ;
+    sh:path ahig:flag ;
+    sh:hasValue "possibleDuplicateEvidence" ;
+    sh:minCount 1 ;
+    sh:severity sh:Violation ;
+    sh:message "帶 possibleDuplicateEvidence 標記。" .
+
+ahigsh:DuplicateEvidenceFlaggedShape a sh:NodeShape ;
+    rdfs:comment "前提：主張帶 possibleDuplicateEvidence。" ;
+    sh:property ahigsh:PS-duplicateEvidenceFlag .
+
+ahigsh:PS-certaintyNotHigh a sh:PropertyShape ;
+    sh:path ahig:certainty ;
+    sh:not [ sh:hasValue "high" ] ;
+    sh:severity sh:Violation ;
+    sh:message "帶 possibleDuplicateEvidence 的主張不得評為 high certainty。" .
+
+ahigsh:CertaintyCappedShape a sh:NodeShape ;
+    sh:property ahigsh:PS-certaintyNotHigh .
+
+ahigsh:DuplicateEvidenceCeilingShape a sh:NodeShape ;
+    sh:targetClass ahig:SynthesizedClaim ;
+    sh:severity sh:Violation ;
+    sh:message "帶 possibleDuplicateEvidence 的主張不得評為 high certainty。" ;
+    sh:or ( [ sh:not ahigsh:DuplicateEvidenceFlaggedShape ]
+            ahigsh:CertaintyCappedShape ) .

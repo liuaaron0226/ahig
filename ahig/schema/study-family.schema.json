@@ -1,0 +1,95 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ahig.local/schema/study-family/1.0.0",
+  "title": "StudyFamily 判定",
+  "description": "Gap G：契約有 StudyFamily 計數欄位，沒有判定演算法。若交給 LLM 判定即違反『模型不做納入決定』；若全交人工又撞上吞吐量瓶頸。本 schema 採三層設計：確定性訊號自動判定、其餘進 suspected 佇列、人工確認延後到該研究實際支援 Claim 時才發生。",
+  "type": "object",
+  "required": ["familyId", "members", "resolution"],
+  "additionalProperties": false,
+  "properties": {
+    "familyId": { "type": "string" },
+    "members": {
+      "type": "array", "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["work", "role"],
+        "additionalProperties": false,
+        "properties": {
+          "work": { "type": "string" },
+          "role": {
+            "enum": ["primary-report", "secondary-publication", "follow-up-report",
+                     "subgroup-report", "protocol", "registry-record",
+                     "conference-abstract", "duplicate-publication", "unknown"]
+          },
+          "contributesEvidence": {
+            "type": "boolean",
+            "description": "同一 family 中只有被標記 true 的成員可計入證據權重，避免重複發表造成權重膨脹。"
+          }
+        }
+      }
+    },
+
+    "resolution": {
+      "type": "object",
+      "required": ["tier", "status", "signals"],
+      "additionalProperties": false,
+      "properties": {
+        "tier": {
+          "enum": ["tier1-deterministic", "tier2-strong-heuristic",
+                   "tier3-weak-heuristic", "manual"],
+          "description": "tier1 自動合併；tier2/tier3 建立 suspectedFamily，不自動合併。"
+        },
+        "status": {
+          "enum": ["auto-merged", "suspected-unresolved", "human-confirmed",
+                   "human-rejected", "deferred-not-claim-supporting"],
+          "description": "deferred-not-claim-supporting 是預設歸宿：該研究尚未支撐任何 Claim 時，不花人工成本解析。"
+        },
+        "signals": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "sameRegistryId": { "type": ["string", "null"] },
+            "sameDOI": { "type": "boolean", "default": false },
+            "sameSampleSize": { "type": ["boolean", "null"] },
+            "sampleSizeValues": { "type": "array", "items": { "type": "integer" } },
+            "sameRecruitmentWindow": { "type": ["boolean", "null"] },
+            "recruitmentWindows": { "type": "array", "items": { "type": "string" } },
+            "sameSiteOrCountry": { "type": ["boolean", "null"] },
+            "authorOverlapCount": { "type": ["integer", "null"], "minimum": 0 },
+            "sharedFirstOrLastAuthor": { "type": ["boolean", "null"] },
+            "publicationYearSpan": { "type": ["integer", "null"] },
+            "samePopulationDescriptor": { "type": ["boolean", "null"] },
+            "sameTrialAcronym": { "type": ["boolean", "null"] }
+          }
+        },
+        "ruleId": {
+          "type": "string",
+          "description": "觸發本判定的確定性規則 ID，必須可回溯到 study_family.py 的具名規則。"
+        },
+        "resolvedBy": {
+          "type": "object", "additionalProperties": false,
+          "properties": {
+            "agentClass": { "enum": ["deterministic", "human-self", "human-expert"] },
+            "at": { "type": ["string", "null"], "format": "date-time" },
+            "rationale": { "type": ["string", "null"] }
+          },
+          "description": "刻意不含 model：StudyFamily 合併會改變證據權重，屬於納入決定，模型不得單獨判定。模型可提出 candidate，但 candidate 只寫入 advisory 命名空間。"
+        }
+      }
+    },
+
+    "evidenceWeightPolicy": {
+      "type": "object", "additionalProperties": false,
+      "properties": {
+        "countAs": {
+          "enum": ["one-study", "one-study-per-independent-cohort", "unresolved-count-separately-and-flag"],
+          "default": "one-study"
+        },
+        "flagOnUnresolved": {
+          "type": "boolean", "default": true,
+          "description": "suspected-unresolved 的成員若同時被計入同一 SynthesizedClaim，該 Claim 必須帶 possibleDuplicateEvidence 標記，且不得評為 high certainty。"
+        }
+      }
+    }
+  }
+}

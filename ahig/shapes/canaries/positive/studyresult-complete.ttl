@@ -1,0 +1,44 @@
+# 正向對照：完整合法的 StudyResult ＋ OutcomeInventory ＋ CitationAnchor
+#
+# 11 個原子 tuple 維度齊備、範圍契約可回溯、有 anchor 與確定性檢查報告。
+# outcome switching flag 存在，但 prespecification 由 human-expert 裁決 ——
+# 這是 negative/outcome-switching-*.ttl 的對照組：switching flag 本身不是
+# 違規，「無人裁決或模型單獨裁決」才是。
+#
+@prefix ahig: <https://ahig.local/ns/> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+
+<urn:ahig:canary:inv-ok> a ahig:OutcomeInventory ;
+    ahig:reportedOutcome <urn:ahig:canary:ro-ok-1>, <urn:ahig:canary:ro-ok-2> ;
+    ahig:registryComparisonStatus "compared" ;
+    ahig:outcomeSwitchingFlag "primary-outcome-changed-after-registration" .
+
+<urn:ahig:canary:sr-ok> a ahig:StudyResult ;
+    ahig:derivedFromOutcomeInventory <urn:ahig:canary:inv-ok> ;
+    ahig:prespecificationStatus "prespecified" ;
+    ahig:prespecificationDecidedBy <urn:ahig:canary:agent-expert> ;
+
+    ahig:scopeContractHash "sha256:abc0000000000000000000000000000000000000000000000000000000000def" ;
+    ahig:scopeRuleId "SCOPE-014-primary-itt-wk12" ;
+    ahig:study <urn:ahig:canary:study-ok> ;
+    ahig:population <urn:ahig:canary:pop-ok> ;
+    ahig:intervention <urn:ahig:canary:int-ok> ;
+    ahig:comparator <urn:ahig:canary:cmp-ok> ;
+    ahig:outcome <urn:ahig:canary:out-ok> ;
+    ahig:timepoint <urn:ahig:canary:tp-ok> ;
+    ahig:analysisSet "ITT" ;
+    ahig:effectMeasure "MD" ;
+    ahig:statisticalModel "unadjusted" ;
+    ahig:sourceVersion "v1.0.0" ;
+    ahig:quantityKind <urn:ahig:qk:pct-1rm> ;
+    ahig:citationAnchor <urn:ahig:canary:anchor-ok> ;
+    ahig:deterministicCheckReport <urn:ahig:canary:dcr-ok> .
+
+<urn:ahig:canary:agent-expert> ahig:agentClass "human-expert" .
+
+<urn:ahig:canary:anchor-ok> a ahig:CitationAnchor ;
+    ahig:sourceManifestation "sha256:4444444444444444444444444444444444444444444444444444444444444444" ;
+    ahig:exactQuote "Mean difference 5.2 kg (95% CI 2.1 to 8.3)." ;
+    ahig:anchorMethod "exact" ;
+    ahig:uniqueMatch true ;
+    ahig:supportsApprovedClaim true .

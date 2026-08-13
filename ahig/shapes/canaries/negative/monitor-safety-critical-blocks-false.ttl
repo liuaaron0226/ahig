@@ -1,0 +1,29 @@
+# 零容忍：safety-critical 的 MonitoringPolicy 顯式設 blocksHealthReasoning=false
+#
+# 契約 D.3：safety-critical 逾期時必須停用於健康推理。顯式寫 false 等於
+# 宣告「這條 safety-critical 主張即使監控壞掉也繼續拿來做健康推理」。
+#
+# 這個 canary 是突變測試找出來的覆蓋缺口：原本只有
+# monitor-safety-critical-missing-blocks（欄位缺漏）。把 Core 的
+# sh:hasValue true 拿掉之後，缺漏那個 canary 仍會被 sh:minCount 1 擋下，
+# 所以突變存活 —— 「缺漏」與「顯式 false」是兩個不同的失效模式，
+# 各自需要一個 canary 才釘得住。
+#
+# 這裡 SLA 完全正常（age 1 < 36+6），排除被別條規則順手擋掉的可能。
+#
+# @expect-core: ClaimVersionSafetyCriticalBlockShape
+# @expect-sparql: ClaimVersionMonitoringShape
+@prefix ahig: <https://ahig.local/ns/> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+
+<urn:ahig:canary:cv-sc-blocks-false> a ahig:ClaimVersion ;
+    ahig:status "approved" ;
+    ahig:monitoringPolicy <urn:ahig:canary:pol-sc-false> ;
+    ahig:lastSuccessfulSourceCheckAt "2026-08-13T00:00:00Z"^^xsd:dateTime ;
+    ahig:sourceCheckAgeHours 1 .
+
+<urn:ahig:canary:pol-sc-false>
+    ahig:riskTier "safety-critical" ;
+    ahig:maxAgeHours 36 ;
+    ahig:graceHours 6 ;
+    ahig:blocksHealthReasoning false .

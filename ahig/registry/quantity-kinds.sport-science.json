@@ -1,0 +1,229 @@
+{
+  "registryId": "ahig:registry:quantity-kinds:sport-science",
+  "version": "0.1.0",
+  "status": "seed",
+  "note": "種子註冊表。目的是證明『所有單位使用 UCUM』在本領域不可行，並提供可運作的替代結構。每一項的 crossStudyComparability 是設計決定，需在第一批實跑時複核。",
+  "entries": [
+    {
+      "quantityKindId": "ahig:qk:vo2max-relative",
+      "label": "相對最大攝氧量",
+      "aliases": ["VO2max", "VO2peak", "relative VO2max"],
+      "representation": { "kind": "ucum", "ucumCode": "mL/(kg.min)", "isDiscreteIntegerScale": false },
+      "comparabilityClass": "aerobic-capacity-relative",
+      "crossStudyComparability": {
+        "level": "comparable-after-declared-conversion",
+        "rationale": "VO2max 與 VO2peak 的達成準則不同；遞增測試方案（ramp vs step）會系統性影響數值。",
+        "conversionRule": "只做 UCUM 單位正規化；protocol type 或 verification phase 不一致時禁止合併。",
+        "blockingConditions": ["protocol-type-differs", "verification-phase-absent-in-one-arm"]
+      },
+      "bodyMassNormalised": true,
+      "requiresInstrumentMatch": true
+    },
+    {
+      "quantityKindId": "ahig:qk:power-to-mass",
+      "label": "功率體重比",
+      "aliases": ["W/kg", "relative power"],
+      "representation": { "kind": "ucum", "ucumCode": "W/kg", "isDiscreteIntegerScale": false },
+      "comparabilityClass": "mechanical-power-relative",
+      "crossStudyComparability": {
+        "level": "comparable-after-declared-conversion",
+        "rationale": "需宣告是平均功率、峰值功率或臨界功率，以及量測時距。",
+        "conversionRule": "只做 W/kg 相容單位正規化；功率定義、平均時窗或測功儀類型不同時禁止合併。",
+        "blockingConditions": ["averaging-window-differs", "ergometer-type-differs"]
+      },
+      "bodyMassNormalised": true,
+      "requiresInstrumentMatch": true
+    },
+    {
+      "quantityKindId": "ahig:qk:dose-per-body-mass-daily",
+      "label": "每日每公斤體重劑量",
+      "aliases": ["mg/kg/day"],
+      "representation": { "kind": "ucum", "ucumCode": "mg/(kg.d)", "isDiscreteIntegerScale": false },
+      "comparabilityClass": "supplement-dose-normalised",
+      "crossStudyComparability": {
+        "level": "directly-comparable",
+        "rationale": "UCUM 可完整表達，且體重標準化後跨研究可比。",
+        "blockingConditions": ["loading-phase-vs-maintenance-not-distinguished"]
+      },
+      "bodyMassNormalised": true,
+      "requiresInstrumentMatch": false
+    },
+    {
+      "quantityKindId": "ahig:qk:supplement-dose-absolute",
+      "label": "絕對補劑劑量",
+      "aliases": ["absolute dose", "daily dose", "g/day"],
+      "representation": { "kind": "ucum", "ucumCode": "g", "isDiscreteIntegerScale": false },
+      "comparabilityClass": "supplement-dose-absolute",
+      "crossStudyComparability": {
+        "level": "comparable-after-declared-conversion",
+        "rationale": "質量單位可由已宣告的換算表正規化；但未經體重標準化的絕對劑量，在體型差異大的族群間不等價。",
+        "conversionRule": "只做質量單位正規化到 canonical UCUM code g；劑量方案（loading vs maintenance）或給藥頻次不同時禁止合併。",
+        "blockingConditions": ["loading-phase-vs-maintenance-not-distinguished", "dosing-frequency-differs"]
+      },
+      "bodyMassNormalised": false,
+      "requiresInstrumentMatch": false,
+      "notes": "存在的理由是提供裁決層可用的 canonical 單位：ADJ-003 換算 5 g 與 5000 mg 時需要一個與 A/B 順序無關的提交單位。"
+    },
+    {
+      "quantityKindId": "ahig:qk:pct-1rm",
+      "label": "最大肌力百分比",
+      "aliases": ["%1RM", "percent of one-repetition maximum"],
+      "representation": {
+        "kind": "local-ratio", "ucumCode": null,
+        "localDefinition": "相對於同一動作、同一測定方案下的 1RM 之百分比",
+        "range": { "min": 0, "max": 100, "step": null },
+        "isDiscreteIntegerScale": false
+      },
+      "comparabilityClass": "relative-load",
+      "crossStudyComparability": {
+        "level": "comparable-after-declared-conversion",
+        "rationale": "UCUM 的 % 無法承載『相對於什麼』。1RM 的測定方式（直接測定 vs 由多次反覆推估）會系統性偏移。",
+        "conversionRule": "僅在 1RM 測定方式相同且動作相同時可比；預估式 1RM 須標記 estimated1RM=true 並降級為 comparable-only-as-SMD",
+        "blockingConditions": ["exercise-differs", "1rm-estimated-vs-measured", "range-of-motion-differs"]
+      },
+      "bodyMassNormalised": false,
+      "requiresInstrumentMatch": true
+    },
+    {
+      "quantityKindId": "ahig:qk:rpe-borg-6-20",
+      "label": "Borg RPE 6–20",
+      "aliases": ["Borg scale", "RPE 6-20"],
+      "representation": {
+        "kind": "local-ordinal", "ucumCode": null,
+        "localDefinition": "Borg 1970 主觀費力程度量表，整數 6–20",
+        "range": { "min": 6, "max": 20, "step": 1 },
+        "isDiscreteIntegerScale": true
+      },
+      "comparabilityClass": "perceived-exertion-borg620",
+      "crossStudyComparability": {
+        "level": "not-comparable",
+        "rationale": "與 CR10 為不同量表，不得換算後合併。序位量表的均值差在不同錨定文字下不具相同意義。",
+        "blockingConditions": ["different-anchor-wording", "different-scale-version", "translated-scale-not-validated"]
+      },
+      "bodyMassNormalised": false,
+      "requiresInstrumentMatch": true
+    },
+    {
+      "quantityKindId": "ahig:qk:rpe-cr10",
+      "label": "Borg CR10",
+      "aliases": ["CR10", "category ratio 10", "sRPE scale"],
+      "representation": {
+        "kind": "local-ordinal", "ucumCode": null,
+        "localDefinition": "Borg category-ratio 10 量表，0–10，允許小數",
+        "range": { "min": 0, "max": 10, "step": null },
+        "isDiscreteIntegerScale": false
+      },
+      "comparabilityClass": "perceived-exertion-cr10",
+      "crossStudyComparability": {
+        "level": "not-comparable",
+        "rationale": "與 6–20 量表不同構。CR10 允許小數，GRIM 不適用。",
+        "blockingConditions": ["different-scale-version", "modified-cr10-used"]
+      },
+      "bodyMassNormalised": false,
+      "requiresInstrumentMatch": true
+    },
+    {
+      "quantityKindId": "ahig:qk:srpe-training-load",
+      "label": "session-RPE 訓練負荷",
+      "aliases": ["sRPE load", "sRPE-TL", "AU"],
+      "representation": {
+        "kind": "local-index", "ucumCode": null,
+        "localDefinition": "CR10 分數 × 訓練時間（分鐘），單位為任意單位 a.u.",
+        "isDiscreteIntegerScale": false
+      },
+      "comparabilityClass": "internal-load-index",
+      "crossStudyComparability": {
+        "level": "comparable-only-as-SMD",
+        "rationale": "a.u. 沒有共同尺度。絕對值跨研究無意義，只能以標準化效果量比較。",
+        "blockingConditions": ["different-rpe-scale-underlying", "different-duration-definition"]
+      },
+      "bodyMassNormalised": false,
+      "requiresInstrumentMatch": true
+    },
+    {
+      "quantityKindId": "ahig:qk:trimp",
+      "label": "訓練衝量 TRIMP",
+      "aliases": ["Banister TRIMP", "Edwards TRIMP", "Lucia TRIMP"],
+      "representation": {
+        "kind": "local-index", "ucumCode": null,
+        "localDefinition": "心率為基礎的訓練負荷指數，計算式依變體而異",
+        "isDiscreteIntegerScale": false
+      },
+      "comparabilityClass": "internal-load-index",
+      "crossStudyComparability": {
+        "level": "not-comparable",
+        "rationale": "Banister、Edwards、Lucia 三種變體的計算式不同，數值不可互換。多數論文未明示採用哪一種。",
+        "blockingConditions": ["trimp-variant-unstated", "trimp-variant-differs"]
+      },
+      "bodyMassNormalised": false,
+      "requiresInstrumentMatch": true
+    },
+    {
+      "quantityKindId": "ahig:qk:acwr",
+      "label": "急慢性負荷比",
+      "aliases": ["ACWR", "acute:chronic workload ratio"],
+      "representation": {
+        "kind": "local-ratio", "ucumCode": null,
+        "localDefinition": "急性負荷 / 慢性負荷。時窗與平滑方式（rolling average vs EWMA）依研究而異",
+        "isDiscreteIntegerScale": false
+      },
+      "comparabilityClass": "load-ratio-index",
+      "crossStudyComparability": {
+        "level": "not-comparable",
+        "rationale": "時窗長度與平滑方式改變數值分布；且底層負荷量本身可能是不同 quantity kind。",
+        "blockingConditions": ["window-length-differs", "smoothing-method-differs", "underlying-load-kind-differs"]
+      },
+      "bodyMassNormalised": false,
+      "requiresInstrumentMatch": true
+    },
+    {
+      "quantityKindId": "ahig:qk:blood-lactate",
+      "label": "血乳酸濃度",
+      "aliases": ["[La-]", "blood lactate"],
+      "representation": { "kind": "ucum", "ucumCode": "mmol/L", "isDiscreteIntegerScale": false },
+      "comparabilityClass": "blood-metabolite-concentration",
+      "crossStudyComparability": {
+        "level": "comparable-after-declared-conversion",
+        "rationale": "全血與血漿數值不同；取樣部位與分析儀器有系統性差異。",
+        "conversionRule": "只做濃度單位正規化；檢體基質或分析儀器不同且無交叉校正時禁止合併。",
+        "blockingConditions": ["whole-blood-vs-plasma-unstated", "analyser-differs-without-cross-calibration"]
+      },
+      "bodyMassNormalised": false,
+      "requiresInstrumentMatch": true
+    },
+    {
+      "quantityKindId": "ahig:qk:countermovement-jump-height",
+      "label": "反向跳躍高度",
+      "aliases": ["CMJ height"],
+      "representation": { "kind": "ucum", "ucumCode": "cm", "isDiscreteIntegerScale": false },
+      "comparabilityClass": "jump-performance-height",
+      "crossStudyComparability": {
+        "level": "comparable-after-declared-conversion",
+        "rationale": "飛行時間法與衝量法所得高度有系統性差異；接觸墊與測力板不可直接互換。",
+        "conversionRule": "不得跨方法合併；必須依 method 分層",
+        "blockingConditions": ["flight-time-vs-impulse-momentum", "arm-swing-allowed-differs"]
+      },
+      "bodyMassNormalised": false,
+      "requiresInstrumentMatch": true
+    },
+    {
+      "quantityKindId": "ahig:qk:likert-summed-integer",
+      "label": "整數加總量表分數",
+      "aliases": ["summed Likert score"],
+      "representation": {
+        "kind": "local-ordinal", "ucumCode": null,
+        "localDefinition": "由 k 個整數項目加總而成的量表總分",
+        "isDiscreteIntegerScale": true
+      },
+      "comparabilityClass": "psychometric-summed-score",
+      "crossStudyComparability": {
+        "level": "comparable-only-as-SMD",
+        "rationale": "不同量表的分數範圍與項目數不同。",
+        "blockingConditions": ["different-instrument", "different-item-count", "different-language-version-unvalidated"]
+      },
+      "bodyMassNormalised": false,
+      "requiresInstrumentMatch": true,
+      "notes": "isDiscreteIntegerScale=true 且項目數已知時，GRIM/GRIMMER 適用。這是本註冊表少數可套用 GRIM 的項目之一。"
+    }
+  ]
+}

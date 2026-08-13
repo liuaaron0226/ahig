@@ -1,0 +1,297 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ahig.local/schema/mid-registry/1.0.0",
+  "title": "MIDRegistryEntry",
+  "description": "Minimal Important Difference 註冊項。GRADE 的 imprecision 判定需要決策閾值；運動科學多數 outcome 沒有共識 MID。若不把 MID 顯性化並版本化，certainty 評級就不可重現。",
+  "type": "object",
+  "required": [
+    "midId",
+    "version",
+    "outcomeRef",
+    "quantityKind",
+    "population",
+    "provenance",
+    "status"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "midId": {
+      "type": "string",
+      "pattern": "^ahig:mid:[a-z0-9-]+$"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "status": {
+      "enum": [
+        "active",
+        "superseded",
+        "withdrawn",
+        "provisional",
+        "unavailable"
+      ]
+    },
+    "outcomeRef": {
+      "type": "string"
+    },
+    "instrument": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "quantityKind": {
+      "type": "string"
+    },
+    "population": {
+      "type": "object",
+      "required": [
+        "label"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "label": {
+          "type": "string"
+        },
+        "ageRange": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "trainingStatus": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "clinicalContext": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "description": "MID 是族群依賴的。同一 outcome 在未訓練者與菁英運動員的 MID 不同，必須分別註冊。"
+    },
+    "value": {
+      "type": "object",
+      "required": [
+        "scale",
+        "magnitude",
+        "unit"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "scale": {
+          "enum": [
+            "absolute",
+            "relative-percent",
+            "standardised"
+          ]
+        },
+        "magnitude": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "unit": {
+          "type": "string",
+          "description": "UCUM code 或 QuantityKindRegistry ID"
+        },
+        "thresholdSet": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "trivialUpper": {
+              "type": "number"
+            },
+            "smallUpper": {
+              "type": "number"
+            },
+            "moderateUpper": {
+              "type": "number"
+            }
+          },
+          "description": "GRADE contextualised approach 需要多重閾值，而非單一 MID。"
+        }
+      }
+    },
+    "derivationMethod": {
+      "enum": [
+        "anchor-based",
+        "distribution-based-0.5SD",
+        "distribution-based-SEM",
+        "consensus-delphi",
+        "regulatory-defined",
+        "smallest-worthwhile-change",
+        "typical-error-derived",
+        "project-defined-provisional"
+      ],
+      "description": "project-defined-provisional 者，任何由其導出的 GRADE imprecision 評級必須顯示 midProvisional。"
+    },
+    "provenance": {
+      "type": "object",
+      "required": [
+        "sourceType",
+        "approvedBy",
+        "createdAt"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "sourceType": {
+          "enum": [
+            "published-mid-study",
+            "guideline",
+            "consensus-statement",
+            "regulatory-guidance",
+            "project-internal"
+          ]
+        },
+        "sourceCitation": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "sourceDOI": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "citationAnchor": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "approvedBy": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": [
+              "agent",
+              "agentClass",
+              "at"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "agent": {
+                "type": "string"
+              },
+              "agentClass": {
+                "enum": [
+                  "human-expert",
+                  "human-self",
+                  "model",
+                  "deterministic"
+                ]
+              },
+              "at": {
+                "type": "string",
+                "format": "date-time"
+              }
+            }
+          }
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "supersedes": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "revalidateBy": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date"
+    },
+    "notes": {
+      "type": "string"
+    },
+    "unavailableReason": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "unavailable"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "required": [
+          "unavailableReason"
+        ],
+        "not": {
+          "required": [
+            "value"
+          ]
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "enum": [
+              "active",
+              "provisional"
+            ]
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "required": [
+          "value",
+          "derivationMethod",
+          "revalidateBy"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "active"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "provenance": {
+            "required": [
+              "citationAnchor"
+            ],
+            "properties": {
+              "citationAnchor": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}
