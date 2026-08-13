@@ -38,26 +38,29 @@ def monitoring_run() -> dict:
 
 
 def search_contract() -> dict:
-    return {
-        "searchContractId": "search-1", "version": "1.1.0",
-        "contractHash": "sha256:" + "a" * 64,
-        "changeClass": "recall-expanding", "appliesTo": ["cc-1"],
-        "backfillObligation": {
-            "required": True, "scope": "all-domains-at-lower-version",
-            "deadlinePolicy": "before-any-approved-claim-in-domain", "blocksNewBatches": True,
-        },
-        "recallEvaluation": {
-            "knownItemSeedSet": ["10.1000/example"], "seedRecallPrevious": 0.9,
-            "seedRecallCurrent": 1.0, "minAcceptableSeedRecall": 0.95,
-        },
-        "provenance": {
-            "authoredBy": "researcher", "approvedBy": [
-                {"agent": "owner", "agentClass": "human-self", "at": "2026-08-13T00:00:00Z"}
-            ],
-            "createdAt": "2026-08-13T00:00:00Z", "llmDrafted": True,
-            "modelVersion": "claude-opus-5", "promptHash": "sha256:" + "b" * 64,
-        },
+    """以真實可執行契約為 fixture，只改本檔要測的版本條件。
+
+    v1 測試曾維護一份只有版本欄位的平行 fixture；SearchContract v2.0 加入
+    PRISMA-S 執行欄位後，那份 fixture 自己成了漂移來源。這裡複製正式契約，
+    測試端不再手刻第二份不可能執行的形狀。
+    """
+    value = json.loads((ROOT / "calibration" / "b11-carbohydrate"
+                        / "search-contract.json").read_text(encoding="utf-8"))
+    value["version"] = "1.1.0"
+    value["supersedes"] = "ahig:search:b11-exogenous-cho-endurance@1.0.0"
+    value["changeClass"] = "recall-expanding"
+    value["changeSummary"] = "測試用：新增召回詞"
+    value["backfillObligation"] = {
+        "required": True, "scope": "all-domains-at-lower-version",
+        "deadlinePolicy": "before-any-approved-claim-in-domain",
+        "blocksNewBatches": True,
     }
+    value["recallEvaluation"] = {
+        "status": "evaluated", "knownItemSeedSet": ["10.1000/example"],
+        "seedRecallPrevious": 0.9, "seedRecallCurrent": 1.0,
+        "minAcceptableSeedRecall": 0.95, "note": "測試 fixture",
+    }
+    return value
 
 
 def test_monitoring_schema_has_usable_root():
@@ -105,6 +108,12 @@ def test_recall_neutral_requires_seed_evidence():
         "required": False, "scope": "none", "deadlinePolicy": "before-next-batch",
         "blocksNewBatches": False,
     }
+    assert errors("search-contract-version.schema.json", value)
+
+
+def test_evaluated_recall_requires_numeric_current_recall():
+    value = search_contract()
+    value["recallEvaluation"]["seedRecallCurrent"] = None
     assert errors("search-contract-version.schema.json", value)
 
 

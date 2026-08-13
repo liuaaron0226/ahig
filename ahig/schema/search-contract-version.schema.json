@@ -1,313 +1,196 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://ahig.local/schema/search-contract-version/1.0.0",
-  "title": "SearchContract 版本化與 backfill 規則",
-  "description": "Gap G：流水線是『凍結 SearchContract → 搜尋』，但第一批必然學到更好的檢索式。若不定義版本升級與向後補搜，前 12 個領域用 v1、後 128 個用 v3，完成度報表卻看起來一樣。",
+  "$id": "https://ahig.local/schema/search-contract-version/2.0.0",
+  "title": "SearchContract",
+  "description": "可執行且可重現的文獻搜尋契約。v1 schema 只描述版本與 backfill；v2.0 另把 PRISMA-S 所需的資料庫／平台、完整查詢 artifact、日期、限制、引用追蹤、去重、更新、合法全文取得與原始回應保存變成必填結構。",
   "type": "object",
   "required": [
     "searchContractId",
     "version",
+    "status",
+    "supersedes",
     "changeClass",
+    "changeSummary",
     "appliesTo",
+    "objective",
+    "sources",
+    "searchLimits",
+    "citationSearching",
+    "contacts",
+    "deduplication",
+    "accessPolicy",
+    "executionProtocol",
+    "updatePolicy",
     "backfillObligation",
+    "recallEvaluation",
+    "pressReview",
+    "prismaSAttestation",
+    "governance",
+    "methodReferences",
     "provenance"
   ],
   "additionalProperties": false,
   "properties": {
     "searchContractId": {
-      "type": "string"
+      "type": "string",
+      "pattern": "^ahig:search:[a-z0-9-]+$"
     },
     "version": {
       "type": "string",
       "pattern": "^\\d+\\.\\d+\\.\\d+$"
     },
-    "supersedes": {
-      "type": [
-        "string",
-        "null"
-      ]
+    "status": {
+      "enum": ["draft", "frozen", "superseded"]
+    },
+    "frozenAt": {
+      "type": "string",
+      "format": "date-time"
     },
     "contractHash": {
       "type": "string",
       "pattern": "^sha256:[0-9a-f]{64}$"
     },
+    "supersedes": {
+      "type": ["string", "null"]
+    },
     "changeClass": {
-      "enum": [
-        "editorial",
-        "recall-neutral",
-        "recall-expanding",
-        "recall-restricting"
-      ],
-      "description": "決定 backfill 義務。recall-expanding 表示新版可能找到舊版找不到的文獻，因此舊領域必須補搜。"
+      "enum": ["initial", "editorial", "recall-neutral", "recall-expanding", "recall-restricting"]
     },
     "changeSummary": {
-      "type": "string"
+      "type": "string",
+      "minLength": 1
     },
     "diffFromPrevious": {
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "addedTerms": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "removedTerms": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "addedDatabases": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "changedLimits": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        }
-      }
+      "$ref": "#/$defs/changeDiff"
     },
     "appliesTo": {
       "type": "array",
       "minItems": 1,
-      "items": {
-        "type": "string"
-      },
-      "description": "canonical competency ID 清單"
+      "uniqueItems": true,
+      "items": {"type": "string"}
+    },
+    "objective": {
+      "type": "string",
+      "minLength": 1
+    },
+    "sources": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/source"}
+    },
+    "searchLimits": {
+      "$ref": "#/$defs/searchLimits"
+    },
+    "citationSearching": {
+      "$ref": "#/$defs/citationSearching"
+    },
+    "contacts": {
+      "$ref": "#/$defs/contacts"
+    },
+    "deduplication": {
+      "$ref": "#/$defs/deduplication"
+    },
+    "accessPolicy": {
+      "$ref": "#/$defs/accessPolicy"
+    },
+    "executionProtocol": {
+      "$ref": "#/$defs/executionProtocol"
+    },
+    "updatePolicy": {
+      "$ref": "#/$defs/updatePolicy"
     },
     "backfillObligation": {
-      "type": "object",
-      "required": [
-        "required",
-        "scope",
-        "deadlinePolicy",
-        "blocksNewBatches"
-      ],
-      "additionalProperties": false,
-      "properties": {
-        "required": {
-          "type": "boolean"
-        },
-        "scope": {
-          "enum": [
-            "none",
-            "affected-domains-only",
-            "all-domains-at-lower-version"
-          ]
-        },
-        "deadlinePolicy": {
-          "enum": [
-            "before-next-batch",
-            "within-n-batches",
-            "before-any-approved-claim-in-domain"
-          ],
-          "description": "recall-expanding 的預設為 before-any-approved-claim-in-domain：舊版本搜尋的領域可以繼續處理，但不得晉升 Claim。"
-        },
-        "withinNBatches": {
-          "type": [
-            "integer",
-            "null"
-          ],
-          "minimum": 1
-        },
-        "blocksNewBatches": {
-          "type": "boolean",
-          "description": "true 時，未完成 backfill 前不得啟動新批次。避免版本債累積。"
-        }
-      }
+      "$ref": "#/$defs/backfillObligation"
     },
     "recallEvaluation": {
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "knownItemSeedSet": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "description": "預先指定必須被搜尋策略命中的已知文獻（DOI/PMID）。"
-        },
-        "seedRecallPrevious": {
-          "type": [
-            "number",
-            "null"
-          ],
-          "minimum": 0,
-          "maximum": 1
-        },
-        "seedRecallCurrent": {
-          "type": [
-            "number",
-            "null"
-          ],
-          "minimum": 0,
-          "maximum": 1
-        },
-        "minAcceptableSeedRecall": {
-          "type": "number",
-          "default": 0.95
-        },
-        "note": {
-          "type": "string"
-        }
-      },
-      "description": "changeClass 的宣告必須有證據。用 known-item seed set 客觀量測 recall 變化，不接受僅憑判斷宣告 recall-neutral。"
+      "$ref": "#/$defs/recallEvaluation"
     },
     "pressReview": {
-      "type": "object",
-      "required": [
-        "status"
-      ],
-      "additionalProperties": false,
-      "properties": {
-        "status": {
-          "enum": [
-            "press-reviewed",
-            "peer-reviewed-non-press",
-            "notPRESSReviewed",
-            "pending"
-          ]
-        },
-        "reviewerAgentClass": {
-          "enum": [
-            "human-information-specialist",
-            "human-self",
-            "model",
-            "none"
-          ]
-        },
-        "reviewedAt": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "format": "date-time"
-        }
-      }
+      "$ref": "#/$defs/pressReview"
+    },
+    "prismaSAttestation": {
+      "type": "array",
+      "minItems": 16,
+      "maxItems": 16,
+      "items": {"$ref": "#/$defs/prismaSItem"}
+    },
+    "governance": {
+      "$ref": "#/$defs/governance"
+    },
+    "methodReferences": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/methodReference"}
     },
     "provenance": {
-      "type": "object",
-      "required": [
-        "authoredBy",
-        "approvedBy",
-        "createdAt",
-        "llmDrafted"
-      ],
-      "additionalProperties": false,
-      "properties": {
-        "authoredBy": {
-          "type": "string"
-        },
-        "llmDrafted": {
-          "type": "boolean"
-        },
-        "modelVersion": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "promptHash": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "approvedBy": {
-          "type": "array",
-          "minItems": 1,
-          "items": {
-            "type": "object",
-            "required": [
-              "agent",
-              "agentClass",
-              "at"
-            ],
-            "additionalProperties": false,
-            "properties": {
-              "agent": {
-                "type": "string"
-              },
-              "agentClass": {
-                "enum": [
-                  "human-information-specialist",
-                  "human-self",
-                  "human-expert",
-                  "model",
-                  "deterministic"
-                ]
-              },
-              "at": {
-                "type": "string",
-                "format": "date-time"
-              }
-            }
-          },
-          "contains": {
-            "properties": {
-              "agentClass": {
-                "enum": [
-                  "human-information-specialist",
-                  "human-self",
-                  "human-expert"
-                ]
-              }
-            },
-            "required": [
-              "agentClass"
-            ]
-          },
-          "minContains": 1
-        },
-        "createdAt": {
-          "type": "string",
-          "format": "date-time"
-        }
-      }
+      "$ref": "#/$defs/provenance"
     }
   },
   "allOf": [
     {
       "if": {
-        "properties": {
-          "changeClass": {
-            "const": "recall-expanding"
-          }
-        },
-        "required": [
-          "changeClass"
-        ]
+        "properties": {"status": {"const": "frozen"}},
+        "required": ["status"]
       },
       "then": {
-        "required": [
-          "recallEvaluation"
-        ],
+        "required": ["frozenAt", "contractHash"]
+      }
+    },
+    {
+      "if": {
+        "properties": {"changeClass": {"const": "initial"}},
+        "required": ["changeClass"]
+      },
+      "then": {
+        "properties": {
+          "supersedes": {"const": null},
+          "backfillObligation": {
+            "properties": {
+              "required": {"const": false},
+              "scope": {"const": "none"}
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {"changeClass": {"const": "recall-expanding"}},
+        "required": ["changeClass"]
+      },
+      "then": {
         "properties": {
           "backfillObligation": {
             "properties": {
-              "required": {
-                "const": true
-              },
-              "scope": {
-                "const": "all-domains-at-lower-version"
-              },
-              "deadlinePolicy": {
-                "const": "before-any-approved-claim-in-domain"
-              }
+              "required": {"const": true},
+              "scope": {"const": "all-domains-at-lower-version"},
+              "deadlinePolicy": {"const": "before-any-approved-claim-in-domain"}
             }
           },
           "recallEvaluation": {
-            "required": [
-              "knownItemSeedSet",
-              "seedRecallCurrent",
-              "minAcceptableSeedRecall"
-            ]
+            "properties": {
+              "status": {"const": "evaluated"},
+              "knownItemSeedSet": {"minItems": 1},
+              "seedRecallCurrent": {"type": "number"}
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {"changeClass": {"const": "recall-neutral"}},
+        "required": ["changeClass"]
+      },
+      "then": {
+        "properties": {
+          "recallEvaluation": {
+            "properties": {
+              "status": {"const": "evaluated"},
+              "knownItemSeedSet": {"minItems": 1},
+              "seedRecallPrevious": {"type": "number"},
+              "seedRecallCurrent": {"type": "number"}
+            }
           }
         }
       }
@@ -315,29 +198,322 @@
     {
       "if": {
         "properties": {
-          "changeClass": {
-            "const": "recall-neutral"
+          "pressReview": {
+            "properties": {
+              "status": {"enum": ["notPRESSReviewed", "pending"]}
+            },
+            "required": ["status"]
           }
         },
-        "required": [
-          "changeClass"
-        ]
+        "required": ["pressReview"]
       },
       "then": {
-        "required": [
-          "recallEvaluation"
-        ],
         "properties": {
-          "recallEvaluation": {
-            "required": [
-              "knownItemSeedSet",
-              "seedRecallPrevious",
-              "seedRecallCurrent",
-              "minAcceptableSeedRecall"
-            ]
+          "governance": {
+            "properties": {
+              "blocksApprovedClaims": {"const": true},
+              "unblockConditions": {
+                "contains": {"const": "press-review"},
+                "minContains": 1
+              }
+            }
           }
         }
       }
     }
-  ]
+  ],
+  "$defs": {
+    "changeDiff": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "addedTerms": {"type": "array", "items": {"type": "string"}},
+        "removedTerms": {"type": "array", "items": {"type": "string"}},
+        "addedDatabases": {"type": "array", "items": {"type": "string"}},
+        "changedLimits": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "queryArtifact": {
+      "type": "object",
+      "required": ["strategyId", "path", "sha256", "mediaType", "encoding"],
+      "additionalProperties": false,
+      "properties": {
+        "strategyId": {"type": "string"},
+        "path": {
+          "type": "string",
+          "pattern": "^calibration/b11-carbohydrate/queries/[a-z0-9.-]+$"
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        },
+        "mediaType": {
+          "enum": ["text/plain", "application/json"]
+        },
+        "encoding": {"const": "utf-8"}
+      }
+    },
+    "pagination": {
+      "type": "object",
+      "required": ["mode", "pageSize", "terminationCondition"],
+      "additionalProperties": false,
+      "properties": {
+        "mode": {"enum": ["eutils-history", "cursor", "page-token", "offset", "none"]},
+        "pageSize": {"type": "integer", "minimum": 1},
+        "requestCursorField": {"type": ["string", "null"]},
+        "responseCursorField": {"type": ["string", "null"]},
+        "terminationCondition": {"type": "string", "minLength": 1}
+      }
+    },
+    "source": {
+      "type": "object",
+      "required": [
+        "sourceId",
+        "sourceClass",
+        "databaseName",
+        "platform",
+        "purpose",
+        "generatesCandidateRecords",
+        "endpoint",
+        "method",
+        "queryArtifacts",
+        "pagination",
+        "recordIdentityFields",
+        "sortAndStability",
+        "rawResponseFormat"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "sourceId": {"type": "string", "pattern": "^[a-z0-9-]+$"},
+        "sourceClass": {
+          "enum": ["bibliographic-database", "discovery-index", "study-registry", "access-resolver", "metadata-resolver"]
+        },
+        "databaseName": {"type": "string", "minLength": 1},
+        "platform": {"type": "string", "minLength": 1},
+        "purpose": {"type": "string", "minLength": 1},
+        "generatesCandidateRecords": {"type": "boolean"},
+        "endpoint": {"type": "string", "format": "uri"},
+        "method": {"enum": ["GET", "POST", "local-diff"]},
+        "queryArtifacts": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/queryArtifact"}
+        },
+        "fixedParameters": {
+          "type": "object",
+          "additionalProperties": {
+            "type": ["string", "number", "integer", "boolean", "null"]
+          }
+        },
+        "pagination": {"$ref": "#/$defs/pagination"},
+        "recordIdentityFields": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"type": "string"}
+        },
+        "sortAndStability": {"type": "string", "minLength": 1},
+        "rawResponseFormat": {"type": "string", "minLength": 1},
+        "rateLimitPolicy": {"type": "string"},
+        "notes": {"type": "string"}
+      }
+    },
+    "searchLimits": {
+      "type": "object",
+      "required": ["languages", "publicationDateLower", "publicationDateUpper", "studyDesignFilter", "publicationStatus", "species", "justification"],
+      "additionalProperties": false,
+      "properties": {
+        "languages": {"const": "none"},
+        "publicationDateLower": {"type": ["string", "null"], "format": "date"},
+        "publicationDateUpper": {"type": ["string", "null"], "format": "date"},
+        "studyDesignFilter": {"const": "none-screen-downstream"},
+        "publicationStatus": {"const": "all-including-preprints"},
+        "species": {"const": "human-screen-downstream"},
+        "justification": {"type": "string", "minLength": 1}
+      }
+    },
+    "citationSearching": {
+      "type": "object",
+      "required": ["backward", "forward", "seedSources", "executionStage", "recordCountsRequired"],
+      "additionalProperties": false,
+      "properties": {
+        "backward": {"type": "boolean"},
+        "forward": {"type": "boolean"},
+        "seedSources": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+        "executionStage": {"type": "string"},
+        "recordCountsRequired": {"const": true}
+      }
+    },
+    "contacts": {
+      "type": "object",
+      "required": ["planned", "who", "when"],
+      "additionalProperties": false,
+      "properties": {
+        "planned": {"type": "boolean"},
+        "who": {"type": "array", "items": {"type": "string"}},
+        "when": {"type": "string"},
+        "note": {"type": "string"}
+      }
+    },
+    "deduplication": {
+      "type": "object",
+      "required": ["identifierPrecedence", "titleOnlyAutoMerge", "ambiguousMatchAction", "normalisation", "auditTrailRequired"],
+      "additionalProperties": false,
+      "properties": {
+        "identifierPrecedence": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+        "titleOnlyAutoMerge": {"const": false},
+        "ambiguousMatchAction": {"const": "human-review"},
+        "normalisation": {"type": "array", "items": {"type": "string"}},
+        "auditTrailRequired": {"const": true}
+      }
+    },
+    "accessPolicy": {
+      "type": "object",
+      "required": ["legalAccessOnly", "bypassAccessControls", "resolverOrder", "requiredProvenanceFields", "onNoLegalFullText"],
+      "additionalProperties": false,
+      "properties": {
+        "legalAccessOnly": {"const": true},
+        "bypassAccessControls": {"const": false},
+        "resolverOrder": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+        "requiredProvenanceFields": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string"}},
+        "onNoLegalFullText": {"const": "record-unavailable-and-continue-metadata-only"},
+        "notes": {"type": "string"}
+      }
+    },
+    "executionProtocol": {
+      "type": "object",
+      "required": ["requestManifestRequired", "rawResponseRetention", "recordCountPerSourceRequired", "requestTimestampRequired", "queryArtifactHashRequired", "failurePolicy"],
+      "additionalProperties": false,
+      "properties": {
+        "requestManifestRequired": {"const": true},
+        "rawResponseRetention": {"const": "required"},
+        "recordCountPerSourceRequired": {"const": true},
+        "requestTimestampRequired": {"const": true},
+        "queryArtifactHashRequired": {"const": true},
+        "failurePolicy": {"enum": ["fail-source-and-continue-others", "fail-entire-run"]},
+        "retryPolicy": {"type": "string"}
+      }
+    },
+    "updatePolicy": {
+      "type": "object",
+      "required": ["rerunMode", "beforeApprovedClaim", "recordNewAndRemovedCandidates", "lastSearchDatePerSourceRequired"],
+      "additionalProperties": false,
+      "properties": {
+        "rerunMode": {"const": "full-query-rerun-plus-date-delta-audit"},
+        "beforeApprovedClaim": {"const": true},
+        "recordNewAndRemovedCandidates": {"const": true},
+        "lastSearchDatePerSourceRequired": {"const": true},
+        "scheduledInterval": {"type": ["string", "null"]}
+      }
+    },
+    "backfillObligation": {
+      "type": "object",
+      "required": ["required", "scope", "deadlinePolicy", "blocksNewBatches"],
+      "additionalProperties": false,
+      "properties": {
+        "required": {"type": "boolean"},
+        "scope": {"enum": ["none", "affected-domains-only", "all-domains-at-lower-version"]},
+        "deadlinePolicy": {"enum": ["before-next-batch", "within-n-batches", "before-any-approved-claim-in-domain"]},
+        "withinNBatches": {"type": ["integer", "null"], "minimum": 1},
+        "blocksNewBatches": {"type": "boolean"}
+      }
+    },
+    "recallEvaluation": {
+      "type": "object",
+      "required": ["status", "knownItemSeedSet", "seedRecallPrevious", "seedRecallCurrent", "minAcceptableSeedRecall", "note"],
+      "additionalProperties": false,
+      "properties": {
+        "status": {"enum": ["pending-calibration", "evaluated"]},
+        "knownItemSeedSet": {"type": "array", "items": {"type": "string"}},
+        "seedRecallPrevious": {"type": ["number", "null"], "minimum": 0, "maximum": 1},
+        "seedRecallCurrent": {"type": ["number", "null"], "minimum": 0, "maximum": 1},
+        "minAcceptableSeedRecall": {"type": "number", "minimum": 0, "maximum": 1},
+        "note": {"type": "string", "minLength": 1}
+      },
+      "allOf": [
+        {
+          "if": {"properties": {"status": {"const": "evaluated"}}, "required": ["status"]},
+          "then": {
+            "properties": {
+              "knownItemSeedSet": {"minItems": 1},
+              "seedRecallCurrent": {"type": "number"}
+            },
+            "required": ["seedRecallCurrent"]
+          }
+        }
+      ]
+    },
+    "pressReview": {
+      "type": "object",
+      "required": ["status", "reviewerAgentClass", "reviewedAt", "note"],
+      "additionalProperties": false,
+      "properties": {
+        "status": {"enum": ["press-reviewed", "peer-reviewed-non-press", "notPRESSReviewed", "pending"]},
+        "reviewerAgentClass": {"enum": ["human-information-specialist", "human-self", "model", "none"]},
+        "reviewedAt": {"type": ["string", "null"], "format": "date-time"},
+        "note": {"type": "string"}
+      }
+    },
+    "prismaSItem": {
+      "type": "object",
+      "required": ["item", "topic", "status", "implementation"],
+      "additionalProperties": false,
+      "properties": {
+        "item": {"type": "integer", "minimum": 1, "maximum": 16},
+        "topic": {"type": "string", "minLength": 1},
+        "status": {"enum": ["implemented", "not-applicable"]},
+        "implementation": {"type": "string", "minLength": 1}
+      }
+    },
+    "governance": {
+      "type": "object",
+      "required": ["canExecuteSearch", "blocksApprovedClaims", "unblockConditions"],
+      "additionalProperties": false,
+      "properties": {
+        "canExecuteSearch": {"type": "boolean"},
+        "blocksApprovedClaims": {"type": "boolean"},
+        "unblockConditions": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "methodReference": {
+      "type": "object",
+      "required": ["title", "url", "accessedAt"],
+      "additionalProperties": false,
+      "properties": {
+        "title": {"type": "string", "minLength": 1},
+        "url": {"type": "string", "format": "uri"},
+        "accessedAt": {"type": "string", "format": "date"}
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "required": ["authoredBy", "approvedBy", "createdAt", "llmDrafted"],
+      "additionalProperties": false,
+      "properties": {
+        "authoredBy": {"type": "string"},
+        "llmDrafted": {"type": "boolean"},
+        "modelVersion": {"type": ["string", "null"]},
+        "promptHash": {"type": ["string", "null"]},
+        "approvedBy": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["agent", "agentClass", "at", "approvalScope"],
+            "additionalProperties": false,
+            "properties": {
+              "agent": {"type": "string"},
+              "agentClass": {"enum": ["human-information-specialist", "human-self", "human-expert", "model", "deterministic"]},
+              "at": {"type": "string", "format": "date-time"},
+              "approvalScope": {"type": "string", "minLength": 1}
+            }
+          },
+          "contains": {
+            "properties": {"agentClass": {"enum": ["human-information-specialist", "human-self", "human-expert"]}},
+            "required": ["agentClass"]
+          },
+          "minContains": 1
+        },
+        "createdAt": {"type": "string", "format": "date-time"}
+      }
+    }
+  }
 }

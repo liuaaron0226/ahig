@@ -1,0 +1,15 @@
+{
+  "endpoint": "https://clinicaltrials.gov/api/v2/studies",
+  "params": {
+    "query.term": "(AREA[ConditionSearch](Exercise OR Endurance OR Athletic Performance) OR AREA[Keyword](Exercise OR Endurance OR Athlete)) AND AREA[InterventionName](Carbohydrate OR Glucose OR Fructose OR Sucrose OR Maltodextrin)",
+    "format": "json",
+    "pageSize": 1000,
+    "countTotal": true
+  },
+  "pagination": {
+    "next": "nextPageToken",
+    "requestParam": "pageToken",
+    "stopWhen": "nextPageToken is absent"
+  },
+  "note": "Do not filter by recruitment status: completed, terminated, withdrawn, and unknown-status records can all reveal outcome switching or unpublished trials."
+}

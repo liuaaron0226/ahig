@@ -37,6 +37,7 @@ from ahig.state import atomic_write_json             # noqa: E402
 HERE = Path(__file__).resolve().parent
 DRAFT = HERE / "scope-contract.draft.json"
 OUT = HERE / "scope-contract.json"
+SEARCH = HERE / "search-contract.json"
 SCHEMA = ROOT / "schema" / "extraction-scope-contract.schema.json"
 
 DEFAULT_FROZEN_AT = "2026-08-13T00:00:00Z"
@@ -52,6 +53,23 @@ def main(argv: list[str] | None = None) -> int:
     args = ap.parse_args(argv)
 
     draft = json.loads(DRAFT.read_text(encoding="utf-8"))
+
+    # SearchContract 已存在後，ScopeContract 不能再單獨引用舊 hash。
+    # 完整契約鏈的正常入口是 freeze_search_contract.py；本腳本保留給只改 scope
+    # 軸的情況，但仍必須先確認上游綁定一致。
+    if not SEARCH.exists():
+        print("缺少 search-contract.json；請先執行 freeze_search_contract.py")
+        return 1
+    search = json.loads(SEARCH.read_text(encoding="utf-8"))
+    expected = {
+        "searchContractId": search["searchContractId"],
+        "version": search["version"],
+        "hash": search["contractHash"],
+    }
+    if draft.get("derivedFromSearchContract") != expected:
+        print("scope draft 的 derivedFromSearchContract 與正式 SearchContract 不一致；"
+              "請執行 freeze_search_contract.py 重新綁定整條契約鏈")
+        return 1
 
     problems = freeze.freeze_preflight(draft)
     if problems:

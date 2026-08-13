@@ -167,29 +167,72 @@ def stage_tests(stage: Stage) -> Stage:
 
 
 def stage_calibration_contract(stage: Stage) -> Stage:
+    from jsonschema import Draft202012Validator
+
     from ahig.contracts import freeze
     from ahig.scope import matcher as sm
 
-    path = ROOT / "calibration" / "b11-carbohydrate" / "scope-contract.json"
-    if not path.exists():
-        return stage.failed(f"缺少凍結契約 {path.name}")
-    contract = json.loads(path.read_text(encoding="utf-8"))
+    cal = ROOT / "calibration" / "b11-carbohydrate"
+    search_path = cal / "search-contract.json"
+    scope_path = cal / "scope-contract.json"
+    strata_path = cal / "strata.json"
+    for path in (search_path, scope_path, strata_path):
+        if not path.exists():
+            return stage.failed(f"缺少契約鏈產物 {path.name}")
 
-    if contract.get("status") != "frozen":
-        return stage.failed(f"status={contract.get('status')!r}，非 frozen")
-    if not freeze.verify_frozen(contract, "scopeContractHash"):
-        return stage.failed("雜湊自我驗證失敗——契約可能被手動編輯過")
-    problems = freeze.freeze_preflight(contract)
+    search = json.loads(search_path.read_text(encoding="utf-8"))
+    scope = json.loads(scope_path.read_text(encoding="utf-8"))
+    strata = json.loads(strata_path.read_text(encoding="utf-8"))
+
+    search_schema = json.loads(
+        (ROOT / "schema" / "search-contract-version.schema.json").read_text(
+            encoding="utf-8"))
+    errors = sorted(Draft202012Validator(search_schema).iter_errors(search),
+                    key=lambda e: list(e.path))
+    if errors:
+        return stage.failed(
+            f"SearchContract schema：{list(errors[0].path)} {errors[0].message[:160]}")
+    if search.get("status") != "frozen" or not freeze.verify_frozen(
+            search, "contractHash"):
+        return stage.failed("SearchContract 非 frozen 或雜湊自我驗證失敗")
+
+    # query artifact 是搜尋方法本身，檔案被改過必須讓契約鏈失效。
+    import hashlib
+    for source in search["sources"]:
+        for artifact in source["queryArtifacts"]:
+            path = ROOT / artifact["path"]
+            if not path.is_file():
+                return stage.failed(f"缺少 query artifact：{artifact['path']}")
+            actual = "sha256:" + hashlib.sha256(path.read_bytes()).hexdigest()
+            if actual != artifact["sha256"]:
+                return stage.failed(f"query artifact hash 過期：{artifact['strategyId']}")
+
+    derived = scope.get("derivedFromSearchContract")
+    expected = {"searchContractId": search["searchContractId"],
+                "version": search["version"], "hash": search["contractHash"]}
+    if derived != expected:
+        return stage.failed("ScopeContract 未綁定現行 SearchContract")
+
+    if scope.get("status") != "frozen":
+        return stage.failed(f"ScopeContract status={scope.get('status')!r}，非 frozen")
+    if not freeze.verify_frozen(scope, "scopeContractHash"):
+        return stage.failed("ScopeContract 雜湊自我驗證失敗——可能被手動編輯過")
+    problems = freeze.freeze_preflight(scope)
     if problems:
-        return stage.failed(f"前置檢查 {len(problems)} 項：{problems[:2]}")
-    sm.ScopeMatcher(contract)
+        return stage.failed(f"ScopeContract 前置檢查 {len(problems)} 項：{problems[:2]}")
+    sm.ScopeMatcher(scope)
+    if strata.get("scopeContractHash") != scope["scopeContractHash"]:
+        return stage.failed("strata 未綁定現行 ScopeContract")
 
-    outcomes = contract["inScopeOutcomes"]
+    outcomes = scope["inScopeOutcomes"]
     critical = [o for o in outcomes if o["role"] == "critical"]
     if not any("gi-" in o["outcomeId"] for o in critical):
         return stage.failed("GI harms 不是 critical outcome")
+    candidates = sum(s["generatesCandidateRecords"] for s in search["sources"])
     return stage.passed(
-        f"B.11 契約已凍結；{len(outcomes)} 個 outcome（{len(critical)} 個 critical）")
+        f"Search→Scope→strata 契約鏈已凍結；{candidates} 個候選來源、"
+        f"{len(outcomes)} 個 outcome（{len(critical)} 個 critical）；"
+        f"Approved Claim blocked={search['governance']['blocksApprovedClaims']}")
 
 
 def stage_walkthrough(stage: Stage) -> Stage:
@@ -289,7 +332,7 @@ STAGES = [
     ("SHACL canary", stage_shacl),
     ("交付物驗證", stage_deliverables),
     ("單元與整合測試", stage_tests),
-    ("B.11 凍結契約", stage_calibration_contract),
+    ("B.11 Search→Scope→strata 契約鏈", stage_calibration_contract),
     ("端到端貫穿", stage_walkthrough),
     ("數字對帳", stage_analysis_reconciliation),
     ("私密資料掃描", stage_privacy),

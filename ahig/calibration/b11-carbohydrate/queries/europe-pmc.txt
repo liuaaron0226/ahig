@@ -1,0 +1,33 @@
+(
+  TITLE_ABS:carbohydrat*
+  OR TITLE_ABS:glucose
+  OR TITLE_ABS:fructose
+  OR TITLE_ABS:sucrose
+  OR TITLE_ABS:maltodextrin
+  OR TITLE_ABS:"multiple transportable carbohydrate"
+  OR TITLE_ABS:"multiple transportable carbohydrates"
+  OR TITLE_ABS:"exogenous carbohydrate"
+  OR TITLE_ABS:"exogenous carbohydrates"
+)
+AND
+(
+  TITLE_ABS:exercis*
+  OR TITLE_ABS:endurance
+  OR TITLE_ABS:cycling
+  OR TITLE_ABS:cyclist*
+  OR TITLE_ABS:running
+  OR TITLE_ABS:runner*
+  OR TITLE_ABS:triathlon
+  OR TITLE_ABS:athlete*
+)
+AND
+(
+  TITLE_ABS:ingest*
+  OR TITLE_ABS:intake
+  OR TITLE_ABS:feed*
+  OR TITLE_ABS:supplement*
+  OR TITLE_ABS:beverage*
+  OR TITLE_ABS:drink*
+  OR TITLE_ABS:gel
+  OR TITLE_ABS:gels
+)

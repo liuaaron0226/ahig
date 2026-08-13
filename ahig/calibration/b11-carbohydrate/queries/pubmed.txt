@@ -1,0 +1,38 @@
+(
+  "Carbohydrates"[Mesh]
+  OR "Dietary Carbohydrates"[Mesh]
+  OR carbohydrat*[tiab]
+  OR glucose[tiab]
+  OR fructose[tiab]
+  OR sucrose[tiab]
+  OR maltodextrin[tiab]
+  OR "multiple transportable carbohydrate"[tiab]
+  OR "multiple transportable carbohydrates"[tiab]
+  OR "exogenous carbohydrate"[tiab]
+  OR "exogenous carbohydrates"[tiab]
+)
+AND
+(
+  "Exercise"[Mesh]
+  OR "Sports"[Mesh]
+  OR "Athletic Performance"[Mesh]
+  OR exercis*[tiab]
+  OR endurance[tiab]
+  OR cycling[tiab]
+  OR cyclist*[tiab]
+  OR running[tiab]
+  OR runner*[tiab]
+  OR triathlon[tiab]
+  OR athlete*[tiab]
+)
+AND
+(
+  ingest*[tiab]
+  OR intake[tiab]
+  OR feed*[tiab]
+  OR supplement*[tiab]
+  OR beverage*[tiab]
+  OR drink*[tiab]
+  OR gel[tiab]
+  OR gels[tiab]
+)

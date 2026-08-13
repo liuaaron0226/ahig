@@ -11,7 +11,7 @@
   "derivedFromSearchContract": {
     "searchContractId": "ahig:search:b11-exogenous-cho-endurance",
     "version": "1.0.0",
-    "hash": "sha256:0000000000000000000000000000000000000000000000000000000000000000"
+    "hash": "sha256:9f0e10efce2f2c4ce55228c82c7e43902b8a8c64c0f2dc7b480a794413a71882"
   },
   "researchQuestion": {
     "population": {
@@ -261,5 +261,5 @@
     }
   },
   "frozenAt": "2026-08-13T00:00:00Z",
-  "scopeContractHash": "sha256:e027825fce7522cf3965dc9a3d075fa7de12074db7778ca31c7c21e42a0c4e33"
+  "scopeContractHash": "sha256:1bd206e5c4741e2d0339a81ffa53a717330d539fa4f1d2a19fa31c3401ef8696"
 }

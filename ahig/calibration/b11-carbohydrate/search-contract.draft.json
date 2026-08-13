@@ -1,0 +1,388 @@
+{
+  "searchContractId": "ahig:search:b11-exogenous-cho-endurance",
+  "version": "1.0.0",
+  "status": "draft",
+  "supersedes": null,
+  "changeClass": "initial",
+  "changeSummary": "第一版 B.11 可執行搜尋契約。凍結資料庫與平台、完整查詢 artifact、分頁、限制、去重、引用追蹤、更新搜尋、合法全文取得與 PRISMA-S 稽核軌；尚未執行搜尋或建立 known-item seed set。",
+  "appliesTo": [
+    "ahig:cc:carbohydrate-availability-and-glycogen-management"
+  ],
+  "objective": "辨識受過訓練的成年耐力運動員在單次運動中攝取外源性碳水化合物，相較安慰劑、無碳水或劑量比較，對計時賽、力竭時間、外源性碳水氧化、肌肉肝醣與腸胃道 harms 的介入研究；同時辨識註冊但未發表、預印本、撤稿與合法開放全文版本。",
+  "sources": [
+    {
+      "sourceId": "pubmed",
+      "sourceClass": "bibliographic-database",
+      "databaseName": "PubMed",
+      "platform": "NCBI Entrez E-utilities",
+      "purpose": "主要生醫書目來源；MeSH 與 Title/Abstract 詞並行，避免只依已完成 MEDLINE 索引的紀錄。",
+      "generatesCandidateRecords": true,
+      "endpoint": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi",
+      "method": "GET",
+      "queryArtifacts": [
+        {
+          "strategyId": "b11-pubmed-v1",
+          "path": "calibration/b11-carbohydrate/queries/pubmed.txt",
+          "sha256": "sha256:56ac4cbd29cc7e62d7078361b80a109c8aef2b779b13612afb6d9a773d9745ec",
+          "mediaType": "text/plain",
+          "encoding": "utf-8"
+        }
+      ],
+      "fixedParameters": {
+        "db": "pubmed",
+        "retmode": "json",
+        "usehistory": "y",
+        "retmax": 500,
+        "tool": "ahig",
+        "emailFromEnvironment": "AHIG_CONTACT_EMAIL"
+      },
+      "pagination": {
+        "mode": "eutils-history",
+        "pageSize": 500,
+        "requestCursorField": "retstart",
+        "responseCursorField": "esearchresult.count + WebEnv + querykey",
+        "terminationCondition": "retstart >= integer esearchresult.count; use the same WebEnv/querykey returned by the initial request"
+      },
+      "recordIdentityFields": ["pmid", "doi", "pmcid"],
+      "sortAndStability": "Primary set identity is the ESearch History set captured at request time, not PubMed UI relevance order. Persist count, WebEnv, querykey, complete PMID sequence, request URL and timestamp.",
+      "rawResponseFormat": "application/json for ESearch; application/xml for EFetch metadata",
+      "rateLimitPolicy": "No parallel requests; maximum 3 requests/second without an NCBI API key; identify tool and contact email.",
+      "notes": "Do not use #1/#2 History numbers in the artifact: they expire with the browser session. Do not apply publication-type, language, human, or date filters in the query; screen downstream."
+    },
+    {
+      "sourceId": "europe-pmc",
+      "sourceClass": "bibliographic-database",
+      "databaseName": "Europe PMC",
+      "platform": "EMBL-EBI Europe PMC REST API",
+      "purpose": "補充 PubMed、預印本與 Europe PMC 全文／開放取用位置；保留與 PubMed 重疊以量測去重。",
+      "generatesCandidateRecords": true,
+      "endpoint": "https://www.ebi.ac.uk/europepmc/webservices/rest/search",
+      "method": "GET",
+      "queryArtifacts": [
+        {
+          "strategyId": "b11-europe-pmc-v1",
+          "path": "calibration/b11-carbohydrate/queries/europe-pmc.txt",
+          "sha256": "sha256:470d972ec10a903b6096283de7f3777ce8710011405a32848c5400ea7d5089b6",
+          "mediaType": "text/plain",
+          "encoding": "utf-8"
+        }
+      ],
+      "fixedParameters": {
+        "format": "json",
+        "resultType": "core",
+        "pageSize": 1000,
+        "cursorMark": "*"
+      },
+      "pagination": {
+        "mode": "cursor",
+        "pageSize": 1000,
+        "requestCursorField": "cursorMark",
+        "responseCursorField": "nextCursorMark",
+        "terminationCondition": "nextCursorMark is absent or resultList.result is empty"
+      },
+      "recordIdentityFields": ["doi", "pmid", "pmcid", "source+id"],
+      "sortAndStability": "Europe PMC is mutable. Persist each cursor request, nextCursorMark, hitCount, raw response and timestamp; the retained raw snapshot is the reproducible result, not a later rerun.",
+      "rawResponseFormat": "application/json",
+      "rateLimitPolicy": "Sequential cursor requests with exponential backoff on 429/5xx.",
+      "notes": "No HAS_FT or OPEN_ACCESS filter during candidate discovery: access status must not change study eligibility."
+    },
+    {
+      "sourceId": "openalex",
+      "sourceClass": "discovery-index",
+      "databaseName": "OpenAlex Works",
+      "platform": "OpenAlex API",
+      "purpose": "語意與引用圖補充來源；用來找書目資料庫詞彙可能漏掉的候選，不作為唯一召回來源。",
+      "generatesCandidateRecords": true,
+      "endpoint": "https://api.openalex.org/works",
+      "method": "GET",
+      "queryArtifacts": [
+        {
+          "strategyId": "b11-openalex-v1",
+          "path": "calibration/b11-carbohydrate/queries/openalex.json",
+          "sha256": "sha256:eed9e63aec9c73ec2ed737ea1590d9490342459c08d81144642fef14a4a5f9e6",
+          "mediaType": "application/json",
+          "encoding": "utf-8"
+        }
+      ],
+      "fixedParameters": {
+        "per_page": 100,
+        "cursor": "*",
+        "apiKeyFromEnvironment": "OPENALEX_API_KEY"
+      },
+      "pagination": {
+        "mode": "cursor",
+        "pageSize": 100,
+        "requestCursorField": "cursor",
+        "responseCursorField": "meta.next_cursor",
+        "terminationCondition": "meta.next_cursor is null or results is empty"
+      },
+      "recordIdentityFields": ["doi", "pmid", "pmcid", "openalex-id"],
+      "sortAndStability": "Search ranking and the graph are mutable. Persist request parameters, every cursor response, result order, updated_date and execution timestamp; never infer that a later rerun is the same snapshot.",
+      "rawResponseFormat": "application/json",
+      "rateLimitPolicy": "Use an API key; sequential cursor requests; respect returned rate-limit headers and back off on 429/5xx.",
+      "notes": "Discovery supplement only. Search uses full-text relevance and therefore cannot replace exact fielded bibliographic queries."
+    },
+    {
+      "sourceId": "clinicaltrials-gov",
+      "sourceClass": "study-registry",
+      "databaseName": "ClinicalTrials.gov",
+      "platform": "ClinicalTrials.gov API v2",
+      "purpose": "辨識已註冊但未發表、終止或結果未回報的碳水運動介入試驗，並支援 outcome switching 比對。",
+      "generatesCandidateRecords": true,
+      "endpoint": "https://clinicaltrials.gov/api/v2/studies",
+      "method": "GET",
+      "queryArtifacts": [
+        {
+          "strategyId": "b11-clinicaltrials-gov-v1",
+          "path": "calibration/b11-carbohydrate/queries/clinicaltrials-gov.json",
+          "sha256": "sha256:3f99f62346a2490de4c0f34c0ac1f0772e1c31cc13978528214bba725e4b197f",
+          "mediaType": "application/json",
+          "encoding": "utf-8"
+        }
+      ],
+      "fixedParameters": {
+        "format": "json",
+        "pageSize": 1000,
+        "countTotal": true
+      },
+      "pagination": {
+        "mode": "page-token",
+        "pageSize": 1000,
+        "requestCursorField": "pageToken",
+        "responseCursorField": "nextPageToken",
+        "terminationCondition": "nextPageToken is absent"
+      },
+      "recordIdentityFields": ["NCTId", "doi", "pmid"],
+      "sortAndStability": "Registry records are mutable. Retain raw JSON, lastUpdateSubmitDate, versionHolder/date fields where present, request timestamp and page token sequence.",
+      "rawResponseFormat": "application/json",
+      "rateLimitPolicy": "Sequential page-token requests with exponential backoff on 429/5xx.",
+      "notes": "Do not filter by recruitment status. Completed, terminated, withdrawn and unknown-status trials can all reveal nonpublication or outcome switching."
+    },
+    {
+      "sourceId": "crossref",
+      "sourceClass": "metadata-resolver",
+      "databaseName": "Crossref Metadata",
+      "platform": "Crossref REST API",
+      "purpose": "標準化 DOI metadata、補 references/relation/update-to 欄位，供 StudyFamily、引用追蹤與撤稿監控；不作初始候選搜尋。",
+      "generatesCandidateRecords": false,
+      "endpoint": "https://api.crossref.org/works/",
+      "method": "GET",
+      "queryArtifacts": [],
+      "fixedParameters": {
+        "mailtoFromEnvironment": "AHIG_CONTACT_EMAIL"
+      },
+      "pagination": {
+        "mode": "none",
+        "pageSize": 1,
+        "requestCursorField": null,
+        "responseCursorField": null,
+        "terminationCondition": "one DOI lookup per canonical DOI"
+      },
+      "recordIdentityFields": ["doi"],
+      "sortAndStability": "Per-DOI metadata lookup; retain raw response and indexed/deposited timestamps because metadata can change.",
+      "rawResponseFormat": "application/json",
+      "rateLimitPolicy": "Use polite pool via mailto; sequential requests and exponential backoff.",
+      "notes": "Citation graph results are supplementary; references deposited by publishers can be incomplete."
+    },
+    {
+      "sourceId": "unpaywall",
+      "sourceClass": "access-resolver",
+      "databaseName": "Unpaywall",
+      "platform": "Unpaywall REST API v2",
+      "purpose": "以 DOI 定位合法開放版本並保存 host_type、version、license 與 resolved URL；不決定研究是否納入。",
+      "generatesCandidateRecords": false,
+      "endpoint": "https://api.unpaywall.org/v2/",
+      "method": "GET",
+      "queryArtifacts": [],
+      "fixedParameters": {
+        "emailFromEnvironment": "AHIG_CONTACT_EMAIL"
+      },
+      "pagination": {
+        "mode": "none",
+        "pageSize": 1,
+        "requestCursorField": null,
+        "responseCursorField": null,
+        "terminationCondition": "one DOI lookup; use best_oa_location only when non-null"
+      },
+      "recordIdentityFields": ["doi"],
+      "sortAndStability": "Retain the complete response and checkedAt timestamp; OA locations, version and license can change.",
+      "rawResponseFormat": "application/json",
+      "rateLimitPolicy": "Email is mandatory; stay below documented daily allowance and back off on 429/5xx.",
+      "notes": "best_oa_location is a locator, not permission to bypass authentication or DRM. A null license is recorded as unknown, not inferred as reusable."
+    },
+    {
+      "sourceId": "pmc-open-access",
+      "sourceClass": "access-resolver",
+      "databaseName": "PMC Open Access Subset",
+      "platform": "PMC OA Web Service",
+      "purpose": "以 PMCID 定位 OA Subset 中可合法下載的 tgz/PDF，保存每筆 license 與 retracted 狀態。",
+      "generatesCandidateRecords": false,
+      "endpoint": "https://www.ncbi.nlm.nih.gov/pmc/utils/oa/oa.fcgi",
+      "method": "GET",
+      "queryArtifacts": [],
+      "fixedParameters": {},
+      "pagination": {
+        "mode": "none",
+        "pageSize": 1,
+        "requestCursorField": null,
+        "responseCursorField": null,
+        "terminationCondition": "one PMCID lookup"
+      },
+      "recordIdentityFields": ["pmcid"],
+      "sortAndStability": "Retain XML response, license, updated, retracted and link href fields at checkedAt time.",
+      "rawResponseFormat": "application/xml",
+      "rateLimitPolicy": "Sequential requests with backoff; migrate to the announced PMC Cloud replacement when the legacy service is retired.",
+      "notes": "Only the PMC Open Access Subset is downloadable. A PMCID alone does not imply OA. The legacy OA service announces retirement beginning 2026-08-24; resolver failure falls through to Europe PMC and Unpaywall, and the endpoint must be revalidated before the first acquisition run after that date."
+    }
+  ],
+  "searchLimits": {
+    "languages": "none",
+    "publicationDateLower": null,
+    "publicationDateUpper": null,
+    "studyDesignFilter": "none-screen-downstream",
+    "publicationStatus": "all-including-preprints",
+    "species": "human-screen-downstream",
+    "justification": "不在檢索式套語言、日期、人類或 RCT filter。MeSH/publication-type/species filters 會漏掉尚未完成索引、預印本與非典型運動科學試驗；所有資格限制在 title/abstract/full-text screening 確定性記錄理由碼。"
+  },
+  "citationSearching": {
+    "backward": true,
+    "forward": true,
+    "seedSources": ["included-reports", "eligible-systematic-reviews", "consensus-statements"],
+    "executionStage": "完成初始 title/abstract screening 後，對所有暫納報告做 backward；以 OpenAlex 與 Crossref 做 forward，所有新增候選回到同一去重與 screening 管線。",
+    "recordCountsRequired": true
+  },
+  "contacts": {
+    "planned": true,
+    "who": ["corresponding-authors", "trial-registry-responsible-parties"],
+    "when": "註冊試驗完成超過 18 個月但找不到結果、關鍵數值只在圖中且無法可靠擷取、或合法全文路徑窮盡後。",
+    "note": "聯絡紀錄需保存日期、對象、問題與回覆；未回覆不等於結果不存在。"
+  },
+  "deduplication": {
+    "identifierPrecedence": ["doi", "pmid", "pmcid", "registry-id", "openalex-id", "normalised-title+first-author+year"],
+    "titleOnlyAutoMerge": false,
+    "ambiguousMatchAction": "human-review",
+    "normalisation": [
+      "DOI lower-case and strip https://doi.org/ or doi: prefix",
+      "PMID/PMCID/registry identifiers strip surrounding whitespace",
+      "title Unicode NFKC, lower-case, collapse whitespace, remove terminal punctuation only",
+      "retain original title and all source identifiers",
+      "group reports into StudyFamily only after separate family rules; deduplication does not collapse multiple reports of one study"
+    ],
+    "auditTrailRequired": true
+  },
+  "accessPolicy": {
+    "legalAccessOnly": true,
+    "bypassAccessControls": false,
+    "resolverOrder": [
+      "pmc-open-access",
+      "europe-pmc",
+      "unpaywall",
+      "publisher-open-access",
+      "institutional-or-subject-repository",
+      "author-manuscript-or-preprint",
+      "manual-author-or-library-request"
+    ],
+    "requiredProvenanceFields": [
+      "resolver",
+      "resolvedUrl",
+      "hostType",
+      "versionType",
+      "license",
+      "checkedAt",
+      "fullTextChecksum"
+    ],
+    "onNoLegalFullText": "record-unavailable-and-continue-metadata-only",
+    "notes": "不得規避付費牆、登入、DRM、robots 或其他存取控制。合法路徑窮盡後仍可保留 metadata、abstract、registry 與 access-unavailable provenance，但不得假裝已讀全文。"
+  },
+  "executionProtocol": {
+    "requestManifestRequired": true,
+    "rawResponseRetention": "required",
+    "recordCountPerSourceRequired": true,
+    "requestTimestampRequired": true,
+    "queryArtifactHashRequired": true,
+    "failurePolicy": "fail-source-and-continue-others",
+    "retryPolicy": "對 429/5xx 使用有上限的指數退避；永久 4xx、語法錯誤或分頁游標循環立即標 source failed。任一主要候選來源失敗時 run=partial 且 blocks Approved Claim。"
+  },
+  "updatePolicy": {
+    "rerunMode": "full-query-rerun-plus-date-delta-audit",
+    "beforeApprovedClaim": true,
+    "recordNewAndRemovedCandidates": true,
+    "lastSearchDatePerSourceRequired": true,
+    "scheduledInterval": null
+  },
+  "backfillObligation": {
+    "required": false,
+    "scope": "none",
+    "deadlinePolicy": "before-any-approved-claim-in-domain",
+    "blocksNewBatches": false
+  },
+  "recallEvaluation": {
+    "status": "pending-calibration",
+    "knownItemSeedSet": [],
+    "seedRecallPrevious": null,
+    "seedRecallCurrent": null,
+    "minAcceptableSeedRecall": 0.95,
+    "note": "第一版尚未執行搜尋，不能憑印象宣稱 recall。初始候選池建立後，以獨立來源（專業共識文件、納入回顧與 expert nomination）建立 known-item seed set，再量測每個來源與聯集召回；在此之前 blocks Approved Claim。"
+  },
+  "pressReview": {
+    "status": "notPRESSReviewed",
+    "reviewerAgentClass": "none",
+    "reviewedAt": null,
+    "note": "查詢式已依 PRISMA-S 結構化，但尚未由 human-information-specialist 依 PRESS peer review。允許執行探索與校準搜尋，不允許晉升 Approved Claim。"
+  },
+  "prismaSAttestation": [
+    {"item": 1, "topic": "Database name and platform", "status": "implemented", "implementation": "每個 sources 項明列 databaseName 與 platform。"},
+    {"item": 2, "topic": "Multi-database searching", "status": "not-applicable", "implementation": "各來源分別呼叫，不使用同一平台一次跨多庫搜尋；結果於本地合併。"},
+    {"item": 3, "topic": "Study registries", "status": "implemented", "implementation": "ClinicalTrials.gov API v2 是獨立 study-registry source。"},
+    {"item": 4, "topic": "Online resources and browsing", "status": "implemented", "implementation": "Europe PMC、OpenAlex 與合法 OA resolvers 分別記錄；不以未記錄的瀏覽器手搜補結果。"},
+    {"item": 5, "topic": "Citation searching", "status": "implemented", "implementation": "citationSearching 定義 backward/forward、seed、執行階段與逐來源計數。"},
+    {"item": 6, "topic": "Contacts", "status": "implemented", "implementation": "contacts 定義聯絡對象、觸發條件與未回覆語意。"},
+    {"item": 7, "topic": "Other methods", "status": "implemented", "implementation": "OpenAlex discovery、Crossref metadata/relation、registry-to-publication linkage 皆列為具名來源。"},
+    {"item": 8, "topic": "Full search strategies", "status": "implemented", "implementation": "每個候選來源以獨立 UTF-8/LF query artifact 與 SHA-256 綁定。"},
+    {"item": 9, "topic": "Limits and restrictions", "status": "implemented", "implementation": "searchLimits 顯性宣告無語言、日期、study-design 與 publication-status filter，並解釋下游 screening。"},
+    {"item": 10, "topic": "Search filters", "status": "implemented", "implementation": "未採已發表 RCT/human filter；此選擇本身在 searchLimits 記錄。"},
+    {"item": 11, "topic": "Prior work", "status": "not-applicable", "implementation": "第一版未直接改寫某一篇既有回顧的檢索式；未宣稱有 prior strategy。"},
+    {"item": 12, "topic": "Updates", "status": "implemented", "implementation": "updatePolicy 要求完整重跑加日期 delta audit，並記錄新增與消失候選。"},
+    {"item": 13, "topic": "Dates of searches", "status": "implemented", "implementation": "executionProtocol 與 updatePolicy 強制每來源 request timestamp/last search date；目前尚未執行所以沒有虛構日期。"},
+    {"item": 14, "topic": "Peer review", "status": "implemented", "implementation": "pressReview 顯性標 notPRESSReviewed，governance 因此阻擋 Approved Claim。"},
+    {"item": 15, "topic": "Total records", "status": "implemented", "implementation": "executionProtocol 強制逐來源 record count 與 request manifest。"},
+    {"item": 16, "topic": "Deduplication", "status": "implemented", "implementation": "deduplication 定義識別碼優先順序、正規化、title-only 禁令、歧義人工複審與 audit trail。"}
+  ],
+  "governance": {
+    "canExecuteSearch": true,
+    "blocksApprovedClaims": true,
+    "unblockConditions": [
+      "press-review",
+      "known-item-seed-set-and-recall-evaluation",
+      "all-primary-candidate-sources-successful-or-documented-approved-deviation",
+      "search-run-manifest-and-raw-responses-complete"
+    ]
+  },
+  "methodReferences": [
+    {"title": "PRISMA-S: an extension to the PRISMA Statement for Reporting Literature Searches in Systematic Reviews", "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8270366/", "accessedAt": "2026-08-13"},
+    {"title": "PubMed Help", "url": "https://pubmed.ncbi.nlm.nih.gov/help/", "accessedAt": "2026-08-13"},
+    {"title": "NCBI E-utilities In-Depth: Parameters, Syntax and More", "url": "https://www.ncbi.nlm.nih.gov/books/NBK25499/", "accessedAt": "2026-08-13"},
+    {"title": "Europe PMC RESTful Web Service", "url": "https://europepmc.org/RestfulWebService", "accessedAt": "2026-08-13"},
+    {"title": "OpenAlex List Works and cursor pagination", "url": "https://developers.openalex.org/api-reference/works/list-works", "accessedAt": "2026-08-13"},
+    {"title": "ClinicalTrials.gov API v2", "url": "https://clinicaltrials.gov/data-api/api", "accessedAt": "2026-08-13"},
+    {"title": "Crossref REST API", "url": "https://www.crossref.org/documentation/retrieve-metadata/rest-api/", "accessedAt": "2026-08-13"},
+    {"title": "Unpaywall REST API", "url": "https://unpaywall.org/api", "accessedAt": "2026-08-13"},
+    {"title": "Unpaywall data format", "url": "https://unpaywall.org/data-format", "accessedAt": "2026-08-13"},
+    {"title": "PMC Open Access Web Service", "url": "https://pmc.ncbi.nlm.nih.gov/tools/oa-service/", "accessedAt": "2026-08-13"}
+  ],
+  "provenance": {
+    "authoredBy": "aaron",
+    "approvedBy": [
+      {
+        "agent": "aaron",
+        "agentClass": "human-self",
+        "at": "2026-08-13T00:00:00Z",
+        "approvalScope": "允許執行 B.11 探索與校準搜尋；不構成 PRESS peer review，不允許 Approved Claim。"
+      }
+    ],
+    "createdAt": "2026-08-13T00:00:00Z",
+    "llmDrafted": true,
+    "modelVersion": "claude-opus-5",
+    "promptHash": null
+  }
+}

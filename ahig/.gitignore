@@ -5,6 +5,8 @@
 !*.json
 !*.ttl
 !*.md
+# Exact search strategies are public contract artifacts, not private full text.
+!calibration/**/queries/*.txt
 !pyproject.toml
 !.gitignore
 

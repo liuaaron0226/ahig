@@ -2,7 +2,7 @@
   "samplingFrameId": "ahig:calibration:b11-carbohydrate:strata",
   "version": "1.0.0",
   "scopeContractId": "ahig:scope:b11-exogenous-cho-endurance",
-  "scopeContractHash": "sha256:e027825fce7522cf3965dc9a3d075fa7de12074db7778ca31c7c21e42a0c4e33",
+  "scopeContractHash": "sha256:1bd206e5c4741e2d0339a81ffa53a717330d539fa4f1d2a19fa31c3401ef8696",
   "status": "frozen",
   "frozenAt": "2026-08-13T00:00:00Z",
   "totalSampleSize": 60,

@@ -1,0 +1,14 @@
+{
+  "endpoint": "https://api.openalex.org/works",
+  "params": {
+    "search": "carbohydrate ingestion endurance exercise cycling running athlete glucose fructose maltodextrin performance oxidation gastrointestinal glycogen",
+    "per_page": 100,
+    "cursor": "*",
+    "select": "id,doi,title,display_name,publication_year,publication_date,type,authorships,primary_location,open_access,ids,is_retracted,cited_by_count,referenced_works,updated_date"
+  },
+  "pagination": {
+    "next": "meta.next_cursor",
+    "stopWhen": "meta.next_cursor is null or results is empty"
+  },
+  "note": "Discovery supplement only. OpenAlex search ranking and mutable graph prevent it from being the sole reproducible bibliographic source; retain every raw response and request timestamp."
+}
