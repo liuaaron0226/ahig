@@ -59,6 +59,7 @@ class UrllibTransport:
 
     def get_json(self, *, url: str, params: dict,
                  headers: dict | None = None) -> dict:
+        self.last_exchange = None
         query = urllib.parse.urlencode(params, doseq=True)
         full_url = url + ("&" if "?" in url else "?") + query
         request_headers = {
@@ -83,11 +84,21 @@ class UrllibTransport:
                     }
                     return json.loads(raw.decode(charset))
             except urllib.error.HTTPError as exc:
+                raw = exc.read()
+                self.last_exchange = {
+                    "body": raw,
+                    "status": exc.code,
+                    "headers": dict(exc.headers.items()) if exc.headers else {},
+                    "finalUrl": exc.geturl(),
+                    "contentType": (exc.headers.get("Content-Type")
+                                    if exc.headers else None),
+                }
                 last = exc
                 # 語法／認證等永久錯誤不得重試；429 與 5xx 才重試。
                 if exc.code != 429 and not 500 <= exc.code < 600:
+                    snippet = raw.decode("utf-8", errors="replace")[:300]
                     raise RuntimeError(
-                        f"HTTP {exc.code} {_redacted_url(full_url)}") from exc
+                        f"HTTP {exc.code} {_redacted_url(full_url)} — {snippet}") from exc
             except (urllib.error.URLError, TimeoutError, json.JSONDecodeError) as exc:
                 last = exc
             if attempt < self.attempts:
@@ -143,6 +154,17 @@ def _redacted_params(params: dict) -> dict:
     return result
 
 
+def _wire_params(params: dict) -> dict:
+    """把 JSON 型別轉成 API wire 值；Python 的 True 不得送成字串 `True`。"""
+    def convert(value: Any) -> Any:
+        if isinstance(value, bool):
+            return "true" if value else "false"
+        if isinstance(value, list):
+            return [convert(v) for v in value]
+        return value
+    return {key: convert(value) for key, value in params.items()}
+
+
 def _redacted_url(url: str) -> str:
     parts = urllib.parse.urlsplit(url)
     pairs = urllib.parse.parse_qsl(parts.query, keep_blank_values=True)
@@ -195,7 +217,7 @@ def _save_page(source_root: Path, index: int, payload: dict,
 
 
 def _append_request(requests: list[dict], *, source_root: Path, url: str,
-                    params: dict, response_path: str, requested_at: str,
+                    params: dict, response_path: str | None, requested_at: str,
                     response_meta: dict) -> None:
     requests.append({
         "sequence": len(requests) + 1,
@@ -207,6 +229,42 @@ def _append_request(requests: list[dict], *, source_root: Path, url: str,
         **response_meta,
     })
     atomic_write_json(source_root / "requests.json", requests)
+
+
+def _request_json(*, transport: JsonTransport, source_root: Path,
+                  requests: list[dict], url: str, params: dict,
+                  page_index: int) -> dict:
+    """送出一個 GET，成功與失敗的 HTTP exchange 都寫入稽核軌。"""
+    requested_at = utc_now()
+    wire = _wire_params(params)
+    try:
+        payload = transport.get_json(url=url, params=wire)
+    except Exception:
+        exchange = getattr(transport, "last_exchange", None)
+        if exchange and isinstance(exchange.get("body"), bytes):
+            response_path, response_meta = _save_page(
+                source_root, page_index, {}, transport)
+        else:
+            response_path = None
+            response_meta = {
+                "responseKind": "no-http-response",
+                "httpStatus": None,
+                "headers": {},
+                "finalUrl": None,
+                "contentType": None,
+                "sha256": None,
+                "byteCount": 0,
+            }
+        _append_request(requests, source_root=source_root, url=url, params=wire,
+                        response_path=response_path, requested_at=requested_at,
+                        response_meta=response_meta)
+        raise
+    response_path, response_meta = _save_page(
+        source_root, page_index, payload, transport)
+    _append_request(requests, source_root=source_root, url=url, params=wire,
+                    response_path=response_path, requested_at=requested_at,
+                    response_meta=response_meta)
+    return payload
 
 
 def _base_source_result(source: dict) -> dict:
@@ -241,13 +299,10 @@ def _run_europe_pmc(source: dict, source_root: Path,
                   "resultType": fixed.get("resultType", "core"),
                   "pageSize": source["pagination"]["pageSize"],
                   "cursorMark": cursor}
-        requested_at = utc_now()
-        payload = transport.get_json(url=source["endpoint"], params=params)
         page += 1
-        response_path, response_meta = _save_page(source_root, page, payload, transport)
-        _append_request(requests, source_root=source_root, url=source["endpoint"],
-                        params=params, response_path=response_path,
-                        requested_at=requested_at, response_meta=response_meta)
+        payload = _request_json(
+            transport=transport, source_root=source_root, requests=requests,
+            url=source["endpoint"], params=params, page_index=page)
         if declared_total is None and payload.get("hitCount") is not None:
             declared_total = int(payload["hitCount"])
         batch = payload.get("resultList", {}).get("result") or []
@@ -285,13 +340,10 @@ def _run_clinical_trials(source: dict, source_root: Path,
         params = dict(params_base)
         if token is not None:
             params["pageToken"] = token
-        requested_at = utc_now()
-        payload = transport.get_json(url=source["endpoint"], params=params)
         page += 1
-        response_path, response_meta = _save_page(source_root, page, payload, transport)
-        _append_request(requests, source_root=source_root, url=source["endpoint"],
-                        params=params, response_path=response_path,
-                        requested_at=requested_at, response_meta=response_meta)
+        payload = _request_json(
+            transport=transport, source_root=source_root, requests=requests,
+            url=source["endpoint"], params=params, page_index=page)
         if declared_total is None and payload.get("totalCount") is not None:
             declared_total = int(payload["totalCount"])
         batch = payload.get("studies") or []
@@ -330,13 +382,10 @@ def _run_openalex(source: dict, source_root: Path,
             raise RuntimeError(f"cursor loop detected: {cursor}")
         seen.add(cursor)
         params = dict(params_base, cursor=cursor)
-        requested_at = utc_now()
-        payload = transport.get_json(url=source["endpoint"], params=params)
         page += 1
-        response_path, response_meta = _save_page(source_root, page, payload, transport)
-        _append_request(requests, source_root=source_root, url=source["endpoint"],
-                        params=params, response_path=response_path,
-                        requested_at=requested_at, response_meta=response_meta)
+        payload = _request_json(
+            transport=transport, source_root=source_root, requests=requests,
+            url=source["endpoint"], params=params, page_index=page)
         if declared_total is None and payload.get("meta", {}).get("count") is not None:
             declared_total = int(payload["meta"]["count"])
         batch = payload.get("results") or []
@@ -367,12 +416,9 @@ def _run_pubmed(source: dict, source_root: Path,
         "retmax": 0, "tool": "ahig", "email": email,
     }
     requests: list[dict] = []
-    requested_at = utc_now()
-    initial = transport.get_json(url=base + "esearch.fcgi", params=esearch_params)
-    response_path, response_meta = _save_page(source_root, 1, initial, transport)
-    _append_request(requests, source_root=source_root, url=base + "esearch.fcgi",
-                    params=esearch_params, response_path=response_path,
-                    requested_at=requested_at, response_meta=response_meta)
+    initial = _request_json(
+        transport=transport, source_root=source_root, requests=requests,
+        url=base + "esearch.fcgi", params=esearch_params, page_index=1)
     result = initial.get("esearchresult", {})
     count = int(result.get("count", 0))
     query_key, webenv = result.get("querykey"), result.get("webenv")
@@ -388,14 +434,10 @@ def _run_pubmed(source: dict, source_root: Path,
             "retstart": start, "retmax": page_size, "retmode": "json",
             "tool": "ahig", "email": email,
         }
-        requested_at = utc_now()
-        payload = transport.get_json(url=base + "esummary.fcgi", params=params)
         page += 1
-        response_path, response_meta = _save_page(source_root, page, payload, transport)
-        _append_request(requests, source_root=source_root,
-                        url=base + "esummary.fcgi", params=params,
-                        response_path=response_path, requested_at=requested_at,
-                        response_meta=response_meta)
+        payload = _request_json(
+            transport=transport, source_root=source_root, requests=requests,
+            url=base + "esummary.fcgi", params=params, page_index=page)
         summary = payload.get("result", {})
         for uid in summary.get("uids") or []:
             if str(uid) in summary:

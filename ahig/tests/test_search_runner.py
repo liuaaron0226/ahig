@@ -456,3 +456,42 @@ def test_api_key_and_email_are_absent_from_request_manifest():
                     / "requests.json").read_text(encoding="utf-8")
         assert "secret@example.com" not in req_text
         assert "AHIG_CONTACT_EMAIL" in req_text
+
+
+def test_boolean_query_params_are_serialised_lowercase():
+    fake = FakeTransport([ct_page([])])
+    with tempfile.TemporaryDirectory() as tmp:
+        run_with(tmp, fake, only=["clinicaltrials-gov"])
+    assert fake.calls[0]["params"]["countTotal"] == "true"
+    assert all(value not in {True, False} for value in fake.calls[0]["params"].values())
+
+
+def test_http_error_exchange_is_retained_before_source_fails():
+    class ErrorTransport(FakeTransport):
+        def __init__(self):
+            super().__init__([])
+            self.last_exchange = None
+            self.raw = b'{"error":"bad query"}'
+
+        def get_json(self, *, url: str, params: dict,
+                     headers: dict | None = None) -> dict:
+            self.calls.append({"url": url, "params": dict(params),
+                               "headers": dict(headers or {})})
+            self.last_exchange = {
+                "body": self.raw,
+                "status": 400,
+                "headers": {"Content-Type": "application/json"},
+                "finalUrl": "https://example.test?api_key=secret",
+                "contentType": "application/json",
+            }
+            raise RuntimeError("HTTP 400")
+
+    fake = ErrorTransport()
+    with tempfile.TemporaryDirectory() as tmp:
+        result = run_with(tmp, fake, only=["clinicaltrials-gov"])
+        source_root = Path(result["runRoot"]) / "sources" / "clinicaltrials-gov"
+        req = json.loads((source_root / "requests.json").read_text(encoding="utf-8"))[0]
+        assert result["sources"]["clinicaltrials-gov"]["status"] == "failed"
+        assert (source_root / req["responsePath"]).read_bytes() == fake.raw
+        assert req["httpStatus"] == 400
+        assert "secret" not in req["finalUrl"]
