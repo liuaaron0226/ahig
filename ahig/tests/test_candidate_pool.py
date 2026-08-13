@@ -417,37 +417,56 @@ def test_failed_or_not_run_sources_are_declared_not_silently_ignored():
         assert result["completeAcrossContractSources"] is False
 
 
-def test_completed_but_unsupported_source_is_not_counted_as_covered():
-    """跑完 ≠ 進池。
+def test_contract_source_without_normaliser_is_not_counted_as_covered():
+    """跑完 ≠ 進池（安全網）。
 
-    pubmed 與 openalex 沒有 normaliser，records 會被 build_from_run_root 略過。
-    若涵蓋完整性只看 ``status == "completed"``，四個來源到齊的那一刻就會在池子
-    實際缺一半來源的情況下解除 sampling 封鎖——這是 fail-open，不是保守估計。
+    四個契約來源目前都有 normaliser，這條測的是漂移情境：契約先宣告了新的候選
+    來源、normaliser 還沒落地。此時涵蓋完整性若只看 ``status == "completed"``，
+    來源到齊的那一刻就會在池子實際缺來源的情況下解除 sampling 封鎖——這是
+    fail-open，不是保守估計。契約內缺實作 → 記錄並封鎖；契約外 → hard-fail
+    （見下一條測試）。
     """
-    with tempfile.TemporaryDirectory() as tmp:
-        root = make_run_root(tmp)
-        rows = [epmc(native_id="P1", doi="10.1000/pubmed-only")]
-        source_dir = root / "sources" / "pubmed"
-        source_dir.mkdir(parents=True)
-        (source_dir / "records.json").write_text(
-            json.dumps(rows), encoding="utf-8")
-        (source_dir / "status.json").write_text(json.dumps({
-            "sourceId": "pubmed", "status": "completed",
-            "recordCount": len(rows),
-        }), encoding="utf-8")
-        manifest = root / "manifest.json"
-        data = json.loads(manifest.read_text(encoding="utf-8"))
-        data["sources"]["pubmed"] = {"status": "completed", "recordCount": 1}
-        manifest.write_text(json.dumps(data), encoding="utf-8")
+    original = candidates.SUPPORTED_CANDIDATE_SOURCES
+    candidates.SUPPORTED_CANDIDATE_SOURCES = original - {"pubmed"}
+    try:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = make_run_root(tmp)
+            rows = [pubmed()]
+            source_dir = root / "sources" / "pubmed"
+            source_dir.mkdir(parents=True)
+            (source_dir / "records.json").write_text(
+                json.dumps(rows), encoding="utf-8")
+            (source_dir / "status.json").write_text(json.dumps({
+                "sourceId": "pubmed", "status": "completed",
+                "recordCount": len(rows),
+            }), encoding="utf-8")
+            manifest = root / "manifest.json"
+            data = json.loads(manifest.read_text(encoding="utf-8"))
+            data["sources"]["pubmed"] = {"status": "completed", "recordCount": 1}
+            manifest.write_text(json.dumps(data), encoding="utf-8")
 
-        result = candidates.build_from_run_root(root)
+            result = candidates.build_from_run_root(root)
 
-        assert result["sourceCoverage"]["pubmed"] == "completed"
-        # 抓回來了，但沒有進池
-        assert "pubmed" not in result["inputRecordCountBySource"]
-        assert result["completedButNotIngestedSources"] == ["pubmed"]
-        # 因此不得宣告涵蓋完整
-        assert result["completeAcrossContractSources"] is False
+            assert result["sourceCoverage"]["pubmed"] == "completed"
+            # 抓回來了，但沒有進池
+            assert "pubmed" not in result["inputRecordCountBySource"]
+            assert result["completedButNotIngestedSources"] == ["pubmed"]
+            # 因此不得宣告涵蓋完整
+            assert result["completeAcrossContractSources"] is False
+    finally:
+        candidates.SUPPORTED_CANDIDATE_SOURCES = original
+
+
+def test_contract_candidate_sources_match_frozen_search_contract():
+    """CONTRACT_CANDIDATE_SOURCES 不得與凍結契約漂移。"""
+    contract_path = (Path(__file__).resolve().parent.parent / "calibration"
+                     / "b11-carbohydrate" / "search-contract.json")
+    contract = json.loads(contract_path.read_text(encoding="utf-8"))
+    declared = {s["sourceId"] for s in contract["sources"]
+                if s["generatesCandidateRecords"]}
+    assert candidates.CONTRACT_CANDIDATE_SOURCES == declared
+    # 穩定狀態：契約宣告的來源都已有 normaliser，安全網應為空集。
+    assert declared <= candidates.SUPPORTED_CANDIDATE_SOURCES
 
 
 def test_dry_run_computes_counts_without_writing_candidate_pool():

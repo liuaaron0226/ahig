@@ -250,21 +250,29 @@ def _registry(record: dict, source_index: int) -> dict:
     }
 
 
-# 有 normaliser、能真的進池的來源。contract 裡宣告的來源可能多於這一組；
-# 差集就是「抓得回來但還讀不進來」的來源，必須被當成未涵蓋而非已涵蓋。
-SUPPORTED_CANDIDATE_SOURCES = frozenset({"europe-pmc", "clinicaltrials-gov"})
+# 有 normaliser、能真的進池的來源。
+_NORMALISERS = {
+    "europe-pmc": _publication,
+    "pubmed": _pubmed,
+    "openalex": _openalex,
+    "clinicaltrials-gov": _registry,
+}
+SUPPORTED_CANDIDATE_SOURCES = frozenset(_NORMALISERS)
+
+# 搜尋契約宣告 generatesCandidateRecords=true 的來源全集（見
+# calibration/*/search-contract.json；access-only 來源如 crossref 不在此列）。
+# 與 SUPPORTED_CANDIDATE_SOURCES 的差集是「契約要求、但 normaliser 還沒落地」
+# 的來源：跑完只記進 completedButNotIngestedSources，絕不計入涵蓋完整。
+# 契約外的來源以 completed 出現在 run manifest 則 hard-fail——它的紀錄無法
+# 進池，繼續跑等於靜默丟資料，不是保守估計。
+CONTRACT_CANDIDATE_SOURCES = frozenset({
+    "europe-pmc", "pubmed", "openalex", "clinicaltrials-gov"})
 
 
 def normalise_records(records_by_source: dict[str, list[dict]]) -> list[dict]:
     out: list[dict] = []
-    normalisers = {
-        "pubmed": _pubmed,
-        "europe-pmc": _publication,
-        "openalex": _openalex,
-        "clinicaltrials-gov": _registry,
-    }
     for source_id, records in records_by_source.items():
-        normaliser = normalisers.get(source_id)
+        normaliser = _NORMALISERS.get(source_id)
         if normaliser is None:
             raise ValueError(f"尚未支援的候選來源：{source_id}")
         out.extend(normaliser(record, i) for i, record in enumerate(records))
@@ -450,6 +458,10 @@ def build_from_run_root(run_root: Path, *, dry_run: bool = False,
     for sid, status in search_manifest.get("sources", {}).items():
         if status.get("status") != "completed":
             continue
+        if sid not in CONTRACT_CANDIDATE_SOURCES:
+            raise ValueError(
+                f"run manifest 有 completed 但契約未宣告的候選來源：{sid}；"
+                "其紀錄無法進池，繼續建池等於靜默丟資料")
         source_root = run_root / "sources" / sid
         path = source_root / "records.json"
         status_path = source_root / "status.json"
@@ -478,11 +490,12 @@ def build_from_run_root(run_root: Path, *, dry_run: bool = False,
     built["manifest"]["completedButNotIngestedSources"] = sorted(not_ingested)
     # 跑完 ≠ 進池。沒有 normaliser 的來源會在上面被略過，若這裡只看
     # status == "completed"，四個來源到齊的那一刻就會在池子實際缺一半來源的
-    # 情況下把 candidate-sources-incomplete 解除掉。涵蓋完整必須同時成立：
-    # 該來源跑完了，而且它的紀錄真的進了池。
-    built["manifest"]["completeAcrossContractSources"] = bool(source_coverage) and all(
-        status == "completed" and sid in records_by_source
-        for sid, status in source_coverage.items())
+    # 情況下把 candidate-sources-incomplete 解除掉。涵蓋完整必須對契約宣告的
+    # 每一個候選來源同時成立：出現在 run manifest、跑完了，而且紀錄真的進了
+    # 池——manifest 少列一個來源同樣不算涵蓋完整。
+    built["manifest"]["completeAcrossContractSources"] = all(
+        source_coverage.get(sid) == "completed" and sid in records_by_source
+        for sid in sorted(CONTRACT_CANDIDATE_SOURCES))
 
     summary = {**built["manifest"], "sourceCoverage": source_coverage,
                "completeAcrossContractSources":
