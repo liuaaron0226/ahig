@@ -36,7 +36,9 @@
 - ⏳ 等人工：50 篇摘要判讀 + 12 篇誤剔抽查（sample → 回填 → estimate）
 - ⏳ 待決策（依序）：①「篩完才能抽」blocker 是否鬆綁（抽樣框升版）
   ② S2 解法（A/B/C/D）③ `analysis/human_throughput.py` 以實測重校
-- 測試基準：534/534、verify 10/10
+- ✅ prevalence audit 完美化升級：git 錨定抽樣證據（anchors.jsonl，commit+push 後竄改需改寫遠端歷史）、seed 預設從 queueHash 導出、二部圖聯合配額分配、outcomeConfirmed 必填＋多重抽樣 Bonferroni 校正
+- ✅ 系統性回顧自動化工具調查完成（ASReview／LLM 第二審／BUSCAR 停止規則／ASySD／GROBID 路線），採用決策待人拍板
+- 測試基準：542/542、verify 10/10
 - 分工註記：prevalence_audit 的實作歸協調 session；本機 session 請勿再改
   該檔，直接 `git pull` 取用
 
