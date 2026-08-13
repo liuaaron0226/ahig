@@ -102,6 +102,8 @@ def _publication(record: dict, source_index: int) -> dict:
                             if str(record.get("pubYear") or "").isdigit() else None),
         "publicationDate": record.get("firstPublicationDate"),
         "publicationStatus": record.get("publicationStatus"),
+        "publicationTypes": sorted(set(
+            (record.get("pubTypeList") or {}).get("pubType") or [])),
         "language": record.get("language"),
         "isOpenAccess": record.get("isOpenAccess"),
         "license": record.get("license"),
@@ -132,6 +134,7 @@ def _registry(record: dict, source_index: int) -> dict:
         "publicationYear": None,
         "publicationDate": _nested(status, "studyFirstPostDateStruct", "date"),
         "publicationStatus": status.get("overallStatus"),
+        "publicationTypes": ["Clinical Trial Registry Record"],
         "language": None,
         "isOpenAccess": None,
         "license": None,
@@ -242,6 +245,8 @@ def _candidate(component: list[dict]) -> dict:
         "publicationDate": min((m["publicationDate"] for m in members
                                 if m.get("publicationDate")), default=None),
         "publicationStatus": _choose_text(members, "publicationStatus"),
+        "publicationTypes": sorted({
+            item for member in members for item in (member.get("publicationTypes") or [])}),
         "isPreprint": any(bool(m.get("isPreprint")) for m in members),
         "isOpenAccess": any(m.get("isOpenAccess") == "Y"
                             or m.get("isOpenAccess") is True for m in members),

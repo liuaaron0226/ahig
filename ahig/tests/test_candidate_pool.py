@@ -20,12 +20,14 @@ from ahig.search import candidates
 
 def epmc(*, source="MED", native_id="1", doi=None, pmid=None, pmcid=None,
          title="Carbohydrate and exercise.", author="Smith J", year="2020",
-         abstract="Abstract") -> dict:
+         abstract="Abstract", publication_types=None) -> dict:
     value = {
         "source": source, "id": native_id, "title": title,
         "authorString": author, "pubYear": year, "abstractText": abstract,
         "firstPublicationDate": f"{year}-01-01",
     }
+    if publication_types is not None:
+        value["pubTypeList"] = {"pubType": publication_types}
     for key, item in (("doi", doi), ("pmid", pmid), ("pmcid", pmcid)):
         if item is not None:
             value[key] = item
@@ -221,6 +223,21 @@ def test_preferred_publication_metadata_uses_nonempty_values_deterministically()
     c = pool["candidates"][0]
     assert c["title"] == "Longer title"
     assert c["abstract"] == "Full abstract"
+
+
+def test_publication_types_are_preserved_and_merged_deterministically():
+    pool = build({"europe-pmc": [
+        epmc(native_id="B", doi="10.1000/x", publication_types=["Review"]),
+        epmc(native_id="A", doi="10.1000/x",
+             publication_types=["Journal Article", "Review"]),
+    ]})
+    assert pool["candidates"][0]["publicationTypes"] == ["Journal Article", "Review"]
+
+
+def test_registry_record_has_explicit_publication_type():
+    pool = build({"clinicaltrials-gov": [ct()]})
+    assert pool["candidates"][0]["publicationTypes"] == [
+        "Clinical Trial Registry Record"]
 
 
 # ---------------------------------------------------------------------------
