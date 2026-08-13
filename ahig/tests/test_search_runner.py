@@ -212,6 +212,24 @@ def test_openalex_without_api_key_is_blocked():
         assert "OPENALEX_API_KEY" in result["sources"]["openalex"]["error"]
 
 
+def test_openalex_polite_pool_mailto_when_no_api_key():
+    """無金鑰時走官方 polite pool：帶 mailto、不帶 api_key、記錄模式。"""
+    fake = FakeTransport([
+        {"meta": {"next_cursor": None, "count": 1}, "results": [{"id": "W1"}]},
+    ])
+    with tempfile.TemporaryDirectory() as tmp:
+        with patch.dict(os.environ, {"AHIG_PRIVATE_ROOT": tmp,
+                                     "AHIG_CONTACT_EMAIL": "me@example.test"},
+                        clear=True):
+            result = runner.run_search(CONTRACT, only=["openalex"],
+                                       run_id="run-001", transport=fake)
+        source = result["sources"]["openalex"]
+        assert source["recordCount"] == 1
+        assert source["accessMode"] == "polite-pool-mailto"
+        assert fake.calls[0]["params"]["mailto"] == "me@example.test"
+        assert "api_key" not in fake.calls[0]["params"]
+
+
 def test_openalex_follows_next_cursor_with_api_key():
     fake = FakeTransport([
         {"meta": {"next_cursor": "c2", "count": 2}, "results": [{"id": "W1"}]},

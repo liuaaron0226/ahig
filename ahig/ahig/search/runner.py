@@ -151,6 +151,8 @@ def _redacted_params(params: dict) -> dict:
         result["api_key"] = "<from OPENALEX_API_KEY>"
     if "email" in result:
         result["email"] = "<from AHIG_CONTACT_EMAIL>"
+    if "mailto" in result:
+        result["mailto"] = "<from AHIG_CONTACT_EMAIL>"
     return result
 
 
@@ -363,13 +365,21 @@ def _run_clinical_trials(source: dict, source_root: Path,
 
 def _run_openalex(source: dict, source_root: Path,
                    transport: JsonTransport) -> dict:
+    # 有金鑰用金鑰；沒有則退回 OpenAlex 官方支援的無金鑰 polite pool
+    # （mailto 參數）。兩者皆無才擋。存取模式記錄於來源結果。
     api_key = os.environ.get("OPENALEX_API_KEY")
-    if not api_key:
-        raise PermissionError("OPENALEX_API_KEY is required for OpenAlex")
+    email = os.environ.get("AHIG_CONTACT_EMAIL")
+    if not api_key and not email:
+        raise PermissionError(
+            "OpenAlex 需要 OPENALEX_API_KEY，或以 AHIG_CONTACT_EMAIL "
+            "走無金鑰 polite pool 模式")
     artifact = _json_artifact(source)
     params_base = dict(artifact["params"])
     params_base["per_page"] = source["pagination"]["pageSize"]
-    params_base["api_key"] = api_key
+    if api_key:
+        params_base["api_key"] = api_key
+    else:
+        params_base["mailto"] = email
     cursor = str(params_base.get("cursor", "*"))
     seen: set[str] = set()
     records: list[dict] = []
@@ -400,7 +410,8 @@ def _run_openalex(source: dict, source_root: Path,
             f"OpenAlex pagination incomplete: retained {len(records)} of {declared_total}")
     atomic_write_json(source_root / "records.json", records)
     return {"recordCount": len(records), "pageCount": page,
-            "declaredTotal": declared_total}
+            "declaredTotal": declared_total,
+            "accessMode": "api-key" if api_key else "polite-pool-mailto"}
 
 
 def _run_pubmed(source: dict, source_root: Path,
