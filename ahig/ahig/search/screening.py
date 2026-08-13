@@ -20,7 +20,7 @@ from typing import Any
 
 from ahig.state import atomic_write_json
 
-RULE_VERSION = "b11-screening/1.1.0"
+RULE_VERSION = "b11-screening/1.2.0"
 
 # 每個 pattern 都只是提示訊號，絕不是資格判定。
 CONCEPTS: dict[str, tuple[str, tuple[str, ...]]] = {
@@ -264,7 +264,9 @@ def _entry(candidate: dict, conflict_ids: set[str], ambiguity_ids: set[str]) -> 
 def build_queue(candidate_list: list[dict], *, candidate_pool_hash: str,
                 search_contract_hash: str, run_id: str,
                 identifier_conflicts: list[dict],
-                title_ambiguities: list[dict]) -> dict:
+                title_ambiguities: list[dict],
+                source_coverage: dict[str, str],
+                complete_across_contract_sources: bool) -> dict:
     conflict_ids = {item["candidateId"] for item in identifier_conflicts}
     ambiguity_ids = {cid for bucket in title_ambiguities
                      for cid in bucket.get("candidateIds", [])}
@@ -274,11 +276,22 @@ def build_queue(candidate_list: list[dict], *, candidate_pool_hash: str,
         LANE_ORDER[e["screeningLane"]], TIER_ORDER[e["priorityTier"]],
         -e["priorityScore"], e["candidateId"]))
 
+    candidate_sources_complete = bool(complete_across_contract_sources)
+    blocking_reasons = []
+    if not candidate_sources_complete:
+        blocking_reasons.append("candidate-sources-incomplete")
+    blocking_reasons.append("human-title-abstract-screening-not-completed")
+
     manifest = {
         "runId": run_id,
         "candidatePoolHash": candidate_pool_hash,
         "searchContractHash": search_contract_hash,
         "screeningRuleVersion": RULE_VERSION,
+        "sourceCoverage": dict(sorted(source_coverage.items())),
+        "candidateSourcesComplete": candidate_sources_complete,
+        "humanTitleAbstractScreeningComplete": False,
+        "eligibleSamplingPoolReady": False,
+        "blockingReasons": blocking_reasons,
         "candidateCount": len(candidate_list),
         "queueCount": len(queue),
         "countByPriorityTier": dict(sorted(Counter(
@@ -319,7 +332,10 @@ def build_from_run_root(run_root: Path, *, dry_run: bool = False,
         candidate_list, candidate_pool_hash=pool_hash,
         search_contract_hash=pool_manifest["searchContractHash"],
         run_id=pool_manifest["runId"], identifier_conflicts=conflicts,
-        title_ambiguities=ambiguities)
+        title_ambiguities=ambiguities,
+        source_coverage=pool_manifest.get("sourceCoverage", {}),
+        complete_across_contract_sources=bool(
+            pool_manifest.get("completeAcrossContractSources")))
     summary = dict(built["manifest"])
     summary["candidateCount"] = len(candidate_list)
     if dry_run:

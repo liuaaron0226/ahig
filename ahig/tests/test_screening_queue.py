@@ -41,7 +41,8 @@ def candidate(cid: str, *, kind="publication", title="", abstract=None,
     }
 
 
-def build(items: list[dict], *, conflicts=None, ambiguities=None):
+def build(items: list[dict], *, conflicts=None, ambiguities=None,
+          source_coverage=None, complete_across_contract_sources=True):
     return screening.build_queue(
         items,
         candidate_pool_hash="sha256:" + "a" * 64,
@@ -49,6 +50,11 @@ def build(items: list[dict], *, conflicts=None, ambiguities=None):
         run_id="test-run",
         identifier_conflicts=conflicts or [],
         title_ambiguities=ambiguities or [],
+        source_coverage=source_coverage or {
+            "pubmed": "completed", "europe-pmc": "completed",
+            "openalex": "completed", "clinicaltrials-gov": "completed",
+        },
+        complete_across_contract_sources=complete_across_contract_sources,
     )
 
 
@@ -282,6 +288,39 @@ def test_rule_version_and_input_hash_are_recorded():
     assert manifest["searchContractHash"] == "sha256:" + "b" * 64
 
 
+def test_queue_is_never_sampling_ready_before_human_screening():
+    manifest = build([candidate("a")])["manifest"]
+    assert manifest["eligibleSamplingPoolReady"] is False
+    assert manifest["blockingReasons"] == [
+        "human-title-abstract-screening-not-completed"]
+
+
+def test_incomplete_candidate_sources_add_sampling_blocker():
+    manifest = build(
+        [candidate("a")],
+        source_coverage={
+            "pubmed": "not-run", "europe-pmc": "completed",
+            "openalex": "not-run", "clinicaltrials-gov": "completed",
+        },
+        complete_across_contract_sources=False,
+    )["manifest"]
+    assert manifest["candidateSourcesComplete"] is False
+    assert manifest["blockingReasons"] == [
+        "candidate-sources-incomplete",
+        "human-title-abstract-screening-not-completed",
+    ]
+
+
+def test_missing_source_key_cannot_be_inferred_as_complete():
+    manifest = build(
+        [candidate("a")],
+        source_coverage={"europe-pmc": "completed"},
+        complete_across_contract_sources=False,
+    )["manifest"]
+    assert manifest["candidateSourcesComplete"] is False
+    assert "candidate-sources-incomplete" in manifest["blockingReasons"]
+
+
 def test_queue_entries_have_rule_ids_not_only_scores():
     entry = by_id(build([candidate("x", title="Carbohydrate cycling")]), "x")
     assert entry["matchedRuleIds"]
@@ -303,7 +342,12 @@ def make_pool(tmp: str) -> Path:
     (pool / "title-ambiguities.json").write_text("[]", encoding="utf-8")
     (pool / "manifest.json").write_text(json.dumps({
         "runId": "r1", "searchContractHash": "sha256:" + "b" * 64,
-        "candidateCount": 2, "completeAcrossContractSources": False,
+        "candidateCount": 2,
+        "sourceCoverage": {
+            "pubmed": "not-run", "europe-pmc": "completed",
+            "openalex": "not-run", "clinicaltrials-gov": "completed",
+        },
+        "completeAcrossContractSources": False,
     }), encoding="utf-8")
     return root
 
@@ -314,6 +358,9 @@ def test_build_from_run_root_writes_queue_files_atomically():
         result = screening.build_from_run_root(root)
         out = root / "screening-queue"
         assert result["candidateCount"] == 2
+        assert result["candidateSourcesComplete"] is False
+        assert result["eligibleSamplingPoolReady"] is False
+        assert "candidate-sources-incomplete" in result["blockingReasons"]
         for name in ("manifest.json", "queue.json", "summary.json"):
             assert (out / name).is_file()
         assert not list(out.glob("*.tmp"))
