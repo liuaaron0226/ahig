@@ -21,7 +21,7 @@ from typing import Any
 from ahig.contracts.freeze import content_hash
 from ahig.state import atomic_write_json
 
-RULE_VERSION = "b11-screening/1.2.0"
+RULE_VERSION = "b11-screening/1.3.0"
 
 # 每個 pattern 都只是提示訊號，絕不是資格判定。
 CONCEPTS: dict[str, tuple[str, tuple[str, ...]]] = {
@@ -238,6 +238,12 @@ def _entry(candidate: dict, conflict_ids: set[str], ambiguity_ids: set[str]) -> 
 
     doses = _dose_signals(text)
     tier = _priority(concepts, outcomes)
+    # ADR-0007：第二審由盲化 LLM 擔任；安全分支與 critical harms 維持純人類
+    # 雙盲——harms 是 critical outcome，不拿來省時間。
+    review_mode = ("dual-blind-title-abstract"
+                   if lane == "safety-review"
+                   or "critical-harms-signal" in flags
+                   else "human-plus-blinded-llm-title-abstract")
     return {
         "candidateId": candidate["candidateId"],
         "entityKind": candidate["entityKind"],
@@ -257,7 +263,7 @@ def _entry(candidate: dict, conflict_ids: set[str], ambiguity_ids: set[str]) -> 
         "flags": sorted(flags),
         "matchedRuleIds": sorted(set(rules)) or ["SCREEN-000-no-signal"],
         "requiresHumanScreening": True,
-        "requiredReviewMode": "dual-blind-title-abstract",
+        "requiredReviewMode": review_mode,
         "autoDecision": None,
     }
 
