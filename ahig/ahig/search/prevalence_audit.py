@@ -13,13 +13,17 @@ strata.json 裡 dose-band 配額（S1/S2/S4/S7 共 37 篇）能不能靠 metadat
 - 抽到的紀錄不因此 include/exclude，``requiresHumanScreening`` 不受影響；
 - 產出只是 strata 決策的輸入，決策仍由人做。
 
-抽樣誠實性的三道護欄：
+抽樣誠實性的護欄：
 
-- 抽樣區段以 ``samplingLockHash`` 凍結：estimate 前重算比對，抽到哪些篇、
-  其標題摘要、seed 都不可事後更動；只有判讀欄位開放回填。
+- estimate 對源頭重放驗證：重新載入 queue/pool、以同 seed 重放抽樣、逐欄
+  比對抽樣區段。audit.json 裡的抽樣內容不是信任來源，只是工作副本——改了
+  它（含自行重算 samplingLockHash）也過不了源頭重放。
+- ``samplingLockHash`` 作為第一線的意外改動偵測；真正的保證來自上一條。
 - ``draws.jsonl`` 是 append-only 抽樣日誌：每次 sample 都留一行，estimate
-  回報同一母體被抽過幾次。挑 seed 不被阻止，但一定留痕。
-- ``--redo`` 不覆蓋：舊稽核目錄整個搬進 previous-prevalence-audits/。
+  回報同一母體被抽過幾次並在多次抽樣時明示警告。挑 seed 不被阻止，但一定
+  留痕。
+- ``--redo`` 不覆蓋：舊稽核目錄搬進 previous-prevalence-audits/，舊
+  estimate.json 改名保留。
 """
 
 from __future__ import annotations
@@ -38,7 +42,7 @@ from scipy import stats
 from ahig.bootstrap import private_root
 from ahig.contracts.freeze import content_hash
 from ahig.search import screening
-from ahig.state import atomic_write_json
+from ahig.state import atomic_write_bytes, atomic_write_json
 
 AUDIT_DIRNAME = "prevalence-audit"
 ARCHIVE_DIRNAME = "previous-prevalence-audits"
@@ -52,6 +56,7 @@ EXCLUDED_LANES = frozenset({
 READABILITY_LEVELS = ("exact-value", "intensity-only", "not-reported")
 BANDS = ("low", "moderate", "high", "very-high")
 BAND_VALUES = frozenset(BANDS) | {"unclear"}
+DEFAULT_EXCLUSION_AUDIT_N = 12
 
 _IMMUTABLE_RECORD_KEYS = ("candidateId", "title", "abstract",
                           "publicationYear", "identifiers", "outcomeHints",
@@ -73,7 +78,11 @@ def _utc_now() -> str:
 
 def clopper_pearson(successes: int, n: int,
                     alpha: float = 0.05) -> tuple[float, float]:
-    """雙側 (1-alpha) Clopper–Pearson 精確區間。n=0 時無資訊，回傳 (0, 1)。"""
+    """雙側 (1-alpha) Clopper–Pearson 精確區間。n=0 時無資訊，回傳 (0, 1)。
+
+    區間本身按二項假設計算；無放回抽樣下偏保守。母體外推的收緊
+    （普查塌縮、觀察值夾定）在 :func:`_project` 做。
+    """
     if n <= 0:
         return (0.0, 1.0)
     if not 0 <= successes <= n:
@@ -97,9 +106,24 @@ def clopper_pearson_upper(successes: int, n: int,
     return float(stats.beta.ppf(1 - alpha, successes + 1, n - successes))
 
 
-def _require_private(run_root: Path) -> Path:
+def _project(frame_size: int, lo: float, hi: float, *,
+             successes: int, n: int) -> list[int]:
+    """比率區間乘回母體，並以有限母體事實夾定。
+
+    - 樣本即母體（普查）時，母體計數已知，區間塌縮為 [k, k]。
+    - 下界不得低於樣本中已觀察到的 k（樣本 ⊆ 母體）。
+    - 上界不得高於 frame_size - (n - k)（樣本中確定不合格的也在母體裡）。
+    """
+    if n >= frame_size:
+        return [successes, successes]
+    lower = max(math.floor(frame_size * lo), successes)
+    upper = min(math.ceil(frame_size * hi), frame_size - (n - successes))
+    return [lower, upper]
+
+
+def _require_private(path: Path) -> Path:
     root = private_root()
-    resolved = Path(run_root).expanduser().resolve()
+    resolved = Path(path).expanduser().resolve()
     if resolved != root and root not in resolved.parents:
         raise PrevalenceAuditError(
             f"prevalence audit 只能在 AHIG_PRIVATE_ROOT 之下執行：{root}")
@@ -120,6 +144,38 @@ def _load_run(run_root: Path) -> tuple[dict, list[dict], dict[str, dict]]:
     return manifest, queue, {c["candidateId"]: c for c in candidates}
 
 
+def _build_frames(manifest: dict, queue: list[dict],
+                  outcome_filter: list[str]) -> tuple[list[str], list[str],
+                                                      dict[str, int], str]:
+    frame = [e for e in queue if e.get("screeningLane") not in EXCLUDED_LANES]
+    if outcome_filter:
+        frame = [e for e in frame
+                 if set(e.get("outcomeHints", [])) & set(outcome_filter)]
+    excluded_pool = [e for e in queue
+                     if e.get("screeningLane") in EXCLUDED_LANES]
+    exclusion_counts: dict[str, int] = {}
+    for entry in excluded_pool:
+        lane = entry["screeningLane"]
+        exclusion_counts[lane] = exclusion_counts.get(lane, 0) + 1
+    frame_ids = sorted(e["candidateId"] for e in frame)
+    excluded_ids = sorted(e["candidateId"] for e in excluded_pool)
+    frame_hash = content_hash({
+        "screeningQueueHash": manifest["screeningQueueHash"],
+        "frame": frame_ids, "excludedPool": excluded_ids,
+        "outcomeFilter": outcome_filter})
+    return frame_ids, excluded_ids, exclusion_counts, frame_hash
+
+
+def _replay_draw(frame_ids: list[str], excluded_ids: list[str], *,
+                 seed: int, n: int, excluded_n: int) -> tuple[list[str],
+                                                              list[str]]:
+    rng = random.Random(seed)
+    sampled = rng.sample(frame_ids, min(n, len(frame_ids)))
+    excluded_sample = rng.sample(excluded_ids,
+                                 min(excluded_n, len(excluded_ids)))
+    return sampled, excluded_sample
+
+
 def _record(entry: dict, candidate: dict) -> dict:
     return {
         "candidateId": entry["candidateId"],
@@ -133,6 +189,7 @@ def _record(entry: dict, candidate: dict) -> dict:
         "doseReadability": None,     # exact-value / intensity-only / not-reported
         "maxDose": {"value": None, "unit": None},
         "doseBands": None,           # 多臂研究填完整清單，如 ["moderate", "high"]
+        "outcomeConfirmed": None,    # 可選：outcomeHints 判讀正確填 true，錯填 false
         "notes": None,
     }
 
@@ -158,7 +215,11 @@ def _sampling_lock(audit: dict) -> str:
     return content_hash({
         "seed": audit["seed"],
         "frameHash": audit["frameHash"],
+        "frameSize": audit["frameSize"],
+        "excludedPoolSize": audit["excludedPoolSize"],
         "outcomeFilter": audit["outcomeFilter"],
+        "provenance": [audit["runId"], audit["screeningQueueHash"],
+                       audit["candidatePoolHash"]],
         "records": [_immutable(r, _IMMUTABLE_RECORD_KEYS)
                     for r in audit["records"]],
         "exclusionAudit": [_immutable(r, _IMMUTABLE_EXCLUSION_KEYS)
@@ -167,37 +228,31 @@ def _sampling_lock(audit: dict) -> str:
 
 
 def draw_sample(run_root: Path, *, seed: int, n: int = 50,
-                excluded_n: int = 12, outcome_filter: list[str] | None = None,
+                excluded_n: int | None = None,
+                outcome_filter: list[str] | None = None,
                 redo: bool = False) -> dict:
-    """抽出主樣本與誤剔抽查樣本，寫出待回填的稽核檔、判讀表與抽樣日誌。"""
+    """抽出主樣本與誤剔抽查樣本，寫出待回填的稽核檔、判讀表與抽樣日誌。
+
+    ``excluded_n`` 未指定時預設 12；但 outcome 過濾的補抽（--outcome）預設
+    0——補抽的目的只是縮小主樣本框，不該每次都多背 12 筆誤剔判讀。
+    """
     run_root = _require_private(run_root)
     manifest, queue, by_id = _load_run(run_root)
+    outcome_filter = sorted(outcome_filter or [])
+    if excluded_n is None:
+        excluded_n = 0 if outcome_filter else DEFAULT_EXCLUSION_AUDIT_N
 
-    frame = [e for e in queue if e.get("screeningLane") not in EXCLUDED_LANES]
-    if outcome_filter:
-        frame = [e for e in frame
-                 if set(e.get("outcomeHints", [])) & set(outcome_filter)]
-    excluded_pool = [e for e in queue
-                     if e.get("screeningLane") in EXCLUDED_LANES]
-    if not frame:
+    frame_ids, excluded_ids, exclusion_counts, frame_hash = _build_frames(
+        manifest, queue, outcome_filter)
+    if not frame_ids:
         raise PrevalenceAuditError("主抽樣框是空的，無從稽核")
+    missing = [cid for cid in frame_ids + excluded_ids if cid not in by_id]
+    if missing:
+        raise PrevalenceAuditError(
+            f"queue 與 candidate pool 不一致，缺 candidate：{missing[:3]}")
 
-    exclusion_counts: dict[str, int] = {}
-    for entry in excluded_pool:
-        lane = entry["screeningLane"]
-        exclusion_counts[lane] = exclusion_counts.get(lane, 0) + 1
-
-    frame_ids = sorted(e["candidateId"] for e in frame)
-    excluded_ids = sorted(e["candidateId"] for e in excluded_pool)
-    frame_hash = content_hash({
-        "screeningQueueHash": manifest["screeningQueueHash"],
-        "frame": frame_ids, "excludedPool": excluded_ids,
-        "outcomeFilter": sorted(outcome_filter or [])})
-
-    rng = random.Random(seed)
-    sampled_ids = rng.sample(frame_ids, min(n, len(frame_ids)))
-    excluded_sample_ids = rng.sample(excluded_ids,
-                                     min(excluded_n, len(excluded_ids)))
+    sampled_ids, excluded_sample_ids = _replay_draw(
+        frame_ids, excluded_ids, seed=seed, n=n, excluded_n=excluded_n)
     queue_by_id = {e["candidateId"]: e for e in queue}
 
     audit_id = hashlib.sha256(content_hash({
@@ -205,7 +260,7 @@ def draw_sample(run_root: Path, *, seed: int, n: int = 50,
         "excludedN": excluded_n}).encode("utf-8")).hexdigest()[:12]
     audit = {
         "documentType": "prevalence-audit",
-        "schemaVersion": "1.0.0",
+        "schemaVersion": "1.1.0",
         "auditId": audit_id,
         "purpose": "abstract-dose-readability-prevalence-audit",
         "notAScreeningDecision": True,
@@ -218,7 +273,7 @@ def draw_sample(run_root: Path, *, seed: int, n: int = 50,
         "frameSize": len(frame_ids),
         "excludedPoolSize": len(excluded_ids),
         "exclusionCountsByLane": dict(sorted(exclusion_counts.items())),
-        "outcomeFilter": sorted(outcome_filter or []),
+        "outcomeFilter": outcome_filter,
         "requestedSampleSize": n,
         "sampleSize": len(sampled_ids),
         "requestedExclusionAuditSize": excluded_n,
@@ -226,10 +281,9 @@ def draw_sample(run_root: Path, *, seed: int, n: int = 50,
         "samplingRule": "random.Random(seed).sample 於 candidateId 升冪清單；"
                         "先抽主樣本、後抽誤剔樣本，共用同一 rng 狀態",
         "drawnAt": _utc_now(),
-        "records": [_record(queue_by_id[cid], by_id.get(cid, {}))
+        "records": [_record(queue_by_id[cid], by_id[cid])
                     for cid in sampled_ids],
-        "exclusionAudit": [_exclusion_record(queue_by_id[cid],
-                                             by_id.get(cid, {}))
+        "exclusionAudit": [_exclusion_record(queue_by_id[cid], by_id[cid])
                            for cid in excluded_sample_ids],
     }
     audit["samplingLockHash"] = _sampling_lock(audit)
@@ -249,14 +303,14 @@ def draw_sample(run_root: Path, *, seed: int, n: int = 50,
         shutil.move(str(out), str(target))
     out.mkdir(parents=True, exist_ok=True)
     atomic_write_json(out / "audit.json", audit)
-    (out / "reading-sheet.md").write_text(_reading_sheet(audit),
-                                          encoding="utf-8")
+    atomic_write_bytes(out / "reading-sheet.md",
+                       _reading_sheet(audit).encode("utf-8"))
     with (audit_root / DRAW_LOG).open("a", encoding="utf-8") as log:
         log.write(json.dumps({
             "drawnAt": audit["drawnAt"], "auditId": audit_id, "seed": seed,
             "requestedSampleSize": n, "requestedExclusionAuditSize": excluded_n,
             "frameHash": frame_hash,
-            "outcomeFilter": audit["outcomeFilter"],
+            "outcomeFilter": outcome_filter,
         }, ensure_ascii=False) + "\n")
     return audit
 
@@ -268,14 +322,23 @@ def _reading_sheet(audit: dict) -> str:
         f"- 主抽樣框 {audit['frameSize']} 篇，抽出 {audit['sampleSize']} 篇；"
         f"誤剔母體 {audit['excludedPoolSize']} 篇，抽出 "
         f"{audit['exclusionAuditSize']} 篇（seed={audit['seed']}）",
-        "- 只讀 title/abstract，回填 `audit.json`。第一節每筆四個欄位：",
+    ]
+    if audit["outcomeFilter"]:
+        lines.append(f"- ⚠️ 本次是 outcome 過濾補抽（{audit['outcomeFilter']}）："
+                     "主抽樣框已縮小，估計只適用於該子母體。")
+    lines += [
+        "- 只讀 title/abstract，回填 `audit.json`。第一節每筆欄位：",
         "  - `doseReadability`：exact-value（有明確數值）／intensity-only"
         "（只讀得出強度高低）／not-reported（完全沒寫）",
         "  - `maxDose`：exact-value 時必填 {value, unit}（unit 如 g/h、g/min、"
-        "%），其餘留 null",
+        "%），其餘兩級 value 與 unit 都留 null",
         "  - `doseBands`：涵蓋到的 band 完整清單（多臂研究列全部）："
-        "low(<30) / moderate(30–59.9) / high(60–89.9) / very-high(≥90)，"
-        "讀得出有劑量但分不出帶用 unclear；not-reported 留 null",
+        "low(<30) / moderate(30–59.9) / high(60–89.9) / very-high(≥90)。"
+        "清單元素 unclear 表示「該篇有讀得出劑量、但無法分帶的臂」，可與"
+        "具體 band 並列；not-reported 留 null",
+        "  - `outcomeConfirmed`（可選）：你若順手判讀了這篇的 outcomeHints "
+        "是否正確，填 true/false；留 null 不影響計算，但會反映在各層的 "
+        "hintUnconfirmedShare",
         "  - `notes`：自由文字（可留 null）",
         "- 第二節（誤剔抽查）每筆填 `exclusionJustified`：這篇被分流出主池"
         "（動物／綜述／registry／安全）是否正確（true/false）＋ notes。",
@@ -298,6 +361,8 @@ def _reading_sheet(audit: dict) -> str:
             "",
         ]
     lines += ["## 第二節：誤剔抽查", ""]
+    if not audit["exclusionAudit"]:
+        lines += ["（本次抽樣不含誤剔抽查。）", ""]
     for i, record in enumerate(audit["exclusionAudit"], 1):
         lines += [
             f"### 2.{i} {record['candidateId']}（lane: "
@@ -311,6 +376,53 @@ def _reading_sheet(audit: dict) -> str:
     return "\n".join(lines)
 
 
+def _verify_against_source(run_root: Path, audit: dict) -> None:
+    """對源頭重放驗證：audit.json 的抽樣區段必須能從 queue/pool 重新導出。
+
+    這使 samplingLockHash 從「可自行重算的 checksum」升級為「錨定源頭的
+    證據」：改 audit.json 的抽樣內容（即使同時重算 lock）也無法通過。
+    """
+    manifest, queue, by_id = _load_run(run_root)
+    for key, manifest_key in (("runId", "runId"),
+                              ("screeningQueueHash", "screeningQueueHash"),
+                              ("candidatePoolHash", "candidatePoolHash")):
+        if audit.get(key) != manifest.get(manifest_key):
+            raise PrevalenceAuditError(
+                f"audit 的 {key} 與現行 screening-queue manifest 不符；"
+                "queue 可能已重建，本稽核不再對應現行母體")
+    frame_ids, excluded_ids, _, frame_hash = _build_frames(
+        manifest, queue, audit.get("outcomeFilter", []))
+    if frame_hash != audit.get("frameHash"):
+        raise PrevalenceAuditError("frameHash 與源頭重算不符")
+    if (len(frame_ids) != audit.get("frameSize")
+            or len(excluded_ids) != audit.get("excludedPoolSize")):
+        raise PrevalenceAuditError("frameSize/excludedPoolSize 與源頭不符")
+    sampled_ids, excluded_sample_ids = _replay_draw(
+        frame_ids, excluded_ids, seed=audit["seed"],
+        n=audit["requestedSampleSize"],
+        excluded_n=audit["requestedExclusionAuditSize"])
+    if sampled_ids != [r["candidateId"] for r in audit["records"]]:
+        raise PrevalenceAuditError("重放抽樣與 audit.json 的主樣本不符")
+    if excluded_sample_ids != [r["candidateId"]
+                               for r in audit["exclusionAudit"]]:
+        raise PrevalenceAuditError("重放抽樣與 audit.json 的誤剔樣本不符")
+    queue_by_id = {e["candidateId"]: e for e in queue}
+    for record in audit["records"]:
+        source = _record(queue_by_id[record["candidateId"]],
+                         by_id[record["candidateId"]])
+        if (_immutable(record, _IMMUTABLE_RECORD_KEYS)
+                != _immutable(source, _IMMUTABLE_RECORD_KEYS)):
+            raise PrevalenceAuditError(
+                f"抽樣內容與源頭不符：{record['candidateId']}")
+    for record in audit["exclusionAudit"]:
+        source = _exclusion_record(queue_by_id[record["candidateId"]],
+                                   by_id[record["candidateId"]])
+        if (_immutable(record, _IMMUTABLE_EXCLUSION_KEYS)
+                != _immutable(source, _IMMUTABLE_EXCLUSION_KEYS)):
+            raise PrevalenceAuditError(
+                f"誤剔樣本內容與源頭不符：{record['candidateId']}")
+
+
 def _validate_filled(audit: dict) -> None:
     problems = []
     for i, record in enumerate(audit["records"]):
@@ -319,6 +431,13 @@ def _validate_filled(audit: dict) -> None:
         bands = record.get("doseBands")
         dose = record.get("maxDose") or {}
         value, unit = dose.get("value"), dose.get("unit")
+        confirmed = record.get("outcomeConfirmed")
+        if confirmed is not None and not isinstance(confirmed, bool):
+            problems.append(f"records[{i}] {cid}: outcomeConfirmed 只能是 "
+                            "true/false/null")
+        notes = record.get("notes")
+        if notes is not None and not isinstance(notes, str):
+            problems.append(f"records[{i}] {cid}: notes 只能是字串或 null")
         if level not in READABILITY_LEVELS:
             problems.append(f"records[{i}] {cid}: doseReadability 未回填或"
                             f"不在 {READABILITY_LEVELS}")
@@ -327,36 +446,39 @@ def _validate_filled(audit: dict) -> None:
             if bands:
                 problems.append(f"records[{i}] {cid}: not-reported 卻填了 "
                                 "doseBands")
-            if value is not None:
+            if value is not None or unit is not None:
                 problems.append(f"records[{i}] {cid}: not-reported 卻填了 "
-                                "maxDose.value")
+                                "maxDose")
             continue
         if (not isinstance(bands, list) or not bands
                 or not set(bands) <= BAND_VALUES):
             problems.append(f"records[{i}] {cid}: doseBands 必須是 "
                             f"{sorted(BAND_VALUES)} 的非空清單")
         if level == "exact-value":
-            if not isinstance(value, (int, float)):
+            if not isinstance(value, (int, float)) or isinstance(value, bool):
                 problems.append(f"records[{i}] {cid}: exact-value 必須填 "
                                 "maxDose.value 數值")
             if not (isinstance(unit, str) and unit.strip()):
                 problems.append(f"records[{i}] {cid}: exact-value 必須填 "
                                 "maxDose.unit")
-        elif value is not None:
-            problems.append(f"records[{i}] {cid}: 讀得出數值就該填 "
-                            "exact-value，而非 intensity-only")
+        else:
+            if value is not None:
+                problems.append(f"records[{i}] {cid}: 讀得出數值就該填 "
+                                "exact-value，而非 intensity-only")
+            if unit is not None:
+                problems.append(f"records[{i}] {cid}: intensity-only 不該"
+                                "殘留 maxDose.unit")
     for i, record in enumerate(audit["exclusionAudit"]):
         if not isinstance(record.get("exclusionJustified"), bool):
             problems.append(f"exclusionAudit[{i}] {record['candidateId']}: "
                             "exclusionJustified 未回填")
+        notes = record.get("notes")
+        if notes is not None and not isinstance(notes, str):
+            problems.append(f"exclusionAudit[{i}] {record['candidateId']}: "
+                            "notes 只能是字串或 null")
     if problems:
         raise PrevalenceAuditError("稽核表尚未回填完成或有矛盾：\n"
                                    + "\n".join(problems))
-
-
-def _project(frame_size: int, lo: float, hi: float) -> list[int]:
-    """把比率區間乘回母體，下界取 floor、上界取 ceil（保守外推）。"""
-    return [math.floor(frame_size * lo), math.ceil(frame_size * hi)]
 
 
 def _band_estimates(records: list[dict], frame_size: int) -> dict:
@@ -375,44 +497,66 @@ def _band_estimates(records: list[dict], frame_size: int) -> dict:
             out[band][label] = {
                 "count": k, "rate": k / n if n else None,
                 "cp95": [lo, hi],
-                "projectedInFrame": _project(frame_size, lo, hi),
+                "projectedInFrame": _project(frame_size, lo, hi,
+                                             successes=k, n=n),
             }
     return out
 
 
 def _stratum_feasibility(records: list[dict], frame_size: int,
-                         strata: list[dict]) -> list[dict]:
+                         strata: list[dict],
+                         outcome_filter: list[str]) -> list[dict]:
     n = len(records)
+    outcome_sets = {s["stratumId"]: set(s.get("primaryOutcomes", []))
+                    for s in strata}
     results = []
     for stratum in strata:
-        outcomes = set(stratum.get("primaryOutcomes", []))
+        sid = stratum["stratumId"]
+        outcomes = outcome_sets[sid]
+        if outcome_filter and not outcomes & set(outcome_filter):
+            results.append({"stratumId": sid,
+                            "skippedReason": "outcome-filtered-draw",
+                            "note": "本次抽樣框已按 outcome 過濾，與此層無交集，"
+                                    "不產生判定"})
+            continue
         bands = set(stratum.get("doseBands", []))
         quota = stratum.get("quota")
+        if not isinstance(quota, int) or isinstance(quota, bool) or quota <= 0:
+            raise PrevalenceAuditError(
+                f"strata 檔的 {sid} quota 必須是正整數：{quota!r}")
         rows = {}
         for label, levels in (("strict", ("exact-value",)),
                               ("lenient", ("exact-value", "intensity-only"))):
-            k = sum(1 for r in records
-                    if set(r.get("outcomeHints", [])) & outcomes
-                    and r["doseReadability"] in levels
-                    and set(r.get("doseBands") or []) & bands)
+            matched = [r for r in records
+                       if set(r.get("outcomeHints", [])) & outcomes
+                       and r["doseReadability"] in levels
+                       and set(r.get("doseBands") or []) & bands]
+            k = len(matched)
             lo, hi = clopper_pearson(k, n)
-            projected_lo, projected_hi = _project(frame_size, lo, hi)
-            if projected_lo >= quota:
+            projected = _project(frame_size, lo, hi, successes=k, n=n)
+            if projected[0] >= quota:
                 verdict = "likely-sufficient"
-            elif projected_hi < quota:
+            elif projected[1] < quota:
                 verdict = "likely-insufficient"
             else:
                 verdict = "not-demonstrated"
+            unconfirmed = sum(1 for r in matched
+                              if r.get("outcomeConfirmed") is not True)
             rows[label] = {"count": k, "cp95": [lo, hi],
-                           "projectedInFrame": [projected_lo, projected_hi],
-                           "verdictAtBound": verdict}
+                           "projectedInFrame": projected,
+                           "verdictAtBound": verdict,
+                           "hintUnconfirmedShare": (unconfirmed / k
+                                                    if k else None)}
         outcome_group_n = sum(1 for r in records
                               if set(r.get("outcomeHints", [])) & outcomes)
+        overlapping = sorted(other for other, other_set in outcome_sets.items()
+                             if other != sid and other_set & outcomes)
         results.append({
-            "stratumId": stratum["stratumId"],
+            "stratumId": sid,
             "quota": quota,
             "outcomeGroupSampleCount": outcome_group_n,
             "insufficientAuditData": outcome_group_n < 5,
+            "overlappingStrata": overlapping,
             **rows,
         })
     return results
@@ -450,80 +594,129 @@ def _count_draws(audit_root: Path, frame_hash: str) -> int:
     return count
 
 
+def _load_strata(strata_path: Path | None) -> tuple[dict, dict]:
+    path = Path(strata_path) if strata_path else DEFAULT_STRATA_PATH
+    raw = path.read_bytes()  # 只讀一次：parse 與 sha256 用同一份 bytes
+    doc = json.loads(raw.decode("utf-8"))
+    if doc.get("status") != "frozen":
+        raise PrevalenceAuditError(
+            f"strata 檔必須 status=frozen：{path}")
+    meta = {
+        "strataFile": str(path),
+        "strataVersion": doc.get("version"),
+        "strataFileSha256": hashlib.sha256(raw).hexdigest(),
+        "strataOverride": strata_path is not None,
+    }
+    return doc, meta
+
+
 def estimate(audit_dir: Path, *, strata_path: Path | None = None,
              redo: bool = False) -> dict:
-    """讀回填完成的 audit.json，驗證抽樣鎖，產出母體推估。"""
+    """讀回填完成的 audit.json，對源頭重放驗證後產出母體推估。"""
     audit_dir = _require_private(audit_dir)
+    run_root = audit_dir.parents[1]
     audit = json.loads((audit_dir / "audit.json").read_text(encoding="utf-8"))
     if _sampling_lock(audit) != audit.get("samplingLockHash"):
         raise PrevalenceAuditError(
-            "samplingLockHash 驗證失敗：抽樣區段（seed、抽到哪些篇、其標題"
-            "摘要）在回填期間被更動。請回到原始抽樣或以 --redo 重抽。")
+            "samplingLockHash 驗證失敗：抽樣區段在回填期間被更動。")
+    _verify_against_source(run_root, audit)
     _validate_filled(audit)
 
     records = audit["records"]
     exclusion_records = audit["exclusionAudit"]
     n = len(records)
     frame_size = audit["frameSize"]
+    outcome_filter = audit.get("outcomeFilter", [])
 
     readability_counts = {
         level: sum(1 for r in records if r["doseReadability"] == level)
         for level in READABILITY_LEVELS}
 
-    strata_file = Path(strata_path) if strata_path else DEFAULT_STRATA_PATH
-    strata_doc = json.loads(strata_file.read_text(encoding="utf-8"))
+    strata_doc, strata_meta = _load_strata(strata_path)
 
+    m = len(exclusion_records)
     k_bad = sum(1 for r in exclusion_records
                 if r["exclusionJustified"] is False)
-    m = len(exclusion_records)
     exclusion_result = {
         "sampleSize": m,
         "unjustifiedCount": k_bad,
         "falseExclusionRateUpper95": clopper_pearson_upper(k_bad, m),
         "projectedLostUpper95": math.ceil(
             audit["excludedPoolSize"] * clopper_pearson_upper(k_bad, m)),
-        "note": "上界隨樣本數縮小；預設 12 筆只能證明 <~22%，作煙霧測試用。"
-                "要證明 <10% 需約 30 筆（零誤剔時）。",
+        "note": ("本次抽樣不含誤剔抽查，上界無資訊量（=1）。" if m == 0 else
+                 "上界隨樣本數縮小；預設 12 筆只能證明 <~22%，作煙霧測試用。"
+                 "要證明 <10% 需約 30 筆（零誤剔時）。"),
     }
+
+    draws = _count_draws(audit_dir.parent, audit["frameHash"])
+    interpretation = {
+        "quotaRule": "配額判斷取 Clopper–Pearson 下界（保守側）並以有限母體"
+                     "夾定（普查塌縮為精確計數）；strict 只算 exact-value，"
+                     "lenient 含 intensity-only。",
+        "frameCaveat": "抽樣框已扣除動物／綜述／registry／安全四類；外推只及"
+                       "於主池。誤剔抽查另行估上界。",
+        "marginalCountingCaveat": "各層計數是邊際的：同一篇可同時支撐多層"
+                                  "（見各層 overlappingStrata），但配額不得跨層"
+                                  "挪用，故逐層 likely-sufficient 不蘊涵聯合"
+                                  "可行。S5/S6 在摘要層無法分辨 primary 與 "
+                                  "secondary，兩層讀數必然相同。",
+        "outcomeHintCaveat": "層級計數以 outcomeHints（regex 提示）為準，提示"
+                             "誤報會反保守地抬高下界；hintUnconfirmedShare "
+                             "顯示各層計數中未經人工確認的占比。",
+        "powerCaveat": "outcomeGroupSampleCount < 5 的層，區間近乎無資訊量；"
+                       "用 sample --outcome 對該層補抽，勿逕自解讀為不足。",
+    }
+    if outcome_filter:
+        interpretation["outcomeFilterCaveat"] = (
+            f"本稽核來自 outcome 過濾補抽（{outcome_filter}）：frameSize 是"
+            "過濾後子母體，所有外推只適用於該子母體，與主池估計不可直接相加。")
+    multiplicity_warning = None
+    if draws > 1:
+        multiplicity_warning = (
+            f"同一母體已被抽樣 {draws} 次（見 draws.jsonl）。多次抽樣後只挑"
+            "一次回報會使 95% 區間的涵蓋率失效；請在決策文件中列出全部抽樣"
+            "與棄用理由。")
 
     result = {
         "documentType": "prevalence-audit-estimate",
-        "schemaVersion": "1.0.0",
+        "schemaVersion": "1.1.0",
         "auditId": audit["auditId"],
         "runId": audit["runId"],
         "screeningQueueHash": audit["screeningQueueHash"],
+        "candidatePoolHash": audit["candidatePoolHash"],
         "samplingLockHash": audit["samplingLockHash"],
+        "sourceReplayVerified": True,
         "seed": audit["seed"],
         "sampleSize": n,
         "frameSize": frame_size,
-        "drawsForSameFrame": _count_draws(audit_dir.parent,
-                                          audit["frameHash"]),
-        "strataFile": str(strata_file),
-        "strataVersion": strata_doc.get("version"),
-        "strataFileSha256": hashlib.sha256(
-            strata_file.read_bytes()).hexdigest(),
+        "frameHash": audit["frameHash"],
+        "outcomeFilter": outcome_filter,
+        "isCensus": n >= frame_size,
+        "drawsForSameFrame": draws,
+        "multiplicityWarning": multiplicity_warning,
+        **strata_meta,
         "readabilityCounts": readability_counts,
         "bandEstimates": _band_estimates(records, frame_size),
         "stratumFeasibility": _stratum_feasibility(
-            records, frame_size, strata_doc.get("strata", [])),
+            records, frame_size, strata_doc.get("strata", []),
+            outcome_filter),
         "exclusionAudit": exclusion_result,
         "regexAudit": _regex_audit(records),
-        "interpretation": {
-            "quotaRule": "配額判斷取 Clopper–Pearson 下界（保守側）；strict "
-                         "只算 exact-value，lenient 含 intensity-only。",
-            "frameCaveat": "抽樣框已扣除動物／綜述／registry／安全四類；"
-                           "外推只及於主池。誤剔抽查另行估上界。",
-            "powerCaveat": "outcomeGroupSampleCount < 5 的層，區間近乎無"
-                           "資訊量；用 sample --outcome 對該層補抽，勿逕自"
-                           "解讀為不足。",
-        },
+        "interpretation": interpretation,
         "decisionRemainsHuman": True,
         "estimatedAt": _utc_now(),
     }
 
     out_path = audit_dir / "estimate.json"
-    if out_path.exists() and not redo:
-        raise FileExistsError(f"{out_path} 已存在；重算請用 --redo")
+    if out_path.exists():
+        if not redo:
+            raise FileExistsError(f"{out_path} 已存在；重算請用 --redo")
+        serial = 1
+        superseded = audit_dir / "estimate-superseded-1.json"
+        while superseded.exists():
+            serial += 1
+            superseded = audit_dir / f"estimate-superseded-{serial}.json"
+        shutil.move(str(out_path), str(superseded))
     atomic_write_json(out_path, result)
     return result
 
@@ -537,15 +730,18 @@ def build_parser() -> argparse.ArgumentParser:
                           help="抽樣種子；抽樣當下決定，每次抽樣都寫入 "
                                "draws.jsonl 留痕")
     p_sample.add_argument("--n", type=int, default=50)
-    p_sample.add_argument("--excluded-n", type=int, default=12,
-                          help="誤剔抽查樣本數")
+    p_sample.add_argument("--excluded-n", type=int, default=None,
+                          help="誤剔抽查樣本數（預設 12；--outcome 補抽時"
+                               "預設 0）")
     p_sample.add_argument("--outcome", action="append", dest="outcomes",
                           help="可重複：把主抽樣框縮到含指定 outcome hint 的"
                                "候選（稀少層補抽用）")
     p_sample.add_argument("--redo", action="store_true")
     p_estimate = sub.add_parser("estimate", help="以回填完成的稽核表推估母體")
     p_estimate.add_argument("audit_dir", type=Path)
-    p_estimate.add_argument("--strata", type=Path, default=None)
+    p_estimate.add_argument("--strata", type=Path, default=None,
+                            help="覆蓋預設 strata 檔（會在輸出標記 "
+                                 "strataOverride）")
     p_estimate.add_argument("--redo", action="store_true")
     return parser
 
