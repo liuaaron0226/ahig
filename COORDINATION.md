@@ -22,16 +22,23 @@
 
 ## 專案狀態快照（協調者維護）
 
-截至 `a912678`（2026-08-13）：
+2026-08-13：
 
 - ✅ fail-open 修復已合併：四來源 normaliser 全通、契約外來源硬失敗、
   `completeAcrossContractSources` 逐來源檢查（`ahig/search/candidates.py`）
 - ✅ 雙盲 screening 對帳、PRESS 審查文件已入庫
-- ✅ S2 母體抽查工具完成（`ahig/search/prevalence_audit.py`）
-- ⏳ 等人工：50 篇 TT 摘要判讀（`prevalence_audit sample` → 回填 → `estimate`）
+- ✅ prevalence audit v2 依七點共識重寫完成（`ahig/search/prevalence_audit.py`）：
+  劑量可讀性三級判讀、band 多臂清單、S1–S7 逐層配額可行性（CP 精確區間、
+  下界保守）、誤剔抽查、regex 漏抓對照、samplingLockHash 抽樣鎖、
+  draws.jsonl 留痕、來源不齊直接擋、強制 AHIG_PRIVATE_ROOT
+- ⚠️ 執行門檻：prevalence audit 要求 candidateSourcesComplete=True——
+  跑之前要先把 pubmed/openalex 的 metadata search 跑完（normaliser 已就緒）
+- ⏳ 等人工：50 篇摘要判讀 + 12 篇誤剔抽查（sample → 回填 → estimate）
 - ⏳ 待決策（依序）：①「篩完才能抽」blocker 是否鬆綁（抽樣框升版）
   ② S2 解法（A/B/C/D）③ `analysis/human_throughput.py` 以實測重校
-- 測試基準：526/526、verify 10/10
+- 測試基準：534/534、verify 10/10
+- 分工註記：prevalence_audit 的實作歸協調 session；本機 session 請勿再改
+  該檔，直接 `git pull` 取用
 
 ## 工作線
 
