@@ -115,6 +115,9 @@ STRATA_FIXTURE = {
         {"stratumId": "S2-tt-high-and-very-high-dose", "quota": 10,
          "primaryOutcomes": ["tt-completion-time"],
          "doseBands": ["high", "very-high"]},
+        {"stratumId": "S4-oxidation", "quota": 10,
+         "primaryOutcomes": ["exogenous-cho-oxidation-peak"],
+         "doseBands": ["moderate", "high", "very-high"]},
         {"stratumId": "S5-gi-primary", "quota": 8,
          "primaryOutcomes": ["gi-symptom-incidence", "gi-symptom-severity"],
          "doseBands": ["moderate", "high", "very-high"]},
@@ -162,15 +165,20 @@ def make_run_root(base: Path, *, complete: bool = True) -> Path:
 
 
 def _fill(audit_dir: Path, *, unjustified_exclusions: int = 0) -> None:
-    """依 fixture 已知內容回填。TT90 額外確認 outcomeHints。"""
+    """依 fixture 已知內容回填。
+
+    outcomeConfirmed 必填：除 HIGHWORD 刻意填 false（模擬人工否決 regex
+    提示）外全部 true。
+    """
     path = audit_dir / "audit.json"
     audit = json.loads(path.read_text(encoding="utf-8"))
     for record in audit["records"]:
         abstract = record["abstract"] or ""
+        record["outcomeConfirmed"] = True
         if "90 g/h" in abstract:
             record.update(doseReadability="exact-value",
                           maxDose={"value": 90, "unit": "g/h"},
-                          doseBands=["very-high"], outcomeConfirmed=True)
+                          doseBands=["very-high"])
         elif "sixty grams per hour" in abstract:
             record.update(doseReadability="exact-value",
                           maxDose={"value": 60, "unit": "g/h"},
@@ -189,7 +197,7 @@ def _fill(audit_dir: Path, *, unjustified_exclusions: int = 0) -> None:
                           doseBands=["high"])
         elif "a high carbohydrate dose" in abstract:
             record.update(doseReadability="intensity-only",
-                          doseBands=["high"])
+                          doseBands=["high"], outcomeConfirmed=False)
         else:
             record.update(doseReadability="not-reported")
     for i, record in enumerate(audit["exclusionAudit"]):
@@ -197,14 +205,20 @@ def _fill(audit_dir: Path, *, unjustified_exclusions: int = 0) -> None:
     path.write_text(json.dumps(audit, ensure_ascii=False), encoding="utf-8")
 
 
+def _anchor(root: Path) -> Path:
+    return root.parent / "anchors.jsonl"
+
+
 def _draw(root: Path, **kwargs):
     kwargs.setdefault("seed", 1)
     kwargs.setdefault("n", 50)
+    kwargs.setdefault("anchor_path", _anchor(root))
     return prevalence_audit.draw_sample(root, **kwargs)
 
 
 def _estimate(root: Path, audit: dict, tmp: Path, **kwargs):
     audit_dir = root / prevalence_audit.AUDIT_DIRNAME / audit["auditId"]
+    kwargs.setdefault("anchor_path", _anchor(root))
     return prevalence_audit.estimate(audit_dir,
                                      strata_path=make_strata(tmp), **kwargs)
 
@@ -319,6 +333,8 @@ def test_estimate_reports_draw_count_and_multiplicity_warning():
         result = _estimate(root, audit, tmp)
         assert result["drawsForSameFrame"] == 2
         assert result["multiplicityWarning"] is not None
+        # Bonferroni：兩次抽樣 → α 收緊為 0.025
+        assert abs(result["alpha"] - 0.025) < 1e-12
 
 
 def test_single_draw_has_no_multiplicity_warning():
@@ -330,7 +346,38 @@ def test_single_draw_has_no_multiplicity_warning():
         result = _estimate(root, audit, tmp)
         assert result["drawsForSameFrame"] == 1
         assert result["multiplicityWarning"] is None
+        assert abs(result["alpha"] - 0.05) < 1e-12
         assert result["sourceReplayVerified"] is True
+        assert result["anchorFile"] == str(_anchor(root))
+
+
+def test_default_seed_is_derived_and_reproducible():
+    with private_tmp() as tmp:
+        root = make_run_root(tmp)
+        one = prevalence_audit.draw_sample(root, anchor_path=_anchor(root))
+        assert one["seedDerivation"] == "derived-from-queue-hash"
+        two = prevalence_audit.draw_sample(root, anchor_path=_anchor(root),
+                                           redo=True)
+        assert two["auditId"] == one["auditId"]
+        assert two["seed"] == one["seed"]
+        manual = prevalence_audit.draw_sample(root, seed=5,
+                                              anchor_path=_anchor(root))
+        assert manual["seedDerivation"] == "manual"
+
+
+def test_estimate_requires_matching_anchor_entry():
+    with private_tmp() as tmp:
+        root = make_run_root(tmp)
+        audit = _draw(root)
+        audit_dir = root / prevalence_audit.AUDIT_DIRNAME / audit["auditId"]
+        _fill(audit_dir)
+        _anchor(root).write_text("", encoding="utf-8")  # 錨定被清空
+        try:
+            _estimate(root, audit, tmp)
+        except prevalence_audit.PrevalenceAuditError as exc:
+            assert "錨定" in str(exc)
+            return
+    raise AssertionError("缺少錨定紀錄必須拒絕")
 
 
 def test_estimate_rejects_unfilled_tally():
@@ -426,6 +473,9 @@ def test_validation_rejects_contradictory_tallies():
         # outcomeConfirmed 型別錯誤
         {"doseReadability": "not-reported", "doseBands": None,
          "maxDose": {"value": None, "unit": None}, "outcomeConfirmed": "yes"},
+        # outcomeConfirmed 必填，留 null 不行
+        {"doseReadability": "not-reported", "doseBands": None,
+         "maxDose": {"value": None, "unit": None}, "outcomeConfirmed": None},
     ]
     for bad in cases:
         with private_tmp() as tmp:
@@ -459,6 +509,8 @@ def test_band_estimates_census_collapses_to_exact_counts():
         # 普查：母體計數已知，外推塌縮為精確值。
         assert high["strict"]["projectedInFrame"] == [2, 2]
         assert high["lenient"]["projectedInFrame"] == [3, 3]
+        lo, hi = high["lenient"]["cpInterval"]
+        assert 0.0 <= lo <= high["lenient"]["rate"] <= hi <= 1.0
         counts = result["readabilityCounts"]
         assert counts["exact-value"] == 5
         assert counts["intensity-only"] == 1
@@ -487,14 +539,16 @@ def test_stratum_feasibility_joins_outcome_and_band():
         by_id = {row["stratumId"]: row for row in result["stratumFeasibility"]}
         s2 = by_id["S2-tt-high-and-very-high-dose"]
         # S2 = TT × {high, very-high}：TT90(very-high) + TTWORDS(high)。
-        # HIGHWORD 是 intensity-only，只進 lenient。
+        # HIGHWORD 被人工否決 outcome（outcomeConfirmed=false）→ 不進計數。
         assert s2["strict"]["count"] == 2
-        assert s2["lenient"]["count"] == 3
+        assert s2["lenient"]["count"] == 2
+        assert result["outcomeHintRejectedCount"] == 1
         # 普查且 2 < quota 10 → 確定不足。
         assert s2["strict"]["verdictAtBound"] == "likely-insufficient"
-        # TT90 有人工確認 outcome，TTWORDS 沒有 → strict 未確認占比 1/2。
-        assert abs(s2["strict"]["hintUnconfirmedShare"] - 0.5) < 1e-12
         assert "S1-tt-moderate-dose" in s2["overlappingStrata"]
+        # 聯合分配：一篇只能填一層——S2 拿 TT90+TTWORDS，S4 拿 OX60。
+        assert result["jointSampleAllocation"]["strict"] == {
+            "S2-tt-high-and-very-high-dose": 2, "S4-oxidation": 1}
         # S5/S6 outcome 集合相交 → 互相標注。
         assert "S6-gi-secondary" in by_id["S5-gi-primary"]["overlappingStrata"]
         # S7 glycogen：樣本裡只有一筆 → 證據太薄要明說。
@@ -554,13 +608,13 @@ def test_exclusion_audit_upper_bound_matches_closed_form():
         assert result["exclusionAudit"]["unjustifiedCount"] == 0
         # 零誤剔的單側 95% 上界閉式解：1 - 0.05^(1/m)
         expected = 1 - 0.05 ** (1 / m)
-        assert abs(result["exclusionAudit"]["falseExclusionRateUpper95"]
+        assert abs(result["exclusionAudit"]["falseExclusionRateUpperBound"]
                    - expected) < 1e-9
 
         _fill(audit_dir, unjustified_exclusions=1)
         worse = _estimate(root, audit, tmp, redo=True)
         assert worse["exclusionAudit"]["unjustifiedCount"] == 1
-        assert (worse["exclusionAudit"]["falseExclusionRateUpper95"]
+        assert (worse["exclusionAudit"]["falseExclusionRateUpperBound"]
                 > expected)
         # --redo 不覆蓋：舊 estimate 改名保留
         audit_dir = root / prevalence_audit.AUDIT_DIRNAME / audit["auditId"]
@@ -577,7 +631,8 @@ def test_estimate_rejects_non_frozen_or_broken_strata():
         path = tmp / "thawed.json"
         path.write_text(json.dumps(thawed), encoding="utf-8")
         try:
-            prevalence_audit.estimate(audit_dir, strata_path=path)
+            prevalence_audit.estimate(audit_dir, strata_path=path,
+                                      anchor_path=_anchor(root))
         except prevalence_audit.PrevalenceAuditError as exc:
             assert "frozen" in str(exc)
         else:
@@ -587,7 +642,8 @@ def test_estimate_rejects_non_frozen_or_broken_strata():
         path2 = tmp / "broken.json"
         path2.write_text(json.dumps(broken), encoding="utf-8")
         try:
-            prevalence_audit.estimate(audit_dir, strata_path=path2)
+            prevalence_audit.estimate(audit_dir, strata_path=path2,
+                                      anchor_path=_anchor(root))
         except prevalence_audit.PrevalenceAuditError as exc:
             assert "quota" in str(exc)
             return
