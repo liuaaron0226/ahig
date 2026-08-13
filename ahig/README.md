@@ -50,11 +50,36 @@ python tests/run_tests.py tests/test_b11_calibration.py    # 單一檔案
 系統層級（跨 context）的決策在 repo 根目錄的 `docs/adr/`，見根目錄
 `CONTEXT-MAP.md`。
 
+## B.11 公開 metadata 搜尋
+
+SearchContract 已凍結。搜尋輸出只寫入 `AHIG_PRIVATE_ROOT`，不進 repo：
+
+```bash
+# 先預覽，不需私有根也不寫檔
+python -m ahig.search.runner --dry-run
+
+# 先在目前 shell 設定 AHIG_PRIVATE_ROOT 指向 repo 外的私有資料根，
+# 再執行公開、不需帳號的來源
+python -m ahig.search.runner \
+  --only europe-pmc --only clinicaltrials-gov --run-id b11-initial
+
+# PubMed 另需 AHIG_CONTACT_EMAIL；OpenAlex 另需 OPENALEX_API_KEY
+python -m ahig.search.runner --only pubmed --run-id b11-initial
+python -m ahig.search.runner --only openalex --run-id b11-initial
+
+# 已完成來源會跳過；--redo 會封存舊嘗試後重跑
+python -m ahig.search.runner --only europe-pmc --run-id b11-initial --redo
+```
+
+runner 只抓公開 metadata，不下載全文、不呼叫 NotebookLM。每一頁保存原始 HTTP body、
+headers、status、final URL（敏感 query 參數遮罩）、checksum 與 request manifest；
+API 宣告的 total count 與實際保留筆數不一致時，來源標 `failed` 而非 `completed`。
+
 ## 目前的狀態
 
-v2.1 契約核心已完成並可在原生 Windows 完整驗證。B.11 碳水化合物策略的範圍契約
-與 60 篇分層抽樣框已凍結。
+v2.1 契約核心已完成並可在原生 Windows 完整驗證。B.11 的 Search → Scope → strata
+契約鏈與 60 篇分層抽樣框已凍結；SearchContract 仍標記 `notPRESSReviewed`，
+known-item seed set 尚未建立，因此允許探索／校準搜尋，但 Approved Claim 被阻擋。
 
-**尚未取得任何文獻。** 校準集的 60 篇只是抽樣框規模，文獻搜尋、取得與權利
-處理屬下一階段。所有 `midRef` 為 `null`，未登錄任何文獻型 MID。尚未產生
-任何 Approved Claim。
+**尚未取得任何文獻全文。** 所有 `midRef` 為 `null`，未登錄文獻型 MID，也尚未
+產生任何 Approved Claim。
