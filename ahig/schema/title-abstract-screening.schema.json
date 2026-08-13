@@ -1,0 +1,301 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ahig.local/schema/title-abstract-screening/1.0.0",
+  "title": "TitleAbstractScreeningDocuments",
+  "oneOf": [
+    {"$ref": "#/$defs/Assignment"},
+    {"$ref": "#/$defs/Review"},
+    {"$ref": "#/$defs/Reconciliation"}
+  ],
+  "$defs": {
+    "Sha256": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "Assignment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "documentType", "schemaVersion", "assignmentId", "runId",
+        "screeningQueueHash", "candidateSetHash", "candidateIds",
+        "screeningMode", "requiredReviewerCount", "createdAt"
+      ],
+      "properties": {
+        "documentType": {"const": "title-abstract-screening-assignment"},
+        "schemaVersion": {"const": "1.0.0"},
+        "assignmentId": {"type": "string", "minLength": 1},
+        "runId": {"type": "string", "minLength": 1},
+        "screeningQueueHash": {"$ref": "#/$defs/Sha256"},
+        "candidateSetHash": {"$ref": "#/$defs/Sha256"},
+        "candidateIds": {
+          "type": "array", "minItems": 1, "uniqueItems": true,
+          "items": {"type": "string", "minLength": 1}
+        },
+        "screeningMode": {"const": "dual-blind-title-abstract"},
+        "requiredReviewerCount": {"const": 2},
+        "createdAt": {"type": "string", "format": "date-time"}
+      }
+    },
+    "Reviewer": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["reviewerId", "agentClass", "blindedToOtherReviewer"],
+      "properties": {
+        "reviewerId": {"type": "string", "minLength": 1},
+        "agentClass": {"enum": ["human-self", "human-expert"]},
+        "blindedToOtherReviewer": {"const": true}
+      }
+    },
+    "Decision": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["candidateId", "decision", "primaryReasonCode"],
+      "properties": {
+        "candidateId": {"type": "string", "minLength": 1},
+        "decision": {"enum": ["advance", "exclude", "unclear"]},
+        "primaryReasonCode": {"type": "string"},
+        "note": {"type": "string", "minLength": 1}
+      },
+      "allOf": [
+        {
+          "if": {"properties": {"decision": {"const": "advance"}}, "required": ["decision"]},
+          "then": {"properties": {"primaryReasonCode": {"const": "TA-ADV-POTENTIALLY-ELIGIBLE"}}}
+        },
+        {
+          "if": {"properties": {"decision": {"const": "exclude"}}, "required": ["decision"]},
+          "then": {
+            "properties": {
+              "primaryReasonCode": {
+                "enum": [
+                  "TA-EXC-ANIMAL-ONLY",
+                  "TA-EXC-POPULATION-OUT-OF-SCOPE",
+                  "TA-EXC-INTERVENTION-OUT-OF-SCOPE",
+                  "TA-EXC-COMPARATOR-OUT-OF-SCOPE",
+                  "TA-EXC-STUDY-DESIGN-OUT-OF-SCOPE",
+                  "TA-EXC-SAFETY-BRANCH-OUT-OF-SCOPE",
+                  "TA-EXC-NOT-PRIMARY-RESEARCH",
+                  "TA-EXC-NO-ENDURANCE-EXERCISE"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "if": {"properties": {"decision": {"const": "unclear"}}, "required": ["decision"]},
+          "then": {
+            "properties": {
+              "primaryReasonCode": {
+                "enum": [
+                  "TA-UNCLEAR-MISSING-ABSTRACT",
+                  "TA-UNCLEAR-POPULATION",
+                  "TA-UNCLEAR-INTERVENTION-TIMING",
+                  "TA-UNCLEAR-STUDY-DESIGN",
+                  "TA-UNCLEAR-OTHER"
+                ]
+              }
+            }
+          }
+        }
+      ]
+    },
+    "Review": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "documentType", "schemaVersion", "reviewId", "assignmentId", "runId",
+        "screeningQueueHash", "candidateSetHash", "reviewer", "completedAt",
+        "decisions"
+      ],
+      "properties": {
+        "documentType": {"const": "title-abstract-screening-review"},
+        "schemaVersion": {"const": "1.0.0"},
+        "reviewId": {"type": "string", "minLength": 1},
+        "assignmentId": {"type": "string", "minLength": 1},
+        "runId": {"type": "string", "minLength": 1},
+        "screeningQueueHash": {"$ref": "#/$defs/Sha256"},
+        "candidateSetHash": {"$ref": "#/$defs/Sha256"},
+        "reviewer": {"$ref": "#/$defs/Reviewer"},
+        "completedAt": {"type": "string", "format": "date-time"},
+        "decisions": {
+          "type": "array", "minItems": 1,
+          "items": {"$ref": "#/$defs/Decision"}
+        }
+      }
+    },
+    "ResolvedDecision": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["candidateId", "decision", "primaryReasonCodes"],
+      "properties": {
+        "candidateId": {"type": "string", "minLength": 1},
+        "decision": {"enum": ["advance", "exclude", "unclear"]},
+        "primaryReasonCodes": {
+          "type": "array", "minItems": 1, "uniqueItems": true,
+          "items": {"type": "string", "minLength": 1}
+        }
+      }
+    },
+    "ReviewerDecision": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["reviewerId", "decision", "primaryReasonCode"],
+      "properties": {
+        "reviewerId": {"type": "string", "minLength": 1},
+        "decision": {"enum": ["advance", "exclude", "unclear"]},
+        "primaryReasonCode": {"type": "string", "minLength": 1}
+      }
+    },
+    "AdjudicationItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["candidateId", "disagreementKind", "reviewerDecisions"],
+      "properties": {
+        "candidateId": {"type": "string", "minLength": 1},
+        "disagreementKind": {"enum": ["decision-mismatch", "exclusion-reason-mismatch"]},
+        "reviewerDecisions": {
+          "type": "array", "minItems": 2, "maxItems": 2,
+          "items": {"$ref": "#/$defs/ReviewerDecision"}
+        }
+      }
+    },
+    "Counts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "candidateCount", "agreementCount", "needsAdjudicationCount",
+        "advanceCount", "excludeCount", "unclearCount"
+      ],
+      "properties": {
+        "candidateCount": {"type": "integer", "minimum": 1},
+        "agreementCount": {"type": "integer", "minimum": 0},
+        "needsAdjudicationCount": {"type": "integer", "minimum": 0},
+        "advanceCount": {"type": "integer", "minimum": 0},
+        "excludeCount": {"type": "integer", "minimum": 0},
+        "unclearCount": {"type": "integer", "minimum": 0}
+      }
+    },
+    "Reconciliation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "documentType", "schemaVersion", "reconciliationId", "assignmentId",
+        "runId", "screeningQueueHash", "candidateSetHash", "reviewIds",
+        "reviewerIds", "status", "resolvedDecisions", "needsAdjudication",
+        "counts", "assignmentCoversQueue", "candidateSourcesComplete",
+        "humanTitleAbstractScreeningComplete", "eligibleSamplingPoolReady",
+        "blockingReasons", "nextStage", "completedAt", "reconciliationHash"
+      ],
+      "properties": {
+        "documentType": {"const": "title-abstract-screening-reconciliation"},
+        "schemaVersion": {"const": "1.0.0"},
+        "reconciliationId": {"type": "string", "minLength": 1},
+        "assignmentId": {"type": "string", "minLength": 1},
+        "runId": {"type": "string", "minLength": 1},
+        "screeningQueueHash": {"$ref": "#/$defs/Sha256"},
+        "candidateSetHash": {"$ref": "#/$defs/Sha256"},
+        "reviewIds": {
+          "type": "array", "minItems": 2, "maxItems": 2, "uniqueItems": true,
+          "items": {"type": "string", "minLength": 1}
+        },
+        "reviewerIds": {
+          "type": "array", "minItems": 2, "maxItems": 2, "uniqueItems": true,
+          "items": {"type": "string", "minLength": 1}
+        },
+        "status": {"enum": ["resolved", "needs-adjudication"]},
+        "resolvedDecisions": {
+          "type": "array", "items": {"$ref": "#/$defs/ResolvedDecision"}
+        },
+        "needsAdjudication": {
+          "type": "array", "items": {"$ref": "#/$defs/AdjudicationItem"}
+        },
+        "counts": {"$ref": "#/$defs/Counts"},
+        "assignmentCoversQueue": {"type": "boolean"},
+        "candidateSourcesComplete": {"type": "boolean"},
+        "humanTitleAbstractScreeningComplete": {"type": "boolean"},
+        "eligibleSamplingPoolReady": {"const": false},
+        "blockingReasons": {
+          "type": "array", "uniqueItems": true,
+          "items": {
+            "enum": [
+              "candidate-sources-incomplete",
+              "human-title-abstract-screening-not-completed",
+              "full-text-screening-not-completed"
+            ]
+          }
+        },
+        "nextStage": {"enum": ["candidate-source-search", "title-abstract-screening", "screening-adjudication", "full-text-screening"]},
+        "completedAt": {"type": "string", "format": "date-time"},
+        "reconciliationHash": {"$ref": "#/$defs/Sha256"}
+      },
+      "allOf": [
+        {
+          "if": {"properties": {"status": {"const": "resolved"}}, "required": ["status"]},
+          "then": {"properties": {"needsAdjudication": {"maxItems": 0}}}
+        },
+        {
+          "if": {"properties": {"status": {"const": "needs-adjudication"}}, "required": ["status"]},
+          "then": {
+            "properties": {
+              "needsAdjudication": {"minItems": 1},
+              "humanTitleAbstractScreeningComplete": {"const": false}
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {"candidateSourcesComplete": {"const": false}},
+            "required": ["candidateSourcesComplete"]
+          },
+          "then": {
+            "properties": {
+              "humanTitleAbstractScreeningComplete": {"const": false},
+              "nextStage": {"const": "candidate-source-search"}
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "candidateSourcesComplete": {"const": true},
+              "status": {"const": "needs-adjudication"}
+            },
+            "required": ["candidateSourcesComplete", "status"]
+          },
+          "then": {"properties": {"nextStage": {"const": "screening-adjudication"}}}
+        },
+        {
+          "if": {
+            "properties": {
+              "candidateSourcesComplete": {"const": true},
+              "status": {"const": "resolved"},
+              "assignmentCoversQueue": {"const": false}
+            },
+            "required": ["candidateSourcesComplete", "status", "assignmentCoversQueue"]
+          },
+          "then": {
+            "properties": {
+              "humanTitleAbstractScreeningComplete": {"const": false},
+              "nextStage": {"const": "title-abstract-screening"}
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "candidateSourcesComplete": {"const": true},
+              "status": {"const": "resolved"},
+              "assignmentCoversQueue": {"const": true}
+            },
+            "required": ["candidateSourcesComplete", "status", "assignmentCoversQueue"]
+          },
+          "then": {
+            "properties": {
+              "humanTitleAbstractScreeningComplete": {"const": true},
+              "nextStage": {"const": "full-text-screening"}
+            }
+          }
+        }
+      ]
+    }
+  }
+}

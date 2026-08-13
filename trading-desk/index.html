@@ -1,0 +1,610 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Trading Desk 指揮中心 · 2026-08-10</title>
+<style>
+:root{
+  --ink:#12161C; --paper:#FBFAF7; --panel:#FFFFFF; --line:#DFDBD2;
+  --muted:#6B7280; --dim:#8E9199;
+  --up:#C8323F; --down:#0E8F5E; --flat:#8E9199;
+  --gold:#B0842B; --gold-soft:#F2E9D4;
+}
+@media (prefers-color-scheme:dark){
+  :root{--ink:#E8E6E1;--paper:#0E1116;--panel:#161A21;--line:#2A2F38;
+    --muted:#98A0AC;--dim:#6E7681;--up:#F2606C;--down:#3FBF89;--flat:#6E7681;
+    --gold:#D9AE5A;--gold-soft:#2A2415;}
+}
+:root[data-theme="dark"]{--ink:#E8E6E1;--paper:#0E1116;--panel:#161A21;--line:#2A2F38;
+  --muted:#98A0AC;--dim:#6E7681;--up:#F2606C;--down:#3FBF89;--flat:#6E7681;
+  --gold:#D9AE5A;--gold-soft:#2A2415;}
+:root[data-theme="light"]{--ink:#12161C;--paper:#FBFAF7;--panel:#FFFFFF;--line:#DFDBD2;
+  --muted:#6B7280;--dim:#8E9199;--up:#C8323F;--down:#0E8F5E;--flat:#8E9199;
+  --gold:#B0842B;--gold-soft:#F2E9D4;}
+
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font-family:"PingFang TC","Microsoft JhengHei","Noto Sans TC",system-ui,sans-serif;
+  font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px 100px}
+h1,h2,h3{font-family:"Songti TC","Noto Serif TC",Georgia,serif;text-wrap:balance;
+  font-weight:600;letter-spacing:.01em}
+.num{font-family:ui-monospace,"SF Mono",Consolas,monospace;
+  font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+a{color:var(--gold)}
+.up{color:var(--up)} .down{color:var(--down)} .flat{color:var(--flat)}
+
+/* nav */
+nav{position:sticky;top:0;z-index:20;background:var(--paper);
+  border-bottom:1px solid var(--line);margin-bottom:0}
+nav .in{max-width:1080px;margin:0 auto;padding:11px 24px;display:flex;gap:6px;
+  overflow-x:auto;align-items:center}
+nav a{font-size:12.5px;color:var(--muted);text-decoration:none;padding:5px 10px;
+  border-radius:3px;white-space:nowrap;font-weight:600}
+nav a:hover{background:var(--gold-soft);color:var(--gold)}
+nav .brand{font-family:"Songti TC",Georgia,serif;font-weight:700;font-size:14px;
+  color:var(--ink);margin-right:10px;white-space:nowrap}
+
+/* mast */
+.mast{border-bottom:2px solid var(--ink);padding:40px 0 18px}
+.kicker{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);
+  font-weight:700;margin-bottom:12px}
+.mast h1{font-size:clamp(28px,5vw,44px);line-height:1.15;margin:0 0 12px}
+.dateline{display:flex;flex-wrap:wrap;gap:6px 20px;font-size:13px;color:var(--muted)}
+.dateline b{color:var(--ink);font-weight:600}
+
+.lede{font-size:18px;line-height:1.72;margin:26px 0 32px;padding:19px 0;
+  border-top:1px solid var(--ink);border-bottom:1px solid var(--line)}
+.lede strong{color:var(--up)}
+
+/* tape */
+.tape{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(140px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);
+  border-radius:3px;overflow:hidden;margin:24px 0}
+.cell{background:var(--panel);padding:12px 14px}
+.cell .lab{font-size:11px;color:var(--muted);letter-spacing:.05em;margin-bottom:4px}
+.cell .val{font-size:19px;font-weight:600;line-height:1.2}
+.cell .chg{font-size:12px;margin-top:2px}
+
+section{margin:48px 0 0;scroll-margin-top:56px}
+section>h2{font-size:24px;margin:0 0 6px;padding-bottom:9px;
+  border-bottom:1px solid var(--line);display:flex;align-items:baseline;gap:11px}
+section>h2 .tag{font-family:ui-monospace,monospace;font-size:11px;color:var(--gold);
+  letter-spacing:.1em;font-weight:700}
+h3{font-size:17px;margin:26px 0 8px}
+p{margin:11px 0}
+
+/* findings grid */
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(288px,100%),1fr));gap:16px;margin:20px 0}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:3px;padding:16px 18px}
+.card h4{margin:0 0 8px;font-size:15px;font-weight:700;
+  font-family:"PingFang TC","Microsoft JhengHei",sans-serif}
+.card p{font-size:14px;margin:7px 0}
+.card .big{font-family:ui-monospace,monospace;font-size:26px;font-weight:700;
+  line-height:1.1;margin:6px 0}
+.card .cap{font-size:11.5px;color:var(--muted)}
+
+/* tables */
+.scroll{overflow-x:auto;margin:16px 0;border:1px solid var(--line);border-radius:3px}
+table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:560px}
+th,td{padding:8px 12px;text-align:right;border-bottom:1px solid var(--line);white-space:nowrap}
+th{background:var(--panel);font-weight:600;font-size:11px;color:var(--muted);
+  letter-spacing:.05em;text-align:right}
+th:first-child,td:first-child{text-align:left}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:var(--gold-soft)}
+td.name{font-weight:600}
+.sub{font-size:11px;color:var(--dim);font-weight:400}
+
+/* note */
+.note{background:var(--panel);border:1px solid var(--line);border-radius:2px;
+  padding:14px 18px 15px;margin:22px 0;font-size:14.5px}
+.note .hd{font-weight:700;font-size:14px;color:var(--gold);padding-bottom:8px;
+  margin-bottom:10px;border-bottom:1px dotted var(--line)}
+.note.warn{border-color:var(--up)}
+.note.warn .hd{color:var(--up);border-bottom-color:var(--up)}
+.note p:first-of-type{margin-top:0} .note p:last-child{margin-bottom:0}
+
+/* error log */
+.err{display:grid;grid-template-columns:auto 1fr;gap:0;border:1px solid var(--line);
+  border-radius:2px;overflow:hidden;margin:14px 0}
+.err .n{background:var(--panel);padding:14px 15px;border-right:1px solid var(--line);
+  font-family:ui-monospace,monospace;font-size:11px;color:var(--up);font-weight:700;
+  display:flex;align-items:center;white-space:nowrap}
+.err .b{padding:13px 17px;font-size:14px}
+.err .b b{color:var(--up)}
+
+/* files */
+.files{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(250px,100%),1fr));gap:14px;margin:18px 0}
+.fgroup{background:var(--panel);border:1px solid var(--line);border-radius:3px;padding:14px 16px}
+.fgroup h4{margin:0 0 9px;font-size:13.5px;font-weight:700;color:var(--gold);
+  font-family:"PingFang TC",sans-serif;letter-spacing:.03em}
+.fgroup ul{list-style:none;padding:0;margin:0}
+.fgroup li{font-size:13px;padding:3px 0;display:flex;justify-content:space-between;gap:10px}
+.fgroup li span{color:var(--dim);font-family:ui-monospace,monospace;font-size:11px}
+
+code{font-family:ui-monospace,Consolas,monospace;font-size:12.5px;
+  background:var(--gold-soft);color:var(--gold);padding:1px 5px;border-radius:2px}
+pre{background:var(--panel);border:1px solid var(--line);border-radius:3px;
+  padding:13px 16px;overflow-x:auto;font-size:12.5px;line-height:1.6}
+pre code{background:none;color:var(--ink);padding:0}
+
+ul{padding-left:19px;margin:11px 0} li{margin:6px 0}
+.disc{background:var(--panel);border:1px solid var(--up);border-radius:3px;
+  padding:15px 18px;margin:32px 0 0;font-size:13.5px}
+.disc b{color:var(--up)}
+.foot{margin-top:56px;padding-top:18px;border-top:1px solid var(--line);
+  font-size:12.5px;color:var(--muted)}
+@media(max-width:560px){
+  .err{grid-template-columns:1fr}
+  .err .n{border-right:none;border-bottom:1px solid var(--line)}
+}
+</style>
+
+<nav><div class="in">
+  <span class="brand">Trading Desk</span>
+  <a href="#today">今日</a>
+  <a href="#holdings">持股</a>
+  <a href="#findings">核心發現</a>
+  <a href="#errors">錯誤紀錄</a>
+  <a href="#themes">次主題</a>
+  <a href="#analysts">分析師</a>
+  <a href="#tools">工具</a>
+  <a href="#files">文件</a>
+</div></nav>
+
+<div class="wrap">
+
+<header class="mast">
+  <div class="kicker">2026-08-10 · 一日建置總結</div>
+  <h1>把市場研究變成可查證的流程</h1>
+  <div class="dateline">
+    <span><b>50</b> 個檔案 · <b>10,698</b> 行</span>
+    <span><b>10</b> 支可重跑腳本</span>
+    <span><b>144</b> 條證據（49 條經對抗式查證）</span>
+    <span><b>2</b> 個分析師頻道語料庫</span>
+  </div>
+</header>
+
+<p class="lede">
+這一整天做的不是「找明牌」，是<strong>把每個說法變成可以被推翻的東西</strong>。
+包括你聽到的分析師說法、我自己提出的假說、以及我自己犯的錯——
+本頁第四節專門記錄<strong>我今天錯了幾次、怎麼被抓到的</strong>。
+研究的價值在誠實程度，不在明確程度。
+</p>
+
+<section id="today">
+  <h2><span class="tag">01</span>今日市場</h2>
+
+  <div class="tape">
+    <div class="cell"><div class="lab">加權指數</div><div class="val num up">44,928.76</div><div class="chg num up">+702.85　+1.59%</div></div>
+    <div class="cell"><div class="lab">櫃買指數</div><div class="val num up">391.61</div><div class="chg num up">+7.42　+1.93%</div></div>
+    <div class="cell"><div class="lab">台積電</div><div class="val num up">2,380</div><div class="chg num up">+10　+0.42%</div></div>
+    <div class="cell"><div class="lab">台達電</div><div class="val num up">1,815</div><div class="chg num up">+10.00% 漲停</div></div>
+    <div class="cell"><div class="lab">距 6/23 高點</div><div class="val num down">−6.8%</div><div class="chg sub">高點 48,218.87</div></div>
+    <div class="cell"><div class="lab">S&amp;P 500 <span class="sub">8/7</span></div><div class="val num up">7,757.64</div><div class="chg num up">+0.62% 創高</div></div>
+    <div class="cell"><div class="lab">費半 <span class="sub">8/7</span></div><div class="val num up">12,356.79</div><div class="chg num up">+2.56%</div></div>
+    <div class="cell"><div class="lab">ADR 溢價</div><div class="val num up">+14.45%</div><div class="chg sub">台積電</div></div>
+  </div>
+
+  <p><strong>櫃買 +1.93% &gt; 加權 +1.59% &gt; 台積電 +0.42%</strong>——權值股漲幅最小，
+  今天是廣度驅動的反彈，與上週五「指數撐住、底下崩壞」完全相反。</p>
+
+  <div class="note warn">
+    <div class="hd">要放進脈絡：這是七月劇震後的修復，不是平靜市場的上漲</div>
+    <p>6/23 盤中 <span class="num">48,218.87</span> 歷史新高 →
+    7/17 單日 <b class="num">−2,953.71 點（−6.47%）</b>，外資單日賣超 <b>1,883 億</b>（皆史上最大）→
+    7/30 低點 <span class="num">39,933.30</span>（自 7/1 起 <b>−15.1%</b>）→
+    7/31 單日 <b class="num">+3,186.45 點</b>（史上最大單日漲點）→ 今天 44,928.76。</p>
+  </div>
+
+  <p><a href="briefings/2026-08-10-report.html">→ 完整市場報告</a>
+  <a href="briefings/2026-08-10-pathmap.html">→ 未來一個月條件式路徑圖</a></p>
+</section>
+
+<section id="holdings">
+  <h2><span class="tag">02</span>你的六檔</h2>
+
+  <div class="scroll">
+  <table>
+    <thead><tr>
+      <th>個股</th><th>今日</th><th>漲跌</th><th>季線</th><th>距季線</th><th>ATR 日</th>
+      <th>本益比</th><th>淨值比</th><th>營收 YoY</th>
+    </tr></thead>
+    <tbody>
+      <tr><td class="name">群創 <span class="sub">3481</span></td>
+        <td class="num">52.30</td><td class="num up"><b>+9.99%</b><br><span class="sub">漲停</span></td>
+        <td class="num">54.07</td><td class="num down">−3.27%</td><td class="num"><b>0.5</b></td>
+        <td class="num up">432</td><td class="num">1.67</td><td class="num up">+17.3%</td></tr>
+      <tr><td class="name">華邦電 <span class="sub">2344</span></td>
+        <td class="num">179.50</td><td class="num up"><b>+9.79%</b></td>
+        <td class="num">166.68</td><td class="num up"><b>已站上</b></td><td class="num">—</td>
+        <td class="num">18.0</td><td class="num up">4.46</td><td class="num up"><b>+189.9%</b></td></tr>
+      <tr><td class="name">聯電 <span class="sub">2303</span></td>
+        <td class="num">123.00</td><td class="num up">+6.03%</td>
+        <td class="num">138.87</td><td class="num down">−11.43%</td><td class="num">1.7</td>
+        <td class="num">17.4</td><td class="num">3.28</td><td class="num up">+22.9%</td></tr>
+      <tr><td class="name">華通 <span class="sub">2313</span></td>
+        <td class="num">215.00</td><td class="num up">+3.12%</td>
+        <td class="num">236.16</td><td class="num down">−8.96%</td><td class="num">1.4</td>
+        <td class="num">36.8</td><td class="num up">5.30</td><td class="num up">+21.0%</td></tr>
+      <tr><td class="name">台玻 <span class="sub">1802</span></td>
+        <td class="num">54.70</td><td class="num up">+3.01%</td>
+        <td class="num">63.13</td><td class="num down">−13.36%</td><td class="num">2.3</td>
+        <td class="num up">408</td><td class="num">3.11</td><td class="num up">+27.0%</td></tr>
+      <tr><td class="name">TPK-KY <span class="sub">3673</span></td>
+        <td class="num">63.30</td><td class="num">—</td>
+        <td class="num">75.05</td><td class="num down"><b>−15.65%</b></td><td class="num">3.2</td>
+        <td class="num">16.6</td><td class="num">0.61</td><td class="num up">+7.0%</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="sub">收盤為 8/10；估值與營收為 8/7 基準（今日股價已漲 3–10%，實際本益比更高）；
+  營收為 6 月。「ATR 日」＝ 距季線還需幾個正常單日波動。</p>
+
+  <div class="grid">
+    <div class="card">
+      <h4>群創 432 倍本益比不是「貴」</h4>
+      <p>是<strong>獲利趨近於零</strong>。分母極小時本益比會爆炸成無意義的數字。
+      台玻 408 倍同理，而且<strong>完全沒有配息</strong>。</p>
+      <p>這兩檔要看股價淨值比：群創 1.67 相對低、台玻 3.11 不低。</p>
+    </div>
+    <div class="card">
+      <h4>華邦電 +189.9% 是週期高點訊號</h4>
+      <p>不是成長訊號。記憶體業營收爆發本身就是見頂特徵，低本益比在循環高峰是假象。</p>
+      <p><strong>曲博的技術判斷更直接</strong>：「台灣的記憶體廠做的都是消費性電子為主，
+      <b>這個都不是 AI 伺服器在用</b>⋯⋯最多只能做邊緣伺服器」。</p>
+    </div>
+    <div class="card">
+      <h4>群創的轉型：真的，但沒有獨佔</h4>
+      <p>曲博被問「群創跟台積電合作 CoPoS 是壟斷嗎」，答：<strong>「沒有。沒有。」</strong>
+      力成、其他面板廠與封測廠都在做玻璃封裝。</p>
+      <p>而群創 P/B 1.67 vs 友達 1.24、彩晶 1.15——已有 <b>39% 同業溢價</b>。</p>
+    </div>
+  </div>
+
+  <p><a href="briefings/2026-08-10-stocks.md">→ 五檔三層分析</a>
+  <a href="docs/themes/EP320-holdings-relevant.md">→ 曲博對你持股的評估</a></p>
+</section>
+
+<section id="findings">
+  <h2><span class="tag">03</span>核心發現</h2>
+
+  <div class="grid">
+    <div class="card">
+      <h4>你抓到的是產業循環，不是個股</h4>
+      <div class="big up">+129.8%</div>
+      <p class="cap">循環股複合體 2026 YTD 平均（9 檔）</p>
+      <p>對照台積電 <b>+53.5%</b>、大盤 <b>+55.1%</b>。族群裡最弱的台玻也有 +58.3%。
+      <strong>選對產業的貢獻遠大於選對個股。</strong></p>
+    </div>
+
+    <div class="card">
+      <h4>這一輪選個股是負期望值</h4>
+      <div class="big down">12.2%</div>
+      <p class="cap">全台股 1,930 檔中贏過加權指數的比例</p>
+      <p>贏過 <b>0050（+121.9%）</b>的只有 <b>9.6%</b>，個股報酬中位數 <b>−3.5%</b>。
+      歷史上這個比例中位是 41.4%，<strong>本次是史上第 2 低</strong>。</p>
+    </div>
+
+    <div class="card">
+      <h4>年化 100% 在資料裡不存在</h4>
+      <div class="big">0 / 229</div>
+      <p class="cap">十年樣本中年化 &gt;100% 的檔數</p>
+      <p>最佳一檔 65.4%，中位 4.8%。單一年度破百有 <b>5.34%</b> 機率，
+      但<strong>隔年 56.6% 為負、中位 −7.9%</strong>。</p>
+    </div>
+
+    <div class="card">
+      <h4>「群創發動完 TPK 才發動」測不成立</h4>
+      <div class="big">0.428 → 0.061</div>
+      <p class="cap">日報酬相關：同日 → 領先 1 天</p>
+      <p>兩檔<strong>同一天一起動</strong>，不是先後接力。20 日淨超額 +2.72% 但
+      <b>t = 1.17 不顯著</b>；60 日反轉 <b>−5.88%</b>（t = −1.98）才比較站得住。</p>
+    </div>
+
+    <div class="card">
+      <h4>技術分析：等確認有效，等回檔有害</h4>
+      <div class="big up">+1.0 ~ +1.4pp</div>
+      <p class="cap">循環股「等突破」vs 立刻買，12/24 月皆勝</p>
+      <p>反過來「等跌 10% 才進場」24 個月要付 <b>−2.8pp</b>——
+      <strong>不回檔的股票正是會跑掉的那些</strong>。你買群創在它從 11 漲到 23 之後，
+      做的正是資料說有效的那件事。</p>
+    </div>
+
+    <div class="card">
+      <h4>勝率是錯的目標</h4>
+      <div class="big down">86.2% → −48.1%</div>
+      <p class="cap">「停利3%/停損20%」的勝率與五年總報酬</p>
+      <p>勝率排名第 2、期望值排名<strong>最後</strong>。賺賠比只有 0.89。
+      而且<strong>沒有任何擇時策略贏過買進持有</strong>。</p>
+    </div>
+  </div>
+
+  <div class="note">
+    <div class="hd">一個技術背景講者的估值判斷</div>
+    <p>曲博被網友問「AI 股本益比 30 倍以上是不是過高」，他答：
+    <b>「坦白說我認為是⋯⋯30–40 倍很普通，50–60 倍都常見，這個是泡沫。」</b></p>
+    <p>對照：台股股價淨值比 <b>4.22 倍</b>（2008 低點約 1.2）、報酬指數近一年 <b>+87.74%</b>、
+    台積電佔指數權重 <b>44.78%</b>。</p>
+  </div>
+
+  <p><a href="docs/return-target-reality.md">→ 100% 年化的現實</a>
+  <a href="docs/finding-multibaggers.md">→ 找下一檔群創</a>
+  <a href="docs/CORRECTION-multibagger-screen.md">→ 該研究的更正</a></p>
+</section>
+
+<section id="errors">
+  <h2><span class="tag">04</span>我今天錯了幾次</h2>
+
+  <p>這一節是刻意保留的。<strong>一份不記錄自己錯誤的研究，沒有辦法被信任。</strong>
+  以下每一條都是今天實際發生、被抓到、並已更正的。</p>
+
+  <div class="err">
+    <div class="n">錯誤 1</div>
+    <div class="b"><b>我造了一個假數據，還當成別人的 bug 回報。</b>
+    我說 analyst-tracker 的 benchmark 有 bug、出現 −59.3% 的 7 日大盤報酬。
+    真相：原始值是 <span class="num">−0.5929%</span>，是我的顯示程式用
+    「數值 &lt;1 就乘以 100」自動判斷單位，把它放大了 100 倍。<br>
+    <span class="sub">教訓：用數值大小自動猜單位會無聲產生假數據。</span></div>
+  </div>
+
+  <div class="err">
+    <div class="n">錯誤 2</div>
+    <div class="b"><b>我把一個正確的數字「更正」成錯的。</b>
+    7/31 史上最大單日漲點我原本寫 <span class="num">+3,186.45</span>，
+    稽核代理引用維基百科說是 3,281.06，我沒查一手資料就改了。
+    TWSE 官方 FMTQIK 證實：<b>+3,186.45 才是對的</b>。<br>
+    <span class="sub">教訓：二手來源不能覆蓋一手官方資料。</span></div>
+  </div>
+
+  <div class="err">
+    <div class="n">錯誤 3</div>
+    <div class="b"><b>我的篩選器根本選不到群創。</b>
+    我用「已從多年低點翻倍、距多年高點仍遠」建篩選，回看期設 36 個月。
+    但在你實際買點（2026-04, 23.95），36 個月窗口的最高點是 2026-02 的 26.80，
+    「距高點」只有 +12%，<b>五組條件全不通過</b>。<br>
+    <span class="sub">整份回測測的不是那個假說。而且換成 Yahoo 還原價 vs TWSE 實際價，答案還會相反。</span></div>
+  </div>
+
+  <div class="err">
+    <div class="n">錯誤 4</div>
+    <div class="b"><b>我用單日漲跌幅比較兩個處於不同週期位置的市場。</b>
+    看到台股 +1.49%、韓股 +0.02% 就當成「異常背離」，列了三個猜測——三個全錯。
+    真相：韓國 7 月因中國 CXMT 衝擊崩了 <b>43.9%</b>，距高點還有 −33%。<br>
+    <span class="sub">正確的第一個問題是「各自距高點多遠」，不是「今天誰漲得多」。</span></div>
+  </div>
+
+  <div class="err">
+    <div class="n">錯誤 5</div>
+    <div class="b"><b>我把 VIX 當成全球風險指標。</b>
+    寫「VIX 14.90，市場完全沒在定價風險」——但 VIX 只反映美國。
+    同期台股 7/17 單日崩 6.47%、韓股回檔 43.9%。<br>
+    <span class="sub">波動率指標有地域範圍。談「市場」要先定義是哪個市場。</span></div>
+  </div>
+
+  <div class="err">
+    <div class="n">錯誤 6</div>
+    <div class="b"><b>我附和了一個不存在的缺口。</b>
+    合併代理說「還有 23 支影片未萃取」，我照著跟你說要補跑。
+    實際上兩批工作流已涵蓋全部 54 支——那個代理只看得到第一批的資料。<br>
+    <span class="sub">代理的自評不能當事實，要自己查覆蓋範圍。</span></div>
+  </div>
+
+  <div class="note warn">
+    <div class="hd">而稽核代理自己也錯了 10 條</div>
+    <p>對抗式查證跑了 48 條裁決：<b>CONFIRMED 11、CORRECTED 27、REFUTED 10</b>。
+    被推翻的包括：稽核誇大結論、把統計機制講反、打稻草人（我原文早就做過時間配對）、
+    「全部通過 Bonferroni 校正」是假陳述、下市查核程式讀錯欄位名、
+    一篇台灣論文被讀反。</p>
+    <p><strong>單向的找碴會製造新錯誤。</strong>這是今天流程上最重要的驗證。</p>
+  </div>
+
+  <p><a href="reviews/backlog.md">→ 待驗清單與方法論錯誤紀錄</a></p>
+</section>
+
+<section id="themes">
+  <h2><span class="tag">05</span>次主題資金流</h2>
+
+  <p>官方「產業別」是粗分類，抓不到玻璃基板、光通訊這類跨類別主題。
+  我從《曲博科技教室》54 支影片、43 萬字語料萃出
+  <strong>13 個主題 × 22 檔台股</strong>，接進資金流追蹤。</p>
+
+  <div class="scroll">
+  <table>
+    <thead><tr><th>主題</th><th>外資（張）</th><th>投信</th><th>成分股</th></tr></thead>
+    <tbody>
+      <tr><td class="name">量子運算</td><td class="num up"><b>+88,340</b></td><td class="num down">−1,062</td>
+        <td style="text-align:left" class="sub">2317 鴻海、2324 仁寶、2330 台積電</td></tr>
+      <tr><td class="name">6G／通訊</td><td class="num up">+1,471</td><td class="num up">+1,232</td>
+        <td style="text-align:left" class="sub">2454 聯發科</td></tr>
+      <tr><td class="name">半導體檢測分析</td><td class="num down">−14,107</td><td class="num down">−238</td>
+        <td style="text-align:left" class="sub">3587 閎康、6830 汎銓、3289 宜特</td></tr>
+      <tr><td class="name">先進封裝</td><td class="num down">−30,407</td><td class="num up">+5,454</td>
+        <td style="text-align:left" class="sub">2330 台積電、3711 日月光</td></tr>
+      <tr><td class="name">記憶體</td><td class="num down">−63,064</td><td class="num up"><b>+24,406</b></td>
+        <td style="text-align:left" class="sub">2344 華邦電、2337 旺宏、8299 群聯</td></tr>
+      <tr><td class="name">玻璃基板／FOPLP</td><td class="num down"><b>−99,790</b></td><td class="num up">+112</td>
+        <td style="text-align:left" class="sub">3481 群創、6239 力成、6182 合晶</td></tr>
+      <tr><td class="name">矽光子／光通訊 CPO</td><td class="num down"><b>−142,300</b></td><td class="num up">+2,482</td>
+        <td style="text-align:left" class="sub">2303 聯電、3008 大立光、6854 錼創</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="sub">8/3–8/7 五日累計。成分股由技術語料萃取，非官方分類。</p>
+
+  <div class="note warn">
+    <div class="hd">外資狂砍的三個主題，週一漲最兇</div>
+    <p>矽光子（聯電 −127,628 張）、玻璃基板（群創 −74,919）、記憶體（旺宏 −27,696、華邦電 −22,103）
+    是上週外資賣最多的——而 8/10 群創漲停、聯電 +6.03%、華邦電 +9.79%。</p>
+  </div>
+
+  <h3>三個誠實的限制</h3>
+  <ul>
+    <li><strong>功率元件這個主題語料撐不起來。</strong>掃過全部 113 個主題紀錄，
+      SiC／GaN 功率元件、車用功率幾乎沒出現；GaN 的提及是<strong>射頻用</strong>（相位陣列天線），不是功率。</li>
+    <li><strong>台積電污染。</strong>它出現在 8 個主題裡，那些主題的資金流很大程度只是台積電的資金流。</li>
+    <li><strong>量化資訊全缺。</strong>沒有營收佔比。群創做玻璃封裝是事實，但佔營收多少？語料沒有——
+      這張地圖<strong>只能界定族群邊界，判斷不了損益貢獻</strong>。</li>
+  </ul>
+
+  <p><a href="docs/themes/ansforce-theme-map.md">→ 完整主題地圖</a>
+  <a href="docs/themes/memory-hbm-zam.md">→ HBM vs ZAM 記憶體路線</a></p>
+</section>
+
+<section id="analysts">
+  <h2><span class="tag">06</span>兩個分析師語料庫</h2>
+
+  <div class="grid">
+    <div class="card">
+      <h4>廖佑璋《股票大璋》· 籌碼技術派</h4>
+      <p class="cap">123 支影片 · 557 條可驗證主張 · 1.37 萬訂閱</p>
+      <p><b>方法組成</b>：籌碼 89% 覆蓋、外資提及 <b>1,274 次</b>（最高）、
+      未平倉 61%、帶量 75%、<b>基本面僅 4.6%</b>。</p>
+      <p><b>固定流程</b>：費半（圖一）→ 加權量價 → 三大法人（拆自營避險）→
+      期貨未平倉 → 櫃買 → 個股 QA。</p>
+      <p><b>⚠ 87% 看多</b>、44.7% 是模糊主張、只有 3.1% 有目標價。
+      近期對帳 <b>6 命中 / 5 落空</b>。</p>
+      <p>已蒸餾成 <code>/大璋</code> skill（21,064 字、230 處原文標註）。</p>
+    </div>
+
+    <div class="card">
+      <h4>曲博科技教室 · 技術產業派</h4>
+      <p class="cap">54 支逐字稿 · 43 萬字 · 44.6 萬訂閱</p>
+      <p><b>內容</b>：技術原理與產業鏈結構。CoWoS/CoPoS、矽光子、HBM vs ZAM、
+      二維材料、EUV 替代方案、低軌衛星、人形機器人。</p>
+      <p><b>明確聲明不推薦個股</b>，所以現有的「股價主張抽取器」對他回傳 0 條——
+      我另寫了產業結構抽取。</p>
+      <p><b>價值</b>：113 個主題紀錄，補上官方產業別抓不到的次主題族群邊界。</p>
+      <p>技術瓶頸也講得很具體：玻璃基板「<b>最大的困難卡在穿孔，穿孔完切割時因應力會裂掉</b>」。</p>
+    </div>
+  </div>
+
+  <div class="note">
+    <div class="hd">兩者互補，但都有結構性偏誤</div>
+    <p>廖佑璋看籌碼與短線（時間框架多是「明天」「下禮拜」），曲博看技術與產業（製程世代、量產時程）。
+    <strong>廖佑璋的 87% 看多在多頭市場裡會讓命中率虛高</strong>——
+    真正的檢驗要等一次完整空頭，資料庫裡還沒有。</p>
+  </div>
+
+  <p><a href="docs/analyst-scorecard-jinjason.md">→ 廖佑璋逐條對帳表</a></p>
+</section>
+
+<section id="tools">
+  <h2><span class="tag">07</span>工具箱</h2>
+
+  <p>全部可重跑、不需 API 金鑰（除了 analyst-tracker 的 LLM 抽取）。</p>
+
+<pre><code># 每日全套：台股指數、籌碼、期貨、美債、VIX、全球指數、ADR 溢價
+TSMC_CLOSE=2380 TWD_RATE=32.288 bash scripts/fetch_daily.sh 20260810
+
+# 個股三層數據：估值、月營收、量價、法人籌碼
+bash scripts/fetch_stock.sh 3481 20260810
+
+# 盤中即時（已處理漲跌停無報價的坑）
+python scripts/fetch_intraday.py 3481 2303 2344
+
+# 大錢往哪跑：產業別 + 次主題資金流
+python scripts/money_flow.py 20260810
+
+# 技術位階與波動分布（取代「預測開高走低」）
+python scripts/levels.py 3481 3673 2303
+
+# 測試「A 帶動 B」這類接力說法
+python scripts/relay_test.py 3481 3673 5
+
+# 進出場規則回測（勝率 vs 期望值對照）
+python scripts/backtest.py 3481 2303 2344
+
+# 查證論文引用是否真實存在（Crossref + OpenAlex）
+python scripts/verify_citation.py "論文標題"</code></pre>
+
+  <div class="note">
+    <div class="hd">實測踩過的坑，都寫進程式了</div>
+    <ul style="margin:0">
+      <li>Windows Git Bash 下 Python 預設 cp950，中文會變亂碼 → 強制 <code>PYTHONUTF8=1</code></li>
+      <li>TWSE MIS API 漲跌停鎖死時無成交價，且委買欄位第一個值是佔位的 <code>0.0000</code>
+        → 直接取會產生「跌 100%」的假數據</li>
+      <li>TWSE RWD 端點會限流（HTTP 404 from CDN）→ 加入快取與退避重試</li>
+      <li>FRED 多序列 CSV 會回傳 zip → 只能單序列</li>
+      <li>YouTube 擋 yt-dlp 音訊下載 → 改寫成純字幕路徑，成功率 50% → 96%</li>
+    </ul>
+  </div>
+</section>
+
+<section id="files">
+  <h2><span class="tag">08</span>文件索引</h2>
+
+  <div class="files">
+    <div class="fgroup">
+      <h4>方法與框架</h4>
+      <ul>
+        <li><a href="CONTEXT.md">CONTEXT.md</a><span>77</span></li>
+        <li><a href="docs/daily-dashboard.md">每日必看資料清單</a><span>330</span></li>
+        <li><a href="docs/analysis-framework.md">個股三層分析框架</a><span>242</span></li>
+        <li><a href="reviews/backlog.md">待驗清單＋錯誤紀錄</a><span>137</span></li>
+      </ul>
+    </div>
+    <div class="fgroup">
+      <h4>今日簡報</h4>
+      <ul>
+        <li><a href="briefings/2026-08-10-report.html">市場報告（網頁）</a><span>502</span></li>
+        <li><a href="briefings/2026-08-10-pathmap.html">條件式路徑圖（網頁）</a><span>602</span></li>
+        <li><a href="briefings/2026-08-10.md">市場簡報</a><span>315</span></li>
+        <li><a href="briefings/2026-08-10-stocks.md">五檔三層分析</a><span>288</span></li>
+      </ul>
+    </div>
+    <div class="fgroup">
+      <h4>研究與更正</h4>
+      <ul>
+        <li><a href="docs/return-target-reality.md">100% 年化的現實</a><span>212</span></li>
+        <li><a href="docs/finding-multibaggers.md">找下一檔群創</a><span>180</span></li>
+        <li><a href="docs/CORRECTION-multibagger-screen.md">★ 該研究的更正</a><span>165</span></li>
+        <li><a href="docs/analyst-scorecard-jinjason.md">分析師對帳表</a><span>154</span></li>
+      </ul>
+    </div>
+    <div class="fgroup">
+      <h4>證據庫</h4>
+      <ul>
+        <li><a href="docs/history-casebook.md">台日韓美市場史</a><span>668</span></li>
+        <li><a href="docs/evidence-base-research.md">因子／總經／資金流</a><span>495</span></li>
+        <li><a href="docs/evidence-base.md">核心學術引用</a><span>106</span></li>
+      </ul>
+    </div>
+    <div class="fgroup">
+      <h4>次主題</h4>
+      <ul>
+        <li><a href="docs/themes/ansforce-theme-map.md">完整主題地圖</a><span>1018</span></li>
+        <li><a href="docs/themes/theme_baskets.json">成分股清單（JSON）</a><span>194</span></li>
+        <li><a href="docs/themes/EP320-holdings-relevant.md">曲博對你持股的評估</a><span>151</span></li>
+        <li><a href="docs/themes/memory-hbm-zam.md">HBM vs ZAM</a><span>120</span></li>
+      </ul>
+    </div>
+    <div class="fgroup">
+      <h4>證據分級</h4>
+      <ul>
+        <li>【數據】實查硬數字<span></span></li>
+        <li>【規則】制度性事實<span></span></li>
+        <li>【實證】論文支持<span></span></li>
+        <li>【歷史】歷史案例<span></span></li>
+        <li>【推論】我的推導<span></span></li>
+        <li>【待驗】<b class="up">不可當結論</b><span></span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<div class="disc">
+  <b>這是研究材料，不是投資建議。</b>
+  全站不含目標價、不含買賣建議、不預測特定日期的漲跌。所有價位都是「觸發與推翻的條件」。
+  我不是持牌投顧，決策是你的。引用的兩位分析師均為公開內容，其中曲博明確聲明不推薦個股。
+</div>
+
+<div class="foot">
+  <p><b>資料來源</b>　台灣證交所 OpenAPI 與 MIS、期交所、中央銀行、FRED、Yahoo Finance chart API、
+  Crossref、OpenAlex、聯準會官方行事曆。所有端點於 2026-08-10 實測。</p>
+  <p><b>144 條證據中 49 條經對抗式查證，其中 18 條（37%）需要更正。</b>
+  未查證的 95 條在文件中標為 ❓，本站未引用。</p>
+  <p>Trading Desk · 2026-08-10 · 50 檔案 / 10,698 行</p>
+</div>
+
+</div>

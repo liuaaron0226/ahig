@@ -34,6 +34,39 @@ def epmc(*, source="MED", native_id="1", doi=None, pmid=None, pmcid=None,
     return value
 
 
+def pubmed(*, uid="123", title="Carbohydrate and exercise",
+           doi="10.1000/pubmed", pmcid="PMC123", year="2020") -> dict:
+    return {
+        "uid": uid, "title": title, "pubdate": year, "sortpubdate": f"{year}/01/01 00:00",
+        "authors": [{"name": "Smith J"}],
+        "articleids": [
+            {"idtype": "pubmed", "value": uid},
+            {"idtype": "doi", "value": doi},
+            {"idtype": "pmc", "value": pmcid},
+        ],
+        "pubtype": ["Journal Article"], "lang": ["eng"],
+    }
+
+
+def openalex(*, wid="W1", title="Carbohydrate and exercise",
+             doi="https://doi.org/10.1000/openalex", pmid="1234",
+             pmcid="PMC1234", year=2021) -> dict:
+    return {
+        "id": f"https://openalex.org/{wid}", "doi": doi,
+        "ids": {
+            "pmid": f"https://pubmed.ncbi.nlm.nih.gov/{pmid}",
+            "pmcid": f"https://www.ncbi.nlm.nih.gov/pmc/articles/{pmcid}/",
+        },
+        "title": title, "publication_year": year,
+        "publication_date": f"{year}-01-01", "type": "article",
+        "authorships": [{"author": {"display_name": "Smith J"}}],
+        "abstract_inverted_index": {"Cyclists": [0], "ingested": [1],
+                                    "carbohydrate.": [2]},
+        "primary_location": {"is_oa": True,
+                             "license": "cc-by"},
+    }
+
+
 def ct(*, nct="NCT00000001", title="Carbohydrate and exercise",
        official=None, status="COMPLETED") -> dict:
     return {
@@ -240,6 +273,39 @@ def test_registry_record_has_explicit_publication_type():
         "Clinical Trial Registry Record"]
 
 
+def test_pubmed_summary_records_enter_publication_pool():
+    pool = build({"pubmed": [pubmed()]})
+    c = pool["candidates"][0]
+    assert c["identifiers"] == {
+        "doi": ["10.1000/pubmed"], "pmid": ["123"],
+        "pmcid": ["PMC123"], "registryId": []}
+    assert c["title"] == "Carbohydrate and exercise"
+    assert c["publicationTypes"] == ["Journal Article"]
+    assert c["members"][0]["sourceId"] == "pubmed"
+
+
+def test_openalex_records_enter_pool_and_reconstruct_abstract():
+    pool = build({"openalex": [openalex()]})
+    c = pool["candidates"][0]
+    assert c["identifiers"] == {
+        "doi": ["10.1000/openalex"], "pmid": ["1234"],
+        "pmcid": ["PMC1234"], "registryId": []}
+    assert c["abstract"] == "Cyclists ingested carbohydrate."
+    assert c["publicationTypes"] == ["article"]
+    assert c["members"][0]["sourceId"] == "openalex"
+
+
+def test_cross_source_exact_doi_merges_pubmed_openalex_and_europe_pmc():
+    pool = build({
+        "pubmed": [pubmed(doi="10.1000/shared")],
+        "openalex": [openalex(doi="https://doi.org/10.1000/shared")],
+        "europe-pmc": [epmc(doi="10.1000/shared", native_id="MED1")],
+    })
+    assert pool["manifest"]["candidateCount"] == 1
+    assert {m["sourceId"] for m in pool["candidates"][0]["members"]} == {
+        "pubmed", "openalex", "europe-pmc"}
+
+
 # ---------------------------------------------------------------------------
 # live-run filesystem integration (synthetic files)
 # ---------------------------------------------------------------------------
@@ -293,6 +359,52 @@ def test_build_from_run_root_rejects_source_count_mismatch():
     raise AssertionError("來源 status 與 records 筆數不符必須拒絕")
 
 
+def test_completed_contract_sources_are_all_ingested_before_marking_complete():
+    with tempfile.TemporaryDirectory() as tmp:
+        root = make_run_root(tmp)
+        for sid, rows in {
+            "pubmed": [pubmed()], "openalex": [openalex()],
+        }.items():
+            d = root / "sources" / sid
+            d.mkdir(parents=True)
+            (d / "records.json").write_text(json.dumps(rows), encoding="utf-8")
+            (d / "status.json").write_text(json.dumps({
+                "sourceId": sid, "status": "completed", "recordCount": 1,
+            }), encoding="utf-8")
+        manifest = root / "manifest.json"
+        data = json.loads(manifest.read_text(encoding="utf-8"))
+        data["sources"]["pubmed"] = {"status": "completed", "recordCount": 1}
+        data["sources"]["openalex"] = {"status": "completed", "recordCount": 1}
+        manifest.write_text(json.dumps(data), encoding="utf-8")
+        result = candidates.build_from_run_root(root, dry_run=True)
+        assert result["inputRecordCountBySource"] == {
+            "clinicaltrials-gov": 1, "europe-pmc": 1,
+            "openalex": 1, "pubmed": 1,
+        }
+        assert result["completeAcrossContractSources"] is True
+
+
+def test_completed_unknown_candidate_source_is_rejected_not_silently_ignored():
+    with tempfile.TemporaryDirectory() as tmp:
+        root = make_run_root(tmp)
+        d = root / "sources" / "future-index"
+        d.mkdir(parents=True)
+        (d / "records.json").write_text("[]", encoding="utf-8")
+        (d / "status.json").write_text(json.dumps({
+            "sourceId": "future-index", "status": "completed", "recordCount": 0,
+        }), encoding="utf-8")
+        manifest = root / "manifest.json"
+        data = json.loads(manifest.read_text(encoding="utf-8"))
+        data["sources"]["future-index"] = {"status": "completed", "recordCount": 0}
+        manifest.write_text(json.dumps(data), encoding="utf-8")
+        try:
+            candidates.build_from_run_root(root, dry_run=True)
+        except ValueError as exc:
+            assert "future-index" in str(exc)
+            return
+    raise AssertionError("completed 但未支援的候選來源必須 hard-fail")
+
+
 def test_failed_or_not_run_sources_are_declared_not_silently_ignored():
     with tempfile.TemporaryDirectory() as tmp:
         root = make_run_root(tmp)
@@ -302,6 +414,39 @@ def test_failed_or_not_run_sources_are_declared_not_silently_ignored():
         manifest.write_text(json.dumps(data), encoding="utf-8")
         result = candidates.build_from_run_root(root)
         assert result["sourceCoverage"]["pubmed"] == "not-run"
+        assert result["completeAcrossContractSources"] is False
+
+
+def test_completed_but_unsupported_source_is_not_counted_as_covered():
+    """跑完 ≠ 進池。
+
+    pubmed 與 openalex 沒有 normaliser，records 會被 build_from_run_root 略過。
+    若涵蓋完整性只看 ``status == "completed"``，四個來源到齊的那一刻就會在池子
+    實際缺一半來源的情況下解除 sampling 封鎖——這是 fail-open，不是保守估計。
+    """
+    with tempfile.TemporaryDirectory() as tmp:
+        root = make_run_root(tmp)
+        rows = [epmc(native_id="P1", doi="10.1000/pubmed-only")]
+        source_dir = root / "sources" / "pubmed"
+        source_dir.mkdir(parents=True)
+        (source_dir / "records.json").write_text(
+            json.dumps(rows), encoding="utf-8")
+        (source_dir / "status.json").write_text(json.dumps({
+            "sourceId": "pubmed", "status": "completed",
+            "recordCount": len(rows),
+        }), encoding="utf-8")
+        manifest = root / "manifest.json"
+        data = json.loads(manifest.read_text(encoding="utf-8"))
+        data["sources"]["pubmed"] = {"status": "completed", "recordCount": 1}
+        manifest.write_text(json.dumps(data), encoding="utf-8")
+
+        result = candidates.build_from_run_root(root)
+
+        assert result["sourceCoverage"]["pubmed"] == "completed"
+        # 抓回來了，但沒有進池
+        assert "pubmed" not in result["inputRecordCountBySource"]
+        assert result["completedButNotIngestedSources"] == ["pubmed"]
+        # 因此不得宣告涵蓋完整
         assert result["completeAcrossContractSources"] is False
 
 

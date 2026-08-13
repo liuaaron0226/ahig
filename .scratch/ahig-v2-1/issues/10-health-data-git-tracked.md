@@ -37,3 +37,7 @@ Blocked by: —
 
 在收到明確指示前，**不執行** `git rm`、不刪除、不重寫歷史、不改 `.gitignore`。
 這類操作不可逆，且 `health/` 是使用者每天在用的活資料。
+
+## Comments
+
+- 2026-08-13：已唯讀查證目前 repo 沒有任何 `remote.*` 設定，三個本機 branch 也都沒有 upstream。`health/profile.md` 與 `health/log/2026-08.md` 自 commit `f1ea2fe` 起被追蹤。這只能證明**現況未連遠端**，不能證明過去從未設定或推送；議題維持 `ready-for-human`。

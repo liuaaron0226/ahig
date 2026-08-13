@@ -18,6 +18,7 @@ from collections import Counter
 from pathlib import Path
 from typing import Any
 
+from ahig.contracts.freeze import content_hash
 from ahig.state import atomic_write_json
 
 RULE_VERSION = "b11-screening/1.2.0"
@@ -287,6 +288,7 @@ def build_queue(candidate_list: list[dict], *, candidate_pool_hash: str,
         "candidatePoolHash": candidate_pool_hash,
         "searchContractHash": search_contract_hash,
         "screeningRuleVersion": RULE_VERSION,
+        "screeningQueueHash": content_hash(queue),
         "sourceCoverage": dict(sorted(source_coverage.items())),
         "candidateSourcesComplete": candidate_sources_complete,
         "humanTitleAbstractScreeningComplete": False,

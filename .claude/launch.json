@@ -27,6 +27,12 @@
       "autoPort": true
     },
     {
+      "name": "health-checkin",
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["C:/Users/User/Desktop/claude/health/tools/checkin/serve.py"],
+      "port": 8901
+    },
+    {
       "name": "bixlink-expo-attach",
       "url": "http://localhost:3457",
       "port": 3457

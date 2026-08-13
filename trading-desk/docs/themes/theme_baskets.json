@@ -1,0 +1,194 @@
+[
+  {
+    "theme": "記憶體",
+    "tickers": [
+      "2330",
+      "2337",
+      "2344",
+      "5347",
+      "8299"
+    ],
+    "names": [
+      "台積電",
+      "旺宏",
+      "華邦電",
+      "世界先進",
+      "群聯"
+    ],
+    "confidence": "high",
+    "theme_records": 7,
+    "source_videos": 5
+  },
+  {
+    "theme": "玻璃基板／面板級封裝",
+    "tickers": [
+      "2330",
+      "3481",
+      "6182",
+      "6239"
+    ],
+    "names": [
+      "台積電",
+      "群創",
+      "合晶",
+      "力成"
+    ],
+    "confidence": "high",
+    "theme_records": 3,
+    "source_videos": 3
+  },
+  {
+    "theme": "矽光子／光通訊 CPO",
+    "tickers": [
+      "2303",
+      "2330",
+      "3008",
+      "6854"
+    ],
+    "names": [
+      "聯電",
+      "台積電",
+      "大立光",
+      "錼創科技"
+    ],
+    "confidence": "high",
+    "theme_records": 11,
+    "source_videos": 10
+  },
+  {
+    "theme": "半導體檢測分析",
+    "tickers": [
+      "2330",
+      "3289",
+      "3587",
+      "6830"
+    ],
+    "names": [
+      "台積電",
+      "宜特",
+      "閎康",
+      "汎銓"
+    ],
+    "confidence": "high",
+    "theme_records": 3,
+    "source_videos": 3
+  },
+  {
+    "theme": "先進封裝",
+    "tickers": [
+      "2330",
+      "3587",
+      "3711"
+    ],
+    "names": [
+      "台積電",
+      "閎康科技",
+      "日月光"
+    ],
+    "confidence": "high",
+    "theme_records": 10,
+    "source_videos": 7
+  },
+  {
+    "theme": "量子運算",
+    "tickers": [
+      "2317",
+      "2324",
+      "2330"
+    ],
+    "names": [
+      "鴻海",
+      "仁寶",
+      "台積電"
+    ],
+    "confidence": "high",
+    "theme_records": 3,
+    "source_videos": 3
+  },
+  {
+    "theme": "半導體設備／材料",
+    "tickers": [
+      "2330",
+      "5455"
+    ],
+    "names": [
+      "台積電",
+      "英特磊"
+    ],
+    "confidence": "medium",
+    "theme_records": 16,
+    "source_videos": 8
+  },
+  {
+    "theme": "先進製程",
+    "tickers": [
+      "2330"
+    ],
+    "names": [
+      "台積電"
+    ],
+    "confidence": "medium",
+    "theme_records": 2,
+    "source_videos": 2
+  },
+  {
+    "theme": "機器人／3D視覺",
+    "tickers": [
+      "2330"
+    ],
+    "names": [
+      "台積電"
+    ],
+    "confidence": "medium",
+    "theme_records": 6,
+    "source_videos": 4
+  },
+  {
+    "theme": "區塊鏈／穩定幣",
+    "tickers": [
+      "2886"
+    ],
+    "names": [
+      "兆豐金控"
+    ],
+    "confidence": "medium",
+    "theme_records": 5,
+    "source_videos": 5
+  },
+  {
+    "theme": "低軌衛星／衛星通訊",
+    "tickers": [
+      "6980"
+    ],
+    "names": [
+      "鐳洋科技"
+    ],
+    "confidence": "medium",
+    "theme_records": 7,
+    "source_videos": 4
+  },
+  {
+    "theme": "高速傳輸／連接",
+    "tickers": [
+      "5269"
+    ],
+    "names": [
+      "祥碩"
+    ],
+    "confidence": "low",
+    "theme_records": 1,
+    "source_videos": 1
+  },
+  {
+    "theme": "6G／通訊",
+    "tickers": [
+      "2454"
+    ],
+    "names": [
+      "聯發科"
+    ],
+    "confidence": "medium",
+    "theme_records": 3,
+    "source_videos": 2
+  }
+]

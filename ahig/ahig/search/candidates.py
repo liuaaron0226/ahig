@@ -111,6 +111,109 @@ def _publication(record: dict, source_index: int) -> dict:
     }
 
 
+def _pubmed_article_ids(record: dict) -> dict[str, str]:
+    values: dict[str, str] = {}
+    for item in record.get("articleids") or []:
+        if not isinstance(item, dict):
+            continue
+        key = str(item.get("idtype") or "").lower()
+        value = str(item.get("value") or "").strip()
+        if key and value:
+            values[key] = value
+    return values
+
+
+def _pubmed(record: dict, source_index: int) -> dict:
+    article_ids = _pubmed_article_ids(record)
+    uid = str(record.get("uid") or article_ids.get("pubmed") or source_index)
+    pmid = normalise_pmid(article_ids.get("pubmed") or uid)
+    doi = normalise_doi(article_ids.get("doi"))
+    pmcid = normalise_pmcid(article_ids.get("pmc") or article_ids.get("pmcid"))
+    title = str(record.get("title") or "").strip()
+    authors = [str(item.get("name") or "").strip()
+               for item in record.get("authors") or [] if isinstance(item, dict)]
+    authors = [value for value in authors if value]
+    pubdate = str(record.get("sortpubdate") or record.get("pubdate") or "").strip()
+    year_match = re.search(r"\b(\d{4})\b", pubdate)
+    return {
+        "entityKind": "publication",
+        "sourceId": "pubmed",
+        "sourceNativeId": pmid or f"pubmed:{source_index}",
+        "sourceRecordIndex": source_index,
+        "identifiers": {"doi": doi, "pmid": pmid, "pmcid": pmcid,
+                        "registryId": None},
+        "title": title,
+        "normalisedTitle": normalise_title(title),
+        "abstract": None,
+        "authorString": ", ".join(authors) or None,
+        "firstAuthor": authors[0] if authors else None,
+        "publicationYear": int(year_match.group(1)) if year_match else None,
+        "publicationDate": pubdate[:10].replace("/", "-") if pubdate else None,
+        "publicationStatus": None,
+        "publicationTypes": sorted(set(record.get("pubtype") or [])),
+        "language": ",".join(record.get("lang") or []) or None,
+        "isOpenAccess": None,
+        "license": None,
+        "isPreprint": any("preprint" in str(value).lower()
+                          for value in record.get("pubtype") or []),
+    }
+
+
+def _openalex_abstract(record: dict) -> str | None:
+    inverted = record.get("abstract_inverted_index") or {}
+    positioned: list[tuple[int, str]] = []
+    for token, positions in inverted.items():
+        for position in positions or []:
+            if isinstance(position, int) and position >= 0:
+                positioned.append((position, str(token)))
+    if not positioned:
+        return None
+    return " ".join(token for _, token in sorted(positioned)).strip() or None
+
+
+def _identifier_tail(raw: Any) -> str | None:
+    if not raw:
+        return None
+    return str(raw).rstrip("/").rsplit("/", 1)[-1]
+
+
+def _openalex(record: dict, source_index: int) -> dict:
+    ids = record.get("ids") or {}
+    native = _identifier_tail(record.get("id")) or f"openalex:{source_index}"
+    doi = normalise_doi(record.get("doi") or ids.get("doi"))
+    pmid = normalise_pmid(_identifier_tail(ids.get("pmid")))
+    pmcid = normalise_pmcid(_identifier_tail(ids.get("pmcid")))
+    title = str(record.get("title") or record.get("display_name") or "").strip()
+    authors = [str(_nested(item, "author", "display_name") or "").strip()
+               for item in record.get("authorships") or [] if isinstance(item, dict)]
+    authors = [value for value in authors if value]
+    year = record.get("publication_year")
+    primary = record.get("primary_location") or {}
+    record_type = str(record.get("type") or "").strip()
+    return {
+        "entityKind": "publication",
+        "sourceId": "openalex",
+        "sourceNativeId": native,
+        "sourceRecordIndex": source_index,
+        "identifiers": {"doi": doi, "pmid": pmid, "pmcid": pmcid,
+                        "registryId": None},
+        "title": title,
+        "normalisedTitle": normalise_title(title),
+        "abstract": _openalex_abstract(record),
+        "authorString": ", ".join(authors) or None,
+        "firstAuthor": authors[0] if authors else None,
+        "publicationYear": int(year) if isinstance(year, int) else None,
+        "publicationDate": record.get("publication_date"),
+        "publicationStatus": None,
+        "publicationTypes": [record_type] if record_type else [],
+        "language": record.get("language"),
+        "isOpenAccess": bool((record.get("open_access") or {}).get("is_oa")
+                             or primary.get("is_oa")),
+        "license": primary.get("license"),
+        "isPreprint": record_type.lower() == "preprint",
+    }
+
+
 def _registry(record: dict, source_index: int) -> dict:
     nct = normalise_registry_id(
         _nested(record, "protocolSection", "identificationModule", "nctId"))
@@ -147,15 +250,24 @@ def _registry(record: dict, source_index: int) -> dict:
     }
 
 
+# 有 normaliser、能真的進池的來源。contract 裡宣告的來源可能多於這一組；
+# 差集就是「抓得回來但還讀不進來」的來源，必須被當成未涵蓋而非已涵蓋。
+SUPPORTED_CANDIDATE_SOURCES = frozenset({"europe-pmc", "clinicaltrials-gov"})
+
+
 def normalise_records(records_by_source: dict[str, list[dict]]) -> list[dict]:
     out: list[dict] = []
+    normalisers = {
+        "pubmed": _pubmed,
+        "europe-pmc": _publication,
+        "openalex": _openalex,
+        "clinicaltrials-gov": _registry,
+    }
     for source_id, records in records_by_source.items():
-        if source_id == "europe-pmc":
-            out.extend(_publication(record, i) for i, record in enumerate(records))
-        elif source_id == "clinicaltrials-gov":
-            out.extend(_registry(record, i) for i, record in enumerate(records))
-        else:
+        normaliser = normalisers.get(source_id)
+        if normaliser is None:
             raise ValueError(f"尚未支援的候選來源：{source_id}")
+        out.extend(normaliser(record, i) for i, record in enumerate(records))
     return out
 
 
@@ -331,6 +443,7 @@ def build_from_run_root(run_root: Path, *, dry_run: bool = False,
         raise FileNotFoundError(f"缺少搜尋 manifest：{manifest_path}")
     search_manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
     records_by_source: dict[str, list[dict]] = {}
+    not_ingested: list[str] = []
     source_coverage = {sid: value.get("status", "unknown")
                        for sid, value in search_manifest.get("sources", {}).items()}
 
@@ -351,16 +464,25 @@ def build_from_run_root(run_root: Path, *, dry_run: bool = False,
             raise ValueError(
                 f"run manifest 說 {sid}=completed，但 source status 是 "
                 f"{source_status.get('status')}")
-        if sid in {"europe-pmc", "clinicaltrials-gov"}:
+        if sid in SUPPORTED_CANDIDATE_SOURCES:
             records_by_source[sid] = rows
+        else:
+            not_ingested.append(sid)
 
     built = build_candidate_pool(
         records_by_source,
         search_contract_hash=search_manifest["searchContractHash"],
         run_id=search_manifest["runId"])
     built["manifest"]["sourceCoverage"] = source_coverage
+    built["manifest"]["ingestedSources"] = sorted(records_by_source)
+    built["manifest"]["completedButNotIngestedSources"] = sorted(not_ingested)
+    # 跑完 ≠ 進池。沒有 normaliser 的來源會在上面被略過，若這裡只看
+    # status == "completed"，四個來源到齊的那一刻就會在池子實際缺一半來源的
+    # 情況下把 candidate-sources-incomplete 解除掉。涵蓋完整必須同時成立：
+    # 該來源跑完了，而且它的紀錄真的進了池。
     built["manifest"]["completeAcrossContractSources"] = bool(source_coverage) and all(
-        status == "completed" for status in source_coverage.values())
+        status == "completed" and sid in records_by_source
+        for sid, status in source_coverage.items())
 
     summary = {**built["manifest"], "sourceCoverage": source_coverage,
                "completeAcrossContractSources":
