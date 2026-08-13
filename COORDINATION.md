@@ -34,8 +34,8 @@
 - ⚠️ 執行門檻：prevalence audit 要求 candidateSourcesComplete=True——
   跑之前要先把 pubmed/openalex 的 metadata search 跑完（normaliser 已就緒）
 - ⏳ 等人工：50 篇摘要判讀 + 12 篇誤剔抽查（sample → 回填 → estimate）
-- ⏳ 待決策（依序）：①「篩完才能抽」blocker 是否鬆綁（抽樣框升版）
-  ② S2 解法（A/B/C/D）③ `analysis/human_throughput.py` 以實測重校
+- ✅ 已拍板（ADR-0007/0008）：LLM 盲化第二審（影子批次先行）＋篩選統計終止（BUSCAR，尾端 not-screened 可抽驗）——篩選牆估計 387→100–160 小時
+- ⏳ 待決策：①「篩完才能抽」blocker 是否鬆綁（抽樣框升版，等 prevalence audit 數據）② S2 解法（A/B/C/D）③ `analysis/human_throughput.py` 以實測重校 ④ ADR-0007/0008 的實作排程（RULE_VERSION 升版、schema、影子批次）
 - ✅ prevalence audit 完美化升級：git 錨定抽樣證據（anchors.jsonl，commit+push 後竄改需改寫遠端歷史）、seed 預設從 queueHash 導出、二部圖聯合配額分配、outcomeConfirmed 必填＋多重抽樣 Bonferroni 校正
 - ✅ 系統性回顧自動化工具調查完成（ASReview／LLM 第二審／BUSCAR 停止規則／ASySD／GROBID 路線），採用決策待人拍板
 - 測試基準：542/542、verify 10/10
