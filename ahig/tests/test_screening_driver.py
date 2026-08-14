@@ -324,6 +324,142 @@ def test_prevalence_rejects_incomplete_or_illegal_judgements():
     raise AssertionError("非法判讀值必須拒絕")
 
 
+# --- 機-機影子批次選取（ADR-0009 修訂版 ADR-0007） --------------------
+
+LANES = ["standard-screening", "safety-review", "registry-review",
+         "identity-review"]
+TIERS = ["T1-high-signal", "T2-moderate-signal", "T5-low-signal"]
+
+
+def skewed_queue():
+    """模擬真 queue 的長尾：大 cell 上千筆、最小 cell 只有 1 筆。"""
+    sizes = {("standard-screening", "T2-moderate-signal"): 1200,
+             ("standard-screening", "T5-low-signal"): 800,
+             ("standard-screening", "T1-high-signal"): 200,
+             ("safety-review", "T2-moderate-signal"): 300,
+             ("safety-review", "T5-low-signal"): 90,
+             ("safety-review", "T1-high-signal"): 20,
+             ("registry-review", "T2-moderate-signal"): 30,
+             ("registry-review", "T5-low-signal"): 8,
+             ("registry-review", "T1-high-signal"): 3,
+             ("identity-review", "T2-moderate-signal"): 2,
+             ("identity-review", "T1-high-signal"): 1}
+    out, i = [], 0
+    for (lane, tier), n in sizes.items():
+        for _ in range(n):
+            i += 1
+            e = entry(i)
+            e["screeningLane"], e["priorityTier"] = lane, tier
+            out.append(e)
+    return out
+
+
+def cells_of(queue):
+    counts = {}
+    for e in queue:
+        key = (e["screeningLane"], e["priorityTier"])
+        counts[key] = counts.get(key, 0) + 1
+    return counts
+
+
+def test_shadow_batch_is_exact_size_and_deterministic():
+    q = skewed_queue()
+    a = drv.shadow_batch(q, seed="w8-shadow")
+    b = drv.shadow_batch(q, seed="w8-shadow")
+    assert a["batchSize"] == drv.DEFAULT_SHADOW_SIZE == len(a["candidateIds"])
+    assert a["candidateIds"] == b["candidateIds"]
+    assert a["batchHash"] == b["batchHash"]
+    # 補位排擠主體之後，兩段相加仍須剛好等於批次大小。
+    assert (len(a["rateCandidateIds"]) + len(a["coverageCandidateIds"])
+            == drv.DEFAULT_SHADOW_SIZE)
+    assert drv.shadow_batch(q, seed="other")["candidateIds"] != a["candidateIds"]
+
+
+def test_shadow_batch_covers_every_stratum_including_the_smallest():
+    q = skewed_queue()
+    result = drv.shadow_batch(q, seed="w8-shadow")
+    chosen = set(result["candidateIds"])
+    by_cell = {}
+    for e in q:
+        if e["candidateId"] in chosen:
+            key = (e["screeningLane"], e["priorityTier"])
+            by_cell[key] = by_cell.get(key, 0) + 1
+    pool = cells_of(q)
+    assert result["cellCount"] == len(pool)
+    assert result["uncoveredCells"] == []
+    for key, size in pool.items():
+        # cell 比配額小時，配額退讓到 cell 大小——不是寫死的例外分支。
+        assert by_cell.get(key, 0) >= min(drv.SHADOW_MIN_PER_CELL, size)
+
+
+def test_shadow_batch_rate_subset_stays_unstratified():
+    """歧異率子集不得被補位污染，否則稀有分層會被系統性高估。"""
+    q = skewed_queue()
+    result = drv.shadow_batch(q, seed="w8-shadow")
+    rate = set(result["rateCandidateIds"])
+    cov = set(result["coverageCandidateIds"])
+    assert not rate & cov
+    assert rate | cov == set(result["candidateIds"])
+    # 主體是純隨機的：最大的 cell 佔池子約 44%，主體佔比不該偏離太多。
+    biggest = ("standard-screening", "T2-moderate-signal")
+    lane_of = {e["candidateId"]: (e["screeningLane"], e["priorityTier"])
+               for e in q}
+    share = sum(1 for cid in rate if lane_of[cid] == biggest) / len(rate)
+    expected = cells_of(q)[biggest] / len(q)
+    assert abs(share - expected) < 0.08
+    # 補位段則相反：全部落在小 cell。
+    assert all(cells_of(q)[lane_of[cid]] <= 30 for cid in cov)
+
+
+def test_shadow_batch_is_independent_of_the_pilot_sample():
+    """命名空間隔離：不隔離的話 300 筆會完整吃掉 154 筆的前置樣本。"""
+    q = skewed_queue()
+    seed = "shared-seed"
+    pilot = set(drv.pilot_sample(q, seed=seed)["candidateIds"])
+    shadow = set(drv.shadow_batch(q, seed=seed)["candidateIds"])
+    assert not pilot <= shadow
+    overlap = len(pilot & shadow)
+    chance = len(pilot) * drv.DEFAULT_SHADOW_SIZE / len(q)
+    assert overlap < max(3 * chance, 10)
+
+
+def test_shadow_batch_rejects_bad_size_and_seed():
+    q = skewed_queue()
+    for kw in ({"size": 0}, {"size": len(q) + 1}, {"min_per_cell": -1}):
+        try:
+            drv.shadow_batch(q, seed="w8-shadow", **kw)
+        except drv.ScreeningDriverError:
+            pass
+        else:
+            raise AssertionError(f"{kw} 必須拒絕")
+    try:
+        drv.shadow_batch(q, seed="")
+    except drv.ScreeningDriverError:
+        pass
+    else:
+        raise AssertionError("缺 seed 必須拒絕")
+    try:
+        drv.shadow_batch([], seed="w8-shadow")
+    except drv.ScreeningDriverError:
+        return
+    raise AssertionError("空 queue 必須拒絕")
+
+
+def test_shadow_batch_handles_pool_with_a_single_cell():
+    """單一 cell 時補位是多餘的，整批應退化成純隨機。"""
+    result = drv.shadow_batch(queue_of(500), size=50, seed="w8-shadow")
+    assert result["coverageCandidateIds"] == []
+    assert len(result["rateCandidateIds"]) == 50
+    assert result["cellCount"] == 1
+
+
+def test_shadow_batch_does_not_mutate_queue():
+    q = skewed_queue()
+    before = json.dumps(q, sort_keys=True)
+    drv.shadow_batch(q, seed="w8-shadow")
+    assert json.dumps(q, sort_keys=True) == before
+
+
 # --- run root 讀寫（不得動 queue） ------------------------------------
 
 def _write_run_root(tmp: Path, n=200):
@@ -348,6 +484,23 @@ def test_write_pilot_sample_writes_only_pilot_dir():
         on_disk = json.loads((root / "screening-pilot" / "sample.json")
                              .read_text(encoding="utf-8"))
         assert on_disk["candidateIds"] == sample["candidateIds"]
+
+
+def test_write_shadow_batch_writes_only_shadow_dir():
+    with tempfile.TemporaryDirectory() as tmp:
+        root = _write_run_root(Path(tmp), n=500)
+        before = (root / "screening-queue" / "queue.json").read_bytes()
+        batch = drv.write_shadow_batch(root, size=50, seed="w8-shadow")
+        assert batch["screeningQueueHash"] == MANIFEST["screeningQueueHash"]
+        assert batch["runId"] == "run-1"
+        assert (root / "screening-shadow" / "batch.json").exists()
+        assert not (root / "screening-pilot").exists()
+        # queue 是凍結契約，選批只讀不寫。
+        assert (root / "screening-queue" / "queue.json").read_bytes() == before
+        on_disk = json.loads((root / "screening-shadow" / "batch.json")
+                             .read_text(encoding="utf-8"))
+        assert on_disk["candidateIds"] == batch["candidateIds"]
+        assert on_disk["rateCandidateIds"] == batch["rateCandidateIds"]
 
 
 def test_load_run_root_picks_up_al_ranked_order_when_present():

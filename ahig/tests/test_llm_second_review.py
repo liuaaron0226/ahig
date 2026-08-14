@@ -249,3 +249,51 @@ def test_machine_gate_never_auto_adjudicates():
     report = llm.machine_shadow_gate(batch_of("p", ops_p), batch_of("s", ops_s))
     assert report["ownerAuditQueue"] == report["disagreementCandidateIds"]
     assert "resolved" not in report and "decision" not in report
+
+
+# --- 分層影子批次：歧異率分母限定純隨機子集 --------------------------
+
+def test_machine_gate_rate_uses_only_the_random_subset():
+    """補位段刻意過度取樣稀有分層，算進分母會讓歧異率偏離母體。"""
+    ops_p = [op(f"c{i}", "exclude") for i in range(1, 7)]
+    ops_s = list(ops_p)
+    # c5、c6 是補位段，兩筆都歧異；主體 c1–c4 全同意。
+    ops_s[4] = op("c5", "unclear")
+    ops_s[5] = op("c6", "unclear")
+    rate_ids = [f"c{i}" for i in range(1, 5)]
+    report = llm.machine_shadow_gate(
+        batch_of("p", ops_p), batch_of("s", ops_s), rate_candidate_ids=rate_ids)
+    assert report["disagreementRate"] == 0.0
+    assert report["disagreementRateDenominator"] == 4
+    assert report["disagreementRateBasis"] == "random-subset"
+    # 但歧異本身沒被吞掉：補位段照樣要進擁有者抽查。
+    assert report["disagreementCandidateIds"] == ["c5", "c6"]
+    assert report["ownerAuditQueue"] == ["c5", "c6"]
+    full = llm.machine_shadow_gate(batch_of("p", ops_p), batch_of("s", ops_s))
+    assert full["disagreementRate"] == 2 / 6
+    assert full["disagreementRateDenominator"] == 6
+    assert full["disagreementRateBasis"] == "full-batch"
+
+
+def test_machine_gate_opposed_veto_still_scans_the_whole_batch():
+    """對立是一票否決，覆蓋越大越好——不因為不在分母就漏掉。"""
+    ops_p = [op(f"c{i}", "exclude") for i in range(1, 7)]
+    ops_s = list(ops_p)
+    ops_s[5] = op("c6", "advance")          # 對立筆落在補位段
+    report = llm.machine_shadow_gate(
+        batch_of("p", ops_p), batch_of("s", ops_s),
+        rate_candidate_ids=[f"c{i}" for i in range(1, 6)])
+    assert report["disagreementRate"] == 0.0
+    assert report["opposedCandidateIds"] == ["c6"]
+    assert report["verdict"] == "fail"
+
+
+def test_machine_gate_rejects_alien_or_empty_rate_subset():
+    ops = [op(f"c{i}", "exclude") for i in range(1, 7)]
+    for bad in (["c1", "c99"], []):
+        try:
+            llm.machine_shadow_gate(batch_of("p", ops), batch_of("s", ops),
+                                    rate_candidate_ids=bad)
+        except llm.LlmReviewError:
+            continue
+        raise AssertionError(f"歧異率子集 {bad} 必須拒絕")

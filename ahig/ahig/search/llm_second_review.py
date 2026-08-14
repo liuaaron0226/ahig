@@ -25,6 +25,7 @@ ADR-0009 修訂（W8 兌現，見該 ADR「篩選階段開跑前需把影子批�
 from __future__ import annotations
 
 import hashlib
+from collections.abc import Sequence
 from datetime import datetime, timezone
 
 from ahig.contracts.freeze import content_hash
@@ -161,7 +162,8 @@ def shadow_gate(human_decisions: dict[str, str], batch: dict, *,
 
 def machine_shadow_gate(primary_batch: dict, secondary_batch: dict, *,
                         max_disagreement_rate: float =
-                        DEFAULT_MAX_DISAGREEMENT_RATE) -> dict:
+                        DEFAULT_MAX_DISAGREEMENT_RATE,
+                        rate_candidate_ids: Sequence[str] | None = None) -> dict:
     """機-機影子門檻（ADR-0009 對 ADR-0007 的修訂，W8 兌現）。
 
     ADR-0009 把「人單審全量」改為「主模型判讀全量＋第二模型盲判」，門檻
@@ -173,6 +175,11 @@ def machine_shadow_gate(primary_batch: dict, secondary_batch: dict, *,
     這是最嚴重的歧異型態（方向相反，不是一方猶豫）。
 
     這些對立筆數不會被自動裁決，一律進擁有者抽查佇列（ADR-0009 原則 5）。
+
+    ``rate_candidate_ids`` 給分層影子批次用：批次為了覆蓋稀有分層會補位，
+    那段刻意過度取樣，算進歧異率分母會讓比率偏離母體。傳入純隨機子集後，
+    **歧異率只由該子集計算**，而對立檢查仍掃全批——對立是一票否決，覆蓋
+    範圍越大越好，兩者的取樣需求本來就相反。不傳則分母是全批。
     """
     primary = _opinion_map(primary_batch)
     secondary = _opinion_map(secondary_batch)
@@ -192,14 +199,27 @@ def machine_shadow_gate(primary_batch: dict, secondary_batch: dict, *,
     if not primary:
         raise LlmReviewError("影子批次是空的")
 
+    if rate_candidate_ids is None:
+        rate_ids = set(primary)
+    else:
+        rate_ids = set(rate_candidate_ids)
+        alien = sorted(rate_ids - set(primary))
+        if alien:
+            raise LlmReviewError(
+                f"歧異率子集含不在批次內的紀錄：{alien[:3]}"
+                f"（共 {len(alien)} 筆）")
+        if not rate_ids:
+            raise LlmReviewError("歧異率子集是空的——分母不得為零")
+
+    def _disagrees(cid: str) -> bool:
+        return primary[cid] != secondary[cid] or primary[cid] == "unclear"
+
     opposed = sorted(
         cid for cid in primary
         if {primary[cid], secondary[cid]} == {"advance", "exclude"})
-    disagreements = sorted(
-        cid for cid in primary
-        if primary[cid] != secondary[cid]
-        or primary[cid] == "unclear")
-    rate = len(disagreements) / len(primary)
+    disagreements = sorted(cid for cid in primary if _disagrees(cid))
+    rate_disagreements = sorted(cid for cid in rate_ids if _disagrees(cid))
+    rate = len(rate_disagreements) / len(rate_ids)
     passed = not opposed and rate <= max_disagreement_rate
     return {
         "documentType": "machine-shadow-gate-report",
@@ -214,6 +234,9 @@ def machine_shadow_gate(primary_batch: dict, secondary_batch: dict, *,
         "opposedCandidateIds": opposed,
         "disagreementCandidateIds": disagreements,
         "disagreementRate": rate,
+        "disagreementRateDenominator": len(rate_ids),
+        "disagreementRateBasis": ("full-batch" if rate_candidate_ids is None
+                                  else "random-subset"),
         "maxDisagreementRate": max_disagreement_rate,
         "verdict": "pass" if passed else "fail",
         "ownerAuditQueue": disagreements,

@@ -41,11 +41,34 @@ DEFAULT_BATCH_SIZE = 100
 PILOT_FRACTION_MIN = 0.01
 PILOT_FRACTION_MAX = 0.02
 
+# 影子批次規模（W8 派發指定 300 筆）與每個分層 cell 的最低覆蓋數。
+DEFAULT_SHADOW_SIZE = 300
+SHADOW_MIN_PER_CELL = 2
+
+# 抽樣命名空間。同一個 seed 在不同命名空間下得到**不相關**的樣本；
+# 若共用命名空間，300 筆的影子批次會完整包含 154 筆的前置樣本
+# （雜湊排序的前綴性質），兩者就不獨立了。
+#
+# 前置樣本維持空前綴：它的 sample.json 已落盤、sampleHash 已回報看板，
+# 加前綴會讓那份產物與看板數字失效。解耦只需要兩邊命名空間相異。
+NS_PILOT = ""
+NS_SHADOW_RATE = "shadow-rate:"
+NS_SHADOW_COVERAGE = "shadow-cov:"
+
 JudgeFn = Callable[[list[dict]], list[dict]]
 
 
 class ScreeningDriverError(ValueError):
     """驅動器輸入缺漏、判讀器回應違規，或違反取批不變量。"""
+
+
+def _keyed_order(ids: Sequence[str], *, seed: str, namespace: str = "") -> list[str]:
+    """依 ``sha256(namespace + seed + candidateId)`` 排序，確定性且可重放。
+
+    不用 ``random``——``random`` 的狀態沒進雜湊鏈，稽核時無法重算。
+    """
+    return sorted(ids, key=lambda cid: hashlib.sha256(
+        f"{namespace}{seed}:{cid}".encode("utf-8")).hexdigest())
 
 
 def _entry_payload(entry: dict, abstracts: dict[str, str] | None) -> dict:
@@ -170,10 +193,7 @@ def pilot_sample(queue: Sequence[dict], *, fraction: float = PILOT_FRACTION_MIN,
     if not ids:
         raise ScreeningDriverError("queue 是空的")
     size = max(1, round(len(ids) * fraction))
-    keyed = sorted(
-        ids, key=lambda cid: hashlib.sha256(
-            f"{seed}:{cid}".encode("utf-8")).hexdigest())
-    sample = sorted(keyed[:size])
+    sample = sorted(_keyed_order(ids, seed=seed, namespace=NS_PILOT)[:size])
     return {
         "documentType": "screening-pilot-sample",
         "adr": "ADR-0008",
@@ -185,6 +205,103 @@ def pilot_sample(queue: Sequence[dict], *, fraction: float = PILOT_FRACTION_MIN,
         "sampleHash": content_hash(sample),
         "method": "deterministic-sha256-keyed-sort",
         "note": "確定性抽樣：同 seed 可完整重放，稽核時能重算。",
+    }
+
+
+def shadow_batch(queue: Sequence[dict], *, size: int = DEFAULT_SHADOW_SIZE,
+                 seed: str, min_per_cell: int = SHADOW_MIN_PER_CELL) -> dict:
+    """選出機-機影子門檻要盲判的批次（ADR-0009 修訂版 ADR-0007）。
+
+    門檻的兩條規則對取樣的要求是**相反**的：
+
+    - 規則一「任一筆對立判讀即否決」是**覆蓋**驅動的——沒抽到的分層等於
+      沒被測到。真 queue 有 27 個非空 (lane, tier) cell，最小的只有 1 筆；
+      純隨機下 ``identity-review`` 的期望值是 0.1 筆，實質測不到。
+    - 規則二「歧異率超過門檻即否決」是**代表性**驅動的——整批照 cell 配額
+      分層會系統性高估稀有 cell，歧異率就不再是母體的估計值。
+
+    因此批次拆成兩段，並在產物裡分開標記：
+
+    - ``rateCandidateIds``：純隨機主體，歧異率**只由這段計算**，仍是母體
+      的無偏估計。
+    - ``coverageCandidateIds``：補位段，只為了讓每個 cell 至少有
+      ``min_per_cell`` 筆進入對立檢查；不進歧異率分母。
+
+    補位量會回吃主體額度直到總數剛好等於 ``size``（迭代到收斂），所以批次
+    大小是精確的。cell 若比配額還小，配額自動退讓到該 cell 的大小。
+
+    抽樣與前置樣本用**不同命名空間**：雜湊排序有前綴性質，同命名空間下
+    300 筆會完整包含 154 筆的前置樣本，影子批次就繼承了前置樣本的組成。
+    """
+    if size <= 0:
+        raise ScreeningDriverError(f"影子批次大小須為正整數，得到 {size}")
+    if min_per_cell < 0:
+        raise ScreeningDriverError(f"每 cell 最低覆蓋數不得為負，得到 {min_per_cell}")
+    if not seed:
+        raise ScreeningDriverError("必須提供 seed 才能重放抽樣")
+    ids = sorted(e["candidateId"] for e in queue)
+    if not ids:
+        raise ScreeningDriverError("queue 是空的")
+    if size > len(ids):
+        raise ScreeningDriverError(
+            f"影子批次 {size} 筆大於 queue 的 {len(ids)} 筆")
+
+    cell_of = {e["candidateId"]: (e.get("screeningLane"), e.get("priorityTier"))
+               for e in queue}
+    cells: dict[tuple, list[str]] = {}
+    for cid in ids:
+        cells.setdefault(cell_of[cid], []).append(cid)
+
+    rate_pool = _keyed_order(ids, seed=seed, namespace=NS_SHADOW_RATE)
+    cov_pool = {k: _keyed_order(v, seed=seed, namespace=NS_SHADOW_COVERAGE)
+                for k, v in cells.items()}
+
+    # 補位會排擠主體，主體縮小又可能需要更多補位——迭代到總數收斂。
+    # 每圈補位量單調不減、上界是 size，因此必定收斂。
+    n_rate = size
+    for _ in range(len(cells) + 2):
+        rate = set(rate_pool[:n_rate])
+        coverage: list[str] = []
+        for key in sorted(cells, key=lambda k: tuple(str(x) for x in k)):
+            quota = min(min_per_cell, len(cells[key]))
+            have = sum(1 for cid in cells[key] if cid in rate)
+            if have >= quota:
+                continue
+            picks = [cid for cid in cov_pool[key] if cid not in rate]
+            coverage.extend(picks[:quota - have])
+        if len(rate) + len(coverage) == size:
+            break
+        n_rate = max(0, size - len(coverage))
+    else:  # pragma: no cover - 迭代上界內必收斂
+        raise ScreeningDriverError("影子批次補位未收斂")
+
+    rate_ids = sorted(rate)
+    cov_ids = sorted(coverage)
+    if set(rate_ids) & set(cov_ids):
+        raise ScreeningDriverError("主體與補位重複")
+    selected = sorted(rate_ids + cov_ids)
+    uncovered = sorted(
+        f"{k[0]}/{k[1]}" for k in cells
+        if not any(cid in set(selected) for cid in cells[k]))
+    return {
+        "documentType": "screening-shadow-batch",
+        "adr": "ADR-0009",
+        "amends": "ADR-0007",
+        "seed": seed,
+        "poolSize": len(ids),
+        "batchSize": len(selected),
+        "minPerCell": min_per_cell,
+        "candidateIds": selected,
+        "rateCandidateIds": rate_ids,
+        "coverageCandidateIds": cov_ids,
+        "cellCount": len(cells),
+        "uncoveredCells": uncovered,
+        "batchHash": content_hash(selected),
+        "rateSubsetHash": content_hash(rate_ids),
+        "method": "deterministic-sha256-keyed-sort + per-cell coverage top-up",
+        "stratumKey": ["screeningLane", "priorityTier"],
+        "note": ("歧異率只由 rateCandidateIds 計算（純隨機、無偏）；"
+                 "coverageCandidateIds 只供對立判讀檢查，不進歧異率分母。"),
     }
 
 
@@ -258,6 +375,21 @@ def write_pilot_sample(run_root: Path, *, fraction: float = PILOT_FRACTION_MIN,
     return sample
 
 
+def write_shadow_batch(run_root: Path, *, size: int = DEFAULT_SHADOW_SIZE,
+                       seed: str,
+                       min_per_cell: int = SHADOW_MIN_PER_CELL) -> dict:
+    """產生並落盤影子批次的選取清單（只寫清單，不含判讀）。"""
+    loaded = load_run_root(run_root)
+    batch = shadow_batch(loaded["queue"], size=size, seed=seed,
+                         min_per_cell=min_per_cell)
+    batch["runId"] = loaded["manifest"].get("runId")
+    batch["screeningQueueHash"] = loaded["manifest"].get("screeningQueueHash")
+    out = loaded["runRoot"] / "screening-shadow"
+    out.mkdir(parents=True, exist_ok=True)
+    atomic_write_json(out / "batch.json", batch)
+    return batch
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description=__doc__)
     sub = parser.add_subparsers(dest="command", required=True)
@@ -265,6 +397,12 @@ def build_parser() -> argparse.ArgumentParser:
     pilot.add_argument("run_root", type=Path)
     pilot.add_argument("--seed", required=True)
     pilot.add_argument("--fraction", type=float, default=PILOT_FRACTION_MIN)
+    shadow = sub.add_parser("shadow", help="產生機-機影子門檻的盲判批次")
+    shadow.add_argument("run_root", type=Path)
+    shadow.add_argument("--seed", required=True)
+    shadow.add_argument("--size", type=int, default=DEFAULT_SHADOW_SIZE)
+    shadow.add_argument("--min-per-cell", type=int,
+                        default=SHADOW_MIN_PER_CELL)
     peek = sub.add_parser("next-batch", help="列出下一批要判讀的候選")
     peek.add_argument("run_root", type=Path)
     peek.add_argument("--batch-size", type=int, default=DEFAULT_BATCH_SIZE)
@@ -276,6 +414,16 @@ def main(argv: list[str] | None = None) -> int:
     if args.command == "pilot":
         result = write_pilot_sample(args.run_root, fraction=args.fraction,
                                     seed=args.seed)
+    elif args.command == "shadow":
+        result = write_shadow_batch(args.run_root, size=args.size,
+                                    seed=args.seed,
+                                    min_per_cell=args.min_per_cell)
+        # 完整清單已落盤；終端只印摘要，不洗版。
+        summary = {k: v for k, v in result.items()
+                   if not k.lower().endswith("candidateids")}
+        summary["rateSubsetSize"] = len(result["rateCandidateIds"])
+        summary["coverageTopUpSize"] = len(result["coverageCandidateIds"])
+        result = summary
     else:
         loaded = load_run_root(args.run_root)
         batch = take_batch(loaded["queue"], batch_size=args.batch_size,
