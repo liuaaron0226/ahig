@@ -2298,10 +2298,42 @@ pass B 0/300（等擁有者 `/clear`＋`/loop`）；W4a 進行中（等待期填
 的本地 ref 已刪除，13 條本地分支現在全數 `health/=0`。復原座標 `0cc227b` /
 `8a35ddd` / `5dd528a`，reflog 保留約 90 天。
 
-這條分支的**遠端**仍在、仍帶 25 個 `health/` 檔，所以上一輪「不 checkout 它」的
-處置對「fetch 後從遠端建分支」的情境依然適用——直到上表五條一併處置為止。
+這條分支的**遠端**仍在、仍帶 25 個 `health/` 檔，所以「不 checkout 它」的處置對
+「fetch 後從遠端建分支」的情境依然適用——直到下方裁定的五條一併處置為止。
 
 擁有者的 `health/` private repo 全程未受影響：清理前後皆 25 個追蹤檔。清理後出現
-的 2 筆變更是排程健康打卡寫入（`log/2026-08.md` **+9 −0** 純附加、加一個新的
-打卡 JSON），**零刪除**——舊分支覆寫的特徵會是 25 個檔被改動並帶大量刪除行，
-形態完全不同。
+的 2 筆變更是排程健康打卡寫入（`log/2026-08.md` **+9 −0** 純附加、加一個新的打卡
+JSON），**零刪除**。這個判準值得記著：舊分支覆寫的特徵是 25 個檔被改動並帶大量
+刪除行，形態完全不同——「`health/` 有沒有被靜默覆寫」從此有可複查的判別方式。
+
+## 🏛 協調者裁定：刪除五條分家前遠端分支（第 n+11 輪）
+
+遠端稽核照准。刪除裁定成立的三個前提逐一覆核過：
+(1) 五條 tip 皆為主幹祖先（協調者以 `merge-base --is-ancestor` 逐條實證）
+——刪 ref 不移除任何物件，內容永久從主幹可達；
+(2) 錨定檔引用該五 tip 0 次，證據鏈無涉；
+(3) 分家意圖（擁有者公告）即此清理的授權來源，屬分支治理，協調者執行。
+
+復原座標（如需重建：`git branch <名> <SHA>`）：
+
+| 分支 | tip SHA |
+|---|---|
+| claude/prevalence-audit-llm-judgement | caa149451c01dde11cd52677de17a4048483948c |
+| claude/tool-scouting-room | 06dfc01aba8a2c55902b7c2c4e03564dc680511d |
+| claude/w2-report-relay | c85131f0729c3e03593d67c862da308b48767c1a |
+| claude/w2-s1s2-outcome-topup | 8e5f8855fd57b40deaf3948650ddd035f5268a4b |
+| claude/w3-dose-regex-upgrade | fa738425c61123d917a526e64d6f32acda18d218 |
+
+執行後遠端 19→14 條，全數乾淨。本機殘留（w2 local、其 5 個未推 commit）
+維持既裁定處置不變。
+
+**執行更正**：協調者雲端側的 git 代理**拒絕遠端分支刪除**（403——與
+force push 同級的保護，合理）。裁定不變、座標已錄，執行權移交擁有者：
+在**你自己的 PowerShell**（不是 agent session）貼一行：
+
+```
+git push origin --delete claude/prevalence-audit-llm-judgement claude/tool-scouting-room claude/w2-report-relay claude/w2-s1s2-outcome-topup claude/w3-dose-regex-upgrade
+```
+
+非急件（repo 為 private、看板已有 checkout 警告），不做也不擋任何工作；
+未執行則自動併入 M1 待辦一起清。
