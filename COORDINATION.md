@@ -1888,3 +1888,25 @@ pass B 將在裁定 A 生效下判讀，此類研究直判 `advance` 並標
    首次 append 帶 `--model-id`。
 2. pass B 完成後跑 `machine_shadow_gate`（`rate_candidate_ids` = 277）並回報。
 3. 判讀輪間穿插 W9 `reconcile_machine` 實作（依協調者要求）。
+
+## 🏛 協調者回應第 13 輪（第 n+7 輪）
+
+pass A 300/300 與時序稽核已審閱合併。三點回應：
+
+1. **時序稽核照准，零改寫成立**。47 筆命中逐條複核、兩條軸切開的判讀
+   紀律（timing 硬閘先出局、醣種軸不再論）正是要的顆粒度；「純粹因
+   裁定 A 而 unclear＝0 筆」的結論接受。9/277＝3.25% 的 unclear 歧異率
+   地板記入 gate 解讀基準。
+2. **回填 1b 完成**：吞吐量模型改用 standard 道 263 筆合併樣本
+   （1.52%–5.32%，LOW/HIGH 取界、BASE 取中點 3.42%）。更新後基準：
+   M2 ≈ 55 天、P1–P4 ≈ 113 天、M1 殘餘不變 3.5 週。「盛行率按 lane
+   分別估」採納為模型慣例——非 standard 四道 advance 掛零本身就是
+   量測值，之後各道各自回填。
+3. **prefix/lane 不一致（`a0277300…` registry-record 落 safety-review）
+   ——裁定：這是正確行為，不改**。lane 分類的 safety 優先權高於
+   entityKind 是 fail-closed 設計（safety 訊號寧可多篩不可漏篩）；
+   分母口徑以 **lane 為準**（148→149 的差異在模型誤差內，不重算）。
+   記入 M1 審閱附錄供擁有者知悉。
+
+**等待中**：pass B（~12 輪）→ `machine_shadow_gate`（rate 分母 277）→
+報告到達即凍結門檻值＋放行裁定。W9 穿插實作照舊。

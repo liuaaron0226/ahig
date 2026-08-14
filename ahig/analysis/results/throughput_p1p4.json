@@ -16,12 +16,15 @@
     "pilot_judged": 154,
     "pilot_prevalence_low": 0.012987012987012988,
     "pilot_prevalence_high": 0.032467532467532464,
+    "standard_sample_n": 263,
+    "standard_prevalence_low": 0.015209125475285171,
+    "standard_prevalence_high": 0.053231939163498096,
     "shadow_batch": 300,
     "tail_spot_check": 200,
     "calibration_papers": 60
   },
   "recalibrationTriggers": [
-    "✅ 已回填（第 12 輪）：盛行率實測 1.30–3.25%（2 advance/149 exclude/3 unclear）",
+    "✅ 已回填（第 12 輪）：全 queue 盛行率 1.30–3.25%；第 13 輪 lane 校正：standard 道 263 筆合併樣本 1.52–5.32%",
     "影子批次歧異率實測 → 以歧異率修 judging 品質假設與二審成本",
     "B.11 正式篩選跑到 ADR-0008 終止 → 以實測終止點取代 termination_fraction",
     "每個 P 領域檢索實跑 → 以實際 queue 數取代 mult",
@@ -31,7 +34,7 @@
     "樂觀": {
       "params": {
         "label": "樂觀",
-        "prevalence": 0.013,
+        "prevalence": 0.0152,
         "termination_fraction": 0.35,
         "uptime_h_day": 12,
         "judging_share": 0.8,
@@ -61,8 +64,8 @@
           "screening_judgements_core": 7222,
           "screening_judgements_secondary_deferrable": 3079,
           "screening_days": 7.5,
-          "included_studies": 14,
-          "extraction_days": 0.5,
+          "included_studies": 16,
+          "extraction_days": 0.6,
           "total_days": 8.1,
           "owner_hours": 0.9
         },
@@ -73,9 +76,9 @@
           "screening_judgements_core": 5616,
           "screening_judgements_secondary_deferrable": 2309,
           "screening_days": 5.9,
-          "included_studies": 10,
-          "extraction_days": 0.4,
-          "total_days": 6.2,
+          "included_studies": 12,
+          "extraction_days": 0.5,
+          "total_days": 6.3,
           "owner_hours": 0.9
         },
         "P3": {
@@ -85,7 +88,7 @@
           "screening_judgements_core": 3208,
           "screening_judgements_secondary_deferrable": 1155,
           "screening_days": 3.3,
-          "included_studies": 5,
+          "included_studies": 6,
           "extraction_days": 0.2,
           "total_days": 3.6,
           "owner_hours": 0.9
@@ -97,20 +100,20 @@
           "screening_judgements_core": 8827,
           "screening_judgements_secondary_deferrable": 3849,
           "screening_days": 9.2,
-          "included_studies": 17,
-          "extraction_days": 0.7,
-          "total_days": 9.9,
+          "included_studies": 20,
+          "extraction_days": 0.8,
+          "total_days": 10.0,
           "owner_hours": 0.9
         }
       },
-      "p1_p4_total_days": 27.8,
+      "p1_p4_total_days": 28.0,
       "m2_days_from_now": 19.8,
       "owner_hours_total": 4.3
     },
     "基準": {
       "params": {
         "label": "基準",
-        "prevalence": 0.0195,
+        "prevalence": 0.0342,
         "termination_fraction": 0.55,
         "uptime_h_day": 8,
         "judging_share": 0.7,
@@ -140,9 +143,9 @@
           "screening_judgements_core": 12655,
           "screening_judgements_secondary_deferrable": 4619,
           "screening_days": 22.6,
-          "included_studies": 51,
-          "extraction_days": 4.6,
-          "total_days": 27.2,
+          "included_studies": 90,
+          "extraction_days": 8.1,
+          "total_days": 30.7,
           "owner_hours": 1.8
         },
         "P2": {
@@ -152,9 +155,9 @@
           "screening_judgements_core": 10679,
           "screening_judgements_secondary_deferrable": 3849,
           "screening_days": 19.1,
-          "included_studies": 43,
-          "extraction_days": 3.8,
-          "total_days": 22.9,
+          "included_studies": 75,
+          "extraction_days": 6.7,
+          "total_days": 25.8,
           "owner_hours": 1.8
         },
         "P3": {
@@ -164,9 +167,9 @@
           "screening_judgements_core": 6727,
           "screening_judgements_secondary_deferrable": 2309,
           "screening_days": 12.0,
-          "included_studies": 26,
-          "extraction_days": 2.3,
-          "total_days": 14.3,
+          "included_studies": 45,
+          "extraction_days": 4.0,
+          "total_days": 16.0,
           "owner_hours": 1.8
         },
         "P4": {
@@ -176,20 +179,20 @@
           "screening_judgements_core": 16606,
           "screening_judgements_secondary_deferrable": 6158,
           "screening_days": 29.7,
-          "included_studies": 69,
-          "extraction_days": 6.1,
-          "total_days": 35.8,
+          "included_studies": 120,
+          "extraction_days": 10.8,
+          "total_days": 40.4,
           "owner_hours": 1.8
         }
       },
-      "p1_p4_total_days": 100.2,
-      "m2_days_from_now": 51.9,
+      "p1_p4_total_days": 112.9,
+      "m2_days_from_now": 55.4,
       "owner_hours_total": 8.5
     },
     "保守": {
       "params": {
         "label": "保守",
-        "prevalence": 0.0325,
+        "prevalence": 0.0532,
         "termination_fraction": 0.85,
         "uptime_h_day": 4,
         "judging_share": 0.6,
@@ -219,9 +222,9 @@
           "screening_judgements_core": 23583,
           "screening_judgements_secondary_deferrable": 6928,
           "screening_days": 98.3,
-          "included_studies": 180,
-          "extraction_days": 56.2,
-          "total_days": 154.5,
+          "included_studies": 295,
+          "extraction_days": 92.2,
+          "total_days": 190.4,
           "owner_hours": 4.0
         },
         "P2": {
@@ -231,9 +234,9 @@
           "screening_judgements_core": 21051,
           "screening_judgements_secondary_deferrable": 6158,
           "screening_days": 87.7,
-          "included_studies": 160,
-          "extraction_days": 50.0,
-          "total_days": 137.7,
+          "included_studies": 262,
+          "extraction_days": 81.9,
+          "total_days": 169.6,
           "owner_hours": 4.0
         },
         "P3": {
@@ -243,9 +246,9 @@
           "screening_judgements_core": 13457,
           "screening_judgements_secondary_deferrable": 3849,
           "screening_days": 56.1,
-          "included_studies": 100,
-          "extraction_days": 31.2,
-          "total_days": 87.3,
+          "included_studies": 164,
+          "extraction_days": 51.1,
+          "total_days": 107.2,
           "owner_hours": 4.0
         },
         "P4": {
@@ -255,14 +258,14 @@
           "screening_judgements_core": 31177,
           "screening_judgements_secondary_deferrable": 9238,
           "screening_days": 129.9,
-          "included_studies": 240,
-          "extraction_days": 75.0,
-          "total_days": 204.9,
+          "included_studies": 393,
+          "extraction_days": 122.8,
+          "total_days": 252.7,
           "owner_hours": 4.0
         }
       },
-      "p1_p4_total_days": 584.4,
-      "m2_days_from_now": 229.9,
+      "p1_p4_total_days": 719.9,
+      "m2_days_from_now": 265.8,
       "owner_hours_total": 18.5
     }
   },

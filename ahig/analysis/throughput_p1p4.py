@@ -56,6 +56,12 @@ ANCHORS = {
     "pilot_judged": 154,            # 第 12 輪判完：2 advance / 149 exclude / 3 unclear
     "pilot_prevalence_low": 2 / 154,    # 實測下界（unclear 全算 exclude）＝1.30%
     "pilot_prevalence_high": 5 / 154,   # 實測上界（unclear 全算 advance）＝3.25%
+    # 第 13 輪 lane 校正：standard 道獨立樣本 263 筆（pilot 94＋shadow 169，
+    # 零重疊），advance 4／unclear 10——非 standard 四道 advance 掛零，
+    # 全 queue 分母會稀釋盛行率，故 standard 道另估：
+    "standard_sample_n": 263,
+    "standard_prevalence_low": 4 / 263,     # 1.52%
+    "standard_prevalence_high": 14 / 263,   # 5.32%
     "shadow_batch": 300,            # 影子批次（雙模型 → 600 筆判讀）
     "tail_spot_check": 200,         # ADR-0008 終止後尾端抽查
     "calibration_papers": 60,       # M1 校準集全文抽取
@@ -69,10 +75,11 @@ SECONDARY_LANES = ("animal-signal-review", "review-source-review",
 class Scenario:
     label: str
     # --- 篩選 ---
-    prevalence: float           # standard 道題摘層 advance 率（回填觸發點 1 已到：
-                                #   154/154 實測 1.30–3.25%，LOW/HIGH 取實測界、
-                                #   BASE 取點估 ~1.95%；P1–P4 各自的盛行率仍未知，
-                                #   沿用 B.11 實測值作為規劃假設）
+    prevalence: float           # standard 道題摘層 advance 率。回填 1（第 12 輪）
+                                #   全 queue 154 筆：1.30–3.25%；回填 1b（第 13 輪）
+                                #   lane 校正、standard 道 263 筆獨立樣本：
+                                #   1.52–5.32%（LOW/HIGH 取界、BASE 取中點）。
+                                #   P1–P4 各自盛行率未知，沿用 B.11 值作規劃假設
     termination_fraction: float  # ADR-0008 終止前需篩掉的 standard 道比例（AL 排序＋低盛行率下的推測）
     # --- 執行室產能 ---
     uptime_h_day: float         # 擁有者 PC 開機掛 loop 的時數/日（M1 期主導變數）
@@ -88,21 +95,21 @@ class Scenario:
     mult: dict[str, float] = None  # type: ignore[assignment]
 
 
-LOW = Scenario("樂觀", prevalence=0.0130, termination_fraction=0.35,
+LOW = Scenario("樂觀", prevalence=0.0152, termination_fraction=0.35,
                uptime_h_day=12, judging_share=0.8,
                fulltext_include_rate=0.15, extraction_rounds_per_study=1.5,
                owner_spotchecks_per_domain=8, owner_min_per_spotcheck=3,
                owner_milestone_h=0.5,
                mult={"P1": 0.8, "P2": 0.6, "P3": 0.3, "P4": 1.0})
 
-BASE = Scenario("基準", prevalence=0.0195, termination_fraction=0.55,
+BASE = Scenario("基準", prevalence=0.0342, termination_fraction=0.55,
                 uptime_h_day=8, judging_share=0.7,
                 fulltext_include_rate=0.25, extraction_rounds_per_study=2.0,
                 owner_spotchecks_per_domain=12, owner_min_per_spotcheck=4,
                 owner_milestone_h=1.0,
                 mult={"P1": 1.2, "P2": 1.0, "P3": 0.6, "P4": 1.6})
 
-HIGH = Scenario("保守", prevalence=0.0325, termination_fraction=0.85,
+HIGH = Scenario("保守", prevalence=0.0532, termination_fraction=0.85,
                 uptime_h_day=4, judging_share=0.6,
                 fulltext_include_rate=0.35, extraction_rounds_per_study=3.0,
                 owner_spotchecks_per_domain=20, owner_min_per_spotcheck=6,
@@ -206,7 +213,7 @@ def main():
                  "盛行率/終止比例/量體倍率為情境假設，須依觸發點回填。"),
         "anchors": ANCHORS,
         "recalibrationTriggers": [
-            "✅ 已回填（第 12 輪）：盛行率實測 1.30–3.25%（2 advance/149 exclude/3 unclear）",
+            "✅ 已回填（第 12 輪）：全 queue 盛行率 1.30–3.25%；第 13 輪 lane 校正：standard 道 263 筆合併樣本 1.52–5.32%",
             "影子批次歧異率實測 → 以歧異率修 judging 品質假設與二審成本",
             "B.11 正式篩選跑到 ADR-0008 終止 → 以實測終止點取代 termination_fraction",
             "每個 P 領域檢索實跑 → 以實際 queue 數取代 mult",
