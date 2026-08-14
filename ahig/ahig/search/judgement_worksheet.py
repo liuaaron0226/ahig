@@ -31,7 +31,7 @@ import json
 from collections.abc import Sequence
 from pathlib import Path
 
-from ahig.bootstrap import private_root
+from ahig.bootstrap import configure_stdio, private_root
 from ahig.search.llm_second_review import OPINIONS
 from ahig.state import atomic_write_json
 
@@ -187,6 +187,38 @@ def load_judgements(run_root: Path, *, out_name: str,
     }
 
 
+def append_judgements(run_root: Path, new_entries: Sequence[dict], *,
+                      out_name: str, judged_by: dict | None = None) -> dict:
+    """把一頁判好的結果併回判讀檔。
+
+    一次判一頁、分多輪判完，所以併檔會發生很多次。每次都先照
+    ``_validate_entry`` 驗過（含與**既有**判讀比對重複），全部通過才落盤——
+    半套寫入會讓判讀檔停在無法被 ``load_judgements`` 讀回的狀態。
+    """
+    run_root = _require_private(run_root)
+    out_dir = run_root / out_name
+    sheet = json.loads(
+        (out_dir / "worksheet.json").read_text(encoding="utf-8"))
+    doc = json.loads(
+        (out_dir / "judgements.json").read_text(encoding="utf-8"))
+    allowed = {it["candidateId"] for it in sheet["items"]}
+    seen: set[str] = set()
+    existing = [_validate_entry(i, item, allowed, seen)
+                for i, item in enumerate(doc.get("entries") or [])]
+    added = [_validate_entry(len(existing) + i, item, allowed, seen)
+             for i, item in enumerate(new_entries)]
+    if judged_by is not None:
+        doc["judgedBy"] = judged_by
+    if not (isinstance(doc.get("judgedBy"), dict)
+            and doc["judgedBy"].get("agentClass")):
+        raise WorksheetError(
+            "併入判讀前必須先記下 judgedBy.agentClass（ADR-0009 原則 2）")
+    doc["entries"] = existing + added
+    atomic_write_json(out_dir / "judgements.json", doc)
+    return {"added": len(added), "judgedCount": len(doc["entries"]),
+            "remaining": len(allowed - seen)}
+
+
 def file_judge(loaded: dict):
     """把讀回的判讀檔包成 ``screening_driver.run_batch`` 要的 judge。
 
@@ -231,6 +263,13 @@ def build_parser() -> argparse.ArgumentParser:
     status = sub.add_parser("status", help="看判讀進度")
     status.add_argument("run_root", type=Path)
     status.add_argument("--out-name", required=True)
+    append = sub.add_parser("append", help="把一頁判好的結果併回判讀檔")
+    append.add_argument("run_root", type=Path)
+    append.add_argument("--out-name", required=True)
+    append.add_argument("--from-file", required=True, type=Path,
+                        help="含 candidateId/opinion/reason 的 JSON 陣列")
+    append.add_argument("--model-id", default=None,
+                        help="判讀者模型；首次併入必填，之後可省略")
     return parser
 
 
@@ -242,6 +281,8 @@ def _next_unjudged_page(sheet: dict, judged: set[str]) -> int | None:
 
 
 def main(argv: list[str] | None = None) -> int:
+    # 題摘全文有 NBSP 之類的非 ASCII，Windows 主控台預設 cp950 會炸。
+    configure_stdio()
     args = build_parser().parse_args(argv)
     if args.command == "worksheet":
         source = json.loads(args.from_file.read_text(encoding="utf-8"))
@@ -250,6 +291,15 @@ def main(argv: list[str] | None = None) -> int:
                                 out_name=args.out_name,
                                 page_size=args.page_size)
         result = {k: v for k, v in sheet.items() if k != "items"}
+    elif args.command == "append":
+        entries = json.loads(args.from_file.read_text(encoding="utf-8"))
+        judged_by = None
+        if args.model_id:
+            judged_by = {"agentClass": "llm", "modelId": args.model_id,
+                         "role": "executor-session", "adr": "ADR-0009 裁定①"}
+        result = append_judgements(args.run_root, entries,
+                                   out_name=args.out_name,
+                                   judged_by=judged_by)
     else:
         run_root = _require_private(args.run_root)
         out_dir = run_root / args.out_name
