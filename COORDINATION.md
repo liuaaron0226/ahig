@@ -1537,3 +1537,59 @@ ADR-0011 的 B.11（校準）＋P1–P4；信任模型改為 ADR-0009 的機器�
 - 凍結證據：`analysis/results/synergy_replay.json`（含逐資料集明細）。
 
 協調者隊列下一項：c. W4 兩階段全文設計（優先度已降，S2 池 12→32）。
+
+## 🏛 協調者隊列消化 c：W4 兩階段全文流程細部設計 v1（第 n+5 輪）
+
+定位已由 W5 改變：S2 池 12→32 後，W4 從「救 S2」降為「補殘＋校準集
+必經之路」。第一個使用者是 **M1 的 60 篇校準集**（全文取得→抽取試跑），
+第二個是 S2 補殘（TT 候選 ~394 篇中 regex 已辨識 32，餘 ~360 篇的方法段
+劑量判讀，摘要層 regex 天花板 ~22% 已實測標定）。
+
+### 階段 0：OA 全文取得（執行室本機網路）
+
+來源鏈依序：**Europe PMC 全文 XML**（JATS 結構化，免解析 PDF，首選）→
+OpenAlex OA URL → Unpaywall（polite pool，同 runner 的 mailto 模式）→
+無 OA 即標 `no-oa-fulltext`（不碰付費牆，需要付費屬 ADR-0010 聯絡理由）。
+落盤 `AHIG_PRIVATE_ROOT/fulltext/<candidateId>/`：原檔＋manifest
+（來源 URL、licence、sha256）。**全文永不入 repo**，repo 只記雜湊。
+
+### 階段 1：結構化解析
+
+- JATS XML → 直接切節（methods/results/tables），零 OCR 風險；
+- PDF → **GROBID** TEI（T4 裁定：結構抽取主件）→ 表格困難件補 **Docling**；
+- 產物 `sections.json`：各節全文＋錨點（節名/字元偏移）＋ parserVersion
+  ＋內容雜湊。GROBID/Docling 是**本機依賴**（Docker/jar），不進
+  pyproject；wrapper 偵測可用性，repo 測試用 fixture TEI/JATS 樣本。
+
+### 階段 2a：全文適格判讀（工作單制，與 judgement_worksheet 同構）
+
+- payload 只帶 sections 層（methods＋results 節錄），盲化規則同現行
+  （不帶 regex 先驗／題摘層判讀結果）；
+- opinion：include/exclude/unclear＋理由；**exclude 必須帶結構化理由碼**
+  （wrong-population/intervention/comparator/outcome/design/duplicate/
+  no-fulltext，PRISMA 流程圖直接由理由碼聚合產生）；
+- 雙模型政策：**校準集 60 篇雙模型全審**（量小、是校準基準，最嚴格）；
+  正式期 safety/harms 雙模型、standard 單模型＋抽查（與 ADR-0009 一致）；
+- 產物 fulltext-decisions append-only，judgedBy 照裁定①格式。
+
+### 階段 2b：結構化抽取（先做兩個最小欄位組）
+
+1. **S2 補殘**：方法段劑量 → band hint 升級建議清單（只進校準
+   metadata，**不動 queue、不動凍結契約**——與 W1/W3 同一條紀律）；
+2. **校準集抽取**：依現行抽取契約 critical fields 出首輪 draft。
+
+**錨定不變量（fail-closed）**：每個抽取值必須帶原文引句＋節名＋字元
+偏移，且引句在 `sections.json` 精確或模糊命中；錨不上→該欄標
+`not-extractable-by-machine` 進擁有者佇列，**不得無錨出值**。
+
+### 工作包拆分與前置
+
+| 子包 | 內容 | 前置 |
+|---|---|---|
+| W4a | 階段 0＋1（取得＋解析＋GROBID/Docling PoC） | 無——可與正式篩選並行，先拿校準集當 PoC 對象 |
+| W4b | 階段 2a 工作單＋理由碼＋PRISMA 聚合 | 正式篩選放行（要有 advances 當輸入；校準集子集可先行） |
+| W4c | 階段 2b 抽取工作單＋錨定驗證器 | W4a＋W4b |
+
+W4a 可即刻派發；執行室手上三件套（前置樣本、W9、影子批次）優先，
+W4a 排在其後。
+
