@@ -2107,3 +2107,27 @@ W4 設計 v1 階段 0＋1）：
 
 sonnet-5 降為備援：網關不穩或 GPT 側判讀品質異常時切回用。
 成本在擁有者的 GPT 帳號側（300 筆題摘判讀，量級不大），由擁有者知情同意。
+
+### 🚨 協調者急令：pass B 盲判污染防護（第 n+8 輪補 2）
+
+擁有者切換模型時**未先 `/clear`**（終端機截圖可見切換前 recap 仍在），
+故 pass B 的判讀是在**帶有 pass A 判讀記憶的上下文**中開始的——
+第二審查者看得到第一審查者的答案，盲判不成立，歧異率會假性偏低。
+此數字是放行裁定的依據，fail-closed 處置如下：
+
+1. **`/clear` 之前產生的一切 pass B 判讀一律作廢**。執行室重啟後
+   第一件事：檢查 `screening-shadow-pass-b/judgements.json`——凡在
+   上下文清空前 append 的條目，整檔搬移為
+   `judgements-superseded-blinding-breach.json` 留檔（不刪除，稽核用），
+   重建空判讀檔，受影響頁數在看板記帳。
+2. 擁有者將執行 Esc 中斷 → `/clear` → `/loop 15m`（模型維持
+   GPT 5.6 Sol，已存為預設，不受 `/clear` 影響）。
+3. 重啟後的 session 上下文幾近全空、只從磁碟與看板讀狀態——盲判
+   由此成立。首次 append 照舊帶 `--model-id gpt-5.6-sol`。
+4. pass A 判讀檔（`screening-shadow-pass-a/`）不受影響，不動。
+5. 給重啟後執行室的定位援引：你是 AHIG B.11 執行室，規約在
+   COORDINATION.md（本檔）與 `docs/adr/`；當前任務＝pass B 影子批次
+   300 筆盲判（工作單 `screening-shadow-pass-b/worksheet.json`，
+   12 頁 × 25 筆），判讀慣例含裁定 A（醣種對照 advance＋旗標）與
+   裁定 B（registry 輕量標準）；判完跑 `machine_shadow_gate`
+   （`rate_candidate_ids`＝batch.json 的 `rateCandidateIds`）推看板。
