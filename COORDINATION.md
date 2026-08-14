@@ -26,6 +26,9 @@
   `.git/info/exclude`）。收工用 `git worktree remove` 清掉。
 - 每條工作線一個分支，從主幹建：
   `git fetch origin && git checkout -B <你的分支> origin/feature/istudy-private-backup-workflow`
+  注意那個 `origin/` 前綴是必要的，不是順手打的。**本地同名分支過期是常態**：
+  2026-08-15 掃描時，本地主幹 ref 落後 70 個 commit，樹裡還帶著分家前的 25 個
+  `health/` 檔。任何時候要「主幹」，都指 `origin/…`，不要指本地那條。
 - push 前必須全綠：`cd ahig && python tests/run_tests.py && python -m ahig.cli verify --all`
 - 只改自己工作線範圍內的檔案；要跨線改動先找協調者。
 - 本看板是每條線都會改的檔案，撞 conflict 是常態而非意外。撞到時跑
@@ -998,7 +1001,8 @@ estimate.json 都原封不動在磁碟上，各自錨定的舊 queueHash 仍可�
 | W8 篩選驅動器＋影子門檻＋判讀工作單 | `claude/w8-screening-driver` | 🔬 B.11 執行室 | ✅ 已合併（cf1dd43，657/657）；**前置樣本 154/154 判完，盛行率已估**（第 12 輪，見下） |
 | W9 reconcile_machine（裁定③＝B 的落地） | 待執行室開分支 | 🔬 B.11 執行室 | 🆕 本輪派發，規格見裁定（第 n+2 輪）② |
 | 工具偵察（T1 ASReview／T2 buscarpy／T3 ASySD／T4 GROBID+Docling） | `claude/tool-scouting-room` | AHIG 工具偵察室（session_01G7Cno2AMPVsusc6rBtfM3P） | ✅ 首批 T1–T4 報告＋完工時間影響評估已入看板，等協調者裁定採用形式與合併 |
-| 看板缺口修補（**提案，非協調者派發**） | `claude/coordination-board-gaps` | 本機 session | 📬 PR #1 待裁定：協調者可達性矛盾、`main`/`master` 廢棄警告、看板衝突規則、共用工作區禁令、孤兒表格列 |
+| 看板缺口修補（**提案，非協調者派發**） | `claude/coordination-board-gaps` | 本機 session | ✅ PR #1 已合併；LF 正規化 PR #2 已合併 |
+| 本地過期 ref 清理（心跳 A/B/C 的真正殘留） | `claude/heartbeat-stale-refs` | 本機 session | 📬 PR #3 待裁定；ref 已就地修好（7 條→1 條），僅 `w2-s1s2-outcome-topup` 待其持有者 push |
 
 ### 協調者裁定：queue 重建時機（2026-08-14）
 
@@ -1033,6 +1037,38 @@ untracked，而分支上它們是 tracked。
 
 執行室無法自行處理：合併主幹進心跳分支屬於分支治理，且 A 會動到已裁定的
 分支策略。
+
+##### ✅ 已結案（2026-08-15）：A 已執行，但真正的載體不是分支而是本地 ref
+
+協調者已依 A 處理，`claude/w3-heartbeat` 的**遠端**在 `f9de7f1`（裁定 n+2 #5）
+併入主幹，樹裡 `health/` 歸零。**上面的 A／B／C 不必再議。**
+
+但 A 沒有解掉全部風險，因為危險的從來不是遠端分支，是**每台機器上過期的本地
+ref**。遠端修好之後，本地 `claude/w3-heartbeat` 仍停在 `27c1373`，樹裡 25 個
+`health/` 檔。全面掃描本地分支後，**七條**帶著舊 `health/`，其中包括本地的
+**主幹 ref**（落後 70 個 commit）——而看板要大家「從主幹建分支」，只要有人用
+本地 ref 而不是 `origin/…`，就會中。
+
+機制值得寫清楚，因為它與直覺相反：`health/` 現在是 **ignored**，而
+**git checkout 覆寫 ignored 檔案不會有任何警告**。如果它只是 untracked，git
+反而會拒絕並報 `would be overwritten by checkout`。分家把它變安全的同時，也
+拿掉了 git 原本會給的那道提示。
+
+2026-08-15 已處置（`health/` 全程未受影響，前後皆 25 追蹤檔、工作區零變更）：
+
+- 快轉本地 `feature/istudy-private-backup-workflow`（落後 70）與
+  `claude/w3-heartbeat`（落後 20）→ 兩者 `health/` 歸零。
+- 刪除四條已完全併入主幹的本地 ref（`prevalence-audit-llm-judgement`、
+  `w2-report-relay`、`w3-dose-regex-upgrade`、`hb-round9`），主幹缺 0 個
+  commit，前三條遠端都還在。
+- **仍待處理一條**：`claude/w2-s1s2-outcome-topup` 樹裡仍有 25 個 `health/`
+  檔，但它有 **5 個尚未推上 origin 的 commit**（`8a35ddd` 抽樣錨定、
+  `5dd528a` estimate 回報等），所以不能刪也不能快轉。**請該工作線的持有者
+  先 push，再把主幹併進去。** 在那之前，不要 checkout 這條分支。
+
+給所有工作線的慣例（已寫進上方分支規則）：開工一律
+`git checkout -B <你的分支> origin/feature/…` 用**遠端** ref，不要用本地同名
+分支；本地 ref 過期是常態，不是例外。
 
 ## 👤 擁有者公告：health/ 分家（2026-08-14）
 
