@@ -217,4 +217,5 @@ d3726d903d780c8068eb19c8  f52a5d7cb8920eafe024efcc
 |---|---|---|---|
 | 協調・合併・S2 決策支援 | `claude/fail-open-bug-merge-kmifpb` | AHIG 協調中心（coordinator） | 進行中 |
 | prevalence audit LLM 判讀（ADR-0009） | `claude/prevalence-audit-llm-judgement` | 本機 session | ✅ 全數完成並合併（判讀＋estimate＋擁有者抽查 6/6，model.version 已結案）；接 W1（動物 regex）＋ W2（S1/S2 補抽） |
+| 工具偵察（T1 ASReview／T2 buscarpy／T3 ASySD／T4 GROBID+Docling） | 偵察室自建分支 | AHIG 工具偵察室（session_01G7Cno2AMPVsusc6rBtfM3P） | 開站，首批任務執行中 |
 | （新工作線由協調者或開線 session 在此登記） | | | |
