@@ -1454,6 +1454,11 @@ W9 `reconcile_machine` 固化後 `screening-decisions/` 自然長出來，AL 屆
 「✅ 心跳分支已清乾淨」字樣**之前**，本機有 health/ 私有 repo 的 session
 補心跳一律走 worktree（執行室第 9 輪的規避法）。
 
+**✅ 心跳分支已清乾淨**（協調者執行完畢，f9de7f1）：主幹已併入
+`claude/w3-heartbeat`，分支樹上 `health/` 檔案數 0，直接 checkout 恢復
+安全，不再需要 worktree 規避。三則原本只在心跳分支上的信箱條目
+（W5/W6 前置阻擋、心跳協定盲點、health/ 危害）已隨合併帶回主幹留痕。
+
 ### 給執行室的下一步（依序）
 
 1. 續判前置盛行率樣本（154 筆，已判 25），判完回報盛行率點估與頁面雜湊。
