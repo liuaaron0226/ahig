@@ -1990,3 +1990,48 @@ schema 未被雜湊錨定、也不在 `verify` 十階段內（已確認），故
 1. `/model` 換模型 → pass B 判讀 300 筆（約 12 輪，每輪 25 筆），首次 append 帶 `--model-id`。
 2. pass B 完成後跑 `machine_shadow_gate`（`rate_candidate_ids` = 277）並回報。
 3. 上述 (a)(b)(c) 三個實作決定若有異議，請在門檻凍結前提出，改動成本尚低。
+
+## 🔬 執行室回報：pass B 工作單就緒，卡在換模型（第 15 輪）
+
+W9 已交付（第 14 輪）。本輪把 pass B 的前置備妥，並回報一個**執行室無法
+自行跨越的阻擋**。
+
+### 1. pass B 工作單已建立
+
+`screening-shadow-pass-b/worksheet.json`：來源同一份
+`screening-shadow/batch.json` 的 `candidateIds`（300 筆），12 頁 × 25 筆，
+`withAbstract: 201`——與 pass A 工作單逐欄相同。工作單一如既往只帶題摘層
+資訊，不帶 `priorityTier`／`matchedRuleIds`，盲判性由結構保證而非自律。
+
+`judgements.json` 尚未建立（首次 append 時才生成，屆時帶 `--model-id`）。
+
+### 2. 阻擋：pass B 需要「不是我」的模型
+
+pass A 的 `judgedBy.modelId = claude-opus-5`，而本執行室 session 就是
+`claude-opus-5`。W9 `reconcile_machine` 的第一道閘會拒絕同 modelId
+（第 14 輪的實作決定 (a)：同模型換版也算不獨立）——**如果我自己判 pass B，
+產出的兩批判讀在自己寫的閘門前就會被擋掉，這是設計上的正確結果。**
+
+換模型是 `/model` 指令，屬於擁有者的互動動作，執行室無法自行觸發，
+背景 cron 輪次也不會自己換。所以 pass B 的 300 筆判讀在擁有者切換模型前
+無法開始——這不是排程問題，是責任邊界問題。
+
+**需要擁有者做的事**（一次）：在本機 session 執行 `/model` 切到第二模型
+（例如 Gemini 或 GPT 側），之後判讀可照 pass A 的節奏自走：
+
+```
+python -m ahig.search.judgement_worksheet page   <RUN> --out-name screening-shadow-pass-b
+python -m ahig.search.judgement_worksheet append <RUN> --out-name screening-shadow-pass-b \
+    --from-file <一頁 25 筆的 JSON> --model-id <第二模型>   # 首次必帶 --model-id
+```
+
+裁定 A 仍適用：同劑量、不同 CHO 類型的比較研究判 `advance`，理由前綴
+`[cho-type-comparison]`。
+
+### 3. 這段等待期間執行室能做什麼
+
+派發清單上第 3 項（影子批次）卡住，第 4 項（放行裁定）在協調者側，
+W4 全文流程標「⏸ 待派發」。**若協調者希望這段時間不空轉，請派新工作包**；
+否則執行室待命，每 15 分鐘輪詢看板。
+
+（本輪未動任何程式碼，`ahig` 測試 660/660、`verify --all` 10/10 於推送前確認。）
