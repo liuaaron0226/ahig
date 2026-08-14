@@ -42,6 +42,9 @@
 - ✅ ADR-0007/0008 核心實作完成：requiredReviewMode 分流（safety/harms 雙人、其餘 human+LLM，RULE_VERSION 1.3.0）、llm_second_review（盲化批次＋影子門檻＋裁決計畫）、statistical_termination（精確超幾何 p-score、前置條件、尾端抽驗）
 - ✅ 真實資料全線打通：四來源 24,932 筆 → 池 15,425 → 佇列（S2 regex 池確認=12、T1=954）→ audit 22f634d2325d 抽出並 git 錨定
 - ✅ ADR-0009 已拍板：信任模型改為「AI 判讀證據＋擁有者稽核」（擁有者非領域專家）；judgedBy 欄位＋AI-graded 標示已實作；62 筆判讀交 LLM 執行、擁有者抽查 6 筆
+- ✅ ADR-0009 迴路首次跑通並結案：22f634d2325d 的 62 筆 LLM 判讀 → estimate
+  （四道護欄全過）→ 擁有者抽查 6/6 通過、無系統性錯誤。本批判讀生效，
+  estimate 帶 `AI-graded evidence — no human expert review` 標示
 - 測試基準：572/572、verify 10/10
 - 分工註記：prevalence_audit 的實作歸協調 session；本機 session 請勿再改
   該檔，直接 `git pull` 取用
@@ -128,15 +131,35 @@ d3726d903d780c8068eb19c8  f52a5d7cb8920eafe024efcc
    需全文而非摘要**。故待決策② S2 解法評估選項 D 時，實測上限應以 ~3/50
    （6%）而非 14/50（28%）計。
 
-### 擁有者抽查（ADR-0009 第 4 條）
+### 擁有者抽查（ADR-0009 第 4 條）：✅ 6/6 通過
 
-62 筆按 candidateId 排序取第 1、11、21、31、41、51 筆，已附摘要關鍵句中文
-翻譯＋判讀理由交擁有者核對，結果待回報。
+62 筆按 candidateId 排序取第 1、11、21、31、41、51 筆（抽查率 9.7%，
+約當 ADR-0009 訂的初始 10%），每筆附摘要關鍵句中文翻譯＋判讀＋理由交
+擁有者核對。**擁有者 2026-08-14 確認 6 筆判讀全部無誤，未發現系統性
+錯誤，本批判讀不需作廢重跑。**
+
+抽查清單（`ahig:candidate:publication:` 前綴省略）：
+
+| 序 | candidateId | 判讀 | 核對 |
+|---|---|---|---|
+| 1 | `0019b8c7…` | intensity-only／unclear（葡萄糖 4×10 g/日為載體，每日總量無時間基準） | ✅ |
+| 11 | `30ed6fc2…` | intensity-only／unclear（醣佔每日總能量 40–55%，非運動中速率） | ✅ |
+| 21 | `5a123a6e…` | not-reported（唯一劑量是 L-cysteine 0.5 g/24 h，非醣類） | ✅ |
+| 31 | `87b57db7…` | intensity-only／unclear（僅「總能量需求的 28%」，分母未知不可換算） | ✅ |
+| 41 | `a2893d5e…` | not-reported（無摘要） | ✅ |
+| 51 | `e82dddd9…`（誤剔） | exclusionJustified=true（加速老化小鼠，動物分流正確） | ✅ |
+
+抽查設計說明：這 6 筆涵蓋三種判讀型態（intensity-only／not-reported／
+誤剔）與兩種「有數字但不可換算」的成因（每日總量、百分比分母未知），
+落在 ADR-0009 第 4 條要求的「找數字、對關鍵詞」層次。**但抽查通過只
+證明這 6 筆的判讀與摘要相符，不構成其餘 56 筆正確的統計保證**——6/6
+零錯誤在 n=6 下的 95% 單側上界仍達 ~39%。抽查的作用是攔截系統性錯誤
+（判讀準則理解偏差、單位換算方向錯誤），不是逐筆驗證。
 
 ## 工作線
 
 | 工作線 | 分支 | Session | 狀態 |
 |---|---|---|---|
 | 協調・合併・S2 決策支援 | `claude/fail-open-bug-merge-kmifpb` | AHIG 協調中心（coordinator） | 進行中 |
-| prevalence audit LLM 判讀（ADR-0009） | `claude/prevalence-audit-llm-judgement` | 本機 session | 判讀＋estimate 完成，待協調者合併；擁有者抽查 6 筆結果待回報 |
+| prevalence audit LLM 判讀（ADR-0009） | `claude/prevalence-audit-llm-judgement` | 本機 session | ✅ 判讀＋estimate＋擁有者抽查 6/6 全數完成，待協調者合併；唯一未結項是 model.version 佔位字串待回填 |
 | （新工作線由協調者或開線 session 在此登記） | | | |
