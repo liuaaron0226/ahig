@@ -757,6 +757,7 @@ regex 的實務天花板就在此**——剩下的交給 W4 的 LLM 全文流程
 - `15:55 W3 已入主幹、W5 解鎖；queue 重建完成並回報`（第 6 輪）
 - `16:31 讀到 W8 派發；驅動器骨架＋機-機影子門檻完成並回報，兩處待裁定`（第 8 輪）
 - `17:20 補上派發第 3 項缺的影子批次 300 筆選取，實跑 27/27 分層全覆蓋；讀到巡檢輪裁定①②，已 rebase 至 b0f0e5d、646/646`（第 10 輪）
+- `17:43 依裁定①做出判讀工作單（session 當判讀者的落地路徑），657/657；前置盛行率樣本 154 筆已判 25 筆（第 1 頁）`（第 11 輪）
 
 - `16:12 W5 已入主幹、W6 解鎖；AL 排序器完成並回報`（第 7 輪）
 
@@ -998,6 +999,7 @@ git repo 是這種情況的救援管道。
 | 3a. 影子門檻改機-機（ADR-0009 修訂 ADR-0007） | ✅ 完成 | `llm_second_review.machine_shadow_gate` |
 | 3b. 影子批次 300 筆的選取 | ✅ 完成並實跑 | `screening_driver.shadow_batch`（第 10 輪補上） |
 | 4. 影子門檻通過前不進正式篩選 | ⏸ 待判讀 | 判讀層歸屬已裁定（執行室 session 自判）；門檻值待凍結，見「待裁定 ②」 |
+| 5. 判讀工作單（裁定①的落地路徑） | ✅ 完成並實跑 | `ahig/search/judgement_worksheet.py`（第 11 輪新增） |
 
 ### 1. 驅動器：judge 是可注入介面
 
@@ -1095,12 +1097,59 @@ pilot 輸出與落盤檔**位元一致**（`sha256:349c36b6…b72650` 不變）�
 落盤在私密根 `screening-shadow/batch.json`；已驗證 `queue.json` 與既有
 `screening-pilot/sample.json` 的 md5 前後未變（凍結契約只讀不寫）。
 
+### 5. 判讀工作單：裁定①的落地路徑（第 11 輪）
+
+裁定①把判讀器定為執行室 session 本身，缺的是「題摘出去、判讀回來」這條
+路徑。`ahig/search/judgement_worksheet.py` 補上兩端，**不含任何 API 呼叫**：
+
+- `write_worksheet` 把樣本／批次清單展開成分頁工作單（只帶題摘層，盲化
+  規則與 `_entry_payload` 同一條）；
+- `load_judgements` 收回判讀檔、做結構檢查；
+- `file_judge` 把判讀檔包成驅動器要的 judge——**驅動器一行沒改**。可注入
+  介面本來就預期是模型呼叫層，現在只是把已判好的結果照批次順序取出。
+
+**為什麼要落盤成檔而不是在記憶體裡判完接上驅動器**：154 筆約 57k tokens，
+單輪 loop 吞不完。工作單分頁（25 筆／頁，7 頁）、判讀檔逐頁累積，下一輪從
+第一筆未判的接著做——與 `prevalence_audit` 的 fill 模式同一個道理（存檔即
+續填）。另外判讀檔與固化後的批次分開存：重跑固化不動判讀本身，判錯也能
+只重判那幾筆。
+
+**拒收條件**：缺判讀理由（理由即 `rawResponse`，ADR-0009 原則 3）、缺
+`judgedBy.agentClass`（原則 2）、opinion 非法、id 越界或重複；判一半預設
+擋下不給固化——有洞的批次會讓下游分母悄悄變小。
+
+### 前置盛行率樣本：已開始判讀（154 筆，第 11 輪判完第 1 頁）
+
+判讀依據是 `calibration/b11-carbohydrate/scope-contract.json` 的
+`researchQuestion`（搜尋契約沒有結構化納入條件，只有敘述性 objective）：
+18–45 歲受訓耐力運動員、單次運動**中**攝取外源性碳水 10–150 g/h、對照限
+安慰劑／純水／較低劑量、RCT 平行或交叉、六項 in-scope outcome。
+
+| 項目 | 數字 |
+|---|---|
+| 樣本總數 | 154（7 頁 × 25） |
+| 本輪判完 | 25（第 1 頁） |
+| advance | 1 |
+| exclude | 24 |
+| unclear | 0 |
+| 有摘要 | 99 / 154（64%） |
+
+第 1 頁只有 1 筆 advance，與 ADR-0008 預期的低盛行率一致。被排除的 24 筆
+集中在幾類**題摘層就能判**的情形：動物研究（金魚、小鼠、海豹、馬）、
+18 歲以下族群、運動**前後**而非運動中補碳（運動後肝醣回填、賽前試餐）、
+多日飲食介入（契約限單次 session）、非碳水介入（orlistat、維生素 C、
+薑黃素）、結果不在契約六項內（IL-6／hepcidin、脂蛋白、腸道賀爾蒙）。
+
+判讀進度可隨時查：`python -m ahig.search.judgement_worksheet status <run> --out-name screening-pilot`。
+
 ### 門檻
 
-- `python tests/run_tests.py` → **646/646 通過**（本輪新增 11 項：影子批次選取 7、
-  歧異率分母 3、落盤 1；已 rebase 到含 W6＋W8 的主幹 `b0f0e5d`）
+- `python tests/run_tests.py` → **657/657 通過**（第 11 輪新增 11 項：工作單
+  產生 5、判讀檔回收 4、接驅動器 2）
 - `python -m ahig.cli verify --all` → **10/10 階段通過**
 - 未新增任何依賴
+- 判讀產物全部落在 `AHIG_PRIVATE_ROOT` 之下（有守衛與測試釘住），
+  `git status` 只有兩個新原始碼檔
 
 `screening_driver` 對 W6 是**軟相依**：`load_run_root` 會讀
 `al-rank/ranked-order.json`，檔案不存在就回 `None`、退回 queue 原序，
@@ -1123,6 +1172,11 @@ opinions 檔餵驅動器固化；repo 內不放任何 API 呼叫程式或金鑰�
 `modelId` 記實際模型（如 `claude-opus-5`）、`modelVersion` 記判讀輪次，
 語意才對得上「AI-graded evidence」。若協調者要另立 `agentClass` 值請明示，
 這欄會進雜湊鏈，事後改動等於重跑。
+
+**第 11 輪：先照建議值開跑**（等回覆會空轉六輪 loop）。目前判讀檔記的是
+`{"agentClass": "llm", "modelId": "claude-opus-5", "role": "executor-session",
+"adr": "ADR-0009 裁定①"}`。判讀檔與固化批次是分開的兩層，**這欄目前還沒
+進雜湊鏈**——協調者若要改值，在固化前改都零成本；固化之後才改要重跑。
 
 ### ⚠️ 待裁定 ②：`DEFAULT_MAX_DISAGREEMENT_RATE = 0.25` 仍是佔位值
 
