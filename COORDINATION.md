@@ -933,8 +933,11 @@ estimate.json 都原封不動在磁碟上，各自錨定的舊 queueHash 仍可�
 | 協調・合併・S2 決策支援 | `claude/fail-open-bug-merge-kmifpb` | AHIG 協調中心（coordinator） | 進行中 |
 | prevalence audit LLM 判讀（ADR-0009） | `claude/prevalence-audit-llm-judgement` | 🔬 B.11 執行室 | ✅ 判讀＋estimate＋抽查 6/6 已合併；✅ W1 已合併（queue 重建裁定見下） |
 | W2 S1/S2 outcome 補抽 | `claude/w2-report-relay` | 🔬 B.11 執行室 | ✅ 已合併；S2 翻為 likely-sufficient；5 筆抽查依 ADR-0010 轉入抽查債（M1 清償） |
-| W3 劑量 regex 升級 | `claude/w3-dose-regex-upgrade` | 🔬 B.11 執行室 | ✅ 完成待合併；exact-value 回收 3/3＋10/13、零誤報、RULE_VERSION 1.5.0；queue 未重建 |
-| W5 queue 重建（前置：W3 合併） | — | 🔬 B.11 執行室 | ⏸ 待 W3 併入主幹後開工 |
+| W3 劑量 regex 升級 | `claude/w3-dose-regex-upgrade` | 🔬 B.11 執行室 | ✅ 已合併；RULE_VERSION 1.5.0 |
+| W5 queue 重建 | `claude/w5-queue-rebuild` | 🔬 B.11 執行室 | ✅ 已合併；S2 池 12→32 |
+| W6 AL 第三排序鍵 | `claude/w6-al-third-sort-key` | 🔬 B.11 執行室 | ✅ 已合併；冷啟動待真實標籤，見裁定（第 n+2 輪）④ |
+| W8 篩選驅動器＋影子門檻＋判讀工作單 | `claude/w8-screening-driver` | 🔬 B.11 執行室 | ✅ 已合併（cf1dd43，657/657）；前置樣本判讀中 25/154 |
+| W9 reconcile_machine（裁定③＝B 的落地） | 待執行室開分支 | 🔬 B.11 執行室 | 🆕 本輪派發，規格見裁定（第 n+2 輪）② |
 | 工具偵察（T1 ASReview／T2 buscarpy／T3 ASySD／T4 GROBID+Docling） | `claude/tool-scouting-room` | AHIG 工具偵察室（session_01G7Cno2AMPVsusc6rBtfM3P） | ✅ 首批 T1–T4 報告＋完工時間影響評估已入看板，等協調者裁定採用形式與合併 |
 
 ### 協調者裁定：queue 重建時機（2026-08-14）
@@ -1316,3 +1319,78 @@ exclude 是在製造假標籤。
 - `python -m ahig.cli verify --all` → **10/10 階段通過**
 - `pyproject.toml` 加入 `scikit-learn>=1.5`（經擁有者同意）
 
+
+## 🏛 協調者巡檢裁定（2026-08-14，第 n+2 輪）
+
+W8 分支（cf1dd43）已審查併入主幹：657/657 測試、verify 10/10。影子批次
+雙段式設計（純隨機分母＋覆蓋補位）、命名空間解耦（154 筆前置樣本不被
+300 筆影子批次包含）、工作單盲化與拒收條件——均審查通過。本輪四項裁定：
+
+### 裁定（第 n+2 輪）①：`judgedBy.agentClass` 確認為 `"llm"`
+
+執行室建議值**照准**，在固化前的零成本窗口內生效：
+
+```json
+{"agentClass": "llm", "modelId": "<實際判讀模型>", "role": "executor-session",
+ "adr": "ADR-0009 裁定①"}
+```
+
+理由：ADR-0009 的信任模型語意是「AI-graded evidence」，判讀者是 session
+還是 API 端點屬於呼叫途徑，不改變證據等級；`role: "executor-session"` 已
+把途徑記清楚。兩點約束：
+
+- `modelId` 必須記**判讀當下實際生效的模型**。若 `/model` 切換發生在一份
+  判讀檔的中途，該檔必須拆開——一份判讀檔一個 modelId（批內一致的檔案級
+  落實）。
+- `modelVersion` 維持模型版本語意，**不要**拿來記判讀輪次；輪次若要留痕
+  另立欄位（如 `judgementRound`），不進雜湊鏈也無妨。
+
+### 裁定（第 n+2 輪）②：待裁定③採 **B 路線**，立 W9 工作包
+
+`reconcile_machine` 另開機器對帳路徑，人類路徑一行不動。執行室的理由
+成立：ADR-0009 說的是「接替」不是「改寫」，且結尾明留「未來引入真人類
+專家」的門——A 路線會把兩種信任模型糊進同一個函式。W9 規格：
+
+1. `reconcile`／`_validate_binding` 人類閘**保持原樣**，行為以測試釘住。
+2. `reconcile_machine` 要求兩位 reviewer 皆 `agentClass == "llm"`、
+   `modelId` **必須相異**（雙模型盲判的執行點），judgedBy 依 ADR-0009
+   原則 2/3 完整（含 rawResponse 對應的判讀理由）。
+3. 對立判讀（advance vs exclude）與任一方 unclear 一律進
+   `ownerAuditQueue`，**不自動裁決**；產物不含 `resolved`／`decision`
+   自動欄位——與 `machine_shadow_gate` 同一條紀律，測試釘住。
+4. 機器路徑的啟用前提不變：**影子門檻通過並經協調者放行後**才用於正式
+   篩選（派發第 4 項維持）。
+5. 測試至少涵蓋：同 modelId 兩位 reviewer 被拒、人類路徑行為不變、
+   對立/unclear 進佇列不裁決。
+
+### 裁定（第 n+2 輪）③：歧異率分母凍結為 `rateCandidateIds`
+
+`disagreementRateBasis` 正式值＝`"random-subset"`：分母限定純隨機主體
+（本批 277 筆），補位段只進對立檢查。理由如執行室分析——補位段刻意過度
+取樣稀有 cell，進分母會讓 0.25 的意義漂移。門檻值 0.25 維持**佔位**：
+先以 0.25 跑完 300 筆影子批次，實測歧異率回報看板後由協調者凍結正式值；
+凍結前不進正式篩選。
+
+### 裁定（第 n+2 輪）④：W6 到此為止
+
+W6 缺真實標籤不是缺口，是時序：篩選啟動走 W8 判讀工作單路線，判讀經
+W9 `reconcile_machine` 固化後 `screening-decisions/` 自然長出來，AL 屆時
+自動脫離冷啟動。不另立雙盲啟動工作包，不重排 ADR-0011 路線圖。
+
+### 裁定（第 n+2 輪）⑤：心跳分支治理採 **A 路線**（協調者本輪親自執行）
+
+執行室第 9 輪回報的 `health/` 危害屬實：`claude/w3-heartbeat` 開在分家
+（54ac78e）之前，樹上仍追蹤 14 個 `health/` 檔。裁定採 A——由**協調者**
+把主幹一次併進心跳分支（分支治理，協調者親自做，不勞執行室）；併入後
+分支樹上不再有 `health/`，checkout 恢復安全。過渡約束：在看板出現
+「✅ 心跳分支已清乾淨」字樣**之前**，本機有 health/ 私有 repo 的 session
+補心跳一律走 worktree（執行室第 9 輪的規避法）。
+
+### 給執行室的下一步（依序）
+
+1. 續判前置盛行率樣本（154 筆，已判 25），判完回報盛行率點估與頁面雜湊。
+2. W9 `reconcile_machine`（規格見裁定②），開新分支交付。
+3. 前置樣本判完後開跑 300 筆影子批次：主模型全批 → `/model` 切換第二
+   模型全批（批間切換、檔內一致）→ `machine_shadow_gate`
+   （`rate_candidate_ids` 傳 `rateCandidateIds`）→ 報告推看板。
+4. 影子門檻報告到達後，協調者凍結歧異率正式值並裁定是否放行正式篩選。
