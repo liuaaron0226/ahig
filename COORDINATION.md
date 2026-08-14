@@ -2265,3 +2265,35 @@ pass B 0/300（等擁有者 `/clear`＋`/loop`）；W4a 進行中（等待期填
    `w2-report-relay` 中繼併入主幹（斷點救援那次），資料無失落之虞；
    push 原分支屬**低優先收尾**——排執行室隊列尾（pass B 與 W4a 之後），
    push 後把主幹併進去、health/ 歸零即可結案。在那之前不 checkout 它。
+
+## 🔎 遠端分支 health/ 稽核：不只 w2 一條，是五條（2026-08-15）
+
+上一輪只查了本地 ref。把同一把尺套到**遠端**，`w2-s1s2-outcome-topup` 不是特例：
+
+| 遠端分支 | `health/` 檔數 | 主幹缺的 commit |
+|---|---|---|
+| `origin/claude/prevalence-audit-llm-judgement` | 25 | 0 |
+| `origin/claude/tool-scouting-room` | 25 | 0 |
+| `origin/claude/w2-report-relay` | 25 | 0 |
+| `origin/claude/w2-s1s2-outcome-topup` | 25 | 0 |
+| `origin/claude/w3-dose-regex-upgrade` | 25 | 0 |
+
+19 條遠端分支中 14 條乾淨，這 5 條是分家（`54ac78e`）之前開出、之後沒再併主幹的。
+**五條的工作全部已經在主幹裡**（主幹缺 0 個 commit），所以刪掉 ref 不損失任何歷史
+——commit 仍從主幹可達，刪的是名字不是內容。
+
+三點供裁定時參考：
+
+1. **不影響證據鏈。** 本專案的抽樣證據用 `auditId` / `screeningQueueHash` 這類
+   內容雜湊錨定，不是 commit SHA；實查 `prevalence-audit-anchors.jsonl`，待刪
+   分支的 commit 被引用 **0 次**。刪分支動不到 ADR-0009 的錨定。
+2. **刪分支 ≠ 立刻從 GitHub 抹除。** 物件會留到 GitHub 回收未引用物件為止，
+   期間仍可能以 SHA 取得。效益是「完成 8/14 分家的意圖、杜絕任何人 checkout
+   到舊 `health/`」，不是止血。repo 為 PRIVATE，不是公開外洩。
+3. **執行需要協調者或擁有者。** 本機的危險指令 guard 把 `git push --delete`、
+   `git push :branch`、`gh api -X DELETE` 全列入 DENY（遠端歷史銷毀本就該擋），
+   工作線無法自行刪遠端分支。
+
+另註：本機仍留著 `claude/w2-s1s2-outcome-topup`（25 個 `health/` 檔）——擁有者
+選擇暫不刪除，維持上一輪「不 checkout 它」的處置。復原座標 `0cc227b` / `8a35ddd`
+/ `5dd528a`。
