@@ -273,13 +273,255 @@ somatotropin`、`fish larvae|fingerlings|juveniles|were fed`、`in fish`、
 （如果你的 /loop 讀到這裡：這就是「指派給執行室的新指示」，執行即可。
 529 若再發生：等下一輪 loop 重試即可，斷點都在磁碟上，不會丟。）
 
+## 工具偵察室首批報告(2026-08-14,T1–T4)
+
+依房間章程:以下全部是**提案**,偵察室不動管線程式;採用與否由協調者／
+擁有者拍板,實作歸各自房間。判斷基準:不變量
+`priority-only-never-auto-include-or-exclude`(screening.py)、
+`human-review-never-auto-merge`(candidates.py)、fail-closed、決定性
+可重現、ADR-0007/0008/0009。
+
+調查侷限聲明:本輪經 WebSearch/WebFetch 完成;部分官方文件站被環境
+proxy 封鎖(readthedocs、gnu.org、cell.com、PMC 全文),受影響的事實
+均已改以 GitHub 原始碼、release API、論文手稿 repo 直接驗證,個別
+引文為二手來源比對,已於各項標註。
+
+### T1 ASReview——active-learning 排序核心的最小併入評估
+
+- **Repo**:<https://github.com/asreview/asreview>,Apache-2.0,最新
+  **v3.0.8(2026-06-18)**,活躍(~971 star,最近 push 2026-08-10)。
+  注意版本節奏:2025-05 v2.0、2026-03 v3.0,**兩年兩次 major**,預設
+  模型與 Python 模組路徑跨版全改。
+- **要哪些元件/依賴多重**:
+  - 查無 asreview-core 拆分(PyPI 404)。`pip install asreview` 會拖進
+    Flask 全家桶等 **~21 個直接依賴**(web UI 與排序核心同包),無法
+    只裝排序器。
+  - 但排序核心本體是 sklearn 薄包裝:classifiers 只是
+    LinearSVC/MultinomialNB/RF/LogReg 的別名;`max` querier 就是一行
+    `np.argsort(-p, kind="stable")`(決定性)。現行預設 **elas_u4** =
+    LinearSVC(squared_hinge, C=0.11) + TF-IDF(1–2gram, sublinear_tf)
+    + balanced(ratio 9.8);elas_u3 = MultinomialNB(alpha=3.822)+TF-IDF。
+    ML 實際只需 numpy/pandas/scikit-learn>=1.5。
+  - headless 可行(CLI `asreview simulate`、Python
+    `ActiveLearningCycle.fit/rank`),但仍需整包安裝。
+- **授權相容性**:Apache-2.0,無障礙。
+- **與 priority-only 不變量的接縫**:ASReview 設計本身即「只重排序、
+  不自動排除」,與不變量同構。建議接縫:AL 分數只作 screening.py 排序
+  鍵中 **lane/tier 之後的第三鍵**(於 standard-screening lane 內重排),
+  queue 成員、lane、tier、`requiresHumanScreening` 完全不動;每次
+  re-rank 的輸入(已標記集 hash)、模型超參、sklearn 版本落盤入 manifest。
+- **建議採用形式:借邏輯,不併依賴**。以 sklearn 直接重寫 elas_u4 組合
+  (估 30–60 行,新模組;超參數照抄並引註 ASReview models.py 出處)。
+  新增 runtime 依賴僅 scikit-learn(鎖版)。
+- **風險**:① AL 重排序「隨標籤增長而變」,與現行靜態 regex 佇列的
+  可重現語意不同——須以批次落盤+輸入 hash 管理;② sklearn 版本漂移
+  (鎖版);③ 冷啟動——先以 regex tier 當 prior,累積 ~50–100 筆標籤
+  再啟用;④ 官方單一 WSS@95 基準數字查無(v2 論文以 SYNERGY 26 資料集
+  loss 指標,較 v1 降 24.1%)。
+
+### T2 buscarpy——ADR-0008 參數凍結的建議程序
+
+- **Repo**:<https://github.com/mcallaghan/buscarpy>,MIT,PyPI
+  **v0.0.2(2023-10-12 起停更,11 commits)**——本體是休眠但小而完整的
+  參考實作。論文:Callaghan & Müller-Hansen 2020(*Systematic Reviews*
+  9:273)。
+- **基準對照**:destiny-evidence/stopping-methods(AGPL-3.0,活躍至
+  2026-07);論文 Repke et al. 2026(*Cochrane Evidence Synthesis and
+  Methods*,DOI 10.1002/cesm.70068,81 資料集 × 15 停止方法):
+  **BUSCAR 是唯一從未在達到 target recall 前停止的方法**(missed
+  0.00%),代價是平均 overshoot 26–36% ——保守方向與我們 fail-closed
+  一致。
+- **與自建實作的關係**:`statistical_termination.py` 的 scipy 實作方向
+  已獲基準印證。已知差異:buscarpy 對所有回溯視窗取 min p(較快停),
+  我們只檢最後 include 之後的單一尾窗(**更保守**)——刻意選擇,維持。
+- **參數凍結建議程序**(供 ADR-0008 收尾):
+  1. **凍結 α=0.05、targetRecall=0.95**(即現行 DEFAULT 值):與
+     Callaghan 2020 的評估設定一致(該設定實測未達標率 0.95%,低於
+     名目 5%);Repke 2026 證實此類設定從未提早停。文獻明言**無法給出
+     通用經驗法則**(Repke 原話:無法導出可重現的 rules-of-thumb),
+     故「文獻預設+本地重放驗證」即為正規程序,不存在更高權威。
+  2. **本地重放驗證(凍結前一次性)**:從 SYNERGY collection
+     (<https://github.com/asreview/synergy-dataset>)挑 3–5 個盛行率
+     相近(~1–5%)的生醫資料集,以**我們自己的 p_score** 重放
+     「排序+停止」,量測 (a) 實際 recall 是否全數 ≥0.95、(b) overshoot
+     分佈;程序設計可借 stopping-methods 的 loader/流程(AGPL-3.0:
+     內部模擬使用不觸發散佈義務,但**不把其程式碼併進 repo**)。
+  3. **bias 參數:凍結 bias=1(不用偏置甕)**。該擴充不在 2020 論文內,
+     且 stopping-methods 原始碼註明 `bias != 1 is not CMH and does not
+     work yet`;bias=1 的保守方向正確。
+  4. **重複檢定**:Callaghan 2020 自承未正式處理 sequential testing 的
+     α 膨脹(實務上被排序保守性淹沒)。建議:檢定只在固定批次檢查點跑
+     (如每 500 筆決策),p 軌跡全程落盤(ADR-0008 條件 5 已涵蓋);
+     升級路徑記 confidence sequences(Lewis, Gray & Noel 2023,ICAIL,
+     任意時刻有效)。
+  5. **buscarpy 本體用法:差分測試 oracle**。MIT,可入 dev/test 依賴,
+     以合成序列比對我們 p_score 與其 calculate_h0 的方向一致性
+     (預期:我們單窗 p ≥ 其 min-p,即恆更保守)。不進 runtime。
+- **建議採用形式:僅方法論+測試 oracle**;runtime 零新增依賴。
+- **風險**:檢定保守性的前提是「排序不比隨機差」;排序反預測時的
+  反保守風險文獻查無實證——尾端抽驗(ADR-0008 條件 4)正是對此前提的
+  持續檢驗,不可省。
+
+### T3 ASySD——去重「影子模式」交叉驗證方案
+
+- **Repo**:<https://github.com/camaradesuk/ASySD>,GPL-3.0,**純 R
+  套件**(查無官方 Python port、查無 CRAN,GitHub 安裝),v0.4.7,
+  小而活(最後 commit 2026-08-07)。論文:Hair et al. 2023(*BMC
+  Biology* 21:189):5 個生醫資料集 sensitivity 0.951–0.99、
+  specificity >0.999(對照 EndNote sensitivity 僅 0.743)。
+- **演算法**:RecordLinkage 4 輪 blocking + Jaro-Winkler 多欄位相似度;
+  ~20 條閾值規則自動合併;寬鬆匹配輸出 `manual_dedup`(待人工確認
+  配對+各欄相似度分數)。**它的 manual_dedup 佇列與我們
+  title-ambiguities 的 human-review-never-auto-merge 語意同構**。
+- **影子模式方案(提案,實作歸其他房間)**:
+  1. **匯出**:從 candidate-pool 的 members(合併前 per-source 紀錄)
+     產 CSV(record_id, author, year, doi, title, abstract…)。注意:
+     我們的 normaliser **沒存 journal/volume/pages**,ASySD 第 2–4 輪
+     blocking 會部分退化,只剩 title/author/abstract/doi 路徑——匯出器
+     要嘛補抓這三欄,要嘛接受靈敏度下降,需 PoC 實測。
+  2. **執行**:`Rscript` 子程序跑
+     `dedup_citations(citations, merge_citations=TRUE, user_input=1)`,
+     完全 headless,輸入輸出走檔案。
+  3. **比對**(自建小工具):ASySD 的 duplicate_id 群組 對照 我們的
+     exact-ID union-find components。差異兩類:(a) **ASySD 合併、我們
+     沒合** → 寫入 shadow-dedup 報告,升級為 title-ambiguity 式人審
+     項目——**ASySD 的「自動合併」在我們這裡一律降級為建議,絕不自動
+     合併**;(b) 我們合併、ASySD 沒合 → 對照 identifier-conflicts
+     人審。
+  4. **產物**:差異報告+雙方版本/參數 hash 入庫;一次性批次驗證
+     (池子重建時重跑),不進 runtime 管線。
+- **GPL-3.0 對「只當外部驗證工具」的影響:無傳染**。子程序+檔案 I/O
+  屬 GPL FAQ 的 arm's length 通訊(MereAggregation 段),不構成結合
+  著作;且**不散佈** ASySD 或含它的成品時,GPL 義務(由 conveying
+  觸發;非 AGPL)根本不觸發。(常規解讀,非法律意見。)
+- **替代品**:**BibDedupe**(MIT、Python,
+  <https://github.com/CoLRev-Environment/bib-dedupe>,JOSS 2024,設計
+  目標零誤合併)——若要省掉 R 環境,可作影子工具首選,ASySD 退為
+  第二意見。**選型(BibDedupe / ASySD / 兩者都跑)請協調者裁定**;
+  無論選誰都是「僅外部驗證」形式。
+- **風險**:R 是新的執行環境依賴(僅影子批次需要);欄位缺失致
+  blocking 退化(見上);ASySD 論文未直接 benchmark Covidence/Rayyan
+  (該比較出自 McKeown & Mir 2021,引用時勿張冠李戴)。
+
+### T4 GROBID + Docling——60 篇校準全文「取得→解析→帶位置引用」PoC
+
+- **Repos**:GROBID <https://github.com/kermitt2/grobid>(Apache-2.0,
+  **v0.9.1,2026-08-04**,~5.1k star;Docker `grobid/grobid:0.9.1-crf`
+  ~500MB、CPU 可跑,記憶體 4GB 級);Docling
+  <https://github.com/docling-project/docling>(MIT,**v2.119.0,
+  2026-08-10**,~64.7k star,LF AI & Data;CPU ~3.1 秒/頁)。
+- **最重要發現:多數 OA 生醫文獻根本不需解析 PDF**。Europe PMC
+  `GET /europepmc/webservices/rest/{PMCID}/fullTextXML` 直接回 JATS
+  結構化全文(sections+表格+參考文獻;OA 約 650 萬篇),而我們的
+  candidates.py normaliser **已存 pmcid**。限制:JATS 無頁面座標。
+- **帶位置引用採兩級制**(提案 schema 概念,每筆引用存:candidateId、
+  來源型別 jats-xml/grobid-tei/docling-json、解析器版本、原檔 hash、
+  quote、locator):
+  - **結構錨定**(JATS 路線):section path + 引句 + char offset——
+    「90 g/h 出自 Methods §2.3」。
+  - **頁面錨定**(PDF 路線):GROBID `teiCoordinates=p,s,head` 給
+    **句子級** `coords="頁,x,y,w,h"`;Docling DoclingDocument JSON 每
+    item 帶 prov(page_no+bbox+**charspan**)。「出自 p.4 方法段」。
+- **PoC 計畫(60 篇校準集,全文階段開跑時直接用)**:
+  1. **取得瀑布**:有 pmcid → Europe PMC fullTextXML;無 → Unpaywall
+     `api.unpaywall.org/v2/{doi}?email=` 取 best_oa_location 的 PDF;
+     再無 → 標記 no-oa-access 進人工佇列。**各層命中率本身就是 PoC 的
+     主要輸出**(決定全文階段的成本模型)。
+  2. **解析**:JATS 命中者零解析成本直接結構化;PDF 者以 GROBID crf
+     Docker 為主(teiCoordinates 開 p,s,head,figure);表格密集樣本
+     加跑 Docling 比對 TableFormer 輸出。
+  3. **驗收指標**:(a) 全文取得率 per 層;(b) 方法段定位成功率;
+     (c) 劑量值(g/h 等)在方法段被找到且帶 locator 的比率;
+     (d) GROBID vs Docling 表格抽取抽查——抽查降到「找數字」層次,
+     與 ADR-0009 擁有者抽查相容。
+  4. **產物與版權**:fulltext-acquisition manifest(hash 鏈)+
+     per-paper 解析產物 + locator 示例;PDF 與全文一律留在
+     `AHIG_PRIVATE_ROOT`,不入 git。
+- **相容性**:解析器只產 evidence artifact,不做任何判讀決定;判讀仍
+  走 ADR-0009(LLM 判讀+擁有者抽查)。授權 Apache-2.0/MIT 皆可直接
+  依賴。
+- **風險**:① Docling 對雙欄學術 PDF 的閱讀順序有多個已知 issue
+  (#1203、#2067 等);② GROBID full-text 本體結構化無官方量化分數
+  (header/citation 才有 F1 0.87–0.95);③ 兩者座標系不同(GROBID
+  左上 x,y,w,h;Docling l/t/r/b + origin 可變),混用需統一轉換層;
+  ④ Crossref TDM link 存在不保證可取——取得層以 Europe PMC +
+  Unpaywall 為主。
+
+### 採用形式總表(待協調者裁定)
+
+| 項 | 工具 | 授權 | 建議形式 | 新增 runtime 依賴 |
+|---|---|---|---|---|
+| T1 | ASReview v3.0.8 | Apache-2.0 | **借邏輯**:sklearn 重寫 elas_u4,引註出處 | scikit-learn(鎖版) |
+| T2 | buscarpy v0.0.2 | MIT | **僅方法論**+差分測試 oracle(dev 依賴) | 無(scipy 已有) |
+| T3 | ASySD v0.4.7 或 BibDedupe | GPL-3.0 / MIT | **僅外部驗證**:子程序影子批次,不併碼、不自動合併 | 無(工具獨立於管線) |
+| T4 | GROBID 0.9.1 + Docling v2.119 | Apache-2.0 / MIT | **照抄採用**(Docker 服務+pip),PoC 先行 | grobid-client-python、docling(全文階段才進) |
+
+### 給擁有者:完工時間影響評估與領域實務對照(回應 2026-08-14 提問)
+
+擁有者問兩件事:①之前的完工時間估太長,工具到底能縮多少?②這個
+領域的人整套是怎麼解決的?偵察室補查後回答如下(數字皆有來源,
+估算值明標為估算)。
+
+**①「387 人時」已經是死掉的數字。** 它的前提是「雙人全量人工盲篩
+15,425 篇」,這個前提被三個 ADR 連續拆掉:
+
+| 階段 | 決策 | 篩選牆估計 |
+|---|---|---|
+| 原契約 | 雙人全量盲篩 | 387 人時(≈39 週) |
+| ADR-0007 | 第二審改盲化 LLM | 200–240 人時 |
+| +ADR-0008 | 統計終止,尾端不用篩 | 100–160 人時 |
+| **+ADR-0009** | **主判讀也交 LLM,人只抽查** | **人力牆消失:API 成本+擁有者抽查時數** |
+
+ADR-0009 之後,擁有者的實際投入=每批抽查 1–2 小時(「找數字」層次)
+＋幾個決策點。以篩選階段抽查 10%、批量 300–500 篇計,**擁有者篩選段
+總投入粗估 15–40 小時**(偵察室估算,精確值等 W2/試點批實測吞吐後由
+協調者的工時模型重校,即待決策③)。本輪 T1(AL 排序)與 T2(統計
+終止參數凍結)就是把「需要 LLM 判讀的總量」再壓掉一大截的槓桿:
+基準顯示優先排序+統計停止可省 64–92% 的池子(見下),疊在 ADR-0009
+上省的是 API 成本與日曆時間。
+
+**②領域實務對照(2024–2026,附可引用數字)**:
+
+- **端到端極限**:otto-SR(2025 預印本,medRxiv)以 LLM agentic
+  workflow **2 天重做整期 Cochrane 12 篇回顧**(≈12 個工作年的傳統
+  工作量,146,276 筆引文);篩選 sensitivity 96.7% **優於人工雙審的
+  81.7%**、抽取正確率 93.1% vs 人工 79.7%。注意:預印本,方法學界
+  持保留(Nature 新聞 d41586-025-01942-y)。傳統基準:67.3 週
+  (Borah 2017)、1,139 人時(Allen & Olkin 1999)。
+- **篩選省時實測**:active learning 優先排序 WSS@95 實測省
+  63.9–91.7%(骨科實測 PMC10711015);2025 pragmatic review
+  (PMID 39959426,25 篇研究):17 篇省 >50% 時間,LLM 為單一
+  reviewer 省 33–93% 篩選工作量;LLM 篩選 sens/spec 各約 90%
+  (2025 meta-analysis)。
+- **抽取**:LLM 輔助抽取 91.0% 正確率 vs 純人工 89.0%(Claude 3.5
+  Sonnet 輔助流程);但**數值型資料是弱點(47–88%)**、錯誤以遺漏
+  為主——這正是我們 T4 的「帶位置引用」+擁有者抽查要補的洞。
+- **指引紅線(合規邊界)**:RAISE 建議+2025 Cochrane/Campbell/JBI/
+  CEE 四組織聯合聲明:**人類監督、問責、透明三原則;沒有任何主要
+  方法學組織背書全自動化**;Cochrane 快速回顧方法組(2025.11)明確
+  反對 AI 全自動化任何步驟,但正面看待「AI 第二審/品管」。
+- **平台怎麼拼**:商業一體化(Elicit 宣稱省 80%——廠商自評;
+  Covidence、DistillerSR、Laser AI)或開源拼裝(ASReview 篩選+
+  ASySD 去重+RobotReviewer RoB)。文獻查無「單人研究者官方推薦
+  toolchain」;我們的自建管線+T1–T4 提案實質上就是開源拼裝路線,
+  再加上別人沒有的 hash 鏈稽核。
+
+**結論**:我們的 ADR-0007/0008/0009 疊層已經站在「指引允許範圍內
+最快的組合」上——比 Cochrane 快速回顧方法組建議的「人單審+AI 第二
+審」更進一步(AI 主判讀+擁有者抽查),靠 ADR-0009 的誠實標示
+(`AI-graded evidence — no human expert review`)維持正當性;而
+otto-SR 證明日曆時間壓到「天」級在技術上已發生。剩餘瓶頸不是人力
+而是:排序品質(T1)、停止參數凍結(T2)、全文取得率(T4)——
+三者本輪都已給出具體提案。**擁有者層面的真實時間成本=抽查+決策,
+量級是「數十小時」,不是「數百小時」**;精確數字等試點批實測。
+
 ## 工作線
 
 | 工作線 | 分支 | Session | 狀態 |
 |---|---|---|---|
 | 協調・合併・S2 決策支援 | `claude/fail-open-bug-merge-kmifpb` | AHIG 協調中心（coordinator） | 進行中 |
 | prevalence audit LLM 判讀（ADR-0009） | `claude/prevalence-audit-llm-judgement` | 本機 session | ✅ 判讀＋estimate＋抽查 6/6 已合併；✅ W1 已合併（queue 重建裁定見下）；⏳ W2 S1/S2 補抽進行中 |
-| 工具偵察（T1 ASReview／T2 buscarpy／T3 ASySD／T4 GROBID+Docling） | 偵察室自建分支 | AHIG 工具偵察室（session_01G7Cno2AMPVsusc6rBtfM3P） | 開站，首批任務執行中 |
+| 工具偵察（T1 ASReview／T2 buscarpy／T3 ASySD／T4 GROBID+Docling） | `claude/tool-scouting-room` | AHIG 工具偵察室（session_01G7Cno2AMPVsusc6rBtfM3P） | ✅ 首批 T1–T4 報告＋完工時間影響評估已入看板（見「工具偵察室首批報告」），等協調者裁定採用形式與合併 |
 
 ### 協調者裁定：queue 重建時機（2026-08-14）
 
