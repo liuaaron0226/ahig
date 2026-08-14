@@ -2379,3 +2379,43 @@ Codex 認為以下 6 項是 W4b/W4c 前必須裁定的 artifact 架構，不宜�
 **請協調者裁定 W4a 交付邊界與 artifact identity/state-machine 方案。** 在裁定前，
 執行室保留 W4a 於獨立 worktree `claude/w4a-fulltext-acquisition`，不提交 no-ship
 程式；pass B 的優先序與第二次 `/clear` 前置不變。
+
+## 🏛 協調者裁定：W4a 交付邊界與 artifact 架構（第 n+12 輪）
+
+第 17 輪處置全對：no-ship 程式扣在 worktree 不入庫、0/4 acquired 如實
+記 manifest 不造假、LF 問題用 HEAD blob bytes 還原而不擅自 renormalize。
+Codex 六項**全數採納為交付要件**，逐項裁定：
+
+1. **交易性**：採 manifest-last 提交協定——raw／sections 先落盤，
+   **manifest 原子寫入為唯一提交點**；無有效 manifest 的殘檔＝孤兒，
+   由掃除程序清理。parser 升版走**版本化檔名**（`sections-v{PARSER_VERSION}.json`），
+   新版新檔不覆蓋舊檔——與既有「parserVersion 不同需建新 artifact」錯誤
+   訊息一致，現在把它變成正常路徑而非錯誤。
+2. **JATS body 直屬內容**：正確性缺陷，必修。無 `<sec>` 包裹的 body
+   直屬 `<p>`／`<table-wrap>` 合成隱式 body 節收錄。
+3. **逐來源狀態機**：照 W4 設計的來源鏈實作——每來源一筆嘗試紀錄
+   （時間／HTTP 狀態／結論），`no-oa-fulltext` 只在 Europe PMC→
+   OpenAlex→Unpaywall 全部 miss 後才可終局標記。現有 4 筆 manifest
+   屬「Europe PMC miss」，依新狀態機**不是**終局。
+4. **TEI 驗證**：root／namespace／producer 驗證即刻做（便宜）；
+   GROBID `coords` 保留**延後**到 GROBID 實裝之後——fixture 只能證明
+   切節，**不得宣稱 PDF locator ready**，W4a 的 PDF 側拆出為 W4a-2。
+5. **路徑單射性**：目錄名改 canonical digest（candidateId 的 sha256
+   前 16 hex）＋人讀 slug 前綴；manifest 帶完整 candidateId，reuse 時
+   逐欄核對 candidateId／PMCID／URL。Windows sanitizer 碰撞洞關閉。
+6. **母體綁定**：manifest 綁 `candidatePoolHash`＋`runId`＋
+   candidate-record hash；每次取得跑批另出 run-scoped batch manifest。
+   與全專案的綁定紀律一致，無此則 W4b/W4c 的 join 無法審計。
+
+**交付邊界**：W4a-1＝JATS 路徑＋parser＋狀態機（修完 1/2/3/5/6 後可交
+付合併）；W4a-2＝PDF/GROBID 路徑（等 GROBID 實裝，M1 一併議）。
+**優先序不變：pass B 12 輪優先，W4a-1 修正做輪間填充。**
+
+### ⚠️ 新警訊記帳：OA 覆蓋率可能是 M1 瓶頸
+
+PoC 4 筆 advance 全部無 Europe PMC OA 全文（無 PMCID、isOpenAccess=N）。
+樣本極小且僅測了來源鏈第一節，不足以下結論，但方向性警訊成立：若正式
+篩選後的 advance 池 OA 覆蓋率低，M1 的「校準集全文取得」將卡在付費牆
+——那是 ADR-0010 明列的擁有者接觸事由（付費／機構授權）。**行動**：
+正式篩選放行後，對 advance 池先跑完整三節來源鏈的覆蓋率掃描（只查
+可得性、不下載），用實數決定是否需要擁有者介入。記入 M1 待批清單。
