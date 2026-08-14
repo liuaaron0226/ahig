@@ -33,7 +33,8 @@
   draws.jsonl 留痕、來源不齊直接擋、強制 AHIG_PRIVATE_ROOT
 - ⚠️ 執行門檻：prevalence audit 要求 candidateSourcesComplete=True——
   跑之前要先把 pubmed/openalex 的 metadata search 跑完（normaliser 已就緒）
-- ⏳ 等人工：50 篇摘要判讀 + 12 篇誤剔抽查（sample → 回填 → estimate）
+- ✅ ~~等人工：50 篇摘要判讀 + 12 篇誤剔抽查~~ → 已由 LLM 判讀完成，
+  estimate 已產出（詳見下方「prevalence audit 22f634d2325d 判讀結果」）
 - ✅ 已拍板（ADR-0007/0008）：LLM 盲化第二審（影子批次先行）＋篩選統計終止（BUSCAR，尾端 not-screened 可抽驗）——篩選牆估計 387→100–160 小時
 - ⏳ 待決策：①「篩完才能抽」blocker 是否鬆綁（抽樣框升版，等 prevalence audit 數據）② S2 解法（A/B/C/D）③ `analysis/human_throughput.py` 以實測重校 ④ ADR-0007/0008 收尾：把統計終止證據接進 screening_decisions 的完成定義、真實影子批次執行（需真實資料）
 - ✅ prevalence audit 完美化升級：git 錨定抽樣證據（anchors.jsonl，commit+push 後竄改需改寫遠端歷史）、seed 預設從 queueHash 導出、二部圖聯合配額分配、outcomeConfirmed 必填＋多重抽樣 Bonferroni 校正
@@ -45,9 +46,97 @@
 - 分工註記：prevalence_audit 的實作歸協調 session；本機 session 請勿再改
   該檔，直接 `git pull` 取用
 
+## prevalence audit 22f634d2325d 判讀結果（2026-08-14，llm-judgement 工作線）
+
+依 ADR-0009 由 LLM 判讀 62 筆（`judgedBy.type=llm`，model.id
+`claude-opus-5[1m]`），estimate 已通過四道護欄：samplingLockHash、源頭重放
+（`sourceReplayVerified=true`）、git 錨定、回填完整性。抽樣區段零改動。
+estimate 落盤於 private 側 `prevalence-audit/22f634d2325d/estimate.json`
+（`ahig-private/` 已 gitignore，本檔只記數字不含文獻內容）。
+
+**⚠️ model.version 待補**：目前填 `no-dated-snapshot-exposed; judged
+2026-08-14`——執行 session 拿不到自己的帶日期快照 ID，不願編造以免污染
+ADR-0009 要求的留痕。協調者若有正式版本字串（例如 API response 取得），
+請回填並註記。
+
+### readabilityCounts（n=50，frameSize=9,365）
+
+| 判讀 | 筆數 | 比率 |
+|---|---|---|
+| exact-value | 3 | 6% |
+| intensity-only | 11 | 22% |
+| not-reported | 36 | 72% |
+
+`outcomeHintRejectedCount=3`、`drawsForSameFrame=1`、`alpha=0.05`
+（未觸發 Bonferroni）、`isCensus=false`。
+
+bandEstimates（strict／lenient 相同，除 unclear）：low 0、moderate 2、
+high 2、very-high 1；unclear 在 lenient 下 11 筆（率 0.22，
+CP [0.115, 0.360]，母體投影 [1079, 3368]）。
+
+### 各層 feasibility：七層全部 not-demonstrated
+
+| 層 | quota | outcomeGroupSampleCount | strict/lenient count | 判定 |
+|---|---|---|---|---|
+| S1-tt-moderate-dose | 12 | 2 | 0 / 0 | not-demonstrated |
+| S2-tt-high-and-very-high-dose | 10 | 2 | 0 / 0 | not-demonstrated |
+| S3-tte | 8 | 0 | 0 / 0 | not-demonstrated |
+| S4-exogenous-oxidation | 10 | 0 | 0 / 0 | not-demonstrated |
+| S5-gi-harms-primary | 8 | 0 | 0 / 0 | not-demonstrated |
+| S6-gi-harms-secondary-only | 7 | 0 | 0 / 0 | not-demonstrated |
+| S7-glycogen | 5 | 0 | 0 / 0 | not-demonstrated |
+
+七層 `insufficientAuditData` 全為 true；`jointSampleAllocation` 的
+strict 與 lenient 皆為空 `{}`。**這不是「配額填不滿」的證據，是「這次抽樣
+答不了這個問題」**（見 estimate 的 `powerCaveat`）。要判定 S1–S7 可行性
+須以 `sample --outcome` 逐層補抽。
+
+### exclusionAudit：12 筆全部 justified
+
+`unjustifiedCount=0`、`falseExclusionRateUpperBound=0.2209`、
+`projectedLostUpperBound=1339`（excludedPoolSize 6,060）。12 筆只能證明
+誤剔率 <~22%，屬煙霧測試；要證明 <10% 需約 30 筆（零誤剔時）。
+
+### regexAudit：missed 14 筆、falsePositive 0 筆
+
+```
+0019b8c7e15d229892629eca  0867c72f48838e2edcb0e458  30ed6fc2196462437c5357f9
+3d306f98d367f7c1faa3bc63  4097db1ce2cd254a3311744f  67531b958af6d0d82747e23d
+67cc273066da3d18256afb88  7acca877b500eca81d5a12ea  87b57db71e596abfc3596e04
+971765eb98923908aac88ddd  ad887b3546905958e435e941  bd3648d5aa28ee3466f57bc9
+d3726d903d780c8068eb19c8  f52a5d7cb8920eafe024efcc
+```
+（均為 `ahig:candidate:publication:` 前綴）
+
+### 三個發現（給協調者的決策輸入）
+
+1. **這批抽樣對 strata 決策幾乎沒有資訊量**。50 筆中 outcome 命中僅 4 筆，
+   扣掉誤報剩 2 筆，且無一筆同時滿足 outcome ＋ band，故聯合分配為空。
+   對「①『篩完才能抽』blocker 是否鬆綁」這項待決策，本次數據**不足以支撐
+   任一方向**；建議先跑 outcome 補抽再議。
+2. **主池雜訊比預期高**。50 筆含魚類轉錄體、海洋藍綠菌、氯離子感測貼片、
+   造血幹細胞等明顯無關文獻。若此比例可代表 9,365 篇抽樣框，篩選工時模型
+   （待決策③ `human_throughput.py` 重校）應把「一眼可排除」單列一類，
+   不宜以單一每篇工時外推。另：第 35 筆草魚轉錄體研究落在
+   `standard-screening`，動物訊號 regex 未攔截（誤剔抽查那 12 筆的動物判定
+   則全部正確）——動物 regex 有 false negative，方向與誤剔風險相反。
+3. **regexAudit 的 missed=14 會高估選項 D 的回收上限**。該指標定義為
+   「判讀非 not-reported 即算應抓到」，故 11 筆 intensity-only 也計入。
+   真正可靠 regex 回收的只有三種樣式：`50 g h(-1)` 括號寫法、
+   `2.6 gram/min` 全稱、以及「濃度 × 飲用量 × 頻率」需換算者（該篇換算得
+   72.6 g/h）。其餘 11 筆是 g/kg、%、每日總量，**擴充 regex 救不回來，
+   需全文而非摘要**。故待決策② S2 解法評估選項 D 時，實測上限應以 ~3/50
+   （6%）而非 14/50（28%）計。
+
+### 擁有者抽查（ADR-0009 第 4 條）
+
+62 筆按 candidateId 排序取第 1、11、21、31、41、51 筆，已附摘要關鍵句中文
+翻譯＋判讀理由交擁有者核對，結果待回報。
+
 ## 工作線
 
 | 工作線 | 分支 | Session | 狀態 |
 |---|---|---|---|
 | 協調・合併・S2 決策支援 | `claude/fail-open-bug-merge-kmifpb` | AHIG 協調中心（coordinator） | 進行中 |
+| prevalence audit LLM 判讀（ADR-0009） | `claude/prevalence-audit-llm-judgement` | 本機 session | 判讀＋estimate 完成，待協調者合併；擁有者抽查 6 筆結果待回報 |
 | （新工作線由協調者或開線 session 在此登記） | | | |
