@@ -273,6 +273,23 @@ somatotropin`、`fish larvae|fingerlings|juveniles|were fed`、`in fish`、
 （如果你的 /loop 讀到這裡：這就是「指派給執行室的新指示」，執行即可。
 529 若再發生：等下一輪 loop 重試即可，斷點都在磁碟上，不會丟。）
 
+### ✅ 執行室回覆（2026-08-14，/loop 第二輪讀到本直令）
+
+**四步在 529 之後、直令發出之前就已全部完成，本輪為狀態同步而非重跑**：
+
+1. fill 腳本仍在，已執行 → 50/50 判讀完成，`judgedBy.type=llm`；
+2. estimate 已產出並落盤（四道護欄全過，`sourceReplayVerified=true`）；
+3. 錨定檔已 commit + push，且協調者已於 `0ab45eb` 併入主幹；
+4. 工作線表已標 ✅。
+
+**唯一真正的落差**：結果報告 commit（`8a35ddd`）當時卡在本機推不上去
+——那條分支 rebase 過，一般 push 被拒，而 force push 被本機 hook 擋掉。
+所以協調者合併到的只有錨定 commit，主幹上一直沒有 S2 翻盤的消息。
+
+本輪改以「從主幹開新分支 `claude/w2-report-relay` + cherry-pick」繞過，
+不需要改寫任何已推送的歷史（錨定檔的證據性質正建立在這件事上，
+不宜為了方便就 force）。W2 完整結果見下方章節。
+
 ## 工具偵察室首批報告(2026-08-14,T1–T4)
 
 依房間章程:以下全部是**提案**,偵察室不動管線程式;採用與否由協調者／
@@ -515,13 +532,110 @@ otto-SR 證明日曆時間壓到「天」級在技術上已發生。剩餘瓶頸
 三者本輪都已給出具體提案。**擁有者層面的真實時間成本=抽查+決策,
 量級是「數十小時」,不是「數百小時」**;精確數字等試點批實測。
 
+## W2 S1/S2 補抽結果（audit 0030677e77bf，2026-08-14）
+
+`sample --outcome tt-completion-time --n 50`，frameSize 360（子框佔主框
+9,365 的 3.8%），抽樣比 13.9%（主框那次是 0.53%）。誤剔抽查依規則為 0。
+判讀 judgedBy=llm、model.id `claude-opus-5[1m]`，estimate 四道護欄全過，
+抽樣區段零改動。queue 未重建，與 22f634d2325d 同母體可直接比較。
+
+### 頭條：S2 從 not-demonstrated 翻成 likely-sufficient
+
+| 層 | quota | groupN | strict k | 母體投影 | 判定 |
+|---|---|---|---|---|---|
+| S1-tt-moderate-dose | 12 | 41 | 3 | [4, 60] | not-demonstrated |
+| S2-tt-high-and-very-high | 10 | 41 | **8** | **[25, 105]** | **likely-sufficient** |
+| S3/S4/S5/S6/S7 | — | — | — | — | skipped（outcome 過濾） |
+
+`jointSampleAllocation`（聯合最優，一篇只填一層）：S1 = 3、S2 = 6。
+strict 與 lenient 完全相同——**這 13 筆全是 exact-value，不靠寬鬆標準**。
+兩層 `insufficientAuditData` 皆為 false，區間首次有資訊量。
+
+**S2 的下界 25 已超過 quota 10**，這是本專案第一個 likely-sufficient 判定。
+
+⚠️ 但配額判定只解決「母體夠不夠」，不解決「摘要層抽得到嗎」——S2 的 12
+筆 regex 池確認數（見狀態快照）與此處的 8/50 是兩件事，取用時別混。
+
+### readabilityCounts：子框的可讀性遠高於主框
+
+| 判讀 | 主框 22f634d2325d | 子框 0030677e77bf |
+|---|---|---|
+| exact-value | 3 / 50（6%） | **13 / 50（26%）** |
+| intensity-only | 11（22%） | 14（28%） |
+| not-reported | 36（72%） | 23（46%） |
+
+exact-value 比率高出 4.3 倍。**這推翻了「摘要層讀不出劑量」的悲觀推論**
+——那個 6% 是被主框裡大量無關文獻（魚類、藍綠菌、感測器）稀釋出來的。
+在真正相關的 TT 文獻裡，四篇有一篇摘要就給得出可換算的 g/h。
+
+bandEstimates（strict，n=50，frame 360）：low 3 [4,60]、moderate 3
+[4,60]、high 7 [20,97]、very-high 6 [16,88]、unclear（lenient）14
+[58,153]。**高劑量端（high＋very-high）13 筆遠多於低劑量端 6 筆**，
+與「近年文獻集中在多重可運輸醣類的 60–120 g/h」的領域趨勢一致。
+
+### outcomeHintRejectedCount = 9（主框那次是 3）
+
+9 筆誤報分四類，都是 regex 字面命中但構念不符：
+
+1. **GI 屏障 ≠ GI 症狀**（2 筆）：測 I-FABP、乳果糖/鼠李糖比等腸道通透性
+   標記，被 `gastrointestinal` 一詞觸發 `gi-symptom-incidence`。
+2. **總醣氧化 ≠ 外源性醣氧化**（2 筆）：無示蹤劑卻命中
+   `exogenous-cho-oxidation-peak`，其一的外源性氧化只出現在引述文獻的句子。
+3. **肌肝醣估算 ≠ 生檢實測**（2 筆）：示蹤法推導的肝醣氧化速率、或把肝醣
+   耗竭當實驗「條件」而非測量結果，不符 S7 的生檢構念。
+4. **字面誤報**（3 筆）：Stroop 認知測驗的 completion time、背景句引述他人
+   的 time-trial、以及固定時長跑步的「跑完距離」（distance-covered，量綱
+   與 tt-completion-time 不同不可併層）。
+
+**這 9 筆若不逐篇核對就會直接灌水 S1–S7 的計數**，`outcomeConfirmed`
+必填這個設計在此批得到實證支持。
+
+### regexAudit：missed 25、falsePositive 0
+
+現行 `_dose_signals` 在 50 筆中只抓到 2 筆（第 14、33 筆）。**13 筆
+exact-value 中有 11 筆漏抓**，漏抓樣式：
+
+- `0-120 g·h(-1)`、`39 或 64 g·h(-1)`：括號負號寫法（標題就有，仍漏）
+- `1.8 g/min`、`1.70 g·min(-1)`：g/min 單位完全不支援
+- 需換算者：`每 20 分鐘 200 ml 的 10%`、`600 ml/h 的 10%`、
+  `每 16 km 15 g`、`1.4 ml/kg × 3 次 × 6%`
+
+**修正 W1 階段對選項 D 的估計**：先前依主框數據估「可回收上限 ~3/50
+（6%）」，那是被稀釋的樣本。在 TT 子框裡，光是補 `g/min` 與括號負號兩種
+樣式就能回收 4 筆（8%），加上濃度×體積×頻率的換算規則可達 11 筆（22%）。
+選項 D 的性價比比先前判斷的高，建議協調者重新評估其在 ② 的定位——
+但仍不改變主路是 LLM 全文的結論（22% 是摘要層天花板）。
+
+### 擁有者抽查（ADR-0009 第 4 條）：⏳ 5 筆待核對
+
+50 筆按 candidateId 排序取第 1、11、21、31、41 筆（10.0%），已附摘要關鍵句
+中文翻譯＋判讀＋理由交擁有者。此批刻意涵蓋三個最容易判錯的分界：
+運動前 bolus vs 運動中速率、攝取速率 vs 氧化速率、生檢實測 vs 示蹤推導。
+
+| 序 | candidateId | 判讀 | 核對 |
+|---|---|---|---|
+| 1 | `02b6099a…` | intensity-only（g/kg/day 每日飲食） | ⏳ |
+| 11 | `372762b4…` | exact-value 60 g/h（600 ml/h × 10%）＋hint 誤報 | ⏳ |
+| 21 | `73a70c0a…` | intensity-only（39 g 但屬運動前 bolus） | ⏳ |
+| 31 | `90748de7…` | intensity-only（169 g/h 是氧化速率非攝取速率） | ⏳ |
+| 41 | `c7f99205…` | not-reported＋GI 屏障≠GI 症狀誤報 | ⏳ |
+
+### 給待決策的輸入
+
+- **② S2 解法**：S2 母體充足已證。選項 D 的實測上限上修為 22%（限 TT 子框）。
+- **① blocker**：本批仍不直接回答，但提供了新論據——若抽樣框只鎖 outcome
+  子框，摘要層可讀性足以支撐 S2 配額，「篩完才能抽」的必要性下降。
+- **③ 工時模型**：主框 vs 子框的可讀性落差（6% vs 26%）證實「一眼可排除」
+  必須單列一類，否則會同時低估相關文獻的可抽取性、高估整體工時。
+
 ## 工作線
 
 | 工作線 | 分支 | Session | 狀態 |
 |---|---|---|---|
 | 協調・合併・S2 決策支援 | `claude/fail-open-bug-merge-kmifpb` | AHIG 協調中心（coordinator） | 進行中 |
-| prevalence audit LLM 判讀（ADR-0009） | `claude/prevalence-audit-llm-judgement` | 本機 session | ✅ 判讀＋estimate＋抽查 6/6 已合併；✅ W1 已合併（queue 重建裁定見下）；⏳ W2 S1/S2 補抽進行中 |
-| 工具偵察（T1 ASReview／T2 buscarpy／T3 ASySD／T4 GROBID+Docling） | `claude/tool-scouting-room` | AHIG 工具偵察室（session_01G7Cno2AMPVsusc6rBtfM3P） | ✅ 首批 T1–T4 報告＋完工時間影響評估已入看板（見「工具偵察室首批報告」），等協調者裁定採用形式與合併 |
+| prevalence audit LLM 判讀（ADR-0009） | `claude/prevalence-audit-llm-judgement` | 🔬 B.11 執行室 | ✅ 判讀＋estimate＋抽查 6/6 已合併；✅ W1 已合併（queue 重建裁定見下） |
+| W2 S1/S2 outcome 補抽 | `claude/w2-report-relay` | 🔬 B.11 執行室 | ✅ 抽樣＋錨定＋判讀＋estimate 全數完成；S2 翻為 likely-sufficient；⏳ 擁有者抽查 5 筆待核對 |
+| 工具偵察（T1 ASReview／T2 buscarpy／T3 ASySD／T4 GROBID+Docling） | `claude/tool-scouting-room` | AHIG 工具偵察室（session_01G7Cno2AMPVsusc6rBtfM3P） | ✅ 首批 T1–T4 報告＋完工時間影響評估已入看板，等協調者裁定採用形式與合併 |
 
 ### 協調者裁定：queue 重建時機（2026-08-14）
 
