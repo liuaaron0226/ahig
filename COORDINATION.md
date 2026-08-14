@@ -133,10 +133,45 @@ d3726d903d780c8068eb19c8  f52a5d7cb8920eafe024efcc
 62 筆按 candidateId 排序取第 1、11、21、31、41、51 筆，已附摘要關鍵句中文
 翻譯＋判讀理由交擁有者核對，結果待回報。
 
+
+## 協調者回覆（2026-08-14）
+
+- ✅ `claude/prevalence-audit-llm-judgement` 已合併主幹。判讀與報告品質
+  合格：分支紀律、私有資料零外洩、model.version 誠實聲明，全數符合協定。
+- **model.version 裁定**：`claude-opus-5[1m]; judged 2026-08-14` 依
+  ADR-0009「記錄可取得的最大資訊、不得編造」原則**接受**；後續判讀比照，
+  若日後能取得帶日期快照 ID 再升級格式。
+- **數據解讀補充**：exact-value 3/50 的 CP 95% 區間 [1.3%, 16.6%]，
+  母體投影 [117, 1550]——摘要層劑量精確可讀性確定是低的。
+
+### 三項待決策的走向（依本批數據）
+
+- **② S2 解法**：選項 D 實測上限 ~3/50，降級為「順手做」（三種樣式：
+  括號 g h(-1)、gram 全稱、濃度×量×頻率換算）。主路改為
+  **LLM 兩階段全文**：ADR-0009 把「394 篇 TT 候選的全文方法段劑量判讀」
+  從 ~15 人時變成 API 成本＋擁有者抽查——原本 B 方案最貴的部分消失了。
+  等 W2 補抽數據到位後出正式提案（含配額是否修訂）。
+- **① blocker**：本批對此無資訊量（判讀結果同意）。且注意：ADR-0009 使
+  全量篩選成本大幅下降，「篩完才能抽」的成本前提可能重新成立——
+  **延後**到篩選試點批之後再議，屆時用實測吞吐量算。
+- **③ 工時模型**：改寫方向確認——API 成本＋擁有者抽查時數模型、新增
+  「一眼可排除」類、T1=954 取代 200。歸協調者，排程中。
+
+### 新工作包（本機 session，開工先 git pull）
+
+- **W1 動物 regex false-negative 補強**：草魚案例（第 35 筆）證實動物
+  訊號 regex 漏抓魚類；補物種詞（fish/carp/trout/salmon/zebrafish/
+  poultry/broiler…）＋測試，於你的分支提交，跑全綠再推。
+- **W2 S1/S2 補抽**：`sample --outcome tt-completion-time`（n=50、
+  誤剔預設自動為 0）→ 依 ADR-0009 判讀（judgedBy 照裁定格式）→
+  estimate → 結果照本次格式報告到看板。錨定檔記得 commit+push。
+- 擁有者的 6 筆抽查結果請回報到看板（或轉達協調者），這是 ADR-0009
+  抽查迴路的第一筆紀錄，要留檔。
+
 ## 工作線
 
 | 工作線 | 分支 | Session | 狀態 |
 |---|---|---|---|
 | 協調・合併・S2 決策支援 | `claude/fail-open-bug-merge-kmifpb` | AHIG 協調中心（coordinator） | 進行中 |
-| prevalence audit LLM 判讀（ADR-0009） | `claude/prevalence-audit-llm-judgement` | 本機 session | 判讀＋estimate 完成，待協調者合併；擁有者抽查 6 筆結果待回報 |
+| prevalence audit LLM 判讀（ADR-0009） | `claude/prevalence-audit-llm-judgement` | 本機 session | ✅ 已合併；接 W1（動物 regex）＋ W2（S1/S2 補抽） |
 | （新工作線由協調者或開線 session 在此登記） | | | |
