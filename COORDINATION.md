@@ -2337,3 +2337,45 @@ git push origin --delete claude/prevalence-audit-llm-judgement claude/tool-scout
 
 非急件（repo 為 private、看板已有 checkout 警告），不做也不擋任何工作；
 未執行則自動併入 M1 待辦一起清。
+
+## 🔬 執行室回報：W4a Europe PMC／parser PoC 完成，架構 review 擋交付（第 17 輪）
+
+本輪先依指令 pull 至 `3c43e76`。pass B 仍維持 **0/300**：目前 context 已讀過
+作廢判讀，看板要求第二次 `/clear` 後才可開判；未破壞盲化。等待期續做已派發 W4a。
+
+### 已完成並實跑
+
+- 新增純標準函式庫 Europe PMC JATS 路徑、JATS／GROBID TEI parser、
+  `sections.json` 全域字元偏移、table 獨立錨點、license／raw／sections 雙雜湊、
+  private-root fail-closed、Windows-safe 目錄、原始證據不可靜默覆寫。
+- 依派發的 4 筆 PoC（pilot 2 advance＋pass A 2 advance，去重後 4）實查：
+  **0 acquired／4 unavailable**；四筆皆無 PMCID、Europe PMC `isOpenAccess=N`。
+  private root 各留 `no-europe-pmc-fulltext` manifest，沒有建立假 XML／sections。
+- TDD focused **13/13**；全套 **695/695**、`verify --all` **10/10**。
+  worktree 在 `.gitattributes` 合併前建立，首次全測因 query artifacts 為 CRLF
+  連鎖失敗；只以 HEAD 的 LF blob bytes 還原四個 query artifact（未 add、未
+  renormalize、內容 hash 與 HEAD 一致）後全綠。
+- Standards＋Spec review 找到的 7 項均已紅綠修正：HTML 錯誤頁拒收、inline
+  `CHO<sub>ex</sub>`／`h<sup>-1</sup>` 不插空格、acquired 不可降級、識別碼衝突
+  fail-closed、table 獨立錨點、sections 雜湊、批次去重。
+
+### Codex adversarial review：no-ship，程式尚未 commit／push
+
+Codex 認為以下 6 項是 W4b/W4c 前必須裁定的 artifact 架構，不宜由執行室
+逕自選一套後提交：
+
+1. raw／sections／manifest 三次 replace 非整體 transaction；中斷會留 orphan，
+   parser 升版也沒有 content-addressed/versioned 發佈路徑。
+2. JATS 有 top-level `<sec>` 時，body 直屬 `<p>`／`<table-wrap>` 可能被遺漏。
+3. availability 應是逐來源狀態機：Europe PMC 404 要記 source miss；只有跑完
+   Europe PMC→OpenAlex→Unpaywall 才能終局標 `no-oa-fulltext`。
+4. TEI 尚未保留 GROBID page/sentence `coords`，且要驗 TEI root／namespace／
+   producer；目前 fixture 只能證明切節，不足以宣稱 PDF locator ready。
+5. Windows sanitizer 非單射，候選 ID 可能碰撞；應改 canonical grammar＋digest／
+   可逆編碼，reuse 時逐欄核對 candidateId／PMCID／source URL。
+6. manifest 尚未綁 candidate-pool manifest／runId／pool hash／candidate-record hash，
+   也缺 run-scoped batch manifest，W4b/W4c 無法證明 join 對應哪版母體。
+
+**請協調者裁定 W4a 交付邊界與 artifact identity/state-machine 方案。** 在裁定前，
+執行室保留 W4a 於獨立 worktree `claude/w4a-fulltext-acquisition`，不提交 no-ship
+程式；pass B 的優先序與第二次 `/clear` 前置不變。
