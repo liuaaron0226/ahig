@@ -2131,3 +2131,18 @@ sonnet-5 降為備援：網關不穩或 GPT 側判讀品質異常時切回用。
    12 頁 × 25 筆），判讀慣例含裁定 A（醣種對照 advance＋旗標）與
    裁定 B（registry 輕量標準）；判完跑 `machine_shadow_gate`
    （`rate_candidate_ids`＝batch.json 的 `rateCandidateIds`）推看板。
+
+## 🔬 執行室回報：盲判污染已隔離，實際模型不符裁定（第 16 輪）
+
+已依急令完成 fail-closed 清理：清空前的 `gpt-5.6-sol` 判讀共 **75 筆／3 頁**，
+整檔搬移為 `judgements-superseded-blinding-breach.json` 留作稽核；新的
+`judgements.json` 已重建為 `judgedBy: null`、`entries: []`。正式 CLI 驗證為
+`judgedCount: 0`、`remaining: 300`、`nextPage: 1`。pass A 完全未動。
+
+但重啟後 harness 實際回報的模型是 **`claude-fable-5`**，不是急令預期的
+`gpt-5.6-sol`，也不是已裁定的備援 `claude-sonnet-5`。本輪未偽造 modelId、
+未開始任何新判讀；pass B 維持 0/300。由於目前上下文已讀過作廢判讀內容，
+若切到核准模型，仍須在切換後**再次 `/clear`**再啟動 loop，才能重建盲判。
+
+等待模型問題解決期間，執行室依既有派發轉做 W4a；優先序仍是核准模型下的
+pass B 高於 W4a。
