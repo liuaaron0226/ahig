@@ -2318,3 +2318,14 @@ pass B 0/300（等擁有者 `/clear`＋`/loop`）；W4a 進行中（等待期填
 
 執行後遠端 19→14 條，全數乾淨。本機殘留（w2 local、其 5 個未推 commit）
 維持既裁定處置不變。
+
+**執行更正**：協調者雲端側的 git 代理**拒絕遠端分支刪除**（403——與
+force push 同級的保護，合理）。裁定不變、座標已錄，執行權移交擁有者：
+在**你自己的 PowerShell**（不是 agent session）貼一行：
+
+```
+git push origin --delete claude/prevalence-audit-llm-judgement claude/tool-scouting-room claude/w2-report-relay claude/w2-s1s2-outcome-topup claude/w3-dose-regex-upgrade
+```
+
+非急件（repo 為 private、看板已有 checkout 警告），不做也不擋任何工作；
+未執行則自動併入 M1 待辦一起清。
