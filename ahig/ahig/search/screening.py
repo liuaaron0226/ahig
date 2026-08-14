@@ -21,7 +21,14 @@ from typing import Any
 from ahig.contracts.freeze import content_hash
 from ahig.state import atomic_write_json
 
-RULE_VERSION = "b11-screening/1.2.0"
+# 1.4.0：動物訊號詞表補強（W1）。舊詞表只涵蓋哺乳實驗動物，實測漏抓魚類、
+#         家禽與乳牛研究。
+# 1.5.0：劑量 regex 升級（W3）。新增 g/min、括號負號與 HTML 上標、
+#         濃度×體積×頻率換算、共用單位列舉；並排除代謝速率誤收。
+# **升版不等於現行 queue 已重建**——重建會改動 screeningQueueHash，使
+# audit 22f634d2325d／0030677e77bf 的源頭重放護欄失效。W5 才重建，
+# 屆時 1.4.0＋1.5.0 一起生效（見 COORDINATION.md 的協調者裁定）。
+RULE_VERSION = "b11-screening/1.5.0"
 
 # 每個 pattern 都只是提示訊號，絕不是資格判定。
 CONCEPTS: dict[str, tuple[str, tuple[str, ...]]] = {
@@ -95,27 +102,170 @@ def _matches(text: str, patterns: tuple[str, ...]) -> bool:
     return any(re.search(pattern, text, flags=re.I) for pattern in patterns)
 
 
+DOSE_MIN_G_PER_H = 10.0
+DOSE_MAX_G_PER_H = 200.0
+
+# 速率語彙出現在數值前方時代表「身體燒掉多少」而非「嘴巴吃進多少」。
+# W2 補抽第 31 筆的實測陷阱：摘要的 169 g.h-1 是總醣氧化速率，
+# 誤收會直接把該篇灌進 high band。
+#
+# 但同一句同時出現氧化與攝取是常態（「oxidation was measured while
+# cyclists ingested 60 g/h」），所以攝取動詞優先：只有在數值前方既有
+# 代謝語彙、又沒有攝取動詞介入時才判為代謝速率。
+_OXIDATION_CONTEXT = re.compile(
+    r"(?:oxidation|oxidised|oxidized|turnover|appearance|disappearance|"
+    r"clearance|expenditure)"
+    r"(?:(?!ingest|consum|drank|drink|fed|feeding|intake|supplement|"
+    r"provid|administer)[^.;])*$", flags=re.I)
+
+# 每小時飲液量：600 ml/h、1 l·h-1。
+_VOLUME_PER_H = (r"(\d{1,4}(?:\.\d+)?)\s*(ml|millilitres?|milliliters?|l|"
+                 r"litres?|liters?)\s*(?:/\s*h|[·. ]?h\s*[-^]?\s*1|"
+                 r"per\s+hour|/\s*hour)")
+# 定量定頻：200 ml … every 20 min（順序兩種寫法都有）。
+# 摘要慣寫 mean ± SD（「227 +/- 3 ml」），此時帶單位的是誤差項而非量值，
+# 故允許數值與單位之間夾一段 ± 誤差，並以第一個數字為量值。
+_VOLUME_EVERY = (r"(\d{1,4}(?:\.\d+)?)\s*(?:(?:\+/-|±)\s*\d+(?:\.\d+)?\s*)?"
+                 r"(ml|millilitres?|milliliters?|l|litres?|liters?)\b")
+# 定頻的兩種寫法：every 20 min／at 15-min intervals。
+_EVERY_MIN = (r"(?:every\s+(?P<every>\d{1,3})\s*(?:min|minutes?)\b"
+              r"|(?P<interval>\d{1,3})\s*-?\s*min(?:ute)?\s+intervals?\b)")
+_PERCENT = r"(\d{1,2}(?:\.\d+)?)\s*%"
+
+
+def _band_for(value: float) -> str:
+    if value < 30:
+        return "low"
+    if value < 60:
+        return "moderate"
+    if value < 90:
+        return "high"
+    return "very-high"
+
+
+def _oxidation_context(text: str, start: int) -> bool:
+    """數值是否落在代謝速率語境（而非攝取速率）。
+
+    只看同一子句：從最近的句讀切起，避免跨句誤判。
+    """
+    head = re.split(r"[.;]", text[:start])[-1]
+    return bool(_OXIDATION_CONTEXT.search(head))
+
+
 def _dose_signals(text: str) -> list[dict]:
-    # 支援 90 g/h、90 g h-1、90 g·h−1；只作 band hint，不作 extraction。
-    pattern = re.compile(
-        r"(?<!\d)(\d{1,3}(?:\.\d+)?)\s*g\s*(?:/\s*h|[·. ]?h\s*[-^]?\s*1)\b",
-        flags=re.I)
+    """摘要層劑量速率的 band hint——只作提示，不作 extraction。
+
+    W3 起支援三種在真實文獻裡常見、舊版全數漏抓的樣式（樣式清單來自
+    prevalence audit 0030677e77bf 的 regexAudit：13 筆 exact-value 中
+    有 11 筆漏抓）：
+
+    1. ``g/min`` 單位——多重可運輸醣類文獻的慣用寫法，乘 60 換算；
+    2. ``g·h(-1)`` 括號負號——有兩篇連標題都寫著劑量仍漏抓；
+    3. 濃度 × 體積 × 頻率——摘要常只寫「每 20 分鐘喝 200 ml 的 10%」。
+
+    刻意不收的（維持 W2 判讀慣例，寧可漏抓也不污染 band）：每日總量
+    （g/day）、體重標準化劑量（g/kg，缺體重無從換算）、單獨出現的濃度
+    或體積、以及氧化／週轉速率（是代謝輸出不是攝取輸入）。
+    """
     result = []
-    for match in pattern.finditer(text):
-        value = float(match.group(1))
-        if value < 10 or value > 200:
+
+    def add(value: float, unit: str, surface: str, per_hour: float) -> None:
+        if not DOSE_MIN_G_PER_H <= per_hour <= DOSE_MAX_G_PER_H:
+            return
+        result.append({"value": value, "unit": unit,
+                       "bandHint": _band_for(per_hour), "surface": surface})
+
+    # 樣式 1：g/h 直述（含 g·h(-1)、g h-1、g/h、g·h<sup>-1</sup>）。
+    # `g` 也接受 gram/grams 全稱（1992 年那篇綜述就寫 gram/min）。
+    # (?!\s*kg) 擋掉 g·kg-1·h-1 這種體重標準化速率。
+    per_h = re.compile(
+        r"(?<![\d.])(\d{1,3}(?:\.\d+)?)\s*g(?:ram)?s?\s*"
+        r"(?!\s*(?:/\s*kg|[·.]\s*kg|kg))"
+        r"(?:/\s*h|\s*[·.]?\s*h\s*(?:<sup>\s*[-−]\s*1\s*</sup>|"
+        r"\(\s*[-−]\s*1\s*\)|[-−^]\s*1)|\s*per\s+hour)(?![a-z])",
+        flags=re.I)
+    for m in per_h.finditer(text):
+        if _oxidation_context(text, m.start()):
             continue
-        if value < 30:
-            band = "low"
-        elif value < 60:
-            band = "moderate"
-        elif value < 90:
-            band = "high"
-        else:
-            band = "very-high"
-        result.append({"value": value, "unit": "g/h", "bandHint": band,
-                       "surface": match.group(0)})
-    unique = {(s["value"], s["surface"]): s for s in result}
+        value = float(m.group(1))
+        add(value, "g/h", m.group(0), value)
+
+    # 樣式 2：g/min（乘 60）。
+    per_min = re.compile(
+        r"(?<![\d.])(\d{1,2}(?:\.\d+)?)\s*g(?:ram)?s?\s*"
+        r"(?!\s*(?:/\s*kg|[·.]\s*kg|kg))"
+        r"(?:/\s*min|\s*[·.]?\s*min\s*(?:<sup>\s*[-−]\s*1\s*</sup>|"
+        r"\(\s*[-−]\s*1\s*\)|[-−^]\s*1)|\s*per\s+min(?:ute)?)(?![a-z])",
+        flags=re.I)
+    for m in per_min.finditer(text):
+        if _oxidation_context(text, m.start()):
+            continue
+        value = float(m.group(1))
+        add(value, "g/min", m.group(0), value * 60.0)
+
+    # 樣式 1b：共用單位的列舉。「39 or 64 g·h(-1)」「20, 39, or 64 g/h」
+    # 裡只有最後一個數字帶單位，前面的靠共用——這是真實文獻的常見寫法
+    # （W2 有一篇標題就這樣寫）。只回收緊接在命中值之前、以連接詞或逗號
+    # 相連的純數字，不跨句也不跨其他詞。
+    lead = re.compile(r"((?:\d{1,3}(?:\.\d+)?\s*(?:,|、|or|to|and|-|–)\s*)+)$",
+                      flags=re.I)
+    for signal in list(result):
+        if signal["unit"] != "g/h":
+            continue
+        idx = text.find(signal["surface"])
+        if idx <= 0:
+            continue
+        prefix = lead.search(text[max(0, idx - 40):idx])
+        if not prefix:
+            continue
+        for number in re.findall(r"\d{1,3}(?:\.\d+)?", prefix.group(1)):
+            value = float(number)
+            add(value, "g/h", f"{number} (shared unit: {signal['surface']})",
+                value)
+
+    # 樣式 3：濃度 × 體積 × 頻率。三個要素常被逗號與插入子句隔開（實測有
+    # 「every 15 min, cyclists consumed 143 ml of either (i) water; (ii)
+    # …16% w/v」這種寫法），故以「體積為中心、前後 300 字元」的視窗配對，
+    # 不用整句切分。同一視窗取最近的濃度，避免跨處方誤連。
+    def _ml(number: str, unit: str) -> float:
+        return float(number) * (1000.0 if unit.lower().startswith("l") else 1.0)
+
+    def _nearest_pct(centre: int) -> float | None:
+        best = None
+        for m in re.finditer(_PERCENT, text):
+            distance = abs(m.start() - centre)
+            if distance > 300:
+                continue
+            value = float(m.group(1)) / 100.0
+            if not 0 < value <= 0.30:  # >30% w/v 不是可飲用的運動飲料
+                continue
+            if best is None or distance < best[0]:
+                best = (distance, value, m.group(0))
+        return best
+
+    for m in re.finditer(_VOLUME_PER_H, text, flags=re.I):
+        pct = _nearest_pct(m.start())
+        if not pct:
+            continue
+        grams = _ml(m.group(1), m.group(2)) * pct[1]
+        add(round(grams, 1), "g/h", f"{m.group(0)} @ {pct[2]}", grams)
+
+    for every in re.finditer(_EVERY_MIN, text, flags=re.I):
+        minutes = float(every.group("every") or every.group("interval"))
+        if minutes <= 0:
+            continue
+        window = text[max(0, every.start() - 150):every.end() + 150]
+        vol = re.search(_VOLUME_EVERY, window, flags=re.I)
+        if not vol:
+            continue
+        pct = _nearest_pct(every.start())
+        if not pct:
+            continue
+        per_hour = _ml(vol.group(1), vol.group(2)) * pct[1] * (60.0 / minutes)
+        add(round(per_hour, 1), "g/h",
+            f"{vol.group(0)} @ {pct[2]} {every.group(0)}", per_hour)
+
+    unique = {(s["value"], s["unit"], s["surface"]): s for s in result}
     return [unique[key] for key in sorted(unique)]
 
 
@@ -206,10 +356,47 @@ def _entry(candidate: dict, conflict_ids: set[str], ambiguity_ids: set[str]) -> 
         flags.add("review-or-guideline")
         rules.append("SCREEN-035-review-or-guideline")
 
+    # 詞表涵蓋哺乳實驗動物、家畜家禽與水產物種。魚類是實測漏抓來源：
+    # prevalence audit 22f634d2325d 抽到的草魚轉錄體研究落在 standard-screening。
+    # 漏抓的代價與誤剔相反——誤剔是少收該收的，漏抓是主池混入非人體研究並
+    # 推高篩選工時，故此處寧可多標（本旗標只改 lane，從不自動排除）。
+    # 詞邊界必須嚴格：fish oil／fishermen／catheter／ratio 都不得觸發。
     animal_signal = _matches(text, (
         r"\brats?\b", r"\bmice\b", r"\bmouse\b", r"\bmurine\b",
         r"\bporcine\b", r"\bswine\b", r"\bhorses?\b", r"\bcanine\b",
-        r"\bdogs?\b", r"\brabbit\w*\b"))
+        r"\bdogs?\b", r"\brabbit\w*\b",
+        # 反芻獸與其他家畜。以下詞刻意排除，實測誤標率過高：
+        #   calf   → 小腿肌（calf muscle / calf raises），人體運動研究常用
+        #   bovine → 胎牛血清、牛初乳補劑，多為人體或體外研究
+        #   pig    → guinea pig 已另列；單獨 pig 誤觸 pig small intestinal mucus
+        #            等體外材料研究
+        r"\bcalves\b", r"\blambs?\b", r"\bgoats?\b", r"\bpiglets?\b",
+        r"\bferrets?\b", r"\bmacaques?\b", r"\bhamsters?\b",
+        r"\bguinea pigs?\b",
+        r"\bovine (?:muscle|models?|study|studies|subjects?)\b",
+        # cattle／sheep 需語境：兩者會出現在「反芻獸胃道菌相」等環境微生物
+        # 研究的材料描述裡，本身不是介入對象。
+        r"\b(?:in|of|from) (?:cattle|sheep)\b", r"\bdairy cows?\b",
+        r"\bbos taurus\b",
+        # equine 需語境：conjugated equine estrogens 是人用荷爾蒙藥物。
+        r"\bequine (?:muscle|model|study|athletes?|somatotropin|exercise)\b",
+        r"\bstallions?\b", r"\bmares?\b",
+        # 家禽。poultry／turkey／hen 排除：分別是膳食攝取項目、國名、
+        # hen egg yolk 試劑語境。裸詞 chicken 亦排除——實測誤觸「chicken
+        # noodle soup」與成語「the chicken or the egg」，均為人體研究。
+        r"\bbroilers?\b", r"\bchick embryo\w*\b", r"\blaying hens?\b",
+        r"\bquail\b",
+        # 水產。裸詞 fish/poultry 是膳食問卷選項（「魚、禽、蛋」），誤標率過高，
+        # 故只收物種名與明確的養殖／實驗語境。
+        r"\bteleost\w*\b", r"\bcarp\b", r"\bgoldfish\b", r"\bzebrafish\b",
+        r"\bsalmon\b", r"\btrout\b", r"\btilapia\b", r"\bseabass\b",
+        r"\bsea bass\b", r"\bbarramundi\b", r"\bmedaka\b", r"\bkillifish\b",
+        r"\bfarmed fish\w*\b", r"\bfish (?:larvae|fingerlings?|juveniles?|"
+        r"species|were fed|fed a)\b", r"\bin fish\b", r"\bbroodstock\b",
+        # 通用實驗動物語彙。animal model(s)／rodent(s) 排除：人體研究的
+        # 討論段落常引用動物文獻（「in animal models…」），屬敘述提及而非
+        # 研究對象，誤標會把人體研究踢出主池。
+        r"\bin vivo animal\b"))
     if animal_signal:
         flags.add("animal-signal")
         rules.append("SCREEN-036-animal-signal")
@@ -238,6 +425,12 @@ def _entry(candidate: dict, conflict_ids: set[str], ambiguity_ids: set[str]) -> 
 
     doses = _dose_signals(text)
     tier = _priority(concepts, outcomes)
+    # ADR-0007：第二審由盲化 LLM 擔任；安全分支與 critical harms 維持純人類
+    # 雙盲——harms 是 critical outcome，不拿來省時間。
+    review_mode = ("dual-blind-title-abstract"
+                   if lane == "safety-review"
+                   or "critical-harms-signal" in flags
+                   else "human-plus-blinded-llm-title-abstract")
     return {
         "candidateId": candidate["candidateId"],
         "entityKind": candidate["entityKind"],
@@ -257,7 +450,7 @@ def _entry(candidate: dict, conflict_ids: set[str], ambiguity_ids: set[str]) -> 
         "flags": sorted(flags),
         "matchedRuleIds": sorted(set(rules)) or ["SCREEN-000-no-signal"],
         "requiresHumanScreening": True,
-        "requiredReviewMode": "dual-blind-title-abstract",
+        "requiredReviewMode": review_mode,
         "autoDecision": None,
     }
 

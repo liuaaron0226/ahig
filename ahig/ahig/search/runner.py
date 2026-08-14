@@ -16,6 +16,8 @@ from __future__ import annotations
 
 import argparse
 import hashlib
+import http.client
+import itertools
 import json
 import os
 import re
@@ -24,7 +26,7 @@ import time
 import urllib.error
 import urllib.parse
 import urllib.request
-from datetime import datetime, timezone
+from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any, Protocol
 
@@ -82,7 +84,9 @@ class UrllibTransport:
                         "finalUrl": response.geturl(),
                         "contentType": response.headers.get("Content-Type"),
                     }
-                    return json.loads(raw.decode(charset))
+                    # strict=False：NCBI 等來源的 JSON 會夾帶原始控制字元
+                    # （出現在字串值內），嚴格模式必炸且重試無效。
+                    return json.loads(raw.decode(charset), strict=False)
             except urllib.error.HTTPError as exc:
                 raw = exc.read()
                 self.last_exchange = {
@@ -99,7 +103,10 @@ class UrllibTransport:
                     snippet = raw.decode("utf-8", errors="replace")[:300]
                     raise RuntimeError(
                         f"HTTP {exc.code} {_redacted_url(full_url)} — {snippet}") from exc
-            except (urllib.error.URLError, TimeoutError, json.JSONDecodeError) as exc:
+            except (urllib.error.URLError, TimeoutError, json.JSONDecodeError,
+                    http.client.HTTPException, ConnectionError) as exc:
+                # HTTPException 涵蓋 IncompleteRead / RemoteDisconnected 等
+                # 傳輸中斷——大回應被截斷是暫時性錯誤，必須進重試。
                 last = exc
             if attempt < self.attempts:
                 time.sleep(self.base_delay * (2 ** (attempt - 1)))
@@ -151,6 +158,8 @@ def _redacted_params(params: dict) -> dict:
         result["api_key"] = "<from OPENALEX_API_KEY>"
     if "email" in result:
         result["email"] = "<from AHIG_CONTACT_EMAIL>"
+    if "mailto" in result:
+        result["mailto"] = "<from AHIG_CONTACT_EMAIL>"
     return result
 
 
@@ -363,13 +372,21 @@ def _run_clinical_trials(source: dict, source_root: Path,
 
 def _run_openalex(source: dict, source_root: Path,
                    transport: JsonTransport) -> dict:
+    # 有金鑰用金鑰；沒有則退回 OpenAlex 官方支援的無金鑰 polite pool
+    # （mailto 參數）。兩者皆無才擋。存取模式記錄於來源結果。
     api_key = os.environ.get("OPENALEX_API_KEY")
-    if not api_key:
-        raise PermissionError("OPENALEX_API_KEY is required for OpenAlex")
+    email = os.environ.get("AHIG_CONTACT_EMAIL")
+    if not api_key and not email:
+        raise PermissionError(
+            "OpenAlex 需要 OPENALEX_API_KEY，或以 AHIG_CONTACT_EMAIL "
+            "走無金鑰 polite pool 模式")
     artifact = _json_artifact(source)
     params_base = dict(artifact["params"])
     params_base["per_page"] = source["pagination"]["pageSize"]
-    params_base["api_key"] = api_key
+    if api_key:
+        params_base["api_key"] = api_key
+    else:
+        params_base["mailto"] = email
     cursor = str(params_base.get("cursor", "*"))
     seen: set[str] = set()
     records: list[dict] = []
@@ -400,7 +417,16 @@ def _run_openalex(source: dict, source_root: Path,
             f"OpenAlex pagination incomplete: retained {len(records)} of {declared_total}")
     atomic_write_json(source_root / "records.json", records)
     return {"recordCount": len(records), "pageCount": page,
-            "declaredTotal": declared_total}
+            "declaredTotal": declared_total,
+            "accessMode": "api-key" if api_key else "polite-pool-mailto"}
+
+
+# NCBI E-utilities 的結果視窗上限：retstart 不得達到 10,000。查詢命中超過
+# 上限時，以出版日期（pdat）對同一條查詢式做二分切片——查詢語句不變，
+# 屬分頁策略而非契約修改；切片邊界記錄於來源結果的 dateSlices 供稽核。
+_PUBMED_RESULT_CAP = 10_000
+_PUBMED_DATE_FLOOR = date(1800, 1, 1)
+_PUBMED_DATE_CEIL = date(2999, 12, 31)
 
 
 def _run_pubmed(source: dict, source_root: Path,
@@ -409,46 +435,98 @@ def _run_pubmed(source: dict, source_root: Path,
     if not email:
         raise PermissionError("AHIG_CONTACT_EMAIL is required for PubMed")
     _, query = _query_artifact(source)
-    fixed = source.get("fixedParameters", {})
     base = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/"
-    esearch_params = {
-        "db": "pubmed", "term": query, "retmode": "json", "usehistory": "y",
-        "retmax": 0, "tool": "ahig", "email": email,
-    }
-    requests: list[dict] = []
-    initial = _request_json(
-        transport=transport, source_root=source_root, requests=requests,
-        url=base + "esearch.fcgi", params=esearch_params, page_index=1)
-    result = initial.get("esearchresult", {})
-    count = int(result.get("count", 0))
-    query_key, webenv = result.get("querykey"), result.get("webenv")
-    if count and (not query_key or not webenv):
-        raise RuntimeError("PubMed usehistory response missing querykey/WebEnv")
-
-    records: list[dict] = []
     page_size = source["pagination"]["pageSize"]
-    page = 1
-    for start in range(0, count, page_size):
+    requests: list[dict] = []
+    pages = itertools.count(1)
+
+    def esearch(mindate: date | None = None,
+                maxdate: date | None = None) -> tuple[int, str | None,
+                                                      str | None]:
         params = {
-            "db": "pubmed", "query_key": query_key, "WebEnv": webenv,
-            "retstart": start, "retmax": page_size, "retmode": "json",
-            "tool": "ahig", "email": email,
+            "db": "pubmed", "term": query, "retmode": "json",
+            "usehistory": "y", "retmax": 0, "tool": "ahig", "email": email,
         }
-        page += 1
+        if mindate is not None and maxdate is not None:
+            params.update({"datetype": "pdat",
+                           "mindate": mindate.strftime("%Y/%m/%d"),
+                           "maxdate": maxdate.strftime("%Y/%m/%d")})
         payload = _request_json(
             transport=transport, source_root=source_root, requests=requests,
-            url=base + "esummary.fcgi", params=params, page_index=page)
-        summary = payload.get("result", {})
-        for uid in summary.get("uids") or []:
-            if str(uid) in summary:
-                records.append(summary[str(uid)])
+            url=base + "esearch.fcgi", params=params, page_index=next(pages))
+        result = payload.get("esearchresult", {})
+        count = int(result.get("count", 0))
+        query_key, webenv = result.get("querykey"), result.get("webenv")
+        if count and (not query_key or not webenv):
+            raise RuntimeError("PubMed usehistory response missing "
+                               "querykey/WebEnv")
+        return count, query_key, webenv
 
-    if len(records) != count:
+    def esummary_pages(count: int, query_key: str, webenv: str) -> list[dict]:
+        out: list[dict] = []
+        for start in range(0, count, page_size):
+            params = {
+                "db": "pubmed", "query_key": query_key, "WebEnv": webenv,
+                "retstart": start, "retmax": page_size, "retmode": "json",
+                "tool": "ahig", "email": email,
+            }
+            payload = _request_json(
+                transport=transport, source_root=source_root,
+                requests=requests, url=base + "esummary.fcgi", params=params,
+                page_index=next(pages))
+            summary = payload.get("result", {})
+            for uid in summary.get("uids") or []:
+                if str(uid) in summary:
+                    out.append(summary[str(uid)])
+        return out
+
+    total_count, query_key, webenv = esearch()
+    records: list[dict] = []
+    slices_meta: list[dict] = []
+    if total_count <= _PUBMED_RESULT_CAP:
+        if total_count:
+            records = esummary_pages(total_count, query_key, webenv)
+    else:
+        # 總數已超上限：根範圍必然要切，直接播種兩個半區（省一次 esearch）。
+        root_mid = _PUBMED_DATE_FLOOR + timedelta(
+            days=(_PUBMED_DATE_CEIL - _PUBMED_DATE_FLOOR).days // 2)
+        stack = [(root_mid + timedelta(days=1), _PUBMED_DATE_CEIL),
+                 (_PUBMED_DATE_FLOOR, root_mid)]
+        while stack:
+            lo, hi = stack.pop()
+            count, key, env = esearch(lo, hi)
+            if count == 0:
+                continue
+            if count > _PUBMED_RESULT_CAP:
+                if lo == hi:
+                    raise RuntimeError(
+                        f"PubMed 單日結果 {count} 仍超過 {_PUBMED_RESULT_CAP} "
+                        f"上限：{lo}；無法再切片")
+                mid = lo + timedelta(days=(hi - lo).days // 2)
+                stack.append((mid + timedelta(days=1), hi))
+                stack.append((lo, mid))
+                continue
+            slices_meta.append({"mindate": lo.strftime("%Y/%m/%d"),
+                                "maxdate": hi.strftime("%Y/%m/%d"),
+                                "count": count})
+            records.extend(esummary_pages(count, key, env))
+        # 切片理論上互斥；防禦性去重（uid 保序），並與全查詢總數對帳。
+        unique: dict[str, dict] = {}
+        for record in records:
+            unique.setdefault(str(record.get("uid")), record)
+        records = list(unique.values())
+
+    if len(records) != total_count:
         raise RuntimeError(
-            f"PubMed pagination incomplete: retained {len(records)} of {count}")
+            f"PubMed pagination incomplete: retained {len(records)} of "
+            f"{total_count}（若為切片模式，資料庫於執行期間更新可能造成"
+            "漂移；重跑 --only pubmed）")
     atomic_write_json(source_root / "records.json", records)
-    return {"recordCount": len(records), "pageCount": page,
-            "declaredTotal": count}
+    result = {"recordCount": len(records), "pageCount": len(requests),
+              "declaredTotal": total_count}
+    if slices_meta:
+        result["dateSlices"] = slices_meta
+    return result
 
 
 RUNNERS = {

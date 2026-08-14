@@ -212,6 +212,24 @@ def test_openalex_without_api_key_is_blocked():
         assert "OPENALEX_API_KEY" in result["sources"]["openalex"]["error"]
 
 
+def test_openalex_polite_pool_mailto_when_no_api_key():
+    """無金鑰時走官方 polite pool：帶 mailto、不帶 api_key、記錄模式。"""
+    fake = FakeTransport([
+        {"meta": {"next_cursor": None, "count": 1}, "results": [{"id": "W1"}]},
+    ])
+    with tempfile.TemporaryDirectory() as tmp:
+        with patch.dict(os.environ, {"AHIG_PRIVATE_ROOT": tmp,
+                                     "AHIG_CONTACT_EMAIL": "me@example.test"},
+                        clear=True):
+            result = runner.run_search(CONTRACT, only=["openalex"],
+                                       run_id="run-001", transport=fake)
+        source = result["sources"]["openalex"]
+        assert source["recordCount"] == 1
+        assert source["accessMode"] == "polite-pool-mailto"
+        assert fake.calls[0]["params"]["mailto"] == "me@example.test"
+        assert "api_key" not in fake.calls[0]["params"]
+
+
 def test_openalex_follows_next_cursor_with_api_key():
     fake = FakeTransport([
         {"meta": {"next_cursor": "c2", "count": 2}, "results": [{"id": "W1"}]},
@@ -495,3 +513,111 @@ def test_http_error_exchange_is_retained_before_source_fails():
         assert (source_root / req["responsePath"]).read_bytes() == fake.raw
         assert req["httpStatus"] == 400
         assert "secret" not in req["finalUrl"]
+
+
+# ---------------------------------------------------------------------------
+# UrllibTransport 的網路容錯（直接測 transport，不經 runner）
+# ---------------------------------------------------------------------------
+
+def _fake_response(body: bytes):
+    from email.message import Message
+
+    class _Response:
+        status = 200
+
+        def __init__(self):
+            self.headers = Message()
+            self.headers["Content-Type"] = "application/json; charset=utf-8"
+
+        def read(self):
+            return body
+
+        def geturl(self):
+            return "https://example.test/x"
+
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *args):
+            return False
+
+    return _Response()
+
+
+def test_urllib_transport_parses_json_with_raw_control_characters():
+    """NCBI 的 JSON 會在字串值內夾原始控制字元；嚴格模式必炸且重試無效。"""
+    body = b'{"title": "carbohydrate \x02 exercise"}'
+    transport = runner.UrllibTransport(attempts=1, base_delay=0)
+    with patch("urllib.request.urlopen", return_value=_fake_response(body)):
+        result = transport.get_json(url="https://example.test/x", params={})
+    assert result["title"] == "carbohydrate \x02 exercise"
+
+
+def test_urllib_transport_retries_incomplete_read():
+    """大回應中途截斷（IncompleteRead）是暫時性錯誤，必須重試而非放棄。"""
+    import http.client
+    transport = runner.UrllibTransport(attempts=3, base_delay=0)
+    side_effects = [http.client.IncompleteRead(b"partial"),
+                    ConnectionResetError("reset"),
+                    _fake_response(b'{"ok": true}')]
+    with patch("urllib.request.urlopen", side_effect=side_effects):
+        result = transport.get_json(url="https://example.test/x", params={})
+    assert result == {"ok": True}
+
+
+def test_pubmed_over_result_cap_slices_by_publication_date():
+    """命中超過 NCBI 1 萬筆視窗上限時，同一查詢式按 pdat 二分切片抓齊。"""
+    def es(count, key, env):
+        return {"esearchresult": {"count": str(count), "querykey": key,
+                                  "webenv": env}}
+    fake = FakeTransport([
+        es(10, "K0", "E0"),                 # 全範圍：超過（patched）上限 6
+        es(4, "K1", "E1"),                  # 前半日期範圍
+        pubmed_summary(["1", "2", "3", "4"]),
+        es(6, "K2", "E2"),                  # 後半日期範圍
+        pubmed_summary(["5", "6", "7", "8", "9", "10"]),
+    ])
+    with tempfile.TemporaryDirectory() as tmp:
+        with patch.dict(os.environ, {"AHIG_PRIVATE_ROOT": tmp,
+                                     "AHIG_CONTACT_EMAIL": "owner@example.com"},
+                        clear=True):
+            with patch.object(runner, "_PUBMED_RESULT_CAP", 6):
+                result = runner.run_search(CONTRACT, only=["pubmed"],
+                                           run_id="run-001", transport=fake)
+    source = result["sources"]["pubmed"]
+    assert source["status"] == "completed"
+    assert source["recordCount"] == 10
+    assert source["declaredTotal"] == 10
+    assert [s["count"] for s in source["dateSlices"]] == [4, 6]
+    assert source["dateSlices"][0]["mindate"] == "1800/01/01"
+    assert source["dateSlices"][1]["maxdate"] == "2999/12/31"
+    # 切片 esearch 帶 pdat 日期；esummary 用各自切片的 history key。
+    assert fake.calls[1]["params"]["datetype"] == "pdat"
+    assert fake.calls[2]["params"]["query_key"] == "K1"
+    assert fake.calls[4]["params"]["query_key"] == "K2"
+    # 首次全範圍 esearch 不帶日期（與未切片路徑一致）。
+    assert "datetype" not in fake.calls[0]["params"]
+
+
+def test_pubmed_slice_dedupes_boundary_duplicates_by_uid():
+    """切片理論上互斥；若邊界重複，防禦性以 uid 去重且總數對帳。"""
+    def es(count, key, env):
+        return {"esearchresult": {"count": str(count), "querykey": key,
+                                  "webenv": env}}
+    fake = FakeTransport([
+        es(7, "K0", "E0"),
+        es(4, "K1", "E1"),
+        pubmed_summary(["1", "2", "3", "4"]),
+        es(4, "K2", "E2"),                  # 邊界重複了 uid 4
+        pubmed_summary(["4", "5", "6", "7"]),
+    ])
+    with tempfile.TemporaryDirectory() as tmp:
+        with patch.dict(os.environ, {"AHIG_PRIVATE_ROOT": tmp,
+                                     "AHIG_CONTACT_EMAIL": "owner@example.com"},
+                        clear=True):
+            with patch.object(runner, "_PUBMED_RESULT_CAP", 6):
+                result = runner.run_search(CONTRACT, only=["pubmed"],
+                                           run_id="run-001", transport=fake)
+    source = result["sources"]["pubmed"]
+    assert source["status"] == "completed"
+    assert source["recordCount"] == 7

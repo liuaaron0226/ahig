@@ -15,6 +15,15 @@ test-results/
 .scratch/*.jpg
 .scratch/*.png
 
+# AHIG 私有資料根（原始文獻資料，絕不入庫；防 git add -A 手滑）
+ahig-private/
+
+# 個人健康資料（ADR-0006 的公私邊界，issue 10 拍板 2026-08-14）
+# 已分家到自己的 private repo；health/ 內有獨立的 .git，本 repo 一律不追蹤。
+# 整個目錄都擋——references/ 看似只是知識庫，但「OSA風險評估」「胰島素阻抗評估」
+# 這種檔名本身就是個人健康資訊。白名單只會誤擋，黑名單會漏。
+health/
+
 # Machine-local
 .claude/settings.local.json
 UsersUser.claudesettings.json

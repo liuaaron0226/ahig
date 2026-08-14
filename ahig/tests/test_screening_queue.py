@@ -175,6 +175,81 @@ def test_dose_rate_signals_are_hints_not_final_strata_assignment():
     assert entry["strataAssignmentFinal"] is False
 
 
+def _bands(text: str) -> set[str]:
+    return {s["bandHint"] for s in screening._dose_signals(
+        screening.normalise_for_matching(text))}
+
+
+def _values(text: str) -> set[float]:
+    return {s["value"] for s in screening._dose_signals(
+        screening.normalise_for_matching(text))}
+
+
+def test_dose_signals_read_g_per_min_and_convert_to_g_per_h():
+    """W3：g/min 是 W2 補抽裡最貴的漏抓——多重可運輸醣類文獻慣用此單位。
+
+    片語取自 audit 0030677e77bf 實際命中的摘要（1.8 g/min = 108 g/h）。
+    """
+    assert _bands("carbohydrate at a rate of 1.8 g.min(-1)") == {"very-high"}
+    assert _bands("1.2 g·min-1 of maltodextrin") == {"high"}
+    assert _bands("ingested 0.6 g/min of fructose") == {"moderate"}
+    # 分帶依換算後的 g/h（0.6 g/min = 36 g/h → moderate，而非把 0.6 當
+    # g/h 讀成 low），但 value 保留原文數值、由 unit 標明單位——band hint
+    # 是提示，原文數字不該被工具悄悄改寫。
+    signals = screening._dose_signals(
+        screening.normalise_for_matching("ingested 0.6 g/min of fructose"))
+    assert [(s["value"], s["unit"]) for s in signals] == [(0.6, "g/min")]
+
+
+def test_dose_signals_read_parenthesised_negative_exponent():
+    """W3：`g·h(-1)` 括號負號寫法。W2 有兩筆連標題都寫著劑量卻仍漏抓。"""
+    assert _bands("Curvilinear dose-response of carbohydrate (0-120 g·h(-1))"
+                  ) == {"very-high"}
+    assert _bands("The ingestion of 39 or 64 g·h(-1) of carbohydrate"
+                  ) == {"moderate", "high"}
+    assert _bands("carbohydrate supplements (50 g h(-1))") == {"moderate"}
+
+
+def test_dose_signals_derive_rate_from_concentration_volume_frequency():
+    """W3：濃度×體積×頻率換算。摘要常只給「每 X 分鐘喝 Y ml 的 Z%」。"""
+    # 每 20 分鐘 200 ml 的 10% → 20 g/20 min → 60 g/h
+    assert "high" in _bands(
+        "ingested 200 mL of a 10% CHO solution every 20 min")
+    # 每 15 分鐘 143 ml 的 16% → 22.9 g/15 min → 91.5 g/h
+    assert "very-high" in _bands(
+        "cyclists consumed 143 mL of a 16% w/v drink every 15 min")
+    # 直接給每小時體積：600 ml/h 的 10% → 60 g/h
+    assert "high" in _bands("ingesting 600 ml/hour of a 10% glucose solution")
+
+
+def test_dose_signals_reject_implausible_and_non_rate_quantities():
+    """升級後仍不得把非速率量誤判成速率——寧可漏抓也不要污染 band hint。"""
+    # 每日總量與 g/kg：W2 判為 intensity-only，regex 不該給出 band
+    assert _bands("subjects consumed 661 g.day-1 of carbohydrate") == set()
+    assert _bands("ingested 1.2 g·kg-1 of maltodextrin") == set()
+    # 濃度或體積單獨出現時不可換算
+    assert _bands("a 6% carbohydrate-electrolyte solution") == set()
+    assert _bands("participants drank 500 ml of a glucose beverage") == set()
+    # 氧化速率不是攝取速率（W2 第 31 筆的真實陷阱）
+    assert _bands("total CHO oxidation was 169 g.h-1") == set()
+    assert _bands("peak exogenous CHO oxidation rates were 1.5 g/min") == set()
+    # 超出生理範圍的數值仍須濾掉
+    assert _bands("infused at 2000 g/h") == set()
+
+
+def test_oxidation_filter_yields_to_an_intervening_ingestion_verb():
+    """代謝語彙過濾不得過度殺傷：同句同時談氧化與攝取是常態。
+
+    過濾的目標是「169 g/h 的總醣氧化」這種代謝輸出，不是「測了氧化，
+    受試者攝取 60 g/h」這種正當攝取速率——後者被擋掉會讓 S4 那類
+    示蹤研究整批失去 band hint。
+    """
+    assert _bands("Exogenous carbohydrate oxidation was measured while "
+                  "cyclists ingested 60 g/h") == {"high"}
+    assert _bands("oxidation was measured. Subjects ingested 60 g/h of "
+                  "glucose") == {"high"}
+
+
 # ---------------------------------------------------------------------------
 # lanes and source-kind separation
 # ---------------------------------------------------------------------------
@@ -223,6 +298,67 @@ def test_animal_signal_uses_separate_lane_but_is_not_excluded():
     assert entry["screeningLane"] == "animal-signal-review"
     assert "animal-signal" in entry["flags"]
     assert entry["autoDecision"] is None
+
+
+def test_animal_signal_catches_non_mammalian_and_livestock_species():
+    """W1：草魚案例（audit 22f634d2325d 第 35 筆）證實舊詞表只涵蓋哺乳實驗動物。
+
+    魚類／家禽／反芻獸研究會漏進 standard-screening，方向與誤剔風險相反：
+    誤剔是少收，漏抓是主池混入非人體研究，直接推高篩選工時。
+    """
+    cases = {
+        "carp": "Transcriptome analysis of grass carp between fast- and slow-growing fish",
+        "zebrafish": "Glucose metabolism in zebrafish larvae during swimming",
+        "salmon": "Dietary starch and hepatic lipogenesis in Atlantic salmon",
+        "trout": "Carbohydrate utilisation in rainbow trout",
+        "broiler": "Feed carbohydrate and growth performance in broiler chickens",
+        "ovine": "Substrate oxidation during treadmill exercise in ovine models",
+        "cattle": "Glycogen repletion in the skeletal muscle of cattle",
+        "equine": "Dietary starch and exercise responses in equine athletes",
+    }
+    for cid, title in cases.items():
+        entry = by_id(build([candidate(cid, title=title)]), cid)
+        assert "animal-signal" in entry["flags"], f"{cid} 未被標為動物訊號"
+        assert entry["screeningLane"] == "animal-signal-review", cid
+        assert entry["autoDecision"] is None, cid
+
+
+def test_animal_signal_does_not_fire_on_human_studies():
+    """補詞不得把人體研究誤標成動物——誤標會讓真正該篩的文獻被分流出主池。"""
+    human_titles = {
+        "h1": "Carbohydrate ingestion during cycling in trained men",
+        # 'fish oil'／'fishermen' 含 fish 字串但非動物實驗；\bfish\b 之外的
+        # 詞邊界誤觸是本測試要擋的主要回歸。
+        "h2": "Fish oil supplementation and endurance performance in humans",
+        "h3": "Dietary intake of fishermen in coastal communities",
+        # 'catheter' 含 'cat'、'ratio' 含 'rat'：詞邊界必須守住。
+        "h4": "Arterial catheter measurements and the respiratory exchange ratio",
+        # 以下三筆是真實池子裡實測到的誤標（15,425 筆全掃），加回裸詞
+        # chicken／equine／calf 會讓它們被踢出主池：
+        "h5": "Effect of preexercise electrolyte ingestion on fluid balance in "
+              "men and women",                      # 摘要含 chicken noodle soup
+        "h6": "Vitamin D deficiency in fatty liver disease: the chicken or the egg?",
+        "h7": "Flaxseed supplement versus hormone replacement therapy in "
+              "menopausal women",                   # 摘要含 conjugated equine estrogens
+        "h8": "Calf muscle fatigue protocol and exercise-associated muscle cramps",
+        # bovine 裸詞同樣不可加回：牛初乳是人體補劑、胎牛血清是體外試劑。
+        "h9": "Oral supplementation with bovine colostrum decreases intestinal "
+              "permeability in athletes",
+    }
+    # 觸發詞落在摘要而非標題的兩筆，必須連摘要一起餵進去才測得到。
+    human_abstracts = {
+        "h5": "Subjects cycled for 90 min after ingesting 355 ml of chicken "
+              "noodle soup or a carbohydrate-electrolyte beverage.",
+        "h7": "Participants took 0.625 mg of conjugated equine estrogens "
+              "alone or combined with micronised progesterone.",
+        "h8": "Participants performed a calf-fatiguing protocol to induce "
+              "cramps in the calf muscle group.",
+    }
+    for cid, title in human_titles.items():
+        entry = by_id(build([candidate(
+            cid, title=title, abstract=human_abstracts.get(cid))]), cid)
+        assert "animal-signal" not in entry["flags"], f"{cid} 被誤標為動物訊號"
+        assert entry["screeningLane"] == "standard-screening", cid
 
 
 def test_postexercise_only_signal_is_flagged():
