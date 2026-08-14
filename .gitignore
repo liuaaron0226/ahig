@@ -15,6 +15,9 @@ test-results/
 .scratch/*.jpg
 .scratch/*.png
 
+# AHIG 私有資料根（原始文獻資料，絕不入庫；防 git add -A 手滑）
+ahig-private/
+
 # Machine-local
 .claude/settings.local.json
 UsersUser.claudesettings.json

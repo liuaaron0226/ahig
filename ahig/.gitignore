@@ -7,6 +7,8 @@
 !*.md
 # Exact search strategies are public contract artifacts, not private full text.
 !calibration/**/queries/*.txt
+# 抽樣證據錨定檔：只含雜湊與識別碼，必須進 git（抽樣誠實性護欄）。
+!calibration/**/prevalence-audit-anchors.jsonl
 !pyproject.toml
 !.gitignore
 
