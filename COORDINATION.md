@@ -18,7 +18,10 @@
 - push 前必須全綠：`cd ahig && python tests/run_tests.py && python -m ahig.cli verify --all`
 - 只改自己工作線範圍內的檔案；要跨線改動先找協調者。
 - AHIG 程式與測試都在 `ahig/` 子目錄；repo 根目錄還有其他專案（BixLink、
-  trading-desk、health…），一律不要動。
+  trading-desk…），一律不要動。
+- ⚠️ **2026-08-14 擁有者公告：`health/` 已 untrack，開工先 fetch+merge 主幹。**
+  詳見文末「👤 擁有者公告：health/ 分家」。在合併主幹之前切到舊分支，git 會用
+  舊版 `health/*` 靜默覆寫本機檔案。
 
 ## 房間架構章程（2026-08-14 起生效）
 
@@ -692,6 +695,58 @@ D 摘要層天花板上修至 ~22%）：
 | 22f634d2325d（主框 50+12） | 6 筆 | ✅ 已清（6/6 通過） |
 | 0030677e77bf（W2 補抽 50） | 5 筆（清單見 W2 報告末節） | ⏳ 記帳 |
 
+## W3 劑量 regex 升級（2026-08-14，待合併）
+
+分支 `claude/w3-dose-regex-upgrade`，`RULE_VERSION` 1.4.0 → **1.5.0**。
+579/579、verify 10/10。**queue 未重建**（W5 才做，屆時 1.4.0＋1.5.0 同時
+生效）。依 ADR-0010 委任直接動工，未再等擁有者。
+
+### 實測回收（對兩批已判讀 audit 乾跑，非估計值）
+
+| | exact-value 回收 | 誤報 |
+|---|---|---|
+| 22f634d2325d（主框） | **3/3（100%）** | 0 |
+| 0030677e77bf（TT 子框） | **10/13（77%）** | 0 |
+| 全池 15,425 筆 | 新增 191 筆有訊號、33 筆 band 改變 | — |
+
+W2 報告預估「補樣式可回收 11/50（22%）」，實測 10/13 exact-value、
+全池新增 191 筆——**與預估同量級，略優**。
+
+### 實作的樣式（每個都對應真實漏抓案例）
+
+1. **g/min**（乘 60 換算）＋ `gram/grams` 全稱——1992 年那篇綜述寫
+   `2.6 gram/min`，多重可運輸醣類文獻慣用此單位；
+2. **括號負號與 HTML 上標**：`g·h(-1)`、`g·h<sup>-1</sup>`——有兩篇連
+   標題都寫著劑量仍漏抓；
+3. **濃度 × 體積 × 頻率**：`每 20 分鐘 200 ml 的 10%` → 60 g/h；亦支援
+   `600 ml/hour … 10%` 與 `at 15-min intervals`（非 every 寫法）；
+4. **共用單位列舉**：`39 or 64 g·h(-1)` 的 39 沒有自己的單位，靠後方共用；
+5. **mean ± SD 體積**：`227 +/- 3 ml` 的量值是 227 不是誤差項 3。
+
+### 刻意不收的（維持 W2 判讀慣例，寧可漏抓也不污染 band）
+
+每日總量 `g/day`、體重標準化 `g/kg`（缺體重無從換算）、單獨出現的濃度或
+體積、以及**氧化／週轉速率**——後者是 W2 第 31 筆的真實陷阱（`169 g.h-1`
+是總醣氧化，誤收會把該篇灌進 high band）。
+
+**但代謝語彙過濾做了收斂**：初版擋掉前方 60 字元內出現 oxidation 的全部
+數值，結果連 `oxidation was measured while cyclists ingested 60 g/h` 都
+被殺——那會讓 S4 那類示蹤研究整批失去 band hint。改為**攝取動詞優先**：
+只有在數值前方既有代謝語彙、又無攝取動詞介入時才判為代謝速率。四個邊界
+案例已固化為測試。
+
+### 仍漏抓的 3 筆：不建議再追
+
+| candidateId | 我判讀時的算法 | 為何 regex 不該做 |
+|---|---|---|
+| `4d47acda…` | 1.4 ml/kg × 3 次 × 6%，用摘要另處的體重 73.2 kg | 需跨段落取體重並自行決定計次 |
+| `8f24cd77…` | 每 16 km 15 g，用總時間 128:30 回推 | 以**距離**計次，需先讀出總時長換算 |
+| `bbdc9db4…` | 110 g ÷ 1.5 h | 原文寫 `before and during`，前後分配未明，我在 notes 標了不確定性 |
+
+這三筆共通點：**我是靠推算與標註不確定性才得出數值的**。regex 給不出
+「這個數字有多可信」，硬做只會產出看似精確的錯誤 band hint。**摘要層
+regex 的實務天花板就在此**——剩下的交給 W4 的 LLM 全文流程。
+
 ### 心跳區（執行室 /loop 每輪追加）
 
 - `14:16 W2 判讀＋estimate 完成`（第 1 輪）
@@ -703,6 +758,8 @@ D 摘要層天花板上修至 ~22%）：
 - `16:12 W5 已入主幹、W6 解鎖；AL 排序器完成，推 claude/w6-al-third-sort-key`（第 7 輪）
 - `16:31 讀到 W8 派發；驅動器骨架＋機-機影子門檻完成，推 claude/w8-screening-driver`（第 8 輪）
 - `16:47 主幹無變動（仍為 9abb054）、W6／W8 兩條分支待合併；無新派發，待命`（第 9 輪）
+- `17:20 補上派發第 3 項缺的影子批次 300 筆選取，實跑 27/27 分層全覆蓋；讀到巡檢輪裁定①②，已 rebase 至 b0f0e5d、646/646`（第 10 輪）
+- `17:43 依裁定①做出判讀工作單（session 當判讀者的落地路徑），657/657；前置盛行率樣本 154 筆已判 25 筆（第 1 頁）`（第 11 輪）
 
 #### 📮 執行室回報：W5／W6 被前置擋住（第 4 輪）
 
@@ -779,13 +836,150 @@ W3 摘要：`RULE_VERSION` 1.5.0、exact-value 回收 3/3（主框）與 10/13
 5. 產物：逐篇劑量判讀＋原文 quote＋位置 → 餵 S1/S2 校準集抽樣（M1 的
    直接前置）
 
+## 📮 協調者：W3 已合併，W5 解鎖（2026-08-14 巡檢輪）
+
+W3 複驗通過（579/579、verify 10/10）並已入主幹。氧化語境排除、±SD
+誤差項處理、換算規則的設計都合格——特別記一筆：把 W2 抽查發現的
+「169 g·h⁻¹ 是氧化速率」陷阱做成語境防禦，這是抽查迴路餵回工程的
+第一個實例。**W5（queue 重建）即刻解鎖**，執行室下輪領走；重建後
+1.4.0＋1.5.0 一起生效，回報新 queueHash 與分布變化即可。W6（AL 排序
+鍵）在 W5 之後。心跳分支模式（獨立分支避開看板衝突）追認為協定慣例。
+
+## W5 篩選佇列重建完成（2026-08-14，執行室）
+
+`--redo` 已跑完，W1（1.4.0 動物詞表）＋W3（1.5.0 劑量 regex）一起生效。
+舊佇列自動歸檔至 `previous-screening-queues/5ee8c797a5cb`，未覆蓋。
+
+| 項目 | 重建前 | 重建後 |
+|---|---|---|
+| `screeningRuleVersion` | `b11-screening/1.3.0` | `b11-screening/1.5.0` |
+| `screeningQueueHash` | `sha256:06c1d4ed…f1a985` | `sha256:aad9ddfa…b79331a` |
+| `candidatePoolHash` | `sha256:057e5f55…67343b8` | 不變 |
+| `searchContractHash` | `sha256:9f0e10ef…413a71882` | 不變 |
+| `queueCount` / `autoExcludedCount` | 15,425 / 0 | 15,425 / 0 |
+
+**新 queueHash：`sha256:aad9ddfa267ad910ac1b92c4ff07adfc333e73d74cbec9074c8a33b4bb79331a`**
+（未來抽樣母體以此為準。）
+
+### 分布變化
+
+**篩選道**——唯一異動是 `standard-screening → animal-signal-review` **101 筆**
+（9,361→9,260、1,877→1,978），與 W1 乾跑宣稱的 101 完全吻合；其餘四道
+（identity 4、registry 167、review-source 1,700、safety 2,316）一筆未動。
+
+**優先層**——**完全沒有異動**，`priorityScore` 改變 0 筆。W1／W3 都不觸碰
+評分邏輯，這符合預期，也是「規則升級沒有外溢」的直接證據。
+
+**建議分層**——共 23 筆搬動，全部集中在 S1/S2 邊界：
+
+| 分層 | 前 | 後 | 差 |
+|---|---|---|---|
+| S1-tt-moderate-dose | 386 | 379 | −7 |
+| S2-tt-high-and-very-high-dose | 12 | 32 | **+20** |
+| S3–S7 | — | — | 全部不變 |
+
+S2 從 12 筆長到 32 筆（**2.7 倍**）。這是 W3 的直接紅利：新抓到的
+191 筆劑量訊號讓原本「無 band hint → 預設丟進 S1」的高劑量研究被正確
+辨識。`countByOutcomeHint` 六項全部不變，證實搬動來自 band hint 而非
+outcome 判定改變。**S2 抽樣可行性應重新評估**——原本 k=12 的母體是
+S2 補抽的主要限制，現在母體大了一倍多。
+
+### 我做的三項驗證（重建前）
+
+1. **逐筆對照 15,425 筆**：candidateId 新增 0、消失 0；劑量訊號新增
+   191 筆、**消失 0 筆**（升級沒有回退任何既有訊號）。
+2. **新進動物道抽 12 筆看標題**：金魚／鱒魚／肉雞／山羊精子／種馬／
+   河鱸／斑馬魚／大西洋鮭／乳牛／虹鱒——**零誤判**。
+3. **乾跑 vs 實跑逐欄比對**：完全一致，重建無非決定性成分。
+
+### 重建波及既有 audit 樣本的部分（已逐筆核對，無誤判）
+
+| audit | 篩選道被改 | 分層被改 | 新增劑量訊號 |
+|---|---|---|---|
+| `22f634d2325d`（主框） | 2 | 0 | 3 |
+| `0030677e77bf`（TT 子框） | 0 | 9 | 8 |
+
+主框那 2 筆（`fd7a61b2` 草魚轉錄體、`4ed6b188` 尖吻鱸）進動物道，正是我
+當時判讀 notes 裡寫的「魚類研究卻落在 standard-screening」——W1 就是為
+此而做，**判讀迴路餵回工程的第二個實例**。
+
+子框 9 筆分層搬動我逐篇核對過判讀 notes，**全部正確**：`b0501886`
+（0–120 g/h 劑量反應）、`571c7f30`（90 g/h）、`c68fa968`（1.8 g/min）、
+`30ae2b46`（1.8 g/min）、`bd3bddd9`（1.7 g/min）等確實有 high／very-high
+臂。特別記一筆：`96dffed4` 我判 60 g/h＝**high**（不是 very-high）卻搬進
+S2，一度看似矛盾——查 `_suggested_strata` 後確認 S2 的定義是
+`high ∪ very-high`（層名即如此），故搬入正確，同時因無 low/moderate 臂
+而退出 S1 也正確。
+
+### 既有 audit 的護欄狀態（符合協調者裁定）
+
+對 `0030677e77bf` 跑 `estimate` 現在如預期失敗：
+
+```
+PrevalenceAuditError: audit 的 screeningQueueHash 與現行 screening-queue
+manifest 不符；queue 可能已重建，請重新抽樣或改用當時的佇列
+```
+
+**這是設計內行為，不是資料損壞**——兩份 audit.json 的判讀內容與已產出的
+estimate.json 都原封不動在磁碟上，各自錨定的舊 queueHash 仍可回溯到
+`previous-screening-queues/5ee8c797a5cb`。依協調者裁定不重算也不重跑。
+
+### 收尾
+
+推送前兩軌全綠：**579/579 測試、verify 10/10**（含第 9 階段「數字對帳」
+在新 queueHash 下仍通過）。**W6（AL 第三排序鍵）前置已解除**，下輪可領。
+
+## 📮 協調者巡檢輪（W5 複驗＋派發 W8）
+
+- ✅ **W5 複驗通過**（579/579、verify 10/10）。逐筆 diff 驗證法記入慣例。
+  **S2 regex 池 12→32**：三倍擴張，摘要層抽樣壓力大減——W4 全文判讀的
+  角色從「救 S2」轉為「補殘」，優先級隨之下修一級。
+- ✅ **health/ 分家追認**：個人健康資料移出本 repo 是正確的公私邊界
+  （黑白名單的取捨理由寫得對）。
+- **心跳分支裁定**：採執行室預設的選項 2（累積於單一心跳分支），照用
+  `claude/w3-heartbeat`，更名成本大於收益。
+- **主幹直推規則澄清**：本次 79d31c1 含擁有者公告，放行；原則維持
+  「執行室工作包合併走協調者」，擁有者公告類內容例外。
+- **派發 W8（執行室）：篩選驅動器＋影子批次**——
+  1. 建篩選驅動器：從新 queue 依優先序取批（建議 100 筆/輪），主模型
+     判 advance/exclude/unclear，決策與 prompt/模型/回應留痕，落盤
+     screening-decisions 相容格式；
+  2. 依 ADR-0008 先抽隨機前置樣本（池子 1–2%）估盛行率；
+  3. 影子批次 300 筆：主模型＋第二模型盲判（機-機，ADR-0009 修訂版
+     ADR-0007），跑 shadow_gate 出報告；
+  4. 影子門檻通過前不進正式篩選；報告推看板待協調者裁定。
+- 協調者隊列（誠實帳）：W4 細部（優先級已下修）、W7 SYNERGY 重放、
+  工時模型 P1–P4 重估——依序在後續巡檢輪消化。
+
+## 📮 協調者巡檢輪：W6＋W8 複驗合併；待裁定①②裁定
+
+- ✅ **W8 複驗通過**（635/635、verify 10/10）。設計評語記錄在案：判讀器
+  可注入使證據管理離線可驗、判讀器盲於 regex 先驗（避免影子批次繼承
+  自家偏見）、機-機影子門檻採對稱對立判檢查並保留人類路徑——全部正確。
+- ✅ **W6 複驗通過**：AL 第三排序鍵（sklearn 重寫 elas_u4，鎖版依 T1
+  提案）；scikit-learn 依賴已入 pyproject 並在協調容器驗證。
+- **裁定①（模型呼叫層歸屬）**：正式判讀器＝執行室 session 本身——
+  每輪 loop 取批、自行判讀、產出 opinions 檔餵驅動器固化。不在 repo
+  放任何 API 呼叫程式或金鑰；與 prevalence audit 的 fill 模式一致。
+  第二模型盲判由執行室以 /model 切換執行第二遍（批間切換、批內一致），
+  兩遍 judgedBy 分別記模型。
+- **裁定②（若為影子批次規模）**：照派發單 300 筆執行。
+- **下一步（執行室，依序）**：跑前置盛行率樣本（154 筆判讀）→ 影子
+  批次 300 筆雙模型 → shadow gate 報告推看板 → 協調者裁定放行正式篩選。
+- 心跳正常（第 7、8 輪皆到）。
+
 ## 工作線
 
 | 工作線 | 分支 | Session | 狀態 |
 |---|---|---|---|
 | 協調・合併・S2 決策支援 | `claude/fail-open-bug-merge-kmifpb` | AHIG 協調中心（coordinator） | 進行中 |
 | prevalence audit LLM 判讀（ADR-0009） | `claude/prevalence-audit-llm-judgement` | 🔬 B.11 執行室 | ✅ 判讀＋estimate＋抽查 6/6 已合併；✅ W1 已合併（queue 重建裁定見下） |
-| W2 S1/S2 outcome 補抽 | `claude/w2-report-relay` | 🔬 B.11 執行室 | ✅ 抽樣＋錨定＋判讀＋estimate 全數完成；S2 翻為 likely-sufficient；⏳ 擁有者抽查 5 筆待核對 |
+| W2 S1/S2 outcome 補抽 | `claude/w2-report-relay` | 🔬 B.11 執行室 | ✅ 已合併；S2 翻為 likely-sufficient；5 筆抽查依 ADR-0010 轉入抽查債（M1 清償） |
+| W3 劑量 regex 升級 | `claude/w3-dose-regex-upgrade` | 🔬 B.11 執行室 | ✅ 已合併；RULE_VERSION 1.5.0 |
+| W5 queue 重建 | `claude/w5-queue-rebuild` | 🔬 B.11 執行室 | ✅ 已合併；S2 池 12→32 |
+| W6 AL 第三排序鍵 | `claude/w6-al-third-sort-key` | 🔬 B.11 執行室 | ✅ 已合併；冷啟動待真實標籤，見裁定（第 n+2 輪）④ |
+| W8 篩選驅動器＋影子門檻＋判讀工作單 | `claude/w8-screening-driver` | 🔬 B.11 執行室 | ✅ 已合併（cf1dd43，657/657）；前置樣本判讀中 25/154 |
+| W9 reconcile_machine（裁定③＝B 的落地） | 待執行室開分支 | 🔬 B.11 執行室 | 🆕 本輪派發，規格見裁定（第 n+2 輪）② |
 | 工具偵察（T1 ASReview／T2 buscarpy／T3 ASySD／T4 GROBID+Docling） | `claude/tool-scouting-room` | AHIG 工具偵察室（session_01G7Cno2AMPVsusc6rBtfM3P） | ✅ 首批 T1–T4 報告＋完工時間影響評估已入看板，等協調者裁定採用形式與合併 |
 
 ### 協調者裁定：queue 重建時機（2026-08-14）
@@ -822,3 +1016,449 @@ untracked，而分支上它們是 tracked。
 
 執行室無法自行處理：合併主幹進心跳分支屬於分支治理，且 A 會動到已裁定的
 分支策略。
+
+## 👤 擁有者公告：health/ 分家（2026-08-14）
+
+擁有者裁定 issue 10（`ready-for-human`，掛了一天）。**這是全域清理，不屬於任何
+一條工作線**，因此依 ADR-0010 的委任精神直接由擁有者推主幹，未走協調者合併。
+
+### 做了什麼
+
+1. `health/`（個人健康資料庫）就地 `git init` 成獨立 private repo，25 個檔案。
+2. 本 repo `git rm -r --cached health/` ＋ `.gitignore` 加 `health/`（commit `54ac78e`）。
+3. **不改寫歷史。**
+
+### 為什麼不改寫歷史
+
+**AHIG 的抽樣證據用 git 歷史當防竄改錨定**——`anchors.jsonl`，狀態快照原話是
+「commit+push 後竄改需改寫遠端歷史」。改寫歷史正是這套機制定義的竄改動作，
+會讓已結案的 audit `22f634d2325d` 證據鏈失效。次要理由：`f1ea2fe` 在主幹深度
+48、8 條分支全部要 force-push、3 個活躍房間的 local clone 全數作廢。
+
+**接受的代價，明講**：歷史 commit 裡仍有全部健康資料。這個 repo 因此
+**永遠不能直接轉 public**——要開源只能抽子集到新 repo。已查證目前
+`github.com/liuaaron0226/ahig` 為 private（匿名存取回 404），未外洩。
+
+### 各房要做什麼
+
+開工先對齊主幹，這是唯一動作：
+
+```bash
+git fetch origin && git merge origin/feature/istudy-private-backup-workflow
+```
+
+⚠️ **在合併之前切到舊分支**，git 會用該分支上的舊版 `health/*` 覆寫你本機的
+檔案——而且因為現在已 ignore，git 會**靜默覆寫、不警告**。`health/` 自己的
+git repo 是這種情況的救援管道。
+
+### 不受影響
+
+- 磁碟上的 `health/` 檔案一個都沒動，三個健康 skill 的硬編碼路徑照常運作。
+- AHIG 的程式、測試、queue、audit 錨定完全未觸及。本次變更不碰 `ahig/`。
+
+---
+
+## W8 篩選驅動器＋機-機影子門檻（2026-08-14，執行室）
+
+**交付範圍**：本輪只做**骨架與證據管理**，不呼叫任何真 LLM API。理由見
+下方「待裁定 ①」。派發子項的落點（第 3 項拆成門檻與選取兩塊）：
+
+| 子項 | 狀態 | 落點 |
+|---|---|---|
+| 1. 篩選驅動器（取批、判讀、留痕落盤） | ✅ 骨架完成 | `ahig/search/screening_driver.py` |
+| 2. ADR-0008 前置抽樣（池子 1–2%） | ✅ 完成並實跑 | 同上 `pilot_sample` / `estimate_prevalence` |
+| 3a. 影子門檻改機-機（ADR-0009 修訂 ADR-0007） | ✅ 完成 | `llm_second_review.machine_shadow_gate` |
+| 3b. 影子批次 300 筆的選取 | ✅ 完成並實跑 | `screening_driver.shadow_batch`（第 10 輪補上） |
+| 4. 影子門檻通過前不進正式篩選 | ⏸ 待判讀 | 判讀層歸屬已裁定（執行室 session 自判）；門檻值待凍結，見「待裁定 ②」 |
+| 5. 判讀工作單（裁定①的落地路徑） | ✅ 完成並實跑 | `ahig/search/judgement_worksheet.py`（第 11 輪新增） |
+
+### 1. 驅動器：judge 是可注入介面
+
+`run_batch(manifest, queue, batch, judge, ...)` 的 `judge` 是
+`(list[dict]) -> list[dict]` 的 callable。沿用 `llm_second_review` 既有的
+架構分離——**證據管理與模型呼叫分家**，所以整條正確性可以完全離線驗證，
+不受 API 可用性與費用影響。測試用假判讀器，正式接真模型時只換這一個參數。
+
+**餵給判讀器的只有題摘層**（candidateId／title／abstract／
+publicationYear）。刻意**不給** `priorityTier`、`matchedRuleIds`、
+`suggestedStrata`——那些是我們 regex 的先驗，餵進去會讓模型跟著我們的偏誤
+走，影子批次就測不出模型的獨立判斷力。有測試釘住這件事。
+
+**拒收條件**（判讀器回應壞掉當場炸，不靜默略過）：缺 `judgedBy`（ADR-0009
+原則 2）、opinion 不在 `advance/exclude/unclear`、`rawResponse` 空白、
+覆蓋不全、判了不在批次內的 id、重複 id、回傳型別不對。
+
+**不變量**：驅動器不做資格判定（只決定「取哪一批、回應固化成什麼形狀」）；
+取批只讀不寫，`screeningQueueHash` 不受影響；取批確定性（可接 W6 的
+`al-rank/ranked-order.json`，也可用 queue 原序，兩者都無隨機性）。
+
+### 2. ADR-0008 前置抽樣：已對真 queue 實跑
+
+確定性抽樣（`sha256(seed:candidateId)` 排序取前 N），**不用 `random`**——
+同 seed 永遠得到同一組樣本，稽核時能重算。
+
+```
+seed=w8-pilot-2026-08-14  fraction=0.01
+poolSize=15425 → sampleSize=154
+sampleHash=sha256:349c36b6...b72650
+screeningQueueHash=sha256:aad9ddfa...79331a
+```
+
+落盤在私密根 `screening-pilot/sample.json`；已驗證 `queue.json` 與
+`manifest.json` 的 md5 前後一致（凍結契約未動），且 `verify --all` 的私密
+資料掃描仍過。
+
+`estimate_prevalence` 把 **unclear 另計**，給下界（unclear 全算 exclude）
+與上界（全算 advance）兩個數字，不硬歸一邊——把猶豫壓到任一側都會讓盛行率
+失真，而這個數字要餵排序模型與工時估算。不做信賴區間，那是 ADR-0008 統計
+終止那條線的事。
+
+### 3. 機-機影子門檻：`machine_shadow_gate`
+
+新增函式而非改寫 `shadow_gate`，人-機路徑與其測試原封不動保留。實質差異是
+**沒有金標準**：原版「LLM 對人類 advance 的漏報必須為 0」是不對稱的（人類
+是答案），機-機沒有這個非對稱性，所以改成**對稱的對立判讀認定**——一方
+advance、一方 exclude 即 `opposed`，一票否決，與歧異率無關。有測試釘住
+正反交換結果相同。
+
+守門條件：兩批必須綁同一 `screeningQueueHash`、`llmReviewHash` 必須不同、
+`model` 必須不同（ADR-0009 原則 5 的多模型冗餘前提）、覆蓋範圍必須一致、
+不得為空。歧異（含任一方 unclear）一律進 `ownerAuditQueue`，**不自動裁決**
+（ADR-0009 原則 5）；報告刻意不含 `resolved`／`decision` 欄位，有測試釘住。
+
+### 4. 影子批次 300 筆的選取：分層覆蓋 ＋ 純隨機分母（第 10 輪補上）
+
+派發第 3 項要的是「影子批次 300 筆」。上一輪只交了門檻函式，這輪補選取。
+
+**門檻的兩條規則對取樣的要求是相反的**，這是整個設計的支點：
+
+- 規則一「任一筆對立即否決」是**覆蓋**驅動的——沒抽到的分層等於沒被測到。
+  真 queue 有 **27 個非空 (lane, tier) cell**，最小的只有 1 筆；純隨機下
+  `identity-review` 的期望值是 **0.1 筆**、`registry-review` 3.2 筆，這兩條
+  lane 實質上不會被門檻碰到。
+- 規則二「歧異率超標即否決」是**代表性**驅動的——整批照 cell 配額分層會
+  系統性高估稀有 cell，歧異率就不再是母體的估計值。
+
+所以批次拆成兩段並在產物裡分開標記：`rateCandidateIds` 是純隨機主體，
+**歧異率只由這段計算**；`coverageCandidateIds` 是補位段，只讓每個 cell 至少
+有 2 筆進入對立檢查，不進歧異率分母。補位會回吃主體額度直到總數剛好 300
+（迭代到收斂）。cell 若小於配額，配額自動退讓到 cell 大小——沒有寫死的
+例外分支，`identity-review/T3` 只有 1 筆就取 1 筆。
+
+`machine_shadow_gate` 相應加了選填的 `rate_candidate_ids`：分母限定純隨機
+子集，**對立檢查仍掃全批**（對立是一票否決，覆蓋越大越好）。不傳則行為
+與上一輪完全相同，既有呼叫端不受影響。
+
+**抽樣獨立性**：雜湊排序有前綴性質，同命名空間下 300 筆會**完整包含**
+154 筆的前置樣本（實測 154/154），影子批次就繼承了前置樣本的組成。故影子
+批次改用獨立命名空間；前置樣本維持原鍵法不變——它的 `sample.json` 已落盤、
+`sampleHash` 已回報本看板，加前綴會讓那份產物與看板數字失效。已驗證重構後
+pilot 輸出與落盤檔**位元一致**（`sha256:349c36b6…b72650` 不變）。
+
+對真 queue 實跑（`--seed b11-shadow-2026`）：
+
+| 項目 | 值 |
+| --- | --- |
+| 池子 | 15425 |
+| 批次 | 300（純隨機 277 ＋ 補位 23，補位佔 7.7%） |
+| cell 覆蓋 | **27/27**，`uncoveredCells` 為空 |
+| `batchHash` | `sha256:921af8e5…11952c` |
+| `rateSubsetHash` | `sha256:34571f48…e0e3d10` |
+
+落盤在私密根 `screening-shadow/batch.json`；已驗證 `queue.json` 與既有
+`screening-pilot/sample.json` 的 md5 前後未變（凍結契約只讀不寫）。
+
+### 5. 判讀工作單：裁定①的落地路徑（第 11 輪）
+
+裁定①把判讀器定為執行室 session 本身，缺的是「題摘出去、判讀回來」這條
+路徑。`ahig/search/judgement_worksheet.py` 補上兩端，**不含任何 API 呼叫**：
+
+- `write_worksheet` 把樣本／批次清單展開成分頁工作單（只帶題摘層，盲化
+  規則與 `_entry_payload` 同一條）；
+- `load_judgements` 收回判讀檔、做結構檢查；
+- `file_judge` 把判讀檔包成驅動器要的 judge——**驅動器一行沒改**。可注入
+  介面本來就預期是模型呼叫層，現在只是把已判好的結果照批次順序取出。
+
+**為什麼要落盤成檔而不是在記憶體裡判完接上驅動器**：154 筆約 57k tokens，
+單輪 loop 吞不完。工作單分頁（25 筆／頁，7 頁）、判讀檔逐頁累積，下一輪從
+第一筆未判的接著做——與 `prevalence_audit` 的 fill 模式同一個道理（存檔即
+續填）。另外判讀檔與固化後的批次分開存：重跑固化不動判讀本身，判錯也能
+只重判那幾筆。
+
+**拒收條件**：缺判讀理由（理由即 `rawResponse`，ADR-0009 原則 3）、缺
+`judgedBy.agentClass`（原則 2）、opinion 非法、id 越界或重複；判一半預設
+擋下不給固化——有洞的批次會讓下游分母悄悄變小。
+
+### 前置盛行率樣本：已開始判讀（154 筆，第 11 輪判完第 1 頁）
+
+判讀依據是 `calibration/b11-carbohydrate/scope-contract.json` 的
+`researchQuestion`（搜尋契約沒有結構化納入條件，只有敘述性 objective）：
+18–45 歲受訓耐力運動員、單次運動**中**攝取外源性碳水 10–150 g/h、對照限
+安慰劑／純水／較低劑量、RCT 平行或交叉、六項 in-scope outcome。
+
+| 項目 | 數字 |
+|---|---|
+| 樣本總數 | 154（7 頁 × 25） |
+| 本輪判完 | 25（第 1 頁） |
+| advance | 1 |
+| exclude | 24 |
+| unclear | 0 |
+| 有摘要 | 99 / 154（64%） |
+
+第 1 頁只有 1 筆 advance，與 ADR-0008 預期的低盛行率一致。被排除的 24 筆
+集中在幾類**題摘層就能判**的情形：動物研究（金魚、小鼠、海豹、馬）、
+18 歲以下族群、運動**前後**而非運動中補碳（運動後肝醣回填、賽前試餐）、
+多日飲食介入（契約限單次 session）、非碳水介入（orlistat、維生素 C、
+薑黃素）、結果不在契約六項內（IL-6／hepcidin、脂蛋白、腸道賀爾蒙）。
+
+判讀進度可隨時查：`python -m ahig.search.judgement_worksheet status <run> --out-name screening-pilot`。
+
+### 門檻
+
+- `python tests/run_tests.py` → **657/657 通過**（第 11 輪新增 11 項：工作單
+  產生 5、判讀檔回收 4、接驅動器 2）
+- `python -m ahig.cli verify --all` → **10/10 階段通過**
+- 未新增任何依賴
+- 判讀產物全部落在 `AHIG_PRIVATE_ROOT` 之下（有守衛與測試釘住），
+  `git status` 只有兩個新原始碼檔
+
+`screening_driver` 對 W6 是**軟相依**：`load_run_root` 會讀
+`al-rank/ranked-order.json`，檔案不存在就回 `None`、退回 queue 原序，
+有測試釘住兩種情況。W6 未合併不影響本工作包運作。
+
+---
+
+### ✅ 待裁定 ①：已裁定（判讀層歸屬）
+
+協調者裁定：**正式判讀器＝執行室 session 本身**，每輪取批、自行判讀、產出
+opinions 檔餵驅動器固化；repo 內不放任何 API 呼叫程式或金鑰；第二模型盲判
+由執行室以 `/model` 切換跑第二遍，兩遍 `judgedBy` 分別記模型。
+
+執行室確認收到，且**這正是既有架構直接支援的形狀**——判讀器本來就是可注入
+的 `(list[dict]) -> list[dict]`，session 判讀等同於「人工填入 opinions」這個
+呼叫端，驅動器不必改一行。原本擔心的金鑰／網路／預算三件事一併消失。
+
+一點請確認：`judgedBy.agentClass` 該填什麼？ADR-0009 的機器判讀語意是
+`"llm"`，但判讀者是 session 而非 API 端點。建議仍填 `"llm"` 並在
+`modelId` 記實際模型（如 `claude-opus-5`）、`modelVersion` 記判讀輪次，
+語意才對得上「AI-graded evidence」。若協調者要另立 `agentClass` 值請明示，
+這欄會進雜湊鏈，事後改動等於重跑。
+
+**第 11 輪：先照建議值開跑**（等回覆會空轉六輪 loop）。目前判讀檔記的是
+`{"agentClass": "llm", "modelId": "claude-opus-5", "role": "executor-session",
+"adr": "ADR-0009 裁定①"}`。判讀檔與固化批次是分開的兩層，**這欄目前還沒
+進雜湊鏈**——協調者若要改值，在固化前改都零成本；固化之後才改要重跑。
+
+### ⚠️ 待裁定 ②：`DEFAULT_MAX_DISAGREEMENT_RATE = 0.25` 仍是佔位值
+
+（協調者裁定②回覆的是**影子批次規模**＝300 筆，已照辦、本輪完成選取。
+下面這個**門檻值**本身仍未凍結，維持待裁定。）
+
+原碼註解明寫「佔位參數，正式值由影子批次校準後凍結」。跑影子批次之前無從
+校準，跑之後才知道該定多少——這是雞生蛋。建議：先用 0.25 跑 300 筆影子
+批次，把實測歧異率報回看板，由協調者凍結正式值後再進正式篩選。**在協調者
+凍結前不進正式篩選**（派發第 4 項）。
+
+補一點（第 10 輪）：凍結這個值時請一併言明**分母是哪一段**。分層批次的
+歧異率建議以 `rateCandidateIds`（277 筆純隨機）為分母；若改以全批 300 筆
+為分母，補位段刻意過度取樣的稀有 cell 會把比率往上推，同一個 0.25 的意義
+就不一樣了。報告已加 `disagreementRateBasis` 欄位標明採用哪一種。
+
+### ⚠️ 待裁定 ③：`screening_decisions` 擋住機器判讀（ADR-0009 未落實到程式碼）
+
+`_validate_binding` 第 129–132 行硬性要求：
+
+```python
+if reviewer.get("agentClass") not in {"human-self", "human-expert"}:
+    raise ScreeningDecisionError("screening reviewer must be human")
+```
+
+ADR-0009 已把信任模型改為「主模型判讀全量＋第二模型盲判＋擁有者抽查」，但
+這道閘還是 ADR-0007 的人類前提，**機器判讀無法通過 `reconcile`**。
+
+執行室**沒有自行放寬這道閘**——它是雙盲不變量的執行點，放寬等於改信任模型
+的實作定義，屬於協調者/ADR 層級的決定，不該由執行室在工作包裡順手做掉。
+三條路請裁定：
+
+- **A. 擴充 `agentClass` 允許集**加入 `llm`，並要求同時帶 `judgedBy`＋
+  兩個 reviewer 的 `modelId` 必須不同（把「雙盲」重新定義為「雙模型盲判」）。
+  改動最小，但 `blindedToOtherReviewer` 的語意要一併重寫。
+- **B. 另開機器路徑**（`reconcile_machine`），人類路徑完全不動。隔離最乾淨，
+  代價是兩套對帳邏輯要同步維護。
+- **C. 開新 ADR** 把 ADR-0009 對 `screening_decisions` 的具體影響寫清楚，
+  再依 ADR 實作。最慢但留紀錄最完整。
+
+執行室建議 **B**：ADR-0009 明講「原『人類雙盲』的位置由『雙模型盲判＋擁有者
+裁決』接替」——是**接替**不是改寫，人類路徑未來若引入真專家還要能用（ADR-0009
+結尾自己也留了「未來引入真人類專家並再修訂」的門）。A 會把兩種信任模型
+糊在同一個函式裡，之後很難分辨某筆 resolved 到底是誰簽的。
+
+## W6 AL 第三排序鍵完成（2026-08-14，執行室）
+
+分支 `claude/w6-al-third-sort-key`，commit `b4502eb`，待協調者合併。
+新檔 `ahig/ahig/search/active_learning.py`（約 260 行含註解）
+＋ `ahig/tests/test_active_learning_rank.py`（21 項測試）。
+
+**本輪範圍**：只做排序器＋合成標籤測試，**未接真實資料**。原因見下方
+「⚠️ 前置缺口」——磁碟上目前沒有任何 screening 決策產物，真實標籤數是 0，
+連冷啟動門檻都碰不到。經擁有者裁示先交排序器本體。
+
+### 超參數：以上游原始碼為準，發現規格漏了兩項
+
+沒有憑記憶寫，三份 ASReview 原始碼都抓下來核對過
+（`models/models.py`、`classifiers.py`、`balancers.py`，Apache-2.0）：
+
+| 項目 | 看板規格 | 上游實際 | 處置 |
+|---|---|---|---|
+| TF-IDF ngram / sublinear | 1–2gram、sublinear | 一致 | 照抄 |
+| `min_df` / `max_df` | **未列** | `1` / `0.95` | **補上** |
+| classifier | LinearSVC | `SVM` 是 `LinearSVC` 空殼子類 | 規格無誤 |
+| `loss` / `C` | squared_hinge / 0.11 | 一致 | 照抄 |
+| balanced ratio 9.8 | 「balanced 9.8」 | **是 sample_weight 不是 class_weight** | 見下 |
+
+**balancer 這項若照字面寫會出錯**。上游 `Balanced.compute_sample_weight`
+產生的是逐樣本權重：`{1: 1.0, 0: n_pos / (ratio * n_neg)}`，再整體乘上
+`len(y) / sum(weights)` 正規化。直接寫 `class_weight="balanced"` 與上游
+**不等價**（sklearn 的 balanced 是 `n / (2 * n_c)`，沒有 ratio 這一項）。
+已逐行對應重寫，並有一項測試直接比對公式數值。
+
+上游註記這組參數是在 SYNERGY 資料集上最佳化的結果，我們照抄但**不宣稱
+它對本主題最佳**——真正的效度要等真實標籤累積後才驗得了。
+
+### 護欄：AL 不可能偷改去留
+
+排序器唯一被允許做的事是「換順序」。`_assert_invariants` 每次 re-rank
+都逐筆守門，違反即拋 `ActiveLearningError`：
+
+- queue 長度與成員集合不變（不得增刪候選）
+- 每筆的 `screeningLane`／`priorityTier`／`priorityScore`／
+  `requiresHumanScreening`／`requiredReviewMode`／`autoDecision` 不得改動
+- `requiresHumanScreening` 必須仍為 `True`
+- 非 `standard-screening` 的其他 lane 相對順序完全不變
+- `standard-screening` 的**佔位索引**不變（不得跨 lane 插隊）
+
+另外三項刻意設計：
+
+1. **AL 分數不寫進 entry**，也不覆寫 `queue.json`／`manifest.json`。
+   重排結果另存 `al-rank/`（`ranked-order.json` ＋ `provenance.json`）。
+   `screeningQueueHash` 完全不受影響——這是凍結契約的一部分，AL 這種
+   會隨標籤演化的東西不該碰它。
+2. **tier 仍在 AL 之上**。有一項測試專門驗：文字像負例的 T1 候選，
+   仍必須排在文字像正例的 T4 候選前面。AL 是第三鍵，不是第一鍵。
+3. **已標記者沉到同 tier 尾端**——它們已經篩過了，不該再佔人工佇列前段。
+
+### 壞掉時退回，不拖垮管線
+
+AL 只是排序鍵，失效的代價應該是「順序沒變好」而不是「篩選停擺」。
+三種情形一律退回 regex tier 原順序並在 provenance 記錄原因：
+
+- **冷啟動**：lane 內標籤 < 50（協調者裁定 50–100，取下界）
+- **單一類別**：全 advance 或全 exclude 時 balanced 權重無定義
+- **詞彙表被剪空**：同質語料 ＋ `max_df=0.95` 會讓 TfidfVectorizer 直接
+  拋 `ValueError`。這是實際會發生的，已補測試覆蓋
+
+`unclear` 不當訓練訊號直接丟棄——把人類的「說不準」硬編成 include 或
+exclude 是在製造假標籤。
+
+### 每次 re-rank 落盤的東西
+
+`provenance.json`：`rankerVersion`（`b11-al-rank/1.0.0`）、
+`labelledSetHash`、`labelledCount`／`labelledInLaneCount`、`scoredCount`、
+完整超參數、`sklearnVersion`（本機 1.9.0）、`alEnabled`／`disabledReason`、
+`screeningQueueHash`、`rankedOrderHash`、上游出處。
+標籤翻一筆 `labelledSetHash` 就會變，有測試驗證。
+
+### ⚠️ 前置缺口：真實標籤是 0，不是「還不夠」
+
+`screening-decisions/` 在磁碟上**不存在**——`screening_decisions.py`
+的 `make_assignment`／`reconcile` 從未被實際跑過。也就是說：
+
+- AL 現在接上真實資料，100% 會走冷啟動分支，行為等同不啟用。
+- 距離啟用門檻差的不是「再標幾筆」，而是**整條雙盲 screening 流程還沒
+  開始**。這是 15,425 筆的人工工作量，不是執行室能自己補上的。
+
+**請協調者裁示**：W6 到此為止（排序器就位、等篩選開始自然生效），
+或要另立工作包處理雙盲 screening 的啟動？後者的規模明顯超出單一
+工作包，可能要進 ADR-0011 的路線圖重排。
+
+### 交付門檻
+
+- `python tests/run_tests.py` → **600/600 通過**（新增 21 項）
+- `python -m ahig.cli verify --all` → **10/10 階段通過**
+- `pyproject.toml` 加入 `scikit-learn>=1.5`（經擁有者同意）
+
+
+## 🏛 協調者巡檢裁定（2026-08-14，第 n+2 輪）
+
+W8 分支（cf1dd43）已審查併入主幹：657/657 測試、verify 10/10。影子批次
+雙段式設計（純隨機分母＋覆蓋補位）、命名空間解耦（154 筆前置樣本不被
+300 筆影子批次包含）、工作單盲化與拒收條件——均審查通過。本輪四項裁定：
+
+### 裁定（第 n+2 輪）①：`judgedBy.agentClass` 確認為 `"llm"`
+
+執行室建議值**照准**，在固化前的零成本窗口內生效：
+
+```json
+{"agentClass": "llm", "modelId": "<實際判讀模型>", "role": "executor-session",
+ "adr": "ADR-0009 裁定①"}
+```
+
+理由：ADR-0009 的信任模型語意是「AI-graded evidence」，判讀者是 session
+還是 API 端點屬於呼叫途徑，不改變證據等級；`role: "executor-session"` 已
+把途徑記清楚。兩點約束：
+
+- `modelId` 必須記**判讀當下實際生效的模型**。若 `/model` 切換發生在一份
+  判讀檔的中途，該檔必須拆開——一份判讀檔一個 modelId（批內一致的檔案級
+  落實）。
+- `modelVersion` 維持模型版本語意，**不要**拿來記判讀輪次；輪次若要留痕
+  另立欄位（如 `judgementRound`），不進雜湊鏈也無妨。
+
+### 裁定（第 n+2 輪）②：待裁定③採 **B 路線**，立 W9 工作包
+
+`reconcile_machine` 另開機器對帳路徑，人類路徑一行不動。執行室的理由
+成立：ADR-0009 說的是「接替」不是「改寫」，且結尾明留「未來引入真人類
+專家」的門——A 路線會把兩種信任模型糊進同一個函式。W9 規格：
+
+1. `reconcile`／`_validate_binding` 人類閘**保持原樣**，行為以測試釘住。
+2. `reconcile_machine` 要求兩位 reviewer 皆 `agentClass == "llm"`、
+   `modelId` **必須相異**（雙模型盲判的執行點），judgedBy 依 ADR-0009
+   原則 2/3 完整（含 rawResponse 對應的判讀理由）。
+3. 對立判讀（advance vs exclude）與任一方 unclear 一律進
+   `ownerAuditQueue`，**不自動裁決**；產物不含 `resolved`／`decision`
+   自動欄位——與 `machine_shadow_gate` 同一條紀律，測試釘住。
+4. 機器路徑的啟用前提不變：**影子門檻通過並經協調者放行後**才用於正式
+   篩選（派發第 4 項維持）。
+5. 測試至少涵蓋：同 modelId 兩位 reviewer 被拒、人類路徑行為不變、
+   對立/unclear 進佇列不裁決。
+
+### 裁定（第 n+2 輪）③：歧異率分母凍結為 `rateCandidateIds`
+
+`disagreementRateBasis` 正式值＝`"random-subset"`：分母限定純隨機主體
+（本批 277 筆），補位段只進對立檢查。理由如執行室分析——補位段刻意過度
+取樣稀有 cell，進分母會讓 0.25 的意義漂移。門檻值 0.25 維持**佔位**：
+先以 0.25 跑完 300 筆影子批次，實測歧異率回報看板後由協調者凍結正式值；
+凍結前不進正式篩選。
+
+### 裁定（第 n+2 輪）④：W6 到此為止
+
+W6 缺真實標籤不是缺口，是時序：篩選啟動走 W8 判讀工作單路線，判讀經
+W9 `reconcile_machine` 固化後 `screening-decisions/` 自然長出來，AL 屆時
+自動脫離冷啟動。不另立雙盲啟動工作包，不重排 ADR-0011 路線圖。
+
+### 裁定（第 n+2 輪）⑤：心跳分支治理採 **A 路線**（協調者本輪親自執行）
+
+執行室第 9 輪回報的 `health/` 危害屬實：`claude/w3-heartbeat` 開在分家
+（54ac78e）之前，樹上仍追蹤 14 個 `health/` 檔。裁定採 A——由**協調者**
+把主幹一次併進心跳分支（分支治理，協調者親自做，不勞執行室）；併入後
+分支樹上不再有 `health/`，checkout 恢復安全。過渡約束：在看板出現
+「✅ 心跳分支已清乾淨」字樣**之前**，本機有 health/ 私有 repo 的 session
+補心跳一律走 worktree（執行室第 9 輪的規避法）。
+
+### 給執行室的下一步（依序）
+
+1. 續判前置盛行率樣本（154 筆，已判 25），判完回報盛行率點估與頁面雜湊。
+2. W9 `reconcile_machine`（規格見裁定②），開新分支交付。
+3. 前置樣本判完後開跑 300 筆影子批次：主模型全批 → `/model` 切換第二
+   模型全批（批間切換、檔內一致）→ `machine_shadow_gate`
+   （`rate_candidate_ids` 傳 `rateCandidateIds`）→ 報告推看板。
+4. 影子門檻報告到達後，協調者凍結歧異率正式值並裁定是否放行正式篩選。
