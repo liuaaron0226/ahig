@@ -5,7 +5,9 @@
   "oneOf": [
     {"$ref": "#/$defs/Assignment"},
     {"$ref": "#/$defs/Review"},
-    {"$ref": "#/$defs/Reconciliation"}
+    {"$ref": "#/$defs/Reconciliation"},
+    {"$ref": "#/$defs/MachineReview"},
+    {"$ref": "#/$defs/MachineReconciliation"}
   ],
   "$defs": {
     "Sha256": {
@@ -296,6 +298,211 @@
           }
         }
       ]
+    },
+    "MachineReviewer": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["reviewerId", "agentClass", "blindedToOtherReviewer"],
+      "properties": {
+        "reviewerId": {"type": "string", "minLength": 1},
+        "agentClass": {"const": "llm"},
+        "blindedToOtherReviewer": {"const": true}
+      }
+    },
+    "JudgedBy": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": ["agentClass", "modelId", "modelVersion"],
+      "properties": {
+        "agentClass": {"const": "llm"},
+        "modelId": {"type": "string", "minLength": 1},
+        "modelVersion": {"type": "string", "minLength": 1}
+      }
+    },
+    "MachineJudgement": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["candidateId", "opinion", "rawResponse"],
+      "properties": {
+        "candidateId": {"type": "string", "minLength": 1},
+        "opinion": {
+          "enum": ["advance", "exclude", "unclear"]
+        },
+        "rawResponse": {"type": "string", "minLength": 1}
+      }
+    },
+    "MachineReview": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["documentType", "schemaVersion", "reviewId", "assignmentId", "runId", "screeningQueueHash", "candidateSetHash", "reviewer", "judgedBy", "completedAt", "judgements"],
+      "properties": {
+        "documentType": {"const": "title-abstract-machine-review"},
+        "schemaVersion": {"const": "1.0.0"},
+        "reviewId": {"type": "string", "minLength": 1},
+        "assignmentId": {"type": "string", "minLength": 1},
+        "runId": {"type": "string", "minLength": 1},
+        "screeningQueueHash": {"$ref": "#/$defs/Sha256"},
+        "candidateSetHash": {"$ref": "#/$defs/Sha256"},
+        "reviewer": {"$ref": "#/$defs/MachineReviewer"},
+        "judgedBy": {"$ref": "#/$defs/JudgedBy"},
+        "completedAt": {"type": "string", "format": "date-time"},
+        "judgements": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"$ref": "#/$defs/MachineJudgement"}
+        }
+      }
+    },
+    "ConcordantOpinion": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["candidateId", "opinion"],
+      "properties": {
+        "candidateId": {"type": "string", "minLength": 1},
+        "opinion": {
+          "enum": ["advance", "exclude", "unclear"]
+        }
+      }
+    },
+    "ModelOpinion": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["reviewerId", "modelId", "modelVersion", "opinion", "rawResponse"],
+      "properties": {
+        "reviewerId": {"type": "string", "minLength": 1},
+        "modelId": {"type": "string", "minLength": 1},
+        "modelVersion": {"type": "string", "minLength": 1},
+        "opinion": {
+          "enum": ["advance", "exclude", "unclear"]
+        },
+        "rawResponse": {"type": "string", "minLength": 1}
+      }
+    },
+    "OwnerAuditItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["candidateId", "disagreementKind", "modelOpinions"],
+      "properties": {
+        "candidateId": {"type": "string", "minLength": 1},
+        "disagreementKind": {
+          "enum": ["opposed", "either-unclear", "divergent"]
+        },
+        "modelOpinions": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": {"$ref": "#/$defs/ModelOpinion"}
+        }
+      }
+    },
+    "MachineCounts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["candidateCount", "concordantCount", "ownerAuditCount", "opposedCount", "concordantAdvanceCount", "concordantExcludeCount"],
+      "properties": {
+        "candidateCount": {"type": "integer", "minimum": 0},
+        "concordantCount": {"type": "integer", "minimum": 0},
+        "ownerAuditCount": {"type": "integer", "minimum": 0},
+        "opposedCount": {"type": "integer", "minimum": 0},
+        "concordantAdvanceCount": {"type": "integer", "minimum": 0},
+        "concordantExcludeCount": {"type": "integer", "minimum": 0}
+      }
+    },
+    "MachineReconciliation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["documentType", "schemaVersion", "adr", "reconciliationId", "assignmentId", "runId", "screeningQueueHash", "candidateSetHash", "reviewIds", "reviewerIds", "modelIds", "judgedBy", "evidenceGrade", "status", "concordant", "ownerAuditQueue", "opposedCandidateIds", "counts", "assignmentCoversQueue", "candidateSourcesComplete", "machineTitleAbstractScreeningComplete", "machineScreeningReleased", "eligibleSamplingPoolReady", "blockingReasons", "nextStage", "completedAt", "reconciliationHash", "documentFreezeStatus"],
+      "properties": {
+        "documentType": {"const": "title-abstract-machine-reconciliation"},
+        "schemaVersion": {"const": "1.0.0"},
+        "adr": {"const": "ADR-0009"},
+        "reconciliationId": {"type": "string", "minLength": 1},
+        "assignmentId": {"type": "string", "minLength": 1},
+        "runId": {"type": "string", "minLength": 1},
+        "screeningQueueHash": {"$ref": "#/$defs/Sha256"},
+        "candidateSetHash": {"$ref": "#/$defs/Sha256"},
+        "reviewIds": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "uniqueItems": true,
+          "items": {"type": "string", "minLength": 1}
+        },
+        "reviewerIds": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "uniqueItems": true,
+          "items": {"type": "string", "minLength": 1}
+        },
+        "modelIds": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "uniqueItems": true,
+          "items": {"type": "string", "minLength": 1}
+        },
+        "judgedBy": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": {"$ref": "#/$defs/JudgedBy"}
+        },
+        "evidenceGrade": {"const": "AI-graded evidence — no human expert review"},
+        "status": {
+          "enum": ["concordant", "needs-owner-audit"]
+        },
+        "concordant": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/ConcordantOpinion"}
+        },
+        "ownerAuditQueue": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/OwnerAuditItem"}
+        },
+        "opposedCandidateIds": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"type": "string", "minLength": 1}
+        },
+        "counts": {"$ref": "#/$defs/MachineCounts"},
+        "assignmentCoversQueue": {"type": "boolean"},
+        "candidateSourcesComplete": {"type": "boolean"},
+        "machineTitleAbstractScreeningComplete": {"type": "boolean"},
+        "machineScreeningReleased": {"const": false},
+        "eligibleSamplingPoolReady": {"const": false},
+        "blockingReasons": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"type": "string", "minLength": 1},
+          "contains": {"const": "machine-screening-not-released"}
+        },
+        "nextStage": {
+          "enum": ["candidate-source-search", "owner-audit", "title-abstract-screening", "machine-screening-release-review"]
+        },
+        "completedAt": {"type": "string", "format": "date-time"},
+        "reconciliationHash": {"$ref": "#/$defs/Sha256"},
+        "documentFreezeStatus": {"const": "frozen"}
+      },
+      "not": {
+        "anyOf": [
+          {
+            "required": ["resolvedDecisions"]
+          },
+          {
+            "required": ["needsAdjudication"]
+          },
+          {
+            "required": ["resolved"]
+          },
+          {
+            "required": ["decision"]
+          },
+          {
+            "required": ["reconciledDecision"]
+          }
+        ]
+      }
     }
   }
 }
