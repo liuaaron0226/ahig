@@ -513,3 +513,53 @@ def test_http_error_exchange_is_retained_before_source_fails():
         assert (source_root / req["responsePath"]).read_bytes() == fake.raw
         assert req["httpStatus"] == 400
         assert "secret" not in req["finalUrl"]
+
+
+# ---------------------------------------------------------------------------
+# UrllibTransport 的網路容錯（直接測 transport，不經 runner）
+# ---------------------------------------------------------------------------
+
+def _fake_response(body: bytes):
+    from email.message import Message
+
+    class _Response:
+        status = 200
+
+        def __init__(self):
+            self.headers = Message()
+            self.headers["Content-Type"] = "application/json; charset=utf-8"
+
+        def read(self):
+            return body
+
+        def geturl(self):
+            return "https://example.test/x"
+
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *args):
+            return False
+
+    return _Response()
+
+
+def test_urllib_transport_parses_json_with_raw_control_characters():
+    """NCBI 的 JSON 會在字串值內夾原始控制字元；嚴格模式必炸且重試無效。"""
+    body = b'{"title": "carbohydrate \x02 exercise"}'
+    transport = runner.UrllibTransport(attempts=1, base_delay=0)
+    with patch("urllib.request.urlopen", return_value=_fake_response(body)):
+        result = transport.get_json(url="https://example.test/x", params={})
+    assert result["title"] == "carbohydrate \x02 exercise"
+
+
+def test_urllib_transport_retries_incomplete_read():
+    """大回應中途截斷（IncompleteRead）是暫時性錯誤，必須重試而非放棄。"""
+    import http.client
+    transport = runner.UrllibTransport(attempts=3, base_delay=0)
+    side_effects = [http.client.IncompleteRead(b"partial"),
+                    ConnectionResetError("reset"),
+                    _fake_response(b'{"ok": true}')]
+    with patch("urllib.request.urlopen", side_effect=side_effects):
+        result = transport.get_json(url="https://example.test/x", params={})
+    assert result == {"ok": True}

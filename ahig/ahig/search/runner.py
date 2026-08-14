@@ -16,6 +16,7 @@ from __future__ import annotations
 
 import argparse
 import hashlib
+import http.client
 import json
 import os
 import re
@@ -82,7 +83,9 @@ class UrllibTransport:
                         "finalUrl": response.geturl(),
                         "contentType": response.headers.get("Content-Type"),
                     }
-                    return json.loads(raw.decode(charset))
+                    # strict=False：NCBI 等來源的 JSON 會夾帶原始控制字元
+                    # （出現在字串值內），嚴格模式必炸且重試無效。
+                    return json.loads(raw.decode(charset), strict=False)
             except urllib.error.HTTPError as exc:
                 raw = exc.read()
                 self.last_exchange = {
@@ -99,7 +102,10 @@ class UrllibTransport:
                     snippet = raw.decode("utf-8", errors="replace")[:300]
                     raise RuntimeError(
                         f"HTTP {exc.code} {_redacted_url(full_url)} — {snippet}") from exc
-            except (urllib.error.URLError, TimeoutError, json.JSONDecodeError) as exc:
+            except (urllib.error.URLError, TimeoutError, json.JSONDecodeError,
+                    http.client.HTTPException, ConnectionError) as exc:
+                # HTTPException 涵蓋 IncompleteRead / RemoteDisconnected 等
+                # 傳輸中斷——大回應被截斷是暫時性錯誤，必須進重試。
                 last = exc
             if attempt < self.attempts:
                 time.sleep(self.base_delay * (2 ** (attempt - 1)))
