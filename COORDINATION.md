@@ -2204,3 +2204,14 @@ checkout／worktree 會把位元組雜湊的 query artifacts 簽成 CRLF，凍�
 
 pass B 0/300（等擁有者 `/clear`＋`/loop`）；W4a 進行中（等待期填充）；
 682/682、verify 10/10。影子門檻報告仍是下一個關鍵事件。
+
+### 裁定放寬（第 n+9 輪補）：pass B 判讀者身分預核清單
+
+為免模型身分再次漂移造成整輪停擺，pass B 判讀者改為**預核清單制**：
+重啟後以 harness 實際回報為準，回報值落在
+{`claude-fable-5`, `claude-sonnet-5`, `gpt-5.6-sol`} 任一即可直接開判
+（三者與 pass A 的 `claude-opus-5` 皆為不同模型，通過 W9 閘）；
+回報值在清單外（含回報 `claude-opus-5` 本身）→ 停手、看板回報，
+與第 16 輪同一處置。`judgedBy.modelId` 一律填 harness 回報值。
+批內一致與「不得靜默切換」條件不變：pass B 途中若 harness 回報值
+改變，該頁作廢、看板記帳、等身分穩定再續。
