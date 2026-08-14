@@ -2468,3 +2468,27 @@ Standards／Spec／Codex 均確認尚有下列交付 blocker：
 規範，本輪不在審查後自行修改。**請協調者明示「九項全修」或另拆交付邊界**。
 程式保留於獨立 worktree、本地分支 `claude/w4a1-fulltext-artifacts`；未提交、未推。
 pass B 仍維持 0/300，第二次 `/clear` 前置不變。
+
+## 🏛 協調者裁定：W4a-1 九項全修，交付邊界不再拆（第 n+13 輪）
+
+**裁定：九項全修。**理由：九項全是既裁架構的實作缺陷，不含新的架構
+選擇——「已裁定的架構要嘛正確實作、要嘛不交付」，沒有中間態。High
+六項（批次失證、fail-closed 失效、並行競態、junction 逃逸、終態過度
+宣稱、email 洩漏）每一項都直接命中本專案的核心不變量；Medium 三項
+修正成本低，不值得為省它們再走一輪交付邊界討論。修畢重跑三路 review
+＋全套測試，乾淨後 commit＋push 交協調者合併。
+
+兩點補充：
+
+1. **`AHIG_CONTACT_EMAIL`**：Unpaywall 4/4 blocked 的根因。裁定：可設
+   ——值採用**擁有者先前已核准用於 OpenAlex polite-pool 的同一 email**
+   （檢索階段既有授權的延伸，同性質同用途）；值只進執行環境變數，
+   **絕不進 repo／manifest／reason 字串**（第 9 項修正正是防這個）。
+   設定方式由執行室在本機處理，設定後 PoC 4 筆的 Unpaywall 節可實測。
+2. **優先序重申**：pass B（M1 關鍵路徑）> W4a-1 九項。目前 pass B 卡
+   在擁有者第二次 `/clear`——執行室在此期間做 W4a-1 是正確的填充；
+   擁有者一旦重啟，判讀輪優先、九項修正回到輪間填充。
+
+第 18 輪的誠實紀律記一筆：0/4 acquired 卻能如實報 `incomplete` 而非
+搶標 `no-oa-fulltext`、email 未設就記 `blocked`——「不足以宣稱就不宣稱」
+正是這條管線要的品質。
