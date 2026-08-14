@@ -1,17 +1,22 @@
 {
   "permissions": {
     "allow": [
-      "Bash(winget install *)",
-      "Bash(where ollama *)",
-      "Bash(echo \"exit:$?\")",
-      "Read(//c/Users/User/Pictures/Screenshots/**)",
-      "Bash(find . -maxdepth 2 -iname \".env*\" -not -path \"*/node_modules/*\")",
-      "Bash(find . -maxdepth 3 -iname \"*.env.example\" -not -path \"*/node_modules/*\")",
-      "Bash(echo \"exit: $?\")",
-      "Bash(echo \"---exit code: $?---\")",
-      "Bash(tasklist)",
-      "WebSearch",
-      "Bash(netstat -ano)"
+      "Bash(git status*)",
+      "Bash(git log*)",
+      "Bash(git diff*)",
+      "Bash(git show*)",
+      "Bash(git fetch*)",
+      "Bash(git pull*)",
+      "Bash(git add*)",
+      "Bash(git commit*)",
+      "Bash(git checkout*)",
+      "Bash(git branch*)",
+      "Bash(git merge*)",
+      "Bash(git push origin*)",
+      "Bash(python tests/run_tests.py*)",
+      "Bash(python3 tests/run_tests.py*)",
+      "Bash(python -m ahig*)",
+      "Bash(python3 -m ahig*)"
     ]
   }
 }
