@@ -563,3 +563,61 @@ def test_urllib_transport_retries_incomplete_read():
     with patch("urllib.request.urlopen", side_effect=side_effects):
         result = transport.get_json(url="https://example.test/x", params={})
     assert result == {"ok": True}
+
+
+def test_pubmed_over_result_cap_slices_by_publication_date():
+    """命中超過 NCBI 1 萬筆視窗上限時，同一查詢式按 pdat 二分切片抓齊。"""
+    def es(count, key, env):
+        return {"esearchresult": {"count": str(count), "querykey": key,
+                                  "webenv": env}}
+    fake = FakeTransport([
+        es(10, "K0", "E0"),                 # 全範圍：超過（patched）上限 6
+        es(4, "K1", "E1"),                  # 前半日期範圍
+        pubmed_summary(["1", "2", "3", "4"]),
+        es(6, "K2", "E2"),                  # 後半日期範圍
+        pubmed_summary(["5", "6", "7", "8", "9", "10"]),
+    ])
+    with tempfile.TemporaryDirectory() as tmp:
+        with patch.dict(os.environ, {"AHIG_PRIVATE_ROOT": tmp,
+                                     "AHIG_CONTACT_EMAIL": "owner@example.com"},
+                        clear=True):
+            with patch.object(runner, "_PUBMED_RESULT_CAP", 6):
+                result = runner.run_search(CONTRACT, only=["pubmed"],
+                                           run_id="run-001", transport=fake)
+    source = result["sources"]["pubmed"]
+    assert source["status"] == "completed"
+    assert source["recordCount"] == 10
+    assert source["declaredTotal"] == 10
+    assert [s["count"] for s in source["dateSlices"]] == [4, 6]
+    assert source["dateSlices"][0]["mindate"] == "1800/01/01"
+    assert source["dateSlices"][1]["maxdate"] == "2999/12/31"
+    # 切片 esearch 帶 pdat 日期；esummary 用各自切片的 history key。
+    assert fake.calls[1]["params"]["datetype"] == "pdat"
+    assert fake.calls[2]["params"]["query_key"] == "K1"
+    assert fake.calls[4]["params"]["query_key"] == "K2"
+    # 首次全範圍 esearch 不帶日期（與未切片路徑一致）。
+    assert "datetype" not in fake.calls[0]["params"]
+
+
+def test_pubmed_slice_dedupes_boundary_duplicates_by_uid():
+    """切片理論上互斥；若邊界重複，防禦性以 uid 去重且總數對帳。"""
+    def es(count, key, env):
+        return {"esearchresult": {"count": str(count), "querykey": key,
+                                  "webenv": env}}
+    fake = FakeTransport([
+        es(7, "K0", "E0"),
+        es(4, "K1", "E1"),
+        pubmed_summary(["1", "2", "3", "4"]),
+        es(4, "K2", "E2"),                  # 邊界重複了 uid 4
+        pubmed_summary(["4", "5", "6", "7"]),
+    ])
+    with tempfile.TemporaryDirectory() as tmp:
+        with patch.dict(os.environ, {"AHIG_PRIVATE_ROOT": tmp,
+                                     "AHIG_CONTACT_EMAIL": "owner@example.com"},
+                        clear=True):
+            with patch.object(runner, "_PUBMED_RESULT_CAP", 6):
+                result = runner.run_search(CONTRACT, only=["pubmed"],
+                                           run_id="run-001", transport=fake)
+    source = result["sources"]["pubmed"]
+    assert source["status"] == "completed"
+    assert source["recordCount"] == 7

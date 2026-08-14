@@ -17,6 +17,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import http.client
+import itertools
 import json
 import os
 import re
@@ -25,7 +26,7 @@ import time
 import urllib.error
 import urllib.parse
 import urllib.request
-from datetime import datetime, timezone
+from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any, Protocol
 
@@ -420,52 +421,112 @@ def _run_openalex(source: dict, source_root: Path,
             "accessMode": "api-key" if api_key else "polite-pool-mailto"}
 
 
+# NCBI E-utilities 的結果視窗上限：retstart 不得達到 10,000。查詢命中超過
+# 上限時，以出版日期（pdat）對同一條查詢式做二分切片——查詢語句不變，
+# 屬分頁策略而非契約修改；切片邊界記錄於來源結果的 dateSlices 供稽核。
+_PUBMED_RESULT_CAP = 10_000
+_PUBMED_DATE_FLOOR = date(1800, 1, 1)
+_PUBMED_DATE_CEIL = date(2999, 12, 31)
+
+
 def _run_pubmed(source: dict, source_root: Path,
                  transport: JsonTransport) -> dict:
     email = os.environ.get("AHIG_CONTACT_EMAIL")
     if not email:
         raise PermissionError("AHIG_CONTACT_EMAIL is required for PubMed")
     _, query = _query_artifact(source)
-    fixed = source.get("fixedParameters", {})
     base = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/"
-    esearch_params = {
-        "db": "pubmed", "term": query, "retmode": "json", "usehistory": "y",
-        "retmax": 0, "tool": "ahig", "email": email,
-    }
-    requests: list[dict] = []
-    initial = _request_json(
-        transport=transport, source_root=source_root, requests=requests,
-        url=base + "esearch.fcgi", params=esearch_params, page_index=1)
-    result = initial.get("esearchresult", {})
-    count = int(result.get("count", 0))
-    query_key, webenv = result.get("querykey"), result.get("webenv")
-    if count and (not query_key or not webenv):
-        raise RuntimeError("PubMed usehistory response missing querykey/WebEnv")
-
-    records: list[dict] = []
     page_size = source["pagination"]["pageSize"]
-    page = 1
-    for start in range(0, count, page_size):
+    requests: list[dict] = []
+    pages = itertools.count(1)
+
+    def esearch(mindate: date | None = None,
+                maxdate: date | None = None) -> tuple[int, str | None,
+                                                      str | None]:
         params = {
-            "db": "pubmed", "query_key": query_key, "WebEnv": webenv,
-            "retstart": start, "retmax": page_size, "retmode": "json",
-            "tool": "ahig", "email": email,
+            "db": "pubmed", "term": query, "retmode": "json",
+            "usehistory": "y", "retmax": 0, "tool": "ahig", "email": email,
         }
-        page += 1
+        if mindate is not None and maxdate is not None:
+            params.update({"datetype": "pdat",
+                           "mindate": mindate.strftime("%Y/%m/%d"),
+                           "maxdate": maxdate.strftime("%Y/%m/%d")})
         payload = _request_json(
             transport=transport, source_root=source_root, requests=requests,
-            url=base + "esummary.fcgi", params=params, page_index=page)
-        summary = payload.get("result", {})
-        for uid in summary.get("uids") or []:
-            if str(uid) in summary:
-                records.append(summary[str(uid)])
+            url=base + "esearch.fcgi", params=params, page_index=next(pages))
+        result = payload.get("esearchresult", {})
+        count = int(result.get("count", 0))
+        query_key, webenv = result.get("querykey"), result.get("webenv")
+        if count and (not query_key or not webenv):
+            raise RuntimeError("PubMed usehistory response missing "
+                               "querykey/WebEnv")
+        return count, query_key, webenv
 
-    if len(records) != count:
+    def esummary_pages(count: int, query_key: str, webenv: str) -> list[dict]:
+        out: list[dict] = []
+        for start in range(0, count, page_size):
+            params = {
+                "db": "pubmed", "query_key": query_key, "WebEnv": webenv,
+                "retstart": start, "retmax": page_size, "retmode": "json",
+                "tool": "ahig", "email": email,
+            }
+            payload = _request_json(
+                transport=transport, source_root=source_root,
+                requests=requests, url=base + "esummary.fcgi", params=params,
+                page_index=next(pages))
+            summary = payload.get("result", {})
+            for uid in summary.get("uids") or []:
+                if str(uid) in summary:
+                    out.append(summary[str(uid)])
+        return out
+
+    total_count, query_key, webenv = esearch()
+    records: list[dict] = []
+    slices_meta: list[dict] = []
+    if total_count <= _PUBMED_RESULT_CAP:
+        if total_count:
+            records = esummary_pages(total_count, query_key, webenv)
+    else:
+        # 總數已超上限：根範圍必然要切，直接播種兩個半區（省一次 esearch）。
+        root_mid = _PUBMED_DATE_FLOOR + timedelta(
+            days=(_PUBMED_DATE_CEIL - _PUBMED_DATE_FLOOR).days // 2)
+        stack = [(root_mid + timedelta(days=1), _PUBMED_DATE_CEIL),
+                 (_PUBMED_DATE_FLOOR, root_mid)]
+        while stack:
+            lo, hi = stack.pop()
+            count, key, env = esearch(lo, hi)
+            if count == 0:
+                continue
+            if count > _PUBMED_RESULT_CAP:
+                if lo == hi:
+                    raise RuntimeError(
+                        f"PubMed 單日結果 {count} 仍超過 {_PUBMED_RESULT_CAP} "
+                        f"上限：{lo}；無法再切片")
+                mid = lo + timedelta(days=(hi - lo).days // 2)
+                stack.append((mid + timedelta(days=1), hi))
+                stack.append((lo, mid))
+                continue
+            slices_meta.append({"mindate": lo.strftime("%Y/%m/%d"),
+                                "maxdate": hi.strftime("%Y/%m/%d"),
+                                "count": count})
+            records.extend(esummary_pages(count, key, env))
+        # 切片理論上互斥；防禦性去重（uid 保序），並與全查詢總數對帳。
+        unique: dict[str, dict] = {}
+        for record in records:
+            unique.setdefault(str(record.get("uid")), record)
+        records = list(unique.values())
+
+    if len(records) != total_count:
         raise RuntimeError(
-            f"PubMed pagination incomplete: retained {len(records)} of {count}")
+            f"PubMed pagination incomplete: retained {len(records)} of "
+            f"{total_count}（若為切片模式，資料庫於執行期間更新可能造成"
+            "漂移；重跑 --only pubmed）")
     atomic_write_json(source_root / "records.json", records)
-    return {"recordCount": len(records), "pageCount": page,
-            "declaredTotal": count}
+    result = {"recordCount": len(records), "pageCount": len(requests),
+              "declaredTotal": total_count}
+    if slices_meta:
+        result["dateSlices"] = slices_meta
+    return result
 
 
 RUNNERS = {
