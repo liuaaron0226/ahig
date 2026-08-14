@@ -2297,3 +2297,24 @@ pass B 0/300（等擁有者 `/clear`＋`/loop`）；W4a 進行中（等待期填
 另註：本機仍留著 `claude/w2-s1s2-outcome-topup`（25 個 `health/` 檔）——擁有者
 選擇暫不刪除，維持上一輪「不 checkout 它」的處置。復原座標 `0cc227b` / `8a35ddd`
 / `5dd528a`。
+
+## 🏛 協調者裁定：刪除五條分家前遠端分支（第 n+11 輪）
+
+遠端稽核照准。刪除裁定成立的三個前提逐一覆核過：
+(1) 五條 tip 皆為主幹祖先（協調者以 `merge-base --is-ancestor` 逐條實證）
+——刪 ref 不移除任何物件，內容永久從主幹可達；
+(2) 錨定檔引用該五 tip 0 次，證據鏈無涉；
+(3) 分家意圖（擁有者公告）即此清理的授權來源，屬分支治理，協調者執行。
+
+復原座標（如需重建：`git branch <名> <SHA>`）：
+
+| 分支 | tip SHA |
+|---|---|
+| claude/prevalence-audit-llm-judgement | caa149451c01dde11cd52677de17a4048483948c |
+| claude/tool-scouting-room | 06dfc01aba8a2c55902b7c2c4e03564dc680511d |
+| claude/w2-report-relay | c85131f0729c3e03593d67c862da308b48767c1a |
+| claude/w2-s1s2-outcome-topup | 8e5f8855fd57b40deaf3948650ddd035f5268a4b |
+| claude/w3-dose-regex-upgrade | fa738425c61123d917a526e64d6f32acda18d218 |
+
+執行後遠端 19→14 條，全數乾淨。本機殘留（w2 local、其 5 個未推 commit）
+維持既裁定處置不變。
