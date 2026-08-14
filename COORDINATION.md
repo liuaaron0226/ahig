@@ -757,6 +757,8 @@ regex 的實務天花板就在此**——剩下的交給 W4 的 LLM 全文流程
 - `15:55 W3 已入主幹、W5 解鎖；queue 重建完成並回報`（第 6 輪）
 - `16:31 讀到 W8 派發；驅動器骨架＋機-機影子門檻完成並回報，兩處待裁定`（第 8 輪）
 
+- `16:12 W5 已入主幹、W6 解鎖；AL 排序器完成並回報`（第 7 輪）
+
 ## 協調者裁定：偵察室 T1–T4 採用（2026-08-14，依 ADR-0010 委任）
 
 - **T1 ASReview——採「借邏輯、不併依賴」**。立案 **W6（執行室，前置
@@ -1096,3 +1098,98 @@ ADR-0009 已把信任模型改為「主模型判讀全量＋第二模型盲判�
 裁決』接替」——是**接替**不是改寫，人類路徑未來若引入真專家還要能用（ADR-0009
 結尾自己也留了「未來引入真人類專家並再修訂」的門）。A 會把兩種信任模型
 糊在同一個函式裡，之後很難分辨某筆 resolved 到底是誰簽的。
+
+## W6 AL 第三排序鍵完成（2026-08-14，執行室）
+
+分支 `claude/w6-al-third-sort-key`，commit `b4502eb`，待協調者合併。
+新檔 `ahig/ahig/search/active_learning.py`（約 260 行含註解）
+＋ `ahig/tests/test_active_learning_rank.py`（21 項測試）。
+
+**本輪範圍**：只做排序器＋合成標籤測試，**未接真實資料**。原因見下方
+「⚠️ 前置缺口」——磁碟上目前沒有任何 screening 決策產物，真實標籤數是 0，
+連冷啟動門檻都碰不到。經擁有者裁示先交排序器本體。
+
+### 超參數：以上游原始碼為準，發現規格漏了兩項
+
+沒有憑記憶寫，三份 ASReview 原始碼都抓下來核對過
+（`models/models.py`、`classifiers.py`、`balancers.py`，Apache-2.0）：
+
+| 項目 | 看板規格 | 上游實際 | 處置 |
+|---|---|---|---|
+| TF-IDF ngram / sublinear | 1–2gram、sublinear | 一致 | 照抄 |
+| `min_df` / `max_df` | **未列** | `1` / `0.95` | **補上** |
+| classifier | LinearSVC | `SVM` 是 `LinearSVC` 空殼子類 | 規格無誤 |
+| `loss` / `C` | squared_hinge / 0.11 | 一致 | 照抄 |
+| balanced ratio 9.8 | 「balanced 9.8」 | **是 sample_weight 不是 class_weight** | 見下 |
+
+**balancer 這項若照字面寫會出錯**。上游 `Balanced.compute_sample_weight`
+產生的是逐樣本權重：`{1: 1.0, 0: n_pos / (ratio * n_neg)}`，再整體乘上
+`len(y) / sum(weights)` 正規化。直接寫 `class_weight="balanced"` 與上游
+**不等價**（sklearn 的 balanced 是 `n / (2 * n_c)`，沒有 ratio 這一項）。
+已逐行對應重寫，並有一項測試直接比對公式數值。
+
+上游註記這組參數是在 SYNERGY 資料集上最佳化的結果，我們照抄但**不宣稱
+它對本主題最佳**——真正的效度要等真實標籤累積後才驗得了。
+
+### 護欄：AL 不可能偷改去留
+
+排序器唯一被允許做的事是「換順序」。`_assert_invariants` 每次 re-rank
+都逐筆守門，違反即拋 `ActiveLearningError`：
+
+- queue 長度與成員集合不變（不得增刪候選）
+- 每筆的 `screeningLane`／`priorityTier`／`priorityScore`／
+  `requiresHumanScreening`／`requiredReviewMode`／`autoDecision` 不得改動
+- `requiresHumanScreening` 必須仍為 `True`
+- 非 `standard-screening` 的其他 lane 相對順序完全不變
+- `standard-screening` 的**佔位索引**不變（不得跨 lane 插隊）
+
+另外三項刻意設計：
+
+1. **AL 分數不寫進 entry**，也不覆寫 `queue.json`／`manifest.json`。
+   重排結果另存 `al-rank/`（`ranked-order.json` ＋ `provenance.json`）。
+   `screeningQueueHash` 完全不受影響——這是凍結契約的一部分，AL 這種
+   會隨標籤演化的東西不該碰它。
+2. **tier 仍在 AL 之上**。有一項測試專門驗：文字像負例的 T1 候選，
+   仍必須排在文字像正例的 T4 候選前面。AL 是第三鍵，不是第一鍵。
+3. **已標記者沉到同 tier 尾端**——它們已經篩過了，不該再佔人工佇列前段。
+
+### 壞掉時退回，不拖垮管線
+
+AL 只是排序鍵，失效的代價應該是「順序沒變好」而不是「篩選停擺」。
+三種情形一律退回 regex tier 原順序並在 provenance 記錄原因：
+
+- **冷啟動**：lane 內標籤 < 50（協調者裁定 50–100，取下界）
+- **單一類別**：全 advance 或全 exclude 時 balanced 權重無定義
+- **詞彙表被剪空**：同質語料 ＋ `max_df=0.95` 會讓 TfidfVectorizer 直接
+  拋 `ValueError`。這是實際會發生的，已補測試覆蓋
+
+`unclear` 不當訓練訊號直接丟棄——把人類的「說不準」硬編成 include 或
+exclude 是在製造假標籤。
+
+### 每次 re-rank 落盤的東西
+
+`provenance.json`：`rankerVersion`（`b11-al-rank/1.0.0`）、
+`labelledSetHash`、`labelledCount`／`labelledInLaneCount`、`scoredCount`、
+完整超參數、`sklearnVersion`（本機 1.9.0）、`alEnabled`／`disabledReason`、
+`screeningQueueHash`、`rankedOrderHash`、上游出處。
+標籤翻一筆 `labelledSetHash` 就會變，有測試驗證。
+
+### ⚠️ 前置缺口：真實標籤是 0，不是「還不夠」
+
+`screening-decisions/` 在磁碟上**不存在**——`screening_decisions.py`
+的 `make_assignment`／`reconcile` 從未被實際跑過。也就是說：
+
+- AL 現在接上真實資料，100% 會走冷啟動分支，行為等同不啟用。
+- 距離啟用門檻差的不是「再標幾筆」，而是**整條雙盲 screening 流程還沒
+  開始**。這是 15,425 筆的人工工作量，不是執行室能自己補上的。
+
+**請協調者裁示**：W6 到此為止（排序器就位、等篩選開始自然生效），
+或要另立工作包處理雙盲 screening 的啟動？後者的規模明顯超出單一
+工作包，可能要進 ADR-0011 的路線圖重排。
+
+### 交付門檻
+
+- `python tests/run_tests.py` → **600/600 通過**（新增 21 項）
+- `python -m ahig.cli verify --all` → **10/10 階段通過**
+- `pyproject.toml` 加入 `scikit-learn>=1.5`（經擁有者同意）
+
