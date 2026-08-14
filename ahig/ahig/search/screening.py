@@ -21,7 +21,11 @@ from typing import Any
 from ahig.contracts.freeze import content_hash
 from ahig.state import atomic_write_json
 
-RULE_VERSION = "b11-screening/1.3.0"
+# 1.4.0：動物訊號詞表補強（W1）。舊詞表只涵蓋哺乳實驗動物，實測漏抓魚類、
+# 家禽與乳牛研究。**升版不等於現行 queue 已重建**——重建會改動
+# screeningQueueHash，使 audit 22f634d2325d 的護欄失效；重建時機由協調者
+# 決定（見 COORDINATION.md）。
+RULE_VERSION = "b11-screening/1.4.0"
 
 # 每個 pattern 都只是提示訊號，絕不是資格判定。
 CONCEPTS: dict[str, tuple[str, tuple[str, ...]]] = {
@@ -206,10 +210,47 @@ def _entry(candidate: dict, conflict_ids: set[str], ambiguity_ids: set[str]) -> 
         flags.add("review-or-guideline")
         rules.append("SCREEN-035-review-or-guideline")
 
+    # 詞表涵蓋哺乳實驗動物、家畜家禽與水產物種。魚類是實測漏抓來源：
+    # prevalence audit 22f634d2325d 抽到的草魚轉錄體研究落在 standard-screening。
+    # 漏抓的代價與誤剔相反——誤剔是少收該收的，漏抓是主池混入非人體研究並
+    # 推高篩選工時，故此處寧可多標（本旗標只改 lane，從不自動排除）。
+    # 詞邊界必須嚴格：fish oil／fishermen／catheter／ratio 都不得觸發。
     animal_signal = _matches(text, (
         r"\brats?\b", r"\bmice\b", r"\bmouse\b", r"\bmurine\b",
         r"\bporcine\b", r"\bswine\b", r"\bhorses?\b", r"\bcanine\b",
-        r"\bdogs?\b", r"\brabbit\w*\b"))
+        r"\bdogs?\b", r"\brabbit\w*\b",
+        # 反芻獸與其他家畜。以下詞刻意排除，實測誤標率過高：
+        #   calf   → 小腿肌（calf muscle / calf raises），人體運動研究常用
+        #   bovine → 胎牛血清、牛初乳補劑，多為人體或體外研究
+        #   pig    → guinea pig 已另列；單獨 pig 誤觸 pig small intestinal mucus
+        #            等體外材料研究
+        r"\bcalves\b", r"\blambs?\b", r"\bgoats?\b", r"\bpiglets?\b",
+        r"\bferrets?\b", r"\bmacaques?\b", r"\bhamsters?\b",
+        r"\bguinea pigs?\b",
+        r"\bovine (?:muscle|models?|study|studies|subjects?)\b",
+        # cattle／sheep 需語境：兩者會出現在「反芻獸胃道菌相」等環境微生物
+        # 研究的材料描述裡，本身不是介入對象。
+        r"\b(?:in|of|from) (?:cattle|sheep)\b", r"\bdairy cows?\b",
+        r"\bbos taurus\b",
+        # equine 需語境：conjugated equine estrogens 是人用荷爾蒙藥物。
+        r"\bequine (?:muscle|model|study|athletes?|somatotropin|exercise)\b",
+        r"\bstallions?\b", r"\bmares?\b",
+        # 家禽。poultry／turkey／hen 排除：分別是膳食攝取項目、國名、
+        # hen egg yolk 試劑語境。裸詞 chicken 亦排除——實測誤觸「chicken
+        # noodle soup」與成語「the chicken or the egg」，均為人體研究。
+        r"\bbroilers?\b", r"\bchick embryo\w*\b", r"\blaying hens?\b",
+        r"\bquail\b",
+        # 水產。裸詞 fish/poultry 是膳食問卷選項（「魚、禽、蛋」），誤標率過高，
+        # 故只收物種名與明確的養殖／實驗語境。
+        r"\bteleost\w*\b", r"\bcarp\b", r"\bgoldfish\b", r"\bzebrafish\b",
+        r"\bsalmon\b", r"\btrout\b", r"\btilapia\b", r"\bseabass\b",
+        r"\bsea bass\b", r"\bbarramundi\b", r"\bmedaka\b", r"\bkillifish\b",
+        r"\bfarmed fish\w*\b", r"\bfish (?:larvae|fingerlings?|juveniles?|"
+        r"species|were fed|fed a)\b", r"\bin fish\b", r"\bbroodstock\b",
+        # 通用實驗動物語彙。animal model(s)／rodent(s) 排除：人體研究的
+        # 討論段落常引用動物文獻（「in animal models…」），屬敘述提及而非
+        # 研究對象，誤標會把人體研究踢出主池。
+        r"\bin vivo animal\b"))
     if animal_signal:
         flags.add("animal-signal")
         rules.append("SCREEN-036-animal-signal")

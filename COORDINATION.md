@@ -190,10 +190,57 @@ d3726d903d780c8068eb19c8  f52a5d7cb8920eafe024efcc
 - 擁有者的 6 筆抽查結果請回報到看板（或轉達協調者），這是 ADR-0009
   抽查迴路的第一筆紀錄，要留檔。
 
+## W1 動物 regex false-negative 補強（2026-08-14，已完成待合併）
+
+`ahig/search/screening.py` 的 `animal_signal` 詞表補強，`RULE_VERSION`
+升 `b11-screening/1.3.0` → `1.4.0`。574/574、verify 10/10。
+
+### ⚠️ queue 未重建，需協調者裁示重建時機
+
+**升 RULE_VERSION 不等於 queue 已重建。** 重建會改變
+`screeningQueueHash`，而 `prevalence_audit._verify_against_source` 有一道
+護欄比對此雜湊（`prevalence_audit.py:425`）：一旦重建，audit
+`22f634d2325d` 的 estimate 就再也跑不起來（訊息為「queue 可能已重建，
+本稽核不再對應現行母體」），且 W2 補抽會落在不同母體、與前一批不可合併。
+`llm_second_review` 與 `screening_decisions` 也綁同一個雜湊。
+
+依此相依，**W2 決定在現行（未重建）queue 上執行**，與 22f634d2325d 同母體、
+可直接比較。重建時機請協調者決定，建議與「篩選試點批」一起排。
+
+### 實測效果（在 15,425 筆真實池子上乾跑，未寫檔）
+
+- 從 `standard-screening` 額外攔下 **101 筆**動物研究（乳牛、家禽、魚類、
+  倉鼠、馬、山羊）
+- **迴歸 0 筆**：原本被標動物訊號的 1,877 筆無一漏標
+- 草魚案例（audit 第 35 筆 `5b7db44e…`）已攔下，W1 的觸發原因確認解決
+
+### 詞表設計：刻意排除的高噪音詞
+
+首版直接補物種裸詞，實測誤標 238 筆，逐一檢視後收緊。以下裸詞**不可加回**，
+每個都有真實池子裡的誤標案例，且已寫成回歸測試：
+
+| 排除詞 | 誤標原因 | 實例 |
+|---|---|---|
+| `calf` | 小腿肌 | calf muscle／calf raises |
+| `bovine` | 人體補劑與體外試劑 | 牛初乳、胎牛血清 |
+| `chicken`（裸詞） | 食物與成語 | chicken noodle soup、the chicken or the egg |
+| `equine`（裸詞） | 人用藥物 | conjugated equine estrogens |
+| `fish`／`poultry`（裸詞） | 膳食問卷選項 | 「魚、禽、蛋」攝取頻率 |
+| `turkey` | 國名 | 土耳其的研究 |
+| `animal model(s)`／`rodent(s)` | 敘述提及非研究對象 | 人體研究討論段引用動物文獻 |
+| `larvae`（裸詞） | 昆蟲 | 黑水虻、麵包蟲 |
+
+改用語境限定：`in/of/from cattle`、`equine muscle|model|athletes|
+somatotropin`、`fish larvae|fingerlings|juveniles|were fed`、`in fish`、
+`laying hens`、`chick embryo` 等。
+
+誤標的方向性值得記一筆：**漏抓只是雜訊留在主池，誤標卻是把人體研究踢出
+主池**——後者才是不可逆的損失，故詞表寧可保守。
+
 ## 工作線
 
 | 工作線 | 分支 | Session | 狀態 |
 |---|---|---|---|
 | 協調・合併・S2 決策支援 | `claude/fail-open-bug-merge-kmifpb` | AHIG 協調中心（coordinator） | 進行中 |
-| prevalence audit LLM 判讀（ADR-0009） | `claude/prevalence-audit-llm-judgement` | 本機 session | ✅ 判讀＋estimate＋擁有者抽查 6/6 全數完成並已合併；model.version 經協調者裁定接受，無未結項。接 W1（動物 regex）＋ W2（S1/S2 補抽） |
+| prevalence audit LLM 判讀（ADR-0009） | `claude/prevalence-audit-llm-judgement` | 本機 session | ✅ 判讀＋estimate＋擁有者抽查 6/6 完成並已合併；✅ W1 動物 regex 完成待合併（queue 未重建，待協調者裁示）；⏳ W2 S1/S2 補抽進行中 |
 | （新工作線由協調者或開線 session 在此登記） | | | |
