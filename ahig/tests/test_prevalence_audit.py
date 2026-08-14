@@ -660,3 +660,55 @@ def test_clopper_pearson_matches_closed_forms():
     assert abs(lo - 0.025 ** (1 / n)) < 1e-9
     assert prevalence_audit.clopper_pearson(0, 0) == (0.0, 1.0)
     assert prevalence_audit.clopper_pearson_upper(0, 12) == 1 - 0.05 ** (1 / 12)
+
+
+def _scripted(inputs):
+    queue = list(inputs)
+
+    def next_input(_prompt):
+        return queue.pop(0) if queue else ""
+
+    return next_input
+
+
+def test_fill_interactive_completes_tally_then_estimate_runs():
+    with private_tmp() as tmp:
+        root = make_run_root(tmp)
+        audit = _draw(root)
+        audit_dir = root / prevalence_audit.AUDIT_DIRNAME / audit["auditId"]
+        inputs = []
+        for _ in audit["records"]:
+            inputs += ["n", "y", ""]          # not-reported / outcome 正確 / 無備註
+        for _ in audit["exclusionAudit"]:
+            inputs += ["y", ""]               # 分流正確 / 無備註
+        summary = prevalence_audit.fill_interactive(
+            audit_dir, input_fn=_scripted(inputs), print_fn=lambda *_: None)
+        assert summary["remainingUnfilled"] == 0
+        result = prevalence_audit.estimate(audit_dir,
+                                           strata_path=make_strata(tmp),
+                                           anchor_path=_anchor(root))
+        assert result["readabilityCounts"]["not-reported"] == len(
+            audit["records"])
+
+
+def test_fill_interactive_exact_value_path_and_quit_resumes():
+    with private_tmp() as tmp:
+        root = make_run_root(tmp)
+        audit = _draw(root)
+        audit_dir = root / prevalence_audit.AUDIT_DIRNAME / audit["auditId"]
+        # 第一筆走 exact-value（含一次無效 band 重問），第二筆直接 q 中斷。
+        inputs = ["e", "banana", "h, v", "90", "g/h", "y", "多臂", "q"]
+        summary = prevalence_audit.fill_interactive(
+            audit_dir, input_fn=_scripted(inputs), print_fn=lambda *_: None)
+        assert summary["filledRecords"] == 1
+        assert summary["remainingUnfilled"] > 0
+        data = json.loads((audit_dir / "audit.json").read_text(
+            encoding="utf-8"))
+        first = data["records"][0]
+        assert first["doseReadability"] == "exact-value"
+        assert first["doseBands"] == ["high", "very-high"]
+        assert first["maxDose"] == {"value": 90.0, "unit": "g/h"}
+        assert first["outcomeConfirmed"] is True
+        assert first["notes"] == "多臂"
+        # 中斷後其餘保持未回填，可重跑續填。
+        assert data["records"][1]["doseReadability"] is None

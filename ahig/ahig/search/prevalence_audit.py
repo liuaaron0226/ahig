@@ -846,6 +846,134 @@ def estimate(audit_dir: Path, *, strata_path: Path | None = None,
     return result
 
 
+_BAND_ALIASES = {"l": "low", "m": "moderate", "h": "high", "v": "very-high",
+                 "u": "unclear", "low": "low", "moderate": "moderate",
+                 "high": "high", "very-high": "very-high",
+                 "unclear": "unclear"}
+
+
+def _parse_bands(raw: str) -> list[str] | None:
+    tokens = [t for t in raw.replace(",", " ").split() if t]
+    if not tokens:
+        return None
+    bands = []
+    for token in tokens:
+        band = _BAND_ALIASES.get(token.lower())
+        if band is None:
+            return None
+        if band not in bands:
+            bands.append(band)
+    return bands
+
+
+def fill_interactive(audit_dir: Path, *, input_fn=input,
+                     print_fn=print) -> dict:
+    """逐篇互動回填 audit.json——判斷仍是人做的，工具只免去手改 JSON。
+
+    每答完一筆立即存檔；隨時 q 中斷，重跑會從第一筆未回填的接著問。
+    """
+    audit_dir = _require_private(audit_dir)
+    path = audit_dir / "audit.json"
+    audit = json.loads(path.read_text(encoding="utf-8"))
+
+    def save() -> None:
+        atomic_write_json(path, audit)
+
+    def ask(prompt: str, *, allow_empty: bool = False) -> str:
+        while True:
+            value = input_fn(prompt).strip()
+            if value or allow_empty:
+                return value
+
+    filled_records = filled_exclusions = 0
+    records = audit["records"]
+    for i, record in enumerate(records, 1):
+        if (record.get("doseReadability") in READABILITY_LEVELS
+                and isinstance(record.get("outcomeConfirmed"), bool)):
+            continue
+        print_fn(f"\n── 第一節 {i}/{len(records)} ─ {record['candidateId']}")
+        print_fn(f"標題：{record.get('title') or '(無標題)'}")
+        print_fn(f"摘要：{record.get('abstract') or '(無摘要 → 選 n)'}")
+        print_fn(f"outcomeHints（regex 預判）：{record.get('outcomeHints')}")
+        while True:
+            level = ask("劑量可讀性 [e]xact / [i]ntensity / [n]ot-reported "
+                        "/ [q]uit：").lower()
+            if level in ("e", "i", "n", "q"):
+                break
+        if level == "q":
+            save()
+            break
+        if level == "n":
+            record.update(doseReadability="not-reported", doseBands=None,
+                          maxDose={"value": None, "unit": None})
+        else:
+            while True:
+                bands = _parse_bands(ask(
+                    "band 清單（l=low m=moderate h=high v=very-high "
+                    "u=unclear，逗號或空白分隔）："))
+                if bands:
+                    break
+            if level == "e":
+                while True:
+                    try:
+                        value = float(ask("最高劑量數值："))
+                        break
+                    except ValueError:
+                        continue
+                unit = ask("單位（如 g/h）：")
+                record.update(doseReadability="exact-value", doseBands=bands,
+                              maxDose={"value": value, "unit": unit})
+            else:
+                record.update(doseReadability="intensity-only",
+                              doseBands=bands,
+                              maxDose={"value": None, "unit": None})
+        while True:
+            confirmed = ask("outcomeHints 正確嗎？[y/n]：").lower()
+            if confirmed in ("y", "n"):
+                break
+        record["outcomeConfirmed"] = confirmed == "y"
+        notes = ask("備註（Enter 跳過）：", allow_empty=True)
+        record["notes"] = notes or None
+        filled_records += 1
+        save()
+    else:
+        for i, record in enumerate(audit["exclusionAudit"], 1):
+            if isinstance(record.get("exclusionJustified"), bool):
+                continue
+            print_fn(f"\n── 第二節 {i}/{len(audit['exclusionAudit'])} ─ "
+                     f"{record['candidateId']}（lane: "
+                     f"{record['screeningLane']}）")
+            print_fn(f"標題：{record.get('title') or '(無標題)'}")
+            print_fn(f"摘要：{record.get('abstract') or '(無摘要)'}")
+            while True:
+                justified = ask("被分流出主池是否正確？[y/n]（q 中斷）：").lower()
+                if justified in ("y", "n", "q"):
+                    break
+            if justified == "q":
+                save()
+                break
+            record["exclusionJustified"] = justified == "y"
+            notes = ask("備註（Enter 跳過）：", allow_empty=True)
+            record["notes"] = notes or None
+            filled_exclusions += 1
+            save()
+
+    remaining = sum(
+        1 for r in audit["records"]
+        if r.get("doseReadability") not in READABILITY_LEVELS
+        or not isinstance(r.get("outcomeConfirmed"), bool)) + sum(
+        1 for r in audit["exclusionAudit"]
+        if not isinstance(r.get("exclusionJustified"), bool))
+    summary = {"filledRecords": filled_records,
+               "filledExclusions": filled_exclusions,
+               "remainingUnfilled": remaining}
+    print_fn(f"\n本次回填 {filled_records}＋{filled_exclusions} 筆，"
+             f"還剩 {remaining} 筆未完成。"
+             + ("可以跑 estimate 了。" if remaining == 0
+                else "重跑 fill 可接著填。"))
+    return summary
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description=__doc__)
     sub = parser.add_subparsers(dest="command", required=True)
@@ -866,6 +994,8 @@ def build_parser() -> argparse.ArgumentParser:
                                "prevalence-audit-anchors.jsonl；記得 "
                                "commit+push）")
     p_sample.add_argument("--redo", action="store_true")
+    p_fill = sub.add_parser("fill", help="逐篇互動回填判讀（可中斷續填）")
+    p_fill.add_argument("audit_dir", type=Path)
     p_estimate = sub.add_parser("estimate", help="以回填完成的稽核表推估母體")
     p_estimate.add_argument("audit_dir", type=Path)
     p_estimate.add_argument("--strata", type=Path, default=None,
@@ -889,6 +1019,8 @@ def main(argv: list[str] | None = None) -> int:
                 "excludedPoolSize", "seed", "seedDerivation")}
         print(json.dumps(out, ensure_ascii=False, indent=2))
         print("提醒：錨定檔已更新，記得 commit + push。")
+    elif args.command == "fill":
+        fill_interactive(args.audit_dir)
     else:
         result = estimate(args.audit_dir, strata_path=args.strata,
                           anchor_path=args.anchor, redo=args.redo)
