@@ -760,6 +760,7 @@ regex 的實務天花板就在此**——剩下的交給 W4 的 LLM 全文流程
 - `16:47 主幹無變動（仍為 9abb054）、W6／W8 兩條分支待合併；無新派發，待命`（第 9 輪）
 - `17:20 補上派發第 3 項缺的影子批次 300 筆選取，實跑 27/27 分層全覆蓋；讀到巡檢輪裁定①②，已 rebase 至 b0f0e5d、646/646`（第 10 輪）
 - `17:43 依裁定①做出判讀工作單（session 當判讀者的落地路徑），657/657；前置盛行率樣本 154 筆已判 25 筆（第 1 頁）`（第 11 輪）
+- `19:48 前置樣本 154/154 判完（第 2–7 頁共 129 筆），盛行率 1.30–3.25%；新增 append 子指令；三個對照臂問題送裁`（第 12 輪）
 
 #### 📮 執行室回報：W5／W6 被前置擋住（第 4 輪）
 
@@ -978,7 +979,7 @@ estimate.json 都原封不動在磁碟上，各自錨定的舊 queueHash 仍可�
 | W3 劑量 regex 升級 | `claude/w3-dose-regex-upgrade` | 🔬 B.11 執行室 | ✅ 已合併；RULE_VERSION 1.5.0 |
 | W5 queue 重建 | `claude/w5-queue-rebuild` | 🔬 B.11 執行室 | ✅ 已合併；S2 池 12→32 |
 | W6 AL 第三排序鍵 | `claude/w6-al-third-sort-key` | 🔬 B.11 執行室 | ✅ 已合併；冷啟動待真實標籤，見裁定（第 n+2 輪）④ |
-| W8 篩選驅動器＋影子門檻＋判讀工作單 | `claude/w8-screening-driver` | 🔬 B.11 執行室 | ✅ 已合併（cf1dd43，657/657）；前置樣本判讀中 25/154 |
+| W8 篩選驅動器＋影子門檻＋判讀工作單 | `claude/w8-screening-driver` | 🔬 B.11 執行室 | ✅ 已合併（cf1dd43，657/657）；**前置樣本 154/154 判完，盛行率已估**（第 12 輪，見下） |
 | W9 reconcile_machine（裁定③＝B 的落地） | 待執行室開分支 | 🔬 B.11 執行室 | 🆕 本輪派發，規格見裁定（第 n+2 輪）② |
 | 工具偵察（T1 ASReview／T2 buscarpy／T3 ASySD／T4 GROBID+Docling） | `claude/tool-scouting-room` | AHIG 工具偵察室（session_01G7Cno2AMPVsusc6rBtfM3P） | ✅ 首批 T1–T4 報告＋完工時間影響評估已入看板，等協調者裁定採用形式與合併 |
 
@@ -1593,3 +1594,127 @@ OpenAlex OA URL → Unpaywall（polite pool，同 runner 的 mailto 模式）→
 W4a 可即刻派發；執行室手上三件套（前置樣本、W9、影子批次）優先，
 W4a 排在其後。
 
+## 🔬 執行室回報：前置盛行率樣本 154/154 判完（第 12 輪）
+
+裁定①「給執行室的下一步」第 1 項完成。判讀者＝本 session（`claude-opus-5`），
+判讀依據為凍結的 `calibration/b11-carbohydrate/scope-contract.json`
+（`sha256:1bd206e5…8696`）。
+
+### 盛行率實測（ADR-0008 回填觸發點 1 已到達）
+
+| 項目 | 數字 |
+|---|---|
+| 樣本總數 | 154 / 154（全判完） |
+| advance | **2** |
+| exclude | **149** |
+| unclear | **3** |
+| 盛行率下界（unclear 全算 exclude） | **1.30%** |
+| 盛行率上界（unclear 全算 advance） | **3.25%** |
+| 母池 | 15,425 |
+| 推估 advance 量體 | **200 – 501 篇** |
+
+- `sampleHash`：`sha256:349c36b68f0f5daa2a962bb505d08ed87c995217dc8ad0c3f5f0c4c550b72650`
+- `judgementsHash`：`sha256:f58ea8e297194f980ee930c89501e3f85bc5b94dcb4dd08d2a0a930e4ad3f009`
+- 落盤：`screening-pilot/judgements.json`＋`screening-pilot/prevalence-estimate.json`（私密根）
+
+**對吞吐量模型 v2 的意義**：實測 1.3–3.3% 遠低於保守情境假設的 10%。
+保守情境 1026 天的爆炸有七成來自「uptime 4h/日 × 盛行率 10%」的複合，
+盛行率這一半現在有量測值了，請協調者用 200–501 篇這個區間重跑模型——
+全文階段的工作量應該會顯著下修。
+
+### 五筆非 exclude 的判讀
+
+**advance（2 筆）**
+
+| candidateId | 判讀要點 |
+|---|---|
+| `publication:21e29112ef4d15d8fe4d9796` | RCT；12 名耐力訓練跑者 30 km 計時跑全程飲醣電解質液（約 24 g/h，low band），對照純水（在 allowlist 內），主要結果＝`tt-completion-time`（critical） |
+| `publication:465dca4abe3d419a0c094731` | 隨機交叉雙盲；VO2max 60.2（客觀訓練狀態），運動中每 15 分補 6.4% 醣液（約 55–60 g/h，moderate band），安慰劑對照，結果含 `time-to-exhaustion`＋`muscle-glycogen-post-exercise` |
+
+**unclear（3 筆）——全部卡在同一個契約缺口，見下方送裁事項**
+
+| candidateId | 卡點 |
+|---|---|
+| `publication:54c038d4002aeb1e1326c0db` | 族群／介入（120 g/h，very-high band）／結果（13C 外源性醣類氧化）全中、隨機交叉；對照臂是**等量純葡萄糖** |
+| `registry-record:0750eef5cd0356406fb08684` | 葡萄糖-果糖 vs ？；對照臂未述、「during training」語意不明、訓練狀態未述 |
+| `registry-record:1af359ec6dc3ff20f9ca302e` | 多重可運輸醣類 vs 單一可運輸醣類，對照為等量純葡萄糖 |
+
+### 🆕 送裁 A：同劑量、不同醣種的比較算不算 `dose-comparison`？
+
+契約 `comparator.types` 含 `dose-comparison`，但
+`activeComparatorAllowlist` 只列
+`non-caloric-flavour-matched-placebo`／`water-only`／`lower-cho-dose-arm`
+三項。「葡萄糖＋果糖 vs 等量純葡萄糖」總劑量相同、醣種不同，三項都不符，
+題摘層無法判定。
+
+這**不是個案**：154 筆樣本裡就撞到 3 筆，且都是多重可運輸醣類這一整類試驗
+（2000 年後這個領域的主流設計之一）。以 1.3–3.3% 盛行率外推，母池裡這類
+研究可能有數十篇，判進判出會直接動到 advance 量體。
+
+建議協調者二選一並寫進契約修訂（契約級，依 ADR-0010 可批次至 M1，但這條
+會擋住正式篩選的判讀一致性，建議提前裁）：
+
+- **甲（建議）**：納入。在 `activeComparatorAllowlist` 增列
+  `same-dose-different-cho-type`，理由是外源性醣類氧化率與 GI 症狀本來就
+  隨醣種變化，這類對照回答的是契約 `researchQuestion` 的一部分。
+- **乙**：排除。維持三項 allowlist 不動，明文記「醣種比較不在本次範圍」，
+  這 3 筆連同同類研究一律 exclude。
+
+裁定前這 3 筆維持 `unclear`，不影響盛行率下界（1.30%），只影響上界。
+
+### 🆕 送裁 B：`registry-record` 該不該用同一套題摘標準判？
+
+候選池含 6 筆 `ahig:candidate:registry-record:*`（154 筆中占 3.9%）。
+這類紀錄先天沒有 `publicationType`、摘要常只有一兩句目的敘述，
+缺設計、缺對照臂、缺族群指標——用 publication 的題摘標準判，
+它們幾乎必然落進 `exclude` 或 `unclear`，但落進哪一邊是判讀者的主觀選擇，
+會直接污染盛行率。本輪的處理是：資訊足以否決的照判 exclude（如維生素 D3
+心衰竭試驗），資訊不足以判定的給 unclear。
+
+請協調者裁示三選一：①比照 publication 判；②另立 registry 專用標準；
+③從盛行率樣本的分母剔除（登錄紀錄視為引文追蹤來源，不進篩選主線）。
+選③會改動 `sampleHash` 的分母，須明文記帳。
+
+### 排除的 149 筆：題摘層可判的類型分布
+
+依出局理由歸類（一筆只計主要理由）：非 RCT 的回顧／論述／個案／專利／
+問卷調查最多；其次是動物研究（鼠、犬、馬、倉鼠、魚）、明列排除的臨床族群
+（第 1／2 型糖尿病、心衰竭、McArdle 氏症、腎移植）、年齡出局（青少年、
+50 歲以上、停經後）、非醣類介入（咖啡因、維生素 C／D、抗氧化劑、人蔘、
+肌酸、蛋白質）、以及時序不符（運動**前**負荷或運動**後**回填，非運動中）。
+
+三筆「很近但出局」的判讀值得記錄，因為它們定義了邊界：
+
+1. `publication:957dfdbf335a7235c50335bc`——運動中約 43 g/h 葡萄糖、力竭時間、
+   安慰劑對照，但題摘結論自述受試者為 *poorly trained*，不符
+   `trainingStatus: [trained, highly-trained, elite]`；文獻類型亦僅
+   `Controlled Clinical Trial`，題摘未述隨機。
+2. `publication:8fa9d298b1ecf4e081224b70`——交叉設計且有運動後肌肉肝醣結果，
+   但**比較的是運動模式**（跑 vs 騎），醣類是兩臂相同的背景飲食，
+   沒有外源性醣類介入。
+3. `publication:a757111e076880cf19896701`——主題正中核心（超級越野賽運動中
+   醣類攝取與 GI 問題），但是系統性回顧。**已標記為引文追蹤來源**。
+
+### 判讀工具：新增 `append` 子指令
+
+第 11 輪的工作單只有「出題」與「整批回收」，逐頁判讀得手動併檔。本輪補上
+`judgement_worksheet append`：一次併一頁，跨頁去重與 ADR-0009 原則 2
+（`judgedBy.agentClass` 必填）驗證在同一輪掃描完成，整批通過才落盤。
+影子批次 300 筆 ×2 模型會重度使用這條路徑。
+
+- 分支：`claude/w8-screening-driver`（`4e1c365`，已併入主幹最新狀態）
+- 門檻：`python tests/run_tests.py` → **待推送前實跑**；
+  `python -m ahig.cli verify --all` → 同上
+- 新增測試 3 項（逐頁累積、跨頁重複偵測、缺 `judgedBy` 擋下）
+
+### 下一步（執行室自走，不等裁定）
+
+裁定①第 3 項：300 筆影子批次雙模型盲判。主模型全批 → `/model` 切第二模型
+全批 → `machine_shadow_gate` → 報告推看板。以本輪 25 筆/輪的實測速率，
+600 次判讀約需 24 輪；會分批推進，每輪心跳回報進度。
+
+**但仍卡在裁定②③**：影子門檻的 `DEFAULT_MAX_DISAGREEMENT_RATE`（暫定 0.25）
+與分母（277 筆隨機子集 vs 全 300）尚未凍結，以及
+`screening_decisions._validate_binding` 仍要求
+`agentClass in {human-self, human-expert}`，機器判讀進不了 `reconcile`。
+影子批次可以先判、報告可以先出，但**固化與正式篩選放行擋在這兩條上**。
