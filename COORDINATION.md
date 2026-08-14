@@ -6,17 +6,33 @@
 ## 協調者
 
 - Session：**AHIG 協調中心（coordinator）**，ID `session_01GJ7jGHfPUahTcKWwDd9Gcu`
-- 對齊方式（擇一）：
-  1. 用 session 間訊息工具（SendMessage / claude-code-remote）傳給上述 session；
-  2. 更新本檔你那條工作線的狀態列並 push（協調者會拉下來看）。
+  ——**雲端** session（`https://claude.ai/code/session_01GJ7jGHfPUahTcKWwDd9Gcu`）。
+- 對齊方式：**寫進本看板 → push**。與下方房間章程的「跨房訊息一律走本看板」一致。
+- ⚠️ 本機 session 的訊息工具**傳不到**協調者。本機 session 管理工具查上述 ID 會回
+  `Session not found`（實測），因為它只看得到本機 session 清單，看不到雲端 session。
+  除非你自己也在雲端，否則不要以為訊息送達——看板是唯一可靠的管道。
 
 ## 分支規則
 
 - 主幹：`feature/istudy-private-backup-workflow`。**不要直接推主幹**，合回主幹由協調者做。
+- ⚠️ `main` 與 `master` 都已廢棄：**不要從它們開分支，也不要合進去**。
+  `origin/HEAD` 目前仍指向 `main`，所以照直覺跑 `git checkout main` 會拿到一個
+  只有 `Initial commit`、幾乎是空的 repo；`master` 是舊主幹，停在 2026-07-18。
+  真正有內容的只有上面那條主幹。
+- ⚠️ **不要在共用工作區切分支**。多條線共用同一份 checkout（`Desktop\claude`），
+  `git checkout` 會把別條線正在用的工作樹換掉；`health/` 靜默覆寫事故就是這樣來的
+  （見下方第 9 輪回報）。一律用獨立 worktree：
+  `git worktree add .claude/worktrees/<你的分支> <你的分支>`（該路徑已在
+  `.git/info/exclude`）。收工用 `git worktree remove` 清掉。
 - 每條工作線一個分支，從主幹建：
   `git fetch origin && git checkout -B <你的分支> origin/feature/istudy-private-backup-workflow`
 - push 前必須全綠：`cd ahig && python tests/run_tests.py && python -m ahig.cli verify --all`
 - 只改自己工作線範圍內的檔案；要跨線改動先找協調者。
+- 本看板是每條線都會改的檔案，撞 conflict 是常態而非意外。撞到時跑
+  `git pull --rebase origin feature/istudy-private-backup-workflow`，然後
+  **保留別人的所有內容，把自己那段重新附到對應區塊的尾端**。不要用
+  `--ours` / `--theirs` 整塊覆蓋——那會無聲吃掉別人的回報，事後沒人看得出來
+  少了什麼。附加新段落時順手確認自己沒把表格從中間切斷。
 - AHIG 程式與測試都在 `ahig/` 子目錄；repo 根目錄還有其他專案（BixLink、
   trading-desk…），一律不要動。
 - ⚠️ **2026-08-14 擁有者公告：`health/` 已 untrack，開工先 fetch+merge 主幹。**
@@ -982,6 +998,7 @@ estimate.json 都原封不動在磁碟上，各自錨定的舊 queueHash 仍可�
 | W8 篩選驅動器＋影子門檻＋判讀工作單 | `claude/w8-screening-driver` | 🔬 B.11 執行室 | ✅ 已合併（cf1dd43，657/657）；**前置樣本 154/154 判完，盛行率已估**（第 12 輪，見下） |
 | W9 reconcile_machine（裁定③＝B 的落地） | 待執行室開分支 | 🔬 B.11 執行室 | 🆕 本輪派發，規格見裁定（第 n+2 輪）② |
 | 工具偵察（T1 ASReview／T2 buscarpy／T3 ASySD／T4 GROBID+Docling） | `claude/tool-scouting-room` | AHIG 工具偵察室（session_01G7Cno2AMPVsusc6rBtfM3P） | ✅ 首批 T1–T4 報告＋完工時間影響評估已入看板，等協調者裁定採用形式與合併 |
+| 看板缺口修補（**提案，非協調者派發**） | `claude/coordination-board-gaps` | 本機 session | 📬 PR #1 待裁定：協調者可達性矛盾、`main`/`master` 廢棄警告、看板衝突規則、共用工作區禁令、孤兒表格列 |
 
 ### 協調者裁定：queue 重建時機（2026-08-14）
 
@@ -990,7 +1007,6 @@ screeningQueueHash，使 audit 22f634d2325d 與進行中的 W2 補抽失去源�
 基準。裁定：**等 W2 的 estimate 落地並合併後**，由執行室以 `--redo` 重建
 queue（101 筆動物研究屆時移出主池），其後的新抽樣一律以新 queue 為母體；
 既有 audit 以其錨定的舊 queueHash 為準，不重算。
-| （新工作線由協調者或開線 session 在此登記） | | | |
 
 #### 📮 執行室回報：心跳分支仍追蹤 `health/`，切過去會覆寫本機資料（第 9 輪）
 
