@@ -1910,3 +1910,83 @@ pass A 300/300 與時序稽核已審閱合併。三點回應：
 
 **等待中**：pass B（~12 輪）→ `machine_shadow_gate`（rate 分母 277）→
 報告到達即凍結門檻值＋放行裁定。W9 穿插實作照舊。
+
+## 🔬 執行室回報：W9 `reconcile_machine` 交付（第 14 輪）
+
+第 n+7 輪的三點回應已收到，均無需執行室動作（回填 1b 在協調者側完成、
+prefix/lane 裁定為「不改」、時序稽核照准）。本輪照「W9 穿插實作」交付。
+
+**分支**：`claude/w9-reconcile-machine`（commit `a35f581`，已推送，未動主幹）。
+**閘門**：`682/682 passed`（+22 新測試）、`verify --all 10/10`。
+
+### 1. 規格五點逐條兌現
+
+| 規格 | 兌現方式 |
+|---|---|
+| ① 人類閘保持原樣、行為以測試釘住 | `_validate_binding` 的人類閘兩行**未進 diff**；共用的文件綁定檢查抽成 `_validate_envelope`（人類／機器共用），人類閘與人類決策驗證原地不動。兩條迴歸測試先於實作寫好並在紅燈階段就通過 |
+| ② 雙 LLM、modelId 必異、judgedBy 完整 | `_validate_machine_binding` 要求 `reviewer.agentClass == "llm"`、`judgedBy` 具 `agentClass/modelId/modelVersion`、每筆判讀附非空 `rawResponse`；`reconcile_machine` 拒同 modelId |
+| ③ 對立／unclear 進佇列不裁決 | `ownerAuditQueue` + `opposedCandidateIds`；產物**結構上沒有** `resolvedDecisions`／`decision`／`resolved` 欄位，一致者只記 `opinion` |
+| ④ 啟用前提不變 | `machineScreeningReleased` 恆 `false`（schema `const: false`），`blockingReasons` 恆含 `machine-screening-not-released`，`nextStage` 走 `machine-screening-release-review` |
+| ⑤ 測試涵蓋 | 22 條，見下 |
+
+### 2. 三個實作決定（請協調者確認，皆可推翻）
+
+**(a) 同 modelId 不同 modelVersion 一律拒絕。** 規格只說「modelId 必須相異」，
+我把「同模型換版」也判為不獨立——盲判要的是獨立模型，同模型換版共享訓練
+分布與失敗模式，冗餘性是假的。測試 `test_machine_reconcile_rejects_same_model_id_even_with_different_version` 釘住。
+
+**(b) 新增第三種歧異 `divergent`。** 規格點名 `opposed`（advance vs exclude）
+與 `either-unclear`，但兩者不涵蓋全部——若未來 opinion 集擴充，未分類的
+不一致會靜默掉進「一致」。`divergent` 是 fail-closed 的兜底：任何未列舉的
+不一致仍進佇列。目前三值 opinion 下此分支不可達，是刻意的防禦。
+
+**(c) `_FORBIDDEN_ENTRY_KEYS` 與 `OPINIONS` 從 `llm_second_review` 匯入**
+（`screening_decisions` → `llm_second_review` 單向，無循環）。理由：禁用欄位
+清單若兩邊各寫一份，換版時必然漂移，而這份清單正是盲判不變量的執行點。
+
+### 3. 產物結構
+
+```
+title-abstract-machine-reconciliation
+  modelIds[2]（schema uniqueItems 再釘一次相異）
+  judgedBy[2]         # 逐 reviewer 的模型與版本
+  evidenceGrade       # "AI-graded evidence — no human expert review"
+  status              # concordant | needs-owner-audit
+  concordant[]        # {candidateId, opinion} — 無 decision
+  ownerAuditQueue[]   # {candidateId, disagreementKind, modelOpinions[2]}
+                      #   modelOpinions 帶 modelId/modelVersion/opinion/rawResponse
+  opposedCandidateIds[]
+  machineScreeningReleased: false（const）
+```
+
+`ownerAuditQueue` 每筆完整帶兩邊的 `rawResponse`——擁有者裁決時看得到兩個
+模型各自的理由原文，不必回頭撈批次檔。
+
+### 4. 測試 22 條
+
+- 人類路徑迴歸 2：resolve 正常、機器 reviewer 仍被人類閘擋、理由碼與覆蓋檢查未變
+- 閘門 8：非 llm 拒、同 modelId 拒、同 modelId 異版本拒、judgedBy 四種殘缺拒、
+  rawResponse 空/缺拒、攜帶人類決策欄位拒、綁定漂移拒、非法 opinion／
+  重複 reviewId／未盲化拒
+- 佇列語意 4：對立與 unclear 進佇列且 kind 正確、產物無自動裁決欄位、
+  兩邊都 unclear 仍進佇列（不算共識）、佇列保留雙方 rawResponse
+- 結構與落盤 6：確定性、凍結、主次順序不影響結果、部分指派不算完成、
+  私密根綁定與不可變寫入
+- schema 2：機器文件通過驗證；人類文件不受污染、混種文件與被竄改產物被擋
+
+### 5. schema 擴充方式
+
+新增 9 個 `$defs`（`MachineReviewer`/`JudgedBy`/`MachineJudgement`/`MachineReview`/
+`ConcordantOpinion`/`ModelOpinion`/`OwnerAuditItem`/`MachineCounts`/
+`MachineReconciliation`）與 `oneOf` 兩支新分支。**人類 `$defs` 逐字節未變**
+（schema diff 僅 1 行刪除＝`oneOf` 尾端補逗號）——為此改用文字接合而非重新
+序列化，避免手工排版被整份改寫、讓審查看不出真正改了什麼。已程式驗證
+`人類 defs 被改動者: 無`、`oneOf 前三支不變: True`。
+
+schema 未被雜湊錨定、也不在 `verify` 十階段內（已確認），故擴充不影響既有錨點。
+
+### 下一步
+
+1. `/model` 換模型 → pass B 判讀 300 筆（約 12 輪，每輪 25 筆），首次 append 帶 `--model-id`。
+2. pass B 完成後跑 `machine_shadow_gate`（`rate_candidate_ids` = 277）並回報。
+3. 上述 (a)(b)(c) 三個實作決定若有異議，請在門檻凍結前提出，改動成本尚低。
