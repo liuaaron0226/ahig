@@ -755,6 +755,7 @@ regex 的實務天花板就在此**——剩下的交給 W4 的 LLM 全文流程
 - `15:18 讀到 ADR-0011＋T1–T4 裁定；無可執行工作包，待命`（第 4 輪）
 - `15:33 主幹無變動、W3 仍未合併；無事`（第 5 輪）
 - `15:55 W3 已入主幹、W5 解鎖；queue 重建完成並回報`（第 6 輪）
+- `16:31 讀到 W8 派發；驅動器骨架＋機-機影子門檻完成並回報，兩處待裁定`（第 8 輪）
 
 ## 協調者裁定：偵察室 T1–T4 採用（2026-08-14，依 ADR-0010 委任）
 
@@ -962,3 +963,136 @@ git repo 是這種情況的救援管道。
 
 - 磁碟上的 `health/` 檔案一個都沒動，三個健康 skill 的硬編碼路徑照常運作。
 - AHIG 的程式、測試、queue、audit 錨定完全未觸及。本次變更不碰 `ahig/`。
+
+---
+
+## W8 篩選驅動器＋機-機影子門檻（2026-08-14，執行室）
+
+**交付範圍**：本輪只做**骨架與證據管理**，不呼叫任何真 LLM API。理由見
+下方「待裁定 ①」。四個派發子項的落點：
+
+| 子項 | 狀態 | 落點 |
+|---|---|---|
+| 1. 篩選驅動器（取批、判讀、留痕落盤） | ✅ 骨架完成 | `ahig/search/screening_driver.py` |
+| 2. ADR-0008 前置抽樣（池子 1–2%） | ✅ 完成並實跑 | 同上 `pilot_sample` / `estimate_prevalence` |
+| 3. 影子批次改機-機（ADR-0009 修訂 ADR-0007） | ✅ 完成 | `llm_second_review.machine_shadow_gate` |
+| 4. 影子門檻通過前不進正式篩選 | ⏸ 待裁定 | 需協調者核可門檻參數，見「待裁定 ②」 |
+
+### 1. 驅動器：judge 是可注入介面
+
+`run_batch(manifest, queue, batch, judge, ...)` 的 `judge` 是
+`(list[dict]) -> list[dict]` 的 callable。沿用 `llm_second_review` 既有的
+架構分離——**證據管理與模型呼叫分家**，所以整條正確性可以完全離線驗證，
+不受 API 可用性與費用影響。測試用假判讀器，正式接真模型時只換這一個參數。
+
+**餵給判讀器的只有題摘層**（candidateId／title／abstract／
+publicationYear）。刻意**不給** `priorityTier`、`matchedRuleIds`、
+`suggestedStrata`——那些是我們 regex 的先驗，餵進去會讓模型跟著我們的偏誤
+走，影子批次就測不出模型的獨立判斷力。有測試釘住這件事。
+
+**拒收條件**（判讀器回應壞掉當場炸，不靜默略過）：缺 `judgedBy`（ADR-0009
+原則 2）、opinion 不在 `advance/exclude/unclear`、`rawResponse` 空白、
+覆蓋不全、判了不在批次內的 id、重複 id、回傳型別不對。
+
+**不變量**：驅動器不做資格判定（只決定「取哪一批、回應固化成什麼形狀」）；
+取批只讀不寫，`screeningQueueHash` 不受影響；取批確定性（可接 W6 的
+`al-rank/ranked-order.json`，也可用 queue 原序，兩者都無隨機性）。
+
+### 2. ADR-0008 前置抽樣：已對真 queue 實跑
+
+確定性抽樣（`sha256(seed:candidateId)` 排序取前 N），**不用 `random`**——
+同 seed 永遠得到同一組樣本，稽核時能重算。
+
+```
+seed=w8-pilot-2026-08-14  fraction=0.01
+poolSize=15425 → sampleSize=154
+sampleHash=sha256:349c36b6...b72650
+screeningQueueHash=sha256:aad9ddfa...79331a
+```
+
+落盤在私密根 `screening-pilot/sample.json`；已驗證 `queue.json` 與
+`manifest.json` 的 md5 前後一致（凍結契約未動），且 `verify --all` 的私密
+資料掃描仍過。
+
+`estimate_prevalence` 把 **unclear 另計**，給下界（unclear 全算 exclude）
+與上界（全算 advance）兩個數字，不硬歸一邊——把猶豫壓到任一側都會讓盛行率
+失真，而這個數字要餵排序模型與工時估算。不做信賴區間，那是 ADR-0008 統計
+終止那條線的事。
+
+### 3. 機-機影子門檻：`machine_shadow_gate`
+
+新增函式而非改寫 `shadow_gate`，人-機路徑與其測試原封不動保留。實質差異是
+**沒有金標準**：原版「LLM 對人類 advance 的漏報必須為 0」是不對稱的（人類
+是答案），機-機沒有這個非對稱性，所以改成**對稱的對立判讀認定**——一方
+advance、一方 exclude 即 `opposed`，一票否決，與歧異率無關。有測試釘住
+正反交換結果相同。
+
+守門條件：兩批必須綁同一 `screeningQueueHash`、`llmReviewHash` 必須不同、
+`model` 必須不同（ADR-0009 原則 5 的多模型冗餘前提）、覆蓋範圍必須一致、
+不得為空。歧異（含任一方 unclear）一律進 `ownerAuditQueue`，**不自動裁決**
+（ADR-0009 原則 5）；報告刻意不含 `resolved`／`decision` 欄位，有測試釘住。
+
+### 門檻
+
+- `python tests/run_tests.py` → **614/614 通過**（新增 35 項：驅動器 26、機-機門檻 9）
+- `python -m ahig.cli verify --all` → **10/10 階段通過**
+- 未新增任何依賴
+
+本分支從主幹 `9abb054` 開出，**不含 W6**（`claude/w6-al-third-sort-key` 尚未
+合併），故基數是 614 而非 W6 分支上的 600+21。兩條分支**無檔案重疊**，
+可各自獨立合併，順序不拘；先前在含 W6 的工作區合併驗證過一次，
+635/635 亦全過。
+
+`screening_driver` 對 W6 是**軟相依**：`load_run_root` 會讀
+`al-rank/ranked-order.json`，檔案不存在就回 `None`、退回 queue 原序，
+有測試釘住兩種情況。W6 未合併不影響本工作包運作。
+
+---
+
+### ⚠️ 待裁定 ①：真 API 呼叫不在執行室權限內
+
+整個 repo **沒有任何 LLM 呼叫管線**（`grep anthropic|openai|api_key|
+requests.post|httpx|urllib.request` 在 `ahig/` 底下零命中）——這是刻意的
+架構分離，不是缺漏。要讓驅動器真的跑起來，需要：金鑰、對外網路、以及
+**實際花費**（15,425 筆主模型全量＋300 筆第二模型盲判）。這三件都是擁有者
+決定，不是執行室能自行動用的。
+
+本輪已把「不需要這三樣就能驗證的部分」全部做完並測到底。請協調者裁定：
+接哪個模型、金鑰如何注入、預算上限、是否先跑 154 筆前置樣本試水溫（成本
+最小、又剛好是 ADR-0008 要的東西）。
+
+### ⚠️ 待裁定 ②：`DEFAULT_MAX_DISAGREEMENT_RATE = 0.25` 仍是佔位值
+
+原碼註解明寫「佔位參數，正式值由影子批次校準後凍結」。跑影子批次之前無從
+校準，跑之後才知道該定多少——這是雞生蛋。建議：先用 0.25 跑 300 筆影子
+批次，把實測歧異率報回看板，由協調者凍結正式值後再進正式篩選。**在協調者
+凍結前不進正式篩選**（派發第 4 項）。
+
+### ⚠️ 待裁定 ③：`screening_decisions` 擋住機器判讀（ADR-0009 未落實到程式碼）
+
+`_validate_binding` 第 129–132 行硬性要求：
+
+```python
+if reviewer.get("agentClass") not in {"human-self", "human-expert"}:
+    raise ScreeningDecisionError("screening reviewer must be human")
+```
+
+ADR-0009 已把信任模型改為「主模型判讀全量＋第二模型盲判＋擁有者抽查」，但
+這道閘還是 ADR-0007 的人類前提，**機器判讀無法通過 `reconcile`**。
+
+執行室**沒有自行放寬這道閘**——它是雙盲不變量的執行點，放寬等於改信任模型
+的實作定義，屬於協調者/ADR 層級的決定，不該由執行室在工作包裡順手做掉。
+三條路請裁定：
+
+- **A. 擴充 `agentClass` 允許集**加入 `llm`，並要求同時帶 `judgedBy`＋
+  兩個 reviewer 的 `modelId` 必須不同（把「雙盲」重新定義為「雙模型盲判」）。
+  改動最小，但 `blindedToOtherReviewer` 的語意要一併重寫。
+- **B. 另開機器路徑**（`reconcile_machine`），人類路徑完全不動。隔離最乾淨，
+  代價是兩套對帳邏輯要同步維護。
+- **C. 開新 ADR** 把 ADR-0009 對 `screening_decisions` 的具體影響寫清楚，
+  再依 ADR 實作。最慢但留紀錄最完整。
+
+執行室建議 **B**：ADR-0009 明講「原『人類雙盲』的位置由『雙模型盲判＋擁有者
+裁決』接替」——是**接替**不是改寫，人類路徑未來若引入真專家還要能用（ADR-0009
+結尾自己也留了「未來引入真人類專家並再修訂」的門）。A 會把兩種信任模型
+糊在同一個函式裡，之後很難分辨某筆 resolved 到底是誰簽的。

@@ -10,6 +10,16 @@
 - 人仍篩完每一篇；LLM 意見永遠只是意見，每個 include/exclude 由人類簽名。
 - LLM 必須盲於人類判定：意見批次結構性禁止攜帶人類決策欄位。
 - 影子門檻：LLM 對任一人類 include 的漏報必須為 0，否則不得切換模式。
+
+ADR-0009 修訂（W8 兌現，見該 ADR「篩選階段開跑前需把影子批次改為機-機
+版本」）：主模型判讀全量、第二模型盲判，比較對象從人-機改為機-機＋
+擁有者抽查。上述人類前提僅適用於 :func:`shadow_gate` 與
+:func:`adjudication_plan` 這兩個**人-機**函式；機-機路徑走
+:func:`machine_shadow_gate`，其不變量為：
+
+- 沒有金標準——對立判讀（一方 advance、一方 exclude）是對稱認定；
+- 兩批必須來自不同模型且綁定同一 screeningQueueHash；
+- 歧異一律進擁有者抽查佇列，不自動裁決（ADR-0009 原則 5）。
 """
 
 from __future__ import annotations
@@ -145,6 +155,74 @@ def shadow_gate(human_decisions: dict[str, str], batch: dict, *,
         "consequence": ("允許後續批次切換為「單人＋盲化 LLM」"
                         if passed else
                         "不得切換：維持純人類雙盲（ADR-0007 自動失效條款）"),
+        "evaluatedAt": _utc_now(),
+    }
+
+
+def machine_shadow_gate(primary_batch: dict, secondary_batch: dict, *,
+                        max_disagreement_rate: float =
+                        DEFAULT_MAX_DISAGREEMENT_RATE) -> dict:
+    """機-機影子門檻（ADR-0009 對 ADR-0007 的修訂，W8 兌現）。
+
+    ADR-0009 把「人單審全量」改為「主模型判讀全量＋第二模型盲判」，門檻
+    邏輯保留但比較對象從人-機改為機-機。與 :func:`shadow_gate` 的關鍵差異：
+
+    **沒有金標準**。人-機版可以說「LLM 漏掉人類的 advance」是漏報，因為
+    人類是基準；機-機兩邊都是模型，誰也不是真相。因此改為**對稱**檢查：
+    任一方判 advance 而另一方判 exclude，都算 ``opposedCandidateIds``——
+    這是最嚴重的歧異型態（方向相反，不是一方猶豫）。
+
+    這些對立筆數不會被自動裁決，一律進擁有者抽查佇列（ADR-0009 原則 5）。
+    """
+    primary = _opinion_map(primary_batch)
+    secondary = _opinion_map(secondary_batch)
+    if primary_batch["screeningQueueHash"] != secondary_batch["screeningQueueHash"]:
+        raise LlmReviewError("兩批意見綁定的 screeningQueueHash 不同")
+    if primary_batch["llmReviewHash"] == secondary_batch["llmReviewHash"]:
+        raise LlmReviewError(
+            "主／次批次的 llmReviewHash 相同——盲判要求兩個獨立模型")
+    if primary_batch["model"] == secondary_batch["model"]:
+        raise LlmReviewError("主／次模型必須不同（ADR-0009 原則 5：多模型冗餘）")
+    only_primary = sorted(set(primary) - set(secondary))
+    only_secondary = sorted(set(secondary) - set(primary))
+    if only_primary or only_secondary:
+        raise LlmReviewError(
+            f"影子批次要求兩個模型覆蓋同一組紀錄；主獨有 {only_primary[:3]}、"
+            f"次獨有 {only_secondary[:3]}")
+    if not primary:
+        raise LlmReviewError("影子批次是空的")
+
+    opposed = sorted(
+        cid for cid in primary
+        if {primary[cid], secondary[cid]} == {"advance", "exclude"})
+    disagreements = sorted(
+        cid for cid in primary
+        if primary[cid] != secondary[cid]
+        or primary[cid] == "unclear")
+    rate = len(disagreements) / len(primary)
+    passed = not opposed and rate <= max_disagreement_rate
+    return {
+        "documentType": "machine-shadow-gate-report",
+        "adr": "ADR-0009",
+        "amends": "ADR-0007",
+        "screeningQueueHash": primary_batch["screeningQueueHash"],
+        "primaryLlmReviewHash": primary_batch["llmReviewHash"],
+        "secondaryLlmReviewHash": secondary_batch["llmReviewHash"],
+        "primaryModel": primary_batch["model"],
+        "secondaryModel": secondary_batch["model"],
+        "shadowSampleSize": len(primary),
+        "opposedCandidateIds": opposed,
+        "disagreementCandidateIds": disagreements,
+        "disagreementRate": rate,
+        "maxDisagreementRate": max_disagreement_rate,
+        "verdict": "pass" if passed else "fail",
+        "ownerAuditQueue": disagreements,
+        "consequence": ("允許進入正式篩選；歧異筆數仍須進擁有者抽查佇列"
+                        if passed else
+                        "不得進入正式篩選：對立判讀或歧異率超標，"
+                        "需檢討 prompt／模型後重跑影子批次"),
+        "note": ("機-機比較沒有金標準：對立（一方 advance、一方 exclude）"
+                 "是對稱認定，不預設哪個模型是對的。"),
         "evaluatedAt": _utc_now(),
     }
 
