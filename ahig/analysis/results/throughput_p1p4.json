@@ -1,0 +1,272 @@
+{
+  "note": "規劃估計。實測錨點僅 B.11 佇列分布與判讀速率；盛行率/終止比例/量體倍率為情境假設，須依觸發點回填。",
+  "anchors": {
+    "queue_total": 15425,
+    "lanes": {
+      "standard-screening": 9260,
+      "safety-review": 2316,
+      "animal-signal-review": 1978,
+      "review-source-review": 1700,
+      "registry-review": 167,
+      "identity-review": 4
+    },
+    "judgements_per_round": 25,
+    "loop_minutes": 15,
+    "pilot_size": 154,
+    "pilot_judged": 25,
+    "shadow_batch": 300,
+    "tail_spot_check": 200,
+    "calibration_papers": 60
+  },
+  "recalibrationTriggers": [
+    "前置盛行率樣本 154 筆判完 → 以實測盛行率取代 prevalence",
+    "影子批次歧異率實測 → 以歧異率修 judging 品質假設與二審成本",
+    "B.11 正式篩選跑到 ADR-0008 終止 → 以實測終止點取代 termination_fraction",
+    "每個 P 領域檢索實跑 → 以實際 queue 數取代 mult",
+    "M1 校準集 60 篇抽取完成 → 以實測輪數取代 extraction_rounds_per_study"
+  ],
+  "scenarios": {
+    "樂觀": {
+      "params": {
+        "label": "樂觀",
+        "prevalence": 0.02,
+        "termination_fraction": 0.35,
+        "uptime_h_day": 12,
+        "judging_share": 0.8,
+        "fulltext_include_rate": 0.15,
+        "extraction_rounds_per_study": 1.5,
+        "owner_spotchecks_per_domain": 8,
+        "owner_min_per_spotcheck": 3,
+        "owner_milestone_h": 0.5,
+        "mult": {
+          "P1": 0.8,
+          "P2": 0.6,
+          "P3": 0.3,
+          "P4": 1.0
+        }
+      },
+      "m1_remaining": {
+        "judgements_remaining": 8802,
+        "loop_rounds_total": 454,
+        "wall_clock_days": 11.8,
+        "wall_clock_weeks": 1.7
+      },
+      "domains": {
+        "P1": {
+          "note": "減脂期蛋白質與肌肉保留（文獻量大，RCT 密集）",
+          "queue_multiplier_assumed": 0.8,
+          "queue_projected": 12340,
+          "screening_judgements_core": 7222,
+          "screening_judgements_secondary_deferrable": 3079,
+          "screening_days": 7.5,
+          "included_studies": 21,
+          "extraction_days": 0.8,
+          "total_days": 8.4,
+          "owner_hours": 0.9
+        },
+        "P2": {
+          "note": "睡眠與運動表現/恢復",
+          "queue_multiplier_assumed": 0.6,
+          "queue_projected": 9255,
+          "screening_judgements_core": 5616,
+          "screening_judgements_secondary_deferrable": 2309,
+          "screening_days": 5.9,
+          "included_studies": 16,
+          "extraction_days": 0.6,
+          "total_days": 6.5,
+          "owner_hours": 0.9
+        },
+        "P3": {
+          "note": "壓力性進食（與運動員族群交集較窄）",
+          "queue_multiplier_assumed": 0.3,
+          "queue_projected": 4628,
+          "screening_judgements_core": 3208,
+          "screening_judgements_secondary_deferrable": 1155,
+          "screening_days": 3.3,
+          "included_studies": 8,
+          "extraction_days": 0.3,
+          "total_days": 3.7,
+          "owner_hours": 0.9
+        },
+        "P4": {
+          "note": "肌酸/咖啡因（補劑文獻量極大，但重複度高）",
+          "queue_multiplier_assumed": 1.0,
+          "queue_projected": 15425,
+          "screening_judgements_core": 8827,
+          "screening_judgements_secondary_deferrable": 3849,
+          "screening_days": 9.2,
+          "included_studies": 26,
+          "extraction_days": 1.0,
+          "total_days": 10.2,
+          "owner_hours": 0.9
+        }
+      },
+      "p1_p4_total_days": 28.8,
+      "m2_days_from_now": 20.2,
+      "owner_hours_total": 4.3
+    },
+    "基準": {
+      "params": {
+        "label": "基準",
+        "prevalence": 0.05,
+        "termination_fraction": 0.55,
+        "uptime_h_day": 8,
+        "judging_share": 0.7,
+        "fulltext_include_rate": 0.25,
+        "extraction_rounds_per_study": 2.0,
+        "owner_spotchecks_per_domain": 12,
+        "owner_min_per_spotcheck": 4,
+        "owner_milestone_h": 1.0,
+        "mult": {
+          "P1": 1.2,
+          "P2": 1.0,
+          "P3": 0.6,
+          "P4": 1.6
+        }
+      },
+      "m1_remaining": {
+        "judgements_remaining": 10654,
+        "loop_rounds_total": 558,
+        "wall_clock_days": 24.9,
+        "wall_clock_weeks": 3.6
+      },
+      "domains": {
+        "P1": {
+          "note": "減脂期蛋白質與肌肉保留（文獻量大，RCT 密集）",
+          "queue_multiplier_assumed": 1.2,
+          "queue_projected": 18510,
+          "screening_judgements_core": 12655,
+          "screening_judgements_secondary_deferrable": 4619,
+          "screening_days": 22.6,
+          "included_studies": 132,
+          "extraction_days": 11.8,
+          "total_days": 34.4,
+          "owner_hours": 1.8
+        },
+        "P2": {
+          "note": "睡眠與運動表現/恢復",
+          "queue_multiplier_assumed": 1.0,
+          "queue_projected": 15425,
+          "screening_judgements_core": 10679,
+          "screening_judgements_secondary_deferrable": 3849,
+          "screening_days": 19.1,
+          "included_studies": 110,
+          "extraction_days": 9.8,
+          "total_days": 28.9,
+          "owner_hours": 1.8
+        },
+        "P3": {
+          "note": "壓力性進食（與運動員族群交集較窄）",
+          "queue_multiplier_assumed": 0.6,
+          "queue_projected": 9255,
+          "screening_judgements_core": 6727,
+          "screening_judgements_secondary_deferrable": 2309,
+          "screening_days": 12.0,
+          "included_studies": 66,
+          "extraction_days": 5.9,
+          "total_days": 17.9,
+          "owner_hours": 1.8
+        },
+        "P4": {
+          "note": "肌酸/咖啡因（補劑文獻量極大，但重複度高）",
+          "queue_multiplier_assumed": 1.6,
+          "queue_projected": 24680,
+          "screening_judgements_core": 16606,
+          "screening_judgements_secondary_deferrable": 6158,
+          "screening_days": 29.7,
+          "included_studies": 176,
+          "extraction_days": 15.7,
+          "total_days": 45.4,
+          "owner_hours": 1.8
+        }
+      },
+      "p1_p4_total_days": 126.6,
+      "m2_days_from_now": 59.3,
+      "owner_hours_total": 8.5
+    },
+    "保守": {
+      "params": {
+        "label": "保守",
+        "prevalence": 0.1,
+        "termination_fraction": 0.85,
+        "uptime_h_day": 4,
+        "judging_share": 0.6,
+        "fulltext_include_rate": 0.35,
+        "extraction_rounds_per_study": 3.0,
+        "owner_spotchecks_per_domain": 20,
+        "owner_min_per_spotcheck": 6,
+        "owner_milestone_h": 2.0,
+        "mult": {
+          "P1": 1.8,
+          "P2": 1.6,
+          "P3": 1.0,
+          "P4": 2.4
+        }
+      },
+      "m1_remaining": {
+        "judgements_remaining": 13432,
+        "loop_rounds_total": 729,
+        "wall_clock_days": 76.0,
+        "wall_clock_weeks": 10.9
+      },
+      "domains": {
+        "P1": {
+          "note": "減脂期蛋白質與肌肉保留（文獻量大，RCT 密集）",
+          "queue_multiplier_assumed": 1.8,
+          "queue_projected": 27765,
+          "screening_judgements_core": 23583,
+          "screening_judgements_secondary_deferrable": 6928,
+          "screening_days": 98.3,
+          "included_studies": 554,
+          "extraction_days": 173.2,
+          "total_days": 271.5,
+          "owner_hours": 4.0
+        },
+        "P2": {
+          "note": "睡眠與運動表現/恢復",
+          "queue_multiplier_assumed": 1.6,
+          "queue_projected": 24680,
+          "screening_judgements_core": 21051,
+          "screening_judgements_secondary_deferrable": 6158,
+          "screening_days": 87.7,
+          "included_studies": 493,
+          "extraction_days": 154.0,
+          "total_days": 241.7,
+          "owner_hours": 4.0
+        },
+        "P3": {
+          "note": "壓力性進食（與運動員族群交集較窄）",
+          "queue_multiplier_assumed": 1.0,
+          "queue_projected": 15425,
+          "screening_judgements_core": 13457,
+          "screening_judgements_secondary_deferrable": 3849,
+          "screening_days": 56.1,
+          "included_studies": 308,
+          "extraction_days": 96.2,
+          "total_days": 152.3,
+          "owner_hours": 4.0
+        },
+        "P4": {
+          "note": "肌酸/咖啡因（補劑文獻量極大，但重複度高）",
+          "queue_multiplier_assumed": 2.4,
+          "queue_projected": 37020,
+          "screening_judgements_core": 31177,
+          "screening_judgements_secondary_deferrable": 9238,
+          "screening_days": 129.9,
+          "included_studies": 739,
+          "extraction_days": 230.9,
+          "total_days": 360.8,
+          "owner_hours": 4.0
+        }
+      },
+      "p1_p4_total_days": 1026.3,
+      "m2_days_from_now": 347.5,
+      "owner_hours_total": 18.5
+    }
+  },
+  "old_model_comparison": {
+    "old_base_scoped_person_years": 2.7,
+    "new_owner_hours_total_base": 8.5,
+    "cost_shifted_to": "executor wall-clock + AI-graded evidence label"
+  }
+}
