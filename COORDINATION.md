@@ -1776,3 +1776,115 @@ W4a 排在其後。
 
 M1 殘餘不動（3.5 週基準）——M1 由 safety 雙審＋standard 終止比例主導，
 盛行率影響的是全文階段。下一個回填觸發點：影子批次實測歧異率。
+
+## 🔬 執行室回報：影子 pass A 300/300 判完＋lane 分布交辦（第 13 輪）
+
+裁定 A／B 均已收到並套用。本輪三件事：pass A 判讀完成、協調者交辦的
+lane 分布回報、以及裁定 A 對 pass A 既有判讀的**時序影響評估（結論：零改寫）**。
+
+### 1. 影子批次 pass A 判讀完成 300/300
+
+`screening-shadow-pass-a/judgements.json` 已滿額，`remaining: 0`、`nextPage: null`。
+
+| opinion | n | 佔比 |
+|---|---|---|
+| advance | 2 | 0.67% |
+| unclear | 10 | 3.33% |
+| exclude | 288 | 96.0% |
+
+`judgedBy = {agentClass: llm, modelId: claude-opus-5, role: executor-session,
+adr: "ADR-0009 裁定①"}`。pass B 換模型後即可跑 `machine_shadow_gate`。
+
+### 2. 交辦回報：pilot 樣本 lane 分布（協調者第 n+6 輪要求）
+
+`sample.json` 只存 `candidateIds`，lane 需與 `screening-queue/queue.json` join 得出：
+
+| lane | n | advance | unclear | exclude |
+|---|---|---|---|---|
+| standard-screening | 94 | 2 | 1 | 91 |
+| review-source-review | 23 | 0 | 0 | 23 |
+| animal-signal-review | 16 | 0 | 0 | 16 |
+| safety-review | 16 | 0 | 0 | 16 |
+| registry-review | 5 | 0 | 2 | 3 |
+| **合計** | **154** | **2** | **3** | **149** |
+
+**真 standard-lane 盛行率 = 2/94（2.13%）–3/94（3.19%）→ 9,260 × 該區間
+= advance 約 197–296 篇**，高於裁定 B 的非 registry 近似（148 分母 → 125–188 篇）。
+差異來源：非 registry 近似把 review-source／animal-signal／safety 三道
+（合計 55 筆、advance 0）也算進分母，稀釋了盛行率。**四條非 standard 道
+在 154 筆中 advance 掛零**——這本身是有用的量測，支持「盛行率該按 lane 分別估」。
+
+**發現一項 prefix／lane 不一致**（供 queue 分類邏輯參考，不影響已錨定產物）：
+pilot 中帶 `registry-record:` 前綴者 **6** 筆，但 lane 落在 `registry-review`
+者僅 **5** 筆。差集為 `ahig:candidate:registry-record:a0277300021cc3446826e0df`
+（`entityKind: registry-record` 但 `screeningLane: safety-review`，判 exclude）。
+故裁定 B 的分母 148＝154−6 是**前綴口徑**；lane 口徑會是 149。兩者都不改變
+上述 standard-lane 估計（該筆本就不在 standard 道）。
+
+### 3. 影子批次 lane 分布（順帶量測，供 gate 解讀用）
+
+| lane | 全 300 | 費率子集 277 |
+|---|---|---|
+| standard-screening | 169（adv 2／unc 9） | 169（adv 2／unc 9） |
+| safety-review | 52 | 48 |
+| animal-signal-review | 47 | 45 |
+| review-source-review | 19 | 15 |
+| registry-review | 10（unc 1） | **0** |
+| identity-review | 3 | **0** |
+
+**registry-review 與 identity-review 全數落在覆蓋補位、不在費率分母內**——
+故 seq 290 那筆 registry `unclear`（Dole 香蕉試驗）不會進入歧異率計算。
+裁定 B 的判讀慣例與 gate 的統計面因此互不干擾。
+
+**兩批 standard 道零重疊**（pilot 94 ∩ shadow 169 = 0；全樣本僅 1 筆重疊），
+可直接合併為 263 筆獨立樣本：**advance 4、unclear 10 → 1.52%–5.32% → 141–493 篇**。
+建議吞吐量模型 v3 改用此合併值：分母大一倍、上界含 shadow 的 9 筆 unclear，
+比 pilot 單獨估計保守也更穩。
+
+### 4. 裁定 A 的時序影響評估——結論：pass A **零筆需改寫**
+
+裁定 A 說慣例「適用於影子批次起的所有後續判讀」，但 pass A 是在裁定抵達
+**之前**判完的。若 pass A 內有依「同劑量不同醣種對照」判 exclude 的紀錄，
+pass B 依新慣例會判 advance，就會構成 `machine_shadow_gate` 的 `opposed`
+（硬性失敗，非比率問題）。已對 288 筆 exclude 全數以對照臂／醣種關鍵詞
+掃描，命中 47 筆逐條人工複核，結果：
+
+- **無任何一筆的排除理由建立在「同劑量不同醣種」這條軸上。**
+- 兩筆碰到該軸但另有硬性閘門先出局：`7949e0ea`（葡萄糖 vs 葡萄糖+果糖，
+  但攝取時點為運動**前** 15 分鐘＋結果不在六項內）、`47fdd027`（果糖-麥芽糊精
+  vs 葡萄糖-麥芽糊精，但時點為運動間**恢復期**）。後者的 reason 原文已寫
+  「此為 timing 硬性排除，不需再論其等醣量主動對照的問題」——判讀當下就把
+  兩條軸切開了，故裁定 A 不改變其結論。
+- 其餘 45 筆命中詞多為「安慰劑麥芽糊精僅為載體」這類敘述，與醣種對照無關。
+
+因此**不需要對 pass A 做任何回溯改寫**。這點很重要，因為
+`judgement_worksheet._validate_entry` 會對重複 candidateId 直接 raise，
+且模組**沒有 revise／amend 動詞**——回溯改寫得走檔案手術＋
+`estimate-superseded-N.json` 那類慣例（`prevalence_audit.py:861–865` 為唯一先例），
+成本與風險都高。既然實測為零，此路不必開。
+
+**殘餘影響僅在比率面**：pass A 有 9 筆 unclear 落在 277 費率子集內，而
+`machine_shadow_gate._disagrees` 對任何一方的 `unclear` 無條件計為歧異
+（`primary[cid] == "unclear"`），故歧異率有 **9/277 = 3.25% 的地板**。
+門檻 `max_disagreement_rate = 0.25`，地板遠低於門檻，**不構成風險**。
+其中 3 筆（`d60bcead`、`843592ce`、`c3596e04`）的 unclear 理由確實提到
+送裁 A 缺口——但前兩筆是無摘要學位論文（另有族群／劑量未知的第二重
+不確定），第三筆另有「1984 年文獻未載明隨機化與盲化」。即使裁定 A 提前
+到達，這三筆仍會是 unclear。真正純粹因裁定 A 而 unclear 的：**0 筆**。
+
+pass B 將在裁定 A 生效下判讀，此類研究直判 `advance` 並標
+`[cho-type-comparison]`；屆時若與 pass A 的 unclear 對上，計為歧異但不是
+`opposed`，符合裁定 A 預期的「不再有系統性 unclear 膨脹」。
+
+### 5. 更正第 12 輪的錯誤陳述
+
+第 12 輪回報寫「但仍卡在裁定②③」，協調者已駁正確。W9 是**已派發的工作包**
+不是待裁問題，裁定②分母亦已凍結。影子批次判讀與 gate 報告不被任何事擋住，
+本輪也確實照此推進。已理解，後續不再重複此誤述。
+
+### 下一步
+
+1. `/model` 換模型 → pass B 判讀 300 筆（約 12 輪，每輪 25 筆），
+   首次 append 帶 `--model-id`。
+2. pass B 完成後跑 `machine_shadow_gate`（`rate_candidate_ids` = 277）並回報。
+3. 判讀輪間穿插 W9 `reconcile_machine` 實作（依協調者要求）。
