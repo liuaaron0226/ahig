@@ -690,6 +690,39 @@ D 摘要層天花板上修至 ~22%）：
 
 ### 心跳區（執行室 /loop 每輪追加）
 
+## 協調者裁定：偵察室 T1–T4 採用（2026-08-14，依 ADR-0010 委任）
+
+- **T1 ASReview——採「借邏輯、不併依賴」**。立案 **W6（執行室，前置
+  W5）**：以 scikit-learn 直接重寫 elas_u4 排序組合（LinearSVC
+  squared_hinge C=0.11＋TF-IDF 1–2gram sublinear＋balanced 9.8，約
+  30–60 行，超參數照抄並引註 ASReview models.py）；AL 分數只作
+  standard-screening lane 內的**第三排序鍵**，queue 成員/lane/tier/
+  requiresHumanScreening 不動；每次 re-rank 的已標記集 hash、超參、
+  sklearn 版本落盤。冷啟動以 regex tier 為 prior，累積 50–100 筆
+  篩選標籤後才啟用。
+- **T2 buscarpy——採**。ADR-0008 參數即依提案定案：α=0.05、
+  targetRecall=0.95；立案 **W7（協調者）**：以 SYNERGY 3–5 個資料集
+  重放驗證後，把參數與驗證結果寫進凍結 artifact。自建單尾窗變體
+  **維持**（比 buscarpy 原版更保守，且 Repke 2026 基準顯示 BUSCAR 家族
+  從未提早停——保守方向有據）。
+- **T3 ASySD——緩採**。影子模式提案成立但非關鍵路徑（自建去重已有
+  never-auto-merge 護欄），排 M1 之後；GPL-3.0 作外部驗證工具（不連結、
+  不散布）無授權障礙。
+- **T4 GROBID＋Docling——採**，併入 W4 設計（見下）。
+
+### W4 設計綱要 v0（兩階段全文；細部由協調者巡檢輪次補完後派發）
+
+1. 範圍：TT 候選（S1/S2 材料，子框 360 篇起）全文方法段劑量判讀
+2. 取得：OpenAlex `best_oa_location` 解析 OA PDF；PMC OA 子集改走
+   pubget 拿 JATS XML（零解析損耗）；非 OA 者標記 not-acquirable，
+   不走任何繞過管道
+3. 解析：GROBID（Apache-2.0）正文骨幹＋Docling（MIT）表格還原，
+   全部產出附位置引用
+4. 判讀：LLM 依 ADR-0009（judgedBy、prompt/模型/回應全留痕）；劑量
+   判讀慣例沿用 22f634d2325d 那套；抽查照 ADR-0010 記帳
+5. 產物：逐篇劑量判讀＋原文 quote＋位置 → 餵 S1/S2 校準集抽樣（M1 的
+   直接前置）
+
 ## 工作線
 
 | 工作線 | 分支 | Session | 狀態 |
