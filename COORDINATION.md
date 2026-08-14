@@ -2419,3 +2419,52 @@ PoC 4 筆 advance 全部無 Europe PMC OA 全文（無 PMCID、isOpenAccess=N）
 ——那是 ADR-0010 明列的擁有者接觸事由（付費／機構授權）。**行動**：
 正式篩選放行後，對 advance 池先跑完整三節來源鏈的覆蓋率掃描（只查
 可得性、不下載），用實數決定是否需要擁有者介入。記入 M1 待批清單。
+
+## 🔬 執行室回報：W4a-1 六項已實作，複驗仍 no-ship（第 18 輪）
+
+本輪 pull 至 `879e20b` 後依第 n+12 輪裁定逐項實作：manifest-last＋孤兒掃除、
+parser 版本化、JATS body 直屬內容、Europe PMC→OpenAlex→Unpaywall 狀態機、
+GROBID TEI root/ns/producer 驗證（`pdfLocatorReady=false`）、slug＋candidateId
+sha256 前 16 hex、run/pool/record binding、run-scoped batch manifest。
+
+- focused **23/23**；全套 **705/705**；`verify --all` **10/10**。
+- 真實 4 筆 PoC 重跑：Europe PMC 4/4 miss、OpenAlex 4/4 miss；
+  `AHIG_CONTACT_EMAIL` 未設定，Unpaywall 4/4 正確記 `blocked`，故終態
+  **4 incomplete／0 no-oa-fulltext**，未過度宣稱。batch hash、每篇 binding、
+  email 未外洩均實檢通過。
+
+### 最終三路 review：no-ship，程式仍未 commit
+
+Standards／Spec／Codex 均確認尚有下列交付 blocker：
+
+1. **批次證據會失證（High）**：batch hash 指向可變的共享 `manifest.json`；後續
+   run 追加 binding／parser artifact 後，舊 batch 的 `manifestSha256` 已無對應 bytes。
+   需 immutable、content-addressed manifest generation，batch 同時記 path＋hash。
+2. **identity／binding fail-closed 失效（High）**：`except Exception` 會吞掉
+   PMCID／URL／source-hash drift，fallback 最後又回傳舊 acquired manifest；
+   reuse 也可能不追加本 run binding。只可捕捉專用 transport exception，契約／
+   integrity 錯誤必須向上拋。
+3. **並行發佈仍有 race（High）**：manifest-last 只有單檔原子性，沒有 candidate
+   lock／CAS；兩個 parser／retry 可互刪 staged 檔、遺失 binding。需 candidate-scoped
+   interprocess lock 或 generation CAS，掃除不得碰 live staging。
+4. **private-root junction 可繞過（High）**：候選目錄若預先為指向外部的 Windows
+   junction，寫入前未重新 resolve＋`_require_private`，manifest 可落到私密根外。
+5. **來源終態過度宣稱（High）**：三個 `not-applicable` 目前也會成為
+   `no-oa-fulltext`；必須三個實際 `miss` 才可終局，其餘為 blocked/incomplete。
+   舊 `acquire_europe_pmc()` 單來源入口亦應移除／內部化，且先驗 2xx 才可 parse。
+6. **OA landing page 誤標 PDF（Medium）**：OpenAlex `landing_page_url`／Unpaywall
+   一般 `url` 不可回報 `available-pdf`；須分成 `available-landing-page` 或只接受
+   `pdf_url`／`url_for_pdf`。
+7. **TEI producer 假陽性（Medium）**：任意位置 `ident` 含 grobid（含
+   `not-grobid`）都會通過；只接受 `teiHeader/encodingDesc/appInfo/application`
+   且 `ident.casefold()=="grobid"`。
+8. **孤兒掃除的「有效 manifest」判定不足（Medium）**：目前合法 JSON 即可保護
+   檔案；須驗 documentType／candidate／artifact 必填欄／檔案 hash，無效 manifest
+   隔離後按零引用掃除。
+9. **錯誤 reason 可能洩漏 email（High）**：直接保存 `str(exc)` 可能把原始或
+   URL-encoded mailto/email 寫入 manifest；改結構化 reason code，不保存原例外字串。
+
+以上多為既有裁定的實作缺陷，不再另選架構；但依最終 review 的 no-auto-fix
+規範，本輪不在審查後自行修改。**請協調者明示「九項全修」或另拆交付邊界**。
+程式保留於獨立 worktree、本地分支 `claude/w4a1-fulltext-artifacts`；未提交、未推。
+pass B 仍維持 0/300，第二次 `/clear` 前置不變。
