@@ -300,6 +300,8 @@ def draw_sample(run_root: Path, *, seed: int | None = None, n: int = 50,
         "samplingRule": "random.Random(seed).sample 於 candidateId 升冪清單；"
                         "先抽主樣本、後抽誤剔樣本，共用同一 rng 狀態",
         "drawnAt": _utc_now(),
+        # ADR-0009：回填者必須宣告身分（human，或 llm＋模型資訊）。
+        "judgedBy": None,
         "records": [_record(queue_by_id[cid], by_id[cid])
                     for cid in sampled_ids],
         "exclusionAudit": [_exclusion_record(queue_by_id[cid], by_id[cid])
@@ -459,6 +461,20 @@ def _verify_against_source(run_root: Path, audit: dict) -> None:
 
 def _validate_filled(audit: dict) -> None:
     problems = []
+    judged_by = audit.get("judgedBy")
+    if not isinstance(judged_by, dict) or judged_by.get("type") not in (
+            "human", "llm"):
+        problems.append('judgedBy 必填：{"type": "human"} 或 '
+                        '{"type": "llm", "model": {"id":…, "version":…}}'
+                        '（ADR-0009）')
+    elif judged_by["type"] == "llm":
+        model = judged_by.get("model")
+        if not (isinstance(model, dict)
+                and isinstance(model.get("id"), str) and model["id"].strip()
+                and isinstance(model.get("version"), str)
+                and model["version"].strip()):
+            problems.append("judgedBy.type=llm 必須附 model.id 與 "
+                            "model.version（ADR-0009 留痕要求）")
     for i, record in enumerate(audit["records"]):
         cid = record["candidateId"]
         level = record.get("doseReadability")
@@ -798,6 +814,11 @@ def estimate(audit_dir: Path, *, strata_path: Path | None = None,
         "screeningQueueHash": audit["screeningQueueHash"],
         "candidatePoolHash": audit["candidatePoolHash"],
         "samplingLockHash": audit["samplingLockHash"],
+        "judgedBy": audit.get("judgedBy"),
+        "groundTruthLabel": (
+            "AI-graded evidence — no human expert review (ADR-0009)"
+            if (audit.get("judgedBy") or {}).get("type") == "llm"
+            else "human-judged"),
         "sourceReplayVerified": True,
         "anchorFile": anchor_file,
         "seed": audit["seed"],
@@ -875,6 +896,8 @@ def fill_interactive(audit_dir: Path, *, input_fn=input,
     audit_dir = _require_private(audit_dir)
     path = audit_dir / "audit.json"
     audit = json.loads(path.read_text(encoding="utf-8"))
+
+    audit["judgedBy"] = {"type": "human"}
 
     def save() -> None:
         atomic_write_json(path, audit)

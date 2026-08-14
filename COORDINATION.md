@@ -39,7 +39,9 @@
 - ✅ prevalence audit 完美化升級：git 錨定抽樣證據（anchors.jsonl，commit+push 後竄改需改寫遠端歷史）、seed 預設從 queueHash 導出、二部圖聯合配額分配、outcomeConfirmed 必填＋多重抽樣 Bonferroni 校正
 - ✅ 系統性回顧自動化工具調查完成（ASReview／LLM 第二審／BUSCAR 停止規則／ASySD／GROBID 路線），採用決策待人拍板
 - ✅ ADR-0007/0008 核心實作完成：requiredReviewMode 分流（safety/harms 雙人、其餘 human+LLM，RULE_VERSION 1.3.0）、llm_second_review（盲化批次＋影子門檻＋裁決計畫）、statistical_termination（精確超幾何 p-score、前置條件、尾端抽驗）
-- 測試基準：563/563、verify 10/10
+- ✅ 真實資料全線打通：四來源 24,932 筆 → 池 15,425 → 佇列（S2 regex 池確認=12、T1=954）→ audit 22f634d2325d 抽出並 git 錨定
+- ✅ ADR-0009 已拍板：信任模型改為「AI 判讀證據＋擁有者稽核」（擁有者非領域專家）；judgedBy 欄位＋AI-graded 標示已實作；62 筆判讀交 LLM 執行、擁有者抽查 6 筆
+- 測試基準：572/572、verify 10/10
 - 分工註記：prevalence_audit 的實作歸協調 session；本機 session 請勿再改
   該檔，直接 `git pull` 取用
 

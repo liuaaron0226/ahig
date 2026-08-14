@@ -1,6 +1,6 @@
 # ADR-0007：title/abstract 雙盲篩選的第二審改由盲化 LLM 擔任
 
-- 狀態：已接受
+- 狀態：已接受（人類前提由 ADR-0009 修訂：人單審改為主模型判讀，影子批次改機-機比較）
 - 日期：2026-08-13
 - 情境：AHIG B.11 title/abstract screening 契約（`requiredReviewMode:
   dual-blind-title-abstract`）；與 ADR-0008 同批決策，兩者可獨立成立

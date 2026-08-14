@@ -1,6 +1,6 @@
 # ADR-0008：篩選允許統計終止（statistical termination ≠ 排除）
 
-- 狀態：已接受
+- 狀態：已接受（尾端抽驗執行者由 ADR-0009 修訂為擁有者翻譯輔助粗判）
 - 日期：2026-08-13
 - 情境：AHIG B.11 title/abstract screening 契約；與 ADR-0007 同批決策，
   兩者可獨立成立。校準集抽樣 blocker（「篩完才能抽」）是另一份待議 ADR，

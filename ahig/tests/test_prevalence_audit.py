@@ -172,6 +172,7 @@ def _fill(audit_dir: Path, *, unjustified_exclusions: int = 0) -> None:
     """
     path = audit_dir / "audit.json"
     audit = json.loads(path.read_text(encoding="utf-8"))
+    audit["judgedBy"] = {"type": "human"}
     for record in audit["records"]:
         abstract = record["abstract"] or ""
         record["outcomeConfirmed"] = True
@@ -712,3 +713,54 @@ def test_fill_interactive_exact_value_path_and_quit_resumes():
         assert first["notes"] == "多臂"
         # 中斷後其餘保持未回填，可重跑續填。
         assert data["records"][1]["doseReadability"] is None
+
+
+def test_judged_by_declaration_is_required_and_labeled():
+    with private_tmp() as tmp:
+        root = make_run_root(tmp)
+        audit = _draw(root)
+        audit_dir = root / prevalence_audit.AUDIT_DIRNAME / audit["auditId"]
+        _fill(audit_dir)
+        path = audit_dir / "audit.json"
+        data = json.loads(path.read_text(encoding="utf-8"))
+        # 缺 judgedBy → 拒絕
+        data["judgedBy"] = None
+        path.write_text(json.dumps(data, ensure_ascii=False),
+                        encoding="utf-8")
+        try:
+            _estimate(root, audit, tmp)
+        except prevalence_audit.PrevalenceAuditError as exc:
+            assert "judgedBy" in str(exc)
+        else:
+            raise AssertionError("缺 judgedBy 必須拒絕")
+        # llm 但沒附模型 → 拒絕
+        data["judgedBy"] = {"type": "llm"}
+        path.write_text(json.dumps(data, ensure_ascii=False),
+                        encoding="utf-8")
+        try:
+            _estimate(root, audit, tmp)
+        except prevalence_audit.PrevalenceAuditError as exc:
+            assert "model" in str(exc)
+        else:
+            raise AssertionError("llm 判讀缺模型資訊必須拒絕")
+        # llm＋模型 → 通過且輸出帶 AI 判讀標示
+        data["judgedBy"] = {"type": "llm",
+                            "model": {"id": "model-x", "version": "2026-08"}}
+        path.write_text(json.dumps(data, ensure_ascii=False),
+                        encoding="utf-8")
+        result = _estimate(root, audit, tmp)
+        assert result["judgedBy"]["type"] == "llm"
+        assert "AI-graded" in result["groundTruthLabel"]
+
+
+def test_interactive_fill_declares_human_judge():
+    with private_tmp() as tmp:
+        root = make_run_root(tmp)
+        audit = _draw(root)
+        audit_dir = root / prevalence_audit.AUDIT_DIRNAME / audit["auditId"]
+        inputs = ["n", "y", "", "q"]
+        prevalence_audit.fill_interactive(
+            audit_dir, input_fn=_scripted(inputs), print_fn=lambda *_: None)
+        data = json.loads((audit_dir / "audit.json").read_text(
+            encoding="utf-8"))
+        assert data["judgedBy"] == {"type": "human"}
