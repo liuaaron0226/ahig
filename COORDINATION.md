@@ -18,7 +18,10 @@
 - push 前必須全綠：`cd ahig && python tests/run_tests.py && python -m ahig.cli verify --all`
 - 只改自己工作線範圍內的檔案；要跨線改動先找協調者。
 - AHIG 程式與測試都在 `ahig/` 子目錄；repo 根目錄還有其他專案（BixLink、
-  trading-desk、health…），一律不要動。
+  trading-desk…），一律不要動。
+- ⚠️ **2026-08-14 擁有者公告：`health/` 已 untrack，開工先 fetch+merge 主幹。**
+  詳見文末「👤 擁有者公告：health/ 分家」。在合併主幹之前切到舊分支，git 會用
+  舊版 `health/*` 靜默覆寫本機檔案。
 
 ## 房間架構章程（2026-08-14 起生效）
 
@@ -898,3 +901,42 @@ screeningQueueHash，使 audit 22f634d2325d 與進行中的 W2 補抽失去源�
 queue（101 筆動物研究屆時移出主池），其後的新抽樣一律以新 queue 為母體；
 既有 audit 以其錨定的舊 queueHash 為準，不重算。
 | （新工作線由協調者或開線 session 在此登記） | | | |
+
+## 👤 擁有者公告：health/ 分家（2026-08-14）
+
+擁有者裁定 issue 10（`ready-for-human`，掛了一天）。**這是全域清理，不屬於任何
+一條工作線**，因此依 ADR-0010 的委任精神直接由擁有者推主幹，未走協調者合併。
+
+### 做了什麼
+
+1. `health/`（個人健康資料庫）就地 `git init` 成獨立 private repo，25 個檔案。
+2. 本 repo `git rm -r --cached health/` ＋ `.gitignore` 加 `health/`（commit `54ac78e`）。
+3. **不改寫歷史。**
+
+### 為什麼不改寫歷史
+
+**AHIG 的抽樣證據用 git 歷史當防竄改錨定**——`anchors.jsonl`，狀態快照原話是
+「commit+push 後竄改需改寫遠端歷史」。改寫歷史正是這套機制定義的竄改動作，
+會讓已結案的 audit `22f634d2325d` 證據鏈失效。次要理由：`f1ea2fe` 在主幹深度
+48、8 條分支全部要 force-push、3 個活躍房間的 local clone 全數作廢。
+
+**接受的代價，明講**：歷史 commit 裡仍有全部健康資料。這個 repo 因此
+**永遠不能直接轉 public**——要開源只能抽子集到新 repo。已查證目前
+`github.com/liuaaron0226/ahig` 為 private（匿名存取回 404），未外洩。
+
+### 各房要做什麼
+
+開工先對齊主幹，這是唯一動作：
+
+```bash
+git fetch origin && git merge origin/feature/istudy-private-backup-workflow
+```
+
+⚠️ **在合併之前切到舊分支**，git 會用該分支上的舊版 `health/*` 覆寫你本機的
+檔案——而且因為現在已 ignore，git 會**靜默覆寫、不警告**。`health/` 自己的
+git repo 是這種情況的救援管道。
+
+### 不受影響
+
+- 磁碟上的 `health/` 檔案一個都沒動，三個健康 skill 的硬編碼路徑照常運作。
+- AHIG 的程式、測試、queue、audit 錨定完全未觸及。本次變更不碰 `ahig/`。
