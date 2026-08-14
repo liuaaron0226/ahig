@@ -1,0 +1,26 @@
+# 換行正規化
+#
+# B.11 校準契約以位元組為單位對 query artifacts 取 sha256（見
+# ahig/tests/test_search_contract.py 的 test_every_candidate_source_has_a_hashed_query_artifact
+# 與 test_query_artifacts_are_utf8_lf_text_or_json）。本 repo 的 .git/config
+# 設有 core.autocrlf=true，在沒有本檔的情況下，Windows 上任何全新 clone 或
+# git worktree add 都會把這些檔案簽出成 CRLF，sha256 隨之改變，凍結契約直接
+# 失敗（實測 635/660，25 個失敗集中在 test_search_contract.py 與
+# test_search_runner.py）。既有的舊 checkout 不受影響，因為它們的檔案早於
+# 該設定——這正是問題長期隱形的原因。
+#
+# 契約要求的就是 LF，本檔把工作目錄釘成 LF，讓磁碟上的位元組等於被雜湊的
+# 位元組。
+
+* text=auto eol=lf
+
+# Windows 批次檔需要 CRLF。
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+# 二進位：不做任何換行轉換，也不做 diff。
+*.png  binary
+*.jpg  binary
+*.jpeg binary
+*.woff2 binary
+*.pyc  binary
