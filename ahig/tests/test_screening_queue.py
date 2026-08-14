@@ -225,6 +225,67 @@ def test_animal_signal_uses_separate_lane_but_is_not_excluded():
     assert entry["autoDecision"] is None
 
 
+def test_animal_signal_catches_non_mammalian_and_livestock_species():
+    """W1：草魚案例（audit 22f634d2325d 第 35 筆）證實舊詞表只涵蓋哺乳實驗動物。
+
+    魚類／家禽／反芻獸研究會漏進 standard-screening，方向與誤剔風險相反：
+    誤剔是少收，漏抓是主池混入非人體研究，直接推高篩選工時。
+    """
+    cases = {
+        "carp": "Transcriptome analysis of grass carp between fast- and slow-growing fish",
+        "zebrafish": "Glucose metabolism in zebrafish larvae during swimming",
+        "salmon": "Dietary starch and hepatic lipogenesis in Atlantic salmon",
+        "trout": "Carbohydrate utilisation in rainbow trout",
+        "broiler": "Feed carbohydrate and growth performance in broiler chickens",
+        "ovine": "Substrate oxidation during treadmill exercise in ovine models",
+        "cattle": "Glycogen repletion in the skeletal muscle of cattle",
+        "equine": "Dietary starch and exercise responses in equine athletes",
+    }
+    for cid, title in cases.items():
+        entry = by_id(build([candidate(cid, title=title)]), cid)
+        assert "animal-signal" in entry["flags"], f"{cid} 未被標為動物訊號"
+        assert entry["screeningLane"] == "animal-signal-review", cid
+        assert entry["autoDecision"] is None, cid
+
+
+def test_animal_signal_does_not_fire_on_human_studies():
+    """補詞不得把人體研究誤標成動物——誤標會讓真正該篩的文獻被分流出主池。"""
+    human_titles = {
+        "h1": "Carbohydrate ingestion during cycling in trained men",
+        # 'fish oil'／'fishermen' 含 fish 字串但非動物實驗；\bfish\b 之外的
+        # 詞邊界誤觸是本測試要擋的主要回歸。
+        "h2": "Fish oil supplementation and endurance performance in humans",
+        "h3": "Dietary intake of fishermen in coastal communities",
+        # 'catheter' 含 'cat'、'ratio' 含 'rat'：詞邊界必須守住。
+        "h4": "Arterial catheter measurements and the respiratory exchange ratio",
+        # 以下三筆是真實池子裡實測到的誤標（15,425 筆全掃），加回裸詞
+        # chicken／equine／calf 會讓它們被踢出主池：
+        "h5": "Effect of preexercise electrolyte ingestion on fluid balance in "
+              "men and women",                      # 摘要含 chicken noodle soup
+        "h6": "Vitamin D deficiency in fatty liver disease: the chicken or the egg?",
+        "h7": "Flaxseed supplement versus hormone replacement therapy in "
+              "menopausal women",                   # 摘要含 conjugated equine estrogens
+        "h8": "Calf muscle fatigue protocol and exercise-associated muscle cramps",
+        # bovine 裸詞同樣不可加回：牛初乳是人體補劑、胎牛血清是體外試劑。
+        "h9": "Oral supplementation with bovine colostrum decreases intestinal "
+              "permeability in athletes",
+    }
+    # 觸發詞落在摘要而非標題的兩筆，必須連摘要一起餵進去才測得到。
+    human_abstracts = {
+        "h5": "Subjects cycled for 90 min after ingesting 355 ml of chicken "
+              "noodle soup or a carbohydrate-electrolyte beverage.",
+        "h7": "Participants took 0.625 mg of conjugated equine estrogens "
+              "alone or combined with micronised progesterone.",
+        "h8": "Participants performed a calf-fatiguing protocol to induce "
+              "cramps in the calf muscle group.",
+    }
+    for cid, title in human_titles.items():
+        entry = by_id(build([candidate(
+            cid, title=title, abstract=human_abstracts.get(cid))]), cid)
+        assert "animal-signal" not in entry["flags"], f"{cid} 被誤標為動物訊號"
+        assert entry["screeningLane"] == "standard-screening", cid
+
+
 def test_postexercise_only_signal_is_flagged():
     entry = by_id(build([candidate(
         "p", title="Post-exercise carbohydrate feeding and glycogen resynthesis",

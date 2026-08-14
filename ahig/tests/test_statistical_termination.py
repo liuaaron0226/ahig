@@ -193,6 +193,12 @@ def test_review_mode_follows_adr_0007():
     assert modes["std"] == "human-plus-blinded-llm-title-abstract"
     assert modes["safety"] == "dual-blind-title-abstract"
     assert modes["harms"] == "dual-blind-title-abstract"
-    assert screening.RULE_VERSION == "b11-screening/1.3.0"
+    # ADR-0007 的 requiredReviewMode 分流自 1.3.0 起生效。這裡釘的是「規則
+    # 已版本化且不得倒退」，不是某個特定版號——詞表補強之類與分流無關的
+    # 改動會推進次版號（1.4.0 即 W1 動物詞表），不該讓本測試誤報。
+    major, minor = (int(x) for x in
+                    screening.RULE_VERSION.split("/")[1].split(".")[:2])
+    assert screening.RULE_VERSION.startswith("b11-screening/")
+    assert (major, minor) >= (1, 3)
     assert all(e["requiresHumanScreening"] is True for e in built["queue"])
     assert all(e["autoDecision"] is None for e in built["queue"])

@@ -72,10 +72,9 @@
 estimate 落盤於 private 側 `prevalence-audit/22f634d2325d/estimate.json`
 （`ahig-private/` 已 gitignore，本檔只記數字不含文獻內容）。
 
-**⚠️ model.version 待補**：目前填 `no-dated-snapshot-exposed; judged
-2026-08-14`——執行 session 拿不到自己的帶日期快照 ID，不願編造以免污染
-ADR-0009 要求的留痕。協調者若有正式版本字串（例如 API response 取得），
-請回填並註記。
+**✅ model.version 已裁定**（見下方協調者回覆）：`no-dated-snapshot-exposed;
+judged 2026-08-14` 依「記錄可取得的最大資訊、不得編造」原則接受，後續判讀
+比照。落盤的 audit.json 保留原字串未改（改了會動到已錨定的判讀留痕）。
 
 ### readabilityCounts（n=50，frameSize=9,365）
 
@@ -211,11 +210,66 @@ d3726d903d780c8068eb19c8  f52a5d7cb8920eafe024efcc
 - 擁有者的 6 筆抽查結果請回報到看板（或轉達協調者），這是 ADR-0009
   抽查迴路的第一筆紀錄，要留檔。
 
+## W1 動物 regex false-negative 補強（2026-08-14，已完成待合併）
+
+`ahig/search/screening.py` 的 `animal_signal` 詞表補強，`RULE_VERSION`
+升 `b11-screening/1.3.0` → `1.4.0`。574/574、verify 10/10。
+
+### ⚠️ queue 未重建，需協調者裁示重建時機
+
+**升 RULE_VERSION 不等於 queue 已重建。** 重建會改變
+`screeningQueueHash`，而 `prevalence_audit._verify_against_source` 有一道
+護欄比對此雜湊（`prevalence_audit.py:425`）：一旦重建，audit
+`22f634d2325d` 的 estimate 就再也跑不起來（訊息為「queue 可能已重建，
+本稽核不再對應現行母體」），且 W2 補抽會落在不同母體、與前一批不可合併。
+`llm_second_review` 與 `screening_decisions` 也綁同一個雜湊。
+
+依此相依，**W2 決定在現行（未重建）queue 上執行**，與 22f634d2325d 同母體、
+可直接比較。重建時機請協調者決定，建議與「篩選試點批」一起排。
+
+### 實測效果（在 15,425 筆真實池子上乾跑，未寫檔）
+
+- 從 `standard-screening` 額外攔下 **101 筆**動物研究（乳牛、家禽、魚類、
+  倉鼠、馬、山羊）
+- **迴歸 0 筆**：原本被標動物訊號的 1,877 筆無一漏標
+- 草魚案例（audit 第 35 筆 `5b7db44e…`）已攔下，W1 的觸發原因確認解決
+
+### 詞表設計：刻意排除的高噪音詞
+
+首版直接補物種裸詞，實測誤標 238 筆，逐一檢視後收緊。以下裸詞**不可加回**，
+每個都有真實池子裡的誤標案例，且已寫成回歸測試：
+
+| 排除詞 | 誤標原因 | 實例 |
+|---|---|---|
+| `calf` | 小腿肌 | calf muscle／calf raises |
+| `bovine` | 人體補劑與體外試劑 | 牛初乳、胎牛血清 |
+| `chicken`（裸詞） | 食物與成語 | chicken noodle soup、the chicken or the egg |
+| `equine`（裸詞） | 人用藥物 | conjugated equine estrogens |
+| `fish`／`poultry`（裸詞） | 膳食問卷選項 | 「魚、禽、蛋」攝取頻率 |
+| `turkey` | 國名 | 土耳其的研究 |
+| `animal model(s)`／`rodent(s)` | 敘述提及非研究對象 | 人體研究討論段引用動物文獻 |
+| `larvae`（裸詞） | 昆蟲 | 黑水虻、麵包蟲 |
+
+改用語境限定：`in/of/from cattle`、`equine muscle|model|athletes|
+somatotropin`、`fish larvae|fingerlings|juveniles|were fed`、`in fish`、
+`laying hens`、`chick embryo` 等。
+
+誤標的方向性值得記一筆：**漏抓只是雜訊留在主池，誤標卻是把人體研究踢出
+主池**——後者才是不可逆的損失，故詞表寧可保守。
+
 ## 工作線
 
 | 工作線 | 分支 | Session | 狀態 |
 |---|---|---|---|
 | 協調・合併・S2 決策支援 | `claude/fail-open-bug-merge-kmifpb` | AHIG 協調中心（coordinator） | 進行中 |
-| prevalence audit LLM 判讀（ADR-0009） | `claude/prevalence-audit-llm-judgement` | 本機 session | ✅ 全數完成並合併（判讀＋estimate＋擁有者抽查 6/6，model.version 已結案）；接 W1（動物 regex）＋ W2（S1/S2 補抽） |
+| prevalence audit LLM 判讀（ADR-0009） | `claude/prevalence-audit-llm-judgement` | 本機 session | ✅ 判讀＋estimate＋抽查 6/6 已合併；✅ W1 已合併（queue 重建裁定見下）；⏳ W2 S1/S2 補抽進行中 |
 | 工具偵察（T1 ASReview／T2 buscarpy／T3 ASySD／T4 GROBID+Docling） | 偵察室自建分支 | AHIG 工具偵察室（session_01G7Cno2AMPVsusc6rBtfM3P） | 開站，首批任務執行中 |
+
+### 協調者裁定：queue 重建時機（2026-08-14）
+
+W1 詞表已入主幹（RULE_VERSION 1.4.0）但 **queue 暫不重建**——重建會改
+screeningQueueHash，使 audit 22f634d2325d 與進行中的 W2 補抽失去源頭重放
+基準。裁定：**等 W2 的 estimate 落地並合併後**，由執行室以 `--redo` 重建
+queue（101 筆動物研究屆時移出主池），其後的新抽樣一律以新 queue 為母體；
+既有 audit 以其錨定的舊 queueHash 為準，不重算。
 | （新工作線由協調者或開線 session 在此登記） | | | |
