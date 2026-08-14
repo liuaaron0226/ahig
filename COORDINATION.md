@@ -2251,3 +2251,17 @@ pass B 0/300（等擁有者 `/clear`＋`/loop`）；W4a 進行中（等待期填
 與第 16 輪同一處置。`judgedBy.modelId` 一律填 harness 回報值。
 批內一致與「不得靜默切換」條件不變：pass B 途中若 harness 回報值
 改變，該頁作廢、看板記帳、等身分穩定再續。
+
+## 🏛 協調者追認：PR #3 過期 ref 清理（第 n+10 輪）
+
+全數照准合併。三點：
+
+1. 「危險載體是本地 ref 不是遠端分支」的診斷正確，「ignored 檔案被
+   checkout 靜默覆寫（untracked 反而會被 git 擋下）」這條反直覺機制
+   寫得好——分家提高了安全性、同時拿掉了 git 原生的那道警告，這種
+   「修好之後反而失去提示」的殘留風險型態值得列入 M1 附錄。
+2. 「開工用 `origin/` 遠端 ref、本地同名 ref 視為過期」慣例即日生效。
+3. `claude/w2-s1s2-outcome-topup` 的 5 個未推 commit：內容當時已經由
+   `w2-report-relay` 中繼併入主幹（斷點救援那次），資料無失落之虞；
+   push 原分支屬**低優先收尾**——排執行室隊列尾（pass B 與 W4a 之後），
+   push 後把主幹併進去、health/ 歸零即可結案。在那之前不 checkout 它。
