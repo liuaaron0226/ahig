@@ -201,6 +201,60 @@ def test_load_judgements_requires_judged_by():
             raise AssertionError("缺 judgedBy 應該要擋下")
 
 
+# --- 分頁併入 ---
+
+def test_append_accumulates_pages_and_records_judged_by_once():
+    """判一頁併一頁，判讀者只在第一次併入時記下。"""
+    with _Private() as root:
+        ws.write_worksheet(root, IDS[:5], source="p", out_name="p",
+                           page_size=2)
+        who = {"agentClass": "llm", "modelId": "claude-opus-5"}
+        first = ws.append_judgements(root, [_entry("c1"), _entry("c2")],
+                                     out_name="p", judged_by=who)
+        assert first == {"added": 2, "judgedCount": 2, "remaining": 3}
+        # 第二頁不再傳 judged_by，既有的要留著。
+        second = ws.append_judgements(root, [_entry("c3"), _entry("c4"),
+                                             _entry("c5", "advance")],
+                                      out_name="p")
+        assert second == {"added": 3, "judgedCount": 5, "remaining": 0}
+        loaded = ws.load_judgements(root, out_name="p")
+        assert loaded["judgedBy"] == who
+        assert loaded["opinions"]["c5"] == "advance"
+
+
+def test_append_rejects_duplicate_against_existing_and_writes_nothing():
+    """重判同一筆代表判讀有誤，且半套寫入會讓判讀檔讀不回來。"""
+    with _Private() as root:
+        ws.write_worksheet(root, IDS[:4], source="p", out_name="p")
+        who = {"agentClass": "llm", "modelId": "claude-opus-5"}
+        ws.append_judgements(root, [_entry("c1")], out_name="p",
+                             judged_by=who)
+        try:
+            ws.append_judgements(root, [_entry("c2"), _entry("c1")],
+                                 out_name="p")
+        except ws.WorksheetError as exc:
+            assert "重複" in str(exc)
+        else:
+            raise AssertionError("與既有判讀重複應該要擋下")
+        after = ws.load_judgements(root, out_name="p",
+                                   require_complete=False)
+        assert after["judgedCount"] == 1, "被拒的整批都不該落盤"
+
+
+def test_append_requires_judged_by_before_first_write():
+    """ADR-0009 原則 2：沒記下判讀者就不准開始累積判讀。"""
+    with _Private() as root:
+        ws.write_worksheet(root, IDS[:3], source="p", out_name="p")
+        try:
+            ws.append_judgements(root, [_entry("c1")], out_name="p")
+        except ws.WorksheetError as exc:
+            assert "agentClass" in str(exc)
+        else:
+            raise AssertionError("缺 judgedBy 應該要擋下")
+        assert ws.load_judgements(root, out_name="p",
+                                  require_complete=False)["judgedCount"] == 0
+
+
 # --- 接上驅動器 ---
 
 def test_file_judge_feeds_the_driver_unchanged():
