@@ -1,0 +1,2791 @@
+{
+  "documentType": "adr-0008-parameter-freeze-evidence",
+  "adr": "ADR-0008",
+  "alpha": 0.05,
+  "targetRecall": 0.95,
+  "tailSpotCheckN": 200,
+  "adversarialBlindspotShare": 0.05,
+  "lookRegimes": [
+    1,
+    100
+  ],
+  "datasetSource": "https://github.com/asreview/synergy-dataset",
+  "datasets": {
+    "Appenzeller-Herzog_2019": {
+      "n": 3479,
+      "relevant": 26,
+      "seeds": 60,
+      "random@look1": {
+        "stops": 60,
+        "violations": 4,
+        "violationRate": 0.0667,
+        "meanRecallAtStop": 0.9885,
+        "meanSavings": 0.0138,
+        "meanRecallOnViolation": 0.9231,
+        "meanTailCatchOnViolation": 1.0
+      },
+      "random@look100": {
+        "stops": 60,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 0.9987,
+        "meanSavings": 0.0043,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "al-proxy@look1": {
+        "stops": 60,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 0.9987,
+        "meanSavings": 0.1235,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "al-proxy@look100": {
+        "stops": 60,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 0.9994,
+        "meanSavings": 0.1066,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "adversarial@look1": {
+        "stops": 60,
+        "violations": 22,
+        "violationRate": 0.3667,
+        "meanRecallAtStop": 0.9513,
+        "meanSavings": 0.1118,
+        "meanRecallOnViolation": 0.9038,
+        "meanTailCatchOnViolation": 0.7946
+      },
+      "adversarial@look100": {
+        "stops": 58,
+        "violations": 20,
+        "violationRate": 0.3333,
+        "meanRecallAtStop": 0.9542,
+        "meanSavings": 0.0957,
+        "meanRecallOnViolation": 0.9038,
+        "meanTailCatchOnViolation": 0.8235
+      }
+    },
+    "Bannach-Brown_2019": {
+      "n": 1993,
+      "relevant": 280,
+      "seeds": 60,
+      "random@look1": {
+        "stops": 60,
+        "violations": 7,
+        "violationRate": 0.1167,
+        "meanRecallAtStop": 0.9654,
+        "meanSavings": 0.038,
+        "meanRecallOnViolation": 0.9265,
+        "meanTailCatchOnViolation": 1.0
+      },
+      "random@look100": {
+        "stops": 53,
+        "violations": 1,
+        "violationRate": 0.0167,
+        "meanRecallAtStop": 0.9972,
+        "meanSavings": 0.0035,
+        "meanRecallOnViolation": 0.9393,
+        "meanTailCatchOnViolation": 1.0
+      },
+      "al-proxy@look1": {
+        "stops": 60,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 0.9909,
+        "meanSavings": 0.2897,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "al-proxy@look100": {
+        "stops": 60,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 0.9939,
+        "meanSavings": 0.2373,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "adversarial@look1": {
+        "stops": 60,
+        "violations": 35,
+        "violationRate": 0.5833,
+        "meanRecallAtStop": 0.9456,
+        "meanSavings": 0.2849,
+        "meanRecallOnViolation": 0.9374,
+        "meanTailCatchOnViolation": 0.9986
+      },
+      "adversarial@look100": {
+        "stops": 60,
+        "violations": 29,
+        "violationRate": 0.4833,
+        "meanRecallAtStop": 0.9482,
+        "meanSavings": 0.234,
+        "meanRecallOnViolation": 0.9389,
+        "meanTailCatchOnViolation": 0.9996
+      }
+    },
+    "Bos_2018": {
+      "n": 5756,
+      "relevant": 10,
+      "seeds": 30,
+      "random@look1": {
+        "stops": 30,
+        "violations": 1,
+        "violationRate": 0.0333,
+        "meanRecallAtStop": 0.9967,
+        "meanSavings": 0.004,
+        "meanRecallOnViolation": 0.9,
+        "meanTailCatchOnViolation": 1.0
+      },
+      "random@look100": {
+        "stops": 30,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 1.0,
+        "meanSavings": 0.0003,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "al-proxy@look1": {
+        "stops": 30,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 1.0,
+        "meanSavings": 0.0328,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "al-proxy@look100": {
+        "stops": 30,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 1.0,
+        "meanSavings": 0.0236,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "adversarial@look1": {
+        "stops": 30,
+        "violations": 12,
+        "violationRate": 0.4,
+        "meanRecallAtStop": 0.96,
+        "meanSavings": 0.0292,
+        "meanRecallOnViolation": 0.9,
+        "meanTailCatchOnViolation": 0.9642
+      },
+      "adversarial@look100": {
+        "stops": 30,
+        "violations": 12,
+        "violationRate": 0.4,
+        "meanRecallAtStop": 0.96,
+        "meanSavings": 0.0224,
+        "meanRecallOnViolation": 0.9,
+        "meanTailCatchOnViolation": 1.0
+      }
+    },
+    "Brouwer_2019": {
+      "n": 46376,
+      "relevant": 63,
+      "seeds": 10,
+      "random@look1": {
+        "stops": 10,
+        "violations": 1,
+        "violationRate": 0.1,
+        "meanRecallAtStop": 0.9762,
+        "meanSavings": 0.0218,
+        "meanRecallOnViolation": 0.9365,
+        "meanTailCatchOnViolation": 0.4717
+      },
+      "random@look100": {
+        "stops": 10,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 0.9889,
+        "meanSavings": 0.0161,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "al-proxy@look1": {
+        "stops": 10,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 0.9984,
+        "meanSavings": 0.2078,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "al-proxy@look100": {
+        "stops": 10,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 0.9984,
+        "meanSavings": 0.2067,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "adversarial@look1": {
+        "stops": 10,
+        "violations": 4,
+        "violationRate": 0.4,
+        "meanRecallAtStop": 0.9444,
+        "meanSavings": 0.1811,
+        "meanRecallOnViolation": 0.9246,
+        "meanTailCatchOnViolation": 0.1341
+      },
+      "adversarial@look100": {
+        "stops": 10,
+        "violations": 4,
+        "violationRate": 0.4,
+        "meanRecallAtStop": 0.9444,
+        "meanSavings": 0.1802,
+        "meanRecallOnViolation": 0.9246,
+        "meanTailCatchOnViolation": 0.1345
+      }
+    },
+    "Chou_2003": {
+      "n": 1915,
+      "relevant": 15,
+      "seeds": 60,
+      "random@look1": {
+        "stops": 60,
+        "violations": 2,
+        "violationRate": 0.0333,
+        "meanRecallAtStop": 0.9978,
+        "meanSavings": 0.0035,
+        "meanRecallOnViolation": 0.9333,
+        "meanTailCatchOnViolation": 1.0
+      },
+      "random@look100": {
+        "stops": 60,
+        "violations": 1,
+        "violationRate": 0.0167,
+        "meanRecallAtStop": 0.9989,
+        "meanSavings": 0.0012,
+        "meanRecallOnViolation": 0.9333,
+        "meanTailCatchOnViolation": 1.0
+      },
+      "al-proxy@look1": {
+        "stops": 60,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 1.0,
+        "meanSavings": 0.0301,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "al-proxy@look100": {
+        "stops": 60,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 1.0,
+        "meanSavings": 0.0078,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "adversarial@look1": {
+        "stops": 60,
+        "violations": 24,
+        "violationRate": 0.4,
+        "meanRecallAtStop": 0.9633,
+        "meanSavings": 0.0293,
+        "meanRecallOnViolation": 0.9083,
+        "meanTailCatchOnViolation": 1.0
+      },
+      "adversarial@look100": {
+        "stops": 60,
+        "violations": 18,
+        "violationRate": 0.3,
+        "meanRecallAtStop": 0.9733,
+        "meanSavings": 0.007,
+        "meanRecallOnViolation": 0.9111,
+        "meanTailCatchOnViolation": 1.0
+      }
+    },
+    "Chou_2004": {
+      "n": 1643,
+      "relevant": 9,
+      "seeds": 60,
+      "random@look1": {
+        "stops": 60,
+        "violations": 5,
+        "violationRate": 0.0833,
+        "meanRecallAtStop": 0.9889,
+        "meanSavings": 0.0063,
+        "meanRecallOnViolation": 0.8667,
+        "meanTailCatchOnViolation": 1.0
+      },
+      "random@look100": {
+        "stops": 60,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 1.0,
+        "meanSavings": 0.0,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "al-proxy@look1": {
+        "stops": 60,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 1.0,
+        "meanSavings": 0.0333,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "al-proxy@look100": {
+        "stops": 60,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 1.0,
+        "meanSavings": 0.0222,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "adversarial@look1": {
+        "stops": 60,
+        "violations": 19,
+        "violationRate": 0.3167,
+        "meanRecallAtStop": 0.963,
+        "meanSavings": 0.0311,
+        "meanRecallOnViolation": 0.883,
+        "meanTailCatchOnViolation": 1.0
+      },
+      "adversarial@look100": {
+        "stops": 60,
+        "violations": 17,
+        "violationRate": 0.2833,
+        "meanRecallAtStop": 0.9667,
+        "meanSavings": 0.0196,
+        "meanRecallOnViolation": 0.8824,
+        "meanTailCatchOnViolation": 1.0
+      }
+    },
+    "Cohen_2006_ACEInhibitors": {
+      "n": 2544,
+      "relevant": 41,
+      "seeds": 60,
+      "random@look1": {
+        "stops": 60,
+        "violations": 4,
+        "violationRate": 0.0667,
+        "meanRecallAtStop": 0.9821,
+        "meanSavings": 0.0148,
+        "meanRecallOnViolation": 0.9268,
+        "meanTailCatchOnViolation": 1.0
+      },
+      "random@look100": {
+        "stops": 59,
+        "violations": 2,
+        "violationRate": 0.0333,
+        "meanRecallAtStop": 0.9938,
+        "meanSavings": 0.0041,
+        "meanRecallOnViolation": 0.9268,
+        "meanTailCatchOnViolation": 1.0
+      },
+      "al-proxy@look1": {
+        "stops": 60,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 0.9988,
+        "meanSavings": 0.1661,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "al-proxy@look100": {
+        "stops": 60,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 0.9992,
+        "meanSavings": 0.145,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "adversarial@look1": {
+        "stops": 60,
+        "violations": 21,
+        "violationRate": 0.35,
+        "meanRecallAtStop": 0.9496,
+        "meanSavings": 0.1645,
+        "meanRecallOnViolation": 0.9129,
+        "meanTailCatchOnViolation": 0.8917
+      },
+      "adversarial@look100": {
+        "stops": 60,
+        "violations": 20,
+        "violationRate": 0.3333,
+        "meanRecallAtStop": 0.9512,
+        "meanSavings": 0.1434,
+        "meanRecallOnViolation": 0.9122,
+        "meanTailCatchOnViolation": 0.9109
+      }
+    },
+    "Cohen_2006_ADHD": {
+      "n": 851,
+      "relevant": 20,
+      "seeds": 60,
+      "random@look1": {
+        "stops": 60,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 0.99,
+        "meanSavings": 0.0165,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "random@look100": {
+        "stops": 59,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 1.0,
+        "meanSavings": 0.001,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "al-proxy@look1": {
+        "stops": 60,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 0.9983,
+        "meanSavings": 0.1266,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "al-proxy@look100": {
+        "stops": 60,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 0.9992,
+        "meanSavings": 0.0658,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "adversarial@look1": {
+        "stops": 60,
+        "violations": 8,
+        "violationRate": 0.1333,
+        "meanRecallAtStop": 0.9558,
+        "meanSavings": 0.1121,
+        "meanRecallOnViolation": 0.8875,
+        "meanTailCatchOnViolation": 1.0
+      },
+      "adversarial@look100": {
+        "stops": 50,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 0.973,
+        "meanSavings": 0.0668,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      }
+    },
+    "Cohen_2006_Antihistamines": {
+      "n": 310,
+      "relevant": 16,
+      "seeds": 60,
+      "random@look1": {
+        "stops": 59,
+        "violations": 2,
+        "violationRate": 0.0333,
+        "meanRecallAtStop": 0.9979,
+        "meanSavings": 0.0018,
+        "meanRecallOnViolation": 0.9375,
+        "meanTailCatchOnViolation": 1.0
+      },
+      "random@look100": {
+        "stops": 58,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 1.0,
+        "meanSavings": 0.0,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "al-proxy@look1": {
+        "stops": 60,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 1.0,
+        "meanSavings": 0.0268,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "al-proxy@look100": {
+        "stops": 60,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 1.0,
+        "meanSavings": 0.0113,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "adversarial@look1": {
+        "stops": 60,
+        "violations": 31,
+        "violationRate": 0.5167,
+        "meanRecallAtStop": 0.9552,
+        "meanSavings": 0.0268,
+        "meanRecallOnViolation": 0.9133,
+        "meanTailCatchOnViolation": 1.0
+      },
+      "adversarial@look100": {
+        "stops": 50,
+        "violations": 16,
+        "violationRate": 0.2667,
+        "meanRecallAtStop": 0.9712,
+        "meanSavings": 0.0168,
+        "meanRecallOnViolation": 0.9102,
+        "meanTailCatchOnViolation": 1.0
+      }
+    },
+    "Cohen_2006_AtypicalAntipsychotics": {
+      "n": 1120,
+      "relevant": 146,
+      "seeds": 60,
+      "random@look1": {
+        "stops": 60,
+        "violations": 5,
+        "violationRate": 0.0833,
+        "meanRecallAtStop": 0.9751,
+        "meanSavings": 0.0272,
+        "meanRecallOnViolation": 0.9384,
+        "meanTailCatchOnViolation": 1.0
+      },
+      "random@look100": {
+        "stops": 57,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 0.9951,
+        "meanSavings": 0.0053,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "al-proxy@look1": {
+        "stops": 60,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 0.9945,
+        "meanSavings": 0.2473,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "al-proxy@look100": {
+        "stops": 60,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 0.9973,
+        "meanSavings": 0.1771,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "adversarial@look1": {
+        "stops": 60,
+        "violations": 35,
+        "violationRate": 0.5833,
+        "meanRecallAtStop": 0.9469,
+        "meanSavings": 0.2387,
+        "meanRecallOnViolation": 0.9339,
+        "meanTailCatchOnViolation": 0.9999
+      },
+      "adversarial@look100": {
+        "stops": 60,
+        "violations": 33,
+        "violationRate": 0.55,
+        "meanRecallAtStop": 0.9484,
+        "meanSavings": 0.186,
+        "meanRecallOnViolation": 0.9344,
+        "meanTailCatchOnViolation": 1.0
+      }
+    },
+    "Cohen_2006_BetaBlockers": {
+      "n": 2072,
+      "relevant": 42,
+      "seeds": 60,
+      "random@look1": {
+        "stops": 60,
+        "violations": 4,
+        "violationRate": 0.0667,
+        "meanRecallAtStop": 0.979,
+        "meanSavings": 0.0172,
+        "meanRecallOnViolation": 0.9226,
+        "meanTailCatchOnViolation": 1.0
+      },
+      "random@look100": {
+        "stops": 57,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 0.9996,
+        "meanSavings": 0.0006,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "al-proxy@look1": {
+        "stops": 60,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 0.998,
+        "meanSavings": 0.1697,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "al-proxy@look100": {
+        "stops": 60,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 0.9996,
+        "meanSavings": 0.1385,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "adversarial@look1": {
+        "stops": 60,
+        "violations": 22,
+        "violationRate": 0.3667,
+        "meanRecallAtStop": 0.9472,
+        "meanSavings": 0.1618,
+        "meanRecallOnViolation": 0.9123,
+        "meanTailCatchOnViolation": 0.9311
+      },
+      "adversarial@look100": {
+        "stops": 58,
+        "violations": 21,
+        "violationRate": 0.35,
+        "meanRecallAtStop": 0.9491,
+        "meanSavings": 0.1398,
+        "meanRecallOnViolation": 0.915,
+        "meanTailCatchOnViolation": 0.9489
+      }
+    },
+    "Cohen_2006_CalciumChannelBlockers": {
+      "n": 1218,
+      "relevant": 100,
+      "seeds": 60,
+      "random@look1": {
+        "stops": 60,
+        "violations": 1,
+        "violationRate": 0.0167,
+        "meanRecallAtStop": 0.9785,
+        "meanSavings": 0.0226,
+        "meanRecallOnViolation": 0.94,
+        "meanTailCatchOnViolation": 1.0
+      },
+      "random@look100": {
+        "stops": 58,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 0.9917,
+        "meanSavings": 0.0076,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "al-proxy@look1": {
+        "stops": 60,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 0.9965,
+        "meanSavings": 0.2266,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "al-proxy@look100": {
+        "stops": 60,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 0.9982,
+        "meanSavings": 0.1762,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "adversarial@look1": {
+        "stops": 60,
+        "violations": 29,
+        "violationRate": 0.4833,
+        "meanRecallAtStop": 0.9445,
+        "meanSavings": 0.2246,
+        "meanRecallOnViolation": 0.9255,
+        "meanTailCatchOnViolation": 0.9995
+      },
+      "adversarial@look100": {
+        "stops": 58,
+        "violations": 24,
+        "violationRate": 0.4,
+        "meanRecallAtStop": 0.9478,
+        "meanSavings": 0.1677,
+        "meanRecallOnViolation": 0.9258,
+        "meanTailCatchOnViolation": 0.9998
+      }
+    },
+    "Cohen_2006_NSAIDS": {
+      "n": 393,
+      "relevant": 41,
+      "seeds": 60,
+      "random@look1": {
+        "stops": 60,
+        "violations": 3,
+        "violationRate": 0.05,
+        "meanRecallAtStop": 0.9833,
+        "meanSavings": 0.0158,
+        "meanRecallOnViolation": 0.9268,
+        "meanTailCatchOnViolation": 1.0
+      },
+      "random@look100": {
+        "stops": 56,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 1.0,
+        "meanSavings": 0.0,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "al-proxy@look1": {
+        "stops": 60,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 0.9988,
+        "meanSavings": 0.1528,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "al-proxy@look100": {
+        "stops": 60,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 0.9996,
+        "meanSavings": 0.0158,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "adversarial@look1": {
+        "stops": 60,
+        "violations": 23,
+        "violationRate": 0.3833,
+        "meanRecallAtStop": 0.9472,
+        "meanSavings": 0.1319,
+        "meanRecallOnViolation": 0.9077,
+        "meanTailCatchOnViolation": 1.0
+      },
+      "adversarial@look100": {
+        "stops": 23,
+        "violations": 1,
+        "violationRate": 0.0167,
+        "meanRecallAtStop": 0.9936,
+        "meanSavings": 0.0309,
+        "meanRecallOnViolation": 0.9268,
+        "meanTailCatchOnViolation": 1.0
+      }
+    },
+    "Cohen_2006_OralHypoglycemics": {
+      "n": 503,
+      "relevant": 136,
+      "seeds": 60,
+      "random@look1": {
+        "stops": 60,
+        "violations": 4,
+        "violationRate": 0.0667,
+        "meanRecallAtStop": 0.9735,
+        "meanSavings": 0.0245,
+        "meanRecallOnViolation": 0.9393,
+        "meanTailCatchOnViolation": 1.0
+      },
+      "random@look100": {
+        "stops": 52,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 0.9956,
+        "meanSavings": 0.0047,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "al-proxy@look1": {
+        "stops": 60,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 0.9945,
+        "meanSavings": 0.2032,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "al-proxy@look100": {
+        "stops": 60,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 0.998,
+        "meanSavings": 0.0789,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "adversarial@look1": {
+        "stops": 60,
+        "violations": 43,
+        "violationRate": 0.7167,
+        "meanRecallAtStop": 0.9446,
+        "meanSavings": 0.1985,
+        "meanRecallOnViolation": 0.9357,
+        "meanTailCatchOnViolation": 1.0
+      },
+      "adversarial@look100": {
+        "stops": 40,
+        "violations": 14,
+        "violationRate": 0.2333,
+        "meanRecallAtStop": 0.9649,
+        "meanSavings": 0.1052,
+        "meanRecallOnViolation": 0.9359,
+        "meanTailCatchOnViolation": 1.0
+      }
+    },
+    "Cohen_2006_ProtonPumpInhibitors": {
+      "n": 1333,
+      "relevant": 51,
+      "seeds": 60,
+      "random@look1": {
+        "stops": 60,
+        "violations": 6,
+        "violationRate": 0.1,
+        "meanRecallAtStop": 0.9843,
+        "meanSavings": 0.0162,
+        "meanRecallOnViolation": 0.9346,
+        "meanTailCatchOnViolation": 1.0
+      },
+      "random@look100": {
+        "stops": 59,
+        "violations": 1,
+        "violationRate": 0.0167,
+        "meanRecallAtStop": 0.9967,
+        "meanSavings": 0.0029,
+        "meanRecallOnViolation": 0.9412,
+        "meanTailCatchOnViolation": 1.0
+      },
+      "al-proxy@look1": {
+        "stops": 60,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 0.9987,
+        "meanSavings": 0.1579,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "al-proxy@look100": {
+        "stops": 60,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 0.999,
+        "meanSavings": 0.1198,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "adversarial@look1": {
+        "stops": 60,
+        "violations": 33,
+        "violationRate": 0.55,
+        "meanRecallAtStop": 0.9484,
+        "meanSavings": 0.1591,
+        "meanRecallOnViolation": 0.9281,
+        "meanTailCatchOnViolation": 0.9915
+      },
+      "adversarial@look100": {
+        "stops": 57,
+        "violations": 29,
+        "violationRate": 0.4833,
+        "meanRecallAtStop": 0.9515,
+        "meanSavings": 0.1147,
+        "meanRecallOnViolation": 0.9283,
+        "meanTailCatchOnViolation": 0.9989
+      }
+    },
+    "Cohen_2006_Statins": {
+      "n": 3465,
+      "relevant": 85,
+      "seeds": 60,
+      "random@look1": {
+        "stops": 60,
+        "violations": 6,
+        "violationRate": 0.1,
+        "meanRecallAtStop": 0.9792,
+        "meanSavings": 0.0233,
+        "meanRecallOnViolation": 0.9314,
+        "meanTailCatchOnViolation": 1.0
+      },
+      "random@look100": {
+        "stops": 59,
+        "violations": 2,
+        "violationRate": 0.0333,
+        "meanRecallAtStop": 0.99,
+        "meanSavings": 0.0094,
+        "meanRecallOnViolation": 0.9176,
+        "meanTailCatchOnViolation": 1.0
+      },
+      "al-proxy@look1": {
+        "stops": 60,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 0.9963,
+        "meanSavings": 0.2372,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "al-proxy@look100": {
+        "stops": 60,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 0.9971,
+        "meanSavings": 0.2155,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "adversarial@look1": {
+        "stops": 60,
+        "violations": 38,
+        "violationRate": 0.6333,
+        "meanRecallAtStop": 0.942,
+        "meanSavings": 0.2271,
+        "meanRecallOnViolation": 0.9276,
+        "meanTailCatchOnViolation": 0.8342
+      },
+      "adversarial@look100": {
+        "stops": 60,
+        "violations": 38,
+        "violationRate": 0.6333,
+        "meanRecallAtStop": 0.9422,
+        "meanSavings": 0.2131,
+        "meanRecallOnViolation": 0.9279,
+        "meanTailCatchOnViolation": 0.8504
+      }
+    },
+    "Cohen_2006_Triptans": {
+      "n": 671,
+      "relevant": 24,
+      "seeds": 60,
+      "random@look1": {
+        "stops": 60,
+        "violations": 6,
+        "violationRate": 0.1,
+        "meanRecallAtStop": 0.9819,
+        "meanSavings": 0.0167,
+        "meanRecallOnViolation": 0.9097,
+        "meanTailCatchOnViolation": 1.0
+      },
+      "random@look100": {
+        "stops": 57,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 1.0,
+        "meanSavings": 0.0,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "al-proxy@look1": {
+        "stops": 60,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 0.9993,
+        "meanSavings": 0.1132,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "al-proxy@look100": {
+        "stops": 60,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 0.9993,
+        "meanSavings": 0.0688,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "adversarial@look1": {
+        "stops": 60,
+        "violations": 22,
+        "violationRate": 0.3667,
+        "meanRecallAtStop": 0.9542,
+        "meanSavings": 0.11,
+        "meanRecallOnViolation": 0.8996,
+        "meanTailCatchOnViolation": 1.0
+      },
+      "adversarial@look100": {
+        "stops": 48,
+        "violations": 12,
+        "violationRate": 0.2,
+        "meanRecallAtStop": 0.9688,
+        "meanSavings": 0.0772,
+        "meanRecallOnViolation": 0.9028,
+        "meanTailCatchOnViolation": 1.0
+      }
+    },
+    "Cohen_2006_UrinaryIncontinence": {
+      "n": 327,
+      "relevant": 40,
+      "seeds": 60,
+      "random@look1": {
+        "stops": 60,
+        "violations": 2,
+        "violationRate": 0.0333,
+        "meanRecallAtStop": 0.9846,
+        "meanSavings": 0.0166,
+        "meanRecallOnViolation": 0.9125,
+        "meanTailCatchOnViolation": 1.0
+      },
+      "random@look100": {
+        "stops": 55,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 1.0,
+        "meanSavings": 0.0,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "al-proxy@look1": {
+        "stops": 60,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 0.9971,
+        "meanSavings": 0.1601,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "al-proxy@look100": {
+        "stops": 60,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 0.9996,
+        "meanSavings": 0.0702,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "adversarial@look1": {
+        "stops": 60,
+        "violations": 22,
+        "violationRate": 0.3667,
+        "meanRecallAtStop": 0.9475,
+        "meanSavings": 0.1247,
+        "meanRecallOnViolation": 0.9091,
+        "meanTailCatchOnViolation": 1.0
+      },
+      "adversarial@look100": {
+        "stops": 47,
+        "violations": 14,
+        "violationRate": 0.2333,
+        "meanRecallAtStop": 0.9537,
+        "meanSavings": 0.0755,
+        "meanRecallOnViolation": 0.9054,
+        "meanTailCatchOnViolation": 1.0
+      }
+    },
+    "Nelson_2002": {
+      "n": 368,
+      "relevant": 80,
+      "seeds": 60,
+      "random@look1": {
+        "stops": 60,
+        "violations": 1,
+        "violationRate": 0.0167,
+        "meanRecallAtStop": 0.9788,
+        "meanSavings": 0.0214,
+        "meanRecallOnViolation": 0.9125,
+        "meanTailCatchOnViolation": 1.0
+      },
+      "random@look100": {
+        "stops": 47,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 1.0,
+        "meanSavings": 0.0,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "al-proxy@look1": {
+        "stops": 60,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 0.9956,
+        "meanSavings": 0.1731,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "al-proxy@look100": {
+        "stops": 60,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 0.9981,
+        "meanSavings": 0.0647,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "adversarial@look1": {
+        "stops": 60,
+        "violations": 19,
+        "violationRate": 0.3167,
+        "meanRecallAtStop": 0.95,
+        "meanSavings": 0.174,
+        "meanRecallOnViolation": 0.9243,
+        "meanTailCatchOnViolation": 1.0
+      },
+      "adversarial@look100": {
+        "stops": 28,
+        "violations": 4,
+        "violationRate": 0.0667,
+        "meanRecallAtStop": 0.9638,
+        "meanSavings": 0.1518,
+        "meanRecallOnViolation": 0.9281,
+        "meanTailCatchOnViolation": 1.0
+      }
+    },
+    "Donners_2021": {
+      "n": 660,
+      "relevant": 15,
+      "seeds": 60,
+      "random@look1": {
+        "stops": 60,
+        "violations": 3,
+        "violationRate": 0.05,
+        "meanRecallAtStop": 0.9967,
+        "meanSavings": 0.0025,
+        "meanRecallOnViolation": 0.9333,
+        "meanTailCatchOnViolation": 1.0
+      },
+      "random@look100": {
+        "stops": 59,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 1.0,
+        "meanSavings": 0.0,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "al-proxy@look1": {
+        "stops": 60,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 1.0,
+        "meanSavings": 0.0284,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "al-proxy@look100": {
+        "stops": 60,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 1.0,
+        "meanSavings": 0.0,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "adversarial@look1": {
+        "stops": 59,
+        "violations": 23,
+        "violationRate": 0.3833,
+        "meanRecallAtStop": 0.9672,
+        "meanSavings": 0.0256,
+        "meanRecallOnViolation": 0.9159,
+        "meanTailCatchOnViolation": 1.0
+      },
+      "adversarial@look100": {
+        "stops": 46,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 1.0,
+        "meanSavings": 0.0,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      }
+    },
+    "Rooney_2015": {
+      "n": 6331,
+      "relevant": 95,
+      "seeds": 30,
+      "random@look1": {
+        "stops": 30,
+        "violations": 1,
+        "violationRate": 0.0333,
+        "meanRecallAtStop": 0.9807,
+        "meanSavings": 0.0233,
+        "meanRecallOnViolation": 0.9474,
+        "meanTailCatchOnViolation": 0.9871
+      },
+      "random@look100": {
+        "stops": 30,
+        "violations": 1,
+        "violationRate": 0.0333,
+        "meanRecallAtStop": 0.9867,
+        "meanSavings": 0.0139,
+        "meanRecallOnViolation": 0.9474,
+        "meanTailCatchOnViolation": 0.9907
+      },
+      "al-proxy@look1": {
+        "stops": 30,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 0.9968,
+        "meanSavings": 0.2103,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "al-proxy@look100": {
+        "stops": 30,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 0.9968,
+        "meanSavings": 0.2029,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "adversarial@look1": {
+        "stops": 30,
+        "violations": 16,
+        "violationRate": 0.5333,
+        "meanRecallAtStop": 0.9488,
+        "meanSavings": 0.2228,
+        "meanRecallOnViolation": 0.9329,
+        "meanTailCatchOnViolation": 0.6195
+      },
+      "adversarial@look100": {
+        "stops": 29,
+        "violations": 15,
+        "violationRate": 0.5,
+        "meanRecallAtStop": 0.9495,
+        "meanSavings": 0.2195,
+        "meanRecallOnViolation": 0.9333,
+        "meanTailCatchOnViolation": 0.6095
+      }
+    },
+    "Walker_2018": {
+      "n": 48638,
+      "relevant": 765,
+      "seeds": 10,
+      "random@look1": {
+        "stops": 10,
+        "violations": 2,
+        "violationRate": 0.2,
+        "meanRecallAtStop": 0.9549,
+        "meanSavings": 0.0463,
+        "meanRecallOnViolation": 0.9405,
+        "meanTailCatchOnViolation": 0.9627
+      },
+      "random@look100": {
+        "stops": 10,
+        "violations": 1,
+        "violationRate": 0.1,
+        "meanRecallAtStop": 0.9669,
+        "meanSavings": 0.0349,
+        "meanRecallOnViolation": 0.9412,
+        "meanTailCatchOnViolation": 0.9544
+      },
+      "al-proxy@look1": {
+        "stops": 10,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 0.9906,
+        "meanSavings": 0.3748,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "al-proxy@look100": {
+        "stops": 10,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 0.9914,
+        "meanSavings": 0.3641,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "adversarial@look1": {
+        "stops": 10,
+        "violations": 10,
+        "violationRate": 1.0,
+        "meanRecallAtStop": 0.941,
+        "meanSavings": 0.3588,
+        "meanRecallOnViolation": 0.941,
+        "meanTailCatchOnViolation": 0.4078
+      },
+      "adversarial@look100": {
+        "stops": 10,
+        "violations": 10,
+        "violationRate": 1.0,
+        "meanRecallAtStop": 0.941,
+        "meanSavings": 0.3577,
+        "meanRecallOnViolation": 0.941,
+        "meanTailCatchOnViolation": 0.4087
+      }
+    },
+    "Wassenaar_2017": {
+      "n": 7700,
+      "relevant": 111,
+      "seeds": 30,
+      "random@look1": {
+        "stops": 30,
+        "violations": 1,
+        "violationRate": 0.0333,
+        "meanRecallAtStop": 0.979,
+        "meanSavings": 0.0223,
+        "meanRecallOnViolation": 0.9369,
+        "meanTailCatchOnViolation": 0.9915
+      },
+      "random@look100": {
+        "stops": 30,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 0.9925,
+        "meanSavings": 0.0078,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "al-proxy@look1": {
+        "stops": 30,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 0.9943,
+        "meanSavings": 0.2594,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "al-proxy@look100": {
+        "stops": 30,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 0.9946,
+        "meanSavings": 0.2485,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "adversarial@look1": {
+        "stops": 30,
+        "violations": 13,
+        "violationRate": 0.4333,
+        "meanRecallAtStop": 0.9511,
+        "meanSavings": 0.2403,
+        "meanRecallOnViolation": 0.9328,
+        "meanTailCatchOnViolation": 0.6163
+      },
+      "adversarial@look100": {
+        "stops": 30,
+        "violations": 13,
+        "violationRate": 0.4333,
+        "meanRecallAtStop": 0.9511,
+        "meanSavings": 0.2329,
+        "meanRecallOnViolation": 0.9328,
+        "meanTailCatchOnViolation": 0.6314
+      }
+    },
+    "Jeyaraman_2020": {
+      "n": 1194,
+      "relevant": 96,
+      "seeds": 60,
+      "random@look1": {
+        "stops": 60,
+        "violations": 7,
+        "violationRate": 0.1167,
+        "meanRecallAtStop": 0.9783,
+        "meanSavings": 0.0237,
+        "meanRecallOnViolation": 0.9405,
+        "meanTailCatchOnViolation": 1.0
+      },
+      "random@look100": {
+        "stops": 55,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 1.0,
+        "meanSavings": 0.0,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "al-proxy@look1": {
+        "stops": 60,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 0.9972,
+        "meanSavings": 0.2259,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "al-proxy@look100": {
+        "stops": 60,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 0.9984,
+        "meanSavings": 0.1765,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "adversarial@look1": {
+        "stops": 60,
+        "violations": 31,
+        "violationRate": 0.5167,
+        "meanRecallAtStop": 0.9503,
+        "meanSavings": 0.1981,
+        "meanRecallOnViolation": 0.9338,
+        "meanTailCatchOnViolation": 0.9974
+      },
+      "adversarial@look100": {
+        "stops": 57,
+        "violations": 27,
+        "violationRate": 0.45,
+        "meanRecallAtStop": 0.9518,
+        "meanSavings": 0.1551,
+        "meanRecallOnViolation": 0.9336,
+        "meanTailCatchOnViolation": 0.9982
+      }
+    },
+    "Kwok_2020": {
+      "n": 2601,
+      "relevant": 120,
+      "seeds": 60,
+      "random@look1": {
+        "stops": 60,
+        "violations": 1,
+        "violationRate": 0.0167,
+        "meanRecallAtStop": 0.9765,
+        "meanSavings": 0.0251,
+        "meanRecallOnViolation": 0.925,
+        "meanTailCatchOnViolation": 1.0
+      },
+      "random@look100": {
+        "stops": 60,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 0.9958,
+        "meanSavings": 0.0036,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "al-proxy@look1": {
+        "stops": 60,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 0.9951,
+        "meanSavings": 0.2378,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "al-proxy@look100": {
+        "stops": 60,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 0.996,
+        "meanSavings": 0.2157,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "adversarial@look1": {
+        "stops": 60,
+        "violations": 27,
+        "violationRate": 0.45,
+        "meanRecallAtStop": 0.9468,
+        "meanSavings": 0.2426,
+        "meanRecallOnViolation": 0.9306,
+        "meanTailCatchOnViolation": 0.9502
+      },
+      "adversarial@look100": {
+        "stops": 60,
+        "violations": 27,
+        "violationRate": 0.45,
+        "meanRecallAtStop": 0.9468,
+        "meanSavings": 0.2208,
+        "meanRecallOnViolation": 0.9306,
+        "meanTailCatchOnViolation": 0.9607
+      }
+    },
+    "Leenaars_2019": {
+      "n": 10388,
+      "relevant": 17,
+      "seeds": 30,
+      "random@look1": {
+        "stops": 30,
+        "violations": 1,
+        "violationRate": 0.0333,
+        "meanRecallAtStop": 0.998,
+        "meanSavings": 0.0032,
+        "meanRecallOnViolation": 0.9412,
+        "meanTailCatchOnViolation": 1.0
+      },
+      "random@look100": {
+        "stops": 30,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 1.0,
+        "meanSavings": 0.0006,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "al-proxy@look1": {
+        "stops": 30,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 1.0,
+        "meanSavings": 0.0307,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "al-proxy@look100": {
+        "stops": 30,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 1.0,
+        "meanSavings": 0.0258,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "adversarial@look1": {
+        "stops": 30,
+        "violations": 14,
+        "violationRate": 0.4667,
+        "meanRecallAtStop": 0.9647,
+        "meanSavings": 0.0285,
+        "meanRecallOnViolation": 0.9244,
+        "meanTailCatchOnViolation": 0.6934
+      },
+      "adversarial@look100": {
+        "stops": 30,
+        "violations": 13,
+        "violationRate": 0.4333,
+        "meanRecallAtStop": 0.9667,
+        "meanSavings": 0.024,
+        "meanRecallOnViolation": 0.9231,
+        "meanTailCatchOnViolation": 0.7736
+      }
+    },
+    "Leenaars_2020": {
+      "n": 9543,
+      "relevant": 792,
+      "seeds": 30,
+      "random@look1": {
+        "stops": 30,
+        "violations": 13,
+        "violationRate": 0.4333,
+        "meanRecallAtStop": 0.9504,
+        "meanSavings": 0.0487,
+        "meanRecallOnViolation": 0.9379,
+        "meanTailCatchOnViolation": 1.0
+      },
+      "random@look100": {
+        "stops": 30,
+        "violations": 1,
+        "violationRate": 0.0333,
+        "meanRecallAtStop": 0.9819,
+        "meanSavings": 0.0169,
+        "meanRecallOnViolation": 0.9495,
+        "meanTailCatchOnViolation": 1.0
+      },
+      "al-proxy@look1": {
+        "stops": 30,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 0.987,
+        "meanSavings": 0.3647,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "al-proxy@look100": {
+        "stops": 30,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 0.9893,
+        "meanSavings": 0.3367,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "adversarial@look1": {
+        "stops": 30,
+        "violations": 25,
+        "violationRate": 0.8333,
+        "meanRecallAtStop": 0.9399,
+        "meanSavings": 0.3673,
+        "meanRecallOnViolation": 0.9366,
+        "meanTailCatchOnViolation": 0.9434
+      },
+      "adversarial@look100": {
+        "stops": 30,
+        "violations": 24,
+        "violationRate": 0.8,
+        "meanRecallAtStop": 0.9428,
+        "meanSavings": 0.3287,
+        "meanRecallOnViolation": 0.9396,
+        "meanTailCatchOnViolation": 0.9533
+      }
+    },
+    "Meijboom_2021": {
+      "n": 2224,
+      "relevant": 37,
+      "seeds": 60,
+      "random@look1": {
+        "stops": 60,
+        "violations": 3,
+        "violationRate": 0.05,
+        "meanRecallAtStop": 0.9905,
+        "meanSavings": 0.0083,
+        "meanRecallOnViolation": 0.9369,
+        "meanTailCatchOnViolation": 1.0
+      },
+      "random@look100": {
+        "stops": 59,
+        "violations": 2,
+        "violationRate": 0.0333,
+        "meanRecallAtStop": 0.9954,
+        "meanSavings": 0.0035,
+        "meanRecallOnViolation": 0.9324,
+        "meanTailCatchOnViolation": 1.0
+      },
+      "al-proxy@look1": {
+        "stops": 60,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 1.0,
+        "meanSavings": 0.1038,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "al-proxy@look100": {
+        "stops": 60,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 1.0,
+        "meanSavings": 0.0797,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "adversarial@look1": {
+        "stops": 60,
+        "violations": 34,
+        "violationRate": 0.5667,
+        "meanRecallAtStop": 0.9495,
+        "meanSavings": 0.1068,
+        "meanRecallOnViolation": 0.9269,
+        "meanTailCatchOnViolation": 0.951
+      },
+      "adversarial@look100": {
+        "stops": 59,
+        "violations": 32,
+        "violationRate": 0.5333,
+        "meanRecallAtStop": 0.9505,
+        "meanSavings": 0.0861,
+        "meanRecallOnViolation": 0.9257,
+        "meanTailCatchOnViolation": 0.9758
+      }
+    },
+    "Menon_2022": {
+      "n": 976,
+      "relevant": 75,
+      "seeds": 60,
+      "random@look1": {
+        "stops": 60,
+        "violations": 2,
+        "violationRate": 0.0333,
+        "meanRecallAtStop": 0.9847,
+        "meanSavings": 0.0155,
+        "meanRecallOnViolation": 0.94,
+        "meanTailCatchOnViolation": 1.0
+      },
+      "random@look100": {
+        "stops": 54,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 1.0,
+        "meanSavings": 0.0,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "al-proxy@look1": {
+        "stops": 60,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 0.9973,
+        "meanSavings": 0.1898,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "al-proxy@look100": {
+        "stops": 60,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 0.9991,
+        "meanSavings": 0.1337,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "adversarial@look1": {
+        "stops": 60,
+        "violations": 32,
+        "violationRate": 0.5333,
+        "meanRecallAtStop": 0.9487,
+        "meanSavings": 0.1802,
+        "meanRecallOnViolation": 0.9288,
+        "meanTailCatchOnViolation": 0.9997
+      },
+      "adversarial@look100": {
+        "stops": 57,
+        "violations": 30,
+        "violationRate": 0.5,
+        "meanRecallAtStop": 0.9492,
+        "meanSavings": 0.1264,
+        "meanRecallOnViolation": 0.9284,
+        "meanTailCatchOnViolation": 0.9999
+      }
+    },
+    "Moran_2021": {
+      "n": 5629,
+      "relevant": 120,
+      "seeds": 30,
+      "random@look1": {
+        "stops": 30,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 0.9747,
+        "meanSavings": 0.0242,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "random@look100": {
+        "stops": 30,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 0.9864,
+        "meanSavings": 0.0116,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "al-proxy@look1": {
+        "stops": 30,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 0.9961,
+        "meanSavings": 0.2307,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "al-proxy@look100": {
+        "stops": 30,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 0.9961,
+        "meanSavings": 0.2207,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "adversarial@look1": {
+        "stops": 30,
+        "violations": 13,
+        "violationRate": 0.4333,
+        "meanRecallAtStop": 0.9481,
+        "meanSavings": 0.2258,
+        "meanRecallOnViolation": 0.9314,
+        "meanTailCatchOnViolation": 0.7609
+      },
+      "adversarial@look100": {
+        "stops": 30,
+        "violations": 13,
+        "violationRate": 0.4333,
+        "meanRecallAtStop": 0.9483,
+        "meanSavings": 0.216,
+        "meanRecallOnViolation": 0.9321,
+        "meanTailCatchOnViolation": 0.7816
+      }
+    },
+    "Moran_2021_corrected": {
+      "n": 5453,
+      "relevant": 142,
+      "seeds": 30,
+      "random@look1": {
+        "stops": 30,
+        "violations": 2,
+        "violationRate": 0.0667,
+        "meanRecallAtStop": 0.9716,
+        "meanSavings": 0.0266,
+        "meanRecallOnViolation": 0.919,
+        "meanTailCatchOnViolation": 1.0
+      },
+      "random@look100": {
+        "stops": 30,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 0.992,
+        "meanSavings": 0.0086,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "al-proxy@look1": {
+        "stops": 30,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 0.9939,
+        "meanSavings": 0.2794,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "al-proxy@look100": {
+        "stops": 30,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 0.9939,
+        "meanSavings": 0.2713,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "adversarial@look1": {
+        "stops": 30,
+        "violations": 18,
+        "violationRate": 0.6,
+        "meanRecallAtStop": 0.9413,
+        "meanSavings": 0.2593,
+        "meanRecallOnViolation": 0.9288,
+        "meanTailCatchOnViolation": 0.7856
+      },
+      "adversarial@look100": {
+        "stops": 30,
+        "violations": 18,
+        "violationRate": 0.6,
+        "meanRecallAtStop": 0.9415,
+        "meanSavings": 0.2475,
+        "meanRecallOnViolation": 0.9292,
+        "meanTailCatchOnViolation": 0.8042
+      }
+    },
+    "Muthu_2021": {
+      "n": 3254,
+      "relevant": 354,
+      "seeds": 60,
+      "random@look1": {
+        "stops": 60,
+        "violations": 18,
+        "violationRate": 0.3,
+        "meanRecallAtStop": 0.9581,
+        "meanSavings": 0.0396,
+        "meanRecallOnViolation": 0.9357,
+        "meanTailCatchOnViolation": 1.0
+      },
+      "random@look100": {
+        "stops": 54,
+        "violations": 2,
+        "violationRate": 0.0333,
+        "meanRecallAtStop": 0.9909,
+        "meanSavings": 0.0079,
+        "meanRecallOnViolation": 0.9237,
+        "meanTailCatchOnViolation": 1.0
+      },
+      "al-proxy@look1": {
+        "stops": 60,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 0.9921,
+        "meanSavings": 0.3116,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "al-proxy@look100": {
+        "stops": 60,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 0.9945,
+        "meanSavings": 0.266,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "adversarial@look1": {
+        "stops": 60,
+        "violations": 49,
+        "violationRate": 0.8167,
+        "meanRecallAtStop": 0.94,
+        "meanSavings": 0.3175,
+        "meanRecallOnViolation": 0.9362,
+        "meanTailCatchOnViolation": 0.9886
+      },
+      "adversarial@look100": {
+        "stops": 60,
+        "violations": 46,
+        "violationRate": 0.7667,
+        "meanRecallAtStop": 0.9431,
+        "meanSavings": 0.2681,
+        "meanRecallOnViolation": 0.939,
+        "meanTailCatchOnViolation": 0.9925
+      }
+    },
+    "Muthu_2022": {
+      "n": 505,
+      "relevant": 13,
+      "seeds": 60,
+      "random@look1": {
+        "stops": 60,
+        "violations": 2,
+        "violationRate": 0.0333,
+        "meanRecallAtStop": 0.9974,
+        "meanSavings": 0.0025,
+        "meanRecallOnViolation": 0.9231,
+        "meanTailCatchOnViolation": 1.0
+      },
+      "random@look100": {
+        "stops": 58,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 1.0,
+        "meanSavings": 0.0007,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "al-proxy@look1": {
+        "stops": 60,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 1.0,
+        "meanSavings": 0.0278,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "al-proxy@look100": {
+        "stops": 60,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 1.0,
+        "meanSavings": 0.0094,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "adversarial@look1": {
+        "stops": 60,
+        "violations": 25,
+        "violationRate": 0.4167,
+        "meanRecallAtStop": 0.9667,
+        "meanSavings": 0.0276,
+        "meanRecallOnViolation": 0.92,
+        "meanTailCatchOnViolation": 1.0
+      },
+      "adversarial@look100": {
+        "stops": 59,
+        "violations": 21,
+        "violationRate": 0.35,
+        "meanRecallAtStop": 0.9726,
+        "meanSavings": 0.0086,
+        "meanRecallOnViolation": 0.9231,
+        "meanTailCatchOnViolation": 1.0
+      }
+    },
+    "Nagtegaal_2019": {
+      "n": 2010,
+      "relevant": 101,
+      "seeds": 60,
+      "random@look1": {
+        "stops": 60,
+        "violations": 6,
+        "violationRate": 0.1,
+        "meanRecallAtStop": 0.9738,
+        "meanSavings": 0.0268,
+        "meanRecallOnViolation": 0.9307,
+        "meanTailCatchOnViolation": 1.0
+      },
+      "random@look100": {
+        "stops": 60,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 0.9934,
+        "meanSavings": 0.0072,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "al-proxy@look1": {
+        "stops": 60,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 0.9954,
+        "meanSavings": 0.2454,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "al-proxy@look100": {
+        "stops": 60,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 0.9972,
+        "meanSavings": 0.2065,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "adversarial@look1": {
+        "stops": 60,
+        "violations": 25,
+        "violationRate": 0.4167,
+        "meanRecallAtStop": 0.9498,
+        "meanSavings": 0.2313,
+        "meanRecallOnViolation": 0.9303,
+        "meanTailCatchOnViolation": 0.9639
+      },
+      "adversarial@look100": {
+        "stops": 60,
+        "violations": 23,
+        "violationRate": 0.3833,
+        "meanRecallAtStop": 0.9512,
+        "meanSavings": 0.1998,
+        "meanRecallOnViolation": 0.9298,
+        "meanTailCatchOnViolation": 0.9704
+      }
+    },
+    "Oud_2018": {
+      "n": 1053,
+      "relevant": 20,
+      "seeds": 60,
+      "random@look1": {
+        "stops": 60,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 0.9892,
+        "meanSavings": 0.0126,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "random@look100": {
+        "stops": 60,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 0.9983,
+        "meanSavings": 0.0017,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "al-proxy@look1": {
+        "stops": 60,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 0.9967,
+        "meanSavings": 0.1335,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "al-proxy@look100": {
+        "stops": 60,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 0.9983,
+        "meanSavings": 0.0914,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "adversarial@look1": {
+        "stops": 60,
+        "violations": 12,
+        "violationRate": 0.2,
+        "meanRecallAtStop": 0.9517,
+        "meanSavings": 0.098,
+        "meanRecallOnViolation": 0.8833,
+        "meanTailCatchOnViolation": 1.0
+      },
+      "adversarial@look100": {
+        "stops": 50,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 0.975,
+        "meanSavings": 0.0745,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      }
+    },
+    "Sep_2021": {
+      "n": 273,
+      "relevant": 40,
+      "seeds": 60,
+      "random@look1": {
+        "stops": 60,
+        "violations": 1,
+        "violationRate": 0.0167,
+        "meanRecallAtStop": 0.9833,
+        "meanSavings": 0.0147,
+        "meanRecallOnViolation": 0.9,
+        "meanTailCatchOnViolation": 1.0
+      },
+      "random@look100": {
+        "stops": 53,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 1.0,
+        "meanSavings": 0.0,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "al-proxy@look1": {
+        "stops": 60,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 0.9979,
+        "meanSavings": 0.1558,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "al-proxy@look100": {
+        "stops": 60,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 1.0,
+        "meanSavings": 0.0,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "adversarial@look1": {
+        "stops": 60,
+        "violations": 23,
+        "violationRate": 0.3833,
+        "meanRecallAtStop": 0.9471,
+        "meanSavings": 0.1226,
+        "meanRecallOnViolation": 0.912,
+        "meanTailCatchOnViolation": 1.0
+      },
+      "adversarial@look100": {
+        "stops": 20,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 1.0,
+        "meanSavings": 0.0,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      }
+    },
+    "Smid_2020": {
+      "n": 3980,
+      "relevant": 27,
+      "seeds": 60,
+      "random@look1": {
+        "stops": 60,
+        "violations": 3,
+        "violationRate": 0.05,
+        "meanRecallAtStop": 0.9877,
+        "meanSavings": 0.0121,
+        "meanRecallOnViolation": 0.9259,
+        "meanTailCatchOnViolation": 1.0
+      },
+      "random@look100": {
+        "stops": 60,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 0.9963,
+        "meanSavings": 0.0037,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "al-proxy@look1": {
+        "stops": 60,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 1.0,
+        "meanSavings": 0.1102,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "al-proxy@look100": {
+        "stops": 60,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 1.0,
+        "meanSavings": 0.098,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "adversarial@look1": {
+        "stops": 60,
+        "violations": 28,
+        "violationRate": 0.4667,
+        "meanRecallAtStop": 0.9444,
+        "meanSavings": 0.1108,
+        "meanRecallOnViolation": 0.9127,
+        "meanTailCatchOnViolation": 0.7457
+      },
+      "adversarial@look100": {
+        "stops": 60,
+        "violations": 28,
+        "violationRate": 0.4667,
+        "meanRecallAtStop": 0.9444,
+        "meanSavings": 0.0997,
+        "meanRecallOnViolation": 0.9127,
+        "meanTailCatchOnViolation": 0.7806
+      }
+    },
+    "Welling_2021": {
+      "n": 4126,
+      "relevant": 74,
+      "seeds": 60,
+      "random@look1": {
+        "stops": 60,
+        "violations": 8,
+        "violationRate": 0.1333,
+        "meanRecallAtStop": 0.9797,
+        "meanSavings": 0.021,
+        "meanRecallOnViolation": 0.9358,
+        "meanTailCatchOnViolation": 0.9906
+      },
+      "random@look100": {
+        "stops": 60,
+        "violations": 4,
+        "violationRate": 0.0667,
+        "meanRecallAtStop": 0.9917,
+        "meanSavings": 0.009,
+        "meanRecallOnViolation": 0.9459,
+        "meanTailCatchOnViolation": 0.9946
+      },
+      "al-proxy@look1": {
+        "stops": 60,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 0.9968,
+        "meanSavings": 0.1896,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "al-proxy@look100": {
+        "stops": 60,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 0.9984,
+        "meanSavings": 0.1675,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "adversarial@look1": {
+        "stops": 60,
+        "violations": 31,
+        "violationRate": 0.5167,
+        "meanRecallAtStop": 0.9498,
+        "meanSavings": 0.2004,
+        "meanRecallOnViolation": 0.9324,
+        "meanTailCatchOnViolation": 0.7301
+      },
+      "adversarial@look100": {
+        "stops": 60,
+        "violations": 31,
+        "violationRate": 0.5167,
+        "meanRecallAtStop": 0.9502,
+        "meanSavings": 0.1844,
+        "meanRecallOnViolation": 0.9329,
+        "meanTailCatchOnViolation": 0.7521
+      }
+    },
+    "Wolters_2018": {
+      "n": 5038,
+      "relevant": 19,
+      "seeds": 30,
+      "random@look1": {
+        "stops": 30,
+        "violations": 3,
+        "violationRate": 0.1,
+        "meanRecallAtStop": 0.9947,
+        "meanSavings": 0.0124,
+        "meanRecallOnViolation": 0.9474,
+        "meanTailCatchOnViolation": 1.0
+      },
+      "random@look100": {
+        "stops": 30,
+        "violations": 1,
+        "violationRate": 0.0333,
+        "meanRecallAtStop": 0.9982,
+        "meanSavings": 0.0058,
+        "meanRecallOnViolation": 0.9474,
+        "meanTailCatchOnViolation": 1.0
+      },
+      "al-proxy@look1": {
+        "stops": 30,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 1.0,
+        "meanSavings": 0.1238,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "al-proxy@look100": {
+        "stops": 30,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 1.0,
+        "meanSavings": 0.1127,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "adversarial@look1": {
+        "stops": 30,
+        "violations": 15,
+        "violationRate": 0.5,
+        "meanRecallAtStop": 0.9632,
+        "meanSavings": 0.0738,
+        "meanRecallOnViolation": 0.9263,
+        "meanTailCatchOnViolation": 0.9984
+      },
+      "adversarial@look100": {
+        "stops": 30,
+        "violations": 13,
+        "violationRate": 0.4333,
+        "meanRecallAtStop": 0.9667,
+        "meanSavings": 0.0637,
+        "meanRecallOnViolation": 0.9231,
+        "meanTailCatchOnViolation": 1.0
+      }
+    },
+    "Hall_2012": {
+      "n": 8911,
+      "relevant": 104,
+      "seeds": 30,
+      "random@look1": {
+        "stops": 30,
+        "violations": 3,
+        "violationRate": 0.1,
+        "meanRecallAtStop": 0.9763,
+        "meanSavings": 0.0256,
+        "meanRecallOnViolation": 0.9423,
+        "meanTailCatchOnViolation": 0.9506
+      },
+      "random@look100": {
+        "stops": 30,
+        "violations": 2,
+        "violationRate": 0.0667,
+        "meanRecallAtStop": 0.9804,
+        "meanSavings": 0.0184,
+        "meanRecallOnViolation": 0.9423,
+        "meanTailCatchOnViolation": 0.9662
+      },
+      "al-proxy@look1": {
+        "stops": 30,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 0.9962,
+        "meanSavings": 0.2317,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "al-proxy@look100": {
+        "stops": 30,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 0.9962,
+        "meanSavings": 0.2264,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "adversarial@look1": {
+        "stops": 30,
+        "violations": 11,
+        "violationRate": 0.3667,
+        "meanRecallAtStop": 0.9535,
+        "meanSavings": 0.255,
+        "meanRecallOnViolation": 0.9309,
+        "meanTailCatchOnViolation": 0.4967
+      },
+      "adversarial@look100": {
+        "stops": 30,
+        "violations": 11,
+        "violationRate": 0.3667,
+        "meanRecallAtStop": 0.9538,
+        "meanSavings": 0.2459,
+        "meanRecallOnViolation": 0.9309,
+        "meanTailCatchOnViolation": 0.5056
+      }
+    },
+    "Radjenovic_2013": {
+      "n": 6000,
+      "relevant": 48,
+      "seeds": 30,
+      "random@look1": {
+        "stops": 30,
+        "violations": 3,
+        "violationRate": 0.1,
+        "meanRecallAtStop": 0.9799,
+        "meanSavings": 0.0182,
+        "meanRecallOnViolation": 0.9097,
+        "meanTailCatchOnViolation": 0.9993
+      },
+      "random@look100": {
+        "stops": 30,
+        "violations": 1,
+        "violationRate": 0.0333,
+        "meanRecallAtStop": 0.9958,
+        "meanSavings": 0.0044,
+        "meanRecallOnViolation": 0.9375,
+        "meanTailCatchOnViolation": 1.0
+      },
+      "al-proxy@look1": {
+        "stops": 30,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 0.9986,
+        "meanSavings": 0.1706,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "al-proxy@look100": {
+        "stops": 30,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 0.9993,
+        "meanSavings": 0.1589,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "adversarial@look1": {
+        "stops": 30,
+        "violations": 12,
+        "violationRate": 0.4,
+        "meanRecallAtStop": 0.9521,
+        "meanSavings": 0.1583,
+        "meanRecallOnViolation": 0.9271,
+        "meanTailCatchOnViolation": 0.5843
+      },
+      "adversarial@look100": {
+        "stops": 30,
+        "violations": 12,
+        "violationRate": 0.4,
+        "meanRecallAtStop": 0.9521,
+        "meanSavings": 0.1489,
+        "meanRecallOnViolation": 0.9271,
+        "meanTailCatchOnViolation": 0.6128
+      }
+    },
+    "Wahono_2015": {
+      "n": 7002,
+      "relevant": 62,
+      "seeds": 30,
+      "random@look1": {
+        "stops": 30,
+        "violations": 1,
+        "violationRate": 0.0333,
+        "meanRecallAtStop": 0.9823,
+        "meanSavings": 0.0179,
+        "meanRecallOnViolation": 0.9355,
+        "meanTailCatchOnViolation": 0.8666
+      },
+      "random@look100": {
+        "stops": 30,
+        "violations": 1,
+        "violationRate": 0.0333,
+        "meanRecallAtStop": 0.9925,
+        "meanSavings": 0.0084,
+        "meanRecallOnViolation": 0.9355,
+        "meanTailCatchOnViolation": 0.8701
+      },
+      "al-proxy@look1": {
+        "stops": 30,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 0.9962,
+        "meanSavings": 0.1992,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "al-proxy@look100": {
+        "stops": 30,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 0.9968,
+        "meanSavings": 0.1864,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "adversarial@look1": {
+        "stops": 30,
+        "violations": 10,
+        "violationRate": 0.3333,
+        "meanRecallAtStop": 0.9516,
+        "meanSavings": 0.1997,
+        "meanRecallOnViolation": 0.921,
+        "meanTailCatchOnViolation": 0.5267
+      },
+      "adversarial@look100": {
+        "stops": 30,
+        "violations": 10,
+        "violationRate": 0.3333,
+        "meanRecallAtStop": 0.9522,
+        "meanSavings": 0.1902,
+        "meanRecallOnViolation": 0.9226,
+        "meanTailCatchOnViolation": 0.5664
+      }
+    },
+    "van_Dis_2020": {
+      "n": 10220,
+      "relevant": 73,
+      "seeds": 30,
+      "random@look1": {
+        "stops": 30,
+        "violations": 1,
+        "violationRate": 0.0333,
+        "meanRecallAtStop": 0.984,
+        "meanSavings": 0.0146,
+        "meanRecallOnViolation": 0.9452,
+        "meanTailCatchOnViolation": 0.9885
+      },
+      "random@look100": {
+        "stops": 30,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 0.9922,
+        "meanSavings": 0.0067,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "al-proxy@look1": {
+        "stops": 30,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 0.9977,
+        "meanSavings": 0.2024,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "al-proxy@look100": {
+        "stops": 30,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 0.9977,
+        "meanSavings": 0.197,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "adversarial@look1": {
+        "stops": 30,
+        "violations": 17,
+        "violationRate": 0.5667,
+        "meanRecallAtStop": 0.9489,
+        "meanSavings": 0.221,
+        "meanRecallOnViolation": 0.9315,
+        "meanTailCatchOnViolation": 0.3959
+      },
+      "adversarial@look100": {
+        "stops": 30,
+        "violations": 17,
+        "violationRate": 0.5667,
+        "meanRecallAtStop": 0.9489,
+        "meanSavings": 0.2166,
+        "meanRecallOnViolation": 0.9315,
+        "meanTailCatchOnViolation": 0.4027
+      }
+    },
+    "van_de_Schoot_2018": {
+      "n": 6225,
+      "relevant": 38,
+      "seeds": 30,
+      "random@look1": {
+        "stops": 30,
+        "violations": 3,
+        "violationRate": 0.1,
+        "meanRecallAtStop": 0.9904,
+        "meanSavings": 0.0109,
+        "meanRecallOnViolation": 0.9298,
+        "meanTailCatchOnViolation": 0.9945
+      },
+      "random@look100": {
+        "stops": 30,
+        "violations": 2,
+        "violationRate": 0.0667,
+        "meanRecallAtStop": 0.9939,
+        "meanSavings": 0.0054,
+        "meanRecallOnViolation": 0.9342,
+        "meanTailCatchOnViolation": 0.994
+      },
+      "al-proxy@look1": {
+        "stops": 30,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 0.9991,
+        "meanSavings": 0.1611,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "al-proxy@look100": {
+        "stops": 30,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 0.9991,
+        "meanSavings": 0.1529,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "adversarial@look1": {
+        "stops": 30,
+        "violations": 16,
+        "violationRate": 0.5333,
+        "meanRecallAtStop": 0.9544,
+        "meanSavings": 0.1047,
+        "meanRecallOnViolation": 0.9309,
+        "meanTailCatchOnViolation": 0.6509
+      },
+      "adversarial@look100": {
+        "stops": 30,
+        "violations": 16,
+        "violationRate": 0.5333,
+        "meanRecallAtStop": 0.9544,
+        "meanSavings": 0.0967,
+        "meanRecallOnViolation": 0.9309,
+        "meanTailCatchOnViolation": 0.6711
+      }
+    },
+    "van_der_Valk_2021": {
+      "n": 1023,
+      "relevant": 93,
+      "seeds": 60,
+      "random@look1": {
+        "stops": 60,
+        "violations": 4,
+        "violationRate": 0.0667,
+        "meanRecallAtStop": 0.9837,
+        "meanSavings": 0.0203,
+        "meanRecallOnViolation": 0.9409,
+        "meanTailCatchOnViolation": 1.0
+      },
+      "random@look100": {
+        "stops": 56,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 0.9975,
+        "meanSavings": 0.0032,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "al-proxy@look1": {
+        "stops": 60,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 0.9982,
+        "meanSavings": 0.1987,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "al-proxy@look100": {
+        "stops": 60,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 0.9982,
+        "meanSavings": 0.1496,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "adversarial@look1": {
+        "stops": 60,
+        "violations": 34,
+        "violationRate": 0.5667,
+        "meanRecallAtStop": 0.948,
+        "meanSavings": 0.2,
+        "meanRecallOnViolation": 0.9311,
+        "meanTailCatchOnViolation": 0.9996
+      },
+      "adversarial@look100": {
+        "stops": 59,
+        "violations": 31,
+        "violationRate": 0.5167,
+        "meanRecallAtStop": 0.9502,
+        "meanSavings": 0.1401,
+        "meanRecallOnViolation": 0.932,
+        "meanTailCatchOnViolation": 1.0
+      }
+    },
+    "van_der_Waal_2022": {
+      "n": 4070,
+      "relevant": 33,
+      "seeds": 60,
+      "random@look1": {
+        "stops": 60,
+        "violations": 4,
+        "violationRate": 0.0667,
+        "meanRecallAtStop": 0.9874,
+        "meanSavings": 0.0112,
+        "meanRecallOnViolation": 0.9167,
+        "meanTailCatchOnViolation": 1.0
+      },
+      "random@look100": {
+        "stops": 60,
+        "violations": 1,
+        "violationRate": 0.0167,
+        "meanRecallAtStop": 0.9965,
+        "meanSavings": 0.0029,
+        "meanRecallOnViolation": 0.8788,
+        "meanTailCatchOnViolation": 1.0
+      },
+      "al-proxy@look1": {
+        "stops": 60,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 0.999,
+        "meanSavings": 0.1138,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "al-proxy@look100": {
+        "stops": 60,
+        "violations": 0,
+        "violationRate": 0.0,
+        "meanRecallAtStop": 0.9995,
+        "meanSavings": 0.1016,
+        "meanRecallOnViolation": null,
+        "meanTailCatchOnViolation": null
+      },
+      "adversarial@look1": {
+        "stops": 60,
+        "violations": 23,
+        "violationRate": 0.3833,
+        "meanRecallAtStop": 0.953,
+        "meanSavings": 0.0955,
+        "meanRecallOnViolation": 0.9078,
+        "meanTailCatchOnViolation": 0.8492
+      },
+      "adversarial@look100": {
+        "stops": 59,
+        "violations": 22,
+        "violationRate": 0.3667,
+        "meanRecallAtStop": 0.9543,
+        "meanSavings": 0.0831,
+        "meanRecallOnViolation": 0.9091,
+        "meanTailCatchOnViolation": 0.8819
+      }
+    }
+  },
+  "aggregate": {
+    "random@look1": {
+      "walks": 2270,
+      "stops": 2269,
+      "violations": 160,
+      "violationRate": 0.0705,
+      "meanRecallAtStop": 0.9826,
+      "meanSavings": 0.0177,
+      "meanRecallOnViolation": 0.9295,
+      "meanTailCatchOnViolation": 0.9937
+    },
+    "random@look100": {
+      "walks": 2270,
+      "stops": 2184,
+      "violations": 26,
+      "violationRate": 0.0115,
+      "meanRecallAtStop": 0.996,
+      "meanSavings": 0.0041,
+      "meanRecallOnViolation": 0.9342,
+      "meanTailCatchOnViolation": 0.989
+    },
+    "al-proxy@look1": {
+      "walks": 2270,
+      "stops": 2270,
+      "violations": 0,
+      "violationRate": 0.0,
+      "meanRecallAtStop": 0.9973,
+      "meanSavings": 0.1653,
+      "meanRecallOnViolation": null,
+      "meanTailCatchOnViolation": null
+    },
+    "al-proxy@look100": {
+      "walks": 2270,
+      "stops": 2270,
+      "violations": 0,
+      "violationRate": 0.0,
+      "meanRecallAtStop": 0.9983,
+      "meanSavings": 0.1241,
+      "meanRecallOnViolation": null,
+      "meanTailCatchOnViolation": null
+    },
+    "adversarial@look1": {
+      "walks": 2270,
+      "stops": 2269,
+      "violations": 1049,
+      "violationRate": 0.4621,
+      "meanRecallAtStop": 0.9508,
+      "meanSavings": 0.1573,
+      "meanRecallOnViolation": 0.923,
+      "meanTailCatchOnViolation": 0.9016
+    },
+    "adversarial@look100": {
+      "walks": 2270,
+      "stops": 2052,
+      "violations": 829,
+      "violationRate": 0.3652,
+      "meanRecallAtStop": 0.9566,
+      "meanSavings": 0.1308,
+      "meanRecallOnViolation": 0.9253,
+      "meanTailCatchOnViolation": 0.8893
+    }
+  }
+}
