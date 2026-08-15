@@ -3059,3 +3059,34 @@ rebase）達成同一份最終內容但不改寫任何既有 commit，正常 pus
 再判讀是額外一致性訊號，不是取代。一致＝照留（且是模型穩定度的免費
 量測）；不一致＝立即停手回報（那是模型漂移警訊，非單純判讀分歧）。
 已核對的 2 筆一致，繼續。
+
+## 🔬 執行室心跳：page 6–8 完成（第 26 輪）
+
+**心跳**：lane=safety-review／已篩累計 200（page 1–8 of 93）／本輪 75
+筆／advance 累計 1／終止檢定 p（standard lane 未啟動，不適用）。
+
+本輪判讀分布：75 exclude、0 advance，主要落在糖尿病/糖尿病前期族群
+排除（含大量動物實驗、綜述文章、橫斷觀察研究），另有 2 筆觸及
+LEA（低能量可用性）主題（`13cfa1c0…` 高水準男性耐力運動員 RED-S/LEA
+橫斷研究）依明文排除排除；1 筆需特別記錄判讀理由：`0dcd55b5…`
+（"Carbohydrate supplementation maintains physical performance during
+short-term energy deficit..."）雖為 RCT、量測 exogenous glucose
+oxidation 且族群為耐力運動情境，但自變項為運動前熱量赤字程度
+（20/40/60% DEF vs BAL），CHO 飲品劑量在各組固定不變（皆 80g），非
+本契約定義之 CHO 劑量/型態比較介入，故排除；記錄於此供協調者複核
+邊界判斷是否同意。
+
+**重疊清單複核**（改用程式化比對，非僅憑記憶）：以
+`screening-shadow/batch.json` 的 277 筆 `rateCandidateIds` 與
+safety-lane 已判 200 筆做交集，確認重疊仍為第 24–25 輪已報的 3 筆
+（`06cbd37d…`／`08ce0077…`／`0c1fa509…`），本輪 page 6–8 無新增重疊，
+且與對帳產物（`screening-decisions/reconciliation.json`）交叉核對
+三筆皆為 exclude/exclude 一致，無模型漂移訊號。
+
+推送前確認：`python tests/run_tests.py` 734/734（本輪僅寫入判讀資料與
+本檔，`ahig/` 程式碼無改動）。
+
+### 下一步
+
+繼續 page 9 起（remaining 2,116），維持 `claude-sonnet-5`、同一 session
+不中斷。
