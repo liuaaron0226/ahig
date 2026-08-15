@@ -6032,3 +6032,137 @@ session 不中斷，時間盒約 12 分鐘/輪。
 → 裁定後 effective decision＋引用本裁定編號），decisions 層與
 **ADR-0008 終止檢定的 labels 序列一律以 effective decision 為準**。
 新判讀直接適用上述判準。
+
+---
+
+## B.11 執行室 — 批次裁定落地回報（第 83 輪）
+
+**時間**：2026-08-16 · **分支**：`claude/w4a1-fulltext-artifacts` ·
+**執行者**：`claude-opus-5[1m]`（ADR-0009 裁定①，executor-session）
+
+收到協調者第 n+26 輪批次裁定（`b1bc147`），六項待裁一次清空。本輪
+**未新增判讀**，全部工時用於落地追溯機制與交付掛牌名單。
+
+### 追溯檔已建立
+
+`ahig-private/…/standard-full-screen-pass-1/post-ruling-reclassification.json`
+
+- `judgements.json` **一字未改**（append-only 保持完整）
+- 檔內每筆記 `originalOpinion` → `effectiveDecision` ＋ `ruling` 編號
+  ＋ `tag` ＋ 一句理由
+- 落地時以程式驗證三件事並全數通過：**每個 candidateId 都在
+  judgements 內**、**無重複**、**originalOpinion 與判讀檔完全吻合**
+  （不吻合即 assert 失敗，不會靜默略過）
+- `.scratch/term.py` 已改為先套 overlay 再算 labels，**ADR-0008
+  檢定自本輪起一律以 effective decision 為準**
+
+### 重分類結果（68 筆，unclear 137 → 69）
+
+| 裁定 | tag | 筆數 | 去向 |
+|---|---|---|---|
+| 59/60 | `mixed-nutrient` | 25 | exclude |
+| 62 | `population-recreational/untrained` | 19 | exclude |
+| 64 | `harm-adjacent` | 14 | exclude |
+| 66 | `chronic-strategy` | 5 | exclude |
+| 78 | `methodological` | 4 | exclude |
+| 64 反推 | `gi-symptom-present` | 1 | **advance** |
+
+**effective 累計**：advance 276、unclear 69、exclude 655（judged 1,000）
+
+### ADR-0008 檢定（effective decision，1,000 筆）
+
+```
+pScore 0.9906 · relevantFound 345 · poolSize 9091
+targetRecall 0.95 · h0MinTotalRelevant 364 · windowSize 4
+```
+
+對照裁定前（raw）：`relevantFound 412 → 345`，h0MinTotalRelevant
+`434 → 364`。裁定 4 所預期的「解除系統性 unclear 對終止檢定的拖累」
+已生效——67 筆原本以 unclear 計為 relevant 的候選轉為 exclude。
+p 值仍在 0.99 量級，離終止尚遠，依第 68 輪紀律不作趨勢宣稱。
+
+### 掛牌名單一：harm-adjacent（14 筆，裁定 4 交付項）
+
+| candidateId | 一句摘要 |
+|---|---|
+| `7869bf94…` | 高滲透壓 vs 等滲透壓 CHO 飲料之胃排空（跑步與騎車） |
+| `4b86bcd0…` | 食道壓力＋胃排空＋腸道通透性＋葡萄糖吸收（CES vs 水） |
+| `6bdb5fe3…` | 4% 葡萄糖 vs 水 vs 不補液之腸道通透性（乳果糖/鼠李糖） |
+| `a61c07e4…` | 40 g 蔗糖 vs 硝酸鈉 vs 水之內臟灌流與 I-FABP |
+| `62a304df…` | 小腸各節段水分與醣類吸收速率（CES vs 水） |
+| `5932ab6a…` | 胃排空＋腸道水分通量；**含水＋6/8/9% 三段劑量對照** |
+| `a6bebf29…` | 十二指腸/空腸水分吸收；**同劑量三種滲透壓＋安慰劑** |
+| `461edba5…` | 腸胃通透性（阿斯匹靈為主操弄，CHO 次要） |
+| `9e6becb1…` | 閃爍造影胃排空，26 名 well-trained cyclists |
+| `06a34b76…` | 走路 vs 間歇折返跑之胃排空量（6.4% CHO-E vs 安慰劑） |
+| `971765eb…` | 胃排空速率與胃容積；**含水＋4/6/8% 三段劑量對照** |
+| `5eba8686…` | 熱環境間歇折返跑之胃排空（CES vs 調味水） |
+| `98f6ae09…` | 不同 CHO 組成之胃排空殘量（含水對照，運動僅 15 分鐘） |
+| `e80a6ca4…` | **牙齒琺瑯質侵蝕**（口腔，非 GI）：市售飲料 4.238 µm vs 水 0.138 µm |
+
+M1 若擴充 harms 構念，這 14 筆零重篩成本可直接取用。其中三筆
+（`5932ab6a…`、`a6bebf29…`、`971765eb…`）本身帶完整劑量或滲透壓
+梯度設計，擴充後的證據價值高於其餘。
+
+### 掛牌名單二：methodological（4 筆，裁定 6 交付項）
+
+| candidateId | 一句摘要 |
+|---|---|
+| `1ac15d54…` | [U-14C] vs [U-13C] 示蹤劑一致性，差異 15±4% |
+| `1fe4674c…` | 13C 天然標記計算外源性氧化之算式錯誤與修正程序 |
+| `1f15827f…` | [U-13C] vs [1,2-13C] 葡萄糖呼氣 13CO2 回收率比較 |
+| `96c48606…` | OMNI 主觀強度量表效度驗證（Validation Study） |
+
+前三筆是示蹤劑量測的直接校準素材，B.11 校準附錄可引用。第四筆
+是量表效度而非示蹤劑，**與前三筆性質不同**，附錄引用時宜分開處理。
+
+### 三筆措辭需協調者確認（已在追溯檔標 `flagged`）
+
+裁定 3 列舉的排除措辭是 **recreationally active**。以下三筆寫的是
+**recreationally trained**——語意上「trained」偏向已受訓練，與
+「active」不同：
+
+- `bea191ac…` — recreationally trained male cyclists，VO2peak 4.54 L/min。
+  **此筆設計特別乾淨**：四臂 PP/CP/PC/CC 等熱量給予時機對照，
+  PC vs PP 即運動中 CHO vs 安慰劑，outcome 命中 10-km TT。
+- `7612fb41…` — recreationally trained 跑者，90 分鐘 TT
+- `8304cc76…` — recreationally trained 女性，4-km TT
+
+本輪**先依裁定精神歸入排除**（recreationally 前綴為共同特徵），
+但若協調者認為 trained 一詞已足以過族群軸，這三筆改判只需在追溯檔
+翻一個欄位，`bea191ac…` 尤其值得回收。
+
+### 一筆逆向重分類（unclear → advance），請協調者確認反推
+
+`89e1a723…`（endurance runners、男6女5、2h@60%VO2max 熱環境、
+15 g 葡萄糖 vs 等熱量乳清蛋白 vs 水，約 45 g/h）：
+
+- 主要 outcome 是 I-FABP／內毒素／小腸通透性 → 依裁定 4 屬
+  harm-adjacent
+- 但摘要**明載另記錄 gastrointestinal symptoms** → 契約 critical
+  outcome
+- 且 **GLUC vs WATER 為 allowlist 內的乾淨對照**，族群與劑量皆合格
+
+我的反推是：裁定 4 把界線畫在「症狀 vs 功能」，那麼**同時有症狀
+結局者即命中契約 outcome**，不因另有功能指標而失格。故判 advance。
+這是六項裁定唯一產生 unclear→advance 方向的一筆，若反推有誤請指正。
+
+### 其餘 69 筆 unclear 未受本次裁定涵蓋
+
+主要仍卡在：運動型態（足球/羽球/間歇衝刺專項）約 15 筆、outcome
+非清單（認知、情緒、免疫、體液調節）約 20 筆、對照軸為情境或組間
+比較（訓練狀態、體型、環境）約 12 筆、族群僅稱 healthy/athletes
+未給訓練狀態措辭約 10 筆（依裁定 3 屬「含糊 → unclear 送全文」，
+判法不變）。**認知 outcome 型別已達 2 筆**（`b55d52f0…` 反應時間、
+`b87b7de9…` 羽球發球準確度），若續增將提列新請裁。
+
+### 品保與驗證
+
+`python tests/run_tests.py` **734/734 passed**（本輪僅新增追溯檔與
+本檔，`ahig/` 程式碼零改動；`.scratch/term.py` 為工作腳本非產品碼）。
+
+### 下一步
+
+繼續 page 41 起（remaining 8,091），新判讀直接適用六項裁定判準，
+不再產生已裁定型別之 unclear。維持 `claude-opus-5[1m]`、同一 session
+不中斷。
