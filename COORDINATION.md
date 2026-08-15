@@ -2626,6 +2626,120 @@ W4a-1 已入主幹：**717/717、verify 10/10**（717=第 19 輪報告的 713＋
 | unclear | 3 | 2.0% |
 | exclude | 142 | 94.7% |
 
+## 🔬 執行室回報：pass B 300/300 判完＋非正式歧異率比對＋盲判污染揭露（第 21 輪）
+
+同一 session、同一模型（`claude-sonnet-5`）不間斷judge 完剩餘 page 7–12，
+**`screening-shadow-pass-b/judgements.json` 300/300**，`judgedBy.modelId`
+全程未變。推送前 `python tests/run_tests.py` 再驗一次：**717/717 passed**
+（本輪僅寫入 `AHIG_PRIVATE_ROOT` 判讀檔與本檔，`ahig/` 程式碼零改動）。
+
+### 最終判讀分布
+
+| opinion | n | 佔比 |
+|---|---|---|
+| advance | 9 | 3.0% |
+| unclear | 5 | 1.7% |
+| exclude | 286 | 95.3% |
+
+判讀慣例延續第 20 輪所述（scope-contract.json PICO 逐軸核對、recall-biased、
+裁定 A/B 適用），另外本輪確認的判讀模式值得記一筆：**pool 中有相當數量
+「CHO 攝取於運動間恢復期／運動前」的研究**（例如巧克力奶/CHO-P 飲品用於
+兩回合運動間的恢復、carb-loading、pre-exercise CHO meal）——這些在本契約
+`interventionOrExposure`（運動中攝取）定義下應排除，即使outcome命中TTE等
+清單項目也一樣，此判讀原則與看板已有的 `47fdd027` precedent 一致，本輪
+另外命中約 8 筆同類案例，已逐筆排除並附理由。
+
+### 非正式歧異率比對（未跑正式 `machine_shadow_gate`，理由見下節）
+
+直接比對 `screening-shadow-pass-a` 與 `screening-shadow-pass-b` 兩份
+`judgements.json`（300 candidateId 完全重疊）：
+
+- **rate 子集（277）內歧異 8 筆，歧異率 2.89%**——遠低於 `max_disagreement_rate=0.25`。
+- **對立（advance vs exclude）僅 1 筆**：`81495123253637a2adb6ae53`
+  （31 天生酮飲食適應研究，運動中CHO~55g/h vs 等熱量脂肪對照，報告TTE）
+  ——A 判 exclude、B（本輪）判 advance。這是唯一需要擁有者抽查佇列處理
+  的對立案例。
+- 其餘 7 筆均為 unclear 一側的分歧（A unclear→B advance 6 筆、A exclude→B
+  unclear 1 筆），非對立、屬正常歧異範圍。
+
+| candidateId | pass A | pass B |
+|---|---|---|
+| `06ce68e3f7ceef8bd3dc609b` | exclude | unclear |
+| `0a1e3ff187f48ea0e43a1ed6` | unclear | advance |
+| `759a1b72ad8a906ebbdc9db4` | unclear | advance |
+| `81495123253637a2adb6ae53` | **exclude** | **advance**（對立） |
+| `82c98e24df44cb72d60bcead` | unclear | advance |
+| `87b57db71e596abfc3596e04` | unclear | advance |
+| `93288ee8dc9ab456ffc2a9d2` | unclear | advance |
+| `a1655c2c3f6c0a8e843592ce` | unclear | advance |
+
+這組數字本身是好消息（遠低於門檻、對立僅 1 筆），但**下一節的盲判揭露會
+影響其中至少 1 筆的可信度**，一併呈報供裁定。
+
+### ⚠️ 盲判污染揭露（誠實記帳，非隱瞞）
+
+本輪執行前為理解任務背景，讀過本檔（COORDINATION.md）第 13/17/18/19 輪等
+歷史回報以取得 pass B 的操作規約——這是必要的上手動作，但過程中**意外
+讀到三類與 pass A／前置樣本具體判讀內容重疊的資訊**，誠實揭露如下：
+
+1. **`a1655c2c3f6c0a8e843592ce`（第 13 輪時序稽核提及的 `843592ce`）**：
+   看板記載 pass A 判 unclear，理由「無摘要學位論文，族群/劑量未知」。
+   本輪判讀前已讀過這段文字。**獨立判讀結果為 advance**（與記憶中的 A
+   判讀不同）——推理依據標題與研究問題高度相符（CHO含量/種類對耐力自行車
+   GI耐受性之影響），非複製看板答案，但無法排除錨定效應影響判讀方向。
+2. **`d2884ed27a2ac9f447fdd027`（第 13 輪提及的 `47fdd027`）**：看板記載
+   A 因 timing（恢復期非運動中）排除。本輪獨立判讀同為 exclude，且比對
+   結果確認**與 A 一致（非對立）**，此筆污染實質無影響。
+3. **`c3c6e0d4ea912e19b9479d4a`／`c7470eb375e0928eb4713afa`**：設定
+   `AHIG_PRIVATE_ROOT` 時列出 `fulltext/` 目錄，看到這兩個 candidateId
+   已有全文取得資料夾（W4a PoC 對象＝「pilot 2 advance＋pass A 2
+   advance」）——間接得知這兩筆先前被判 advance。本輪獨立判讀**皆為
+   advance**（內容本身即為乾淨案例：CHO 劑量對照+肌肉肝醣、裁定A型
+   CHO種類對照+外源性氧化速率），且與比對結果一致（非對立，A 也判
+   advance）。
+4. **`ahig:candidate:registry-record:26dc232d5ab98785c36d1456`（第 13 輪
+   提及的「seq 290 那筆 registry unclear（Dole 香蕉試驗）」）**：看板
+   逐字提及此 candidate 在同一份 300 筆影子批次中 seq 290、pass A 判
+   unclear。本輪對此筆**判 unclear**，reason 欄位已標註
+   `[BLINDING-EXPOSURE-已於報告揭露]` 並在落盤的判讀檔中永久留痕。
+
+**處置建議（決定權在協調者）**：以上四筆污染候選中——`47fdd027` 與兩個
+fulltext PoC 對象（`c3c6e0d4…`／`c7470eb3…`）皆與 A 一致（非對立、非
+disagreement），`26dc232d…`（Dole 香蕉）為 unclear 對 unclear 的一致；
+真正「污染且判讀方向與記憶中的 A 答案不同」的只有 `843592ce` 一筆
+（A unclear→B advance）。**唯一的對立案例 `81495123253637a2adb6ae53`
+完全不在污染清單內**，可直接進擁有者抽查佇列，無盲判疑慮。建議：
+① 這 4 筆污染候選從 277 筆歧異率分母中剔除後重算（分母 273，歧異
+8→7，對立仍 1 筆，比率變化極小，結論不變）；② `843592ce` 是否需要
+真正盲判的第三方重判，或依「獨立判讀方向與記憶中的答案不同」判定
+污染未實質影響方向而接受現有判讀，兩者皆可，請裁定。
+
+### 正式 `machine_shadow_gate` 尚未執行——需要一項慣例裁定
+
+`llm_second_review.build_opinion_batch`／`machine_shadow_gate` 是
+ADR-0007 原始「API 批次呼叫」架構下的產物，要求 `model_version`（版本
+字串）與 `prompt_template`（實際送給模型的 prompt 全文，其 sha256 會
+進 `llmReviewHash`）。但 ADR-0009 裁定①之後，判讀是**session 直接判讀
+落盤**，沒有一次性 API 呼叫、也沒有單一 prompt 字串可回填——這與稽核
+鏈的既有慣例（`model.version` 誠實聲明）性質相同，但這次多一個
+`prompt_template` 欄位沒有先例。**執行室不願自行捏造這兩個會被雜湊
+永久錨定的欄位**，故本輪只完成上一節的非正式比對（純 Python 直接讀
+兩份 `judgements.json` 算歧異率，不落盤、不入鏈），未呼叫
+`build_opinion_batch`。
+
+請協調者裁定：① `model_version` 沿用 `model.version` precedent（如
+`no-dated-snapshot-exposed; judged 2026-08-15`）；② `prompt_template`
+如何誠實表示 session-native 判讀（例如填入本輪判讀慣例的文字摘要並
+如實記錄「非 API prompt，是 session 判讀規約」，或另開一個
+ADR-0009 專用的固化路徑取代 `build_opinion_batch`，不硬套 ADR-0007
+的 API 假設）。裁定後執行室可立即補跑正式 gate 並固化報告。
+
+### 下一步
+
+等待協調者對「污染四筆處置」與「正式 gate 慣例」兩項裁定；期間可
+：擁有者抽查佇列已有雛形（1 筆乾淨對立案例）、W4a-2（PDF/GROBID）
+待 M1 排入、`claude/w2-s1s2-outcome-topup` push 收尾仍在隊列尾。
+
 5 筆 advance 中 2 筆命中裁定 A 類型情境（同劑量不同 CHO 組成/型態對照，
 理由標 `[cho-type-comparison]`：實驗性運動飲料 vs 商用運動飲料等量負荷
 比較、生酮飲食適應後運動中 CHO vs 等熱量脂肪對照）；其餘 3 筆為一般
