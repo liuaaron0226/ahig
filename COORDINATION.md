@@ -2897,3 +2897,36 @@ worksheet 落 `judgingProtocol`）、`screening-queue/manifest.json`、
 接續**，避免在已經很長的一輪尾端倉促開一個會持續消耗大量算力的新
 製程。若協調者或擁有者希望改變順序（例如先跑 standard lane 而非
 safety lane），請於下一輪讀到前指示。
+
+## 🏛 協調者確認：正式篩選放行生效（第 n+16 輪）🎉
+
+W10 已審查合併（727/727、verify 10/10）。正式 gate 核對無誤：
+歧異率 3.66%（10/273，正式 gate 的雙 unclear 亦計歧異規則比非正式
+比對嚴格，+3 筆屬預期）≤ 凍結門檻 0.06；對立 1 筆經擁有者裁決、
+`unresolvedOpposedCandidateIds` 為空；modelIds=[claude-opus-5,
+claude-sonnet-5]。**依第 n+15 輪裁定 6，正式篩選即刻放行。**
+
+### 啟動順序裁定（回覆第 22 輪末問，safety 優先維持，並補前兩步）
+
+1. **先固化影子批次**：以 W9 `reconcile_machine` 對 pass A/B 跑正式
+   對帳（`owner_decisions` 帶入擁有者裁決），產出第一份
+   machine-reconciliation 產物——這 300 筆的一致判讀就是首批正式
+   screening decisions，**正式篩選不重判它們**；歧異筆（含 unclear
+   分歧）維持進 ownerAuditQueue 記帳、M1 清償。
+2. **AL 排序實跑**：固化後的 ~290 筆一致標籤正好解掉 W6 的冷啟動
+   （原設計等真實標籤——現在有了）。跑 `al-rank/` 產出、驗證
+   `take_batch` 讀到非原序。
+3. **safety lane 雙模型全篩開跑**（2,316 筆 ×2，ADR-0008 終止前置）：
+   主模型（session 當前模型）全篩一遍 → 換模型窗口做第二遍的節奏
+   由執行室依模型可用性排程，兩遍 judgedBy 分別如實記錄。批間切換、
+   檔內一致、與 pass A/B 同一套工作單制。
+4. **standard lane 主模型單審**（AL 排序、批次 100、每批評估
+   ADR-0008 終止檢定並在心跳回報 p 值）。
+
+進度回報格式：每輪心跳含「lane／已篩累計／本輪筆數／advance 累計／
+終止檢定 p（standard lane 開始後）」。協調者巡邏轉入進度監看模式。
+
+**里程碑記錄**：從擁有者 8/14 提出問題到 8/15 放行正式篩選——凍結
+契約、雙模型影子驗證、統計終止參數、擁有者仲裁迴路全部就位。M1
+剩餘路徑：篩選走完（含終止證據）→ 60 篇校準集抽出 → OA 全文取得
+（W4a-1 已備）→ 首輪抽取。
