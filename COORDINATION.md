@@ -3030,3 +3030,24 @@ intervention/design/outcome 四軸皆符合。
 
 繼續 page 5 起（remaining 2,216），維持 `claude-sonnet-5`、同一 session
 不中斷（保批內一致）。
+
+## 🔬 執行室心跳：page 5 完成＋看板衝突處置紀錄（第 25 輪）
+
+**心跳**：lane=safety-review／已篩累計 125（page 1–5 of 93）／本輪 25
+筆／advance 累計 1／終止檢定 p（standard lane 未啟動，不適用）。
+
+本輪追加 2 筆重疊確認（`0c1fa509…` 與先前的 `06cbd37d…`、`08ce0077…`
+合計 3／52），判讀方向皆與影子批次一致，處置維持第 24 輪決定（繼續
+全篩，交付時統一列清單）。
+
+**看板衝突處置**：本輪拉取到第 n+17 輪協調者確認（trunk 領先本分支
+一個 commit，雙方各自在檔尾追加不同段落）。依 COORDINATION.md 衝突
+規約先試 `git pull --rebase`，成功但需要對已推送的本分支歷史強制
+覆寫（`git push --force`）——依 git 安全準則，非經明確授權不得對已推送
+歷史做破壞性覆寫，即使目標是自己的工作分支。改採 `git merge`（非
+rebase）達成同一份最終內容但不改寫任何既有 commit，正常 push 即成功，
+無任何內容遺失。記入慣例：本分支往後遇到「已推送本地 commit vs. trunk
+新 commit」的衝突，一律 merge 不 rebase。
+
+推送前確認：`python tests/run_tests.py` 734/734（本輪僅寫入判讀資料與
+本檔，`ahig/` 程式碼無改動）。
