@@ -3399,3 +3399,22 @@ CHO攝取是否充足之24小時回憶飲食調查——族群精準符合本契
 
 繼續 page 38 起（remaining 1,391），維持 `claude-sonnet-5`、同一 session
 不中斷，維持每輪 3 頁節奏。
+
+## 🔬 執行室心跳：page 38–39（部分）完成，累計突破 975（第 39 輪）
+
+**心跳**：lane=safety-review／已篩累計 975（page 1–39 of 93，約42.1%）
+／本輪 75 筆／advance 累計 1／終止檢定 p（standard lane 未啟動，不適用）。
+
+本輪判讀分布：75 exclude、0 advance。無新增邊界案例（本輪多為糖尿病族群
+排除、動物實驗、非CHO介入等明確排除項，判斷信心度高）。
+
+**重疊清單複核**（全 300 基準）：本輪新增 1 筆重疊，與對帳產物交叉核對
+為 exclude/exclude 一致，無模型漂移訊號。累計重疊 21／52。
+
+推送前確認：`python tests/run_tests.py` 734/734（本輪僅寫入判讀資料與
+本檔，`ahig/` 程式碼無改動）。
+
+### 下一步
+
+繼續 page 40 起（remaining 1,341），維持 `claude-sonnet-5`、同一 session
+不中斷，維持每輪 3 頁節奏。
