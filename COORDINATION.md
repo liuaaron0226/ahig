@@ -2930,3 +2930,60 @@ claude-sonnet-5]。**依第 n+15 輪裁定 6，正式篩選即刻放行。**
 契約、雙模型影子驗證、統計終止參數、擁有者仲裁迴路全部就位。M1
 剩餘路徑：篩選走完（含終止證據）→ 60 篇校準集抽出 → OA 全文取得
 （W4a-1 已備）→ 首輪抽取。
+
+## 🔬 執行室回報：啟動順序步驟 1–2 完成＋safety lane 工作單就緒（第 23 輪）
+
+依第 n+16 輪裁定逐步執行，步驟 1、2 皆已在真實資料上跑通並落盤。
+
+### 1. 影子批次正式對帳（`reconcile_machine`）
+
+發現 `reconcile_machine` 尚不支援 `owner_decisions`（與 `machine_shadow_gate`
+同規格但未同步擴充），依同一套規則補齊：新增 `owner_decisions` 參數
+（沿用 `llm_second_review._validate_owner_decisions`，不重寫驗證規則）、
+`unresolvedOpposedCandidateIds`／`unresolvedOwnerAuditCandidateIds`／
+`ownerDecisions` 三個新欄位，`status` 改以「未裁決歧異」而非「原始歧異」
+為準。**schema 隨動**（`title-abstract-screening.schema.json` 新增
+`OwnerDecisionRecord` $def＋三個新必要欄位，純增補、既有 $defs 逐字未動，
+`additionalProperties:false` 逼出這次擴充必須跟 schema 一起做）。4 條新
+測試（TDD）＋突變測試（改壞 `status` 判斷驗證會轉紅）。
+
+**真實資料執行結果**：300 筆對帳 → **288 筆一致（2 advance／286
+exclude）成為首批正式 screening decisions，不重判**；12 筆進
+`ownerAuditQueue`，其中 1 筆對立（`81495123…`）經擁有者裁決後
+`unresolvedOpposedCandidateIds` 歸零，剩 11 筆維持記帳待 M1 清償。落盤於
+`AHIG_PRIVATE_ROOT/…/screening-shadow-gate/machine-reconciliation.json`，
+另複製一份到 canonical 路徑 `screening-decisions/reconciliation.json`
+供 AL 排序讀取。
+
+### 2. AL 排序首次在真實池子上跑通
+
+`active_learning._decision_labels` 原本只認人類路徑的 `resolved`／
+`decision`，讀不到機器路徑 `reconcile_machine` 產出的 `concordant`／
+`opinion`——兩者概念相同（雙審查者已一致，不需再送人審）但欄位名不同。
+補上後兩種形制都能餵冷啟動（3 條新測試＋突變測試）。
+
+**真實執行結果**：288 筆一致標籤（standard-screening lane 內 158 筆）
+**首次超過冷啟動門檻（50）並啟用 AL**，對 lane 內 9,102 筆未標記候選
+完成 TF-IDF+LinearSVC 評分重排，`al-rank/ranked-order.json`（15,425 筆，
+含其他 lane 原序）已落盤。**W6 冷啟動問題正式解除。**
+
+### 3. safety lane 工作單就緒（步驟 3 前置）
+
+`safety-full-screen-pass-1` 工作單：**2,316 筆、93 頁**（`queue.json`
+`screeningLane=="safety-review"` 全量，與看板數字一致）。判讀慣例
+延續 pass A/B（scope-contract.json PICO 逐軸核對＋裁定 A/B），safety
+lane 額外注意 GI harms／不良事件相關 outcome 的構念邊界。本輪 session
+（`claude-sonnet-5`）將擔任此工作單的第一位（也是本輪唯一一位）審查者；
+第二模型的排程依裁定交由執行室視模型可用性安排，比照 pass A→B 模式
+（換模型前需 `/clear` 保盲判）。
+
+**推送前**：`python tests/run_tests.py` 734/734、`verify --all` 10/10。
+本輪三個一次性資料腳本（gate/reconcile/AL/worksheet）皆用後即刪，
+未入 repo，符合 private-root 慣例。
+
+### 下一步
+
+93 頁的 safety lane 判讀量體遠超單輪範圍，比照 pass A/B 的「每輪數頁」
+節奏於後續 loop tick 接續（心跳含 lane／累計頁數／本輪筆數／advance
+累計，依裁定格式回報）。standard lane（AL 已就緒、batch 100、
+ADR-0008 終止）待 safety lane 全篩完成後依序啟動。
