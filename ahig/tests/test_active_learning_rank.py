@@ -357,3 +357,55 @@ def test_unclear_decisions_are_not_used_as_labels():
         {"candidateId": "c", "decision": "unclear"},
     ]}
     assert al._decision_labels(recon) == {"a": 1, "b": 0}
+
+
+# ---------------------------------------------------------------------------
+# W10 追加（第 n+16 輪步驟 1-2）：影子批次的 machine-reconciliation
+# 「concordant/opinion」形制也要能餵冷啟動，不只 human 路徑的
+# 「resolved/decision」——兩者都是「已解決的標籤」，只是欄位名不同。
+# ---------------------------------------------------------------------------
+
+def test_decision_labels_also_reads_machine_reconciliation_concordant():
+    recon = {"concordant": [
+        {"candidateId": "a", "opinion": "advance"},
+        {"candidateId": "b", "opinion": "exclude"},
+        {"candidateId": "c", "opinion": "unclear"},
+    ]}
+    assert al._decision_labels(recon) == {"a": 1, "b": 0}
+
+
+def test_decision_labels_merges_resolved_and_concordant_when_both_present():
+    recon = {
+        "resolved": [{"candidateId": "a", "decision": "advance"}],
+        "concordant": [{"candidateId": "b", "opinion": "exclude"}],
+    }
+    assert al._decision_labels(recon) == {"a": 1, "b": 0}
+
+
+def test_rerank_run_root_reads_machine_reconciliation_shape():
+    """screening-decisions/reconciliation.json 可以是 reconcile_machine
+    的產物（concordant/opinion），不是只有人類路徑的 resolved/decision。"""
+    labelled, labels = synthetic_labelled(30, 30)
+    queue = labelled + [entry(f"u-{i}", title=POSITIVE) for i in range(5)]
+    with tempfile.TemporaryDirectory() as tmp:
+        root = Path(tmp)
+        qdir = root / "screening-queue"
+        qdir.mkdir(parents=True)
+        (qdir / "queue.json").write_text(json.dumps(queue), encoding="utf-8")
+        manifest = {"runId": "test-run",
+                    "screeningQueueHash": screening.content_hash(queue),
+                    "screeningRuleVersion": screening.RULE_VERSION}
+        (qdir / "manifest.json").write_text(json.dumps(manifest),
+                                            encoding="utf-8")
+        rdir = root / "screening-decisions"
+        rdir.mkdir(parents=True)
+        (rdir / "reconciliation.json").write_text(json.dumps({
+            "concordant": [{"candidateId": cid,
+                           "opinion": "advance" if v else "exclude"}
+                          for cid, v in labels.items()]}), encoding="utf-8")
+
+        prov = al.rerank_run_root(root)
+        assert prov["alEnabled"] is True
+        order = json.loads((root / "al-rank" / "ranked-order.json")
+                           .read_text(encoding="utf-8"))
+        assert sorted(order) == sorted(e["candidateId"] for e in queue)

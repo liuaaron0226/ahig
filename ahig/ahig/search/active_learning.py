@@ -93,12 +93,25 @@ def _balanced_sample_weight(labels: list[int], ratio: float) -> list[float]:
 
 
 def _decision_labels(reconciliation: dict) -> dict[str, int]:
-    """從 screening 對帳結果取出已解決的二元標籤。"""
+    """從 screening 對帳結果取出已解決的二元標籤。
+
+    人類路徑（:func:`ahig.search.screening_decisions.reconcile`）產出
+    ``resolved``/``decision``；W9 機器路徑
+    （:func:`ahig.search.screening_decisions.reconcile_machine`）產出
+    ``concordant``/``opinion``——欄位名不同，但兩者都是「兩位審查者已經
+    一致同意、不需要再送人審」的已解決標籤，對 AL 冷啟動而言是同一件事。
+    兩個鍵都讀（一份文件通常只會有其中一個，但都支援才不用看文件是哪條
+    路徑產出的）。
+    """
     out: dict[str, int] = {}
     for decision in reconciliation.get("resolved") or []:
         label = LABEL_MAP.get(decision.get("decision"))
         if label is not None:
             out[decision["candidateId"]] = label
+    for item in reconciliation.get("concordant") or []:
+        label = LABEL_MAP.get(item.get("opinion"))
+        if label is not None:
+            out[item["candidateId"]] = label
     return out
 
 
