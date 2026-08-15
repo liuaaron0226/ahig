@@ -6527,3 +6527,116 @@ page 43 以程式比對候選數與判讀數一致（25/25）後才 append，無
 
 繼續 page 44 起（remaining 8,016），維持 `claude-opus-5[1m]`、同一
 session 不中斷。
+
+---
+
+## B.11 執行室心跳 — standard lane 主篩 page 44（第 87 輪）
+
+**時間**：2026-08-16 · **分支**：`claude/w4a1-fulltext-artifacts` ·
+**判讀者**：`claude-opus-5[1m]`（ADR-0009 裁定①，executor-session）
+
+### 進度
+
+| 項目 | raw | effective（含追溯檔） |
+|---|---|---|
+| 已判讀 | 1,100 / 9,091（page 1–44，12.10%） | 同 |
+| advance | 280 | **281** |
+| unclear | 168 | **100** |
+| exclude | 652 | **719** |
+
+本輪新增 25：**advance 0**、unclear 8、exclude 17。剩餘 7,991。
+
+### ADR-0008 檢定（effective decision，1,100 筆）
+
+```
+pScore 0.9921 · relevantFound 381 · poolSize 9091
+targetRecall 0.95 · h0MinTotalRelevant 402 · windowSize 3
+```
+
+### 本輪 advance 掛零——原因全在族群措辭
+
+44 頁以來首次單輪零 advance。**這不是候選品質問題**：本輪有四筆
+介入、對照、timing、outcome 全部合格，只因摘要未寫裁定 3 列舉的
+訓練狀態措辭而判 unclear：
+
+| candidateId | 措辭 | 設計與結果 |
+|---|---|---|
+| `7b377b58…` | **active females** | 隨機雙盲交叉，6% CHO-E vs 安慰劑，**TTE 106.2 vs 91.6 min（+16%）**，且明載腹部不適無差異 |
+| `42142fa5…` | 僅「eight healthy males」 | 水 vs CHO-E vs 牛奶 vs 牛奶+葡萄糖四臂，CHO-E vs 水為乾淨對照，TTE 110.6 vs 93.3 min |
+| `272e4bd5…` | 僅「Subjects」 | 0.4 g/kg 液態 vs 固態 vs 併用（裁定A型），命中 TT 完成時間與 CHO 氧化率 |
+| `f685b37b…` | 僅報 VO2max | 3 g/kg 13C 葡萄糖，命中 exogenous-cho-oxidation（男女比較） |
+
+`7b377b58…` 特別值得標記：**女性族群、TTE 顯著改善 16%、且明載
+腹部不適（GI 症狀，契約 critical outcome）無差異**——是少見同時
+帶表現與 GI 症狀資料的女性研究。
+
+至此措辭待確認名單已橫跨：`recreationally trained`、
+`moderately active`、`moderately trained`、`active`、
+`recreationally and competitively active`（混編）、`fitness-matched`、
+以及純數值無措辭。**本輪再 +4，累計已達兩位數規模。**
+
+裁定 3 明訂不發明數值門檻、僅報數值者送全文，我照此執行無異議；
+但單輪零 advance 顯示**這批候選的去向完全繫於 M1 的數值門檻裁定**，
+再次建議優先排程。
+
+### 裁定 78（方法學）名單增至 6 筆
+
+`51f8626c…` — **Loughborough Intermittent Shuttle Test（LIST）
+運動方案本身的信度驗證研究**（test-retest reliability）。此筆特別
+之處：它是本 lane 反覆出現的 LIST 系列研究**所使用之運動方案的
+方法學論文**，兩次試驗皆僅給水、無 CHO 介入。標 `[methodological]`
+排除，但建議 W4b 保留——**若最終納入任何 LIST 系列研究，此篇是
+其運動方案信度的引用來源**。
+
+### harm-adjacent 名單增至 19 筆
+
+`a8e2e774…` — 運動**結束 30 分鐘後**攝取 595 ml 5% 葡萄糖，測
+60 分鐘胃排空；操弄自變項為運動強度（靜息/低/高）。同時觸及
+timing 與 harm-adjacent 兩軸。
+
+### 認知/技能 outcome 型別增至 6 筆（第 86 輪請裁事項）
+
+`a53e7515…` — 15 名足球員 90 分鐘足球專項運動，**12% CHO-E vs
+電解質安慰劑 vs 水**（雙對照），outcome 含盤球技術與記憶/注意力/
+決策。此筆同時帶腹部不適資料。
+
+第 86 輪提出時 5 筆，本輪 +1。**六筆中仍只有 `b55d52f0…` 是乾淨的
+持續耐力運動**，其餘五筆皆為球類專項間歇——第 86 輪的觀察（即使
+裁定納入，實際能進主分析的可能仍只有 1 筆）在本輪得到進一步佐證。
+
+### 職業任務型運動情境累計 3 筆
+
+`5eba5f02…`（森林消防制服＋15 kg 背包，120 分鐘行走，微劑量 vs
+單次大劑量 × 水 vs CHO-E）與 `5a1f5e41…`（同研究群，口服補液鹽
+vs 運動飲料）——加上第 80 輪 `0c1450be…`（25 kg 背包負重行走），
+此型別累計 3 筆。共同特徵：**運動處方與族群都是職業任務而非
+競賽耐力運動，但介入與對照多半合格**。目前全判 unclear；若協調者
+認為職業任務不屬契約 population/exercise 範疇，這 3 筆可一併掛牌。
+
+### 本輪 exclude（17 筆）
+
+- **恢復期 6 筆**（含 6 週訓練後補充之慢性版本）、**運動前攝取
+  4 筆**、飲食/肝醣操弄 3 筆（LCHF 生酮適應、肝醣超補、運動前餐
+  GI 三臂但運動中 CHO 相同）。
+- **介入非 CHO 3 筆**：prednisolone 一週療程、苦橙+綠茶+瓜拿納
+  萃取物、血容量擴張劑靜脈輸注。
+- **阻力運動 1 筆**（2 小時阻力運動中攝取 CHO vs CHO+蛋白，
+  且唯一對比軸為蛋白添加，雙重不合格）。
+- **青少年 1 筆**（`7559c365…`，15.6 歲學院足球員）——兒童/青少年
+  排除累計 **21 筆**。
+
+`519dcc83…` 值得一記：8 名 endurance-trained runners（族群通過）、
+21-km 表現跑，但三臂操弄的是**運動前 2 小時餐的升糖指數**，三臂
+運動中皆攝取相同 6.6% CHO-E——無運動中 CHO 對比。族群軸通過卻
+敗在對照軸，與第 78 輪 `aa38201a…` 同型。
+
+### 品保與驗證
+
+page 44 以程式比對候選數與判讀數一致（25/25）後才 append，無漏判。
+追溯檔 overlay 於檢定時重新驗證，68 筆全數通過。
+`python tests/run_tests.py` **734/734 passed**（`ahig/` 程式碼零改動）。
+
+### 下一步
+
+繼續 page 45 起（remaining 7,991），維持 `claude-opus-5[1m]`、同一
+session 不中斷。
