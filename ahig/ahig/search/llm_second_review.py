@@ -46,14 +46,9 @@ def _utc_now() -> str:
     return datetime.now(timezone.utc).isoformat(timespec="seconds")
 
 
-def build_opinion_batch(queue_manifest: dict, queue: list[dict],
-                        opinions: list[dict], *, model_id: str,
-                        model_version: str, prompt_template: str) -> dict:
-    """把一批 LLM 第二意見固化成可稽核文件。
-
-    ``opinions`` 每筆：{candidateId, opinion, rawResponse}。批次綁定
-    screeningQueueHash 與 prompt 範本雜湊；prompt 修改視同換版，必須重跑
-    影子批次（ADR-0007）。
+def _build_entries(queue: list[dict], opinions: list[dict]) -> list[dict]:
+    """驗證＋固化 opinions，供 :func:`build_opinion_batch` 與
+    :func:`build_session_opinion_batch` 共用——盲化規則只能有一份定義。
     """
     queue_ids = {e["candidateId"] for e in queue}
     problems = []
@@ -91,10 +86,28 @@ def build_opinion_batch(queue_manifest: dict, queue: list[dict],
         raise LlmReviewError("LLM 意見批次無效：\n" + "\n".join(problems))
     if not entries:
         raise LlmReviewError("LLM 意見批次是空的")
+    return sorted(entries, key=lambda e: e["candidateId"])
+
+
+def build_opinion_batch(queue_manifest: dict, queue: list[dict],
+                        opinions: list[dict], *, model_id: str,
+                        model_version: str, prompt_template: str) -> dict:
+    """把一批 LLM 第二意見固化成可稽核文件（ADR-0007 原始 API 呼叫路徑）。
+
+    ``opinions`` 每筆：{candidateId, opinion, rawResponse}。批次綁定
+    screeningQueueHash 與 prompt 範本雜湊；prompt 修改視同換版，必須重跑
+    影子批次（ADR-0007）。
+
+    ADR-0009 裁定①之後的 session-native 判讀沒有單一 prompt 字串可回填，
+    改用 :func:`build_session_opinion_batch`——兩者產出的批次形制相容，
+    都能直接餵給 :func:`machine_shadow_gate`（W10，第 n+15 輪裁定 4）。
+    """
+    entries = _build_entries(queue, opinions)
     batch = {
         "documentType": "llm-second-review-batch",
         "schemaVersion": "1.0.0",
         "adr": "ADR-0007",
+        "judgeMode": "api-prompt",
         "screeningQueueHash": queue_manifest["screeningQueueHash"],
         "runId": queue_manifest["runId"],
         "model": {"id": model_id, "version": model_version},
@@ -103,12 +116,64 @@ def build_opinion_batch(queue_manifest: dict, queue: list[dict],
             prompt_template.encode("utf-8")).hexdigest(),
         "blindedToHumanDecisions": True,
         "opinionCount": len(entries),
-        "entries": sorted(entries, key=lambda e: e["candidateId"]),
+        "entries": entries,
         "createdAt": _utc_now(),
     }
     batch["llmReviewHash"] = content_hash(
         {key: batch[key] for key in
          ("screeningQueueHash", "model", "promptTemplateSha256", "entries")})
+    return batch
+
+
+_JUDGING_PROTOCOL_REQUIRED_KEYS = (
+    "scopeContractSha256", "worksheetSha256", "boardReference")
+
+
+def build_session_opinion_batch(queue_manifest: dict, queue: list[dict],
+                                opinions: list[dict], *, model_id: str,
+                                model_version: str,
+                                judging_protocol: dict) -> dict:
+    """把一批 session-native 第二意見固化成可稽核文件（W10，ADR-0009 裁定①）。
+
+    ADR-0009 裁定①把正式判讀器定為 session 本身：逐頁讀 worksheet、
+    直接寫判讀理由落盤，沒有一次性 API 呼叫、也沒有單一 prompt 字串可
+    回填。硬套 :func:`build_opinion_batch` 的 ``prompt_template`` 欄位
+    等於編造——第 n+15 輪裁定改用 ``judging_protocol`` 這個真實治理物
+    取代：scope contract 版本雜湊、worksheet 內容雜湊、看板判讀慣例段落
+    引用，三者合起來才是「這次判讀照什麼規則做」的完整聲明，雜湊入鏈的
+    是這個，不是假造的 prompt。
+
+    產出的批次與 :func:`build_opinion_batch` 形制相容（同樣有
+    ``screeningQueueHash``／``llmReviewHash``／``model``／``entries``），
+    :func:`machine_shadow_gate` 不分軒輊，兩種批次可任意配對比對。
+    """
+    missing = [k for k in _JUDGING_PROTOCOL_REQUIRED_KEYS
+              if not (isinstance(judging_protocol, dict)
+                      and str(judging_protocol.get(k) or "").strip())]
+    if missing:
+        raise LlmReviewError(
+            f"judging_protocol 缺必要欄位 {missing}——"
+            "session-native 判讀的治理聲明必須完整才能取代 prompt 雜湊")
+    entries = _build_entries(queue, opinions)
+    protocol_hash = content_hash(judging_protocol)
+    batch = {
+        "documentType": "llm-second-review-batch",
+        "schemaVersion": "1.0.0",
+        "adr": "ADR-0009",
+        "judgeMode": "session-native",
+        "screeningQueueHash": queue_manifest["screeningQueueHash"],
+        "runId": queue_manifest["runId"],
+        "model": {"id": model_id, "version": model_version},
+        "judgingProtocol": judging_protocol,
+        "judgingProtocolHash": protocol_hash,
+        "blindedToHumanDecisions": True,
+        "opinionCount": len(entries),
+        "entries": entries,
+        "createdAt": _utc_now(),
+    }
+    batch["llmReviewHash"] = content_hash(
+        {key: batch[key] for key in
+         ("screeningQueueHash", "model", "judgingProtocolHash", "entries")})
     return batch
 
 
@@ -160,11 +225,46 @@ def shadow_gate(human_decisions: dict[str, str], batch: dict, *,
     }
 
 
+def _validate_owner_decisions(owner_decisions: dict[str, dict],
+                              disagreements: Sequence[str]) -> None:
+    """裁決紀錄結構檢查（W10，第 n+15 輪裁定 4(b)）。
+
+    裁決只能記在真正有歧異的紀錄上——對一致意見記裁決沒有意義，也可能
+    是誤植；裁決人必須是 ``owner``（ADR-0009 原則 5：歧異只能由擁有者
+    裁決，執行室只能代錄擁有者透過協調室轉達的決定，不能自己裁決）。
+    """
+    disagreement_set = set(disagreements)
+    for cid, record in owner_decisions.items():
+        if cid not in disagreement_set:
+            raise LlmReviewError(
+                f"擁有者裁決[{cid}] 不在歧異清單內——只有真正有歧異的紀錄"
+                "才需要裁決")
+        if not isinstance(record, dict):
+            raise LlmReviewError(f"擁有者裁決[{cid}] 必須是物件")
+        if record.get("decidedBy") != "owner":
+            raise LlmReviewError(
+                f"擁有者裁決[{cid}] decidedBy 必須是 'owner'（ADR-0009 原則 5："
+                "歧異只能由擁有者裁決，執行室只能代錄）")
+        if record.get("decision") not in OPINIONS:
+            raise LlmReviewError(
+                f"擁有者裁決[{cid}] decision 必須是 {OPINIONS}，"
+                f"得到 {record.get('decision')!r}")
+        if not (isinstance(record.get("decidedAt"), str)
+                and record["decidedAt"].strip()):
+            raise LlmReviewError(f"擁有者裁決[{cid}] 缺 decidedAt 時間戳")
+        if not (isinstance(record.get("reasonShort"), str)
+                and record["reasonShort"].strip()):
+            raise LlmReviewError(f"擁有者裁決[{cid}] 缺 reasonShort 短理由")
+
+
 def machine_shadow_gate(primary_batch: dict, secondary_batch: dict, *,
                         max_disagreement_rate: float =
                         DEFAULT_MAX_DISAGREEMENT_RATE,
-                        rate_candidate_ids: Sequence[str] | None = None) -> dict:
-    """機-機影子門檻（ADR-0009 對 ADR-0007 的修訂，W8 兌現）。
+                        rate_candidate_ids: Sequence[str] | None = None,
+                        owner_decisions: dict[str, dict] | None = None
+                        ) -> dict:
+    """機-機影子門檻（ADR-0009 對 ADR-0007 的修訂，W8 兌現；W10 擴充擁有者
+    裁決紀錄，第 n+15 輪裁定 4(b)）。
 
     ADR-0009 把「人單審全量」改為「主模型判讀全量＋第二模型盲判」，門檻
     邏輯保留但比較對象從人-機改為機-機。與 :func:`shadow_gate` 的關鍵差異：
@@ -175,6 +275,12 @@ def machine_shadow_gate(primary_batch: dict, secondary_batch: dict, *,
     這是最嚴重的歧異型態（方向相反，不是一方猶豫）。
 
     這些對立筆數不會被自動裁決，一律進擁有者抽查佇列（ADR-0009 原則 5）。
+    ``owner_decisions``（W10 新增）記錄擁有者對特定歧異筆的實際裁決
+    （每筆須含 decidedBy/decision/decidedAt/reasonShort）——這**不是自動
+    裁決**，是把已經發生在看板／協調室的擁有者決定如實記到報告裡；只有
+    已裁決的對立筆會從 ``unresolvedOpposedCandidateIds`` 移除並解除
+    verdict 否決，未裁決的歧異筆（含未裁決對立）仍全數留在
+    ``ownerAuditQueue`` 且不影響 ``disagreementRate`` 的統計。
 
     ``rate_candidate_ids`` 給分層影子批次用：批次為了覆蓋稀有分層會補位，
     那段刻意過度取樣，算進歧異率分母會讓比率偏離母體。傳入純隨機子集後，
@@ -220,7 +326,12 @@ def machine_shadow_gate(primary_batch: dict, secondary_batch: dict, *,
     disagreements = sorted(cid for cid in primary if _disagrees(cid))
     rate_disagreements = sorted(cid for cid in rate_ids if _disagrees(cid))
     rate = len(rate_disagreements) / len(rate_ids)
-    passed = not opposed and rate <= max_disagreement_rate
+
+    owner_decisions = owner_decisions or {}
+    _validate_owner_decisions(owner_decisions, disagreements)
+    unresolved_opposed = sorted(set(opposed) - set(owner_decisions))
+
+    passed = not unresolved_opposed and rate <= max_disagreement_rate
     return {
         "documentType": "machine-shadow-gate-report",
         "adr": "ADR-0009",
@@ -232,6 +343,7 @@ def machine_shadow_gate(primary_batch: dict, secondary_batch: dict, *,
         "secondaryModel": secondary_batch["model"],
         "shadowSampleSize": len(primary),
         "opposedCandidateIds": opposed,
+        "unresolvedOpposedCandidateIds": unresolved_opposed,
         "disagreementCandidateIds": disagreements,
         "disagreementRate": rate,
         "disagreementRateDenominator": len(rate_ids),
@@ -240,12 +352,15 @@ def machine_shadow_gate(primary_batch: dict, secondary_batch: dict, *,
         "maxDisagreementRate": max_disagreement_rate,
         "verdict": "pass" if passed else "fail",
         "ownerAuditQueue": disagreements,
+        "ownerDecisions": owner_decisions,
         "consequence": ("允許進入正式篩選；歧異筆數仍須進擁有者抽查佇列"
                         if passed else
-                        "不得進入正式篩選：對立判讀或歧異率超標，"
-                        "需檢討 prompt／模型後重跑影子批次"),
+                        "不得進入正式篩選：仍有未裁決的對立判讀，或歧異率"
+                        "超標——後者需檢討判讀慣例／模型後重跑影子批次"),
         "note": ("機-機比較沒有金標準：對立（一方 advance、一方 exclude）"
-                 "是對稱認定，不預設哪個模型是對的。"),
+                 "是對稱認定，不預設哪個模型是對的。owner_decisions 只是"
+                 "如實記錄已發生的擁有者裁決，不是自動裁決——未裁決的歧異"
+                 "筆（含未裁決對立）仍全數留在 ownerAuditQueue。"),
         "evaluatedAt": _utc_now(),
     }
 
