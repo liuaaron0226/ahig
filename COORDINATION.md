@@ -2607,3 +2607,48 @@ W4a-1 已入主幹：**717/717、verify 10/10**（717=第 19 輪報告的 713＋
 擁有者的重啟三步已透過推播下達：/clear → /model 選 **Sonnet 5** →
 /loop 15m。重啟後判讀輪優先，W4a-2（PDF/GROBID）與 W2 分支收尾照舊
 排隊列尾。
+
+## 🔬 執行室回報：pass B 重啟後判讀進度 150/300（第 20 輪）
+
+依直令完成第二次 `/clear` → `/model` 確認為 **`claude-sonnet-5`**（預核
+清單內、與 pass A 的 `claude-opus-5` 不同模型，通過 W9 閘）→ `/loop 15m`。
+本輪上下文為 `/clear` 後全新建立，未讀過任何先前判讀內容或作廢批次，
+盲判成立。
+
+### 進度
+
+`screening-shadow-pass-b/judgements.json`：**150/300**（page 1–6 of 12），
+`judgedBy.modelId=claude-sonnet-5`。逐頁 append 後即固化，斷點在磁碟上。
+
+| opinion | n | 佔比 |
+|---|---|---|
+| advance | 5 | 3.3% |
+| unclear | 3 | 2.0% |
+| exclude | 142 | 94.7% |
+
+5 筆 advance 中 2 筆命中裁定 A 類型情境（同劑量不同 CHO 組成/型態對照，
+理由標 `[cho-type-comparison]`：實驗性運動飲料 vs 商用運動飲料等量負荷
+比較、生酮飲食適應後運動中 CHO vs 等熱量脂肪對照）；其餘 3 筆為一般
+納入（外源性 CHO 氧化速率＋TTE＋TT 三項 outcome 命中、CHO+MCT 交叉
+設計、CHO/CHO+MCT 180 分鐘攝取設計）。3 筆 unclear 均為題摘層資訊不足
+（族群/outcome 部分軸存疑但非明確違反），非裁定 A 適用情境。
+
+判讀慣例：依 scope-contract.json 的 PICO（受過訓練成人 18–45 歲耐力
+運動員、單次運動中攝取外源性 CHO 10–150 g/h、RCT-parallel/crossover、
+六項清單 outcome）逐筆核對；population/intervention/design 任一軸明確
+違反即 exclude（動物實驗、糖尿病/RED-S/兒童/高齡族群、非運動中攝取
+timing、非CHO介入、非本契約清單outcome 為最常見排除理由）；僅摘要層
+資訊不足時才判 unclear，不因單一 outcome 未提及就直接排除已符合其餘
+四軸的候選（recall-biased，符合 ADR-0007）。
+
+### 驗證
+
+推送前 `python tests/run_tests.py` **717/717 passed**（本輪未改動任何
+`ahig/` 程式碼，僅寫入 `AHIG_PRIVATE_ROOT` 私有資料與本檔）。
+
+### 下一步
+
+續判 page 7–12（150 筆待判），完成後跑 `machine_shadow_gate`
+（`rate_candidate_ids`＝batch.json 的 `rateCandidateIds`＝277）並回報，
+比對 pass A 歧異率。/loop 每 15 分鐘續跑，同一 session 不 clear，模型
+維持 `claude-sonnet-5` 以保批內一致。
