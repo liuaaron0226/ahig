@@ -6402,3 +6402,128 @@ page 42 以程式比對候選數與判讀數一致（25/25）後才 append，無
 繼續 page 43 起（remaining 8,041），並於下一輪心跳正式提列
 「認知/技能 outcome」請裁事項。維持 `claude-opus-5[1m]`、同一
 session 不中斷。
+
+---
+
+## B.11 執行室心跳 — standard lane 主篩 page 43（第 86 輪）
+
+**時間**：2026-08-16 · **分支**：`claude/w4a1-fulltext-artifacts` ·
+**判讀者**：`claude-opus-5[1m]`（ADR-0009 裁定①，executor-session）
+
+### 進度
+
+| 項目 | raw | effective（含追溯檔） |
+|---|---|---|
+| 已判讀 | 1,075 / 9,091（page 1–43，11.82%） | 同 |
+| advance | 280 | **281** |
+| unclear | 160 | **92** |
+| exclude | 635 | **702** |
+
+本輪新增 25：advance 3、unclear 7、exclude 15。剩餘 8,016。
+
+### ADR-0008 檢定（effective decision，1,075 筆）
+
+```
+pScore 1.0 · relevantFound 373 · poolSize 9091
+targetRecall 0.95 · h0MinTotalRelevant 393 · windowSize 0
+```
+
+## 🏛 新請裁事項：認知/技能 outcome 是否納入（第 85 輪預告，本輪正式提列）
+
+### 問題
+
+契約 outcome 清單為 TT 完成時間（critical）、TTE、外源性 CHO
+氧化峰值、GI 症狀發生率（critical）與嚴重度、肌肉肝醣（supporting）。
+**認知功能與運動技能不在其中**。但本 lane 已累積 5 筆研究：介入
+（運動中攝取 CHO）、對照（安慰劑或水）、timing 全部合格，唯一
+不合格處是 outcome。
+
+### 名單（5 筆）
+
+| candidateId | 族群 | outcome |
+|---|---|---|
+| `b55d52f0…` | 8 名 **well-trained triathletes** | 單一與選擇反應時間（100 分鐘通氣閾跑步） |
+| `b87b7de9…` | 12 名羽球選手 | 發球準確度、預期時間判斷、選擇反應時間 |
+| `caacd4e9…` | 20 名球類經驗男女 | 認知功能、運動技能、情緒（籃球型態折返跑） |
+| `17739030…` | 85 名 active 男性 | **Stroop 認知彈性＋腦部氧合**（含水對照、四種 CHO 來源） |
+| `4fd79b8b…` | 17 名足球員 | Loughborough 傳球技能測驗（明載 52 g/h） |
+
+### 三個可能的裁法與我的觀察
+
+1. **一律排除**（比照裁定 4 之 harm-adjacent 處理）——判準明確、
+   可掛牌保底，且與「契約清單是窮舉」的既有精神一致。
+2. **僅收 well-trained 且為持續耐力運動者**——名單中只有
+   `b55d52f0…` 完全符合（well-trained triathletes、100 分鐘持續
+   跑步），其餘四筆另有運動型態或族群問題。此裁法實際只收 1 筆。
+3. **納入 outcome 構念**——需擴充契約，影響面不只這 5 筆。
+
+**我的觀察**：這 5 筆中有 4 筆同時卡在運動型態（球類專項間歇），
+只有 `b55d52f0…` 是乾淨的持續耐力運動。也就是說**即使裁定納入
+認知 outcome，實際能進主分析的可能仍只有 1 筆**。若協調者傾向
+省時，裁法 1（一律排除＋掛牌）的成本效益最高，我會比照 harm-adjacent
+維護名單。本輪先依既有判準全數保持 unclear，等候裁示。
+
+### 本輪 advance（3 筆）——族群措辭明確者
+
+- `aaf36be5…` — **16 名 experienced marathoners**，3 小時 70%VO2max
+  跑步，1 L/h CHO vs 安慰劑，含**股外側肌切片之 muscle-glycogen**
+  （supporting outcome）。
+- `41509a23…` — **8 名 endurance-trained men（VO2max 59.5）**，熱環境
+  35°C，**同一研究在 60% 與 73%VO2max 各做一組力竭試驗**，6.4%
+  麥芽糊精 vs 安慰劑，TTE 分別改善 14.5% 與 13.5%。**單一研究涵蓋
+  兩種運動強度**，對強度分層分析有價值，已標註。
+- `b7e2fe0c…` — 720 kJ 計時賽，海平面 vs **4,300 m 高地**且處於
+  能量赤字（約 1,250 kcal/日），雙盲 10% 葡萄糖 vs 安慰劑，
+  **命中 critical outcome tt-completion-time**（ALT3：80 vs 105 min，
+  ALT10：77 vs 90 min，皆 p<0.01）。族群措辭為 fitness-matched men
+  （含糊），但依既有「命中 critical outcome 者送全文」判準 advance，
+  族群待全文確認。
+
+### 措辭待確認名單再增（裁定 62 相關）
+
+本輪新增三種措辭：**「recreationally and competitively active」
+混編**（`8b9fdaae…`，76 名受試同時涵蓋兩類）、**「fitness-matched
+men」**（`b7e2fe0c…`）、無措辭僅報數值再 +2。
+
+`8b9fdaae…` 的混編尤其棘手：同一研究的受試群同時包含 recreational
+與 competitive，若依裁定 3 逐詞判定會自相矛盾（一詞排除、一詞通過）。
+本輪判 unclear 送全文，請協調者在給措辭規則時一併說明混編族群的
+處理方式。
+
+### 一筆高品質但卡在措辭的裁定A型研究
+
+`26b8590f…`（1986）——180min@50%VO2max，運動中攝取 **水 vs 13C
+葡萄糖 vs 13C 果糖**（140 g、7% 溶液、全程均勻分配，約 47 g/h），
+outcome 命中 **exogenous-cho-oxidation**（葡萄糖 106 g / 75%
+vs 果糖 79 g / 56%）。同劑量不同醣類＋水對照，是標準的裁定A型設計，
+外源性氧化數據完整。唯一問題是族群僅寫「seven healthy male
+volunteers」。已列入措辭待確認名單，建議 W4b 與前述低劑量兩筆
+併案處理。
+
+### harm-adjacent 名單增至 18 筆
+
+| candidateId | 一句摘要 |
+|---|---|
+| `289735f3…` | 熱環境跑步中攝取 27 g CHO 凝膠 vs 安慰劑之**內毒素、I-FABP 與細胞激素**（腸道損傷/發炎） |
+| `58800136…` | 8 名 trained runners 不同強度下之**主動/被動腸道葡萄糖吸收**（3-O-甲基葡萄糖與 D-木糖尿排泄） |
+
+`58800136…` 的特殊處：攝取物是**不可代謝的葡萄糖類似物**而非能量
+受質，嚴格說連「外源性 CHO 攝取」都不成立，但因其量測的是腸道
+吸收功能，仍歸入同一名單供 M1 評估。
+
+### 本輪 exclude 其餘（13 筆）
+
+運動前攝取 5 筆、恢復期 6 筆（本輪最大宗）、慢性飲食操弄 1 筆
+（28 天高 vs 中 CHO，且運動中兩組皆僅給水）、介入非 CHO 1 筆
+（**奎寧苦味劑漱口並吞服**，四臂皆不含 CHO，運動為 30 秒衝刺）。
+
+### 品保與驗證
+
+page 43 以程式比對候選數與判讀數一致（25/25）後才 append，無漏判。
+追溯檔 overlay 於檢定時重新驗證，68 筆全數通過。
+`python tests/run_tests.py` **734/734 passed**（`ahig/` 程式碼零改動）。
+
+### 下一步
+
+繼續 page 44 起（remaining 8,016），維持 `claude-opus-5[1m]`、同一
+session 不中斷。
