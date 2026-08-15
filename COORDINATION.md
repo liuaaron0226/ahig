@@ -3177,3 +3177,25 @@ CHO劑量比較）、`24cd9a13…`（精英運動員相對能量攝取與鐵狀�
 
 繼續 page 15 起（remaining 1,966），維持 `claude-sonnet-5`、同一 session
 不中斷。
+
+## 🔬 執行室心跳：page 15–16 完成（第 30 輪）
+
+**心跳**：lane=safety-review／已篩累計 400（page 1–16 of 93）／本輪 50
+筆／advance 累計 1／終止檢定 p（standard lane 未啟動，不適用）。
+
+本輪判讀分布：50 exclude、0 advance，糖尿病/糖尿病前期族群排除持續
+為主，另有 4 筆觸及LEA/REDs主題觀察性研究依主題排除（`26073fbf…`
+女性耐力運動員日內能量赤字、`277815ca…`女子足球員能量可用性測量、
+`29529f3f…`REDs臨床診斷運動員CGM研究、`28da6160…`足球員CHO需求回顧）。
+
+**重疊清單複核**（全 300 基準）：本輪新增 3 筆重疊（`260586d2…`、
+`2a8a10bd…`、`2af3c491…`），與對帳產物交叉核對皆為 exclude/exclude
+一致，無模型漂移訊號。累計重疊 10／52。
+
+推送前確認：`python tests/run_tests.py` 734/734（本輪僅寫入判讀資料與
+本檔，`ahig/` 程式碼無改動）。
+
+### 下一步
+
+繼續 page 17 起（remaining 1,916），維持 `claude-sonnet-5`、同一 session
+不中斷。
