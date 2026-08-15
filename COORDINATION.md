@@ -3977,3 +3977,86 @@ page_size 25、out-name `safety-full-screen-pass-2`。
    COORDINATION.md」）。**termination 前置不變**：standard lane 的
    終止裁定必須等 safety 兩遍＋固化完成，先到先等。
 4. 澄清①記檔：modelId 相異閘語意正確，opus[1m] ≠ sonnet。
+
+## 🔬 執行室心跳：standard lane 主模型單審啟動，累計 75（第 58 輪）
+
+**心跳**：lane=standard-screening／已篩累計 75（page 1–3 of 364）／本輪
+75 筆／advance 累計 52／終止檢定 **p = 1.0**（視窗大小 0，遠未達
+α=0.05，繼續篩）。
+
+裁定（第 n+25 輪）②照辦：本 session（Opus，對 standard 候選無污染）
+即刻啟動 standard lane 主模型單審。
+
+### 工作單建立
+
+`standard-full-screen-pass-1`：**9,091 筆、364 頁**（page_size 25）。
+組成 = queue.json `screeningLane=="standard-screening"` 全量 9,260
+**扣除**已固化的 158 筆 concordant 與 11 筆 ownerAuditQueue（皆屬
+standard lane），符合裁定「已固化的 288 筆不重判」。順序取
+`al-rank/ranked-order.json`（W6 AL 重排）於 lane 內的投影，非 queue
+原序——AL 高分者先判即終止檢定的前提。`judgedBy.modelId =
+claude-opus-5[1m]`。
+
+### 本輪判讀分布（75 筆）
+
+| opinion | n | 佔比 |
+|---|---|---|
+| advance | 52 | 69.3% |
+| unclear | 10 | 13.3% |
+| exclude | 13 | 17.3% |
+
+**與 safety lane 的分布完全相反**（safety 是 2314 exclude / 2 advance），
+這正是 AL 排序生效的訊號：前三頁幾乎全是 Jeukendrup 系列的外源性
+CHO 氧化經典 RCT（glucose+fructose 多重轉運、gel/bar/drink 型態對照、
+劑量-反應設計），population/intervention/design/outcome 四軸直接命中。
+
+### 排除與 unclear 的理由分布（值得記錄的判讀邊界）
+
+**exclude 13 筆**分三類，均依既有先例：
+- **timing 非運動中**（6 筆）：運動前 30 分鐘/5 分鐘攝取、運動後
+  恢復期肝醣再合成（延續 precedent `47fdd027`）。
+- **對照軸非契約 comparator**（4 筆）：兩臂 CHO 攝取相同、操弄的是
+  運動前肝醣狀態、環境溫度（16 vs 35°C）、或運動前 3 天高低醣飲食
+  ——契約 comparator 限 placebo／no-intervention／dose-comparison。
+- **文獻型態/設計**（3 筆）：博士論文為多篇已獨立收錄之研究彙編
+  （納入會重複計數）、單一受試者 case report。
+
+**unclear 10 筆**主要是一種型態：**運動中 CHO 攝取相同、操弄別的
+自變項**（訓練狀態 trained vs untrained 組間比較 2 筆、運動模式
+騎車 vs 跑步、咖啡因劑量、補液量、靜脈輸注對照 2 筆）。這些的
+CHO 臂本身劑量合格且 outcome 命中，但是否構成契約要求的對照設計
+需全文確認——依 recall-biased 原則不逕行排除。
+
+### 一項待記錄的判讀慣例（沿用既有裁定，非新規則）
+
+裁定 A（同總劑量、不同醣類組成/型態）在本 lane 觸發頻率極高：
+glucose vs fructose vs sucrose vs maltose vs trehalose vs galactose、
+gel vs drink vs bar vs chew、水膠 vs 標準溶液、高低分子量聚合物——
+本輪 52 筆 advance 中約 30 筆屬此型。另依協調者第 n+15 輪裁定 3，
+CHO vs 等熱量非醣營養素（MCT/酮酯）**不**適用裁定 A，本輪遇到 3 筆
+（MCT 系列、ketone monoester），皆以「該研究另有合格的 CHO vs
+placebo 或 CHO 劑量臂」為由 advance，非以裁定 A 為由。
+
+### 終止檢定（ADR-0008）
+
+`p_score(labels, n_total=9091)` → **p = 1.0**，`windowSize = 0`
+（最後一篇相關就在本批尾端，連續非相關尾段長度為 0）、
+`h0MinTotalRelevant = 66`。AL 把相關文獻排在最前面，終止檢定在
+lane 前段本來就不可能觸發——這是預期行為，非異常。有意義的 p 值
+要等 AL 尾段連續 exclude 累積後才會出現。
+
+**另註前置條件**：依裁定「termination 前置不變」，即使日後 p < α，
+終止裁定仍須等 safety 兩遍＋固化完成，先到先等。
+
+品保：每頁 append 前以程式比對候選數與判讀數一致（25/25 ×3）後才
+寫入，無漏判。
+
+推送前確認：`python tests/run_tests.py` **734/734 passed**（本輪僅
+寫入判讀資料與本檔，`ahig/` 程式碼零改動）。
+
+### 下一步
+
+繼續 page 4 起（remaining 9,016），維持 `claude-opus-5[1m]`、同一
+session 不中斷，採時間盒節奏（約12分鐘/輪）。批次計數依裁定為 100，
+本模組工作單 page_size 為 25，故以 4 頁＝1 批次對齊裁定的批次語意，
+每滿一批評估一次終止檢定並於心跳報 p 值。
