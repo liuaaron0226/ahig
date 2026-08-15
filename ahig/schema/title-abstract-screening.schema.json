@@ -395,6 +395,17 @@
         }
       }
     },
+    "OwnerDecisionRecord": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["decidedBy", "decision", "decidedAt", "reasonShort"],
+      "properties": {
+        "decidedBy": {"const": "owner"},
+        "decision": {"enum": ["advance", "exclude", "unclear"]},
+        "decidedAt": {"type": "string", "minLength": 1},
+        "reasonShort": {"type": "string", "minLength": 1}
+      }
+    },
     "MachineCounts": {
       "type": "object",
       "additionalProperties": false,
@@ -411,7 +422,7 @@
     "MachineReconciliation": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["documentType", "schemaVersion", "adr", "reconciliationId", "assignmentId", "runId", "screeningQueueHash", "candidateSetHash", "reviewIds", "reviewerIds", "modelIds", "judgedBy", "evidenceGrade", "status", "concordant", "ownerAuditQueue", "opposedCandidateIds", "counts", "assignmentCoversQueue", "candidateSourcesComplete", "machineTitleAbstractScreeningComplete", "machineScreeningReleased", "eligibleSamplingPoolReady", "blockingReasons", "nextStage", "completedAt", "reconciliationHash", "documentFreezeStatus"],
+      "required": ["documentType", "schemaVersion", "adr", "reconciliationId", "assignmentId", "runId", "screeningQueueHash", "candidateSetHash", "reviewIds", "reviewerIds", "modelIds", "judgedBy", "evidenceGrade", "status", "concordant", "ownerAuditQueue", "opposedCandidateIds", "unresolvedOpposedCandidateIds", "unresolvedOwnerAuditCandidateIds", "ownerDecisions", "counts", "assignmentCoversQueue", "candidateSourcesComplete", "machineTitleAbstractScreeningComplete", "machineScreeningReleased", "eligibleSamplingPoolReady", "blockingReasons", "nextStage", "completedAt", "reconciliationHash", "documentFreezeStatus"],
       "properties": {
         "documentType": {"const": "title-abstract-machine-reconciliation"},
         "schemaVersion": {"const": "1.0.0"},
@@ -464,6 +475,20 @@
           "type": "array",
           "uniqueItems": true,
           "items": {"type": "string", "minLength": 1}
+        },
+        "unresolvedOpposedCandidateIds": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"type": "string", "minLength": 1}
+        },
+        "unresolvedOwnerAuditCandidateIds": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"type": "string", "minLength": 1}
+        },
+        "ownerDecisions": {
+          "type": "object",
+          "additionalProperties": {"$ref": "#/$defs/OwnerDecisionRecord"}
         },
         "counts": {"$ref": "#/$defs/MachineCounts"},
         "assignmentCoversQueue": {"type": "boolean"},

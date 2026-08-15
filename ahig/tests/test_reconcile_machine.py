@@ -540,3 +540,84 @@ def test_machine_reconciliation_write_is_immutable_and_private_root_bound():
             assert_rejected(
                 lambda: screening_decisions.write_reconciliation(outside, result),
                 "AHIG_PRIVATE_ROOT")
+
+
+# ---------------------------------------------------------------------------
+# W10 追加：reconcile_machine 的擁有者裁決紀錄（第 n+16 輪，步驟 1）
+# ---------------------------------------------------------------------------
+
+def owner_record(decision="advance"):
+    return {"decidedBy": "owner", "decision": decision,
+            "decidedAt": "2026-08-15", "reasonShort": "recall 優先，全文再核"}
+
+
+def test_reconcile_owner_decision_resolves_opposed_and_flips_status():
+    manifest, queue, assignment = assignment_fixture()
+    primary = machine_review(assignment, "model-a", MODEL_A, [
+        judgement("c1", "advance"), judgement("c2", "exclude"),
+        judgement("c3", "exclude"), judgement("c4", "exclude"),
+    ])
+    secondary = machine_review(assignment, "model-b", MODEL_B, [
+        judgement("c1", "exclude"), judgement("c2", "exclude"),
+        judgement("c3", "exclude"), judgement("c4", "exclude"),
+    ])
+    without = screening_decisions.reconcile_machine(
+        manifest, queue, assignment, primary, secondary)
+    assert without["status"] == "needs-owner-audit"
+    assert without["unresolvedOpposedCandidateIds"] == ["c1"]
+    assert without["unresolvedOwnerAuditCandidateIds"] == ["c1"]
+
+    with_decision = screening_decisions.reconcile_machine(
+        manifest, queue, assignment, primary, secondary,
+        owner_decisions={"c1": owner_record()})
+    assert with_decision["opposedCandidateIds"] == ["c1"]
+    assert with_decision["unresolvedOpposedCandidateIds"] == []
+    assert with_decision["unresolvedOwnerAuditCandidateIds"] == []
+    assert with_decision["ownerDecisions"] == {"c1": owner_record()}
+    assert with_decision["status"] == "concordant"
+    # 裁決不改變佇列本身——只多記一份已發生的裁決事實。
+    assert with_decision["ownerAuditQueue"] == without["ownerAuditQueue"]
+
+
+def test_reconcile_owner_decision_rejects_candidate_outside_audit_queue():
+    manifest, queue, assignment = assignment_fixture()
+    primary, secondary = machine_pair(assignment, all_agree("exclude"),
+                                      all_agree("exclude"))
+    assert_rejected(lambda: screening_decisions.reconcile_machine(
+        manifest, queue, assignment, primary, secondary,
+        owner_decisions={"c1": owner_record()}), "c1")
+
+
+def test_reconcile_owner_decision_rejects_non_owner_decider():
+    manifest, queue, assignment = assignment_fixture()
+    primary = machine_review(assignment, "model-a", MODEL_A, [
+        judgement("c1", "advance"), judgement("c2", "exclude"),
+        judgement("c3", "exclude"), judgement("c4", "exclude"),
+    ])
+    secondary = machine_review(assignment, "model-b", MODEL_B, [
+        judgement("c1", "exclude"), judgement("c2", "exclude"),
+        judgement("c3", "exclude"), judgement("c4", "exclude"),
+    ])
+    bad = {**owner_record(), "decidedBy": "executor-session"}
+    assert_rejected(lambda: screening_decisions.reconcile_machine(
+        manifest, queue, assignment, primary, secondary,
+        owner_decisions={"c1": bad}), "owner")
+
+
+def test_reconcile_owner_decisions_default_empty_preserves_prior_behaviour():
+    manifest, queue, assignment = assignment_fixture()
+    primary, secondary = machine_pair(
+        assignment,
+        [judgement("c1", "advance"), judgement("c2", "advance"),
+         judgement("c3", "unclear"), judgement("c4", "exclude")],
+        [judgement("c1", "advance"), judgement("c2", "exclude"),
+         judgement("c3", "exclude"), judgement("c4", "unclear")])
+    no_arg = screening_decisions.reconcile_machine(
+        manifest, queue, assignment, primary, secondary,
+        completed_at="2026-08-14T14:00:00Z")
+    empty_arg = screening_decisions.reconcile_machine(
+        manifest, queue, assignment, primary, secondary,
+        completed_at="2026-08-14T14:00:00Z", owner_decisions={})
+    assert no_arg == empty_arg
+    assert no_arg["ownerDecisions"] == {}
+    assert no_arg["unresolvedOpposedCandidateIds"] == no_arg["opposedCandidateIds"]

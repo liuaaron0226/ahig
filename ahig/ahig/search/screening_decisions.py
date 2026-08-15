@@ -28,6 +28,7 @@ from ahig.search.llm_second_review import (
     _FORBIDDEN_ENTRY_KEYS as _FORBIDDEN_JUDGEMENT_KEYS,
 )
 from ahig.search.llm_second_review import OPINIONS as MACHINE_OPINIONS
+from ahig.search.llm_second_review import _validate_owner_decisions
 from ahig.state import atomic_write_json
 
 
@@ -341,7 +342,8 @@ def _validate_machine_binding(manifest: dict, queue: list[dict], assignment: dic
 
 def reconcile_machine(manifest: dict, queue: list[dict], assignment: dict,
                       review_a: dict, review_b: dict, *,
-                      completed_at: str | None = None) -> dict:
+                      completed_at: str | None = None,
+                      owner_decisions: dict[str, dict] | None = None) -> dict:
     """對帳兩位 LLM 審查者（ADR-0009 裁定②）；絕不自動裁決。
 
     沒有金標準——兩批判讀對稱。對立（advance vs exclude）與任一方 unclear
@@ -349,6 +351,15 @@ def reconcile_machine(manifest: dict, queue: list[dict], assignment: dict,
     **不轉成 decision**。機器路徑的啟用前提不變：影子門檻通過並經協調者
     放行後才用於正式篩選，故 ``machineScreeningReleased`` 恆為 False，
     由後續放行流程另行處置。
+
+    ``owner_decisions``（W10 新增，第 n+16 輪裁定步驟 1）與
+    :func:`ahig.search.llm_second_review.machine_shadow_gate` 同一份
+    驗證規則（``decidedBy=="owner"``／``decision``／``decidedAt``／
+    ``reasonShort``，只重用不重寫）：如實記錄已發生的擁有者裁決，
+    **不自動裁決其餘歧異筆**——``ownerAuditQueue`` 本身不變，只是
+    已裁決的候選會從 ``unresolvedOpposedCandidateIds``／
+    ``unresolvedOwnerAuditCandidateIds`` 移除，讓 ``status`` 能反映
+    「還有沒有真正待人看的歧異」，而非把裁決當成第三種判讀意見。
     """
     by_a, judged_a = _validate_machine_binding(manifest, queue, assignment, review_a)
     by_b, judged_b = _validate_machine_binding(manifest, queue, assignment, review_b)
@@ -403,6 +414,12 @@ def reconcile_machine(manifest: dict, queue: list[dict], assignment: dict,
             continue
         concordant.append({"candidateId": candidate_id, "opinion": a["opinion"]})
 
+    owner_decisions = owner_decisions or {}
+    audit_ids = [item["candidateId"] for item in audit_queue]
+    _validate_owner_decisions(owner_decisions, audit_ids)
+    unresolved_opposed = sorted(set(opposed_ids) - set(owner_decisions))
+    unresolved_audit = sorted(set(audit_ids) - set(owner_decisions))
+
     counts = {
         "candidateCount": len(assignment["candidateIds"]),
         "concordantCount": len(concordant),
@@ -411,7 +428,7 @@ def reconcile_machine(manifest: dict, queue: list[dict], assignment: dict,
         "concordantAdvanceCount": sum(c["opinion"] == "advance" for c in concordant),
         "concordantExcludeCount": sum(c["opinion"] == "exclude" for c in concordant),
     }
-    status = "needs-owner-audit" if audit_queue else "concordant"
+    status = "needs-owner-audit" if unresolved_audit else "concordant"
     assignment_covers_queue = set(assignment["candidateIds"]) == {
         item["candidateId"] for item in queue}
     sources_complete = bool(manifest.get("candidateSourcesComplete"))
@@ -429,7 +446,7 @@ def reconcile_machine(manifest: dict, queue: list[dict], assignment: dict,
 
     if not sources_complete:
         next_stage = "candidate-source-search"
-    elif audit_queue:
+    elif unresolved_audit:
         next_stage = "owner-audit"
     elif not assignment_covers_queue:
         next_stage = "title-abstract-screening"
@@ -457,6 +474,9 @@ def reconcile_machine(manifest: dict, queue: list[dict], assignment: dict,
         "concordant": concordant,
         "ownerAuditQueue": audit_queue,
         "opposedCandidateIds": opposed_ids,
+        "unresolvedOpposedCandidateIds": unresolved_opposed,
+        "unresolvedOwnerAuditCandidateIds": unresolved_audit,
+        "ownerDecisions": owner_decisions,
         "counts": counts,
         "assignmentCoversQueue": assignment_covers_queue,
         "candidateSourcesComplete": sources_complete,
