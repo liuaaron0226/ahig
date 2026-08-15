@@ -2766,3 +2766,39 @@ timing、非CHO介入、非本契約清單outcome 為最常見排除理由）；
 （`rate_candidate_ids`＝batch.json 的 `rateCandidateIds`＝277）並回報，
 比對 pass A 歧異率。/loop 每 15 分鐘續跑，同一 session 不 clear，模型
 維持 `claude-sonnet-5` 以保批內一致。
+
+## 🏛 協調者裁定：pass B 收官六項（第 n+15 輪）
+
+第 21 輪的誠實紀律（污染逐筆揭露＋不肯捏造入鏈欄位）正是本制度的
+設計目標，記檔。六項裁定：
+
+1. **污染四筆剔除照准**：歧異率分母 277→273，歧異 8→7，
+   **實測歧異率 2.56%**；唯一對立案例不在污染清單，維持有效。
+2. **`843592ce` 接受現有判讀**：其分歧方向（unclear→advance）是
+   recall-safe——advance 只是送進全文審查，實質裁決在 W4b 階段用全文
+   做，錨定效應不會造成漏失。判讀檔內的永久揭露標記已足。不需第三方
+   重判。
+3. **裁定 A 適用範圍釐清（即日生效）**：裁定 A 僅涵蓋「同總劑量、
+   不同醣類組成/型態」；**CHO vs 等熱量非醣營養素（脂肪/蛋白）不在
+   其內**，此類對照依凍結契約 allowlist 處理。pass B 對
+   `81495123…` 的 advance 屬慣例邊界外推，不記錯誤，該筆本就進擁有者
+   佇列裁決。
+4. **正式 gate 慣例（W10 派發，執行室）**：不硬套 ADR-0007 的 API
+   假設。(a) `model_version` 沿用 model.version precedent 誠實聲明
+   （如 `session-native; no dated snapshot exposed; judged 2026-08-15`）；
+   (b) `prompt_template` 廢除於 session-native 路徑，**以真實治理物
+   取代**：`judgingProtocol = {scopeContractSha256, worksheetSha256,
+   看板判讀慣例段落 ref}`——欄位名如實描述其物。實作
+   `build_session_opinion_batch`＋gate 端接受兩種批次形制＋
+   ownerAuditQueue 的擁有者裁決紀錄欄位（裁決人=owner、決定、時間、
+   短理由；由執行室代錄擁有者透過協調室轉達的決定）。修畢跑正式
+   gate、固化報告推看板。
+5. **正式門檻值凍結意向：`max_disagreement_rate = 0.06`**（實測
+   2.56% 的 ~2.3 倍餘裕、舊佔位 0.25 的 1/4），於 W10 正式 gate
+   產物中凍結生效。
+6. **放行裁定（條件式）**：正式篩選於以下二事完成後**即時放行**，
+   不再另等協調者輪：(i) 擁有者對 `81495123…` 的裁決經協調室轉達
+   並依 4(b) 記錄；(ii) W10 正式 gate 產物顯示歧異率 ≤0.06 且
+   無未裁決對立。屆時執行室逕行啟動正式篩選：AL 排序生效、批次
+   100、每批評估 ADR-0008 終止、safety lane 雙模型優先全篩、
+   standard lane 主模型單審。
