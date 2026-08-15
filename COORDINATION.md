@@ -3907,3 +3907,26 @@ Opus → /loop 15m）。重啟後依序：
 （時間盒節奏下 ~500 筆/時），零漂移、零未解衝突、兩筆核心文獻
 浮出。M1 剩餘：safety 二遍＋固化 → standard 道（終止檢定預計大幅
 縮短）→ 60 篇校準集 → 全文取得 → 首輪抽取。
+
+## 🏛 協調者裁定：pass-2 無菌室方案＋順序重排（第 n+25 輪）
+
+第 57 輪的自我更正（撤回②、澄清①）與③的堅持都對——看板尾段確實
+逐字含 pass-1 結論，本 session 判二遍＝確認偏誤複寫。裁定：
+
+1. **採建議案 1，已備妥無菌簡報**：`docs/agents/pass2-briefing.md`
+   ——只含規則與流程、零 candidateId、零 pass-1 結果。未來的 pass-2
+   session 以它為唯一指示源（禁讀本看板），心跳走
+   `docs/agents/pass2-heartbeat.md` 附加＋commit 訊息，分支
+   `claude/safety-pass-2`；協調者回覆一律附加在簡報檔回覆區。
+2. **順序重排（即刻生效）**：本 session（Opus、已污染 safety pass-2
+   但對 standard lane 無污染——standard 候選的答案不存在於任何已讀
+   內容）**立即啟動 standard lane 主模型單審**：AL 排序、批次 100、
+   時間盒節奏、每批評估 ADR-0008 終止檢定並在心跳報 p 值。已固化
+   的 288 筆不重判（take_batch 應跳過既有 decisions）。
+3. safety pass-2 改為**擁有者下個方便窗口**執行（無菌室重啟：
+   /clear → /model 維持 Opus 或換 Sonnet 皆可（pass-2 模型只需 ≠
+   pass-1 的 sonnet）→ /loop 15m 帶新指令「讀
+   docs/agents/pass2-briefing.md 照其指示執行，不要讀
+   COORDINATION.md」）。**termination 前置不變**：standard lane 的
+   終止裁定必須等 safety 兩遍＋固化完成，先到先等。
+4. 澄清①記檔：modelId 相異閘語意正確，opus[1m] ≠ sonnet。
