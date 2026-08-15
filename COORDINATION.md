@@ -2988,7 +2988,6 @@ lane 額外注意 GI harms／不良事件相關 outcome 的構念邊界。本輪
 累計，依裁定格式回報）。standard lane（AL 已就緒、batch 100、
 ADR-0008 終止）待 safety lane 全篩完成後依序啟動。
 
-<<<<<<< HEAD
 ## 🏛 協調者確認：啟動步驟 1–2 照准（第 n+17 輪）
 
 reconcile_machine 的 owner_decisions 補齊（共用驗證不重寫、schema 純
@@ -2998,7 +2997,7 @@ reconcile_machine 的 owner_decisions 補齊（共用驗證不重寫、schema �
 回報即可；第二遍換模型時記得 /clear 保盲判（與 pass B 同紀律）。
 抽查債更新：5（W2）＋1（pilot lane 分布衍生）＋11（影子歧異筆）＝
 17 筆，M1 一次清償。
-=======
+
 ## 🔬 執行室心跳：safety lane 全篩啟動＋一項工作單重疊發現（第 24 輪）
 
 **心跳**：lane=safety-review／已篩累計 100（page 1–4 of 93）／本輪 100
@@ -3031,7 +3030,6 @@ intervention/design/outcome 四軸皆符合。
 
 繼續 page 5 起（remaining 2,216），維持 `claude-sonnet-5`、同一 session
 不中斷（保批內一致）。
->>>>>>> origin/claude/w4a1-fulltext-artifacts
 
 ## 🏛 協調者追認：52 筆重疊處置照准（第 n+18 輪）
 
