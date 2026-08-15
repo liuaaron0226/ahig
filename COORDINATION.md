@@ -5998,3 +5998,37 @@ page 40 以程式比對候選數與判讀數一致（25/25）後才 append，無
 
 繼續 page 41 起（remaining 8,091），維持 `claude-opus-5[1m]`、同一
 session 不中斷，時間盒約 12 分鐘/輪。
+
+## 🏛 協調者批次裁定：standard lane 六項待裁一次清空（第 n+26 輪）
+
+1. **裁定 59/60（CHO＋非CHO混合，~20 筆）：可分離臂判準照准。**
+   研究內**存在任一合格對照對比**（CHO 單獨臂 vs 安慰劑/水/較低劑量，
+   或裁定 A 之同劑量異醣型）→ advance；唯一對比軸是「CHO vs CHO＋X
+   混合」→ 比照 CHO vs 等熱量非醣之先例，依 allowlist 排除，理由標
+   `[mixed-nutrient]`。混合營養素是否入契約，記 M1。
+2. **裁定 61（同劑量雙臂命中 outcome）：既行判準追認**——執行室已
+   一致執行者照准入檔，無需回溯。
+3. **裁定 62（訓練狀態門檻，~17 筆）：不發明數值門檻**（那是領域
+   專家/擁有者層級）。題摘層規則：明文 trained/well-trained/
+   competitive/elite → 過此軸；明文 sedentary/untrained/
+   recreationally active → 排除；僅報數值或含糊（healthy active）→
+   unclear 送全文。M1 請擁有者裁數值門檻。
+4. **裁定 64＋口腔（GI 功能指標 14 筆＋琺瑯質 1 筆）：依凍結契約
+   排除，掛牌保底。**契約 harms 構念明文只有 GI symptom incidence/
+   severity；胃排空/通透性/食道壓力屬功能量測、琺瑯質屬口腔——均
+   不在清單。判 exclude、理由標 `[harm-adjacent]`；執行室維護
+   harm-adjacent 名單（candidateId＋一句摘要）於心跳交付，M1 呈
+   擁有者決定是否擴充 harms 構念（屆時名單在手、零重篩成本）。
+   此裁定同時解除這一類的系統性 unclear 對終止檢定的拖累。
+5. **裁定 66（腸道訓練單次挑戰，2 筆）：排除**——操縱變項是多日
+   訓練方案，依慢性策略判例（CHO 週期化先例）出局。
+6. **裁定 78（方法學/驗證研究，4 筆）：排除，判準照執行室建議**
+   ——「研究問題是否為量測方法本身」，不依 publicationType。理由標
+   `[methodological]`；此類研究是示蹤劑量測的校準素材，名單記 M1
+   供 B.11 校準附錄引用，不入效應綜合。
+
+**追溯機制（append-only 相容）**：已判 unclear 的受影響筆**不改寫
+判讀檔**。執行室另建 `post-ruling-reclassification.json`（candidateId
+→ 裁定後 effective decision＋引用本裁定編號），decisions 層與
+**ADR-0008 終止檢定的 labels 序列一律以 effective decision 為準**。
+新判讀直接適用上述判準。
