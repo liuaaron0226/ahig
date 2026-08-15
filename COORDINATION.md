@@ -2492,3 +2492,70 @@ pass B 仍維持 0/300，第二次 `/clear` 前置不變。
 第 18 輪的誠實紀律記一筆：0/4 acquired 卻能如實報 `incomplete` 而非
 搶標 `no-oa-fulltext`、email 未設就記 `blocked`——「不足以宣稱就不宣稱」
 正是這條管線要的品質。
+
+## 🔬 執行室回報：W4a-1 九項全修完成＋複驗再修五項（第 19 輪）
+
+依第 n+13 輪裁定「九項全修」執行完畢。**713/713、`verify --all` 10/10。**
+
+### 九項修正實作
+
+1. **immutable manifest generation**：每次 manifest 更新落一份
+   `manifests/manifest-<hash16>.json`（content-addressed，不覆蓋），batch
+   改記 `manifestPath`＋`manifestSha256`。實測跨 run reuse 後舊 batch 仍可解析。
+2. **fail-closed**：新增 `TransportError`（`FulltextError` 子類），全檔已無
+   `except Exception`／bare except（AST 掃描確認）；identity／integrity 錯誤
+   一律上拋。快取重用另加 PMCID 核對。
+3. **並行競態**：`_candidate_lock`（`O_CREAT|O_EXCL`，跨行程）涵蓋整個
+   read→sweep→write；`sweep_orphans` 對外入口亦持鎖。
+4. **junction 逃逸**：`_artifact_dir`／`_write_committed_manifest`／
+   `sweep_orphans`／batch 寫入點全部先解析再 `_require_private`。
+5. **終態語意**：只有三來源皆為實際 `miss` 才 `no-oa-fulltext`；
+   `not-applicable`／`blocked` 一律 `incomplete`。
+6. **landing page**：只有 `pdf_url`／`url_for_pdf` 才算 `available-pdf`，
+   其餘為新狀態 `available-landing-page`。
+7. **TEI producer**：只認 `teiHeader/encodingDesc/appInfo/application` 且
+   `ident.casefold()=="grobid"`（`my-grobid-fork`、body 內 application 均擋下）。
+8. **孤兒掃除**：驗 documentType／candidateId／status／attempts／artifact
+   必填欄；無效 manifest 隔離至 `invalid-manifests/` 後按零引用清除。
+9. **email**：所有 `reason` 皆為固定結構碼（AST 掃描確認無 `str(exc)`），
+   URL 走 `<from AHIG_CONTACT_EMAIL>` 遮蔽。實測注入 email 後產物零洩漏。
+
+### 複驗又找到五項，已一併修畢
+
+兩路獨立 review 實測重現後修正：
+
+- **legacy 入口偽造證據**：`acquire_europe_pmc` 未驗 2xx，404 body 若可解析
+  即寫成 `acquired`。**已依裁定第 5 項刪除該入口與 `_write_unavailable_manifest`**
+  （全 repo 無其他呼叫端），語意統一由 `acquire_fulltext` 承擔。
+- **掃除自毀證據**：artifact hash 不符時 `_validate_latest_manifest` 判定
+  manifest 無效，連 immutable generation 一起清空——回復工具反而失證。
+  已把 hash 驗證移出掃除路徑，只留結構驗證。
+- **掃除不持鎖**會刪掉他人 live staging：已加鎖。
+- **batch manifest 路徑未做私密根檢查**：已補。
+- **stale lock 永久卡死候選**：加 `stale_after` 回收。
+
+### 誠實記帳
+
+- **突變測試**：把實作改壞驗證非假綠燈。終態放寬、發佈鎖關閉、batch 邊界
+  關閉、掃除鎖關閉四種突變**全部會讓測試轉紅**。過程中修正了兩個自己寫的
+  無效測試：batch 邊界測試原本只驗 helper 而非真正呼叫點（關掉檢查仍綠）、
+  並行測試原本兩條執行緒不會真的交錯（關掉鎖仍綠）。後者改為
+  「publisher 停在 staged 未提交的視窗、sweeper 同時撞進來」才具鑑別力。
+  **測試會不會紅，比測試會不會綠更值得驗。**
+- **Codex 第三路 review 未能執行**：額度用盡（顯示 8/20 才恢復），改以
+  第二個獨立 reviewer 補對抗式視角。三路變兩路，如實記錄。
+- **`AHIG_CONTACT_EMAIL` 未設**：裁定允許沿用檢索階段的 email，但該值在
+  所有留痕中都已遮蔽為 `<from AHIG_CONTACT_EMAIL>`，磁碟上無法還原，
+  執行室**無法自行取得原值且不編造**。PoC 4 筆的 Unpaywall 節仍為
+  `blocked`／終態 `incomplete`。需擁有者在本機設定該環境變數後才能實測。
+- **舊 batch 為 legacy 格式**：修正前產生的
+  `fulltext-batch-14cd49d713a4f195.json` 無 `manifestPath`；新格式
+  （`f9e28c0e74d8f4f6`）4/4 可解析。舊檔保留不改。
+
+### ⚠️ pass B 阻擋：模型回報值等於 pass A
+
+擁有者本輪切到 **Opus 5**，harness 回報 `claude-opus-5`——與 pass A 判讀者
+**同一模型**。依第 n+9 輪補充的預核清單，回報值為 `claude-opus-5` 時應
+**停手回報**，故 pass B 維持 **0/300**，未開判、未偽造 modelId。
+若要續跑 pass B，需切到預核清單其餘任一（`claude-fable-5`／
+`claude-sonnet-5`／`gpt-5.6-sol`）並 `/clear` 後重啟 loop。

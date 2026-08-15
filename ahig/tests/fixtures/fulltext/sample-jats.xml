@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<article xmlns:xlink="http://www.w3.org/1999/xlink">
+  <front>
+    <article-meta>
+      <permissions>
+        <license license-type="open-access" xlink:href="https://creativecommons.org/licenses/by/4.0/">
+          <license-p>Creative Commons Attribution 4.0 International</license-p>
+        </license>
+      </permissions>
+    </article-meta>
+  </front>
+  <body>
+    <sec>
+      <title>Methods</title>
+      <p>Ten trained cyclists completed a randomised crossover trial.</p>
+      <sec>
+        <title>Exercise protocol</title>
+        <p>Participants ingested 60 g/h carbohydrate during exercise.</p>
+      </sec>
+    </sec>
+    <sec>
+      <title>Results</title>
+      <p>Time-trial performance improved.</p>
+      <table-wrap>
+        <label>Table 1</label>
+        <caption><p>Reported outcomes</p></caption>
+        <table>
+          <tbody><tr><td>GI symptoms</td><td>2</td></tr></tbody>
+        </table>
+      </table-wrap>
+    </sec>
+  </body>
+</article>

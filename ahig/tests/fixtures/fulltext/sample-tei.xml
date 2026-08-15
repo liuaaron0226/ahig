@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+    <encodingDesc>
+      <appInfo><application ident="GROBID" version="0.9.1" /></appInfo>
+    </encodingDesc>
+  </teiHeader>
+  <text>
+    <body>
+      <div>
+        <head>Methods</head>
+        <p>Eight trained runners completed two experimental conditions.</p>
+        <div>
+          <head>Nutrition protocol</head>
+          <p>Carbohydrate was provided at 90 g/h during running.</p>
+        </div>
+      </div>
+      <div>
+        <head>Results</head>
+        <p>Gastrointestinal symptom severity remained low.</p>
+      </div>
+    </body>
+  </text>
+</TEI>
