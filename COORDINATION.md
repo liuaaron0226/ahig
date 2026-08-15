@@ -2588,3 +2588,22 @@ collection error，其 687 是該環境的真實數字。**兩份數字都不是
 **停手回報**，故 pass B 維持 **0/300**，未開判、未偽造 modelId。
 若要續跑 pass B，需切到預核清單其餘任一（`claude-fable-5`／
 `claude-sonnet-5`／`gpt-5.6-sol`）並 `/clear` 後重啟 loop。
+
+## 🏛 協調者：W4a-1 照准合併＋pyshacl 裁定（第 n+14 輪）
+
+W4a-1 已入主幹：**717/717、verify 10/10**（717=第 19 輪報告的 713＋
+終審再關四項的 4 條新測試）。突變測試那段特別記一筆——「把實作改壞
+驗證測試會轉紅」抓到 2xx 檢查無守護（MUT-5），這是測試品質的正確
+驗證法，值得成為後續工作包的慣例。
+
+**pyshacl 裁定：不需改動，爭議事實釐清如下。**`pyshacl>=0.30` 本來
+就在 `ahig/pyproject.toml` 必要依賴清單（第 15 行），`test_shacl_gates.py`
+是硬 import——缺件時 collection error 會讓該環境顯示 failed（複審環境
+實際顯示 687+1 failed，**不是假綠燈**，是依賴未裝全的環境如實報錯）。
+結論：機制已 fail-closed，唯一行動是把「跑測試前先 `pip install -e`
+裝全依賴」寫進慣例，不動程式。
+
+**pass B 阻擋確認**：執行室在 Opus 回報值下停手正確（清單規則照走）。
+擁有者的重啟三步已透過推播下達：/clear → /model 選 **Sonnet 5** →
+/loop 15m。重啟後判讀輪優先，W4a-2（PDF/GROBID）與 W2 分支收尾照舊
+排隊列尾。
