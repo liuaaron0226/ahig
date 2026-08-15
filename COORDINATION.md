@@ -2821,3 +2821,79 @@ timing、非CHO介入、非本契約清單outcome 為最常見排除理由）；
 **放行條件 (i) 完成**。餘 (ii)：W10 正式 gate 產物（歧異率 ≤0.06、
 無未裁決對立——本筆裁決後對立歸零）。W10 修畢跑 gate 即自動放行
 正式篩選，執行室逕行啟動，無需再等協調者輪。
+
+## 🔬 執行室回報：W10 交付＋正式 gate 通過，放行條件 (i)(ii) 皆已完成（第 22 輪）
+
+依第 n+15 輪裁定 4 逐項兌現。TDD：先寫 10 條新測試（見紅燈），再實作，
+兩個新不變量各補一次突變測試（改壞驗證會轉紅、改回綠燈），**推送前
+`python tests/run_tests.py` 727/727、`verify --all` 10/10**。
+
+### 1. `build_session_opinion_batch`（`ahig/search/llm_second_review.py`）
+
+不硬套 ADR-0007 的 prompt 假設：抽出 `_build_entries` 共用盲化驗證
+（`build_opinion_batch`／`build_session_opinion_batch` 同一套規則，
+不重複定義），新函式以 `judging_protocol`
+`{scopeContractSha256, worksheetSha256, boardReference}` 取代
+`prompt_template`，雜湊入鏈的是這三者而非編造的 prompt 字串。
+`model_version` 依 model.version precedent 誠實聲明。兩種批次形制
+相容，`machine_shadow_gate` 讀的只有 `screeningQueueHash`／
+`llmReviewHash`／`model`／`entries` 四個共同欄位，本就不挑形制
+（新增 `test_machine_gate_accepts_mixed_api_and_session_batches` 驗證）。
+
+### 2. `machine_shadow_gate` 擴充 `owner_decisions`
+
+新參數 `owner_decisions: dict[candidateId, record]`，每筆須含
+`decidedBy="owner"`／`decision`／`decidedAt`／`reasonShort`（結構檢查
+拒絕非擁有者裁決人、缺欄位、對非歧異紀錄裁決）。新增
+`unresolvedOpposedCandidateIds`（對立扣掉已裁決者）與
+`ownerDecisions` 兩個輸出欄位；`verdict` 改以「無未裁決對立」取代
+「無對立」作為否決條件。**不影響歧異率統計、不自動裁決其他歧異筆**
+——`ownerAuditQueue` 本身不變，裁決只是如實記錄。不傳
+`owner_decisions`（或傳空字典）與舊行為完全相同，向下相容測試已釘住。
+
+### 3. 正式 gate 已跑（private-root，一次性腳本用後即刪，未入 repo）
+
+輸入：`screening-shadow-pass-a`／`-pass-b` 的完整判讀檔（各自
+worksheet 落 `judgingProtocol`）、`screening-queue/manifest.json`、
+`scope-contract.json` 內容雜湊、`screening-shadow/batch.json` 的
+`rateCandidateIds`（277，依裁定 1 剔除四筆污染候選後為 273——
+5 筆污染候選中 `registry:26dc232d…`（Dole 香蕉）本就不在 277 之內
+（registry lane 原始設計即不進費率分母），故剔除的是另外 4 筆
+`publication:` 型）；`owner_decisions` 帶入本檔上方擁有者對
+`81495123…` 的裁決。
+
+**結果（`gate-report.json`，落 `AHIG_PRIVATE_ROOT/…/screening-shadow-gate/`）**：
+
+| 欄位 | 值 |
+|---|---|
+| `verdict` | **pass** |
+| `disagreementRate` | **3.66%**（10/273） |
+| `maxDisagreementRate` | 0.06 |
+| `disagreementRateDenominator` | 273 |
+| `opposedCandidateIds` | 1 筆（`81495123…`） |
+| `unresolvedOpposedCandidateIds` | **[]（空）** |
+| `shadowSampleSize` | 300 |
+
+**放行條件 (i)(ii) 皆已滿足**：(i) 擁有者已裁決對立案例（上節記錄）；
+(ii) 正式 gate 歧異率 3.66% ≤ 6%、無未裁決對立。依第 n+15 輪裁定 6，
+執行室現可逕行啟動正式篩選，無需再等協調者輪。
+
+### 下一步：啟動正式篩選前的最後一項核對
+
+依裁定 6 要件逐項核對現況：
+
+- **batch 100**：`screening_driver.take_batch(..., batch_size=100)` 已有。
+- **ADR-0008 終止**：`statistical_termination.py` 已在，逐批評估待接線。
+- **safety lane 雙模型優先全篩 / standard lane 主模型單審**：分流邏輯
+  待寫（screening queue 已有 `screeningLane`／`requiredReviewMode` 欄位
+  可用）。
+- **AL 排序**：`ahig/search/active_learning.py`（T1 elas_u4，Apache-2.0
+  借邏輯不併依賴）**程式已在但從未在真實 15,425 筆池子上跑過**
+  ——`al-rank/` 目錄目前不存在，`screening_driver.take_batch` 的
+  `ranked_order` 若不給會退回 queue 原序（非 AL 排序）。
+
+本輪判讀 750 筆（pass A+B 各 300）＋gate 實作已是相當大的一輪，
+**正式啟動全量篩選（先跑 AL 排序、再拉 safety lane 首批）留到下一輪
+接續**，避免在已經很長的一輪尾端倉促開一個會持續消耗大量算力的新
+製程。若協調者或擁有者希望改變順序（例如先跑 standard lane 而非
+safety lane），請於下一輪讀到前指示。
