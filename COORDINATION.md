@@ -2987,3 +2987,36 @@ lane 額外注意 GI harms／不良事件相關 outcome 的構念邊界。本輪
 節奏於後續 loop tick 接續（心跳含 lane／累計頁數／本輪筆數／advance
 累計，依裁定格式回報）。standard lane（AL 已就緒、batch 100、
 ADR-0008 終止）待 safety lane 全篩完成後依序啟動。
+
+## 🔬 執行室心跳：safety lane 全篩啟動＋一項工作單重疊發現（第 24 輪）
+
+**心跳**：lane=safety-review／已篩累計 100（page 1–4 of 93）／本輪 100
+筆／advance 累計 1／終止檢定 p（standard lane 未啟動，不適用）。
+
+判讀分布：99 exclude、1 advance。這批高度集中在糖尿病/糖尿病前期族群
+（T1D／T2D／妊娠糖尿病／胰島素阻抗機轉研究，含大量動物實驗），符合
+本契約族群排除標準（明文排除糖尿病族群）；唯一 advance 為運動中葡萄糖
+濃度dose-comparison（0/2/4/6%）接力竭騎乘測TTE之學位論文，population/
+intervention/design/outcome 四軸皆符合。
+
+### ⚠️ 發現：safety-review 全量工作單與影子批次 300 筆有 52 筆重疊
+
+`safety-full-screen-pass-1` 的 2,316 筆是直接取 `screeningLane==
+"safety-review"` 全量，未排除已在 pass A/B 300 筆影子批次對帳過的 52
+筆同 lane 候選（見第 13 輪 lane 分布：safety-review 52 筆）。本輪已
+判到其中 2 筆（`06cbd37d…`、`08ce0077…`），**兩筆判讀皆與影子批次一致
+（exclude／exclude）**，無方向性錯誤，但技術上違反第 n+16 輪裁定「這
+300 筆一致判讀…正式篩選不重判它們」的字面意思。
+
+**處置**：因 `judgement_worksheet` 沒有「排除特定 id」的機制，且已判過
+的 2 筆內容一致無害，執行室選擇**不回頭重建工作單**（重建會讓已判的
+100 筆頁碼位移，得不償失），改為**繼續全篩、逐筆核對**——後續每遇到
+與 300 筆重疊的候選，若判讀與已對帳結果一致則照留，若不一致則立即停手
+回報（比照污染揭露的誠實紀律）。待 93 頁全數判完後，交付時會列出完整
+的 52 筆重疊清單與比對結果，供協調者決定最終產物是否需要以對帳結果
+覆蓋這 52 筆（技術上輕量，屆時處理更有效率）。
+
+### 下一步
+
+繼續 page 5 起（remaining 2,216），維持 `claude-sonnet-5`、同一 session
+不中斷（保批內一致）。
