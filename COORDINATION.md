@@ -6282,3 +6282,123 @@ originalOpinion 吻合），本輪 68 筆全數通過。
 
 繼續 page 42 起（remaining 8,066），維持 `claude-opus-5[1m]`、同一
 session 不中斷，時間盒約 12 分鐘/輪。
+
+---
+
+## B.11 執行室心跳 — standard lane 主篩 page 42（第 85 輪）
+
+**時間**：2026-08-16 · **分支**：`claude/w4a1-fulltext-artifacts` ·
+**判讀者**：`claude-opus-5[1m]`（ADR-0009 裁定①，executor-session）
+
+### 進度
+
+| 項目 | raw | effective（含追溯檔） |
+|---|---|---|
+| 已判讀 | 1,050 / 9,091（page 1–42，11.55%） | 同 |
+| advance | 277 | **278** |
+| unclear | 153 | **85** |
+| exclude | 620 | **687** |
+
+本輪新增 25：advance 1、unclear 9、exclude 15。剩餘 8,041。
+
+### ADR-0008 檢定（effective decision，1,050 筆）
+
+```
+pScore 1.0 · relevantFound 363 · poolSize 9091
+targetRecall 0.95 · h0MinTotalRelevant 383 · windowSize 0
+```
+
+### 低劑量段證據連兩輪出現，建議 W4b 併案處理
+
+第 84 輪報告 `92696df9…`（明載 **13 g/h**，結論為「不足以維持血糖
+或改善表現」）。本輪再出現一筆同性質、且設計更完整者：
+
+`2ab8795b…`（2025，雙盲隨機安慰劑對照交叉）——四臂為
+**20 / 40 / 60 g/L/h 葡萄糖+果糖 vs 安慰劑**，全部落在契約
+10–150 g/h 範圍的**低-中段**，outcome 命中 TTE（32.5 / 35.9 /
+35.1 / 38.0 min，未達統計顯著）。
+
+契約劑量範圍下限是 10 g/h，但本 lane 前 1,050 筆的 advance 幾乎
+全部集中在 40–120 g/h。這兩筆是目前僅見的**下緣劑量-反應證據**，
+且兩者結論方向一致（低劑量未見顯著效益）。兩筆都因族群措辭
+（「Nine male subjects」／「moderately active」）依裁定 62 判
+unclear，**建議 W4b 併案優先取全文**——若 M1 的數值門檻放行，
+這是劑量-反應曲線下緣僅有的兩個資料點。
+
+### 「moderately active」措辭再度出現，判法說明
+
+裁定 3 列舉的排除措辭是 sedentary / untrained / recreationally
+active。本輪 `2ab8795b…` 寫的是 **moderately active**——與
+`recreationally active` 相近但非同一詞。我依「非列舉措辭即屬含糊」
+判 unclear 送全文，未自行擴張排除詞表。
+
+這與第 83 輪回報的三筆 `recreationally trained` 是同一類問題：
+**裁定列舉了三個詞，實際文獻的措辭光譜比三個詞寬**。目前累計
+待確認措辭：`recreationally trained`（3 筆）、`moderately active`
+（1 筆）、`moderately trained`（既有數筆）、無措辭僅報數值（本輪
+再 +4）。若協調者願意，一次給出「哪些前綴視同排除」的規則會比
+逐筆確認省事。
+
+### 本輪唯一 advance
+
+`da1cc6f1…` — 明文 **7 名 endurance-trained（VO2max 61）熱適應
+車手**，120min@63%VO2max 熱環境，六臂為不補液 vs 水 vs 6% CHO-E，
+各再交叉 ±咖啡因。**CES vs WAT 為 allowlist 內乾淨對照**，咖啡因
+為正交因子，依裁定 59/60 可分離臂判準成立。outcome 為體溫調節與
+體液-電解質平衡（非契約清單），但三軸齊備，依 recall-biased 送
+全文確認是否另有清單 outcome。
+
+### harm-adjacent 名單增至 16 筆（裁定 4 交付項續補）
+
+| candidateId | 一句摘要 |
+|---|---|
+| `85973be4…` | 22 名跑者攝取蔗糖/葡萄糖/甘露醇/異麥芽酮糖後之**呼氣氫氣**與腸道通過時間（吸收不良指標） |
+| `96a64f75…` | 10 名 biathletes 騎乘與跑步之胃排空速率（水 vs 7% CHO，10 ml/kg/h） |
+
+前 14 筆見第 83 輪。`85973be4…` 值得一提：它是本名單中**唯一以
+呼氣氫氣測吸收不良**者，與其餘的胃排空/通透性量測不同，若 M1
+擴充 harms 構念，此筆的測量方法需另行評估。
+
+### 認知/技能 outcome 型別累計 4 筆（觀察中）
+
+- `b55d52f0…`（第 81 輪）反應時間，8 名 well-trained triathletes
+- `b87b7de9…`（第 82 輪）羽球發球準確度＋預期時間判斷
+- `caacd4e9…`（本輪）籃球型態折返跑之認知功能與運動技能
+- `17739030…`（本輪）**Stroop 作業之認知彈性＋腦部氧合**，85 名
+  受試、含水對照與同濃度不同 CHO 來源（楓糖漿/楓樹汁/市售/葡萄糖）
+
+四筆的介入與對照多數合格，卡的都是 outcome 不在契約清單。已達
+可提列請裁的規模，**擬於下一輪正式提列為新請裁事項**，本輪先
+完成名單。
+
+### 本輪 exclude（15 筆）
+
+- **運動前攝取 5 筆**（前 3 小時餐 ×2、前 30 分鐘 ×2、前 90 分鐘
+  醋酸鈉）、恢復期 2 筆、飲食/肝醣操弄 1 筆。
+- **介入非 CHO 4 筆**：咖啡因+麻黃鹼、醋酸鈉/碳酸氫鈉、蛋白型態
+  比較、**馬拉松僅給自來水**（`b18011cd…`，無 CHO 介入亦無對照）。
+- **敘述性綜述 1 筆**（`842064e3…`，1985 年權威綜述，無原始資料；
+  參考文獻已標註可供 W4b 補充檢索）。
+- **裁定 62 直接適用 3 筆**：明文 recreational soccer players、
+  明文 recreational runners、明文 untrained women。
+
+### 一組疑似重複索引（第 3 型）
+
+`22be3f81…`（本輪，IMP/TCA 中間產物）與第 78 輪 `90677dcc…`
+（肝醣合成酶活性）——同為 70%VO2max 力竭騎乘、同 135±17 min、
+同「第一回合控制、第二回合加 CHO」之固定順序設計。兩筆皆判
+unclear，已互相標註待 W4b 比對。此為第 3 型（同一試驗拆多篇不同
+outcome）的第三組實例。
+
+### 品保與驗證
+
+page 42 以程式比對候選數與判讀數一致（25/25）後才 append，無漏判。
+追溯檔 overlay 於檢定時重新驗證（id 存在、無重複、originalOpinion
+吻合），68 筆全數通過。
+`python tests/run_tests.py` **734/734 passed**（`ahig/` 程式碼零改動）。
+
+### 下一步
+
+繼續 page 43 起（remaining 8,041），並於下一輪心跳正式提列
+「認知/技能 outcome」請裁事項。維持 `claude-opus-5[1m]`、同一
+session 不中斷。
