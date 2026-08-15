@@ -9,6 +9,7 @@ import http.client
 import json
 import os
 import re
+import threading
 import time
 import urllib.error
 import urllib.parse
@@ -455,26 +456,48 @@ def _candidate_lock(artifact_dir: Path, *, timeout: float = 30.0,
     lock_path = artifact_dir / ".publish.lock"
     deadline = time.monotonic() + timeout
     handle = None
+    heartbeat = threading.Event()
     while handle is None:
         try:
             handle = os.open(lock_path, os.O_CREAT | os.O_EXCL | os.O_WRONLY)
         except FileExistsError:
-            # 持鎖行程被砍會留下 stale lock；沒有回收機制的話該候選會永久
-            # 卡死，只能人工刪檔。超過 stale_after 未更新即視為遺留並回收。
+            # 持鎖行程被砍會留下 stale lock，沒有回收機制該候選就永久卡死。
+            # 但直接 unlink 別人的鎖在 POSIX 上會成功（開啟中的檔案照刪），
+            # 造成兩個持有者並存。改為先 os.replace 搬成唯一暫名：只有搬成功
+            # 的那個等待者能回收，輸家會在下一輪看到鎖已消失而重試。
             try:
                 age = time.time() - lock_path.stat().st_mtime
             except FileNotFoundError:
                 continue
             if age > stale_after:
-                lock_path.unlink(missing_ok=True)
+                claim = lock_path.with_name(
+                    f".publish.stale.{os.getpid()}.{id(heartbeat):x}")
+                try:
+                    os.replace(lock_path, claim)
+                except (FileNotFoundError, PermissionError, OSError):
+                    pass                      # 別人先回收或平台不允許，重試
+                else:
+                    claim.unlink(missing_ok=True)
                 continue
             if time.monotonic() >= deadline:
                 raise FulltextError(
                     f"取得候選發佈鎖逾時：{artifact_dir.name}") from None
             time.sleep(poll)
+
+    def keep_alive() -> None:
+        # 合法但耗時的交易不該被判成 stale，所以持鎖期間持續續期。
+        while not heartbeat.wait(stale_after / 3):
+            try:
+                os.utime(lock_path, None)
+            except OSError:
+                return
+
+    ticker = threading.Thread(target=keep_alive, daemon=True)
+    ticker.start()
     try:
         yield
     finally:
+        heartbeat.set()
         os.close(handle)
         lock_path.unlink(missing_ok=True)
 
@@ -569,7 +592,6 @@ def sweep_orphans(artifact_dir: Path) -> list[str]:
 def _sweep_orphans_locked(artifact_dir: Path) -> list[str]:
     manifest_path = artifact_dir / "manifest.json"
     references: set[str] = set()
-    valid_manifest = False
     if manifest_path.exists():
         raw = manifest_path.read_bytes()
         try:
@@ -579,7 +601,6 @@ def _sweep_orphans_locked(artifact_dir: Path) -> list[str]:
             _quarantine_invalid_manifest(artifact_dir, raw)
         else:
             references = _manifest_references(manifest)
-            valid_manifest = True
     removed: list[str] = []
     # 鎖檔與隔離目錄不是 artifact，掃除不得動它們。
     for pattern in ("source-*.jats.xml", "sections-v*.json"):
@@ -587,15 +608,10 @@ def _sweep_orphans_locked(artifact_dir: Path) -> list[str]:
             if path.name not in references:
                 path.unlink()
                 removed.append(path.name)
-    generation_root = artifact_dir / "manifests"
-    if generation_root.exists() and not valid_manifest:
-        for path in sorted(generation_root.glob("manifest-*.json")):
-            path.unlink()
-            removed.append(path.name)
-        try:
-            generation_root.rmdir()
-        except OSError:
-            pass
+    # immutable generation 一律保留，即使 latest manifest 無效。它們是
+    # content-addressed（檔名即內容雜湊）故能自證，且舊 batch 以
+    # manifestPath＋manifestSha256 直接引用；跟著壞掉的指標一起刪，
+    # 等於讓回復工具製造出它要防的失證。
     return removed
 
 
@@ -953,7 +969,16 @@ def acquire_fulltext(candidate: dict, *, transport: BinaryTransport,
         # 追加本 run 的 binding 也是對同一份 manifest 的多檔交易，必須持鎖，
         # 否則可能與另一行程的 sweep／publish 交錯。
         with _candidate_lock(cached_path.parent):
+            # 取鎖前那次驗證是鎖外看到的舊狀態；鎖內必須對重讀的內容再驗
+            # 一次，否則兩次讀之間被換掉的 manifest 會被當成有效證據回傳。
             current = json.loads(cached_path.read_text(encoding="utf-8"))
+            if current.get("candidateId") != candidate_id:
+                raise FulltextError("既有 manifest candidateId 與請求不符")
+            if current.get("status") != "acquired":
+                raise FulltextError("既有 acquired manifest 在鎖內已變更狀態")
+            if current.get("pmcid") != _pmcid(candidate):
+                raise FulltextError("reuse 的 PMCID 與請求紀錄不符")
+            _verify_committed_artifacts(cached_path.parent, current)
             bindings = _merge_binding(current, binding)
             if bindings != list(current.get("bindings") or []):
                 current["bindings"] = bindings

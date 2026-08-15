@@ -2552,6 +2552,35 @@ pass B 仍維持 0/300，第二次 `/clear` 前置不變。
   `fulltext-batch-14cd49d713a4f195.json` 無 `manifestPath`；新格式
   （`f9e28c0e74d8f4f6`）4/4 可解析。舊檔保留不改。
 
+### 第三路 review 回來後又修四項（第 19 輪補）
+
+原本判定「無新問題」是早了——最終複驗（延遲回報）又找到四項，已全修，
+**717/717、verify 10/10**：
+
+- **N1 掃除仍會銷毀證據（High）**：改掉 hash 驗證只是換了觸發條件。任一
+  結構檢查失敗（例如未來新增的 status 值）就會刪光 content-addressed
+  generation。**裁定為：generation 一律保留**——它以檔名自證，且被既有
+  batch 的 `manifestPath` 引用，跟著壞掉的指標一起刪正是要防的失證。
+- **N2 `stale_after` 破壞互斥（High）**：以建立時 mtime 判定，合法長交易
+  會被誤判 stale；POSIX 的 `unlink()` 對開啟中的檔案會成功，導致兩個持有
+  者並存。改為持鎖者背景續期，回收改走 `os.replace` 搬成唯一暫名（贏家唯一）。
+- **N3 快取重用未重驗（Medium）**：鎖內重讀後補 candidateId／status／
+  PMCID／完整性四項檢查。
+- **MUT-5：2xx 檢查無測試守護（High）**：把 `_attempt_europe_pmc` 的 2xx
+  檢查整段刪掉，32 個測試全綠——F-A 的核心不變式當時只靠人工紀律。已補
+  「404 body 即使長得像 JATS 也不得成為證據」的測試，突變後確實轉紅。
+
+### 📌 測試數字爭議：兩邊都對，是環境差異
+
+最終複驗回報「713 不是真綠燈，實測 687 passed + 1 failed + 26 未跑」。
+已查證：**執行室環境 `pyshacl 0.40.1` 已安裝**，`test_shacl_gates.py` 26 項
+確實執行、`test_prevalence_audit.py` 28 項全過，`verify --all` 第 4 階段
+（SHACL canary，48 次驗證）也是綠的。reviewer 環境缺 `pyshacl` 導致
+collection error，其 687 是該環境的真實數字。**兩份數字都不是灌水，是
+環境差異**——但這暴露一件事：本專案的測試結果依賴未鎖版的選用依賴，
+建議協調者考慮把 `pyshacl` 列入必要依賴或讓缺件時硬失敗，否則「幾項綠」
+會因機器而異。此建議屬契約級，記帳待裁。
+
 ### ⚠️ pass B 阻擋：模型回報值等於 pass A
 
 擁有者本輪切到 **Opus 5**，harness 回報 `claude-opus-5`——與 pass A 判讀者

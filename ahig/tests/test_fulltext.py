@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """W4a 全文取得與結構化解析。"""
 
+import contextlib
 import hashlib
 import io
 import json
@@ -520,6 +521,103 @@ def test_corrupted_artifact_does_not_make_sweep_destroy_the_evidence():
                 os.environ["AHIG_PRIVATE_ROOT"] = old
 
 
+def test_cached_reuse_never_returns_an_artifact_corrupted_after_the_check():
+    """鎖外驗證通過後 artifact 才被破壞時，不得回傳 acquired。
+
+    註：這條不變式目前由 `_publish_jats_locked` 與快取路徑兩處的
+    `_verify_committed_artifacts` 共同守住，任一處都足以擋下；因此單獨
+    移除快取路徑那行不會讓本測試轉紅（已實測）。保留這個測試是為了釘住
+    「破壞後不得回傳 acquired」這個對外行為，而不是釘住某一行實作。
+    """
+    raw = (FIXTURES / "sample-jats.xml").read_bytes()
+    candidate = {
+        "candidateId": "ahig:candidate:publication:reverify",
+        "identifiers": {"pmcid": ["PMC123456"]},
+    }
+    swapped = threading.Event()
+
+    with tempfile.TemporaryDirectory() as tmp:
+        old = os.environ.get("AHIG_PRIVATE_ROOT")
+        os.environ["AHIG_PRIVATE_ROOT"] = tmp
+        try:
+            fulltext.acquire_fulltext(candidate, transport=_FakeTransport(raw))
+            artifact_dir = next((Path(tmp) / "fulltext").iterdir())
+            manifest_path = artifact_dir / "manifest.json"
+            committed = json.loads(manifest_path.read_bytes())
+            raw_file = artifact_dir / committed["artifacts"][0]["rawFile"]
+            original_lock = fulltext._candidate_lock
+
+            @contextlib.contextmanager
+            def corrupt_after_acquiring(*args, **kwargs):
+                """鎖外檢查時 artifact 完好，取得鎖後才被破壞。
+
+                candidateId／status／pmcid 全程不動，所以只有鎖內的
+                完整性重驗擋得住這個情境。
+                """
+                with original_lock(*args, **kwargs):
+                    if not swapped.is_set():
+                        swapped.set()
+                        raw_file.write_bytes(b"<article>tampered</article>")
+                    yield
+
+            with patch.object(fulltext, "_candidate_lock",
+                              side_effect=corrupt_after_acquiring):
+                try:
+                    fulltext.acquire_fulltext(
+                        candidate, transport=_FakeTransport(raw),
+                        binding={"runId": "later"})
+                except fulltext.FulltextError:
+                    pass
+                else:
+                    raise AssertionError("鎖內必須重驗，不得回傳失效 acquired")
+            assert swapped.is_set()
+        finally:
+            if old is None:
+                os.environ.pop("AHIG_PRIVATE_ROOT", None)
+            else:
+                os.environ["AHIG_PRIVATE_ROOT"] = old
+
+
+def test_invalid_latest_manifest_never_takes_immutable_generations_with_it():
+    """latest manifest 壞掉是指標問題；content-addressed generation 必須存活。
+
+    否則舊 batch 的 manifestPath 會跟著失效，回復工具反而製造失證。
+    """
+    raw = (FIXTURES / "sample-jats.xml").read_bytes()
+    candidate = {
+        "candidateId": "ahig:candidate:publication:generation-survives",
+        "identifiers": {"pmcid": ["PMC123456"]},
+    }
+
+    with tempfile.TemporaryDirectory() as tmp:
+        old = os.environ.get("AHIG_PRIVATE_ROOT")
+        os.environ["AHIG_PRIVATE_ROOT"] = tmp
+        try:
+            fulltext.acquire_fulltext(candidate, transport=_FakeTransport(raw))
+            artifact_dir = next((Path(tmp) / "fulltext").iterdir())
+            before = {path.name: path.read_bytes()
+                      for path in (artifact_dir / "manifests").glob("*.json")}
+            assert before
+
+            # 未來新增的 status 值會讓封閉列舉的結構驗證失敗——正是最容易
+            # 誤觸的情境。
+            manifest_path = artifact_dir / "manifest.json"
+            broken = json.loads(manifest_path.read_text(encoding="utf-8"))
+            broken["status"] = "acquired-pdf"
+            manifest_path.write_text(json.dumps(broken), encoding="utf-8")
+
+            fulltext.sweep_orphans(artifact_dir)
+
+            after = {path.name: path.read_bytes()
+                     for path in (artifact_dir / "manifests").glob("*.json")}
+            assert after == before
+        finally:
+            if old is None:
+                os.environ.pop("AHIG_PRIVATE_ROOT", None)
+            else:
+                os.environ["AHIG_PRIVATE_ROOT"] = old
+
+
 def test_batch_manifest_write_refuses_paths_outside_the_private_root():
     """batch 目錄若被換成指向私密根外的連結，寫入必須擋下。
 
@@ -1007,6 +1105,42 @@ def test_no_oa_fulltext_requires_all_three_sources_to_miss():
     ]
 
 
+def test_non_2xx_fulltext_response_is_never_parsed_as_evidence():
+    """404 的 body 就算長得像 JATS 也不得成為 acquired 證據。"""
+    candidate = {
+        "candidateId": "ahig:candidate:publication:not-found",
+        "identifiers": {"pmcid": ["PMC777777"]},
+    }
+    jats_shaped_error_page = (FIXTURES / "sample-jats.xml").read_bytes()
+    transport = _ScriptedTransport([
+        {"status": 404, "body": jats_shaped_error_page},
+        _json_response({"results": []}),
+        _json_response({"is_oa": False}),
+    ])
+
+    with tempfile.TemporaryDirectory() as tmp:
+        old = os.environ.get("AHIG_PRIVATE_ROOT")
+        os.environ["AHIG_PRIVATE_ROOT"] = tmp
+        try:
+            result = fulltext.acquire_fulltext(
+                candidate, transport=transport,
+                contact_email="owner@example.com",
+                now=lambda: "2026-08-15T00:00:00Z")
+            artifact_dir = next((Path(tmp) / "fulltext").iterdir())
+            staged = sorted(path.name for path in artifact_dir.glob("source-*"))
+        finally:
+            if old is None:
+                os.environ.pop("AHIG_PRIVATE_ROOT", None)
+            else:
+                os.environ["AHIG_PRIVATE_ROOT"] = old
+
+    assert result["status"] != "acquired"
+    assert result["attempts"][0]["conclusion"] == "miss"
+    assert result["attempts"][0]["httpStatus"] == 404
+    assert result["artifacts"] == []
+    assert staged == []
+
+
 def test_candidate_without_identifiers_is_blocked_not_terminal_no_oa():
     candidate = {
         "candidateId": "ahig:candidate:publication:no-identifiers",
@@ -1166,9 +1300,15 @@ def test_manifest_failure_leaves_sweepable_orphans_not_committed_evidence():
             assert not (artifact_dir / "manifest.json").exists()
             staged = sorted(path.name for path in artifact_dir.iterdir())
             assert len(staged) == 3          # raw + sections + generation dir
+
             removed = fulltext.sweep_orphans(artifact_dir)
-            assert len(removed) == 3
-            assert list(artifact_dir.iterdir()) == []
+
+            # staged 的 raw/sections 是孤兒可清；但 content-addressed 的
+            # generation 一律保留——它能自證，且可能被既有 batch 引用。
+            assert len(removed) == 2
+            assert sorted(path.name for path in artifact_dir.iterdir()) == [
+                "manifests"
+            ]
         finally:
             if old_root is None:
                 os.environ.pop("AHIG_PRIVATE_ROOT", None)
