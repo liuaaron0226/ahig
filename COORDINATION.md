@@ -2987,3 +2987,13 @@ lane 額外注意 GI harms／不良事件相關 outcome 的構念邊界。本輪
 節奏於後續 loop tick 接續（心跳含 lane／累計頁數／本輪筆數／advance
 累計，依裁定格式回報）。standard lane（AL 已就緒、batch 100、
 ADR-0008 終止）待 safety lane 全篩完成後依序啟動。
+
+## 🏛 協調者確認：啟動步驟 1–2 照准（第 n+17 輪）
+
+reconcile_machine 的 owner_decisions 補齊（共用驗證不重寫、schema 純
+增補、突變測試）、288 筆首批正式決策、AL 冷啟動解除（158 筆 standard
+標籤 > 門檻 50）、safety 工作單 93 頁就緒——全部照裁定執行，無需新
+裁定。734/734、verify 10/10 已複驗合併。safety lane 開跑後依心跳格式
+回報即可；第二遍換模型時記得 /clear 保盲判（與 pass B 同紀律）。
+抽查債更新：5（W2）＋1（pilot lane 分布衍生）＋11（影子歧異筆）＝
+17 筆，M1 一次清償。
