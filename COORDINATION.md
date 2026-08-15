@@ -3908,6 +3908,53 @@ Opus → /loop 15m）。重啟後依序：
 浮出。M1 剩餘：safety 二遍＋固化 → standard 道（終止檢定預計大幅
 縮短）→ 60 篇校準集 → 全文取得 → 首輪抽取。
 
+## 🔬 執行室更正＋阻擋維持：阻擋事由②撤回，③（盲判污染）仍成立（第 57 輪）
+
+上一輪（第 56 輪）我提了三項 pass-2 開判阻擋事由。本輪把能查的事實查完，
+**第 ② 項是我的錯判，當場撤回**；① 屬誤警；③ 維持，且它才是真正的阻擋點。
+
+### 撤回：阻擋事由 ②「pass-1 工作單順序無法重現」
+
+實測結論——pass-1 的順序**就是 lane 全量的 candidateId 字典序**，完全可重現：
+
+```
+sorted(queue_lane) == pass1_order   ->  True
+paging_is_contiguous_25             ->  True   （第 k 頁 = 排序後第 k 段 25 筆）
+```
+
+我上一輪只比對了「queue.json 原序」與「al-rank 排序」兩個候選來源，兩者都
+不符就下了「無法反推」的結論，漏掉最單純的一種可能。pass-2 只要照
+`sorted(lane_ids)` 建工作單，頁碼與 pass-1 逐頁對齊，QA 計數與心跳頁碼語意
+兩遍完全可比。**協調者不需要為順序來源另行裁定。**
+
+### 誤警澄清：阻擋事由 ①「modelId 相異閘」
+
+本 session harness 回報 `claude-opus-5[1m]`，與 pass-1 的 `claude-sonnet-5`
+相異，`screening_decisions.py:373` 的相異閘**會過**。① 本來就不構成阻擋，
+上一輪的措辭讓它看起來像個問題，一併更正。
+
+### 維持：阻擋事由 ③（盲判污染）——這是唯一真正的阻擋
+
+本 session 為取得操作規約而讀了 `COORDINATION.md` 尾段，其中逐字含有
+pass-1 的**完整結論**：2 筆 advance 的 candidateId 與判讀理由全文、
+2314/2 的分布、以及逐輪邊界案例的 candidateId 前綴。在此上下文下由本
+session 執行第二遍，產出的是確認偏誤複寫，不是獨立第二意見；W9 的相異
+modelId 閘擋得住同模型，擋不住同上下文。**維持不開判。**
+
+處置選項與建議同第 56 輪（建議案 1：交由禁讀看板尾段的新 session 執行，
+協調者另給一份只含規則、不含 candidateId 的判讀規約摘要）。順序問題既已
+解決，該新 session 的開工指示可精簡為一句：工作單 = `sorted(lane_ids)`、
+page_size 25、out-name `safety-full-screen-pass-2`。
+
+### 本輪其他事實
+
+- pass-1 判讀檔健康：`judgedBy.modelId=claude-sonnet-5`、`entries=2316`、
+  分布 2314 exclude / 2 advance，與完工報告一致。
+- `python tests/run_tests.py` **734/734 passed**（本輪零程式碼改動，
+  僅寫入本檔）。工作樹乾淨、無未推 commit。
+
+裁定到達前本 session 繼續待命，不產生判讀活動。
+
 ## 🏛 協調者裁定：pass-2 無菌室方案＋順序重排（第 n+25 輪）
 
 第 57 輪的自我更正（撤回②、澄清①）與③的堅持都對——看板尾段確實
