@@ -6772,3 +6772,120 @@ page 45 以程式比對候選數與判讀數一致（25/25）後才 append，無
 
 繼續 page 46 起（remaining 7,966），維持 `claude-opus-5[1m]`、同一
 session 不中斷。
+
+---
+
+## B.11 執行室心跳 — 裁定 n+27 落地＋page 46（第 89 輪）
+
+**時間**：2026-08-16 · **分支**：`claude/w4a1-fulltext-artifacts` ·
+**判讀者**：`claude-opus-5[1m]`（ADR-0009 裁定①，executor-session）
+
+### 一、裁定 n+27 已落地（追溯檔 68 → 79 筆）
+
+**rebase 衝突處理**：本輪 pull 時 COORDINATION.md 出現 append-only
+衝突（協調者裁定與我的第 88 輪心跳各自附加）。以程式保留雙方內容、
+裁定在前心跳在後，驗證 0 個衝突標記且兩節皆完整後才 `rebase
+--continue`，**未丟失任何一方內容**。
+
+#### 裁定 1（認知/技能 outcome）：6 筆全數 `[outcome-adjacent]` 排除
+
+裁定末句指示「唯一乾淨耐力筆若同時帶清單內結局則以該結局
+advance，僅認知結局則排除」。我逐筆回查 `b55d52f0…`（8 名
+well-trained triathletes、100 分鐘通氣閾持續跑步）的摘要，
+**確認其 outcome 僅單一/選擇反應時間與 RPE，未帶任何契約清單內
+結局**，故依裁定排除。六筆去向與理由已逐筆寫入追溯檔。
+
+#### 裁定 2（職業任務情境）：**實際為 5 筆，非裁定所列 3 筆**
+
+我在第 87 輪心跳只報了 3 筆（消防 ×2、25 kg 背包 ×1），裁定據此
+下達。落地前我以關鍵字回掃全部 unclear，**另找到 2 筆同型但在
+第 87 輪之前判讀、未被我歸類的**：
+
+| candidateId | 內容 |
+|---|---|
+| `b6953c20…` | 18 名 **ROTC 學員** 19.3 km 負重行軍；米基 vs 蔗糖基飲料（114 vs 170 g CHO，約 25–37 g/h），**outcome 含 gi-symptom** |
+| `ca2dcf61…` | **士兵**熱環境 16 km（3 小時）走跑；水 vs 7.5% 葡萄糖-電解質 vs 7.5% 果糖/玉米固形物（約 90 g/h，裁定A型） |
+
+兩筆的族群同為職業體力工作者，依裁定 2 之族群軸原則一併排除、
+標 `[occupational]`，並在追溯檔以 `flagged: beyond-reported-three`
+標註。**這是我第 87 輪歸類不完整所致，不是裁定範圍問題**——若
+協調者認為這兩筆不在裁定意旨內，翻欄位即可回收。
+
+`b6953c20…` 值得特別一提：它帶 **gi-symptom（契約 critical
+outcome）**，是 occupational 名單中唯一命中清單結局者。
+
+#### 追溯檔現況
+
+79 筆，程式驗證（id 存在、無重複、originalOpinion 吻合）全數通過。
+
+| tag | 筆數 |
+|---|---|
+| `mixed-nutrient` | 25 |
+| `population-recreational/untrained` | 19 |
+| `harm-adjacent`(含 oral) | 14 |
+| `outcome-adjacent`（新） | 6 |
+| `occupational`（新） | 5 |
+| `chronic-strategy` | 5 |
+| `methodological` | 4 |
+| `gi-symptom-present`（逆向 → advance） | 1 |
+
+### 二、page 46 判讀
+
+| 項目 | raw | effective |
+|---|---|---|
+| 已判讀 | 1,150 / 9,091（page 1–46，12.65%） | 同 |
+| advance | 280 | **281** |
+| unclear | 182 | **103** |
+| exclude | 688 | **766** |
+
+本輪新增 25：**advance 0**（連三輪）、unclear 8、exclude 17。
+剩餘 7,941。
+
+```
+pScore 0.9921 · relevantFound 384 · h0MinTotalRelevant 405 · windowSize 3
+```
+
+### 連三輪零 advance，兩筆設計精巧者卡在措辭
+
+- `31428441…`（**moderately-trained**）— 三臂為運動前 CHO＋運動中
+  安慰劑（G/P）vs 運動前後皆給（G/G）vs 全安慰劑（P/P）。
+  **G/G vs G/P 正好分離出「運動中攝取」的獨立效果**，另有全安慰劑
+  對照，約 120 g/h，命中總作功。此設計直接回答契約的核心問題，
+  卻卡在 `moderately-trained` 非裁定列舉措辭。
+- `8e2d79fc…`（僅「Eleven men」）— 常壓低氧 90 分鐘行走，
+  1.2 g/min 葡萄糖 vs 安慰劑（皆 U-13C6 標記），命中
+  exogenous-cho-oxidation 並分離肌肉與肝臟內源來源。
+
+措辭待確認名單本輪再 +4（`moderately-trained`、`10 triathletes`、
+`Eleven men`、新加坡受試僅報 VO2max）。
+
+### 同一研究群第三篇（重複索引）
+
+`a0232fc8…`（15 名 **明文 untrained**、TTE 137 vs 115 min）與
+第 84 輪 `a493ebdd…`、第 77 輪 `ca51bfaa…` —— 三篇同為 15 名
+untrained、同 VO2peak 44–45、同 TTE 137 vs 115 min，outcome 分別為
+Na+-K+-ATPase 活性、SR Ca2+ 處理、肌肉膜興奮性。**三篇皆因明文
+untrained 而排除**（裁定 62），故重複索引不影響納入判定，但已標註
+供 W4b 計數用。
+
+另 `40f2800533…` 與第 87 輪 `3cce9430…` **標題與摘要逐字相同**，
+為同一研究之單純重複索引（第 1 型），兩筆皆 exclude。
+
+### 名單更新
+
+- **harm-adjacent 增至 21 筆**：`ef8f08ba…`（5 人制足球賽胃排空）。
+  另 `b238fa09…`（士兵野外胃排空）同時觸及 occupational 與
+  harm-adjacent 兩軸，已於追溯檔歸入 occupational、理由中標註雙軸。
+- **靜脈給藥途徑排除**再添 1 筆（`2ed7505a…`，葡萄糖 clamp 至
+  10 mM），與第 82 輪 `ddeca320…` 同型。
+
+### 品保與驗證
+
+page 46 以程式比對候選數與判讀數一致（25/25）後才 append，無漏判。
+追溯檔 79 筆於檢定時重新驗證，全數通過。
+`python tests/run_tests.py` **734/734 passed**（`ahig/` 程式碼零改動）。
+
+### 下一步
+
+繼續 page 47 起（remaining 7,941），維持 `claude-opus-5[1m]`、同一
+session 不中斷。
