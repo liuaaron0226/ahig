@@ -7505,3 +7505,101 @@ page 52 以程式比對候選數與判讀數一致（25/25）後才 append，無
 
 繼續 page 53 起（remaining 7,791），維持 `claude-opus-5[1m]`、同一
 session 不中斷。
+
+---
+
+## B.11 執行室心跳 — standard lane 主篩 page 53（第 96 輪）
+
+**時間**：2026-08-16 · **分支**：`claude/w4a1-fulltext-artifacts` ·
+**判讀者**：`claude-opus-5[1m]`（ADR-0009 裁定①，executor-session）
+
+### 進度
+
+| 項目 | raw | effective |
+|---|---|---|
+| 已判讀 | 1,325 / 9,091（page 1–53，14.57%） | 同 |
+| advance | 288 | **289** |
+| unclear | 212 | **133** |
+| exclude | 825 | **903** |
+
+本輪新增 25：advance 3、unclear 5、exclude 17。剩餘 7,766。
+
+```
+pScore 0.9795 · relevantFound 422 · h0MinTotalRelevant 445 · windowSize 7
+```
+
+### 本輪 advance（3 筆，皆為族群措辭明確者）
+
+- `c28ed3a2…` — 明文 **30 名 experienced marathon runners**，2.5 小時
+  76.7%VO2max 跑步，運動前 0.75 L＋每 15 分鐘 0.25 L CHO vs 安慰劑
+  （隨機雙盲）。免疫機轉 outcome，依 recall-biased 送全文。
+- `aaed83e0…` — 明文 **14 名 competitive cyclists/triathletes**
+  （VO2max 67），4 小時場地騎乘，**6% vs 12% CHO vs 無 CHO 安慰劑**
+  ——完整劑量梯度＋安慰劑，且明載 **CRP 抑制呈劑量依存**（僅 12%
+  顯著）。免疫 outcome，依 recall-biased 送全文。
+- `66301d89…` — 4,300 m 高地 720 kJ 計時賽，10% CHO 0.175 g/kg
+  vs 安慰劑，命中 **tt-completion-time**（critical outcome）。
+
+### 高地系列姊妹研究配對
+
+`66301d89…`（**中海拔居民**，居住 2,000 m 達 21 個月，能量平衡狀態）
+與第 93 輪已判 advance 的 `b7e2fe0c…`（**海平面居民**，4,300 m
+併 40% 能量赤字）——同 720 kJ 計時賽、同 10% CHO 0.175 g/kg 劑量、
+同每 15 分鐘給予、同研究室。摘要明載本筆是為延伸前者結論而做。
+
+兩筆皆 advance。**這不是重複索引而是設計上的姊妹研究**（族群與
+能量狀態刻意不同），W4b 應**兩筆都納入**並在分層時註明族群差異。
+已於兩筆理由互相標註。
+
+### 臨界功率系列：又一組同研究群配對
+
+`4e8a99ec…`（16 名受試，2 小時重度強度騎乘後 3 分鐘全力測驗，
+**60 g/h CHO vs 安慰劑，CHO 完全抵消 EP 之 9% 下降**）與第 92 輪
+已判 advance 的 `11f29062…`（0/60/120 g/h 三段劑量梯度、同臨界
+功率 outcome）為同研究群。
+
+本輪這筆因摘要僅載「Sixteen participants」（無訓練措辭）判 unclear。
+**同一研究群的兩篇，一篇族群措辭通過、一篇沒有**——這是措辭門檻
+造成的分裂，若 M1 裁定數值門檻，兩筆應一併處理。
+
+### 重複索引：第 3 型再添一組
+
+`36969a4b…`（Abstract，肌肉合成訊號與肌生成基因）與第 81 輪已判
+advance 的 `41784b22…`（exogenous-cho-oxidation）——同 12 名男性、
+同 VO2peak 44、同 80 分鐘 64%VO2peak、同 146 g CHO、同低/適量
+肝醣起始設計，outcome 完全不同。第 3 型（同試驗拆多篇）累計 6 組。
+
+### 一筆檢索雜訊
+
+`5aee59d7…` —「Metabolic interactions between glucose, glycerol,
+alanine and acetate in **Leishmania braziliensis panamensis
+promastigotes**」，13C-NMR 測利什曼原蟲之體外代謝。**非人體、
+無運動、無介入**，與契約四軸全數無關。
+
+本 lane 前 53 頁首次出現與主題完全無關的候選。判 exclude 並標註為
+檢索雜訊，供 W4b 評估檢索式的特異度。
+
+### harm-adjacent 名單增至 28 筆
+
+`2e31f977…` — 五種 6% CHO 溶液（滲透壓與鈉濃度不同、**CHO 濃度
+固定**）之十二指腸與空腸淨液體吸收。此筆五臂皆含 CHO、無安慰劑
+或水對照，是名單中**唯一完全沒有無 CHO 對照臂**者。
+
+### 本輪其餘 exclude
+
+- **介入非 CHO 8 筆**（本輪最大宗）：咖啡因 ×2、腎上腺素受體
+  阻斷劑、魚油、L-肉鹼、辣椒素酯、酒精、水合狀態操弄。
+- 恢復期 4 筆、運動前攝取 2 筆、慢性策略 2 筆。
+- **兒童 1 筆**（`7e50fd85…`，10.4 歲初經前女童）——累計 **26 筆**。
+- 年齡上限 1 筆（IFG 族群平均 54.5 歲）——累計 **4 筆**。
+
+### 品保與驗證
+
+page 53 以程式比對候選數與判讀數一致（25/25）後才 append，無漏判。
+追溯檔 79 筆於檢定時重新驗證，全數通過。
+`python tests/run_tests.py` **734/734 passed**（`ahig/` 程式碼零改動）。
+
+### 下一步
+
+繼續 page 54 起（remaining 7,766），維持 `claude-opus-5[1m]`、同一
+session 不中斷。
