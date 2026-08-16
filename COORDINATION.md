@@ -7708,3 +7708,101 @@ page 54 以程式比對候選數與判讀數一致（25/25）後才 append，無
 
 繼續 page 55 起（remaining 7,741），維持 `claude-opus-5[1m]`、同一
 session 不中斷。
+
+---
+
+## B.11 執行室心跳 — 裁定 n+28 落地＋page 55（第 98 輪）
+
+**時間**：2026-08-16 · **分支**：`claude/w4a1-fulltext-artifacts` ·
+**判讀者**：`claude-opus-5[1m]`（ADR-0009 裁定①，executor-session）
+
+### 一、裁定 n+28（賽段間補給）已落地：3 筆中 2 筆重歸 advance
+
+裁定指示三筆「依新判準納入 overlay 重歸 effective advance
+（**若其他軸合格**）」。我逐筆複核其餘三軸，結果 2 筆合格、1 筆不合格：
+
+| candidateId | 間歇 | 其餘軸複核 | effective |
+|---|---|---|---|
+| `92af84a2…` | 15 分鐘主動恢復 | 族群明文 **16 trained male cyclists**；CTL（不給）vs PRE2/PRE3 為乾淨對比；80 g；命中 TT 完成時間 | **advance** |
+| `dc9a89b2…` | 20 分鐘休息 | 族群明文 **8 highly trained triathletes**；安慰劑 vs 香蕉泥 vs 固態香蕉（裁定A型＋安慰劑）；命中 TTE | **advance** |
+| `42e18d6e…` | 20 分鐘休息 | timing 已解決、對照與 outcome 皆合格（3 g/kg vs 安慰劑，TTE 26 vs 10 min）；**但摘要僅載「Seven cyclists」、無訓練狀態措辭** | **維持 unclear** |
+
+第三筆的 timing 軸確實已依裁定解決，卡的是**裁定 62 的族群措辭**
+——「若其他軸合格」的條件在本筆不成立，故未逕行改判。已在 overlay
+以 `flagged: timing-resolved-population-blocks` 標註。若 M1 裁定
+數值門檻後族群軸放行，此筆可直接翻為 advance。
+
+**追溯檔現況：82 筆**（79 → 82），程式驗證（id 存在、無重複、
+originalOpinion 吻合）全數通過。
+
+新增 tag：`between-segment-in-exercise`（3 筆）。
+
+### 二、page 55 判讀
+
+| 項目 | raw | effective |
+|---|---|---|
+| 已判讀 | 1,375 / 9,091（page 1–55，15.13%） | 同 |
+| advance | 294 | **297** |
+| unclear | 223 | **142** |
+| exclude | 858 | **936** |
+
+本輪新增 25：advance 3、unclear 4、exclude 18。剩餘 7,716。
+
+```
+pScore 0.9907 · relevantFound 439 · h0MinTotalRelevant 463 · windowSize 3
+```
+
+### 新判準本輪首次實際適用於排除方向
+
+裁定 n+28 同時界定了恢復期側。本輪兩筆依此排除：
+
+- `dbdaca72…` — 恢復期 **0/1/2 小時**攝取、3 小時後測驗 → 間隔
+  以小時計，屬恢復期
+- `bb07391b…` — 兩次騎乘之間 **4 小時**恢復期 → 同上
+
+裁定不只放行了段落間補給，也讓恢復期的界線更明確可判，本輪
+兩筆均無需再判 unclear。
+
+### 本輪 advance（3 筆，皆族群措辭明確）
+
+- `78970a7a…` — 明文 **10 名 male endurance runners**（VO2max 62.9），
+  90 分鐘 70%VO2max 跑步，四臂為 CHO+α-乳白蛋白 / CHO+乳清 /
+  **純 CHO / 安慰劑**——CC vs CON 為可分離之乾淨對照；outcome 含
+  **腹部不適主觀量表**（GI 症狀相關，契約 critical outcome）。
+- `fe5c317e…` — 明文 **11 名 well-trained male endurance athletes**，
+  90 分鐘 75% vVO2peak 跑步，6% CHO vs 安慰劑，鐵調素與發炎 outcome。
+- `e6d72c92…` — 明文 **8 名 well-trained subjects**，100 分鐘騎乘，
+  **於運動第 50 分鐘攝取 0.75 g/kg 蔗糖 vs 水**。此筆以
+  **皮下脂肪組織微透析**直接量測局部脂解，是本 lane 首見之量測技術，
+  已標註。
+
+### 又一組同試驗配對（第 3 型累計 10 組）
+
+`4d9333fb…`（NK 細胞對 IL-2/IFN-γ 反應性）與第 92 輪 `3aec6f1a…`
+（NK 細胞毒殺活性）——同 8 名、同 VO2peak 67、同 1 小時 75–80%
+騎乘、同 CHO vs 安慰劑設計，摘要明載本筆為前者之後續研究。
+兩筆皆判 unclear（族群措辭），已互相標註。
+
+### 本輪其餘 exclude
+
+- **運動前攝取 4 筆**、恢復期 3 筆、飲食/慢性策略 4 筆。
+- **介入非 CHO 4 筆**：prednisolone（與第 80/87/90 輪同研究群
+  第四篇）、BCAA+維生素 B6 運動飲料、甜菜根汁、等熱量蛋白飲。
+- **運動型態不符 2 筆**：肌力體能綜合方案（含 15/30/60 g/h 劑量
+  梯度設計，可惜運動型態出局）、等速肌力測驗。
+- **兒童 2 筆**（10–12 歲男童、10.6 歲女童）——累計 **28 筆**。
+- **年齡上限 2 筆**（60±4 歲停經後女性、63.3 歲男性）——累計
+  **5 筆**。
+
+### 品保與驗證
+
+page 55 以程式比對候選數與判讀數一致（25/25）後才 append，無漏判。
+rebase 衝突（協調者裁定與第 97 輪心跳各自附加）以程式解析，
+雙方內容均保留、驗證 0 標記且各節標題各出現一次後才 continue。
+追溯檔 82 筆於檢定時重新驗證，全數通過。
+`python tests/run_tests.py` **734/734 passed**（`ahig/` 程式碼零改動）。
+
+### 下一步
+
+繼續 page 56 起（remaining 7,716），維持 `claude-opus-5[1m]`、同一
+session 不中斷。
