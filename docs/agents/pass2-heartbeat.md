@@ -1119,3 +1119,57 @@ tests/run_tests.py：734/734 passed, 0 failed（ahig/ 程式碼零改動，
 - **專利累計 16 筆**：本輪 `fbd6540c`（血糖波動的預測性治療方法）。
 - **preprint-vs-journal 重複組再添一例**：`fd5a203b`／seq 1821（熊果酸與阻力訓練對高齡糖尿病大鼠肝激素的影響）。本 lane 此型累計 7 組。
 - 剩餘 41 筆（pages 92–93），**下輪即可收尾全部 2316 筆**。
+
+## Round 45 — pages 92-93：**safety-review lane 第二輪盲判全數完成**
+
+- **進度：2316 / 2316（100%），remaining 0。**
+- 意見分布：**advance 2、exclude 2314、unclear 0**。
+- 測試：734/734 passed, 0 failed（連續 45 輪；`ahig/` 全程無任何變更）。
+
+### 最終完整性驗證（程式檢核，非目視）
+
+對 `worksheet.json` 與 `judgements.json` 全量比對：
+
+| 檢核項 | 結果 |
+|---|---|
+| worksheet 項目數 | 2316 |
+| judgements 筆數 | 2316 |
+| 順序完全一致 | True |
+| 重複 candidateId | 0 |
+| 遺漏 | 0 |
+| 多餘 | 0 |
+| 空白 reason | 0 |
+| reason 長度 | min 64／mean 125／max 721 字元 |
+| judgedBy | `llm / claude-opus-5[1m] / executor-session / ADR-0009 裁定①` |
+
+每一筆 reason 皆非空且具體標明不符軸別，符合 ADR-0009「reason 即 rawResponse」的要求。
+
+### 兩筆 advance
+
+1. **seq 48** `046832a3cace4f7a7200ba5c` —「Effect of glucose solutions on fluid availability at rest and exercise in humans」
+2. **seq 1520** `a8d22fb413c2014a80482106` —「Effects of Different Carbohydrate Supplementation on Marathon for Amateur Runners: A Controlled Trial」（2024）
+   - 30 名業餘馬拉松跑者，賽中補醣 80 g/h vs 50 g/h（皆在 10–150 g/h 窗內，50 g/h 臂符合 `lower-cho-dose-arm`），結局為完賽時間（`tt-completion-time`，critical）。年齡與 VO2max 未載於摘要，依 fail-closed 不以資訊不足推定排除。
+
+### 本輪（page 92-93）判讀要點
+
+41 筆全為臨床試驗登錄紀錄。一律於文獻型態軸排除（無結果數據），並同時記載其餘不符軸使理由不單靠型態成立。三筆介入軸最接近合規者：
+
+- `93fd4441f8c31edf60d237c5` — 90 分鐘騎乘／跑步**期間**攝取 0.7 g 醣/kg/h（約 40–50 g/h，窗內），對照臂為空腹不補醣，族群為規律跑步或騎車女性。敗在結局軸：生殖荷爾蒙、月經週期長度與瘦體素、皮質醇，全不在清單。**若日後檢討結局軸邊界，這是第一個要回頭看的登錄紀錄。**
+- `eb63851e68af1c4f9fb9a1cc` — 不同預防性補醣方案的前瞻隨機比較（標準化中強度運動場次）。敗在對照軸（各臂皆為醣類，無 non-caloric placebo／water-only／lower-cho-dose）與結局軸（低血糖發生率）。屬先前記錄的「同劑量／同型態對照」類。
+- `d56fc216c731b077050c9518` — 運動前緩消化玉米澱粉補充品，時序為運動前；族群為 T1D 青少年。
+
+### 交付狀態
+
+- 分支 `claude/safety-pass-2`，全部 45 輪心跳與判讀已 commit 並推送。
+- 全程未讀 `COORDINATION.md`、未執行 `git log` 翻閱看板歷史、未查閱任何先前判讀結果，盲判條件維持完整。
+- 期間收到協調者裁示 R1／R2／n+30／n+31／R3，皆以程式掃描全量既有判讀比對，**五次裁示均未觸發任何回溯修正**。
+
+### 給協調者的收尾清單（各項細節見前述各輪）
+
+1. **LEA 排除條款射程**（影響 19 筆）——僅擋「刻意操弄能量可用性」，或亦擋「觀察到受試者處於 LEA」？分水嶺案例為 `e0318b8a`（刻意操弄）與 `fa913ba8`（1899 名越野跑者，觀察）。
+2. **演算法導向補醣類**（7 例）——醣量由即時血糖決定、產不出劑量-反應資料，建議明文單獨處理。
+3. **自主補給的觀察紀錄 vs 受控分派**（4 例）——建議明文區分。
+4. **時序軸三種樣態**——運動前攝取／運動後恢復補充／運動後低血糖救援給糖，理由各異，建議分別明文。
+5. **同劑量對照類**（3 例以上）——「同劑量不同時序」與「同劑量不同醣種」皆不在 activeComparatorAllowlist。
+6. **protocol 與 registry 型文獻**（合計 30 筆以上）——建議全文調閱前一次前置過濾。
+7. **引文追蹤起點**：`e24a180d`（≥100 g/h 高劑量補醣專論綜論），其比較 ≥100 vs 60–90 g/h 的實驗研究清單直接對應本合約的 `lower-cho-dose-arm` 設計。
