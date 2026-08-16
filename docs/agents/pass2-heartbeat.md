@@ -1222,3 +1222,68 @@ tests/run_tests.py：734/734 passed, 0 failed（ahig/ 程式碼零改動，
 三條規約的回頭稽核**均未觸發任何回溯修正**，最終結論維持 **advance 2、exclude 2314、unclear 0**。唯一待協調者裁示者為稽核一的**行文順序**問題（不影響結論）。
 
 測試：734/734 passed, 0 failed（本輪未動 `ahig/`）。
+
+## Round 47 — 交接前置檢查：判讀檔能否直接餵進固化流程（無新判讀）
+
+判讀已完成 2316/2316。本輪不新增判讀，改做**下游交接的前置檢查**：
+確認我交付的 `judgements.json` 能否被 `reconcile_machine` 接受，以免
+協調者執行固化時才撞到結構問題。**只檢查我自己的產出與共用程式碼，
+未讀取任何 pass-1 產物，盲判條件未破。**
+
+### 檢查方法
+
+讀 `ahig/search/screening_decisions.py::_validate_machine_binding`
+的全部 fail-closed 條件，逐條對我的產出核對。
+
+### 結果：entry 層全數通過
+
+| 檢查項（`_validate_machine_binding`） | 結果 |
+|---|---|
+| opinion ∈ {advance, exclude, unclear} | 2316/2316 通過 |
+| 未攜帶人類決策欄位（decision/decidedBy/…） | 0 筆違規 |
+| 判讀理由非空 | 2316/2316 |
+| candidateId 無重複、與 assignment 集合一致 | 通過（第 45 輪已驗） |
+
+### 結果：envelope 層需要協調者補三個治理值（**非缺陷**）
+
+我的 `judgements.json` 是 **worksheet 工具的中繼格式**，欄位為
+`{candidateId, opinion, reason}` ＋ `judgedBy`。`reconcile_machine`
+吃的是**固化後的 review 文件**，兩者之間由
+`judgement_worksheet.file_judge` → `screening_driver.run_batch` →
+`llm_second_review.build_session_opinion_batch` 轉換：
+
+- `file_judge` 已內建 `reason` → `rawResponse` 的對映（工具設計如此，
+  我的欄位名正確，**不需改檔**）。
+- 但固化步驟需要三個**我無法自行決定**的值：
+  1. **`model_version`** — 我的 `judgedBy` 只有 `modelId:
+     claude-opus-5[1m]`，harness 未回報版本字串。ADR-0009 原則 3 要求
+     模型與版本落盤入雜湊鏈，且 `reconcile_machine` 會比對兩位
+     reviewer 的 `modelId` 必須相異——**此值須由協調者依實際 harness
+     回報填入**。
+  2. **`reviewer` 信封**（`reviewerId`／`agentClass: llm`／
+     `blindedToOtherReviewer: true`）與 **`reviewId`** — 這是對帳時
+     區分兩位審查者的識別，須與 pass-1 的 reviewerId 相異且不重複，
+     **只有能同時看到兩遍的協調者能安全指定**（我若自行命名有撞號風險）。
+  3. **`judgingProtocol`** 三欄位（ADR-0009 裁定①的治理聲明）：
+     - `scopeContractSha256` = `bf33f434062a5f88f540078329e97d7f22462e4a74c65b964be0c1bd6cd1011d`
+       （`ahig/calibration/b11-carbohydrate/scope-contract.json`）
+     - `worksheetSha256` = `b0a5ed64539e7660f7c232f83f5e16a771018498116317a29552d9c54d12bcb6`
+       （本 lane 的 `safety-full-screen-pass-2/worksheet.json`）
+     - `boardReference` — 看板判讀慣例段落引用，**須由協調者指定**
+       （我依簡報不得讀看板）。
+
+**前兩個雜湊我已算好列在上方，協調者可直接取用。**
+
+### 判讀本身無需任何修改
+
+三項缺口全部在 envelope／治理層，屬**交接時由協調者填入**的欄位，
+與 2316 筆判讀內容無關。判讀檔本身結構正確、可直接進入
+`file_judge` 轉換鏈。
+
+### 待協調者裁示事項（累計）
+
+1. 第 46 輪提出的 **registry-record 理由行文順序**（45 筆以文獻型態
+   起首；實質軸已驗證全數獨立成立，改寫不影響結論）。
+2. 本輪的 **model_version／reviewer 信封／boardReference** 三值。
+
+測試：734/734 passed, 0 failed（`ahig/` 未動）。
