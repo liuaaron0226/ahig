@@ -8602,3 +8602,120 @@ page 63 以程式比對候選數與判讀數一致（25/25）後才 append，無
 
 繼續 page 64 起（remaining 7,516），維持 `claude-opus-5[1m]`、同一
 session 不中斷。
+
+---
+
+## B.11 執行室心跳 — standard lane 主篩 page 64（第 107 輪）
+
+**時間**：2026-08-16 · **模型**：`claude-opus-5[1m]`（同一 session 不中斷）
+
+### 本輪進度
+
+| 項目 | 數值 |
+|---|---|
+| 本輪判讀 | page 64，25 筆 |
+| 累計判讀 | **1,600 / 9,091**（page 1–64 完成，17.60%） |
+| 剩餘 | 7,491 |
+| 原始標記 | advance 300、unclear 263、exclude 1,037 |
+| 追溯覆蓋層 | 84 筆（本輪未新增） |
+| 有效標記 | **advance 303、unclear 182、exclude 1,115** |
+
+**ADR-0008 終止檢定**：`pScore 0.9931`、`relevantFound 485`、
+`h0MinTotalRelevant 511`、**windowSize 2**。
+
+本輪 advance **0 筆**、unclear 4 筆、exclude 21 筆（原始標記較上輪
+unclear +4、exclude +21、advance +0，與 25 筆總數相符）。advance 累計
+仍停在 303，`h0MinTotalRelevant` 由 507 升至 511。
+
+### windowSize 續記（第 107 輪）
+
+103–107 輪軌跡：**12 → 9 → 8 → 1 → 2**。第 105 輪的三連高值在第 106
+輪被打斷，本輪維持低值，再次確認當時「不宣稱 AL 尾段已形成」的克制是
+對的。**目前仍不對趨勢做任何主張**，繼續只報數字。
+
+### 裁定 n+27-2（occupational）判讀當下首次直接套用
+
+`e3c52a4c…` — 24 名受試**背負 23 kg 背包**於 33°C 環境艙以 3 mph/7%
+坡度步行 2 小時，運動中自由飲用水 / 電解質 / 電解質＋CHO。這是
+occupational 標籤**第一次不經覆蓋層、在題摘判讀當下直接判 exclude**
+（前 5 筆皆為裁定後追溯改判）。本筆同時卡 outcome 軸（認知處理 SCWT），
+屬裁定 n+27-1 範圍，雙重成立。累計 occupational 第 6 筆。
+
+### 本輪 4 筆 unclear
+
+| 候選 | 缺口 | 判 unclear 理由 |
+|---|---|---|
+| `857f3bc5…` | timing | 博士論文，Vitargo（HMW）vs Maxijul（LMW）**同熱量不同 CHO 型態＝裁定A型**；但摘要所述章節全為恢復期肝醣再合成。摘要明載 `(continues)` **為截斷文本**，不能排除另有運動中章節 |
+| `717879d7…` | timing 未載 | 8 名 **well-trained male runners**、1 小時 85%VO2max、750 ml **10% CHO vs 安慰劑**（75 g，若在運動中給則在範圍）。摘要只寫 `consumed on each occasion`，**未載時點**——其餘四軸全齊 |
+| `b055ee07…` | 運動型態／outcome | 18 名 **elite academy soccer players**、90 分鐘 SMS、賽前與中場各 60 g CHO-E vs 電解質安慰劑。次要 outcome `high-intensity running capacity` **可能對應契約 TTE** |
+| `62718583…` | 設計（無對照臂） | 11 名 **well-trained cyclists**、4 日各 3 小時、運動中 **約 50 g/h**（在範圍）。三軸合格但全程單一補給方案 |
+
+上表四列即本輪 unclear 全部。有效統計以檢定輸出為準：
+advance 303 / unclear 182 / exclude 1,115。
+
+### 🙋 請協調者裁示：單臂無對照設計
+
+本輪 `62718583…`（11 名 well-trained cyclists、4 日 × 3 小時、運動中
+約 50 g/h）與第 106 輪 `7b096a34…`（58 名 well-trained、4 小時騎乘、
+運動中自由飲用 7% CHO 約 49 g/h）**同型**：族群、介入、劑量、timing
+四軸全部合格，唯獨**全程單一補給方案、無安慰劑／水／低劑量對照臂**，
+比較軸是「日與日之間」或「單組前後」。
+
+契約設計軸要求 RCT（parallel 或 crossover）。**單臂研究在題摘階段是否
+可逕依設計軸排除，不必送全文？** 目前已累積 2 筆，兩筆我都判 unclear
+送全文（recall-biased），但若裁示可排除，這類會是乾淨的節流點。
+
+### 摘要品質異常一筆（W4b 取全文時需核對）
+
+`857f3bc5…` 摘要載「HMW glucose polymer (MW of 500-700 g.mol-1)」與
+「isoenergetic LMW glucose polymer (MW of 900 g.mol-1)」——**HMW 的
+分子量低於 LMW**，自相矛盾。Vitargo 實際分子量遠高於此量級，疑為
+原文謄錄或索引錯誤。已標註，全文階段需核對，勿以摘要數值入資料表。
+
+### 本輪 21 筆 exclude 分佈
+
+依首要不符軸歸類，合計 21 筆：
+
+- **介入非 CHO 7 筆**：咖啡因（concurrent training）、咖啡因凝膠
+  （兩臂 CHO 同為 21.6 g，唯一差異為 100 mg 咖啡因）、黑巧克力／
+  類黃酮、prednisone（**糖皮質素系列累計第 6 篇**）、鉻 picolinate、
+  甜菜鹼、乳酸靜脈輸注（且為**動物實驗**，本 lane 首見）。
+- **[mixed-nutrient] 裁定 59/60 兩筆**：`dca24369…`（elite cyclists
+  訓練營，蛋白＋CHO vs 等熱量純 CHO）、`379720dd…`（CHO+蛋白 2:1/
+  3:1/4:1 vs 安慰劑，untrained students）。
+- **timing 不符 5 筆**：運動前 2 筆（高/低 GI 餐 ×2）、恢復期 3 筆
+  （義大利麵餐、阻力運動後 EAA、離心運動後 CHO-PRO；末者族群另為
+  明文 untrained males）。
+- **飲食／狀態操弄、運動中無 CHO 4 筆**：2.5 日高醣 vs 混合飲食、
+  餐與運動先後順序（M-E vs E-M）、運動型態操弄（MICT vs SIT）、
+  **飲水量操弄**（四臂共用同一 3.4% CHO 飲料，自變項是補液量非 CHO）。
+- **[occupational] 裁定 n+27-2 一筆**：`e3c52a4c…`（見上節）。
+- **族群明文不符一筆**：`203c4407…` sedentary Thai men/women，
+  且運動中未給任何 CHO。
+- **主題完全不符一筆**：`2b731e66…` 蠶豆症 divicine 溶血機轉（細胞
+  層級生化實驗，無運動、無受試者）——命中疑因 **glucose-6-phosphate
+  字面匹配**，屬檢索雜訊，非邊界案例。
+
+「安慰劑載體是 CHO」**累計第 13 例**（`aded6c20…` 甜菜鹼研究，
+CHO-電解質飲料為兩臂共用載體）。
+
+### 一筆值得記錄的 mixed-nutrient 邊界
+
+`dca24369…`（18 名 **elite cyclists** 訓練營）兩臂為
+「14 g 蛋白/h＋69 g CHO/h」vs「等熱量純 CHO 84 g/h」。純 CHO 臂看似
+可當 lower-CHO-dose 的反向對照，**但 CHO 劑量差（69 vs 84）與蛋白
+添加完全共線**，無法把效果歸給任一者，故仍依裁定 59/60 排除。族群、
+timing、劑量三軸本可通過，屬「差一點就進」的乾淨案例。
+
+### 品保與驗證
+
+page 64 以程式比對候選數與判讀數一致（25/25）後才 append，無漏判。
+追溯檔 84 筆於檢定時重新驗證（id 存在、無重複、originalOpinion 相符），
+全數通過。`python tests/run_tests.py` **734/734 passed**（`ahig/` 程式碼
+零改動，第 64 輪連續）。
+
+### 下一步
+
+繼續 page 65 起（remaining 7,491），維持 `claude-opus-5[1m]`、同一
+session 不中斷。等待協調者對「單臂無對照設計」之裁示；未獲裁示前
+維持 unclear 送全文。
