@@ -664,3 +664,35 @@ tests/run_tests.py：734/734 passed, 0 failed（ahig/ 程式碼零改動，
 - **犬類獸醫文獻第 3 筆**：`a3116048`（高脂餵食犬之冠狀動脈血流調節）。
 
 下輪：page 60。
+
+## Round 29 — pages 60-61
+
+- 進度：**1525 / 2316**（page 61 收尾，過 65%），剩 791。本輪 2 頁 50 筆，每頁 `p2_check.py` 皆 25/25 通過。
+- 意見分佈（累計）：exclude 1523、**advance 2**、unclear 0。
+- 測試：`python tests/run_tests.py` → **734/734 passed, 0 failed**（連續第 29 輪全綠）。
+- 協調檢查：`git pull` 已最新，主幹 briefing 最新仍為 R2，**無新指示**。
+
+### ★ 本 lane 第 2 筆 advance：`a8d22fb4`（seq 1520）
+
+「Effects of Different Carbohydrate Supplementation on Marathon for Amateur Runners: A Controlled Trial」(2024)——**這是自 page 1 以來第二筆 advance，也是本 lane 首次出現各軸同時對齊契約者**：
+
+- **族群**：30 名業餘馬拉松跑者（18 菁英業餘、12 次菁英業餘）——耐力項目競賽選手
+- **時序＋介入**：CHO 於**馬拉松比賽期間**補充，高碳組 **80 g/h**、常規組 **50 g/h**，**兩臂劑量均落在契約 10-150 g/h 區間內**
+- **對照**：常規組 50 g/h 為**較低 CHO 劑量臂**，在契約 `activeComparatorAllowlist` 之內
+- **結局**：主要結局為**完賽時間**，即契約 `tt-completion-time`（critical 級）
+- **設計**：摘要載明依訓練水準分層「randomly grouped」為四組，符合 RCT-parallel
+
+摘要未載年齡與 VO2max，屬**資訊不足而非正向排除證據**，依 fail-closed 原則不得推定排除。本篇 publicationTypes 為 Preprint，惟依 R2 裁定之「publicationTypes 與摘要內文不符時以內文為準」，設計以摘要所述隨機分派為準，同儕審查狀態交全文期評估。
+
+全文期待確認：受試者年齡與客觀訓練狀態指標、隨機分派方法與分派隱蔽、完賽時間之組間統計量與離散度、是否有 GI 症狀記錄。
+
+### 時序軸邊界案例：`a890e924`（seq 1518）
+1 g/kg 口服葡萄糖於運動**前 30 分鐘**給予，結局為**力竭時間**（契約 inScopeOutcomes 之 time-to-exhaustion），且含 23 名非糖尿病對照、結果顯示葡萄糖顯著延長對照組力竭時間（112→125 分鐘）。因時序為運動前單次預load 而排除。已標註：**若協調者日後檢討時序軸邊界（是否納入緊鄰運動起始之預load），本篇應優先重看**。
+
+### 其他
+- **making weight 第 6 筆且範圍擴大**：`a5d95a70`（職業賽馬騎師每日減重）是首見之**非對抗性體重限制項目**——前五筆全為量級對抗（健力、柔道、拳擊、摔角×2），此排除項的項目範圍由此擴及賽馬。
+- **賽中補充速率實測第 2、3 筆**：`a7f3c81f`（75 km 越野滑雪，約 40 g/h）與 `a857e586`（巴黎馬拉松 T1D 跑者），加上 round 26 的 `94675d96`（職業車手 76 g/h），本 lane 已累積三筆落在契約區間內的實測賽中補充速率，惟三者皆為 T1D 觀察性研究。
+- **重複組第 8 組**：`a87d8080`（Preprint）與 page 38 `6729f304`（期刊版）為 T1D HIIE 研究之同篇，第 5 組 preprint/journal 重複。
+- **LEA 操作經典設計第 2 筆**：`a3ea0eda`（45 vs 20 kcal/kg LBM/日）。
+
+下輪：page 62。
