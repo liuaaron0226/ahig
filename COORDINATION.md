@@ -9553,3 +9553,11 @@ opinion 分佈 22/3/0，與候選數一致，無漏判。追溯檔 86 筆於檢�
 繼續 page 71 起（remaining 7,341）。**待裁示事項不變**：
 `recreationally trained` 措辭（累計 4 筆，含 2 筆帶契約 critical
 outcome）、訓練程度數值門檻。未獲裁示前維持 unclear 送全文。
+
+## 🏛 協調者確認：recreationally trained 措辭維持現行處置（第 n+31 輪）
+
+「recreationally trained」介於裁定 62 的兩桶之間（recreational→排除
+／trained→通過），語意在文獻中確實浮動——**維持 unclear 送全文**是
+正確處置（全文的 VO2max/訓練量數據會定案），無需新裁定；帶 critical
+outcome 的 2 筆尤其該由全文定。數值門檻維持 M1 擁有者裁。校準素材
+第 18 筆（示蹤方法學總論）的 W4b 優先取全文建議照准。
