@@ -696,3 +696,26 @@ tests/run_tests.py：734/734 passed, 0 failed（ahig/ 程式碼零改動，
 - **LEA 操作經典設計第 2 筆**：`a3ea0eda`（45 vs 20 kcal/kg LBM/日）。
 
 下輪：page 62。
+
+## Round 30 — pages 62-63
+
+- 進度：**1575 / 2316**（page 63 收尾，過 68%），剩 741。本輪 2 頁 50 筆，每頁 `p2_check.py` 皆 25/25 通過。
+- 意見分佈（累計）：exclude 1573、advance 2、unclear 0。
+- 測試：`python tests/run_tests.py` → **734/734 passed, 0 failed**（連續第 30 輪全綠）。
+
+### 建議協調者留作全文期 GI 結局背景素材：`ac0a2ac6`（seq 1544）
+「Exit Gluten-Free and Enter Low FODMAPs: A Novel Dietary Strategy to Reduce Gastrointestinal Symptoms in Athletes」——核心為**運動相關腸胃道症狀（GIS）之飲食觸發因子**，明確論及**運動中攝取之 FODMAP 類短鏈碳水化合物**其滲透與產氣效應可能誘發或加重 GIS，與契約 `gi-symptom-incidence`（critical 級）主題**直接相關**。因屬綜論、且介入方向為減少可發酵碳水而非外源 CHO 補充而排除。若協調者日後需理解運動中 CHO 型態與 GI 症狀之機轉關聯，本篇為首選參考。
+
+### 麥芽糊精作為安慰劑載體——本輪兩筆
+- `ac92c50c`：膠原蛋白胜肽 vs **等熱量麥芽糊精**，族群為 18-35 歲每週跑量 ≥56 km 之受訓耐力女性跑者——**族群軸含年齡與訓練量客觀指標、完全符合契約**，是本 lane 少見族群完整吻合者；惟介入為膠原蛋白、CHO 僅為對照載體，時序為 4 週慢性補充，結局為骨代謝標記。
+- `ae8c9a88`：鈣＋麩醯胺酸 vs **麥芽糊精安慰劑**。
+
+此型態（placebo 載體為 CHO）在標準 lane 已記錄為主要假陽性來源，本 lane 亦持續出現，本輪一次兩筆。
+
+### 其他
+- **第 3 筆撤稿文獻**：`ab5f27bc`（沙烏地 T2DM 跑步機訓練）標示 Retracted Publication。前兩筆為 page 38 `659bf123`、page 52 `8c796c7d`。**建議協調者於全文期納入前一律先查撤稿狀態**——三筆分佈於不同頁段，非集中現象。
+- **making weight 第 7 筆**：`ae5ed71d`（划船選手 24 小時減重 4%）。該篇秤重後 2 小時給 **2.3 g/kg CHO**、結局為 **2000 m 測功儀計時**（近似契約 tt-completion-time），但 CHO 為減重後恢復期補充、操作變項是減重與熱環境（2×2 設計）。七筆中六筆為量級對抗或量級項目，一筆為賽馬騎師。
+- **骨代謝與 CHO 補充之關聯**：`ae61e845`（統合分析）指出 CHO 補充可能經由降低運動誘發之 CTX-1 上升而保護骨骼，低碳高脂則反之——結局雖非契約清單內，但屬 CHO 補充生理效應之背景素材。
+- **首見運動項目**：CrossFit®（`ac5faaa4`）、袋棍球（`af2355ac`）。
+
+下輪：page 64。
