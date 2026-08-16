@@ -421,3 +421,36 @@ tests/run_tests.py：734/734 passed, 0 failed（ahig/ 程式碼零改動，
 - 判讀檔完整落盤於 `AHIG_PRIVATE_ROOT`，不受 lock 影響。
 
 下輪：page 42。
+
+## Round 20 — pages 42-43
+
+- 進度：**1075 / 2316**（page 43 收尾），剩 1241。本輪 2 頁 50 筆，每頁 `p2_check.py` 皆 25/25 通過。
+- 意見分佈（累計）：exclude 1074、advance 1、unclear 0。
+- 測試：`python tests/run_tests.py` → **734/734 passed, 0 failed**（連續第 20 輪全綠）。
+- Git：`index.lock` 已由擁有者清除，第 4-19 輪十六輪心跳已合併為單一 commit（`30c033d`）推上 `claude/safety-pass-2`，遠端不再落後。
+
+### 主幹兩則裁定的核對結果（n+30 單臂設計、n+31 recreationally trained）
+上輪心跳後主幹新增兩則裁定，已對第 18-19 輪新增的 200 筆（seq 826-1025）程式化核對：
+
+**n+30（單臂無對照可依設計軸排除，但僅限題摘明示、fail-closed）**
+- 全庫共 **31 筆**判讀理由提到「單臂／單組／無對照臂」
+- 其中**依設計軸單獨排除者：0 筆**——每一筆都另有族群／介入／結局／時序軸獨立成立
+- 因此 n+30 **不需任何翻案**，也未違反 fail-closed（我從未以「摘要沒寫對照臂」推定單臂）
+
+**n+31（recreationally trained 維持 unclear 送全文）**
+- 近 200 筆中含 "recreational" 字樣者僅 2 筆：`5f2d293c` 是綜論裡的 `recreational areas`（無關）、`63dcedcd` 是 `recreationally **active** men`
+- 後者屬裁定 62 的純 recreational 桶（非 recreationally trained 混合措辭），且該筆另因介入軸與結局軸獨立排除
+- 因此 n+31 **對本 lane 現有判讀無影響**
+
+### 本輪判讀觀察
+- **獸醫學文獻首次成群出現**：馬（`6e3a17fd`，equine metabolic syndrome）與貓（`6f1b72de`，feline T2DM）各一筆。加上先前的犬（`6a2fd9d2`，isophane 胰島素）與大量囓齒類，本 lane 的非人類物種已達 4 種。
+- **檢索詞假陽性首見**：`7174b1b5` 是「serum **carbohydrate antigen** 19-9」與腦白質疏鬆症的關聯研究——因 `carbohydrate` 字面入池，實際上 CA 19-9 是腫瘤標記血清檢驗，與碳水化合物補充毫無關係。建議協調者留意此類字面假陽性。
+- **making weight 排除項首次命中**：`702ecfad` 是健力運動員賽前快速減重的 RCT，直接落在 scope-contract exclusionCriteria 的 `rapid weight loss / making weight`；且健力為肌力項目非耐力項目。這是該排除項在本 lane 的第一筆。
+- **團隊項目營養綜論成對出現**：`72ec2f2e` 與 `73a326c0` 都是女子足球員營養建議綜論，兩篇都大幅論述低能量可用性（契約排除情境）。女足屬間歇性團隊項目，非耐力項目。
+- **兒童 13C 示蹤系列擴充**：`70ad3d4b`（8-17 歲肥胖兒童 vs 對照，1.75 g/kg 13C-CHO、45% VO2max、運動前攝取）與 page 34 的 `5831075e`（同設計、IGT 兒童）研究設計高度相似，疑為同一團隊系列作。兩篇都有外源 CHO 氧化效率結局，但都是**運動前預load**，即使族群軸放寬也不會翻案。
+- **新文獻型態**：`7225b266` 為 EFSA 風險評估訓練報告（EU-FORA fellowship 實作產出），本 lane 首見；`70feb5c5` 為第二筆 Dissertation。非標準文獻型態累計 9 種。
+
+### 待處理事項
+- 無。lock 已清、遠端已同步、無待提交心跳。
+
+下輪：page 44。
