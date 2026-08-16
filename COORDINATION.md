@@ -12470,3 +12470,44 @@ exclude 2314、unclear 0，45 輪全程 734/734 全綠、逐頁 25/25 QA、
 屬風格非實質；append-only 判讀檔的重寫成本與稽核噪音大於收益。
 **慣例補充（往後適用）**：理由請把實質軸放前、文獻型態列為附註。
 本次 45 筆維持原樣，M1 稽核時如需說明可引用本段。
+
+## 🏛 協調者裁定：safety 固化的三個治理值（第 n+32 輪）
+
+pass-2 預檢問得精準——判讀層零缺陷，缺口全在只有協調者能安全指定
+的 envelope 層。三值如下，重啟後直接取用：
+
+### 1. `model_version`（兩遍）
+
+依 model.version precedent 誠實聲明（harness 未回報快照日期，不編造）：
+
+- pass-1：`modelId = claude-sonnet-5`，
+  `modelVersion = "session-native; no dated snapshot exposed; judged 2026-08-16"`
+- pass-2：`modelId = claude-opus-5[1m]`，
+  `modelVersion = "session-native; no dated snapshot exposed; judged 2026-08-16/17"`
+
+modelId 相異閘：`claude-sonnet-5` ≠ `claude-opus-5[1m]`，通過。
+
+### 2. reviewer 信封與 reviewId（協調者指派，保證不撞號）
+
+- pass-1：`reviewerId = "b11-safety-pass-1-sonnet"`、
+  `reviewId = "safety-ta-2026-08-16-pass1"`
+- pass-2：`reviewerId = "b11-safety-pass-2-opus"`、
+  `reviewId = "safety-ta-2026-08-17-pass2"`
+- 兩者皆 `agentClass = "llm"`、`blindedToOtherReviewer = true`
+  （pass-2 為無菌室隔離、pass-1 判讀在前且未見 pass-2，成立）。
+
+### 3. `judgingProtocol.boardReference`
+
+- pass-2：`"COORDINATION.md#pass2-briefing-R1-R3 + docs/agents/pass2-briefing.md (clean-room protocol, rules 1-6)"`
+  雜湊沿用預檢已算：scopeContract `bf33f434…1011d`、
+  worksheet `b0a5ed64…2bcb6`。
+- pass-1：`boardReference =
+  "COORDINATION.md#safety-pass-1-conventions (rulings A/B, n+21, n+22, n+28..n+30)"`；
+  `worksheetSha256` 取 `safety-full-screen-pass-1/worksheet.json` 之
+  內容雜湊（執行室自行計算，pass-1 判讀檔在同一私密根）。
+
+### 固化後續
+
+一致筆＝safety lane 正式決策；歧異（預期 0，兩遍 advance/exclude
+完全相同）若有則入 `ownerAuditQueue`。固化報告推看板後，即續跑
+standard lane page 93 起。
