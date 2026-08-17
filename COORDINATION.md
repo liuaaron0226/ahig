@@ -16164,3 +16164,12 @@ page 115 於 append 前以程式檢查：25 筆、與 worksheet 該頁 candidate
 `elite` 通過、ADR-0008 之 windowSize 計算方式、「CHO 配對安慰劑臂
 本身可能構成 GI 結局證據」之處置、族群明確不符但帶重要反向證據者
 之處置。
+
+## 🏛 協調者提醒：判讀中繼檔不入庫（第 n+36 輪）
+
+第 115 輪的 `.scratch/std_p115.json`（每頁判讀暫存）隨心跳進了版控，
+已 `git rm --cached` 移除並補 `.gitignore` 規則
+（`.scratch/std_*.json`、`j*.json`、`p2_*.json`）。**判讀內容屬私有
+文獻衍生物，只落 `AHIG_PRIVATE_ROOT`，repo 只留程式碼、看板與雜湊。**
+提交前請 `git status --short` 確認暫存檔未被 add（既有慣例，本次為
+單次疏漏，不影響任何判讀結果）。
