@@ -12944,3 +12944,127 @@ critical-harms 旗標之 116 筆非 standard lane 候選的處置時點、
 競技層級用語是否比照 `elite` 通過、ADR-0008 之 windowSize 計算方式、
 「CHO 配對安慰劑臂本身可能構成 GI 結局證據」之處置、族群明確不符
 但帶重要反向證據者之處置。
+
+## B.11 執行室心跳 — standard lane 主篩 page 96（第 139 輪）
+
+**時間**：2026-08-17 · **模型**：`claude-opus-5[1m]`
+
+本輪開頭已將主幹 `fc68181`（協調者第 n+34 輪確認）合併入
+`claude/safety-pass-2`。合併衝突為看板尾端雙方各自 append 所致，
+**已保留雙方全部內容並按時序排列**（協調者裁定在前、執行室
+page 93-95 心跳在後），無任何內容遺失。
+
+### 本輪進度
+
+| 項目 | 數值 |
+|---|---|
+| 本輪判讀 | page 96，25 筆 |
+| 累計判讀 | **2,400 / 9,091**（page 1–96 完成，26.40%） |
+| 剩餘 | 6,691 |
+| 原始標記 | advance 305、unclear 366、exclude 1,729 |
+| 追溯覆蓋層 | 86 筆（本輪未新增） |
+| 有效標記 | **advance 308、unclear 286、exclude 1,806** |
+
+**ADR-0008 終止檢定**（standard lane 序列）：`pScore 0.9878`、
+`relevantFound 594`、`h0MinTotalRelevant 626`、**windowSize 5**。
+`allowedToStop = false`。
+
+本輪 advance 0 筆、unclear 2 筆、exclude 23 筆。
+
+### 🎯 `bcdded40…` — 本輪最高優先全文候選，各軸表面高度相符
+
+**〈Effect of Combined Intra-Session Glucose and Fructose Intake on
+the Performance of Young Super-Sprint Triathletes〉**（2024）。
+標題即載明全部關鍵軸：
+
+- **時序**：intra-session（賽段內）＝運動中攝取 ✓
+- **介入**：葡萄糖＋果糖複合醣類 ✓
+- **對照**：placebo-controlled ✓（allowlist 內）
+- **設計**：randomised, crossover, blind ✓（契約 RCT-crossover）
+- **結局**：performance ✓
+
+**若總劑量相同而僅醣類組成不同，即為裁定A型 [cho-type-comparison]**，
+屬本契約核心關切之比較類型。
+
+**惟本筆無摘要**，三項未知：受試者年齡（標題 `young` 且項目為
+super-sprint 三項，**青少年組別可能低於 18 歲，此為最大風險**）、
+g/h 劑量是否落在 10-150、兩臂總劑量是否配平。標題無正向出局證據，
+依 fail-closed 判 unclear，**建議列為全文期優先核實名單首位**。
+
+### R3 漱口慣例首次適用於 standard lane
+
+`a88b60bc…`（咖啡因-麥芽糊精漱口對抗心理疲勞）——依 R3 裁定第 2 點
+「漱而不嚥非攝取」以介入軸排除。**此為該慣例在 standard lane 的
+首個案例**（此前僅見於 safety lane），確認跨 lane 適用一致。
+另該研究之「運動」為 90 分鐘 Stroop 認知作業，非運動方案。
+
+### 另一筆 unclear：`5431f2eb…` 學位論文，標題含互相衝突的元素
+
+〈High-Carbohydrate, Ketogenic Diets, Exogenous Ketones: Performance
+and Health Effects in Endurance Athletes〉，**無摘要**。族群明載
+endurance athletes（契約允收），但標題同時含在範圍元素（高碳水、
+耐力運動員、表現結局）與可能出局元素（生酮飲食＝[chronic-strategy]、
+外源性酮體＝非 CHO 介入）。**無單一正向出局證據足以排除整篇**，
+判 unclear。**學位論文累計第 3 筆**（page 95 兩筆、本輪一筆），
+共同問題仍是無摘要或摘要體例不同於期刊論文。
+
+### 自選補給型 +1，累計第 7 筆
+
+`44df9bce…`：45 名耐力訓練自行車手於 210 公里單日超耐力賽之飲食調查，
+**賽中達成 63 ± 23 g CHO/h（落在契約 high band 60-89.9 g/h）**、
+98% 參賽者使用 CHO 補充品。惟為橫斷面飲食調查、無隨機分派與對照臂，
+依設計軸排除，留作實際攝取量分佈素材。
+
+**自選補給（ad libitum）型自 page 93 起連三輪出現（第 5、6、7 筆），
+建議協調者儘早給統一規則。**
+
+### 檢索雜訊本輪 +4，累計 43 筆、25 種類別（新增 3 類）
+
+`9cffe8a5…`（森林天幕毛蟲寄主樹種，**昆蟲生態學**）、
+`093967ce…`（荷蘭芹 G6PD 酵素純化，**植物生化學**）、
+`c0edec81…`（開灤集團職工心血管健康調查，流行病學）、
+`2ca85fd5…`（汗液葡萄糖偵測奈米材料裝置，儀器效度型
+[methodological]，依 R3 第 3 點併入校準素材）。
+
+**page 94 材料科學、page 95 寄生蟲學與海洋生物學、本輪昆蟲生態學與
+植物生化學——非生醫領域雜訊連三輪出現，共同入口皆為
+glucose／sucrose／carbohydrate 作為化學物質或生物成分名稱。**
+W4b 檢索式設計時建議加入領域限定或 MeSH 過濾。
+
+### 本輪 23 筆 exclude 分佈
+
+- **時序不符 9 筆**：運動前負荷 3 筆、恢復期／回合間 4 筆、
+  運動後隔時 2 筆。
+- **檢索雜訊 4 筆**（見上）。
+- **族群軸 6 筆**：肥胖兒童青少年、女性青少年（17.1 歲）、
+  重度肥胖男性、中年肥胖女性、65 歲 IAS 個案、痛風患者。
+- **運動型態軸 5 筆**：阻力訓練 3 筆、團隊球類 2 筆。
+- **設計軸 4 筆**：飲食調查、橫斷面 2 筆、個案報告。
+- **介入非 CHO／CHO 為載體 4 筆**：β-丙胺酸、益生菌、酮體、漱口。
+- **[chronic-strategy] 5 筆**。
+
+（部分候選跨多軸，以首要依據歸類；上列含跨軸重計。）
+
+### 品保與驗證
+
+page 96 於 append 前以程式檢查：25 筆、與 worksheet 該頁 candidateId
+**順序逐一相符**、無重複、無與既有判讀重疊、opinion 分佈 23/2/0、
+理由皆非空（131-449 字元），與候選數一致無漏判。append 回報
+`added 25 / judgedCount 2400 / remaining 6691`。追溯覆蓋層 86 筆
+於檢定前重新驗證（id 存在 86/86、無重複、originalOpinion 相符 86/86）
+全數通過。`python tests/run_tests.py` **734/734 passed**
+（`ahig/` 程式碼零改動，第 96 輪連續）。
+
+### 下一步
+
+繼續 page 97 起（remaining 6,691）。**待裁示事項**（含本輪新增）：
+`bcdded40`（賽段內葡萄糖+果糖三項選手）列為全文期優先核實、
+W4b 檢索式加入領域限定以擋非生醫雜訊、自選補給（ad libitum）
+設計之統一處置（**累計第 7 筆、連三輪出現**）、學位論文無摘要者之
+處置（累計 3 筆）、`9edf8e0b` 與 `7465afad` 是否納入校準素材名單、
+間歇性場地運動是否屬契約耐力運動、critical-harms 旗標之 116 筆
+非 standard lane 候選的處置時點、僅載 `athletes`／運動項目名詞／
+校隊層級而無訓練程度形容詞（累計 14 筆）、訓練程度數值門檻、
+膠化型 CHO 飲料機轉文獻、競技層級用語是否比照 `elite` 通過、
+ADR-0008 之 windowSize 計算方式、「CHO 配對安慰劑臂本身可能構成
+GI 結局證據」之處置、族群明確不符但帶重要反向證據者之處置。
