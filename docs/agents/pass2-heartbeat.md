@@ -1287,3 +1287,71 @@ tests/run_tests.py：734/734 passed, 0 failed（ahig/ 程式碼零改動，
 2. 本輪的 **model_version／reviewer 信封／boardReference** 三值。
 
 測試：734/734 passed, 0 failed（`ahig/` 未動）。
+
+## Round 48 — safety lane 兩遍固化完成（reconcile_machine）
+
+協調者已於主幹 `7ec21cb` 裁定三個治理值，簡報的無菌室任務至此結束
+（本輪起可讀看板）。依看板「執行室下一步」第 1 項執行固化。
+
+### 治理值（逐字取自協調者裁定，未自行編造）
+
+| 項 | pass-1 | pass-2 |
+|---|---|---|
+| `modelId` | `claude-sonnet-5` | `claude-opus-5[1m]` |
+| `modelVersion` | session-native; no dated snapshot exposed; judged 2026-08-16 | 同式，judged 2026-08-16/17 |
+| `reviewerId` | `b11-safety-pass-1-sonnet` | `b11-safety-pass-2-opus` |
+| `reviewId` | `safety-ta-2026-08-16-pass1` | `safety-ta-2026-08-17-pass2` |
+
+`boardReference` 兩遍各依裁定填入；`agentClass=llm`、
+`blindedToOtherReviewer=true` 兩遍皆備。
+
+### 執行鏈路（未繞過任何既有驗證，`ahig/` 零改動）
+
+`load_judgements` → `file_judge` → `build_session_opinion_batch`
+→ `make_assignment` + machine review 信封 → `reconcile_machine`
+→ `write_reconciliation`。腳本 `.scratch/safety_reconcile.py`，
+先乾跑核對數字、測試全綠後才加 `--write` 落盤。
+
+### 對帳結果
+
+| 項目 | 值 |
+|---|---|
+| `status` | **`concordant`** |
+| candidateCount | 2316 |
+| **concordantCount** | **2316（100%）** |
+| ownerAuditCount | **0** |
+| opposedCount | **0** |
+| concordantAdvanceCount | **2** |
+| concordantExcludeCount | 2314 |
+| nextStage | `title-abstract-screening` |
+
+**兩個不同模型、無菌室盲判、跨兩日，在 2,316 筆上零歧異。**
+一致的 advance 兩筆即先前預覽者：
+`046832a3…`（劑量梯度 0/2/4/6%）、`a8d22fb4…`（馬拉松 80 vs 50 g/h）。
+
+`ownerAuditQueue` 為空——本次不產生 M1 抽查債。
+
+### 產物（全落私密根 `screening-decisions/`，既有 `reconciliation.json` 未動）
+
+- `safety-machine-reconciliation.json`
+  `reconciliationHash = sha256:cfffdab37749058dff3aa1a91465f29ddd0a6a21e4666f7a116e4c3c260ecf76`
+  `documentFreezeStatus = frozen`、`verify_frozen` 通過
+- `safety-pass-{1,2}-batch.json`（session-native 批次，治理聲明入雜湊鏈）
+  - pass-1 `judgingProtocolHash = sha256:1486b37282c9da54…`、`llmReviewHash = sha256:2f3c745efe189c20…`
+  - pass-2 `judgingProtocolHash = sha256:5cbdffab4f20deea…`、`llmReviewHash = sha256:34911cba74af0601…`
+- `safety-pass-{1,2}-review.json`（machine review 信封）
+- assignment `safety-full-screen-2316`，
+  `candidateSetHash = sha256:fef7ab2cdaea9525…`
+
+### `blockingReasons` 說明（皆為設計預期，非缺陷）
+
+`machine-title-abstract-screening-not-completed`（assignment 只涵蓋
+safety lane 2,316 筆，standard lane 尚未判完，`assignmentCoversQueue`
+自然為 false）、`machine-screening-not-released`（`reconcile_machine`
+恆置 False，待影子門檻放行流程）、`full-text-screening-not-completed`。
+
+測試：**734/734 passed, 0 failed**（`ahig/` 未改動，第 48 輪連續）。
+
+### 下一步
+
+依看板第 2 項續跑 standard lane page 93 起（remaining 6,791）。
