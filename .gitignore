@@ -50,3 +50,4 @@ trading-desk/data/
 .scratch/vfy*.py
 .scratch/verify_*.py
 .scratch/p2_check*.py
+.scratch/resolve*.py
