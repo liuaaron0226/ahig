@@ -12511,3 +12511,69 @@ modelId 相異閘：`claude-sonnet-5` ≠ `claude-opus-5[1m]`，通過。
 一致筆＝safety lane 正式決策；歧異（預期 0，兩遍 advance/exclude
 完全相同）若有則入 `ownerAuditQueue`。固化報告推看板後，即續跑
 standard lane page 93 起。
+
+## 🔬 B.11 執行室：safety lane 兩遍固化完成，零歧異（第 n+33 輪）
+
+**時間**：2026-08-17 · **分支**：`claude/safety-pass-2` ·
+**執行者**：`claude-opus-5[1m]`
+
+協調者第 n+32 輪裁定的三個治理值已全數取用，`reconcile_machine`
+固化執行完畢。**簡報的無菌室任務至此結束**（本輪起恢復讀看板）。
+
+### 對帳結果：`status = concordant`
+
+| 項目 | 值 |
+|---|---|
+| candidateCount | 2,316 |
+| **concordantCount** | **2,316（100%）** |
+| **ownerAuditCount** | **0** |
+| **opposedCount** | **0** |
+| concordantAdvanceCount | **2** |
+| concordantExcludeCount | 2,314 |
+| nextStage | `title-abstract-screening` |
+
+**兩個不同模型（sonnet-5 / opus-5[1m]）、無菌室盲判、跨兩日、
+2,316 筆，零歧異。** 一致的 advance 兩筆即先前預覽者：
+`046832a3…`（劑量梯度 0/2/4/6%）、`a8d22fb4…`（馬拉松 80 vs 50 g/h）
+——**兩筆確認為 safety lane 正式決策，可直接作為 W4b 全文複核首批輸入**。
+
+`ownerAuditQueue` 為空：**本次不產生任何 M1 抽查債**。
+
+### 執行鏈路（未繞過任何既有驗證；`ahig/` 零改動）
+
+`load_judgements` → `file_judge` → `build_session_opinion_batch`
+→ `make_assignment` + machine review 信封 → `reconcile_machine`
+→ `write_reconciliation`。先乾跑核對數字、`734/734` 全綠後才落盤。
+腳本 `.scratch/safety_reconcile.py`（no-ship）。
+
+### 產物（私密根 `screening-decisions/`；既有 `reconciliation.json` 未動）
+
+- **`safety-machine-reconciliation.json`**
+  `reconciliationHash = sha256:cfffdab37749058dff3aa1a91465f29ddd0a6a21e4666f7a116e4c3c260ecf76`
+  `documentFreezeStatus = frozen`、`verify_frozen` 通過
+- `safety-pass-{1,2}-batch.json`（session-native 批次，治理聲明入雜湊鏈）
+  - pass-1：`judgingProtocolHash = sha256:1486b37282c9da54…`、
+    `llmReviewHash = sha256:2f3c745efe189c20…`
+  - pass-2：`judgingProtocolHash = sha256:5cbdffab4f20deea…`、
+    `llmReviewHash = sha256:34911cba74af0601…`
+- `safety-pass-{1,2}-review.json`（machine review 信封）
+- assignment `safety-full-screen-2316`，
+  `candidateSetHash = sha256:fef7ab2cdaea9525…`
+
+pass-1 的 `worksheetSha256` 依裁定由執行室自算，已填入該遍
+`judgingProtocol`（兩遍 worksheet 檔各自雜湊，不共用）。
+
+### `blockingReasons` 說明（皆為設計預期，非缺陷）
+
+`machine-title-abstract-screening-not-completed`——assignment 僅涵蓋
+safety lane 2,316 筆，standard lane 尚未判完，故 `assignmentCoversQueue`
+為 false，屬預期；`machine-screening-not-released`——`reconcile_machine`
+恆置 False，待影子門檻放行流程另行處置；
+`full-text-screening-not-completed`。
+
+### 下一步
+
+依協調者第 n+32 輪指示，接續 **standard lane page 93 起**
+（既有 2,300/9,091 進度、remaining 6,791，AL 排序與 reclassification
+overlay 均已就位）。時間盒節奏照舊，逐批評估 ADR-0008 終止檢定
+並在心跳回報 p 值。
