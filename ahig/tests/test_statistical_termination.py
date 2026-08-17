@@ -112,6 +112,81 @@ def test_termination_allowed_when_p_below_alpha_and_preconditions_met():
     assert done["terminationEvidenceHash"]
 
 
+def test_p_score_excluded_records_clear_preconditions_without_touching_window():
+    """選項（丙）：跳頁補判的紀錄計入前置條件，但不進 p 值序列。
+
+    協調者第 n+40 輪裁定。為解除 `mandatoryLanesFullyScreened` 而跳頁補判的
+    critical-harms 紀錄，若直接接進 labels 序列，會把相距上百頁的紀錄接在
+    一起，`windowSize`（尾端連續無命中長度）就不再是「連續」的了。
+    """
+    q = queue(400, harms={"c399"})
+    inorder = [(f"c{i}", "exclude") for i in range(1, 301)]
+    # 前置條件未解除：c399 帶 critical-harms-signal 且未篩。
+    blocked = st.evaluate_termination(q, inorder)
+    assert blocked["mandatoryLanesFullyScreened"] is False
+
+    # 跳頁補判 c399（它在工作單順序上遠在 c300 之後），排除於 p 值序列。
+    jumped = inorder + [("c399", "exclude")]
+    ruled = st.evaluate_termination(q, jumped, p_score_excluded={"c399"})
+    assert ruled["mandatoryLanesFullyScreened"] is True     # 前置條件推進了
+    assert ruled["pScoreExcludedCount"] == 1
+    assert ruled["pScoreExcludedCandidateIds"] == ["c399"]
+    assert ruled["pScoreExcludedIsScreened"] is True
+    # p 值序列與 windowSize 完全未受擾動——這正是選項（丙）的重點。
+    assert ruled["screenedCount"] == blocked["screenedCount"] == 300
+    assert ruled["windowSize"] == blocked["windowSize"] == 300
+    assert ruled["pScore"] == blocked["pScore"]
+    # 已篩畢故不算 not-screened：400 - 301 = 99。
+    assert ruled["notScreenedCount"] == 99
+
+    # 對照組：若不排除而直接接進序列，screenedCount 會多一筆。
+    naive = st.evaluate_termination(q, jumped)
+    assert naive["screenedCount"] == 301
+    assert naive["pScoreExcludedCount"] == 0
+
+
+def test_p_score_excluded_blocks_stopping_until_reintegrated():
+    """排除清單非空 → 不得終止；清空（納回序列）後才可能終止。
+
+    釘住「移出清單前後的 p 值計算」：同一批決策，差別只在 c391 是否還在
+    排除清單裡，納回後 p 值與 windowSize 都要跟著動。
+    """
+    q = queue(400, harms={"c391"})
+    # 391 篇全不相關，其中 c391 是跳頁補判的那筆。
+    decisions = [(f"c{i}", "exclude") for i in range(1, 392)]
+
+    held = st.evaluate_termination(q, decisions, p_score_excluded={"c391"})
+    assert held["mandatoryLanesFullyScreened"] is True
+    assert held["screenedCount"] == 390
+    assert abs(held["pScore"] - 10 / 400) < 1e-12   # p < α
+    # p < α 且前置條件已過，但排除清單非空 → 仍不得終止。
+    assert held["allowedToStop"] is False
+    assert "未納回 p 值序列" in held["reason"]
+
+    # 逐頁推進到該頁：呼叫端把它移出清單，序列自動變長。
+    reintegrated = st.evaluate_termination(q, decisions)
+    assert reintegrated["pScoreExcludedCount"] == 0
+    assert reintegrated["screenedCount"] == 391
+    assert reintegrated["windowSize"] == 391
+    assert abs(reintegrated["pScore"] - 9 / 400) < 1e-12  # 序列變長，p 變小
+    assert reintegrated["allowedToStop"] is True
+    # 排除計數進了證據雜湊：兩種狀態不可能被誤認為同一份證據。
+    assert (held["terminationEvidenceHash"]
+            != reintegrated["terminationEvidenceHash"])
+
+
+def test_p_score_excluded_rejects_unknown_or_unscreened_ids():
+    q = queue(10)
+    decisions = [(f"c{i}", "exclude") for i in range(1, 6)]
+    for bad in ({"c99"},          # 不在 queue
+                {"c7"}):          # 在 queue 但還沒判讀
+        try:
+            st.evaluate_termination(q, decisions, p_score_excluded=bad)
+        except st.TerminationError:
+            continue
+        raise AssertionError(f"必須拒絕：{bad}")
+
+
 def test_termination_rejects_unknown_duplicate_or_bad_decisions():
     q = queue(10)
     for bad in ([("c99", "exclude")],

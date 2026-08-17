@@ -1,13 +1,14 @@
 # AHIG 多 session 協調看板
 
-> ## 🚨 執行室每輪必讀（置頂待辦）
+> ## ✅ 執行室每輪必讀：無未完成置頂事項
 >
-> **✅ 已裁示（第 n+40 輪）：採選項（丙）。**
-> 請於次輪一次判完那 **76 筆** `critical-harms-signal`（page 139–239 跳頁），
-> 並提交 `term.py` 的 p 值序列排除清單＋測試。要求：排除清單為顯式
-> candidateId 集合並落盤留痕；逐頁推進到該頁時自動移出清單納入序列
-> （前後 p 值計算須有測試釘住）；心跳新增「p 值序列排除中：N 筆」欄。
-> 完成後把本區塊改為「✅ 無未完成置頂事項」。
+> 選項（丙）已於第 185 輪完成：跳頁補判 74 筆（裁定寫 76，其中 2 筆已於
+> 第 184 輪逐頁判到），**`mandatoryLanesFullyScreened` 自 false 轉為 true
+> ——ADR-0008 之結構性阻塞解除**。`term.py` 排除清單（顯式 74 筆
+> candidateId＋page，落盤於 `p-score-sequence-exclusions.json`）與 3 條
+> 測試已提交，全套 737/737。p 值序列零擾動已驗證（pScore 0.6598、
+> windowSize 71，與第 184 輪逐一相同）。排除清單隨逐頁推進自動縮減，
+> 至 page 239 歸零，無需人工介入。
 >
 > **每輪必做**：`git log HEAD..origin/feature/istudy-private-backup-workflow`
 > 檢查主幹新裁定（第 180–195 輪漏讀之真因＝只看自身分支）。
@@ -23254,3 +23255,176 @@ permeability...〉——受試者**在跑步中攝取 5 g 乳果糖、鼠李糖�
 非原始研究型別增至 11 種、「碳水作為分析物／示蹤劑」型增至 8 筆、
 「診斷性葡萄糖負荷」型增至 11 筆、碳水效應機轉素材增至 7 條路徑、
 微生物體型區辨增至 12 個研究。
+
+## B.11 執行室回報 — 選項（丙）落地：74 筆判畢，前置條件解除（第 185 輪）
+
+**時間**：2026-08-18 · **模型**：`claude-opus-5[1m]`
+
+收到協調者第 n+40 輪裁定，四項要求全數完成。
+
+### ✅ 一、`mandatoryLanesFullyScreened` 自 false 轉為 **true**
+
+**這是 ADR-0008 唯一結構性阻塞的解除。** 以**真正的**
+`evaluate_termination`（非重算版）對全 queue 15,425 筆評估：
+
+| 項目 | 本輪前 | 本輪後 |
+|---|---|---|
+| `safety-review` lane 未篩 | 0 | 0 |
+| `critical-harms-signal` 未篩 | **74** | **0** |
+| `mandatoryLanesFullyScreened` | false | **true** ✅ |
+
+裁定寫 76 筆，**實判 74 筆**——差額 2 筆是第 184 輪 page 139 逐頁推進時
+已自然判到者（`fadc1066`、`45c1f980`），非遺漏。判畢分布：
+page 140–239 之 49 頁跳頁補判，全數 exclude 除 1 筆 unclear。
+
+**累計判讀 3,549 / 9,091**（standard 連續判畢至 page 139，另加跳頁 74 筆）。
+
+### ✅ 二、`term.py` 排除清單＋測試（三項要求逐條對照）
+
+**程式改動**（`ahig/ahig/search/statistical_termination.py`，schemaVersion
+1.0.0 → **1.1.0**）：`evaluate_termination` 新增 `p_score_excluded` 參數。
+排除者**計入前置條件、不算 not-screened、不進 labels 序列**。
+
+| 協調者要求 | 落實方式 |
+|---|---|
+| 排除清單為**顯式 candidateId 集合**（非規則推導），落盤留痕 | `standard-full-screen-pass-1/p-score-sequence-exclusions.json`，74 筆逐筆列 `candidateId`＋`page`＋`seq`；程式端拒絕不在 queue 者、亦拒絕未判讀者（兩條 `TerminationError`） |
+| 逐頁推進到該頁時**自動移出並納入序列**（不需人工介入） | 清單存 `page`，`term.py` 依「目前連續判畢頁數」自動比對——page ≤ front 者納回。**已模擬驗證**：front 139→74 held、140→73、150→70、200→35、239→**0 held 全數納回** |
+| 移出前後之 p 值計算須有**測試釘住** | `test_p_score_excluded_blocks_stopping_until_reintegrated`：同一批決策，僅差排除清單有無——held 時 seq 390／p = 10/400，納回後 seq 391／window 391／p = 9/400，且**兩者之 `terminationEvidenceHash` 不同**（排除計數已進雜湊，兩種狀態不可能被誤認為同一份證據） |
+| 心跳新增「p 值序列排除中：N 筆」欄 | 見下方進度表，且 `term.py` 每次輸出該行 |
+
+**另加一道保險（裁定未要求，執行室主動加）**：**排除清單非空時
+`allowedToStop` 一律為 false**。理由：此時的 p 值是「部分序列」的，
+不足以支撐涵蓋宣稱；若不擋，理論上可能出現「前置條件已過、p < α、
+但序列還缺 74 筆」而誤判可終止。已由 `reason` 欄明確說明並有測試釘住。
+
+**新增測試 3 條，全套 734 → 737 passed, 0 failed。**
+
+### ✅ 三、驗證：p 值序列零擾動（這是選項丙的全部重點）
+
+| | 第 184 輪（page 139） | 本輪（+74 筆） |
+|---|---|---|
+| `pScore` | 0.6598 | **0.6598** |
+| `windowSize` | 71 | **71** |
+| `screenedCount`（序列） | 3,475 | **3,475** |
+| `relevantFound` | 624 | **624** |
+
+**四項數字逐一相同——序列完全未受擾動，正是裁定所要的效果。**
+
+**⚠️ 對照組（若不做選項丙會怎樣）**：本輪一度未套排除清單直接重算，
+得到 `windowSize` **71 → 33**、`pScore` 0.6598 → 0.8216——**尾端連續
+無命中序列被硬生生從中間切斷**，正是裁定要避免的破壞。此對照已保留於
+`term.py` 註解供 M1 稽核。
+
+### 本輪進度
+
+| 項目 | 數值 |
+|---|---|
+| 本輪判讀 | 跳頁補判 74 筆（page 140–239，49 頁） |
+| 累計判讀 | **3,549 / 9,091**（standard 連續至 page 139） |
+| 剩餘 | 5,542 |
+| 追溯覆蓋層 | 110 筆（本輪未新增） |
+| **p 值序列排除中** | **74 筆**（已納回 0；連續判畢至 page 139） |
+| 有效標記 | advance 308、unclear 317、exclude 2,924 |
+
+**ADR-0008 終止檢定**（序列口徑，排除 74 筆後）：`pScore 0.6598`、
+`relevantFound 624`、`windowSize 71`、**`mandatoryLanesFullyScreened = true`**、
+`allowedToStop = false`（理由：74 筆未納回序列）。
+
+測試 **737/737 passed, 0 failed**。
+
+---
+
+### 🔬 本次補判之實質發現
+
+**1. 不可消化碳水已達 7 例，是旗標與檢索式的系統性來源**
+
+α-環糊精（第 138 輪）、膳食纖維、Bimuno GOS ×2、抗性澱粉、蒟蒻葡甘露聚醣、
+益生元——**全部「化學上是碳水」但經菌相發酵而非小腸吸收**，與契約
+`exogenous-cho-oxidation-peak` 之機轉前提互斥。74 筆中佔近一成。
+**建議 W4b 於檢索式或旗標規則加入可消化性限定；W4c 於界定「外源性碳水」
+時明文排除此類。**（第 5 項待裁之附帶項）
+
+**2. 兩筆需協調者確認的判讀**
+
+- **`fc75f1d5`（判 unclear，可能該是 advance）**——無摘要，標題
+  〈Effects of **carbohydrate dose and frequency** on metabolism,
+  **gastrointestinal discomfort**, and **cross-country skiing performance**〉：
+  **介入軸（劑量＋頻率）、結局軸雙命中（GI 不適 critical 級＋表現）、
+  運動型態軸（越野滑雪）三者全中**，依 n+38 第 8 項第二情形（標題載合格
+  要素→advance）本應 advance。**判 unclear 之唯一理由是族群未在標題揭露**
+  （裁定 62 之族群軸絕對性）。**⚠️ 另註：`frequency`（給予頻率）是
+  「同劑量內部對照」缺口的第 3 個面向**（前兩者為型態、時序分配）。
+  **本筆是第 5 項待裁的另一試金石，建議列入全文期優先取得前段。**
+- **`cd7c43ca`（判 exclude，型別推定）**——型別 metadata 為泛用之
+  `article`、無摘要，標題〈Exertional heat stress-induced gastrointestinal
+  perturbations：**prevention and management strategies**〉。
+  執行室依「策略綜述框架」推定為非研究型別而排除。**與 page 122
+  `8753f918`（型別亦為 `article`、無摘要、標題〈Carbohydrate feeding
+  during exercise〉判 unclear）之差別在於本筆標題未載任何碳水介入措辭。
+  若協調者認為型別為 `article` 時不得由標題推定綜述，本筆應改判 unclear。**
+
+**3. 去重第五型再增 2 例，其中一例為首見「同一專利三次索引」**
+
+- `952473cb`／`bf0ff36a`／`53e8ce4a`（REHYDRATION DRINK，1994／1995／1995）
+  **摘要逐字相同、僅化學鹽形式微異**，為同一專利家族之三個公開版本。
+- `78ea0c1c`／`00596ff4`（Dietary practices in obesity，1983）同一文獻兩次索引。
+
+**⚠️ 順帶盤點**：全池 `Patent` 共 **94 筆**（已判 25 筆全數 exclude，
+依 n+38 第 9 項）。同一家族多次索引極普遍（`Sports drink composition
+for enhancing glucose uptake` 已見 6 筆、`High energy nutritive
+composition` 3 筆），**合併後之實際專利家族數遠低於 94，建議 W4b 先合併
+再計數，以免 M1 之文獻流程圖高估排除量。**
+
+**4. harms × 攝取校準之交集素材群（4 筆，建議 W4b 一併取全文）**
+
+`af0c7ec3`（超馬 GI 不適 vs 賽事飲食，2013）、`8ef11f82`（競賽耐力賽事
+之攝取與 GI 問題，2012）、`591748db`（60 公里超馬之腸道損傷、抱怨與
+食物攝取，2022）、`9cc2f5af`（鐵人三項之 GI 抱怨與飲食攝取，1992）。
+
+**這四筆把本 lane 兩條素材線接了起來——27 項攝取校準與 GI harms。
+它們能回答契約 RCT 證據回答不了的問題：真實世界中攝取量與症狀的劑量關係。**
+且橫跨 1992–2022 三十年，**同一問題持續被觀察卻始終沒有 RCT 定論，
+這本身就是 M1 的證據缺口論述**。
+
+**5. harms 嚴重端點再添兩筆人體實證**
+
+- `b526a049`（鐵人三項選手之**腸胃道失血**與運動性貧血之關係，1995）
+- `8a105b07`（**噁心與內毒素血症**之關聯，161 公里超馬，2016）
+
+**兩筆分別是 critical-harms 工作單多篇回顧所述機轉鏈（腸道灌流不足 →
+黏膜損傷 → 隱性失血／菌相入侵 → 內毒素血症）的實證環節**，
+與 `d1c7d678`（EIGS 可致死之立場聲明）合為 harms 嚴重度分級之骨幹。
+
+**6. 五筆孤兒紀錄之成因已可精確描述（供 M1 第 3 項記錄）**
+
+lane 分派與 flag 篩選的交集漏洞：這 5 筆的 `screeningLane` 是
+`standard-screening`，理應進 standard 工作單，但**未被納入該工作單之
+9,091 筆**；同時它們帶 `critical-harms-signal`，卻也**不在 116 筆
+非 standard lane 名單內**（因為那份名單以 lane ≠ standard 為條件）。
+**即：以 lane 分派工作單、以 flag 補救死角，兩套規則的交集處出現漏口。**
+它們只出現在 300 筆的影子校準回合（非正式 lane，判讀不進決策層）。
+**建議 M1 記錄為「工作單分派應以 queue 全集為母數做覆蓋率驗證，
+而非以 lane 分別建單後假設互斥且完備」。**
+
+---
+
+### 下一步
+
+**回 standard lane page 140 續跑**（連續判畢至 139，剩餘 5,542）。
+排除清單將隨逐頁推進自動縮減，**推進到 page 239 時歸零、序列自動完整**，
+不需再有人工動作。
+
+**待裁示（依優先度）**：
+
+1. **n+35 判準之兩個交界問題（建議合併裁示）**——(a) 第 137 輪之 9 筆
+   （建議乙）；(b) 第 184 輪 `45c1f980` 之 `race times` 一句附帶陳述
+   （執行室採嚴格解釋，請確認）。**此為目前最高優先。**
+2. **★ 本輪兩筆判讀確認**：`fc75f1d5`（unclear vs advance）、
+   `cd7c43ca`（型別推定是否成立）。
+3. 撤稿／勘誤處置三子題（第 180 輪）。
+4. safety lane 結局範圍覆核（免疫結局群 8 筆）。
+5. **「同劑量內部對照」與 allowlist 缺口**——本輪增至**三個面向**
+   （型態、時序分配、**給予頻率**），另附「不可消化碳水」界線問題。
+6. 安慰劑臂非惰性（4 個面向）。
+7. `2b25632c` 全文優先；`allowedInstruments`；R3 漱口邊界；
+   W4b 詞族語境限定（第三十六度建議）。

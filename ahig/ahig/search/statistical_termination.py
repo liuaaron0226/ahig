@@ -92,15 +92,32 @@ def p_score(labels_in_order: list[int], n_total: int, *,
 def evaluate_termination(queue: list[dict],
                          decisions_in_order: list[tuple[str, str]], *,
                          alpha: float = DEFAULT_ALPHA,
-                         target_recall: float = DEFAULT_TARGET_RECALL) -> dict:
+                         target_recall: float = DEFAULT_TARGET_RECALL,
+                         p_score_excluded: set[str] | None = None) -> dict:
     """依 ADR-0008 評估是否允許統計終止，輸出可凍結的證據產物。
 
     ``decisions_in_order``：[(candidateId, decision)]，依實際篩選順序；
     decision ∈ advance/exclude/unclear。
+
+    ``p_score_excluded``：**顯式** candidateId 集合，這些紀錄已人工篩畢
+    （計入前置條件、不算 not-screened），但**暫不進入 p 值 labels 序列**。
+    用於協調者第 n+40 輪裁定之選項（丙）：為解除前置條件而跳頁補判的紀錄，
+    若直接接進序列，會把相距上百頁的紀錄接在一起而破壞 ``windowSize``
+    （尾端連續無命中長度）的語意。ADR-0008 的兩個條件本就獨立——
+    ``preconditions_met`` 立即推進，``pScore`` 序列零擾動。
+
+    這是**暫時**狀態：逐頁推進到該紀錄所在頁時，呼叫端把它移出集合，
+    它便依原本的工作單順序進入序列（見 ``.scratch/term.py``）。
+    集合為顯式 id 而非規則推導，落盤留痕，M1 稽核可逐筆覆核。
     """
     queue_by_id = {e["candidateId"]: e for e in queue}
+    excluded = set(p_score_excluded or ())
+    unknown = sorted(excluded - set(queue_by_id))
+    if unknown:
+        raise TerminationError(f"p 值排除清單的 candidateId 不在 queue：{unknown[:3]}")
     seen: set[str] = set()
     labels = []
+    excluded_seen: set[str] = set()
     for cid, decision in decisions_in_order:
         if cid not in queue_by_id:
             raise TerminationError(f"決策的 candidateId 不在 queue：{cid}")
@@ -110,7 +127,16 @@ def evaluate_termination(queue: list[dict],
             raise TerminationError(f"{cid}: decision 必須是 "
                                    f"{sorted(_DECISIONS)}")
         seen.add(cid)
+        if cid in excluded:
+            # 已篩畢（計入前置條件、非 not-screened），但不進 labels 序列。
+            excluded_seen.add(cid)
+            continue
         labels.append(1 if decision in _RELEVANT_DECISIONS else 0)
+
+    never_screened = sorted(excluded - excluded_seen)
+    if never_screened:
+        raise TerminationError(
+            f"p 值排除清單含未篩畢紀錄（排除只適用已判讀者）：{never_screened[:3]}")
 
     # 前置條件：safety 與 critical harms 全數人工篩畢（ADR-0008 條件 2）。
     mandatory_unscreened = sorted(
@@ -122,10 +148,14 @@ def evaluate_termination(queue: list[dict],
     not_screened = sorted(cid for cid in queue_by_id if cid not in seen)
     score = p_score(labels, len(queue), target_recall=target_recall)
     preconditions_met = not mandatory_unscreened
-    allowed = preconditions_met and score["pScore"] < alpha
+    # 排除清單非空時不得終止：p 值序列尚未涵蓋全部已篩紀錄，
+    # 此時的統計證據是「部分序列」的，不足以支撐涵蓋宣稱。
+    pending_reintegration = sorted(excluded_seen)
+    allowed = (preconditions_met and not pending_reintegration
+               and score["pScore"] < alpha)
     result = {
         "documentType": "statistical-termination-evaluation",
-        "schemaVersion": "1.0.0",
+        "schemaVersion": "1.1.0",
         "adr": "ADR-0008",
         "alpha": alpha,
         **score,
@@ -134,6 +164,9 @@ def evaluate_termination(queue: list[dict],
         "notScreenedIsNotExcluded": True,
         "mandatoryLanesFullyScreened": preconditions_met,
         "mandatoryUnscreenedCandidateIds": mandatory_unscreened[:10],
+        "pScoreExcludedCount": len(pending_reintegration),
+        "pScoreExcludedCandidateIds": pending_reintegration,
+        "pScoreExcludedIsScreened": True,
         "allowedToStop": allowed,
         "reason": (
             "p < α 且安全/critical-harms 全數人工篩畢；允許終止，"
@@ -141,6 +174,8 @@ def evaluate_termination(queue: list[dict],
             if allowed else
             f"safety/critical-harms 尚有 {len(mandatory_unscreened)} 篇"
             "未人工篩畢；不得終止" if not preconditions_met else
+            f"尚有 {len(pending_reintegration)} 篇跳頁補判紀錄未納回 p 值序列"
+            "（第 n+40 輪選項丙）；不得終止" if pending_reintegration else
             "統計證據不足（p ≥ α）；預設繼續篩選"),
         "evaluatedAt": _utc_now(),
     }
@@ -148,7 +183,8 @@ def evaluate_termination(queue: list[dict],
         {key: result[key] for key in
          ("alpha", "pScore", "relevantFound", "screenedCount", "poolSize",
           "targetRecall", "windowSize", "notScreenedCount",
-          "mandatoryLanesFullyScreened", "allowedToStop")})
+          "mandatoryLanesFullyScreened", "pScoreExcludedCount",
+          "allowedToStop")})
     return result
 
 
