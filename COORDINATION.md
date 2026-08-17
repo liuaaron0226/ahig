@@ -8997,6 +8997,15 @@ opinion 分佈 23/2/0，與候選數一致，無漏判。追溯檔 84 筆於檢�
 繼續 page 67 起（remaining 7,441），維持 `claude-opus-5[1m]`、同一
 session 不中斷。
 
+## 🏛 協調者裁定：單臂無對照設計（第 n+30 輪）
+
+**可於題摘階段依設計軸排除**——契約設計軸為 RCT parallel/crossover，
+題摘**明示**單臂/無對照（uncontrolled、全員同處置、無比較條件敘述
+且明顯非交叉）者，設計軸出局，與既有「回顧/橫斷/觀察」排除同一
+性質。**僅明示者適用**：摘要未載對照但可能有者維持 unclear 送全文
+（摘要省略對照臂是常態，fail-closed 不硬猜）。累計 2 筆依此歸
+overlay。
+
 ---
 
 ## B.11 執行室心跳 — standard lane 主篩 page 67（第 110 輪）
@@ -9544,6 +9553,14 @@ opinion 分佈 22/3/0，與候選數一致，無漏判。追溯檔 86 筆於檢�
 繼續 page 71 起（remaining 7,341）。**待裁示事項不變**：
 `recreationally trained` 措辭（累計 4 筆，含 2 筆帶契約 critical
 outcome）、訓練程度數值門檻。未獲裁示前維持 unclear 送全文。
+
+## 🏛 協調者確認：recreationally trained 措辭維持現行處置（第 n+31 輪）
+
+「recreationally trained」介於裁定 62 的兩桶之間（recreational→排除
+／trained→通過），語意在文獻中確實浮動——**維持 unclear 送全文**是
+正確處置（全文的 VO2max/訓練量數據會定案），無需新裁定；帶 critical
+outcome 的 2 筆尤其該由全文定。數值門檻維持 M1 擁有者裁。校準素材
+第 18 筆（示蹤方法學總論）的 W4b 優先取全文建議照准。
 
 ---
 
@@ -12423,3 +12440,74 @@ opinion 分佈 23/2/0，與候選數一致，無漏判。追溯檔 86 筆於檢�
 用語是否比照 `elite` 通過、ADR-0008 之 windowSize 計算方式、
 「CHO 配對安慰劑臂本身可能構成 GI 結局證據」之處置、族群明確不符
 但帶重要反向證據者之處置。
+
+## 🎉 里程碑：safety lane 雙盲兩遍全數完成（2026-08-17）
+
+pass-2（無菌室、`claude-opus-5[1m]`）**2316/2316 判畢**：advance 2、
+exclude 2314、unclear 0，45 輪全程 734/734 全綠、逐頁 25/25 QA、
+完成後自我稽核（規約 2/3/5 三條）零翻案。
+
+**與 pass-1（`claude-sonnet-5`）比對預覽：兩遍 advance 完全相同**
+（`046832a3…` 劑量梯度 0/2/4/6%、`a8d22fb4…` 馬拉松 80 vs 50 g/h）
+——兩個不同模型、盲判、跨兩日，在 2,316 筆上收斂到同兩篇。這是本
+專案信任模型（ADR-0009）迄今最強的一次實證。正式對帳待固化步驟。
+
+### 執行室下一步（重啟後依序，讀本看板即可）
+
+1. **固化 safety 兩遍**：`reconcile_machine`（pass-1 sonnet／pass-2
+   opus，modelId 相異閘會過；`owner_decisions` 本次為空）→ 一致筆
+   ＝ safety lane 正式 screening decisions；歧異筆（若有）入
+   `ownerAuditQueue` 記 M1 抽查債。產物落私密根＋看板回報數字。
+2. **續跑 standard lane**：page 93 起（既有 2300/9091 進度、AL 排序
+   與 reclassification overlay 均已就位），時間盒節奏、批次評估
+   ADR-0008 終止檢定並在心跳回報 p 值。
+3. `pass2-briefing.md` 的無菌室任務至此結束，該檔封存備查（下次
+   若有第三遍或其他盲判任務可複用同一模式）。
+
+### 協調者回覆：registry-record 理由行文順序
+
+**不需要批次重寫**。45 筆全部另有實質軸證據、結論不變，行文順序
+屬風格非實質；append-only 判讀檔的重寫成本與稽核噪音大於收益。
+**慣例補充（往後適用）**：理由請把實質軸放前、文獻型態列為附註。
+本次 45 筆維持原樣，M1 稽核時如需說明可引用本段。
+
+## 🏛 協調者裁定：safety 固化的三個治理值（第 n+32 輪）
+
+pass-2 預檢問得精準——判讀層零缺陷，缺口全在只有協調者能安全指定
+的 envelope 層。三值如下，重啟後直接取用：
+
+### 1. `model_version`（兩遍）
+
+依 model.version precedent 誠實聲明（harness 未回報快照日期，不編造）：
+
+- pass-1：`modelId = claude-sonnet-5`，
+  `modelVersion = "session-native; no dated snapshot exposed; judged 2026-08-16"`
+- pass-2：`modelId = claude-opus-5[1m]`，
+  `modelVersion = "session-native; no dated snapshot exposed; judged 2026-08-16/17"`
+
+modelId 相異閘：`claude-sonnet-5` ≠ `claude-opus-5[1m]`，通過。
+
+### 2. reviewer 信封與 reviewId（協調者指派，保證不撞號）
+
+- pass-1：`reviewerId = "b11-safety-pass-1-sonnet"`、
+  `reviewId = "safety-ta-2026-08-16-pass1"`
+- pass-2：`reviewerId = "b11-safety-pass-2-opus"`、
+  `reviewId = "safety-ta-2026-08-17-pass2"`
+- 兩者皆 `agentClass = "llm"`、`blindedToOtherReviewer = true`
+  （pass-2 為無菌室隔離、pass-1 判讀在前且未見 pass-2，成立）。
+
+### 3. `judgingProtocol.boardReference`
+
+- pass-2：`"COORDINATION.md#pass2-briefing-R1-R3 + docs/agents/pass2-briefing.md (clean-room protocol, rules 1-6)"`
+  雜湊沿用預檢已算：scopeContract `bf33f434…1011d`、
+  worksheet `b0a5ed64…2bcb6`。
+- pass-1：`boardReference =
+  "COORDINATION.md#safety-pass-1-conventions (rulings A/B, n+21, n+22, n+28..n+30)"`；
+  `worksheetSha256` 取 `safety-full-screen-pass-1/worksheet.json` 之
+  內容雜湊（執行室自行計算，pass-1 判讀檔在同一私密根）。
+
+### 固化後續
+
+一致筆＝safety lane 正式決策；歧異（預期 0，兩遍 advance/exclude
+完全相同）若有則入 `ownerAuditQueue`。固化報告推看板後，即續跑
+standard lane page 93 起。
