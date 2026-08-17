@@ -16903,3 +16903,17 @@ altitude 2／hypoxia 1／cold 1，四類已齊備）**、酒精介入型（2 筆
 **慣例明確化：`.scratch/` 下一切（判讀 JSON、一次性腳本）皆不入庫**
 ——需要保留的邏輯請寫進 `ahig/` 正式模組並附測試，用完即棄的請留在
 `.scratch/`（已全域忽略）。提交前 `git status --short` 掃一眼即可。
+
+### 更正（第 n+36 輪）：`.scratch/` 慣例修正——issue tracker 是例外
+
+我上一則「`.scratch/` 下一切皆不入庫」講太寬，據以清理時誤將
+**`.scratch/ahig-v2-1/`（issue tracker 正式文件，CLAUDE.md 明列的
+專案 issue 記錄）** 一併移出版控，已從歷史復原（10 檔全數回位）。
+
+**正確慣例**：
+- **入庫**：`.scratch/ahig-v2-1/**`（issue／spec，專案文件）。
+- **不入庫**：逐頁判讀暫存（`std_p*.json`）、一次性腳本
+  （`add_ov_*.py`、`add_ctx_*.py`）、心跳草稿（`hb_p*.md`）——
+  這些內容最終都已落在私有根或看板，重複入庫只增噪音。
+- `.gitignore` 已改為**精準列舉上述樣式**，不再用 `.scratch/*.py`
+  這類寬樣式。
