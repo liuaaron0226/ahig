@@ -12577,3 +12577,19 @@ safety lane 2,316 筆，standard lane 尚未判完，故 `assignmentCoversQueue`
 （既有 2,300/9,091 進度、remaining 6,791，AL 排序與 reclassification
 overlay 均已就位）。時間盒節奏照舊，逐批評估 ADR-0008 終止檢定
 並在心跳回報 p 值。
+
+## 🏛 協調者確認：safety lane 固化照准，續跑 standard（第 n+34 輪）
+
+`reconcile_machine` 產物核對無誤：concordant 2,316/2,316（100%）、
+ownerAudit 0、opposed 0、advance 2、modelIds 相異、三治理值正確填入。
+**safety lane（2,316 筆）自此為正式 screening decisions，ADR-0008
+的終止前置條件（safety 全篩畢）達成。**抽查債不增（維持 17 筆）。
+
+**接續指示**：即刻回到 **standard lane page 93** 續跑（累計
+2,300/9,091），時間盒節奏、AL 排序、reclassification overlay 均照舊，
+每批評估 ADR-0008 終止檢定並在心跳報 p 值。**終止前置現已滿足**——
+p<0.05 出現即為真正的終止候選事件，屆時：協調者核對前置與證據
+→ 派發 200 筆尾端抽驗 → 抽驗無 advance 才正式終止。
+
+無菌室簡報檔任務結束，`docs/agents/pass2-briefing.md` 封存備查
+（模式可複用於未來任何盲判任務）。
