@@ -13313,3 +13313,135 @@ page 98 於 append 前以程式檢查：25 筆、與 worksheet 該頁 candidateI
 數值門檻、膠化型 CHO 飲料機轉文獻、競技層級用語是否比照 `elite`
 通過、ADR-0008 之 windowSize 計算方式、「CHO 配對安慰劑臂本身
 可能構成 GI 結局證據」之處置、族群明確不符但帶重要反向證據者之處置。
+
+## B.11 執行室心跳 — standard lane 主篩 page 99（第 142 輪）
+
+**時間**：2026-08-17 · **模型**：`claude-opus-5[1m]`
+
+### 本輪進度
+
+| 項目 | 數值 |
+|---|---|
+| 本輪判讀 | page 99，25 筆 |
+| 累計判讀 | **2,475 / 9,091**（page 1–99 完成，27.23%） |
+| 剩餘 | 6,616 |
+| 原始標記 | **advance 307**、unclear 369、exclude 1,799 |
+| 追溯覆蓋層 | 86 筆（本輪未新增） |
+| 有效標記 | **advance 310、unclear 289、exclude 1,876** |
+
+**ADR-0008 終止檢定**：`pScore 0.9877`、`relevantFound 599`、
+`h0MinTotalRelevant 631`、**windowSize 5**。`allowedToStop = false`。
+
+本輪 advance 1 筆、unclear 2 筆、exclude 22 筆。
+
+### 🚨 跨 lane 重複索引：本輪 advance 與 safety lane advance 為同一研究
+
+**`283e1f50…`（standard，2026 Preprint）與 safety lane pass-2 之
+advance `a8d22fb4…`（2024 Preprint）為同一試驗的兩個預印本版本。**
+
+程式化核對結果（非憑印象）：
+
+| | safety `a8d22fb4` | standard `283e1f50` |
+|---|---|---|
+| 標題 | 完全相同（逐字比對 True） | 同左 |
+| 年份 | 2024 | **2026** |
+| publicationTypes | Preprint | Preprint |
+| 所屬 lane | safety-review | standard-screening |
+| 是否互見於對方 worksheet | 否 | 否 |
+
+同一設計：30 名男性業餘馬拉松跑者（18 菁英／12 次菁英）、隨機分派
+高碳水 **80 g/h** vs 常規 **50 g/h**、CGM 監測、主結局為完賽時間。
+
+**處置**：判 advance，與 safety lane 保持跨 lane 一致；理由中已標註
+版本關係並**提請協調者於全文期去重**（同一試驗不得重複計入證據體）。
+**這也是雙 lane 設計首次被驗證能捕捉到同一研究——分派規則本身沒有
+漏接，但去重必須在全文期處理。**
+
+本筆各軸：族群為業餘馬拉松競賽選手（年齡與 VO2max 未載，屬資訊不足
+非正向排除）；時序為**馬拉松比賽期間**；兩臂 80／50 g/h **均落在
+契約 10-150 g/h**（分屬 high 與 moderate 帶）；50 g/h 構成
+allowlist 之 **lower-cho-dose-arm**；結局為**完賽時間**
+（`tt-completion-time`，critical 級）。設計依 R2 慣例以內文所述
+隨機分派為準。
+
+### 🎯 `56aab1fb…` — 標題即載明契約 inScopeOutcome，無摘要
+
+〈Altitude Acclimatization Alleviates the **Hypoxia-Induced
+Suppression of Exogenous Glucose Oxidation** During **Steady-State
+Aerobic Exercise**〉
+
+標題三軸直接對上：**結局為「外源性葡萄糖氧化」＝契約
+`exogenous-cho-oxidation-peak`（important 級）**、時序為
+「穩態有氧運動期間」＝運動中、介入為外源性葡萄糖。
+
+惟**無摘要**，未知：受試者數／年齡／訓練狀態、g/h 劑量、對照臂設計
+（高度可能為海拔適應前後之受試者內比較而非 CHO 劑量對照）、以及
+**高海拔低氧環境是否構成契約未涵蓋之情境限制**。判 unclear，
+建議與 `bcdded40`、`2d260d25` **併列全文期優先核實三強**。
+
+### 期待效應研究第 4 筆
+
+`fee35c5d…`：受試者被隨機告知**正確或錯誤**的飲品資訊（欺瞞設計），
+研究問題為「**對碳水攝取的認知**能否獨立於實際攝取改變 NKCA」。
+**受測介入為認知而非碳水本身**，與第 110／118／135 輪同型。
+
+### 無摘要處置標準第三次適用，本輪一正一反
+
+- `dd74d433…`（1946）〈Influence of ingested glucose on the pain of
+  **exercising ischemic muscle**〉——**標題自身載明兩項出局證據**
+  （結局為疼痛、運動模型為缺血肌肉），依標準**正向排除**。
+- `56aab1fb…`——標題含在範圍結局與時序、無出局證據，判 **unclear**。
+
+**該標準（標題有出局證據則排除、無則 unclear）自 page 93 建立以來
+已適用 6 筆，運作一致，建議協調者正式追認為慣例。**
+
+### 檢索雜訊本輪 +2，累計 50 筆、31 種類別
+
+`d4ff9092…`（尿液生長激素檢驗方法效度，內分泌檢驗學
+[methodological]）、`ff135180…`（細胞色素 P450 BM3 生物觸媒程序
+強化，**工業生物技術**；glucose dehydrogenase 為輔酶再生酵素）。
+
+**檢索雜訊已達 50 筆整**——佔已判讀 2,475 筆之約 2.0%。
+
+### 本輪 22 筆 exclude 分佈
+
+- **介入非 CHO／CHO 為載體 9 筆**：黑醋栗、藍莓、抹茶、綠茶萃取、
+  芒果葉萃取、黑巧克力、牛磺酸、白胺酸、認知（期待效應）。
+- **時序不符 8 筆**：恢復期 4 筆、運動前負荷 2 筆、多日方案 2 筆。
+- **族群軸 6 筆**：肥胖青少年（12-16 歲）、老年人（66 歲）、
+  心絞痛患者、未受訓練者 ×3。
+- **結局軸 4 筆**：血液生化、體溫調節、乳酸清除、疼痛。
+- **設計軸 2 筆**（含 n=2 個案研究）、**[chronic-strategy] 7 筆**、
+  **檢索雜訊 2 筆**。
+
+（部分候選跨多軸，以首要依據歸類；上列含跨軸重計。）
+
+### 品保與驗證
+
+page 99 於 append 前以程式檢查：25 筆、與 worksheet 該頁 candidateId
+**順序逐一相符**、無重複、無與既有判讀重疊、opinion 分佈 22/2/1、
+理由皆非空（121-820 字元），與候選數一致無漏判。**跨 lane 重複索引
+之主張已以程式逐欄核對（標題逐字比對、年份、lane 歸屬、互見與否）
+後才寫入理由，非憑印象斷定。**append 回報
+`added 25 / judgedCount 2475 / remaining 6616`。追溯覆蓋層 86 筆
+於檢定前重新驗證（id 存在 86/86、無重複、originalOpinion 相符 86/86）
+全數通過。`python tests/run_tests.py` **734/734 passed**
+（`ahig/` 程式碼零改動，第 99 輪連續）。
+
+### 下一步
+
+繼續 page 100 起（remaining 6,616）——**下輪達成 page 100 里程碑**。
+**本輪新增待裁示 2 項**：（一）**`283e1f50` 與 `a8d22fb4` 之跨 lane
+去重**（同一試驗兩個預印本版本，不得重複計入證據體）；（二）
+**無摘要候選之處置標準正式追認**（標題載出局證據則排除、否則
+unclear，已適用 6 筆）。**既有待裁示事項不變**：全文期優先核實三強
+（`bcdded40`／`2d260d25`／`56aab1fb`）、結局不在 inScopeOutcomes 但
+劑量與族群相符者之處置原則、自選補給（ad libitum）設計之統一處置
+（累計 10 筆）、W4b 檢索式加入領域限定、`9edf8e0b` 與 `7465afad`
+是否納入校準素材、間歇性場地運動是否屬契約耐力運動、critical-harms
+旗標之 116 筆非 standard lane 候選的處置時點、僅載 `athletes`／
+運動項目名詞／校隊層級而無訓練程度形容詞（**累計 15 筆**）、訓練
+程度數值門檻、膠化型 CHO 飲料機轉文獻、競技層級用語是否比照
+`elite` 通過、ADR-0008 之 windowSize 計算方式、「CHO 配對安慰劑臂
+本身可能構成 GI 結局證據」之處置、族群明確不符但帶重要反向證據者
+之處置。
