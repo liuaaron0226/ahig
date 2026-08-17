@@ -51,3 +51,15 @@ trading-desk/data/
 .scratch/verify_*.py
 .scratch/p2_check*.py
 .scratch/resolve*.py
+
+# 文獻內容（題名／摘要）一律不入版控——原始文獻資料只存 AHIG_PRIVATE_ROOT。
+# 逐檔列舉，不用寬鬆樣式（寬鬆樣式曾兩度誤刪 .scratch/ahig-v2-1/ 議題檔）。
+.scratch/page.txt
+.scratch/ch76_page.txt
+.scratch/ch_page.txt
+.scratch/look.txt
+.scratch/p2_pagebuf.txt
+.scratch/sweep2.txt
+.scratch/sweep4.txt
+.scratch/sweep6.txt
+.scratch/unc.txt
