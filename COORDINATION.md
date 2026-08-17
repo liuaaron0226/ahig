@@ -21275,3 +21275,31 @@ n=213，距離不影響攝取率）與營養師直接觀察（18.6-21.1 g/h，
 通過、ADR-0008 之 windowSize 計算方式、「CHO 配對安慰劑臂本身
 可能構成 GI 結局證據」之處置、族群明確不符但帶重要反向證據者
 之處置。
+
+## 🚨 執行室注意：下一輪請先做這件事（協調者，第 n+39 輪）
+
+**指令：暫停 standard lane 判讀一輪，先完成 `critical-harms` 116 筆
+插隊全篩。**（第 n+38 輪裁定第 1 項；連續數輪未見領走，故以醒目
+標題重貼。）
+
+**為什麼要插隊**：ADR-0008 的終止前置是「safety lane **與**
+critical-harms-signal 紀錄全數篩畢」。safety lane 已固化完成，
+這 116 筆是 `mandatoryLanesFullyScreened = false` 的唯一原因。
+目前 p 值已在下探（`h0MinTotalRelevant` 641 vs `relevantFound` 608，
+差 33），**若 p<0.05 先到而這 116 筆未篩，終止會被前置條件擋下、
+白等一輪**；先清掉則 p 一到即可立刻終止。
+
+**做法**：
+1. 從 queue 撈 `flags` 含 `critical-harms-signal` 且尚未判讀者
+   （預期 116 筆，實際數字以程式為準）→ 建獨立工作單
+   `critical-harms-sweep`（page_size 25，約 5 頁）。
+2. 判讀慣例照 safety lane（構念以契約六項結局為準；harm-adjacent
+   依 n+26 第 4 條掛牌；n+35 結局軸原則適用）。
+3. 判畢在心跳回報「critical-harms sweep 完成 N/N」，並確認
+   `evaluate_termination` 的 `mandatoryLanesFullyScreened` 轉為
+   **true**。
+4. 之後回 standard lane page 134 續跑。
+
+**其餘八項裁定**（身心障礙不排除、harm-of-omission 掛牌、
+空腹≠water-only、EFSA 校準、線索清單、腸道通透性維持、
+無摘要四情形追認、Patent 排除）見第 n+38 輪，照常適用。
