@@ -47,3 +47,6 @@ trading-desk/data/
 .scratch/add_ov_*.py
 .scratch/add_ctx_*.py
 .scratch/hb_*.md
+.scratch/vfy*.py
+.scratch/verify_*.py
+.scratch/p2_check*.py
