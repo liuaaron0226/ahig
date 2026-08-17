@@ -12577,3 +12577,122 @@ safety lane 2,316 筆，standard lane 尚未判完，故 `assignmentCoversQueue`
 （既有 2,300/9,091 進度、remaining 6,791，AL 排序與 reclassification
 overlay 均已就位）。時間盒節奏照舊，逐批評估 ADR-0008 終止檢定
 並在心跳回報 p 值。
+
+## B.11 執行室心跳 — standard lane 主篩 page 93（第 136 輪）
+
+**時間**：2026-08-17 · **模型**：`claude-opus-5[1m]`
+
+協調者第 n+34 輪指示（safety lane 固化照准、續跑 standard page 93）
+已收到並執行。無菌室簡報任務結束，本輪起回歸看板節奏。
+
+### 本輪進度
+
+| 項目 | 數值 |
+|---|---|
+| 本輪判讀 | page 93，25 筆 |
+| 累計判讀 | **2,325 / 9,091**（page 1–93 完成，25.57%） |
+| 剩餘 | 6,766 |
+| 原始標記 | advance 305、unclear 357、exclude 1,663 |
+| 追溯覆蓋層 | 86 筆（本輪未新增） |
+| 有效標記 | **advance 308、unclear 277、exclude 1,740** |
+
+**ADR-0008 終止檢定**（standard lane 序列，與前輪同基準）：
+`pScore 0.9538`、`relevantFound 585`、`h0MinTotalRelevant 616`、
+**windowSize 20**。`allowedToStop = false`。
+
+本輪 advance 0 筆、unclear 1 筆、exclude 24 筆。
+
+### ⚠️ 終止前置條件：safety 已滿足，但 critical-harms 尚有 218 篇
+
+協調者裁定「safety lane 全篩畢＝ADR-0008 終止前置達成」。**本輪程式化
+核對後回報一項需要修正的認定**：`evaluate_termination` 的前置條件
+（模組第 116-121 行）取的是 **safety lane ∪ `critical-harms-signal`
+旗標**之聯集，兩者皆須篩畢。
+
+實測：safety lane 2,316 筆**確已 100% 篩畢**（pass-2 判讀檔全覆蓋，
+與協調者裁定一致）；但 `critical-harms-signal` 全隊列共 **459 筆**，
+其中僅 46 筆落在 safety lane，**其餘散在其他 lane**。目前尚未篩畢者
+**218 筆**，分佈為：
+
+| lane | 未篩畢筆數 |
+|---|---|
+| `review-source-review` | 101 |
+| `standard-screening` | 102 |
+| `animal-signal-review` | 12 |
+| `registry-review` | 3 |
+
+故以全隊列決策序列評估時，`mandatoryLanesFullyScreened = false`、
+`allowedToStop = false`，`reason` 明載「safety/critical-harms 尚有
+218 篇未人工篩畢」。
+
+**這不是 safety lane 有缺漏，也不是回歸**——是「終止前置」的範圍比
+「safety lane 全篩畢」更寬。**待協調者裁示**：其中 102 筆屬
+`standard-screening`，會隨主篩自然消化；但 `review-source-review`
+101 筆與 `animal-signal-review` 12 筆、`registry-review` 3 筆
+**不在目前主篩路徑上**，若不另行處置，p<0.05 出現時仍會卡在前置條件。
+建議在接近終止候選前先行清掉這 116 筆非 standard lane 的
+critical-harms 旗標候選。
+
+### 本輪 1 筆 unclear
+
+`0fe93e40…` — **1986 年〈運動中、前或後攝取碳水化合物之代謝可用性〉**，
+標題涵蓋 **in-exercise 時序**且主題為外源性 CHO 代謝可用性，與契約
+`exogenous-cho-oxidation` 結局相關。惟**本筆無摘要**，無從判定族群與
+訓練狀態、劑量、對照臂與研究設計（年代久遠，亦可能為綜論）。
+依 fail-closed 原則不得推定排除，判 unclear 送全文。
+
+**無摘要候選之處置**：本輪 page 93 共 3 筆無摘要（另兩筆
+`dda4a49c…`、`d5028b03…`），後兩筆因**標題自身已載明「運動前 30 分鐘」
+「pre-exercise」之出局時序證據**而得以正向排除；本筆標題含在範圍時序
+故不得排除。此區分標準沿用既有慣例，供協調者覆核。
+
+### 本輪 24 筆 exclude 分佈
+
+- **介入非 CHO／CHO 僅為安慰劑載體 6 筆**：多成分補充品（MIPS）、
+  咖啡因 ×2（CYP1A2、MCT1 基因型）、牛磺酸、乳清蛋白、
+  蛋白質需求量（CHO 為共用背景營養）。**[placebo-cho-vehicle] 本輪 +4，
+  累計 53 例**——仍為本 lane 最主要偽陽性來源。
+- **時序不符 7 筆**：運動前負荷 4 筆（含 2 筆無摘要但標題明載）、
+  運動後恢復期 3 筆。
+- **檢索雜訊 4 筆**：上皮幹細胞培養、小球藻異營培養、韓國成人進食
+  速度橫斷面、日本 eNOS 基因多型性世代研究。**累計 34 筆、18 種類別。**
+- **族群軸 4 筆**：9 歲 McArdle 病童、青少年游泳選手（14.1 歲）、
+  餐後低血壓高齡者、心絞痛患者（61 歲）。
+- **[chronic-strategy] 2 筆**：夜間限醣兩週、運動後 48 小時高低醣飲食。
+- **設計軸 1 筆**：超馬自選補給之 CGM 可行性觀察研究（[methodological]）。
+- **介入軸無 CHO 臂 1 筆**：中年跑者馬拉松僅飲水。
+
+（部分候選跨多軸，以首要依據歸類。）
+
+### 本輪值得記錄的兩個型態
+
+**（一）基因型 × 補充品交互作用研究成新型偽陽性**（本輪 2 筆）：
+`a0026782…`（CYP1A2 × 咖啡因）、`f81368aa…`（MCT1 × 咖啡因）。
+共同特徵為**麥芽糊精安慰劑 ＋ 非 CHO 受測介入 ＋ 非耐力運動型態**，
+三重不符但因含 maltodextrin 與 exercise 關鍵字而入池。
+
+**（二）CHO 作為蛋白質共攝取載體**：`c56e4062…`（叢集糊精 vs 等量
+葡萄糖搭配蛋白質水解物）**形式上屬裁定A型之同劑量不同醣類型態對照**，
+但結局為肌原纖維蛋白質合成率、時序為阻力運動後，故仍排除。
+此型與純粹之 [placebo-cho-vehicle] 不同，已在理由中區分。
+
+### 品保與驗證
+
+page 93 於 append 前以程式檢查：25 筆、與 worksheet 該頁
+candidateId **順序逐一相符**、無重複、無與既有判讀檔重疊、
+opinion 分佈 24/1/0、理由皆非空（長度 94-238 字元），與候選數一致
+無漏判。append 回報 `added 25 / judgedCount 2325 / remaining 6766`。
+追溯覆蓋層 86 筆於檢定前重新驗證（id 存在 86/86、無重複、
+originalOpinion 相符 86/86）全數通過。
+`python tests/run_tests.py` **734/734 passed**（`ahig/` 程式碼零改動，
+第 93 輪連續）。
+
+### 下一步
+
+繼續 page 94 起（remaining 6,766）。**本輪新增待裁示 1 項**：
+上述 critical-harms 旗標之 116 筆非 standard lane 候選的處置時點。
+**既有待裁示事項不變**：僅載 `athletes`／運動項目名詞／校隊層級而無
+訓練程度形容詞（累計 13 筆）、訓練程度數值門檻、膠化型 CHO 飲料機轉
+文獻、競技層級用語是否比照 `elite` 通過、ADR-0008 之 windowSize
+計算方式、「CHO 配對安慰劑臂本身可能構成 GI 結局證據」之處置、
+族群明確不符但帶重要反向證據者之處置。
