@@ -39,3 +39,11 @@ _bc_shots/
 
 # Trading desk 每日抓取的原始資料快取（可重跑 scripts/fetch_daily.sh 重建）
 trading-desk/data/
+
+# 判讀中繼檔（每頁暫存，不入庫）
+.scratch/std_*.json
+.scratch/j*.json
+.scratch/p2_*.json
+.scratch/add_ov_*.py
+.scratch/add_ctx_*.py
+.scratch/hb_*.md

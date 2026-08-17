@@ -1,5 +1,18 @@
 # AHIG 多 session 協調看板
 
+> ## 🚨 執行室每輪必讀（置頂待辦）
+>
+> **未完成事項：`critical-harms` 116 筆插隊全篩**（第 n+38/n+39 輪裁定）。
+> 這是 ADR-0008 終止的**唯一結構性阻塞**（`mandatoryLanesFullyScreened`
+> 目前為 false）。**請於下一輪暫停 standard lane，先建
+> `critical-harms-sweep` 工作單（queue 中 flags 含 `critical-harms-signal`
+> 且未判讀者，約 116 筆／5 頁）判完，回報後再回 standard page 135。**
+> 完成後請把本區塊標題改為「✅ 無未完成置頂事項」。
+>
+> （置頂原因：同一指令已在看板尾段貼過兩輪未被領走——推測每輪只讀
+> 尾段。此區塊在檔案最上方，pull 後第一眼即見。）
+
+
 多個 Claude session 並行處理 AHIG 專案時的共享狀態。**git 是唯一可靠的共享事實**：
 每個 session 開工先 `git fetch`，收工必 push。
 
@@ -16165,6 +16178,15 @@ page 115 於 append 前以程式檢查：25 筆、與 worksheet 該頁 candidate
 本身可能構成 GI 結局證據」之處置、族群明確不符但帶重要反向證據者
 之處置。
 
+## 🏛 協調者提醒：判讀中繼檔不入庫（第 n+36 輪）
+
+第 115 輪的 `.scratch/std_p115.json`（每頁判讀暫存）隨心跳進了版控，
+已 `git rm --cached` 移除並補 `.gitignore` 規則
+（`.scratch/std_*.json`、`j*.json`、`p2_*.json`）。**判讀內容屬私有
+文獻衍生物，只落 `AHIG_PRIVATE_ROOT`，repo 只留程式碼、看板與雜湊。**
+提交前請 `git status --short` 確認暫存檔未被 add（既有慣例，本次為
+單次疏漏，不影響任何判讀結果）。
+
 ## B.11 執行室心跳 — standard lane 主篩 page 116（第 160 輪）
 
 **時間**：2026-08-17 · **模型**：`claude-opus-5[1m]`
@@ -16887,6 +16909,28 @@ altitude 2／hypoxia 1／cold 1，四類已齊備）**、酒精介入型（2 筆
 通過、ADR-0008 之 windowSize 計算方式、「CHO 配對安慰劑臂本身可能
 構成 GI 結局證據」之處置、族群明確不符但帶重要反向證據者之處置。
 
+### 追記（第 n+36 輪）：暫存腳本亦不入庫
+
+第 116–118 輪的 `.scratch/add_ov_p*.py`（overlay 追加用一次性腳本）
+同樣誤入版控，已移除並擴充 `.gitignore`（`.scratch/*.py`）。
+**慣例明確化：`.scratch/` 下一切（判讀 JSON、一次性腳本）皆不入庫**
+——需要保留的邏輯請寫進 `ahig/` 正式模組並附測試，用完即棄的請留在
+`.scratch/`（已全域忽略）。提交前 `git status --short` 掃一眼即可。
+
+### 更正（第 n+36 輪）：`.scratch/` 慣例修正——issue tracker 是例外
+
+我上一則「`.scratch/` 下一切皆不入庫」講太寬，據以清理時誤將
+**`.scratch/ahig-v2-1/`（issue tracker 正式文件，CLAUDE.md 明列的
+專案 issue 記錄）** 一併移出版控，已從歷史復原（10 檔全數回位）。
+
+**正確慣例**：
+- **入庫**：`.scratch/ahig-v2-1/**`（issue／spec，專案文件）。
+- **不入庫**：逐頁判讀暫存（`std_p*.json`）、一次性腳本
+  （`add_ov_*.py`、`add_ctx_*.py`）、心跳草稿（`hb_p*.md`）——
+  這些內容最終都已落在私有根或看板，重複入庫只增噪音。
+- `.gitignore` 已改為**精準列舉上述樣式**，不再用 `.scratch/*.py`
+  這類寬樣式。
+
 ## B.11 執行室心跳 — standard lane 主篩 page 119（第 163 輪）
 
 **時間**：2026-08-17 · **模型**：`claude-opus-5[1m]`
@@ -17434,6 +17478,28 @@ page 120 於 append 前以程式檢查：25 筆、與 worksheet 該頁 candidate
 通過、ADR-0008 之 windowSize 計算方式、「CHO 配對安慰劑臂本身
 可能構成 GI 結局證據」之處置、族群明確不符但帶重要反向證據者
 之處置。
+
+## 🏛 協調者裁定：推理強度 xhigh → high（第 n+37 輪）
+
+擁有者詢問是否可降推理強度。**裁定：可降為 high**，理由與監控如下。
+
+**理由**：(1) AL 排序使難題前置，剩餘尾段多為一眼可判之排除；
+(2) 邊界案例的處置慣例是「標記送裁」而非自行苦思，深度推理成本
+在協調者側；(3) 判例庫已成熟（n+21…n+35 二十餘條），多數判讀是
+規則比對；(4) **實際瓶頸是配額**（連日限流/視窗到期造成的停擺遠
+大於任何品質風險），降 effort 直接換得吞吐與續航。
+
+**安全網不變**：資訊不足→unclear 送全文；每頁 25/25 計數核對；
+終止前 200 筆尾端抽驗；overlay 追溯機制。降 effort 不繞過任何一道。
+
+**留痕**：請執行室在切換當輪的心跳明載「本輪起 effort=high，
+切換於 page N」，供 M1 稽核時說明前後段的判讀條件差異
+（effort 不進雜湊鏈，但屬判讀條件，誠實記錄）。
+
+**監控與回退**：協調者接下來數輪盯 (a) advance 率是否異常驟降、
+(b) unclear 率是否異常上升（該升未升亦是訊號）、(c) 判讀理由字數
+與具體度是否明顯劣化。任一出現即看板明令切回 xhigh，該區段
+視情況重判。
 
 ## B.11 執行室心跳 — standard lane 主篩 page 121（第 165 輪）
 
@@ -18230,6 +18296,53 @@ page 123 於 append 前以程式檢查：25 筆、與 worksheet 該頁 candidate
 `elite` 通過、ADR-0008 之 windowSize 計算方式、「CHO 配對安慰劑臂
 本身可能構成 GI 結局證據」之處置、族群明確不符但帶重要反向證據者
 之處置。
+
+## 🏛 協調者批次裁定：九項待裁一次清空（第 n+38 輪）
+
+### 1.（硬阻塞）`critical-harms` 116 筆處置時點：**立即插隊全篩**
+
+ADR-0008 前置為「safety lane **與** critical-harms-signal 紀錄全數
+篩畢」；safety lane 已完成，這 116 筆是終止的唯一結構性阻塞。裁定：
+**standard lane 暫停一輪，先把這 116 筆（散在 standard/其他 lane
+的 critical-harms 旗標紀錄）以獨立工作單一次判完**（約 5 頁、
+一至二輪），判畢即回 standard 續跑。理由：它是終止的必要條件，
+愈早清掉，p<0.05 一到就能立刻終止，不必回頭補篩再重算。
+harms 判讀比照 safety lane 慣例（構念以契約 GI 結局為準，
+harm-adjacent 照 n+26 第 4 條掛牌）。
+
+### 2. 身心障礙運動族群（含上肢耐力，2 筆）：**不排除**
+
+契約族群軸限定訓練狀態與年齡，未限制肢體功能；上肢耐力運動
+（衝浪艇划槳、輪椅競速）之生理需求與外源性 CHO 氧化機轉一致。
+標 `[context:upper-body]`／`[context:para-athlete]` 供 W4c 分層，
+其餘軸照常判。
+
+### 3. safety lane 結局範圍回溯（7 筆，含「未補給之危害」）：**不回溯，掛牌**
+
+回溯重篩會動已固化的 2,316 筆決策與雜湊鏈，成本遠大於收益。
+裁定：7 筆標 `[harm-of-omission]` 入掛牌名單，M1 與 harms 構念
+擴充案一併呈擁有者。**你指出的實質風險（只看補給之 harm 會遺漏
+對照臂安全性證據，影響 GRADE harms 評估）已完整記入 M1 待批
+說明**——這是本輪最有價值的觀察。
+
+### 4. EFSA 意見書作為 comparator 規格化外部依據：**照准**（校準素材，非契約來源；契約修訂仍走 M1）
+
+### 5. 空腹臂 vs `water-only` 臂是否等效：**不等效，維持 unclear 送全文**
+
+空腹（無液體）與純水在胃排空、體液狀態上不同，題摘層無法斷定
+研究是否提供液體。全文可判者交 W4b；此問題併入 M1 allowlist 修訂案。
+
+### 6. 線索型文獻溯源清單（6 筆）：**照准**，W4b 引文追蹤首批。
+
+### 7. 腸道通透性納入 GI 結局構念（3 筆）：**維持 n+26 第 4 條**
+——功能指標非症狀，exclude＋`[harm-adjacent]` 掛牌，M1 一併議。
+
+### 8. 無摘要處置四情形：**正式追認**
+（標題載出局證據→排除；標題載合格要素→advance；標題資訊不足→
+unclear；非研究型別→型別排除。）21／5／1／1 分布合理。
+
+### 9. `Patent` 型別於 W4b：**排除**——專利無受試者、無結果資料，
+非研究文獻；本階段照判，W4b 不需再議。
 
 ## B.11 執行室心跳 — standard lane 主篩 page 124（第 168 輪）
 
@@ -21175,6 +21288,34 @@ n=213，距離不影響攝取率）與營養師直接觀察（18.6-21.1 g/h，
 通過、ADR-0008 之 windowSize 計算方式、「CHO 配對安慰劑臂本身
 可能構成 GI 結局證據」之處置、族群明確不符但帶重要反向證據者
 之處置。
+
+## 🚨 執行室注意：下一輪請先做這件事（協調者，第 n+39 輪）
+
+**指令：暫停 standard lane 判讀一輪，先完成 `critical-harms` 116 筆
+插隊全篩。**（第 n+38 輪裁定第 1 項；連續數輪未見領走，故以醒目
+標題重貼。）
+
+**為什麼要插隊**：ADR-0008 的終止前置是「safety lane **與**
+critical-harms-signal 紀錄全數篩畢」。safety lane 已固化完成，
+這 116 筆是 `mandatoryLanesFullyScreened = false` 的唯一原因。
+目前 p 值已在下探（`h0MinTotalRelevant` 641 vs `relevantFound` 608，
+差 33），**若 p<0.05 先到而這 116 筆未篩，終止會被前置條件擋下、
+白等一輪**；先清掉則 p 一到即可立刻終止。
+
+**做法**：
+1. 從 queue 撈 `flags` 含 `critical-harms-signal` 且尚未判讀者
+   （預期 116 筆，實際數字以程式為準）→ 建獨立工作單
+   `critical-harms-sweep`（page_size 25，約 5 頁）。
+2. 判讀慣例照 safety lane（構念以契約六項結局為準；harm-adjacent
+   依 n+26 第 4 條掛牌；n+35 結局軸原則適用）。
+3. 判畢在心跳回報「critical-harms sweep 完成 N/N」，並確認
+   `evaluate_termination` 的 `mandatoryLanesFullyScreened` 轉為
+   **true**。
+4. 之後回 standard lane page 134 續跑。
+
+**其餘八項裁定**（身心障礙不排除、harm-of-omission 掛牌、
+空腹≠water-only、EFSA 校準、線索清單、腸道通透性維持、
+無摘要四情形追認、Patent 排除）見第 n+38 輪，照常適用。
 
 ## B.11 執行室心跳 — standard lane 主篩 page 134（第 178 輪）
 
