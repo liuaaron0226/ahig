@@ -46,3 +46,4 @@ trading-desk/data/
 .scratch/p2_*.json
 .scratch/add_ov_*.py
 .scratch/add_ctx_*.py
+.scratch/hb_*.md
