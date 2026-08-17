@@ -1,0 +1,27 @@
+[
+ {
+  "candidateId": "ahig:candidate:publication:16b51d57f23fff33bd126a36",
+  "opinion": "exclude",
+  "reason": "介入軸違反：受測之操弄變項為**碳酸氫鈉（0.3 g/kg 體重，Maurten AB）vs 安慰劑**，碳水水凝膠僅為**兩臂共同之遞送載體**（delivery system），劑量與型態未作為操弄軸——屬 [placebo-cho-vehicle] 型，與既有先例一致。其餘各軸本身合格且品質高：14 名**受過訓練男性自行車手**、40 公里計時賽、隨機雙盲交叉、以個別化尖峰鹼化決定攝取時點；結局含 **`tt-completion-time`（改善 54.14 ± 18.16 秒，p = 0.002）與腸胃症狀（GIS，運動前後皆無組間差異）**。**⚠️ 流程註記**：本筆之判讀與 `screening-shadow-pass-a`（校準用 300 筆）之判讀一致（該影子回合亦以「碳酸氫鈉為主操弄、CHO 水凝膠為共同載體」排除），**惟影子回合非正式 lane，本筆在正式判讀層此前為零紀錄**——詳見本輪心跳之孤兒紀錄說明。**harms 素材**：其 GIS 之無差異結果，是「同一碳水載體下改變非碳水成分不改變 GI 症狀」之對照證據。排除。"
+ },
+ {
+  "candidateId": "ahig:candidate:publication:93288ee8dc9ab456ffc2a9d2",
+  "opinion": "unclear",
+  "reason": "**⭐⭐⭐ 五軸相符、結局雙命中，且為契約 doseBands 之時序維度延伸——判 unclear 送全文，係因對照臂設計卡在 allowlist 缺口（第 5 項待裁）。** 逐軸核對：**(1) 族群軸相符**——12 名 **trained male cyclists**（明文訓練狀態）；**(2) 時序與運動型態軸相符**——180 分鐘間歇騎乘預負荷＋15 分鐘全力測驗＋力竭衝刺，運動「期間」攝取；**(3) 介入軸相符**——**90 g/h 碳水**，落在契約 high band；**(4) 設計軸相符**——三臂隨機交叉；**(5) 結局軸雙命中**——`time-to-exhaustion`（力竭時間）＋**腸胃舒適度（噁心、胃脹、腹部絞痛之標準化差異均有報告）**，即 critical 級 GI 結局與 important 級表現結局同時具備。**判 unclear 之唯一理由**：三臂之操弄為**同一總劑量（90 g/h）之遞增／遞減／恆定三種時序分配**，**三臂碳水總量相同、無安慰劑或水對照**——此為 allowlist 未涵蓋之「同劑量不同給予節律」對照，與 page 135 `7d6847b2`（同劑量不同型態）為**同一缺口之不同面向**。**⚠️ 這使第 5 項待裁之範圍必須擴大**：allowlist 缺口不只是「型態」（form），還包括「**時序分配**」（distribution）——建議協調者裁示時將兩者一併界定為「同劑量內部對照」（within-dose contrasts）。**其陰性結果本身亦有價值**：碳水分配方式對表現無影響，但**噁心、胃脹與腹部絞痛隨時間上升**，即 harms 隨累積劑量而非分配方式變化。**⚠️ 流程註記**：影子回合 pass-a 判 unclear、pass-b 判 advance（兩者分歧），正式層此前為零紀錄。"
+ },
+ {
+  "candidateId": "ahig:candidate:publication:d2884ed27a2ac9f447fdd027",
+  "opinion": "exclude",
+  "reason": "時序軸違反：8 名**受過訓練之耐力跑者與鐵人三項選手**於 70% VO2max 跑步至力竭後，於 **4 小時恢復期**攝取 90 g/h 之葡萄糖-麥芽糊精 vs 果糖-麥芽糊精（1:1.5 比例），再進行第二回合力竭跑——**攝取時點為兩回合之間的恢復期而非運動中**，依既有恢復期硬性排除先例處理（與 page 137 `8e55192a` 等一致）。**⚠️ 惟本筆為恢復期群中與契約最接近者，且其效應量極大**：第二回合運動能力 **81.4 ± 22.3 vs 61.4 ± 9.6 分鐘（P = 0.02，效果量 1.84）**，第二回合總碳水氧化量亦顯著較高——**即同劑量不同醣種組成（allowlist 缺口之型態面向）在恢復期情境下產生 32% 之表現差異**。**建議 W4c 於論述型態維度時引用本筆作為「型態效應在恢復期確實存在」之證據，與 page 2 seq22（`5b569ba8`，稱恢復期型態不影響肝醣儲存速率）並列——兩者表面矛盾，實則前者測表現、後者測肝醣，正說明型態效應可能繞過肝醣途徑。** 排除。"
+ },
+ {
+  "candidateId": "ahig:candidate:publication:a1655c2c3f6c0a8e843592ce",
+  "opinion": "unclear",
+  "reason": "**無摘要，依 n+38 第 8 項第三情形（標題資訊不足）判 unclear 送全文。** 標題〈**The influence of carbohydrate content and type on gastrointestinal tolerance during endurance cycling**〉之三要素全數落在契約核心：**(1) 介入軸——碳水「含量」（content，即劑量）與「型態」（type）兩者皆為操弄變項**；**(2) 時序與運動型態軸——耐力自行車運動「期間」**；**(3) 結局軸——腸胃耐受性，即契約 `gi-symptom-incidence`／`gi-symptom-severity`（critical 級）**。**⭐ 本筆之特殊價值在於它同時涵蓋第 5 項待裁之兩個面向**：`content` 屬契約既有之劑量軸（allowlist 內之 `lower-cho-dose-arm` 可涵蓋），`type` 則屬 allowlist 缺口——**若其全文顯示含劑量對照臂，本筆即可依現行 allowlist 納入；若僅有型態對照，則卡在缺口。這使本筆成為第 5 項裁示之試金石。** 型態為 `dissertation`（**學位論文累計第 29 筆**），須另核對其構成研究是否已另行發表（第 4 型重複索引風險）。**⚠️ 流程註記**：影子回合 pass-a 判 unclear、pass-b 判 advance，正式層此前為零紀錄。**全文期優先取得清單建議列入前段。**"
+ },
+ {
+  "candidateId": "ahig:candidate:publication:1d1397a3bdfbf1b8c70e152a",
+  "opinion": "exclude",
+  "reason": "**無摘要，依 n+38 第 8 項第一情形（標題載出局證據）排除。** 標題〈**Protein type and caloric density of protein supplements modulate postprandial amino acid profile through changes in gastrointestinal behaviour**〉之三處明文出局：**(1) 介入軸——受測變項為蛋白質之種類與熱量密度**，非外源性碳水；**(2) 時序軸——`postprandial`（餐後）**，非運動期間；**(3) 結局軸——餐後胺基酸曲線**，非契約六項；`gastrointestinal behaviour` 指胃排空等生理行為而非症狀結局（依 n+38 第 7 項，功能指標不納入 GI 結局構念）。**標題無任何運動方案之措辭。** **⚠️ 流程註記**：影子回合 pass-a 與 pass-b 皆判 exclude 且理由一致，正式層此前為零紀錄。排除。"
+ }
+]

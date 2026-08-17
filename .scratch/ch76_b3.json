@@ -1,0 +1,62 @@
+[
+ {
+  "candidateId": "ahig:candidate:publication:115cf54476bb151e9c2e2ab0",
+  "opinion": "exclude",
+  "reason": "設計軸違反：圍手術期營養之綜述評論，非原始研究。族群軸違反：外科手術病患。時序與情境軸違反：介入為術前準備（含**碳水負荷 carbohydrate loading**）與術後早期腸道營養、益生菌療法，屬圍手術期而非運動情境；**碳水負荷在此指術前一夜之含糖飲品以降低胰島素阻抗，與契約之運動中補給無關**。運動型態軸違反：**`high protein intake combined with exercise` 指術前體能準備**，非受測運動方案。**檢索雜訊累計第 70 筆**，圍手術期營養類第 2 筆。排除。"
+ },
+ {
+  "candidateId": "ahig:candidate:publication:7f3642dadc461eb2d092e1bd",
+  "opinion": "exclude",
+  "reason": "介入軸違反：受測介入為**碳水漱口**（8 × 5 秒、25 mL 6% 麥芽糊精 vs 安慰劑），依協調者 R3 慣例於介入軸排除（**漱口研究累計第 17 筆**）。運動型態軸違反：30 秒自行車衝刺（Wingate 型），屬無氧衝刺而非契約耐力運動。族群軸違反：12 名 physically active 男性，無耐力訓練程度指標（裁定 62）。結局軸違反：結局為峰值功率、平均功率與疲勞指數。**註：其結果為 CHO 漱口顯著提高峰值功率（13.51 vs 13.20 W/kg，p < 0.05），與 critical-harms 工作單 `8e5578a6`（HIIE 漱口統合分析無顯著）方向不一致，惟後者為統合證據層級較高，已互相標註供 W4c 參考。** 排除。"
+ },
+ {
+  "candidateId": "ahig:candidate:publication:0ba875dac6fbf25552b34e56",
+  "opinion": "exclude",
+  "reason": "族群軸違反：14 名**青少年**網球選手（15.1 ± 1.4 歲），**低於契約 18 歲下限**（青少年排除累計第 36 筆）。運動型態軸違反：120 分鐘網球專項訓練，屬間歇性球拍運動而非契約持續耐力運動。介入軸違反：6% 碳水電解質飲 vs 水為 **ad libitum 自由取用**（自選補給型累計第 92 筆），劑量未受控。結局軸違反：結局為自願飲水量、核心體溫、尿量、體液滯留、排汗量、知覺運動強度與口渴——**腸胃不適雖有量測且組間無差異，惟屬附帶項而非主結局**。情境標 [context:heat]（WBGT 約 79°F）。排除。"
+ },
+ {
+  "candidateId": "ahig:candidate:publication:5cdc74e8f8ca991ccc8c4ff0",
+  "opinion": "exclude",
+  "reason": "**[mixed-nutrient] 裁定 59/60 適用**：兩臂為 **CHO-only vs CHO + PRO**，操弄變項為蛋白之有無而非碳水劑量或型態；**惟註記其對照設計方向與多數 mixed-nutrient 案相反——本筆之 CHO-only 臂即契約所指之純碳水，卻無安慰劑或水對照**。運動型態軸違反：澳式足球比賽與訓練，屬間歇性場地運動（第 45 項待裁）。族群軸違反：**青少年錦標賽球員**（junior tournament，青少年排除累計第 37 筆）。結局軸違反：結局為反向跳、肌肉痠痛評分與自律神經功能。**多日賽事能量平衡個案第 7 筆**（七日全國錦標賽）。排除。"
+ },
+ {
+  "candidateId": "ahig:candidate:publication:952473cb5ce2a545b15364bb",
+  "opinion": "exclude",
+  "reason": "**文獻型態排除：`Patent`（專利文件）——依協調者第 n+38 輪第 9 項裁定，專利無受試者、無結果資料，非研究文獻，本階段照判、W4b 不需再議。** 內容為補液飲品之組成權利主張（每份含 1–100 g 碳水如葡萄糖聚合物／麥芽糊精／果糖，加電解質、氨中和劑、能量增強劑、抗氧化劑、膜穩定劑與神經肌肉功能增強劑）。**🚨 去重清單第五型第 6 例，且為本 lane 首見「同一專利三次索引」**：本筆與 seq4911 `bf0ff36a`（1994）、seq4916 `53e8ce4a`（1995）**摘要逐字相同、僅拼寫與化學鹽形式微異**（choline vs choline chloride），為同一專利家族之三個公開版本，已互相標註待 W4b 合併。排除。"
+ },
+ {
+  "candidateId": "ahig:candidate:publication:bf0ff36a21b3927f9683581c",
+  "opinion": "exclude",
+  "reason": "**文獻型態排除：`Patent`**（n+38 第 9 項）。**去重第五型第 6 例之第二筆**：與 seq4910 `952473cb`（1995）、seq4916 `53e8ce4a`（1995）為同一專利家族之三個公開版本（本筆為 1994 最早版），已互相標註。內容同前：補液飲品組成之權利主張。排除。"
+ },
+ {
+  "candidateId": "ahig:candidate:publication:53e8ce4a89fc9bba030dc485",
+  "opinion": "exclude",
+  "reason": "**文獻型態排除：`Patent`**（n+38 第 9 項）。**去重第五型第 6 例之第三筆**：與 seq4910 `952473cb`、seq4911 `bf0ff36a` 為同一專利家族（本筆之化學鹽形式寫為 choline chloride／betaine chloride，餘逐字相同），已互相標註。**⚠️ 提請 W4b 注意：本 lane 之 `Patent` 全池共 94 筆，其中已判 22 筆全數 exclude；同一專利家族多次索引之情形普遍（如 `Sports drink composition for enhancing glucose uptake` 已見 6 筆、`High energy nutritive composition` 3 筆），合併後之實際專利家族數遠低於 94。** 排除。"
+ },
+ {
+  "candidateId": "ahig:candidate:publication:541217377a443c25cf616f7d",
+  "opinion": "exclude",
+  "reason": "設計軸違反：敘述性回顧（超耐力運動員營養更新），非原始研究。**📋 實務指引型校準素材第 17 筆，且含兩項與本 lane 既有素材呼應之論述**：(一) 明載「在**腸胃可耐受範圍內**補給是最佳表現之關鍵」——即 GI 耐受性為劑量上限決定因子（與 critical-harms 工作單 `be175f4e`、`93949c73` 一致）；(二) 明載近期田野研究「**破除了比賽中中度脫水有害之迷思**」——**此為對脫水危害之修正論述，與本 lane 之補液素材群方向相左，建議 W4c 併入呈現**。另載多重碳水共同攝取之效益與咖啡因、鈉之使用仍待更多研究。**明言該族群研究稀少**（paucity of studies）。排除。"
+ },
+ {
+  "candidateId": "ahig:candidate:publication:3ce7750e1f7ce01e44e1646c",
+  "opinion": "exclude",
+  "reason": "設計軸違反：**72 題問卷之橫斷面調查**（50 名資深競技攀岩選手），無隨機分派、無介入。介入軸違反：無碳水補給介入，受測標的為營養知識、賽前減重策略與補充品使用。運動型態軸違反：運動攀登，非契約持續耐力運動。**📊 知識與實踐落差素材第 3 筆**：平均營養知識得分僅「average」（53.5 ± 11.1%），且**國家級選手之一般營養知識顯著高於國際級選手**（11.09 vs 9.58，p = 0.028）——**此與 page 137 `265cccfa`（知識與實踐無相關）及本批次 `5a5c17d9`（超耐力跑者主要靠個人經驗）合為同一敘事鏈**；另註受試者在蛋白、碳水、酒精與補充品題目表現佳，而**水合與微量營養素題目表現差**。**體重敏感／減重實踐素材第 5 筆。** 排除。"
+ },
+ {
+  "candidateId": "ahig:candidate:publication:fc75f1d5298c326024d22835",
+  "opinion": "unclear",
+  "reason": "**⭐⭐⭐ 無摘要，惟標題四項要素全數落在契約核心——依 n+38 第 8 項第二情形（標題載合格要素）本應 advance，執行室判 unclear 之理由詳下，請協調者確認。** 〈**Effects of carbohydrate dose and frequency on metabolism, gastrointestinal discomfort, and cross-country skiing performance**〉逐項對應：**(1) 介入軸——`carbohydrate dose`（劑量）與 `frequency`（給予頻率）兩者皆為操弄變項**，劑量對照正是契約 allowlist 內之 `lower-cho-dose-arm`；**(2) 結局軸雙命中——`gastrointestinal discomfort`（契約 critical 級）＋ `cross-country skiing performance`（表現，屬 `tt-completion-time` 家族）**；(3) 時序與運動型態軸——越野滑雪為持續耐力運動，且劑量與頻率之操弄蘊含運動期間給予；(4) 型別為 `Journal Article`，非型別排除之情形。**判 unclear 而非 advance 之唯一理由**：**族群未在標題揭露**（受試者是否為受訓耐力運動員、年齡、人數皆不明），依 fail-closed 與裁定 62 之族群軸絕對性，題摘層無從確認族群軸；**且 `frequency` 維度屬本 lane 第 184 輪所提之「同劑量內部對照」缺口之第 3 個面向（前兩者為型態、時序分配）**。**本筆為第 5 項待裁（allowlist 缺口）之另一試金石，建議列入全文期優先取得清單前段。** **⚠️ 另註：無摘要 advance 迄今僅 1 筆（`02ad3c6b`，其標題連對照臂與結局都寫明）；本筆若協調者認為標題要素已足，應改判 advance。**"
+ },
+ {
+  "candidateId": "ahig:candidate:publication:ea1bf81b0f21b792436e07d1",
+  "opinion": "exclude",
+  "reason": "介入軸違反：受測介入為**益生元半乳寡醣（GOS，2.8 g/日，168 天）**——**不可消化碳水，經菌相發酵而非小腸吸收，該類別第 4 例**；**麥芽糊精 2.8 g/日為安慰劑對照臂**（[placebo-cho-vehicle] 型）。時序軸違反：168 天每日補充（[chronic-strategy]），非運動中攝取。運動型態軸違反：菁英橄欖球，屬間歇性衝撞運動。**⚠️ 結局軸雙命中且結果顯著**：**腸胃症狀之嚴重度與發生率在益生元組皆顯著較低**（P < 0.001／P = 0.041），即契約 `gi-symptom-severity` 與 `gi-symptom-incidence` 兩項 critical 級結局——**惟介入為益生元而非外源性碳水，且為慢性補充**。**微生物體型區辨第 19 個研究**；與本批次 `47f71a74`（Bimuno GOS 42 天）為**同一介入物之不同劑量與時長研究**，已互相標註。排除。"
+ },
+ {
+  "candidateId": "ahig:candidate:publication:fe1de70d5eaaf57dfeae54c1",
+  "opinion": "exclude",
+  "reason": "設計軸違反：四組橫斷面比較（15 名義大利國家隊輪椅籃球選手 vs 三組對照），以三日飲食日記與標準化問卷評估，無隨機分派、無介入。介入軸違反：無碳水補給介入，受測標的為飲食攝取、地中海飲食遵從度與健康飲食癡迷（orthorexia nervosa）。運動型態軸違反：輪椅籃球，屬間歇性場地運動。**⚠️ 族群軸依 n+38 第 2 項裁定不排除**（身心障礙運動族群不在排除之列，應標 `[context:para-athlete]`），**故本筆之排除純依設計、介入、運動型態與結局四軸，與身心障礙身分無關**——**此為 n+38 第 2 項裁定生效後之首個適用案例，已標 [context:para-athlete] 供 W4c 分層**。結局為飲食攝取量、神經性腸道功能障礙（NBD）、胃食道逆流（GERD）與飢餓症狀量表。**帕拉林匹克族群異質性素材第 2 筆。** 排除。"
+ }
+]

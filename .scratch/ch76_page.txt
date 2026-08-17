@@ -1,0 +1,154 @@
+--- seq5448 p218 ahig:candidate:publication:2c32db8fc55032b20ed82e20
+Y:2020 T:['Journal Article']
+TITLE: Reliability of gastrointestinal barrier integrity and microbial translocation biomarkers at rest and following exertional heat stress.
+ABS: (none)
+
+--- seq5524 p221 ahig:candidate:publication:19604eee41843f8b6ffdbe4e
+Y:2015 T:['Journal Article', 'Research Support, N.I.H., Extramural', "Research Support, Non-U.S. Gov't"]
+TITLE: The effects of acute oral glutamine supplementation on exercise-induced gastrointestinal permeability and heat shock protein expression in peripheral blood mononuclear cells.
+ABS: (none)
+
+--- seq5528 p222 ahig:candidate:publication:a4fc444bed842bad0609de24
+Y:2024 T:['Journal Article', 'Randomized Controlled Trial']
+TITLE: Skimmed, Lactose-Free Milk Ingestion Postexercise: Rehydration Effectiveness and Gastrointestinal Disturbances Versus Water and a Sports Drink in Physically Active People.
+ABS: (none)
+
+--- seq5541 p222 ahig:candidate:publication:5398e2341dd9b5075c9999ee
+Y:2024 T:['Journal Article']
+TITLE: Deleterious Effects of Yoyo Dieting and Resistant Starch on Gastrointestinal Morphology.
+ABS: (none)
+
+--- seq5577 p224 ahig:candidate:publication:e0c81c02513fa03786394290
+Y:2019 T:['Journal Article', 'Randomized Controlled Trial']
+TITLE: Four weeks of probiotic supplementation reduces GI symptoms during a marathon race.
+ABS: (none)
+
+--- seq5597 p224 ahig:candidate:publication:8afc6dee98915eaf9f07a6fe
+Y:2016 T:['Journal Article', 'Multicenter Study', 'Randomized Controlled Trial']
+TITLE: Effect of bovine lactoferrin from iron-fortified formulas on diarrhea and respiratory tract infections of weaned infants in a randomized controlled trial.
+ABS: (none)
+
+--- seq5605 p225 ahig:candidate:publication:b526a049f66c78cf4235ebc8
+Y:1995 T:['Journal Article']
+TITLE: Gastrointestinal blood loss in triathletes: it's etiology and relationship to sports anaemia.
+ABS: (none)
+
+--- seq5626 p226 ahig:candidate:publication:860503a82ab8efb77e33e411
+Y:2025 T:['Journal Article', 'Randomized Controlled Trial']
+TITLE: Anthocyanin-rich New Zealand blackcurrant extract reduces treadmill running-induced gastrointestinal symptoms in the heat: pilot observations.
+ABS: (none)
+
+--- seq5633 p226 ahig:candidate:publication:f158745d3aa2ed7d1b6940c4
+Y:1983 T:['Journal Article', "Research Support, Non-U.S. Gov't"]
+TITLE: Heterogeneity in gastrointestinal mucins.
+ABS: (none)
+
+--- seq5635 p226 ahig:candidate:publication:8a105b0797d4d3b5b66bf495
+Y:2016 T:['Journal Article']
+TITLE: Nausea is associated with endotoxemia during a 161-km ultramarathon.
+ABS: (none)
+
+--- seq5653 p227 ahig:candidate:publication:6a45901061b7359195a3039a
+Y:2024 T:['Journal Article', 'Randomized Controlled Trial']
+TITLE: Safety and efficacy of a probiotic cocktail containing P. acidilactici and L. plantarum for gastrointestinal discomfort in endurance runners: randomized double-blinded crossover clinical trial.
+ABS: (none)
+
+--- seq5674 p227 ahig:candidate:publication:8ebc0d5060cf5ea49f8cc813
+Y:2018 T:['Journal Article']
+TITLE: Prevalence, Severity and Potential Nutritional Causes of Gastrointestinal Symptoms during a Marathon in Recreational Runners.
+ABS: (none)
+
+--- seq5685 p228 ahig:candidate:publication:436226bac1ebd9f16baff774
+Y:2001 T:['Journal Article', "Research Support, Non-U.S. Gov't"]
+TITLE: Leptin, gastrointestinal and stress hormones in response to exercise in fasted or fed subjects and before or after blood donation.
+ABS: (none)
+
+--- seq5713 p229 ahig:candidate:publication:af0c7ec3b3adb7dd3deeb1ee
+Y:2013 T:['Journal Article', "Research Support, Non-U.S. Gov't"]
+TITLE: Association of gastrointestinal distress in ultramarathoners with race diet.
+ABS: (none)
+
+--- seq5727 p230 ahig:candidate:publication:ed167ca862019d61f599fbb9
+Y:2025 T:['Journal Article', 'Randomized Controlled Trial']
+TITLE: Effects of konjac glucomannan on gastrointestinal symptoms and gut microbiota in athletes with functional constipation: a double-blind randomized controlled trial.
+ABS: (none)
+
+--- seq5741 p230 ahig:candidate:publication:cd7c43cae4d22e2e87a4644e
+Y:2018 T:['article']
+TITLE: Exertional heat stress-induced gastrointestinal perturbations: prevention and management strategies
+ABS: (none)
+
+--- seq5750 p230 ahig:candidate:publication:94d20fd47909750878eb1840
+Y:2020 T:['Journal Article']
+TITLE: The role of selected dietary and lifestyle factors in the occurrence of symptoms in children with functional abdominal pain - a pilot study.
+ABS: (none)
+
+--- seq5761 p231 ahig:candidate:publication:75637208fb8c15f851475c60
+Y:2024 T:['Journal Article']
+TITLE: Combined Turmeric, Vitamin C, and Vitamin D Ready-to-Drink Supplements Reduce Upper Respiratory Illness Symptoms and Gastrointestinal Discomfort in Elite Male Football Players.
+ABS: (none)
+
+--- seq5773 p231 ahig:candidate:publication:43238d86f969690000fc8a2a
+Y:2021 T:['Journal Article', "Research Support, Non-U.S. Gov't"]
+TITLE: Diurnal versus Nocturnal Exercise-Effect on the Gastrointestinal Tract.
+ABS: (none)
+
+--- seq5775 p231 ahig:candidate:publication:949b4e1c3ae3ce274e0e8148
+Y:2022 T:['Clinical Trial', 'Journal Article']
+TITLE: Acute (L)-glutamine supplementation does not improve gastrointestinal permeability, injury or microbial translocation in response to exhaustive high intensity exertional-heat stress.
+ABS: (none)
+
+--- seq5780 p232 ahig:candidate:publication:3c95812314c926918e4fc068
+Y:2021 T:['Journal Article']
+TITLE: Low-fat, lactose-free and leucine-enriched chocolate cow milk prototype: A preliminary study on sensorial acceptability and gastrointestinal complaints following exhaustive exercise.
+ABS: (none)
+
+--- seq5836 p234 ahig:candidate:publication:7dc7529cc1bd8a472874c732
+Y:2020 T:['Journal Article', 'Randomized Controlled Trial']
+TITLE: Impact of 24-h high and low fermentable oligo-, di-, monosaccharide, and polyol diets on markers of exercise-induced gastrointestinal syndrome in response to exertional heat stress.
+ABS: (none)
+
+--- seq5857 p235 ahig:candidate:publication:ba542af28dd5c13b7c16b9e3
+Y:2025 T:['Journal Article', 'Randomized Controlled Trial']
+TITLE: The Effects of Prebiotic Supplementation on Markers of Exercise-Induced Gastrointestinal Syndrome in Response to Exertional Heat Stress.
+ABS: (none)
+
+--- seq5868 p235 ahig:candidate:publication:fac966f449cd192486c4885f
+Y:2023 T:['article']
+TITLE: Exercise-Induced Gastrointestinal Symptoms in Endurance Sports: A Review of Pathophysiology, Symptoms, and Nutritional Management
+ABS: (none)
+
+--- seq5874 p235 ahig:candidate:publication:8ef11f82b53b2f50ddd538c6
+Y:2012 T:['Journal Article', "Research Support, Non-U.S. Gov't"]
+TITLE: Nutritional intake and gastrointestinal problems during competitive endurance events.
+ABS: (none)
+
+--- seq5885 p236 ahig:candidate:publication:591748db3f668003cf9f6a42
+Y:2022 T:['Journal Article']
+TITLE: The association between gastrointestinal injury, complaints, and food intake in 60-km ultramarathon runners.
+ABS: (none)
+
+--- seq5896 p236 ahig:candidate:publication:9cc2f5af205ba12bebd175db
+Y:1992 T:['Journal Article', "Research Support, Non-U.S. Gov't"]
+TITLE: Gastrointestinal complaints in relation to dietary intake in triathletes.
+ABS: (none)
+
+--- seq5901 p237 ahig:candidate:publication:86ea3cf2b62538730390fa7e
+Y:2007 T:['Journal Article', 'Randomized Controlled Trial']
+TITLE: Exercise and postprandial lipaemia: effects on peripheral vascular function, oxidative stress and gastrointestinal transit.
+ABS: (none)
+
+--- seq5937 p238 ahig:candidate:publication:a89b361659e46dcd86e10d8d
+Y:2023 T:['Journal Article', 'Randomized Controlled Trial']
+TITLE: Amino Acid-Based Beverage Interventions Ameliorate Exercise-Induced Gastrointestinal Syndrome in Response to Exertional-Heat Stress: The Heat Exertion Amino Acid Technology (HEAAT) Study.
+ABS: (none)
+
+--- seq5963 p239 ahig:candidate:publication:9e0cb9de044a3594ebcdea8c
+Y:2025 T:['Journal Article']
+TITLE: Diet, Physical Activity and Depression: Does Gastrointestinal Health Help Explain the Relationship Between Lifestyle Factors and Depression?
+ABS: (none)
+
+--- seq5971 p239 ahig:candidate:publication:4f6e68baa21419b00a86b991
+Y:2022 T:['Journal Article', 'Randomized Controlled Trial']
+TITLE: Anthocyanin-Rich Blackcurrant Extract Preserves Gastrointestinal Barrier Permeability and Reduces Enterocyte Damage but Has No Effect on Microbial Translocation and Inflammation After Exertional Heat Stress.
+ABS: (none)

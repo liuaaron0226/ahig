@@ -1,0 +1,157 @@
+[
+ {
+  "candidateId": "ahig:candidate:publication:2c32db8fc55032b20ed82e20",
+  "opinion": "exclude",
+  "reason": "**無摘要，依 n+38 第 8 項第一情形（標題載出局證據）排除。** 〈**Reliability** of gastrointestinal barrier integrity and microbial translocation biomarkers at rest and following exertional heat stress〉——**設計軸**：標題首詞 `Reliability` 明示為**信效度方法學研究**（[methodological] 累計第 7 筆），非介入試驗；**介入軸**：標題無任何碳水補給措辭；**結局軸**：屏障完整性與菌轉位生物標記依 n+38 第 7 項屬功能指標，不納入契約 GI 結局構念。情境標 [context:heat]。排除。"
+ },
+ {
+  "candidateId": "ahig:candidate:publication:19604eee41843f8b6ffdbe4e",
+  "opinion": "exclude",
+  "reason": "**無摘要，依 n+38 第 8 項第一情形排除。** 〈The effects of acute oral **glutamine** supplementation on exercise-induced gastrointestinal permeability and heat shock protein expression〉——**介入軸**：受測介入明載為麩醯胺酸，非外源性碳水；**結局軸**：腸道通透性與熱休克蛋白表現，依 n+38 第 7 項為功能指標。與本批次 `949b4e1c`（同為急性麩醯胺酸補充、同結局，2022）**為同一研究群之系列研究**，兩筆處置一致，已互相標註。排除。"
+ },
+ {
+  "candidateId": "ahig:candidate:publication:a4fc444bed842bad0609de24",
+  "opinion": "exclude",
+  "reason": "**無摘要，依 n+38 第 8 項第一情形排除。** 〈Skimmed, Lactose-Free Milk Ingestion **Postexercise**：Rehydration Effectiveness and Gastrointestinal Disturbances Versus Water and a Sports Drink〉——**時序軸**：標題明載 `Postexercise`，為運動後補液而非運動中攝取。**⚠️ 惟其對照設計值得記錄**：對照臂為**水與運動飲料兩者**（allowlist 內之 water-only 加上碳水飲品），且結局含**腸胃不適**（契約 critical 級），族群為 physically active people——**若時序為運動中，本筆將是高度切題者；建議 W4c 於論述時序軸嚴格性之代價時引用**。排除。"
+ },
+ {
+  "candidateId": "ahig:candidate:publication:5398e2341dd9b5075c9999ee",
+  "opinion": "exclude",
+  "reason": "**無摘要，依 n+38 第 8 項第一情形排除。** 〈Deleterious Effects of **Yoyo Dieting** and **Resistant Starch** on Gastrointestinal Morphology〉——**時序與介入軸**：溜溜球式節食為慢性飲食循環（[chronic-strategy]），且**抗性澱粉為不可消化碳水**（經菌相發酵而非小腸吸收，**該類別第 5 例**）；**結局軸**：腸胃道形態學（組織結構），非契約六項且通常需動物模型或切片。**運動型態軸**：標題無任何運動措辭。排除。"
+ },
+ {
+  "candidateId": "ahig:candidate:publication:e0c81c02513fa03786394290",
+  "opinion": "exclude",
+  "reason": "**無摘要，依 n+38 第 8 項第一情形排除。** 〈**Four weeks of probiotic** supplementation reduces GI symptoms during a marathon race〉——**介入軸**：益生菌，非外源性碳水；**時序軸**：四週慢性補充（[chronic-strategy]）。**⚠️ 惟結局與族群完全落在契約核心**：GI 症狀（契約 critical 級）於**馬拉松賽事期間**量測。**微生物體型之介入軸區辨（第 47 項待裁）第 20 個研究，且為該群中結局與情境最切題者。** 排除。"
+ },
+ {
+  "candidateId": "ahig:candidate:publication:8afc6dee98915eaf9f07a6fe",
+  "opinion": "exclude",
+  "reason": "**無摘要，依 n+38 第 8 項第一情形排除。** 〈Effect of bovine **lactoferrin** from iron-fortified formulas on diarrhea and respiratory tract infections of **weaned infants**〉——**族群軸**：離乳期嬰兒，遠低於契約 18 歲下限；**介入軸**：牛乳鐵蛋白與鐵強化配方，非外源性碳水；**運動型態軸**：無運動。**檢索雜訊累計第 71 筆**，小兒臨床營養類第 4 筆。排除。"
+ },
+ {
+  "candidateId": "ahig:candidate:publication:b526a049f66c78cf4235ebc8",
+  "opinion": "exclude",
+  "reason": "**無摘要，依 n+38 第 8 項第一情形排除。** 〈Gastrointestinal blood loss in triathletes：**it's etiology and relationship to** sports anaemia〉——**設計軸**：標題明示為病因學與關聯性探討（觀察／機轉），非介入試驗；**介入軸**：無任何碳水補給措辭。**⚠️ 惟其為 harms 素材中少見之「出血」端點**：腸胃道失血為運動誘發 GI 症候群之嚴重表現（與 critical-harms 工作單 `b7be3b06` 所述之「腸道灌流不足致黏膜損傷與隱性失血」為同一機轉鏈之臨床證據），且族群為鐵人三項選手（契約族群）。**建議 W4c 納入 harms 嚴重度分級之素材。** 排除。"
+ },
+ {
+  "candidateId": "ahig:candidate:publication:860503a82ab8efb77e33e411",
+  "opinion": "exclude",
+  "reason": "**無摘要，依 n+38 第 8 項第一情形排除。** 〈**Anthocyanin-rich New Zealand blackcurrant extract** reduces treadmill running-induced gastrointestinal symptoms in the heat〉——**介入軸**：黑醋栗萃取物（花青素），非外源性碳水。**⚠️ 結局為運動誘發 GI 症狀（契約 critical 級）且情境為熱環境**（標 [context:heat]）。與本批次 `4f6e68ba`（同為黑醋栗萃取、同熱壓力情境，2022）**為同一研究群之系列研究**，已互相標註。**「以非碳水營養素緩解 GI 症狀」型累計第 8 筆。** 排除。"
+ },
+ {
+  "candidateId": "ahig:candidate:publication:f158745d3aa2ed7d1b6940c4",
+  "opinion": "exclude",
+  "reason": "**無摘要，依 n+38 第 8 項第一情形排除。** 〈Heterogeneity in gastrointestinal **mucins**〉（1983）——**介入軸**：黏液蛋白之結構異質性為基礎生化主題，無碳水補給介入（黏液蛋白為醣蛋白，`carbohydrate` 詞族之潛在誤命中來源）；**運動型態軸**：標題無運動措辭；**族群軸**：未載人體受試者。**檢索雜訊累計第 72 筆**，基礎生化類第 4 筆。排除。"
+ },
+ {
+  "candidateId": "ahig:candidate:publication:8a105b0797d4d3b5b66bf495",
+  "opinion": "exclude",
+  "reason": "**無摘要，依 n+38 第 8 項第一情形排除。** 〈**Nausea is associated with** endotoxemia during a 161-km ultramarathon〉——**設計軸**：標題明示為關聯性觀察（`is associated with`），無隨機分派與介入分配；**介入軸**：無碳水補給措辭。**⚠️ 惟本筆為 harms 機轉之直接人體證據**：噁心（契約 `gi-symptom-incidence`，critical 級）與**內毒素血症**之關聯，正是 critical-harms 工作單多篇回顧所述之「腸道屏障破損→菌相入侵→內毒素血症」機轉鏈的實證環節，且情境為 161 公里超馬。**建議 W4b 列入 harms 機轉之引文追蹤，並與 `b526a049`（腸胃道失血）並列為嚴重端點素材。** 排除。"
+ },
+ {
+  "candidateId": "ahig:candidate:publication:6a45901061b7359195a3039a",
+  "opinion": "exclude",
+  "reason": "**無摘要，依 n+38 第 8 項第一情形排除。** 〈Safety and efficacy of a **probiotic cocktail** containing P. acidilactici and L. plantarum for gastrointestinal discomfort in endurance runners：randomized double-blinded crossover clinical trial〉——**介入軸**：益生菌複方，非外源性碳水。**⚠️ 惟族群（耐力跑者）、結局（腸胃不適，契約 critical 級）與設計（隨機雙盲交叉）三軸皆合格**——**微生物體型區辨第 21 個研究，且為該群中設計品質最高者。** 排除。"
+ },
+ {
+  "candidateId": "ahig:candidate:publication:8ebc0d5060cf5ea49f8cc813",
+  "opinion": "exclude",
+  "reason": "**無摘要，依 n+38 第 8 項第一情形排除。** 〈**Prevalence, Severity and Potential Nutritional Causes of** Gastrointestinal Symptoms during a Marathon in **Recreational Runners**〉——**設計軸**：盛行率與潛在成因之觀察研究，無隨機分派與介入；**族群軸**：明載 recreational runners（裁定 62）。**⚠️ 惟本筆為 harms 之核心流行病學素材，價值極高**：同時提供馬拉松期間 GI 症狀之**盛行率、嚴重度與營養成因**三者——契約之 `gi-symptom-incidence` 與 `gi-symptom-severity` 兩項 critical 級結局所需之基準率資料正在此類研究中。**建議 W4b 優先取全文，與 critical-harms 工作單 `faf6ca11`（約 50% 運動員生涯某階段出現 GI 症狀）並列為基準率證據。** 排除。"
+ },
+ {
+  "candidateId": "ahig:candidate:publication:436226bac1ebd9f16baff774",
+  "opinion": "exclude",
+  "reason": "**無摘要，依 n+38 第 8 項第一情形排除。** 〈Leptin, gastrointestinal and stress hormones in response to exercise in **fasted or fed** subjects and **before or after blood donation**〉——**介入軸**：受測操弄為禁食／進食狀態與捐血前後（**禁食狀態操弄型累計第 18 筆**），非外源性碳水劑量或型態；**結局軸**：瘦體素、腸胃與壓力荷爾蒙，非契約六項（`gastrointestinal hormones` 指腸源荷爾蒙而非 GI 症狀）。排除。"
+ },
+ {
+  "candidateId": "ahig:candidate:publication:af0c7ec3b3adb7dd3deeb1ee",
+  "opinion": "exclude",
+  "reason": "**無摘要，依 n+38 第 8 項第一情形排除。** 〈**Association of** gastrointestinal distress in ultramarathoners **with race diet**〉——**設計軸**：標題明示為關聯性觀察；**介入軸**：`race diet` 為選手自選補給（自選補給型累計第 93 筆），非受控劑量對照。**⚠️ 惟本筆同時是 harms 與攝取校準之交集素材**：將 GI 不適與**實際賽事飲食**直接關聯，正是本 lane 兩條素材線（27 項攝取校準、GI harms）的交會點。**建議 W4b 取全文以取得其攝取量與症狀之對應資料。** 排除。"
+ },
+ {
+  "candidateId": "ahig:candidate:publication:ed167ca862019d61f599fbb9",
+  "opinion": "exclude",
+  "reason": "**無摘要，依 n+38 第 8 項第一情形排除。** 〈Effects of **konjac glucomannan** on gastrointestinal symptoms and gut microbiota in athletes with **functional constipation**〉——**介入軸**：蒟蒻葡甘露聚醣為**不可消化碳水／可溶性纖維**（經菌相發酵，**該類別第 6 例**）；**族群軸**：功能性便秘之運動員，屬臨床族群；**時序軸**：慢性補充。**微生物體型區辨第 22 個研究。** 排除。"
+ },
+ {
+  "candidateId": "ahig:candidate:publication:cd7c43cae4d22e2e87a4644e",
+  "opinion": "exclude",
+  "reason": "**無摘要，依 n+38 第 8 項第四情形（非研究型別→型別排除）排除，惟型別 metadata 為泛用之 `article`，本筆之型別判定係由標題推得，請協調者確認。** 〈Exertional heat stress-induced gastrointestinal perturbations：**prevention and management strategies**〉——標題之 `prevention and management strategies` 為典型之綜述框架（陳述策略而非檢驗單一介入），與 critical-harms 工作單 `d1c7d678`（同主題之立場聲明）同型。**⚠️ 判讀分寸說明**：本筆與 page 122 `8753f918`（型別亦為 `article`、無摘要、標題〈Carbohydrate feeding during exercise〉判 unclear）之差別在於——該筆標題三要素與契約 PICO 逐字對應，本筆標題則**未載任何碳水介入措辭**，且框架明確為策略綜述。若協調者認為型別 metadata 為 `article` 時不得由標題推定綜述，本筆應改判 unclear。情境標 [context:heat]。排除。"
+ },
+ {
+  "candidateId": "ahig:candidate:publication:94d20fd47909750878eb1840",
+  "opinion": "exclude",
+  "reason": "**無摘要，依 n+38 第 8 項第一情形排除。** 〈The role of selected dietary and lifestyle factors in the occurrence of symptoms in **children** with **functional abdominal pain** - a pilot study〉——**族群軸**：功能性腹痛之兒童，低於契約 18 歲下限且為臨床族群；**介入軸**：飲食與生活型態因子為觀察變項；**運動型態軸**：無運動方案。**檢索雜訊累計第 73 筆**，小兒腸胃科類第 1 筆。排除。"
+ },
+ {
+  "candidateId": "ahig:candidate:publication:75637208fb8c15f851475c60",
+  "opinion": "exclude",
+  "reason": "**無摘要，依 n+38 第 8 項第一情形排除。** 〈Combined **Turmeric, Vitamin C, and Vitamin D** Ready-to-Drink Supplements Reduce Upper Respiratory Illness Symptoms and Gastrointestinal Discomfort in Elite Male Football Players〉——**介入軸**：薑黃與維生素複方，非外源性碳水；**運動型態軸**：足球，屬間歇性場地運動。結局含腸胃不適（契約 critical 級）惟介入軸決定性違反。**「以非碳水營養素緩解 GI 症狀」型累計第 9 筆。** 排除。"
+ },
+ {
+  "candidateId": "ahig:candidate:publication:43238d86f969690000fc8a2a",
+  "opinion": "exclude",
+  "reason": "**無摘要，依 n+38 第 8 項第一情形排除。** 〈**Diurnal versus Nocturnal Exercise** - Effect on the Gastrointestinal Tract〉——**介入軸**：受測操弄為運動之晝夜時段，非外源性碳水；**結局軸**：腸胃道之生理反應（未載為症狀）。**「運動時段／時序」維度素材第 3 筆**（前兩筆為本次補判之 `bb357800`、`1d128258`）——**此維度本 lane 迄今累計 3 筆且皆非契約介入，建議 W4c 列為分層變項而非介入。** 排除。"
+ },
+ {
+  "candidateId": "ahig:candidate:publication:949b4e1c3ae3ce274e0e8148",
+  "opinion": "exclude",
+  "reason": "**無摘要，依 n+38 第 8 項第一情形排除。** 〈Acute **(L)-glutamine** supplementation does not improve gastrointestinal permeability, injury or microbial translocation in response to exhaustive high intensity exertional-heat stress〉——**介入軸**：麩醯胺酸，非外源性碳水；**結局軸**：通透性、腸道損傷與菌轉位，依 n+38 第 7 項屬功能指標。與本批次 `19604eee`（2015 同介入同結局）為同一研究群系列，**兩筆結論方向相反**（2015 未載結果、本筆明載 does not improve），已互相標註供 W4c 參考。情境標 [context:heat]。排除。"
+ },
+ {
+  "candidateId": "ahig:candidate:publication:3c95812314c926918e4fc068",
+  "opinion": "exclude",
+  "reason": "**無摘要，依 n+38 第 8 項第一情形排除。** 〈Low-fat, lactose-free and **leucine-enriched chocolate cow milk** prototype：A preliminary study on sensorial acceptability and gastrointestinal complaints **following exhaustive exercise**〉——**時序軸**：運動後攝取；**介入軸**：白胺酸強化巧克力牛奶原型（[mixed-nutrient]），碳水非獨立變項；**結局軸**：感官接受度與腸胃抱怨。**⚠️ 惟其「感官接受度」與本 lane 之飲品非碳水屬性素材（`107ee570` 滲透壓、`b52e857b` 調味）同屬第 6 項合併裁示項之範疇，已標註。** 排除。"
+ },
+ {
+  "candidateId": "ahig:candidate:publication:7dc7529cc1bd8a472874c732",
+  "opinion": "exclude",
+  "reason": "**無摘要，依 n+38 第 8 項第一情形排除。** 〈Impact of **24-h high and low FODMAP diets** on markers of exercise-induced gastrointestinal syndrome in response to exertional heat stress〉——**介入軸**：FODMAP 飲食組成操弄（可發酵寡糖、雙糖、單糖與多元醇），**方向為限制特定碳水種類而非給予外源性碳水**；**時序軸**：24 小時飲食前置期，非運動中攝取；**結局軸**：EIGS 標記（功能指標，n+38 第 7 項）。**⚠️ 惟 FODMAP 涉及碳水種類之區辨，與契約之 CHO 型態維度（第 5 項待裁）相鄰**——**建議協調者裁示型態維度時一併界定「碳水種類之限制性操弄」是否屬契約介入之反面。** 情境標 [context:heat]。排除。"
+ },
+ {
+  "candidateId": "ahig:candidate:publication:ba542af28dd5c13b7c16b9e3",
+  "opinion": "exclude",
+  "reason": "**無摘要，依 n+38 第 8 項第一情形排除。** 〈The Effects of **Prebiotic** Supplementation on Markers of Exercise-Induced Gastrointestinal Syndrome in Response to Exertional Heat Stress〉——**介入軸**：益生元為不可消化碳水（**該類別第 7 例**），經菌相發酵而非小腸吸收；**結局軸**：EIGS 標記（功能指標）。情境標 [context:heat]。**微生物體型區辨第 23 個研究。** **⚠️ 提請注意：本次補判之 74 筆中，不可消化碳水（益生元／纖維／抗性澱粉／葡甘露聚醣）已達 7 例，佔近一成——此類別是 `critical-harms-signal` 旗標之另一系統性來源，且全數因「化學上是碳水」而進入檢索範圍。建議 W4b 於檢索式或旗標規則加入可消化性限定。** 排除。"
+ },
+ {
+  "candidateId": "ahig:candidate:publication:fac966f449cd192486c4885f",
+  "opinion": "exclude",
+  "reason": "**無摘要，依 n+38 第 8 項第四情形（非研究型別）排除**——標題明載 **`A Review of`**。〈Exercise-Induced Gastrointestinal Symptoms in Endurance Sports：A Review of **Pathophysiology, Symptoms, and Nutritional Management**〉。**⭐⭐ W4b 溯源價值高**：其三段架構（病理生理／症狀／營養管理）正是 W4c 之 harms 章節所需，且主題為**耐力運動之運動誘發 GI 症狀**，與契約 critical 級結局完全對應。**建議與 critical-harms 工作單之四篇 GI 系統性回顧（`49cece5c`／`7fe9dda7`／`99955099`／`c1326072`）及 `2a7c3e0b`（超耐力運動員 GI 症狀營養策略 SR）合併為 harms 證據體之外部基準。** 排除。"
+ },
+ {
+  "candidateId": "ahig:candidate:publication:8ef11f82b53b2f50ddd538c6",
+  "opinion": "exclude",
+  "reason": "**無摘要，依 n+38 第 8 項第一情形排除。** 〈**Nutritional intake and** gastrointestinal problems **during competitive endurance events**〉——**設計軸**：攝取與問題之並列描述，屬觀察研究；**介入軸**：`nutritional intake` 為賽事自選補給（自選補給型累計第 94 筆），非受控對照。**⚠️ 惟本筆為 harms × 攝取校準交集素材第 2 筆**（與 `af0c7ec3` 同型），且情境明載為**競賽性耐力賽事**。**建議 W4b 與 `af0c7ec3`、`591748db`、`9cc2f5af` 四筆一併取全文——這四筆構成「實際攝取量 vs GI 症狀」之觀察證據群，可回答契約 RCT 證據無法回答的劑量-危害真實世界關係。** 排除。"
+ },
+ {
+  "candidateId": "ahig:candidate:publication:591748db3f668003cf9f6a42",
+  "opinion": "exclude",
+  "reason": "**無摘要，依 n+38 第 8 項第一情形排除。** 〈The **association between** gastrointestinal injury, complaints, and food intake in **60-km ultramarathon runners**〉——**設計軸**：標題明示關聯性觀察；**介入軸**：食物攝取為自選（自選補給型累計第 95 筆）。**harms × 攝取校準交集素材第 3 筆**，且同時涵蓋**腸道損傷（客觀）與抱怨（主觀）兩層結局**，為該群中結局層次最完整者。**已列入前述四筆 W4b 全文優先清單。** 排除。"
+ },
+ {
+  "candidateId": "ahig:candidate:publication:9cc2f5af205ba12bebd175db",
+  "opinion": "exclude",
+  "reason": "**無摘要，依 n+38 第 8 項第一情形排除。** 〈Gastrointestinal complaints **in relation to** dietary intake in triathletes〉（1992）——**設計軸**：標題明示關聯性觀察；**介入軸**：飲食攝取為觀察變項（自選補給型累計第 96 筆）。**harms × 攝取校準交集素材第 4 筆，且為該群中年代最早者（1992）**——與 2012（`8ef11f82`）、2013（`af0c7ec3`）、2022（`591748db`）合觀可見該問題三十年來持續被觀察卻未有 RCT 定論，**此本身即為 M1 之證據缺口論述**。排除。"
+ },
+ {
+  "candidateId": "ahig:candidate:publication:86ea3cf2b62538730390fa7e",
+  "opinion": "exclude",
+  "reason": "**無摘要，依 n+38 第 8 項第一情形排除。** 〈Exercise and **postprandial lipaemia**：effects on peripheral vascular function, oxidative stress and **gastrointestinal transit**〉——**介入軸**：受測操弄為運動對餐後脂血之影響，無外源性碳水補給；**時序軸**：餐後狀態；**結局軸**：周邊血管功能、氧化壓力與腸胃通過時間（功能指標，n+38 第 7 項）。排除。"
+ },
+ {
+  "candidateId": "ahig:candidate:publication:a89b361659e46dcd86e10d8d",
+  "opinion": "exclude",
+  "reason": "**無摘要，依 n+38 第 8 項第一情形排除。** 〈**Amino Acid-Based Beverage** Interventions Ameliorate Exercise-Induced Gastrointestinal Syndrome in Response to Exertional-Heat Stress：The HEAAT Study〉——**介入軸**：胺基酸飲品，非外源性碳水。**⚠️ 惟其與 critical-harms 工作單 `e583b98f`（L-精胺酸／L-麩醯胺酸添加於葡萄糖飲品，判 unclear）為同一取徑之不同世代**——後者以胺基酸為碳水飲品之佐劑、本筆以胺基酸為主體。**「以非碳水營養素緩解 GI 症狀」型累計第 10 筆。** 情境標 [context:heat]。排除。"
+ },
+ {
+  "candidateId": "ahig:candidate:publication:9e0cb9de044a3594ebcdea8c",
+  "opinion": "exclude",
+  "reason": "**無摘要，依 n+38 第 8 項第一情形排除。** 〈Diet, Physical Activity and **Depression**：Does Gastrointestinal Health Help Explain the Relationship Between Lifestyle Factors and Depression?〉——**設計軸**：中介關係之流行病學分析；**介入軸**：飲食與身體活動為自陳生活型態因子，無碳水補給介入；**結局軸**：憂鬱。**檢索雜訊累計第 74 筆**；**運動營養與情緒量表之交集素材第 12 筆**。排除。"
+ },
+ {
+  "candidateId": "ahig:candidate:publication:4f6e68baa21419b00a86b991",
+  "opinion": "exclude",
+  "reason": "**無摘要，依 n+38 第 8 項第一情形排除。** 〈**Anthocyanin-Rich Blackcurrant Extract** Preserves Gastrointestinal Barrier Permeability and Reduces Enterocyte Damage but Has No Effect on Microbial Translocation and Inflammation After Exertional Heat Stress〉——**介入軸**：黑醋栗萃取物（花青素），非外源性碳水；**結局軸**：屏障通透性、腸細胞損傷與菌轉位，依 n+38 第 7 項屬功能指標。與本批次 `860503a8`（2025，同介入、同熱環境、結局為 GI **症狀**）為同一研究群之系列——**兩筆之結局層次不同（本筆為功能指標、該筆為症狀），恰可作為 n+38 第 7 項「功能指標 vs 症狀」區分之實例，已互相標註。** 情境標 [context:heat]。排除。"
+ }
+]

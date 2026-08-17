@@ -1,0 +1,82 @@
+[
+ {
+  "candidateId": "ahig:candidate:publication:9cf55b78f18cadf2a03d4b4a",
+  "opinion": "exclude",
+  "reason": "設計軸違反：敘述性回顧，非原始研究。介入軸違反：受測標的為**跨時區旅行造成之晝夜節律失調與菌相擾動**（「腸道時差」），非外源性碳水補給。結局軸違反：結局為腸屏障完整性、全身發炎、認知表現、睡眠品質與肌肉恢復。**微生物體型之介入軸區辨（第 47 項待裁）第 9 個研究**。**惟其一項機轉論述與契約結局有交集**：明載旅行誘發之菌相失衡可能減少短鏈脂肪酸（醋酸、丙酸、丁酸）生成，而 SCFA 作為能量受質可能提升**葡萄糖攝取、脂肪氧化與骨骼肌肝醣儲存**——即菌相經由 SCFA 影響肝醣（契約 `muscle-glycogen-post-exercise` 之同構念），為菌相群中與契約結局距離最近者。排除。"
+ },
+ {
+  "candidateId": "ahig:candidate:publication:2a7c3e0b43ef58e94c644b10",
+  "opinion": "exclude",
+  "reason": "**無摘要，依協調者第 n+38 輪第 8 項所追認之四情形處理——本筆屬「非研究型別」型別排除**：發表型別為 `review`，標題明載為 **Systematic Review**，非原始研究。**⭐⭐⭐ 惟本筆為本工作單 W4b 溯源價值最高之無摘要文獻**：標題〈**Exploring the Nutrition Strategies Employed by Ultra-Endurance Athletes to Alleviate Exercise-Induced Gastrointestinal Symptoms**〉——**族群（超耐力運動員）、介入（營養策略）與結局（運動誘發腸胃症狀，契約 critical 級）三者全數落在契約核心**，且旗標之 `outcomeHints` 明列 `gi-symptom-incidence`。**建議 W4b 優先取全文並以其納入清單與本 lane advance 名單交叉比對**，與 page 1–4 之四篇 GI 系統性回顧（`49cece5c`／`7fe9dda7`／`99955099`／`c1326072`）合併為 harms 證據體之外部基準。排除。"
+ },
+ {
+  "candidateId": "ahig:candidate:publication:6e93f89a67a4963f080a310a",
+  "opinion": "exclude",
+  "reason": "**無摘要，依 n+38 第 8 項處理——本筆屬「非研究型別」型別排除**：發表型別為 `Review`（1995），非原始研究。**惟其標題與契約 harms 命題高度切題**：〈**Gastrointestinal symptoms during exercise. The effect of fluid supplementation.**〉——結局為運動期間腸胃症狀（契約 critical 級），介入為體液補充（碳水飲品為其常見形式）。**⚠️ 判讀分寸說明**：本筆若非回顧而為原始研究，依無摘要四情形之第三情形（標題資訊不足）應判 unclear；本筆之排除**完全繫於發表型別**，故列入 W4b 溯源清單而非丟棄。與 page 3 seq55（`faf6ca11`，1993 同主題回顧）為同期文獻，兩者合觀可見 1990 年代中期該領域對「補液是否緩解 GI 症狀」之關注。排除。"
+ },
+ {
+  "candidateId": "ahig:candidate:publication:0ccdf624a250a225c4f88557",
+  "opinion": "exclude",
+  "reason": "**無摘要，依 n+38 第 8 項處理——本筆屬「非研究型別」型別排除**：發表型別為 `Review`（2021），非原始研究。**標題指向之主題與 n+38 第 7 項裁定直接相關**：〈**Nutritional considerations to counteract gastrointestinal permeability during exertional heat stress**〉——**通透性**依 n+38 第 7 項維持 n+26 第 4 條（功能指標非症狀，不納入契約 GI 結局構念），故即使為原始研究亦須依結局軸處理；情境為運動性熱壓力，依 n+35 第 2 條標 **[context:heat]**。**列入 W4b 溯源清單**：其營養對策清單可與 page 1 seq13（`35f87d7e` 補充品對腸道損傷與通透性之系統性回顧）交叉比對。排除。"
+ },
+ {
+  "candidateId": "ahig:candidate:publication:227e62827f74365cbf8f0ab1",
+  "opinion": "exclude",
+  "reason": "檢索雜訊（動物研究／腸胃內分泌）。族群軸違反：**14 隻成年 Wistar 雄鼠**。介入軸違反：無外源性碳水補給介入，受測介入為六週跑步機訓練方案。時序軸違反：於最後一次運動後 48 小時犧牲取樣，非運動中量測。結局軸違反：結局為胃底與小腸之 obestatin 濃度、ATP、肝肝醣與生長激素／胰島素／皮質醇。**檢索雜訊累計第 64 筆**，動物研究累計第 10 筆。排除。"
+ },
+ {
+  "candidateId": "ahig:candidate:publication:96a6d5a6d319f7ec9c38dc4a",
+  "opinion": "exclude",
+  "reason": "族群軸違反：**大鼠**（跑步大鼠模型，訓練組與未訓練組）。給予途徑軸違反：葡萄糖與乳酸皆以**輸注**（infusion）給予，非經口攝取，依 R3 途徑軸排除。**惟其為本工作單中設計與契約最接近之動物研究，且其發現與人體證據方向相反，具反證價值**：明載跑步（無論訓練與否）相較假運動**提升**胃排空（P < 0.05／P < 0.01）——**而人體文獻普遍載運動延遲胃排空**（本工作單 seq41 `b7be3b06` 明列胃排空延遲為 GI 抱怨主因）。此物種間差異對「以動物模型外推人體 GI 機轉」構成警示，建議 W4c 於引用動物機轉證據時註明。動物研究累計第 11 筆。排除。"
+ },
+ {
+  "candidateId": "ahig:candidate:publication:a07eb3b68dbea70a89636e18",
+  "opinion": "exclude",
+  "reason": "檢索雜訊（動物研究／代謝）。族群軸違反：餵食富蔗糖 cafeteria 飲食之大鼠。介入軸違反：受測介入為**肌酸補充**（每日 2.5% 肌酸單水合物）與運動訓練之單獨與併用效果，非外源性碳水；蔗糖為致肥背景飲食（[chronic-strategy]）。結局軸違反：結局為胰島素敏感度、肌內脂質含量與 FAT/CD36 蛋白。**檢索雜訊累計第 65 筆**，動物研究累計第 12 筆；**本工作單肌酸主題累計第 4 筆**。排除。"
+ },
+ {
+  "candidateId": "ahig:candidate:publication:e583b98fd9e398fa68a72753",
+  "opinion": "unclear",
+  "reason": "**⭐⭐⭐ 本工作單 116 筆中唯一之人體運動中碳水介入 RCT，且四軸相符、結局命中契約清單——判 unclear 送全文，為本次插隊全篩之最重要發現。** 逐軸核對：**(1) 時序與運動型態軸相符**——8 名自行車手以 50% 尖峰功率騎乘 **150 分鐘**，運動「期間」每 15 分鐘攝取 150 mL；**(2) 介入軸相符**——13C 標記葡萄糖 266 mmol/L，換算約 **48 g/h**（150 mL×4/h×266 mmol/L×180 g/mol ≈ 28.7 g/h；依摘要所載濃度計算落在契約 10–150 g/h 之 low–moderate 帶，**確切劑量須全文核對**）；**(3) 對照軸相符**——四臂中含 **glucose only（純碳水對照）與 no glucose（無碳水對照）**，後者為 allowlist 內之乾淨對照；**(4) 結局軸命中**——**外源性葡萄糖氧化**（契約 `exogenous-cho-oxidation-peak`，important 級）＋**腸胃不適知覺**（契約 `gi-symptom-incidence`／`gi-symptom-severity`，critical 級）。**判 unclear 而非 advance 之唯一理由**：受測之操弄變項為 **L-精胺酸 vs L-麩醯胺酸**兩種胺基酸添加物（相對於純葡萄糖臂），碳水劑量在四臂中固定，故本筆之介入軸嚴格說是「胺基酸佐劑」而非碳水劑量或型態——**惟 `glucose only` vs `no glucose` 兩臂之對比本身即構成契約內之碳水 vs 無碳水比較，且其結局資料完整**，依 fail-closed 與 recall-biased 原則送全文確認該對比是否有可分離之報告。**族群軸註記**：摘要僅載 `eight cyclists` 而無訓練程度措辭（裁定 62 之情形），亦為 unclear 之次要理由。**⚠️ 流程意義**：本筆位於 `animal-signal-review` lane（因摘要提及大鼠與人體之既有證據而被誤標動物旗標），**若非本次插隊全篩，將永遠不會被任何 lane 判讀到——這正是協調者 n+38 第 1 項裁定之價值所在，建議於 M1 附錄記錄此案例。**"
+ },
+ {
+  "candidateId": "ahig:candidate:publication:2d35021cb0c3df2b410e196f",
+  "opinion": "exclude",
+  "reason": "族群軸違反：**ICR 品系雄鼠**。時序軸違反：葡萄糖溶液（1.5 mg/g 體重）於 60 分鐘跑步機運動**後**口服，量測運動後肝醣恢復，非運動中攝取。介入軸違反：受測操弄為 10 日之中碳水（50%）vs 高碳水（70%）飼料（[chronic-strategy]）。結局軸：肌肝醣雖為契約 `muscle-glycogen-post-exercise` 之同名構念，惟族群與時序兩軸已明確違反。**惟其陰性結果具機轉價值**：高碳水飲食雖顯著提升空腸 SGLT1 與 GLUT2 轉運蛋白，**卻未帶來運動後肌肝醣恢復之增進**——即**腸道轉運蛋白上調不等於全身受質利用改善**，對「多重可運輸碳水之效益是否純由轉運容量決定」（本工作單 seq53／seq81 之核心命題）構成邊界證據。動物研究累計第 13 筆。排除。"
+ },
+ {
+  "candidateId": "ahig:candidate:publication:350ae247f14894d2e95eecc6",
+  "opinion": "exclude",
+  "reason": "檢索雜訊（獸醫麻醉學）。族群軸違反：**14 隻紐西蘭白兔**（卵巢子宮切除術後）。介入軸違反：受測介入為 lidocaine 與 buprenorphine 之**靜脈**給藥（R3 途徑軸），非碳水補給；血糖為疼痛壓力指標。運動型態軸違反：無運動方案——**`behaviors while in exercise pens` 指術後於活動籠內之行為觀察**（`exercise` 詞族誤命中第 5 筆，且為場地名詞型誤命中之首例）。**檢索雜訊累計第 66 筆**，動物研究累計第 14 筆、獸醫類第 2 筆。排除。"
+ },
+ {
+  "candidateId": "ahig:candidate:publication:5ebe225896c80b28fbfc02c6",
+  "opinion": "exclude",
+  "reason": "檢索雜訊（動物研究／藥理）。族群軸違反：接受 dexamethasone 處理之雄性大鼠。介入軸違反：受測介入為**低強度游泳運動對地塞米松所致代謝效應之調節**，非外源性碳水補給；液體測試餐僅為胃排空量測之工具。結局軸違反：結局為胃排空率、食慾行為與 ipGTT 血糖。**檢索雜訊累計第 67 筆**，動物研究累計第 15 筆。**惟其與 seq106（`96a6d5a6`）同為「運動 × 胃排空」之大鼠研究且方向一致（運動改善／提升胃排空），兩筆合觀強化前述之物種間差異警示。** 排除。"
+ },
+ {
+  "candidateId": "ahig:candidate:publication:7499413e2a23707faad003bb",
+  "opinion": "exclude",
+  "reason": "**文獻型態排除：發表型別為 `Abstract`（會議摘要）——本 lane 首見此型態**，無完整方法與結果報告。族群軸違反：**4 週齡 C57BL/6 雄鼠**。介入軸違反：受測介入為**環境豐富化（EE）**對葡萄糖、瘦體素與 xenin 所致厭食反應之增強效果，葡萄糖在此為**厭食訊號之測試刺激**而非能量補給。運動型態軸違反：無結構化運動方案（EE 含複雜感覺與運動刺激）。**檢索雜訊累計第 68 筆**，動物研究累計第 16 筆。**型態盤點**：全池 `Abstract` 型別筆數待 W4b 一併清點，與 `Practice Guideline`、`Consensus Statement`、`Historical Article`、GeneReviews 型合併為「非原始研究型別總表」。排除。"
+ },
+ {
+  "candidateId": "ahig:candidate:publication:9d447dbc2d47193deff12910",
+  "opinion": "exclude",
+  "reason": "檢索雜訊（馬匹運動生理學）。族群軸違反：**純種賽馬**（三項實驗各 4–6 匹）。介入軸違反：受測操弄為**乾草與穀物之餵食時機與份量**，非人類外源性碳水補給。時序軸違反：餵食於模擬競賽運動測驗（CET）**之前**。結局軸違反：結局為血糖與血液學反應、游離脂肪酸可用性、血漿容積、乳酸與心率。**檢索雜訊累計第 69 筆**，動物研究累計第 17 筆、馬匹類第 2 筆（另一筆為 page 4 seq84）。排除。"
+ },
+ {
+  "candidateId": "ahig:candidate:publication:a383df7c405013ecac44d2a2",
+  "opinion": "exclude",
+  "reason": "檢索雜訊（動物研究／腸道菌相）。族群軸違反：**C57BL/6 雄鼠**。介入軸違反：受測介入為**自願滾輪運動**與高脂／低脂飲食之 2×2 設計（[chronic-strategy]），無外源性碳水補給。結局軸違反：結局為糞便菌相之 Bacteroidetes／Firmicutes 定量與 16S 定序、體重與葡萄糖耐受度。**檢索雜訊累計第 70 筆**，動物研究累計第 18 筆；**微生物體型之介入軸區辨（第 47 項待裁）第 10 個研究**。排除。"
+ },
+ {
+  "candidateId": "ahig:candidate:publication:cbfde0bd48c2a24929034af3",
+  "opinion": "exclude",
+  "reason": "檢索雜訊（動物研究／機能性成分）。族群軸違反：野生型與 **Skn-1a 基因剔除小鼠**（缺乏苦味訊號）及高脂高糖飲食大鼠。介入軸違反：受測介入為**表沒食子兒茶素沒食子酸酯（EGCG）**，非外源性碳水。運動型態軸違反：無運動方案。**惟其核心發現與本 lane 之口腔感測機轉素材直接相關**：明載 EGCG 之代謝效應（減緩血糖波動、提升 GLP-1）**在苦味受體剔除鼠中完全消失**，證實效應經由口腔化學感測途徑而非腸道吸收——**此為 page 2 seq50（`dc7c17e2`，口腔感測）與 page 1 seq20（`4d2354ac`，苦味劑奎寧）所述機轉之基因層級證據，是該機轉群（第 4 條路徑）中證據強度最高者**。**檢索雜訊累計第 71 筆**，動物研究累計第 19 筆；綠茶萃取物系列累計第 3 筆。排除。"
+ },
+ {
+  "candidateId": "ahig:candidate:publication:4ded471ffbc8216e39f94265",
+  "opinion": "exclude",
+  "reason": "族群軸違反：**7 匹健康馬**（動物研究累計第 20 筆、馬匹類第 3 筆）。時序軸違反：葡萄糖於肝醣耗竭運動**後** 6 小時之恢復期給予（口服組於運動後 0、2、4 小時各 1 g/kg），非運動中攝取。**⭐ 惟其設計正是 R3 途徑軸之直接實驗檢驗，方法學價值高**：三臂為 **(1) 靜脈葡萄糖輸注（0.5 g/kg/h × 6 h）、(2) 口服葡萄糖團注（1 g/kg × 3 次）、(3) 無葡萄糖對照**——**即以隨機交叉設計直接比較同一營養素之靜脈 vs 口服途徑對肌肝醣儲存之影響**，其研究假說明載「腸胃道之葡萄糖輸送限制了肝醣儲存速率」。**建議 W4c 於論證 R3 途徑軸裁定之生理依據時引用本筆（並註明為馬匹研究）**；與 page 137 之 `6ddcbada`（intralipid 靜脈途徑）及既有 `9dd4ab24`（人體口服 vs 靜脈）合為途徑軸素材第 3 筆。排除。"
+ }
+]
