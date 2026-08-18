@@ -52,6 +52,16 @@ assert rows_any == len(ids), (
     '——代表有類別未被涵蓋' % (rows_any, len(ids)))
 assert not dup, '🚨 條目編號重複：%s' % dup
 assert not missing, '🚨 以下 candidateId 在判讀庫中查無：%s' % missing
+
+# 🚨 檔頭自述之數字必須與實測一致。
+# ⚠️ 第 383 輪教訓：檔頭停在 74／82 而實際已 153／179，且我改正時又手打成 154。
+# **檔頭是每輪都要手動同步的欄位，正因如此它必須被檢查，而不是靠記得改。**
+m = re.search(r'本檔現有 (\d+) 條、引用 (\d+) 個', t)
+assert m, '🚨 檔頭之自述句不見了——它是本檔對外宣稱的規模，不得移除'
+assert int(m.group(1)) == len(ids), (
+    '🚨 檔頭自述 %s 條，實測 %d 條' % (m.group(1), len(ids)))
+assert int(m.group(2)) == len(cids), (
+    '🚨 檔頭自述引用 %s 個 ID，實測 %d 個' % (m.group(2), len(cids)))
 print('✅ 編號無重複；✅ 所有 candidateId 皆可回溯')
 print()
 print('⚠️ 本檔未驗證主張句是否忠於判讀原文——那需要人讀，不能由樣式代勞。')
