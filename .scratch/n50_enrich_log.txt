@@ -1,3 +1,2 @@
-targets 3386  already done 12  todo 3374
-50/3374  enriched 60  calls 50
-100/3374  enriched 104  calls 100
+targets 3386  already done 163  todo 3223
+50/3223  enriched 200  calls 50

@@ -99,9 +99,17 @@ def main():
         loaded = json.load(open(pv_path, encoding='utf-8'))
         prov = loaded['records'] if isinstance(loaded.get('records'), dict) else loaded
 
+    def atomic_dump(obj, path):
+        """先寫暫存再 replace：避免其他行程讀到寫了一半的檔案。
+        （實際發生過——本輪心跳讀取時撞上寫檔瞬間而 JSONDecodeError。）"""
+        tmp = path + '.tmp'
+        with open(tmp, 'w', encoding='utf-8') as fh:
+            json.dump(obj, fh, ensure_ascii=False)
+        os.replace(tmp, path)
+
     def write_prov(finished=None):
         """一律寫完整文件；中途存檔與收尾用同一格式，避免結構交替。"""
-        json.dump({'documentType': 'abstract-enrichment-provenance',
+        atomic_dump({'documentType': 'abstract-enrichment-provenance',
                    'ruling': 'n+50',
                    'source': 'Europe PMC REST search (resultType=core)',
                    'startedAt': started,
@@ -111,8 +119,7 @@ def main():
                             'found and confirmed to have no abstract; '
                             'no-identifier/transport-error/http-* mean the '
                             'lookup was not completed'),
-                   'records': prov},
-                  open(pv_path, 'w', encoding='utf-8'), ensure_ascii=False)
+                   'records': prov}, pv_path)
 
     targets = build_targets()
     todo = [r for r in targets if r['candidateId'] not in prov]
@@ -176,14 +183,13 @@ def main():
         prov[cid] = rec
         n += 1
         if n % 50 == 0:
-            json.dump(abstracts, open(ab_path, 'w', encoding='utf-8'),
-                      ensure_ascii=False)
+            atomic_dump(abstracts, ab_path)
             write_prov()
             done = sum(1 for v in prov.values() if v['status'] == 'enriched')
             print('%d/%d  enriched %d  calls %d' % (
                 n, len(todo), done, t.calls), flush=True)
 
-    json.dump(abstracts, open(ab_path, 'w', encoding='utf-8'), ensure_ascii=False)
+    atomic_dump(abstracts, ab_path)
     write_prov(time.strftime('%Y-%m-%dT%H:%M:%S'))
 
     from collections import Counter
