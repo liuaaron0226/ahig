@@ -65,21 +65,32 @@ FIXES: list[tuple[str, str]] = [
 FILE_FIXES: dict[str, dict[str, str]] = {}
 
 
+MIN_VOTES = 2   # 要有兩支以上影片各自提過，才算系統性聽錯而不是單堂課的上下文產物
+
+
 def load_file_fixes() -> int:
+    """fixes.json 由 make_notes.py 產生，格式 {科目: {誤: [正, 提過的影片數]}}。
+    只採用得票 >= MIN_VOTES 的規則——單支影片提的可能是那堂課才成立的替換
+    （踩過：「反正→反證」，但「反正」是老師口頭禪，無條件替換會毀掉字幕）。"""
     try:
         d = json.loads((OUT_ROOT / "fixes.json").read_text(encoding="utf-8"))
     except Exception:  # noqa: BLE001
         return 0
-    if d and all(isinstance(x, str) for x in d.values()):
-        d = {"線代": d}              # 試產期的扁平舊格式
     total = 0
     for subj, m in d.items():
         if not isinstance(m, dict):
             continue
-        FILE_FIXES[subj] = {k: v for k, v in m.items()
-                            if isinstance(k, str) and isinstance(v, str)
-                            and len(k) >= 2 and k != v}
-        total += len(FILE_FIXES[subj])
+        keep = {}
+        for bad, val in m.items():
+            if isinstance(val, list) and len(val) == 2:
+                good, n = val
+            else:                    # 舊的扁平格式，視為單票、不生效
+                good, n = val, 1
+            if (isinstance(bad, str) and isinstance(good, str)
+                    and len(bad) >= 2 and bad != good and n >= MIN_VOTES):
+                keep[bad] = good
+        FILE_FIXES[subj] = keep
+        total += len(keep)
     return total
 
 

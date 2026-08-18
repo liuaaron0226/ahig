@@ -244,20 +244,46 @@ def extract_snaps(mp4: Path, snaps: list[dict]) -> int:
     return n
 
 
-def merge_fixes(subject: str, pairs: list[list[str]]) -> None:
-    """勘誤按科目分桶。「志工→資工」在線代裡是對的，套到多益就是災難，
-    所以一支影片找到的錯詞只回饋給同科目的未來字幕。"""
-    try:
-        cur = json.loads(FIXES_FILE.read_text(encoding="utf-8"))
-    except Exception:  # noqa: BLE001
-        cur = {}
-    if cur and all(isinstance(x, str) for x in cur.values()):
-        cur = {"線代": cur}          # 試產期的扁平舊格式，全部收進線代桶
-    bucket = cur.setdefault(subject, {})
-    for bad, good in pairs:
-        bucket[bad] = good
-    FIXES_FILE.write_text(json.dumps(cur, ensure_ascii=False, indent=1),
+def rebuild_fixes(state: dict) -> dict[str, int]:
+    """從所有 notes.json 重建勘誤飛輪，格式 {科目: {誤: [正, 幾支影片提過]}}。
+
+    分兩層防護：
+    ① 按科目分桶——「志工→資工」在線代裡對，套到多益是災難。
+    ② 只有「兩支以上影片各自獨立提出」的規則才會被 make_subs.py 套用。
+       單支提出的留在檔案裡（n=1）但不生效：系統性的聽錯會在不同堂課重複出現，
+       一次性的多半是那堂課的上下文產物。實例：線代 05 一支就吐 326 條，裡面
+       混進「反正→反證」——「反正」是老師口頭禪，全庫 85 次，無條件替換會安靜
+       毀掉教材而且事後查不出來。
+    """
+    votes: dict[str, dict[str, dict[str, int]]] = {}
+    for v in state.values():
+        if not v.get("path"):
+            continue
+        notes = Path(v["path"]).with_suffix(".notes.json")
+        if not notes.exists():
+            continue
+        try:
+            d = json.loads(notes.read_text(encoding="utf-8"))
+        except Exception:  # noqa: BLE001
+            continue
+        subj = v.get("series", "").split("/")[0]
+        for pair in d.get("fixes", []):
+            if isinstance(pair, (list, tuple)) and len(pair) == 2:
+                bad, good = pair
+                votes.setdefault(subj, {}).setdefault(bad, {})
+                votes[subj][bad][good] = votes[subj][bad].get(good, 0) + 1
+    out: dict[str, dict[str, list]] = {}
+    stat: dict[str, int] = {}
+    for subj, rules in votes.items():
+        bucket = {}
+        for bad, goods in rules.items():
+            good, n = max(goods.items(), key=lambda kv: kv[1])
+            bucket[bad] = [good, n]
+        out[subj] = dict(sorted(bucket.items(), key=lambda kv: -kv[1][1]))
+        stat[subj] = sum(1 for g, n in out[subj].values() if n >= 2)
+    FIXES_FILE.write_text(json.dumps(out, ensure_ascii=False, indent=1),
                           encoding="utf-8")
+    return stat
 
 
 def rebuild_index(state: dict) -> None:
@@ -357,8 +383,6 @@ def main() -> int:
                            encoding="utf-8")
             tmp.replace(notes)
             apply_to_vtt(vtt, data["fixes"], data["keys"])
-            if data["fixes"]:
-                merge_fixes(v["series"].split("/")[0], data["fixes"])
             ns = extract_snaps(mp4, data["snaps"])
             log(f"  ✓ {time.time() - t0:.0f}s：章節 {len(data['chapters'])}"
                 f"・重點 {len(data['keys'])}・例題 {len(data['map']['examples'])}"
@@ -367,6 +391,8 @@ def main() -> int:
         except Exception as exc:  # noqa: BLE001
             log(f"  ✗ 失敗：{str(exc)[:200]}")
     rebuild_index(state)
+    stat = rebuild_fixes(state)
+    log(f"勘誤飛輪重建：{ {k: f'{v} 條生效' for k, v in stat.items()} }（需 2 支以上影片各自提過）")
     log(f"完成 {done}/{len(todo)}")
     return 0
 
