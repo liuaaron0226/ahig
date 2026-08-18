@@ -1,0 +1,2981 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Feb · 研究所備考平台</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⛰️</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+TC:wght@300;400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --night:#0B0D10; --ridge:#1E3A5F; --mist:rgba(255,255,255,.72); --dawn:#FFFFFF; --ember:#C25E2E;
+  --ink:#FFFFFF; --ink-dim:rgba(255,255,255,.62);
+  --glass:rgba(255,255,255,.07); --glass-line:rgba(255,255,255,.14);
+  --serif:"Inter","Noto Sans TC",sans-serif; --sans:"Inter","Noto Sans TC",sans-serif; --mono:"IBM Plex Mono",monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);color:var(--ink);background:var(--night);min-height:100vh;font-weight:300;line-height:1.7}
+
+/* ============ 動態風景：三種風格 × 即時天氣（Open-Meteo） ============ */
+.scene{position:fixed;inset:0;z-index:-1;overflow:hidden}
+/* 風格調色盤（夜/日兩套天空、三層地景色） */
+body[data-theme="mountain"]{
+  --skyN:linear-gradient(180deg,#0A1420 0%,#0F1B2D 40%,#274B6B 75%,#3E6E86 100%);
+  --skyD:linear-gradient(180deg,#2C5876 0%,#4E86A0 50%,#7FA9B8 80%,#C9B27E 100%);
+  --l1:#0F1B2D;--l2:#1E3A5F;--l3:#274B6B}
+body[data-theme="ocean"]{
+  --skyN:linear-gradient(180deg,#050E1A 0%,#0A1E33 45%,#123B57 78%,#1C5A74 100%);
+  --skyD:linear-gradient(180deg,#1E5C7E 0%,#3E88A8 50%,#7CB4C6 80%,#D8C48E 100%);
+  --l1:#071523;--l2:#0E2B44;--l3:#174463}
+body[data-theme="forest"]{
+  --skyN:linear-gradient(180deg,#0A1410 0%,#12241C 45%,#1E3B2C 78%,#2E5540 100%);
+  --skyD:linear-gradient(180deg,#2F5D46 0%,#4F8663 52%,#88AE8C 82%,#D8C48E 100%);
+  --l1:#0B1911;--l2:#16301F;--l3:#234A30}
+.sky{position:absolute;inset:0;background:var(--skyN)}
+body.day .sky{background:var(--skyD)}
+/* 媒體背景（內建影片／自訂影片或照片）：整屏鋪滿，向量地景與星月退場，天氣層照舊疊在上面 */
+.bgvid,.cbg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;
+  opacity:0;transition:opacity 1.2s ease}
+.bgvid{object-fit:cover}
+.cbg{background-size:cover;background-position:center}
+body.vid-on .bgvid{opacity:1}
+body.img-on .cbg{opacity:1}
+body.media .stars,body.media .sun2,body.media .moon,body.media .aurora{opacity:0!important}
+body.media .meteor{display:none!important}
+body.media .scene::before{background:rgba(8,10,14,.34)}
+body.media.day .scene::before{background:rgba(8,10,14,.44)}
+/* 待機畫面留給背景表現，進到有大量文字的模式就把背景壓下去 */
+body.media[data-mode="exam"] .scene::before,
+body.media[data-mode="study"] .scene::before{background:rgba(8,10,14,.74)}
+/* 瑞士實景主題：照片鋪滿＋緩慢推近；晝夜與天氣用濾鏡同步 */
+.photo{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;
+  will-change:transform;transition:opacity 1.2s ease,filter 1.4s ease;
+  filter:brightness(calc(var(--pbn,1)*var(--pbw,1))) saturate(var(--psw,1))}
+body.swiss .photo{opacity:1;animation:kenburns 80s ease-in-out infinite alternate}
+body[data-theme="peaks"] .photo{background-image:url(assets/swiss-peaks.jpg)}
+body[data-theme="village"] .photo{background-image:url(assets/swiss-village.jpg)}
+body[data-theme="valley"] .photo{background-image:url(assets/swiss-valley.jpg)}
+body[data-theme="lake"] .photo{background-image:url(assets/swiss-lake.jpg)}
+@keyframes kenburns{from{transform:scale(1)}to{transform:scale(1.09)}}
+body.swiss:not(.day){--pbn:.4}
+body.swiss[data-wx="cloud"]{--pbw:.88;--psw:.85}
+body.swiss[data-wx="rain"]{--pbw:.72;--psw:.72}
+body.swiss[data-wx="storm"]{--pbw:.58;--psw:.65}
+body.swiss[data-wx="fog"]{--pbw:.82;--psw:.5}
+body.swiss[data-wx="snow"]{--pbw:.92;--psw:.7}
+/* 照片自帶天空，向量星月太陽退場 */
+body.swiss .stars,body.swiss .sun2,body.swiss .moon{opacity:0!important}
+/* 日間深色薄紗：確保淺色天空下文字仍可讀 */
+.scene::before{content:"";position:absolute;inset:0;background:rgba(8,16,26,0);transition:background 1s ease;z-index:5}
+body.day[data-mode="exam"] .scene::before,body.day[data-mode="study"] .scene::before{background:rgba(8,16,26,.42)}
+/* 照片主題白天：待機畫面加暗角讓文字浮出來 */
+body.swiss.day[data-mode="home"] .scene::before{
+  background:radial-gradient(62% 58% at 50% 46%,rgba(8,16,26,.52),rgba(8,16,26,.14))}
+/* 星點半徑 ≥2px 且中心到邊緣都有漸層過渡：1px 的點在高解析度螢幕上會被取樣成硬邊像素點 */
+.stars{position:absolute;inset:0 0 40% 0;transition:opacity 1.2s ease;
+  background-image:radial-gradient(2.4px 2.4px at 12% 30%,rgba(255,255,255,.85) 0,rgba(255,255,255,.5) 40%,transparent 70%),
+   radial-gradient(2.2px 2.2px at 34% 12%,rgba(255,255,255,.65) 0,rgba(255,255,255,.35) 40%,transparent 70%),
+   radial-gradient(3px 3px at 58% 24%,rgba(255,255,255,.75) 0,rgba(255,255,255,.4) 40%,transparent 70%),
+   radial-gradient(2.2px 2.2px at 72% 8%,rgba(255,255,255,.55) 0,rgba(255,255,255,.3) 40%,transparent 70%),
+   radial-gradient(2.4px 2.4px at 88% 34%,rgba(255,255,255,.65) 0,rgba(255,255,255,.35) 40%,transparent 70%),
+   radial-gradient(2.6px 2.6px at 45% 40%,rgba(255,255,255,.5) 0,rgba(255,255,255,.28) 40%,transparent 70%),
+   radial-gradient(2.2px 2.2px at 20% 55%,rgba(255,255,255,.45) 0,rgba(255,255,255,.25) 40%,transparent 70%);
+  animation:twinkle 6s ease-in-out infinite alternate}
+@keyframes twinkle{from{opacity:.9}to{opacity:.45}}
+body.day .stars,body[data-wx="rain"] .stars,body[data-wx="storm"] .stars,body[data-wx="fog"] .stars{opacity:0!important}
+/* 日：太陽　夜：月亮 */
+.sun2{position:absolute;right:16%;top:12%;width:20vmin;height:20vmin;border-radius:50%;opacity:0;transition:opacity 1.2s;
+  background:radial-gradient(circle,rgba(255,244,214,.95) 18%,rgba(255,255,255,.5) 40%,transparent 70%)}
+body.day .sun2{opacity:1}
+body.day[data-wx="rain"] .sun2,body.day[data-wx="storm"] .sun2,body.day[data-wx="fog"] .sun2{opacity:.18}
+.moon{position:absolute;right:18%;top:14%;width:9vmin;height:9vmin;border-radius:50%;opacity:1;transition:opacity 1.2s;
+  background:radial-gradient(circle at 38% 35%,#F5F0DC,#CFC9B2 65%);
+  box-shadow:0 0 46px 14px rgba(245,240,220,.25)}
+body.day .moon,body[data-wx="rain"] .moon,body[data-wx="storm"] .moon,body[data-wx="fog"] .moon{opacity:0}
+/* 地景（依風格切換；日間整體提亮） */
+.scene svg{position:absolute;bottom:0;left:0;width:100%;height:46vh;display:none;will-change:transform}
+.r1{opacity:.95}.r2{opacity:.7}.r3{opacity:.45}
+body.day .scene svg{filter:brightness(1.65) saturate(.85)}
+body[data-theme="mountain"] svg.t-mtn{display:block}
+body[data-theme="ocean"] svg.t-sea{display:block}
+body[data-theme="forest"] svg.t-for{display:block}
+.t-sea .drift{animation:sway 11s ease-in-out infinite alternate}
+.t-sea.r2 .drift{animation-duration:15s;animation-delay:-4s}
+.t-sea.r3 .drift{animation-duration:19s;animation-delay:-8s}
+@keyframes sway{from{transform:translateX(-1.6%)}to{transform:translateX(1.6%)}}
+.mist{position:absolute;bottom:6vh;left:-20%;width:140%;height:16vh;display:none;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.14) 30%,rgba(255,255,255,.05) 60%,transparent);
+  filter:blur(18px);animation:mistflow 46s linear infinite}
+body[data-theme="mountain"] .mist,body[data-theme="forest"] .mist{display:block}
+@keyframes mistflow{from{transform:translateX(-6%)}to{transform:translateX(10%)}}
+
+/* ---- 天氣層（依 data-wx 淡入淡出） ---- */
+.wx{position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity 1.4s ease}
+/* 雲 */
+.wx.clouds i{position:absolute;width:46vw;height:15vh;border-radius:50%;filter:blur(36px);
+  background:rgba(255,255,255,.1);animation:cl 95s linear infinite}
+.wx.clouds i:nth-child(1){top:5%}
+.wx.clouds i:nth-child(2){top:17%;animation-duration:135s;animation-delay:-45s;background:rgba(255,255,255,.07)}
+.wx.clouds i:nth-child(3){top:29%;animation-duration:175s;animation-delay:-95s;background:rgba(255,255,255,.05)}
+@keyframes cl{from{transform:translateX(-55vw)}to{transform:translateX(110vw)}}
+body[data-wx="cloud"] .clouds,body[data-wx="rain"] .clouds,body[data-wx="storm"] .clouds,body[data-wx="snow"] .clouds{opacity:1}
+body[data-wx="storm"] .clouds i{background:rgba(180,195,215,.13)}
+/* 雨 */
+/* canvas 逐滴繪製，落點每次重抽、依遠近分深淺。不用重複貼圖就沒有規律斜紋，
+   也不會在高解析度螢幕上跟像素格干涉出波紋 */
+canvas.wx.rain{inset:0;width:100%;height:100%}
+body[data-wx="rain"] .rain,body[data-wx="storm"] .rain{opacity:1}
+/* 雪 */
+.wx.snow{inset:auto;top:-100%;left:0;right:0;height:200%;will-change:transform;
+  background-image:radial-gradient(3.6px 3.6px at 20% 30%,rgba(255,255,255,.85) 0,rgba(255,255,255,.5) 45%,transparent 72%),
+   radial-gradient(2.8px 2.8px at 60% 70%,rgba(255,255,255,.6) 0,rgba(255,255,255,.34) 45%,transparent 72%),
+   radial-gradient(3.2px 3.2px at 85% 15%,rgba(255,255,255,.7) 0,rgba(255,255,255,.4) 45%,transparent 72%),
+   radial-gradient(2.6px 2.6px at 40% 85%,rgba(255,255,255,.5) 0,rgba(255,255,255,.28) 45%,transparent 72%);
+  background-size:260px 260px;animation:snowfall 7s linear infinite}
+@keyframes snowfall{from{transform:translate3d(0,-50%,0)}to{transform:translate3d(-30px,0,0)}}
+body[data-wx="snow"] .snow{opacity:1}
+/* 霧 */
+.wx.fogL i{position:absolute;left:-15%;width:130%;height:22vh;filter:blur(34px);
+  background:linear-gradient(90deg,transparent,rgba(205,218,228,.2) 30%,rgba(205,218,228,.1) 65%,transparent);
+  animation:mistflow 38s linear infinite alternate}
+.wx.fogL i:nth-child(1){bottom:8vh}
+.wx.fogL i:nth-child(2){bottom:26vh;animation-duration:52s;animation-direction:alternate-reverse}
+body[data-wx="fog"] .fogL{opacity:1}
+body[data-wx="fog"] .sky{filter:brightness(.86) saturate(.7)}
+/* 閃電 */
+.wx.flash{background:radial-gradient(58% 42% at 52% 18%,rgba(255,255,255,.95),transparent 70%)}
+body[data-wx="storm"] .flash{opacity:1;animation:zap 8.5s infinite}
+@keyframes zap{0%,90.6%,93.4%,100%{opacity:0}91%{opacity:.85}91.8%{opacity:.12}92.6%{opacity:.5}}
+
+/* 極光＋流星：只在「晴天的夜晚」出場 */
+.aurora{position:absolute;inset:-20%;pointer-events:none;mix-blend-mode:screen;
+  filter:blur(58px);opacity:0;transition:opacity 1.4s ease}
+.aurora i{position:absolute;display:block;width:62vw;height:28vh;border-radius:50%;
+  background:linear-gradient(100deg,rgba(255,255,255,.55),rgba(255,255,255,.4) 55%,rgba(194,94,46,.32));
+  animation:aur 28s ease-in-out infinite alternate}
+.aurora i:nth-child(1){top:8%;left:2%}
+.aurora i:nth-child(2){top:18%;left:32%;width:74vw;animation-duration:38s;animation-delay:-9s}
+.aurora i:nth-child(3){top:4%;left:50%;animation-duration:47s;animation-delay:-19s;
+  background:linear-gradient(80deg,rgba(255,255,255,.35),rgba(255,255,255,.45))}
+@keyframes aur{from{transform:translateX(-13%) rotate(-7deg) scaleY(.75)}
+  to{transform:translateX(11%) rotate(6deg) scaleY(1.3)}}
+body:not(.day)[data-wx="clear"] .aurora{opacity:.55}
+body:not(.day)[data-wx="clear"][data-mode="exam"] .aurora,
+body:not(.day)[data-wx="clear"][data-mode="study"] .aurora{opacity:.14}
+.meteor{position:absolute;top:-6%;width:2px;height:120px;pointer-events:none;display:none;
+  background:linear-gradient(180deg,rgba(255,255,255,.95),transparent);
+  transform:rotate(32deg);opacity:0;animation:met 11s linear infinite}
+.meteor.m1{left:22%}.meteor.m2{left:64%;animation-delay:5.2s;animation-duration:14s}
+.meteor.m3{left:84%;animation-delay:8.6s;animation-duration:17s}
+@keyframes met{0%,86%{opacity:0;transform:rotate(32deg) translateY(0)}
+  89%{opacity:.9}100%{opacity:0;transform:rotate(32deg) translateY(72vh)}}
+body:not(.day)[data-wx="clear"][data-mode="home"] .meteor{display:block}
+/* 專注時整片天色亮起（讀書狀態的畫面語言） */
+.scene::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:0;
+  background:radial-gradient(62% 52% at 50% 86%,rgba(255,255,255,.24),transparent 70%);
+  transition:opacity 1.6s ease}
+body.running .scene::after{opacity:1}
+body.running.break .scene::after{background:radial-gradient(62% 52% at 50% 86%,rgba(255,255,255,.28),transparent 70%)}
+@media (prefers-reduced-motion:reduce){
+  .sky,.mist,.stars,.aurora i,.wx.rain,.wx.snow,.wx.clouds i,.wx.fogL i,.wx.flash,.t-sea .drift,.photo{animation:none}
+  .meteor{display:none!important}
+  .reveal,.hero h1 .ch{opacity:1!important;transform:none!important}
+}
+
+/* ============ liquid glass 基底 ============ */
+.glass{background:var(--glass);border:1px solid var(--glass-line);border-radius:18px;
+  backdrop-filter:blur(14px) saturate(1.3);-webkit-backdrop-filter:blur(14px) saturate(1.3);
+  box-shadow:0 8px 32px rgba(4,10,18,.35)}
+
+/* ============ LIQUID BUTTON（參考影片：磨砂玻璃膠囊＋凝膠液體灌注） ============ */
+.lq{position:relative;display:inline-block;overflow:hidden;isolation:isolate;cursor:pointer;
+  border-radius:999px;border:1px solid var(--glass-line);
+  background:linear-gradient(180deg,rgba(255,255,255,.14),rgba(255,255,255,.03) 46%,rgba(255,255,255,.07));
+  backdrop-filter:blur(12px) saturate(1.25);-webkit-backdrop-filter:blur(12px) saturate(1.25);
+  box-shadow:inset 0 1px 1px rgba(255,255,255,.35), inset 0 -8px 16px rgba(255,255,255,.05),
+    inset 0 -1px 1px rgba(4,10,18,.3), 0 6px 18px rgba(4,10,18,.4);
+  transition:box-shadow .5s ease, border-color .5s ease, transform .3s cubic-bezier(.3,1.6,.4,1), color .45s ease;
+  -webkit-tap-highlight-color:transparent}
+.lq[hidden]{display:none}  /* .lq 的 display 會蓋掉 [hidden]，補回來讓按鈕能真的隱藏 */
+.lq::before,.lq::after{content:"";position:absolute;z-index:-1;left:-25%;width:150%;padding-top:150%;
+  top:105%;border-radius:42% 46% 44% 48%;
+  background:radial-gradient(circle at 50% 28%,rgba(255,255,255,.5),transparent 42%),
+    var(--lq-color,rgba(255,255,255,.55));
+  transition:top .7s cubic-bezier(.34,1.45,.5,1);
+  animation:lqspin 7s linear infinite}
+.lq::after{opacity:.6;animation-duration:9s;animation-direction:reverse;transition-duration:.9s;
+  filter:brightness(1.2) saturate(1.15)}
+@keyframes lqspin{to{transform:rotate(360deg)}}
+.lq:hover,.lq:focus-visible,.lq.on{border-color:transparent;
+  box-shadow:inset 0 1px 1px rgba(255,255,255,.5), inset 0 -10px 20px rgba(255,255,255,.14),
+    0 10px 34px var(--lq-glow,rgba(255,255,255,.45)), 0 2px 10px var(--lq-glow,rgba(255,255,255,.35))}
+.lq:hover,.lq:focus-visible{transform:translateY(-2px)}
+.lq:hover::before,.lq:focus-visible::before,.lq.on::before{top:-28%}
+.lq:hover::after,.lq:focus-visible::after,.lq.on::after{top:-38%}
+.lq:active{transform:scale(.95)}
+/* 液體灌滿後底色是亮的，字一定要轉黑。!important 是必要的：站內多處 #id 層級規則
+   （#home .modes button、.chan .links a…）會把字染回白，在白色液體上等於看不見 */
+.lq:hover,.lq:focus-visible,.lq.on{color:#000!important}
+.lq.ember:hover,.lq.ember:focus-visible,.lq.ember.on{color:#fff!important}
+@media (prefers-reduced-motion:reduce){
+  .lq::before,.lq::after{animation:none;transition:none}
+  .lq:hover,.lq:focus-visible{transform:none}
+  .lq:hover::before,.lq.on::before{top:-28%}
+}
+/* 三段液體色階：主要動作最實、次要動作較淡、警示用燒橘 */
+.lq.gold {--lq-color:rgba(255,255,255,.92);--lq-glow:rgba(255,255,255,.4)}
+.lq.mist2{--lq-color:rgba(255,255,255,.78);--lq-glow:rgba(255,255,255,.3)}
+.lq.ember{--lq-color:rgba(194,94,46,.92);--lq-glow:rgba(194,94,46,.45)}
+
+/* ============ 模式切換：home / exam / study ============ */
+body[data-mode="home"] header.top, body[data-mode="home"] .wrap{display:none}
+body[data-mode="exam"] #home, body[data-mode="study"] #home{display:none}
+body[data-mode="exam"] #study{display:none}
+body[data-mode="study"] .wrap>section:not(#study){display:none}
+body[data-mode="exam"] .only-study{display:none!important}
+body[data-mode="study"] .only-exam{display:none!important}
+
+/* ============ 待機畫面 ============ */
+#home{min-height:100vh;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;
+  gap:12px;text-align:left;padding:0 clamp(20px,6vw,64px) 60px}
+#home .eyebrow{font-size:.8rem;color:var(--ink);letter-spacing:.02em;font-weight:400}
+#home .eyebrow::before{content:"| ";opacity:.55}
+#home .clock{font-weight:600;font-size:clamp(4rem,15vw,9rem);line-height:1;
+  letter-spacing:-.035em;text-shadow:0 4px 40px rgba(4,10,18,.5)}
+#home .clock small{font-size:.3em;color:var(--ink);opacity:.55;font-weight:400;vertical-align:.22em;margin-left:.18em;letter-spacing:0}
+#home .date{font-family:var(--mono);font-size:.82rem;color:var(--ink-dim);letter-spacing:.06em}
+#home .count{font-size:.85rem;color:var(--ink);letter-spacing:.01em;margin-top:2px}
+#home .modes{display:flex;gap:12px;flex-wrap:wrap;justify-content:flex-start;margin-top:30px}
+#home .modes button{font-family:var(--sans);font-weight:500;color:var(--ink);
+  font-size:.92rem;letter-spacing:0;padding:12px 26px;text-align:left}
+#home .modes button b{display:block;font-weight:600;font-size:1.05rem;
+  letter-spacing:.01em;margin-bottom:1px}
+#home .modes button i{font-style:normal;font-size:.72rem;color:inherit;opacity:.7;letter-spacing:0}
+#home .hint{font-size:.72rem;color:rgba(255,255,255,.4);margin-top:20px;letter-spacing:.02em}
+#home .wxline{font-family:var(--mono);font-size:.78rem;color:var(--ink-dim);letter-spacing:.06em;min-height:1.4em}
+#home .themes{display:flex;flex-wrap:wrap;gap:8px;justify-content:flex-start;margin-top:20px;max-width:min(92vw,560px)}
+#home .themes .pill{font-size:.74rem;padding:6px 16px;color:var(--ink)}
+
+/* ============ 模式切換液態轉場：整片液體從山下湧上蓋過畫面再退去 ============ */
+#wipe{position:fixed;inset:0;z-index:60;pointer-events:none;overflow:hidden;visibility:hidden}
+#wipe::before,#wipe::after{content:"";position:absolute;left:-25%;top:0;width:150%;padding-top:150%;
+  border-radius:42% 46% 44% 48%;will-change:transform;transform:translateY(110%);
+  background:linear-gradient(120deg,rgba(255,255,255,.9),rgba(255,255,255,.94) 60%,rgba(194,94,46,.85))}
+#wipe.go{visibility:visible}
+#wipe.go::before{animation:wipeup 1.05s cubic-bezier(.5,.08,.4,1) forwards}
+#wipe.go::after{opacity:.55;animation:wipeup2 1.13s cubic-bezier(.5,.08,.4,1) forwards}
+@keyframes wipeup{0%{transform:translateY(110%) rotate(0deg)}
+  44%{transform:translateY(-34%) rotate(150deg)}56%{transform:translateY(-36%) rotate(190deg)}
+  100%{transform:translateY(-215%) rotate(360deg)}}
+@keyframes wipeup2{0%{transform:translateY(112%) rotate(180deg)}
+  46%{transform:translateY(-30%) rotate(40deg)}58%{transform:translateY(-33%) rotate(0deg)}
+  100%{transform:translateY(-218%) rotate(-160deg)}}
+
+/* ============ 點擊液爆：波紋圈＋飛濺液滴 ============ */
+.burst{position:fixed;z-index:70;width:8px;height:8px;pointer-events:none;transform:translate(-50%,-50%)}
+.burst::before{content:"";position:absolute;inset:-7px;border-radius:45% 48% 42% 50%;
+  border:2px solid rgba(255,255,255,.9);animation:burstring .7s ease-out forwards}
+@keyframes burstring{to{transform:scale(10) rotate(70deg);opacity:0;border-width:1px}}
+.burst i{position:absolute;width:7px;height:7px;border-radius:47% 53% 44% 56%;
+  background:var(--bc,rgba(255,255,255,.95));box-shadow:0 0 8px var(--bc,rgba(255,255,255,.6));
+  animation:drop .8s cubic-bezier(.2,.6,.3,1) forwards}
+@keyframes drop{0%{transform:translate(0,0) scale(1);opacity:1}
+  100%{transform:translate(var(--dx),calc(var(--dy) + 52px)) scale(.15);opacity:0}}
+
+/* ============ layout ============ */
+.wrap{max-width:1120px;margin:0 auto;padding:0 clamp(16px,4vw,40px) 70px}
+header.top{position:sticky;top:0;z-index:20;margin:0 auto;max-width:1220px;
+  display:flex;align-items:center;justify-content:space-between;gap:10px;padding:22px clamp(16px,4vw,40px);
+  background:none;border:0;border-radius:0;box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none;
+  text-shadow:0 1px 14px rgba(4,10,18,.55)}
+.brand{font-weight:500;font-size:1.5rem;letter-spacing:-.01em;white-space:nowrap;cursor:pointer;background:none;border:none;color:var(--ink)}
+.brand em{color:var(--ink);font-style:normal}
+nav.menu{display:flex;align-items:center;gap:4px;flex-wrap:wrap}
+nav.menu a,nav.menu button{color:var(--ink);text-decoration:none;font-size:.86rem;letter-spacing:0;
+  padding:9px 16px;display:inline-block;font-family:var(--sans);font-weight:400}
+nav.menu a.active{color:#000!important}
+nav.menu a.active.lq::before{top:-28%}
+nav.menu a.active.lq::after{top:-38%}
+a:focus-visible,button:focus-visible{outline:2px solid var(--dawn);outline-offset:3px;border-radius:6px}
+
+.hero{padding:clamp(56px,11vh,120px) 0 40px}
+.hero .eyebrow{font-size:.82rem;color:var(--ink);letter-spacing:.01em}
+.hero .eyebrow::before{content:"| ";opacity:.55}
+.hero h1{font-weight:600;font-size:clamp(2.4rem,7vw,62px);line-height:1.08;letter-spacing:-.03em;margin:.3em 0 .45em}
+.hero h1 span{color:var(--ink)}
+/* 逐字浮現（載入時由 JS 拆字） */
+.hero h1 .ch{display:inline-block;opacity:0;transform:translateY(22px);
+  transition:opacity .7s cubic-bezier(.22,.61,.36,1),transform .7s cubic-bezier(.22,.61,.36,1)}
+.hero h1 .ch.in{opacity:1;transform:none}
+.hero p.sub{max-width:36em;color:var(--ink-dim)}
+.stats{display:flex;gap:14px;flex-wrap:wrap;margin-top:30px}
+.stat{padding:14px 22px;min-width:132px}
+.stat b{display:block;font-family:var(--mono);font-weight:500;font-size:1.7rem;color:var(--dawn)}
+.stat i{font-style:normal;font-size:.78rem;color:var(--ink-dim);letter-spacing:.1em}
+.jump{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px}
+.jump a{color:var(--ink);text-decoration:none;font-size:.8rem;padding:8px 18px}
+
+.boot{opacity:0;transform:translateY(22px);animation:bootin .8s cubic-bezier(.22,.61,.36,1) forwards}
+.boot.d1{animation-delay:.06s}.boot.d2{animation-delay:.18s}.boot.d3{animation-delay:.3s}
+.boot.d4{animation-delay:.42s}.boot.d5{animation-delay:.54s}
+@keyframes bootin{to{opacity:1;transform:none}}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .8s ease,transform .8s cubic-bezier(.22,.61,.36,1)}
+.reveal.in{opacity:1;transform:none}
+
+section{padding:56px 0 8px}
+h2{font-family:var(--serif);font-weight:600;font-size:clamp(1.4rem,3vw,1.9rem);letter-spacing:-.02em;margin-bottom:6px}
+.sec-note{color:var(--ink-dim);font-size:.88rem;margin-bottom:26px;max-width:46em}
+.sec-note b{color:var(--dawn);font-weight:500}
+
+/* 收合式區塊（一次只展開一個） */
+section.acc{padding:0;margin:16px 0;background:var(--glass);border:1px solid var(--glass-line);
+  border-radius:20px;backdrop-filter:blur(14px) saturate(1.3);-webkit-backdrop-filter:blur(14px) saturate(1.3);
+  box-shadow:0 8px 32px rgba(4,10,18,.35);overflow:hidden;
+  transition:border-color .5s ease, box-shadow .5s ease}
+section.acc.open{border-color:rgba(255,255,255,.35);box-shadow:0 14px 44px rgba(4,10,18,.5)}
+.sec-head{display:flex;justify-content:space-between;align-items:center;gap:14px;
+  cursor:pointer;padding:20px 26px;user-select:none}
+.sec-head:hover h2{color:var(--dawn)}
+.sec-head h2{margin:0;transition:color .4s ease}
+.sec-head .hintline{font-size:.76rem;color:var(--ink-dim);margin-left:auto;text-align:right}
+.sec-head .arrow{font-family:var(--mono);color:var(--dawn);font-size:1rem;
+  transition:transform .5s cubic-bezier(.2,.7,.2,1)}
+section.acc.open .arrow{transform:rotate(90deg)}
+.sec-body{display:grid;grid-template-rows:0fr;transition:grid-template-rows .7s cubic-bezier(.2,.7,.2,1)}
+section.acc.open .sec-body{grid-template-rows:1fr}
+.sec-inner{overflow:hidden;min-height:0;padding:0 26px}
+section.acc.open .sec-inner{padding-bottom:26px}
+/* 卡片內細節收合 */
+details.more summary{cursor:pointer;list-style:none;font-size:.76rem;color:var(--mist);
+  padding:6px 0 2px;letter-spacing:.06em}
+details.more summary::-webkit-details-marker{display:none}
+details.more summary::before{content:"▸ ";font-family:var(--mono);color:var(--dawn)}
+details.more[open] summary::before{content:"▾ "}
+
+/* 招生管道卡 */
+.channels{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:18px}
+.chan{padding:24px 26px;display:flex;flex-direction:column;gap:12px;
+  transition:transform .4s cubic-bezier(.2,.7,.2,1), box-shadow .4s ease}
+.chan:hover{transform:translateY(-5px);box-shadow:0 18px 44px rgba(4,10,18,.5)}
+.chan .head{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.chan h3{font-family:var(--serif);font-weight:600;font-size:1.15rem}
+.badge{font-size:.68rem;letter-spacing:.12em;padding:3px 10px;border-radius:999px;white-space:nowrap;
+  border:1px solid var(--glass-line);color:var(--mist)}
+.badge.joint{color:var(--dawn);border-color:rgba(255,255,255,.4)}
+.chan .how{font-size:.8rem;color:var(--ink-dim)}
+.prog{border-top:1px solid var(--glass-line);padding-top:10px}
+.prog b{font-weight:500;font-size:.92rem}
+.prog .grp{color:var(--dawn);font-size:.85rem}
+.subj{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0 4px}
+.subj span{font-family:var(--mono);font-size:.72rem;padding:2px 9px;border-radius:6px;
+  background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);color:var(--mist)}
+.subj span.hot{background:rgba(194,94,46,.14);border-color:rgba(194,94,46,.4);color:var(--ember)}
+.prog .note{font-size:.76rem;color:var(--ink-dim)}
+.prog .note.star{color:var(--dawn)}
+.prog .quota{font-family:var(--mono);font-size:.72rem;color:var(--mist)}
+.chan .links{margin-top:auto;padding-top:12px;display:flex;gap:10px;flex-wrap:wrap}
+.chan .links a{color:var(--ink);font-size:.78rem;text-decoration:none;padding:7px 16px}
+.sched{font-family:var(--mono);font-size:.72rem;color:var(--ink-dim)}
+
+/* 作戰總覽表 */
+.ov-wrap{overflow-x:auto;padding:4px 0 6px}
+table.ov{border-collapse:collapse;width:100%;min-width:860px;font-size:.82rem}
+.ov th{font-family:var(--mono);font-weight:400;font-size:.68rem;color:var(--ink-dim);
+  text-align:left;padding:8px 10px;letter-spacing:.08em;border-bottom:1px solid var(--glass-line);white-space:nowrap}
+.ov td{padding:11px 10px;border-bottom:1px solid rgba(255,255,255,.07);vertical-align:top}
+.ov tbody tr{cursor:pointer;transition:background .3s ease}
+.ov tbody tr:hover{background:rgba(255,255,255,.05)}
+.ov .sch{display:inline-block;background:none;border:0;padding:0;cursor:pointer;text-align:left;
+  font-family:var(--serif);font-weight:600;font-size:.98rem;color:var(--dawn);white-space:nowrap;
+  border-bottom:1px solid transparent;transition:border-color .25s ease}
+.ov .sch small{display:block;font-family:var(--sans);font-weight:300;font-size:.68rem;color:var(--ink-dim);border:0}
+.ov tbody tr:hover .sch,.ov .sch:focus-visible{border-bottom-color:var(--dawn)}
+.ov .subj-chip{display:inline-block;font-family:var(--mono);font-size:.68rem;padding:2px 9px;
+  margin:2px 5px 2px 0;border:1px solid var(--glass-line);border-radius:8px;color:var(--mist);white-space:nowrap}
+.ov .dt{font-family:var(--mono);font-size:.72rem;color:var(--mist);white-space:nowrap}
+.ov .free{font-size:.72rem;color:var(--dawn);line-height:1.5}
+.ov .st{font-family:var(--mono);font-size:.7rem;color:var(--ink-dim);white-space:nowrap}
+.ov .st b{color:var(--dawn);font-weight:500;font-size:.9rem}
+.ov-note{font-size:.74rem;color:var(--ink-dim);margin-top:10px}
+/* 懸浮視窗 */
+.modal{position:fixed;inset:0;z-index:300;display:flex;align-items:flex-start;justify-content:center;padding:5vh 20px}
+.modal[hidden]{display:none}
+body.modal-open{overflow:hidden}
+.modal-back{position:absolute;inset:0;background:rgba(6,12,22,.66);backdrop-filter:blur(6px);animation:mfade .3s ease}
+.modal-panel{position:relative;width:min(920px,100%);max-height:90vh;overflow:auto;
+  padding:32px 34px 30px;border-radius:22px;animation:mrise .34s cubic-bezier(.22,1,.36,1)}
+.modal-x{position:absolute;top:14px;right:16px;width:36px;height:36px;padding:0;font-size:.9rem;
+  color:var(--ink);line-height:34px;text-align:center}
+.modal-body .dhead{display:flex;gap:12px;align-items:baseline;margin:0 40px 4px 0}
+.modal-body .dhead h2{margin:0;font-size:1.7rem}
+.modal-body .chow{font-size:.82rem;color:var(--ink-dim);margin-bottom:2px}
+@keyframes mfade{from{opacity:0}}
+@keyframes mrise{from{opacity:0;transform:translateY(22px)}}
+@media(prefers-reduced-motion:reduce){.modal-back,.modal-panel{animation:none}}
+/* 全戰場章節彙整 */
+.agg{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px;margin-top:22px}
+.agg .panel h3 small{font-family:var(--sans);font-weight:300;color:var(--ink-dim);font-size:.7rem;margin-left:8px}
+.bars{display:flex;flex-direction:column;gap:10px}
+.bar-row{display:grid;grid-template-columns:7.5em 1fr auto;gap:10px;align-items:center;font-size:.8rem}
+.bar-row .nm{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bar-row .tk{height:10px;border-radius:6px;background:rgba(255,255,255,.06);overflow:hidden}
+.bar-row .tk i{display:block;height:100%;width:100%;border-radius:6px;
+  background:linear-gradient(90deg,rgba(255,255,255,.7),rgba(255,255,255,.85));
+  transform-origin:left;transition:transform .6s cubic-bezier(.2,.7,.2,1);
+  animation:barin .8s cubic-bezier(.2,.8,.2,1) backwards;animation-delay:calc(var(--i,0)*70ms)}
+@keyframes barin{from{transform:scaleX(0)}}
+.bar-row .val{font-family:var(--mono);font-size:.72rem;color:var(--ink-dim);white-space:nowrap}
+.bar-row .val b{color:var(--dawn);font-weight:500}
+
+/* 學校卡：收合列摘要 */
+.school .sec-head{flex-wrap:wrap;row-gap:8px}
+.school .nm{display:flex;align-items:baseline;gap:10px;flex:0 0 auto}
+.school .nm h2{margin:0}
+.school .smeta{display:flex;gap:5px 14px;flex-wrap:wrap;align-items:center;flex:1 1 260px;
+  font-family:var(--mono);font-size:.72rem;color:var(--ink-dim);margin-left:4px}
+.school .smeta>span{white-space:nowrap}
+.school .smeta b{color:var(--dawn);font-weight:500}
+.school .smeta .free2{font-family:var(--sans);color:var(--dawn);white-space:normal}
+.school .smeta .subj{margin:0;gap:5px}
+.school .smeta .subj span{font-size:.68rem;padding:1px 8px}
+.agg-h{font-family:var(--serif);font-weight:600;font-size:1.15rem;color:var(--dawn);margin:34px 0 2px}
+.agg-note{font-size:.78rem;color:var(--ink-dim);margin-bottom:4px}
+/* 學校卡展開內容 */
+.school .chead{display:flex;gap:10px;flex-wrap:wrap;align-items:baseline;margin-bottom:6px}
+.school .chow{font-size:.8rem;color:var(--ink-dim)}
+.school .links{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0 4px}
+.school .links a{color:var(--ink);font-size:.78rem;text-decoration:none;padding:7px 16px}
+.progs{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:4px 26px;margin-top:6px}
+/* 科目戰情列 */
+.sb{border-top:1px solid var(--glass-line);padding:18px 0 14px}
+.sb .sbh{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+.sb h4{font-family:var(--serif);font-weight:600;font-size:1.02rem;color:var(--ink)}
+.sb h4 small{font-family:var(--sans);font-weight:300;font-size:.72rem;color:var(--ink-dim);margin-left:8px}
+.badge.dead{color:var(--ember);border-color:rgba(194,94,46,.4)}
+.quick{font-size:.78rem;color:var(--mist);margin-top:4px}
+.quick b{color:var(--dawn);font-weight:500}
+.yrow{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0 2px}
+.yrow a,.yrow span{display:inline-block;width:44px;height:28px;line-height:28px;text-align:center;
+  font-family:var(--mono);font-size:.7rem;text-decoration:none;color:var(--ink);border-radius:9px}
+.yrow a.lq{--lq-color:rgba(255,255,255,.9);--lq-glow:rgba(255,255,255,.4);
+  background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.4)}
+.yrow span{background:rgba(255,255,255,.03);border:1px dashed rgba(255,255,255,.12);
+  color:rgba(255,255,255,.28);cursor:help}
+
+/* 反向選校 */
+.finder{padding:26px}
+.finder h4{font-family:var(--serif);font-weight:600;font-size:.98rem;margin:16px 0 10px;color:var(--mist)}
+.finder h4:first-child{margin-top:0}
+.pills{display:flex;gap:10px;flex-wrap:wrap}
+.pill{font-size:.82rem;padding:8px 20px;color:var(--ink);user-select:none;font-family:var(--sans);font-weight:300}
+.pill.chap{font-size:.76rem;padding:6px 16px}
+.verdicts{margin-top:26px;display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:14px}
+.verdict{padding:18px 20px;border-radius:16px;border:1px solid var(--glass-line);
+  background:rgba(255,255,255,.05);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  transition:transform .35s ease}
+.verdict:hover{transform:translateY(-3px)}
+.verdict .vh{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.verdict b{font-weight:500;font-size:.9rem}
+.verdict .tag{font-size:.72rem;padding:2px 11px;border-radius:999px;white-space:nowrap}
+.tag.ok{background:rgba(255,255,255,.18);color:var(--dawn);border:1px solid rgba(255,255,255,.5)}
+.tag.no{background:rgba(194,94,46,.1);color:var(--ember);border:1px solid rgba(194,94,46,.35)}
+.tag.doc{background:rgba(255,255,255,.14);color:var(--mist);border:1px solid rgba(255,255,255,.4)}
+.verdict .req{font-size:.76rem;color:var(--ink-dim);margin-top:8px;line-height:1.65}
+.verdict .req em{font-style:normal;color:var(--dawn)}
+.verdict .req s{color:rgba(194,94,46,.9);text-decoration:none;border-bottom:1px dotted rgba(194,94,46,.6)}
+.verdict.dim{opacity:.55}
+.finder .disclaimer{margin-top:20px;font-size:.74rem;color:var(--ink-dim);border-top:1px solid var(--glass-line);padding-top:14px}
+
+/* ============ 讀書模式：進度追蹤器 ============ */
+#study{padding-top:40px}
+.tk-top{display:flex;flex-wrap:wrap;gap:12px 24px;align-items:center;padding:18px 24px;margin-bottom:18px}
+.tk-stat{display:flex;flex-direction:column;gap:2px;font-size:.72rem;color:var(--ink-dim)}
+.tk-stat i{font-style:normal;letter-spacing:.1em}
+.tk-stat b{font-family:var(--mono);font-size:1.25rem;font-weight:500;color:var(--ink)}
+.tk-stat.hi b{color:var(--dawn);font-size:1.55rem}
+.tk-top.behind .tk-stat.hi b{color:var(--ember)}
+.tk-date{gap:4px}
+.tk-date input{background:rgba(255,255,255,.07);border:1px solid var(--glass-line);color:var(--ink);
+  border-radius:9px;padding:5px 9px;font-family:var(--mono);font-size:.82rem;color-scheme:dark}
+.tk-done-all{margin-left:auto;color:var(--dawn);font-family:var(--serif);letter-spacing:.12em}
+.panel{padding:22px 24px;margin-bottom:18px}
+.panel h3{font-family:var(--serif);font-weight:600;font-size:1rem;color:var(--dawn);margin-bottom:14px;letter-spacing:.08em}
+.tk-sub{font-family:var(--sans);font-weight:400;font-size:.72rem;color:var(--ink-dim);letter-spacing:.06em;margin-left:10px}
+.tk-wrow{display:grid;grid-template-columns:6.5em 1fr minmax(120px,1.1fr) 3.6em;gap:14px;align-items:center;
+  font-size:.82rem;padding:8px 0;border-top:1px solid var(--glass-line)}
+.tk-wrow:first-child{border-top:0}
+.tk-wrow .nm{color:var(--ink)}
+.tk-wrow .q{font-size:.76rem;color:var(--ink-dim)}
+.tk-wrow .q b{color:var(--dawn);font-family:var(--mono)}
+.tk-wrow.behind .q b{color:var(--ember)}
+.tk-wrow .wd{font-family:var(--mono);font-size:.74rem;color:var(--ink-dim);text-align:right}
+.tk-bar{height:9px;border-radius:6px;background:rgba(255,255,255,.06);overflow:hidden;display:block}
+.tk-bar i{display:block;height:100%;width:100%;border-radius:6px;transform-origin:left;
+  background:linear-gradient(90deg,rgba(255,255,255,.7),rgba(255,255,255,.9));
+  transition:transform .5s cubic-bezier(.2,.7,.2,1)}
+.tk-wrow.behind .tk-bar i{background:linear-gradient(90deg,rgba(194,94,46,.55),rgba(194,94,46,.9))}
+.tk-grp{margin-bottom:26px}
+.tk-gh{font-family:var(--serif);font-weight:600;font-size:1.05rem;color:var(--dawn);
+  letter-spacing:.1em;margin:0 0 12px;padding-bottom:6px;border-bottom:1px solid var(--glass-line)}
+.tk-courses{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:14px;align-items:start}
+.tk-card{padding:0;overflow:hidden}
+.tk-chead{display:flex;flex-direction:column;gap:11px;padding:16px 18px;cursor:pointer;user-select:none}
+.tk-cn{display:flex;align-items:baseline;gap:10px}
+.tk-cn b{font-weight:500;font-size:.9rem;color:var(--ink)}
+.tk-cn .ok{font-size:.72rem;color:var(--dawn);white-space:nowrap}
+.tk-cmeta{display:flex;align-items:center;gap:11px}
+.tk-cmeta .tk-bar{flex:1}
+.tk-cmeta .val{font-family:var(--mono);font-size:.72rem;color:var(--ink-dim);white-space:nowrap}
+.tk-x{font-size:.7rem;color:var(--ink-dim);padding:2px 7px;border-radius:7px;border:1px solid transparent;background:none;cursor:pointer;font-family:var(--sans)}
+.tk-x:hover{color:var(--ember);border-color:rgba(194,94,46,.4)}
+.tk-caret{color:var(--ink-dim);transition:transform .3s ease;font-size:.8rem}
+.tk-card.open .tk-caret{transform:rotate(90deg)}
+.tk-sessions{display:grid;grid-template-rows:0fr;transition:grid-template-rows .45s cubic-bezier(.2,.7,.2,1)}
+.tk-card.open .tk-sessions{grid-template-rows:1fr}
+.tk-sinner{overflow:hidden;min-height:0}
+.tk-spad{padding:0 18px 14px}
+.tk-sess{display:flex;align-items:flex-start;gap:9px;padding:6px 0;font-size:.8rem;
+  border-top:1px solid rgba(255,255,255,.05);cursor:pointer}
+.tk-sess input{margin-top:2px;accent-color:var(--ember);width:15px;height:15px;flex:none;cursor:pointer}
+.tk-sess .sn{font-family:var(--mono);font-size:.72rem;color:var(--ink-dim);flex:none;min-width:1.7em}
+.tk-sess .st{color:var(--ink);line-height:1.45}
+.tk-sess.done .st,.tk-sess.done .sn{color:var(--ink-dim);text-decoration:line-through}
+.tk-add .tk-form{display:flex;flex-wrap:wrap;gap:10px;align-items:flex-start}
+.tk-add select,.tk-add input,.tk-add textarea{background:rgba(255,255,255,.07);border:1px solid var(--glass-line);
+  color:var(--ink);border-radius:10px;padding:8px 11px;font-family:var(--sans);font-size:.82rem}
+.tk-add select option{background:var(--night)}
+.tk-add input#tkName{flex:1;min-width:180px}
+.tk-file{display:flex;flex-direction:column;gap:4px;font-size:.72rem;color:var(--ink-dim);flex:2;min-width:230px}
+.tk-add textarea{width:100%;resize:vertical;font-family:var(--mono);font-size:.76rem}
+.tk-add input#tkCount{width:10em}
+.tk-hint{font-size:.74rem;color:var(--ink-dim);margin-top:10px}
+.empty{font-size:.82rem;color:var(--ink-dim)}
+
+/* ============ 材質背景：程序化生成，不用外部圖檔 ============
+   免費圖庫的風景照放大後質感會塌，改用緩慢流動的漸層層＋膠片顆粒，
+   模擬陽極氧化金屬與釉面瓷器的表面反光。全本機、離線可用、零版權問題。 */
+/* 材質背景：結構（清晰的格線）壓在柔光上才有質感，純模糊光斑會顯得廉價。
+   取材自這個 app 自己的材料世界：工程方格紙、藍曬圖、黑板、描圖紙。 */
+.mat{display:none;position:absolute;inset:0;pointer-events:none;overflow:hidden}
+body.mat-on .mat{display:block}
+body.mat-on .scene{background:var(--mat-base)}
+body.mat-on .photo,body.mat-on .stars,body.mat-on .aurora,
+body.mat-on .meteor,body.mat-on .mist{opacity:0}
+.mat span{position:absolute;inset:0;display:block}
+
+/* ① 結構層：方格／等角線／織紋，每個主題自己定義 */
+.m-grid{background-image:var(--grid);background-size:var(--grid-size);opacity:var(--grid-op,1);
+  animation:gridfloat 120s linear infinite}
+@keyframes gridfloat{to{background-position:var(--grid-size)}}
+
+/* ② 光池：大範圍、低對比，只負責讓畫面不平，不當主角 */
+.m-glow{background:var(--glow);opacity:var(--glow-op,.9)}
+
+/* ③ 掃光：一道慢慢橫越的反射帶 */
+.m-sweep{background:linear-gradient(100deg,transparent 38%,var(--sweep,rgba(255,255,255,.07)) 50%,transparent 62%);
+  background-size:300% 100%;animation:matsweep 34s linear infinite;
+  mix-blend-mode:var(--sweep-mode,overlay)}
+@keyframes matsweep{to{background-position:300% 0}}
+
+/* ④ 紙纖維／粉筆灰顆粒 */
+.m-grain{opacity:var(--grain,.28);mix-blend-mode:var(--grain-mode,overlay);
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+/* ---- 亮色系 ---- */
+/* 工程方格紙：5mm 細格＋25mm 粗線，暖白紙色 */
+body[data-theme="graph"]{--mat-base:#F7F4EC;
+  --grid:linear-gradient(rgba(60,110,120,.13) 1px,transparent 1px),
+         linear-gradient(90deg,rgba(60,110,120,.13) 1px,transparent 1px),
+         linear-gradient(rgba(60,110,120,.3) 1.4px,transparent 1.4px),
+         linear-gradient(90deg,rgba(60,110,120,.3) 1.4px,transparent 1.4px);
+  --grid-size:26px 26px,26px 26px,130px 130px,130px 130px;
+  --glow:radial-gradient(90% 70% at 18% 8%,rgba(255,236,190,.75),transparent 62%),
+         radial-gradient(80% 60% at 88% 96%,rgba(180,220,225,.6),transparent 66%);
+  --sweep:rgba(255,255,255,.5);--grain:.2;--grain-mode:multiply}
+/* 描圖紙：半透明紙纖維＋一道暖金 */
+body[data-theme="vellum"]{--mat-base:#F2EDE2;
+  --grid:repeating-linear-gradient(96deg,rgba(150,130,100,.07) 0 2px,transparent 2px 7px);
+  --grid-size:auto;
+  --glow:radial-gradient(85% 65% at 78% 12%,rgba(245,210,150,.65),transparent 64%),
+         radial-gradient(75% 60% at 10% 92%,rgba(205,195,225,.5),transparent 66%);
+  --sweep:rgba(255,255,255,.55);--grain:.26;--grain-mode:multiply}
+/* 水磨石：淺石灰底，碎石斑點 */
+body[data-theme="terrazzo"]{--mat-base:#EFEFEA;
+  --grid:radial-gradient(circle at 20% 30%,rgba(230,120,110,.5) 0 3px,transparent 4px),
+         radial-gradient(circle at 70% 60%,rgba(90,160,175,.45) 0 4px,transparent 5px),
+         radial-gradient(circle at 45% 85%,rgba(240,190,90,.5) 0 3px,transparent 4px),
+         radial-gradient(circle at 88% 18%,rgba(120,140,110,.4) 0 3px,transparent 4px);
+  --grid-size:190px 190px,240px 240px,160px 160px,210px 210px;
+  --glow:radial-gradient(90% 70% at 12% 10%,rgba(255,255,255,.85),transparent 60%);
+  --sweep:rgba(255,255,255,.45);--grain:.22;--grain-mode:multiply}
+
+/* ---- 暗色系 ---- */
+/* 藍曬圖：深靛藍＋白色製圖格線 */
+body[data-theme="blueprint"]{--mat-base:#0C2036;
+  --grid:linear-gradient(rgba(150,205,255,.1) 1px,transparent 1px),
+         linear-gradient(90deg,rgba(150,205,255,.1) 1px,transparent 1px),
+         linear-gradient(rgba(150,205,255,.22) 1.4px,transparent 1.4px),
+         linear-gradient(90deg,rgba(150,205,255,.22) 1.4px,transparent 1.4px);
+  --grid-size:24px 24px,24px 24px,120px 120px,120px 120px;
+  --glow:radial-gradient(85% 65% at 82% 6%,rgba(70,150,220,.5),transparent 62%),
+         radial-gradient(90% 70% at 8% 94%,rgba(30,70,130,.6),transparent 66%);
+  --sweep:rgba(190,225,255,.1);--grain:.3}
+/* 黑板：墨綠板面＋粉筆灰與擦拭痕 */
+body[data-theme="chalk"]{--mat-base:#16241F;
+  --grid:repeating-linear-gradient(84deg,rgba(255,255,255,.035) 0 90px,transparent 90px 240px);
+  --grid-size:auto;
+  --glow:radial-gradient(80% 60% at 25% 12%,rgba(120,170,140,.35),transparent 64%),
+         radial-gradient(90% 70% at 85% 88%,rgba(40,70,60,.7),transparent 62%);
+  --sweep:rgba(220,240,230,.07);--grain:.42}
+/* 曜黑：近黑＋細斜織紋，最安靜的一款 */
+body[data-theme="onyx"]{--mat-base:#0A0C10;
+  --grid:repeating-linear-gradient(45deg,rgba(255,255,255,.028) 0 1px,transparent 1px 6px),
+         repeating-linear-gradient(-45deg,rgba(255,255,255,.02) 0 1px,transparent 1px 6px);
+  --grid-size:auto;
+  --glow:radial-gradient(75% 60% at 88% 10%,rgba(95,120,175,.3),transparent 62%),
+         radial-gradient(85% 65% at 10% 92%,rgba(150,110,80,.22),transparent 64%);
+  --sweep:rgba(255,255,255,.06);--grain:.26}
+@media(prefers-reduced-motion:reduce){.m-grid,.m-sweep{animation:none}}
+
+/* ---- 亮色主題要把文字與玻璃整組翻過來，否則白字看不見 ---- */
+body.lt{--ink:#171B21;--ink-dim:rgba(23,27,33,.6);--dawn:#8A5A18;
+  --glass:rgba(255,255,255,.62);--glass-line:rgba(23,27,33,.13);--night:#F2EFE8}
+body.lt{--s-elec:#B26A18;--s-elec-soft:rgba(178,106,24,.14);
+  --s-math:#0E7C77;--s-math-soft:rgba(14,124,119,.14);
+  --s-ctrl:#5B45C4;--s-ctrl-soft:rgba(91,69,196,.14);
+  --s-toeic:#2E7D4F;--s-toeic-soft:rgba(46,125,79,.14);--sc:#8A5A18}
+body.lt .scene::before{background:rgba(255,255,255,.3)!important}
+body.lt .glass{box-shadow:0 10px 30px rgba(30,35,45,.1)}
+body.lt .lq{color:var(--ink)}
+body.lt header.top{background:rgba(255,255,255,.66);border-color:var(--glass-line)}
+body.lt .vbtn,body.lt .vsel{background:rgba(23,27,33,.06);color:var(--ink)}
+body.lt .vsel option{background:#fff;color:#171B21}
+body.lt .tk-bar{background:rgba(23,27,33,.12)}
+body.lt .modal-back{background:rgba(240,238,232,.72)}
+/* 亮底需要更強的對比，否則整片糊成一團白 */
+body.lt .glass{background:rgba(255,255,255,.74);border-color:rgba(23,27,33,.12)}
+body.lt .yr i{background:rgba(23,27,33,.13)}
+body.lt .yr i.h1{background:color-mix(in srgb,var(--sc) 40%,transparent)}
+body.lt .yr i.h2{background:color-mix(in srgb,var(--sc) 70%,transparent)}
+body.lt .yr i.h3{background:var(--sc);box-shadow:none}
+body.lt .wm-wk{background:rgba(23,27,33,.07);color:rgba(23,27,33,.66)}
+body.lt .wm-wk:hover{background:rgba(23,27,33,.13);color:var(--ink)}
+body.lt .wm-wk.on{background:color-mix(in srgb,var(--sc) 20%,transparent);color:#000;
+  border-color:color-mix(in srgb,var(--sc) 42%,transparent);font-weight:500}
+body.lt .wm-vw{color:rgba(23,27,33,.6)}
+body.lt .wm-vw.on{background:rgba(23,27,33,.13);color:#000}
+body.lt .wm-row:hover{background:rgba(23,27,33,.05)}
+body.lt .wm-row.on{background:color-mix(in srgb,var(--sc) 13%,transparent)}
+body.lt button.sp-ep:hover{background:rgba(23,27,33,.06)}
+body.lt .sp-sch a{background:rgba(23,27,33,.07);color:var(--ink)}
+body.lt .sp-sch a:hover{background:rgba(23,27,33,.2)}
+body.lt .wm-dh .tag{background:rgba(23,27,33,.08)}
+body.lt .wm-cols,body.lt .wm-sec{color:rgba(23,27,33,.55)}
+body.lt .m-sweep{--sweep-mode:soft-light}
+
+/* ============ 學科色系：讓顏色承載資訊，不是裝飾 ============
+   同一份清單裡混著四科，單一金色會讓人分不出哪列是哪科。
+   取材：電子＝銅箔琥珀、工數＝藍圖青瓷、控制＝頻譜靛紫、多益＝苔綠。 */
+:root{
+  --s-elec:#E8A75C;  --s-elec-soft:rgba(232,167,92,.15);
+  --s-math:#57C7C0;  --s-math-soft:rgba(87,199,192,.15);
+  --s-la:#6FA8E8;    --s-la-soft:rgba(111,168,232,.15);
+  --s-ctrl:#9D8DF1;  --s-ctrl-soft:rgba(157,141,241,.15);
+  --s-toeic:#86CF9E; --s-toeic-soft:rgba(134,207,158,.15);
+}
+[data-subj=elec] {--sc:var(--s-elec); --sc-soft:var(--s-elec-soft)}
+[data-subj=math] {--sc:var(--s-math); --sc-soft:var(--s-math-soft)}
+[data-subj=la]   {--sc:var(--s-la);   --sc-soft:var(--s-la-soft)}
+[data-subj=ctrl] {--sc:var(--s-ctrl); --sc-soft:var(--s-ctrl-soft)}
+[data-subj=toeic]{--sc:var(--s-toeic);--sc-soft:var(--s-toeic-soft)}
+:root{--sc:#F0C98A; --sc-soft:rgba(240,201,138,.15)}
+
+/* ============ 按鈕系統：全站統一三種型態、兩種尺寸 ============
+   ui-ghost   幽靈：預設，透明底細框（次要動作）
+   ui-solid   實心：目前狀態／主要動作
+   ui-seg     分段：一整條膠囊裡切開的多選一（週次、視圖）
+   加 .sm 變小。所有按鈕共用同一組圓角、字級與過場，避免各處各自為政。 */
+.ui-ghost,.ui-solid,.ui-seg>button{
+  font-family:var(--sans);font-size:.92rem;line-height:1;padding:10px 18px;
+  border-radius:999px;cursor:pointer;white-space:nowrap;
+  border:1px solid var(--glass-line);background:rgba(255,255,255,.06);color:var(--ink-dim);
+  transition:background .16s ease,color .16s ease,border-color .16s ease}
+.ui-ghost:hover,.ui-seg>button:hover{background:rgba(255,255,255,.14);color:var(--ink)}
+.ui-ghost.sm,.ui-solid.sm{font-size:.84rem;padding:8px 14px}
+.ui-solid{background:color-mix(in srgb,var(--sc) 22%,transparent);color:var(--ink);
+  border-color:color-mix(in srgb,var(--sc) 42%,transparent);font-weight:500}
+.ui-solid:hover{background:color-mix(in srgb,var(--sc) 32%,transparent)}
+.ui-seg{display:inline-flex;border:1px solid var(--glass-line);border-radius:999px;overflow:hidden}
+.ui-seg>button{border:0;border-radius:0;background:none;font-family:var(--mono);font-size:.86rem;padding:9px 16px}
+.ui-seg>button+button{box-shadow:inset 1px 0 0 var(--glass-line)}
+.ui-seg>button.on{background:color-mix(in srgb,var(--sc) 24%,rgba(255,255,255,.1));color:#fff;font-weight:500}
+body.lt .ui-ghost,body.lt .ui-seg>button{background:rgba(23,27,33,.05);color:rgba(23,27,33,.62)}
+body.lt .ui-ghost:hover,body.lt .ui-seg>button:hover{background:rgba(23,27,33,.11);color:var(--ink)}
+body.lt .ui-seg>button.on{color:#000}
+
+/* ============ 讀書模式：主從式版面 ============ */
+.wm{margin-top:20px}
+.wm-bar{display:flex;align-items:center;gap:18px 24px;flex-wrap:wrap;padding:16px 22px;margin-bottom:16px}
+.wm-cd{display:flex;align-items:baseline;gap:9px;font-family:var(--mono)}
+.wm-cd b{font-size:2rem;color:var(--dawn);font-weight:500;line-height:1}
+.wm-cd i{font-style:normal;font-size:.82rem;color:var(--ink-dim);letter-spacing:.06em}
+.wm-prog{display:flex;align-items:center;gap:11px;flex:1;min-width:160px;max-width:320px}
+.wm-prog .tk-bar{flex:1;height:11px}
+.wm-prog span{font-family:var(--mono);font-size:.85rem;color:var(--ink-dim);white-space:nowrap}
+.ui-seg>button.now::after{content:'·今';font-size:.72rem;opacity:.75;margin-left:3px}
+.wm-right{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-left:auto}
+.wm-body{display:grid;grid-template-columns:minmax(340px,1fr) minmax(360px,1.15fr);gap:16px;align-items:start}
+@media(max-width:900px){.wm-body{grid-template-columns:1fr}}
+.wm-list,.wm-detail{padding:10px 0;min-height:240px}
+/* 右欄玻璃跟著所選學科染色：頂端一層該科色溫，邊框也帶一點 */
+.wm-detail{padding:24px 26px;position:relative;overflow:hidden;
+  border-color:color-mix(in srgb,var(--sc) 22%,var(--glass-line))}
+.wm-detail::before{content:'';position:absolute;inset:0 0 auto;height:180px;pointer-events:none;
+  background:radial-gradient(120% 100% at 12% 0%,var(--sc-soft),transparent 70%)}
+.wm-detail>*{position:relative}
+.wm-row .dot{width:7px;height:7px;border-radius:50%;flex:none;background:var(--sc);opacity:.85}
+.wm-dh .tag:first-of-type{background:var(--sc-soft);color:var(--sc)}
+.wm-dsub b{color:var(--sc)}
+.wm-blk h4 em{color:var(--sc)}
+.sp-ep b{color:var(--sc)}
+button.sp-ep .pl{color:var(--sc)}
+.wm-cd b{color:var(--dawn)}
+/* 分區標題：字重與字距拉開，讓它像標題而不是另一列資料 */
+.wm-sec{font-family:var(--serif);font-size:.9rem;color:var(--ink);letter-spacing:.14em;
+  padding:20px 22px 2px;font-weight:600;opacity:.9}
+.wm-sec:first-child{padding-top:12px}
+/* 欄位標頭：讓「那排格子是什麼」不必猜 */
+.wm-cols{display:flex;align-items:center;gap:12px;padding:6px 22px 9px;
+  font-size:.7rem;color:var(--ink-dim);letter-spacing:.1em;
+  border-bottom:1px solid var(--glass-line);margin-bottom:6px}
+.wm-cols .c1{flex:1;padding-left:36px}
+.wm-cols .c2{flex:none;width:70px;text-align:center}
+.wm-cols .c3{flex:none;width:2.6em;text-align:right}
+.wm-cols .c4{flex:none;width:2.8em;text-align:center}
+/* 弱點捷徑：錯最多的三章，點了直接跳過去 */
+.wm-weak{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:12px 22px 8px;
+  font-size:.78rem;color:var(--ink-dim)}
+.wm-weak button{font-family:var(--sans);font-size:.8rem;padding:5px 12px;border-radius:999px;
+  cursor:pointer;background:rgba(194,94,46,.14);border:1px solid rgba(194,94,46,.3);
+  color:var(--ink);display:inline-flex;gap:7px;align-items:baseline}
+.wm-weak button:hover{background:rgba(194,94,46,.28)}
+.wm-weak button b{font-family:var(--mono);color:var(--ember);font-weight:500}
+body.lt .wm-weak button{background:rgba(168,67,28,.12);border-color:rgba(168,67,28,.3)}
+body.lt .wm-weak button b{color:#A8431C}
+/* 章節／系列列 */
+.wm-row{display:flex;align-items:center;gap:12px;width:100%;padding:11px 22px;cursor:pointer;
+  background:none;border:0;border-left:3px solid transparent;text-align:left;
+  font-family:var(--sans);font-size:1rem;color:var(--ink);
+  transition:background .16s ease,border-color .16s ease}
+.wm-row:hover{background:rgba(255,255,255,.07)}
+.wm-row:hover{border-left-color:color-mix(in srgb,var(--sc) 45%,transparent)}
+.wm-row.on{background:var(--sc-soft);border-left-color:var(--sc)}
+.wm-row input{accent-color:var(--ember);width:17px;height:17px;flex:none;cursor:pointer}
+.wm-row .nm{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+  position:relative;padding-bottom:5px}
+/* 影片觀看進度：藏在章節名底下的一條細線，不佔欄位 */
+.wm-row .nm .seen{position:absolute;left:0;bottom:0;height:2px;border-radius:2px;
+  width:calc(var(--w)*100%);max-width:100%;background:var(--sc);opacity:.55;display:block}
+.wm-row.done .nm{color:var(--ink-dim);text-decoration:line-through}
+.wm-row .hrs{font-family:var(--mono);font-size:.85rem;color:var(--ink-dim);flex:none;
+  width:2.6em;text-align:right}
+/* 錯題計數：平常只是一個淡叉，記過就亮起來 */
+.miss{font-family:var(--mono);font-size:.78rem;flex:none;width:2.8em;text-align:center;
+  color:rgba(255,255,255,.22);padding:3px 0;border-radius:6px;cursor:pointer;
+  transition:background .16s ease,color .16s ease}
+.miss:hover{background:rgba(194,94,46,.22);color:var(--ember)}
+.miss.has{color:var(--ember);background:rgba(194,94,46,.14)}
+body.lt .miss{color:rgba(23,27,33,.22)}
+body.lt .miss.has{color:#A8431C;background:rgba(168,67,28,.13)}
+/* 十年考點條：106–115 每年一格，該年考過就亮，越常考越亮；顏色跟著學科走 */
+.yr{display:flex;gap:2px;flex:none;width:70px;justify-content:center}
+.yr i{width:5px;height:17px;border-radius:2px;background:rgba(255,255,255,.09);display:block}
+.yr i.h1{background:color-mix(in srgb,var(--sc) 45%,transparent)}
+.yr i.h2{background:color-mix(in srgb,var(--sc) 75%,transparent)}
+.yr i.h3{background:var(--sc);box-shadow:0 0 7px color-mix(in srgb,var(--sc) 45%,transparent)}
+/* 右欄 */
+.wm-dh{display:flex;align-items:baseline;gap:11px;flex-wrap:wrap;margin-bottom:6px}
+.wm-dh h3{font-family:var(--serif);font-size:1.45rem;color:var(--ink);letter-spacing:.03em;margin:0}
+.wm-dh .tag{font-family:var(--mono);font-size:.75rem;padding:3px 9px;border-radius:7px;
+  background:rgba(255,255,255,.1);color:var(--ink-dim)}
+.wm-dsub{font-size:.9rem;color:var(--ink-dim);margin:4px 0 20px;line-height:1.7}
+.wm-dsub b{color:var(--dawn);font-weight:500}
+.wm-blk{margin-top:20px}
+.wm-blk h4{font-family:var(--mono);font-size:.8rem;color:var(--ink-dim);letter-spacing:.1em;
+  margin:0 0 9px;display:flex;gap:9px;align-items:baseline}
+.wm-blk h4 em{font-style:normal;color:var(--dawn)}
+.wm-empty{font-size:.92rem;color:var(--ink-dim);padding:36px 0;text-align:center}
+/* 左欄自己捲，右欄不跟著跑 */
+@media(min-width:901px){
+  .wm-list{max-height:calc(100vh - 190px);overflow-y:auto;scrollbar-width:thin}
+  .wm-list::-webkit-scrollbar{width:8px}
+  .wm-list::-webkit-scrollbar-thumb{background:rgba(255,255,255,.16);border-radius:4px}
+}
+/* 目標校系 */
+.wm-tgt{font-size:.86rem;padding:8px 16px;color:var(--ink)}
+.tgt-panel{max-width:min(760px,94vw)}
+.tgt-panel h3{font-family:var(--serif);font-size:1.35rem;color:var(--ink);margin:0 0 8px;padding-right:44px}
+.tgt-note{font-size:.85rem;color:var(--ink-dim);line-height:1.7;margin-bottom:18px}
+.tgt-note b{color:var(--dawn);font-weight:500}
+.tgt-grp{margin-bottom:16px}
+.tgt-grp h4{font-family:var(--mono);font-size:.78rem;color:var(--dawn);letter-spacing:.1em;
+  margin:0 0 6px;padding-bottom:5px;border-bottom:1px solid var(--glass-line)}
+.tgt-row{display:flex;align-items:center;gap:11px;padding:9px 10px;border-radius:9px;cursor:pointer;
+  font-size:.92rem;color:var(--ink);transition:background .16s ease}
+.tgt-row:hover{background:rgba(255,255,255,.07)}
+.tgt-row.on{background:rgba(240,201,138,.13)}
+.tgt-row input{accent-color:var(--ember);width:17px;height:17px;flex:none;cursor:pointer}
+.tgt-row .t1{flex:1;min-width:0}
+.tgt-row .t2{font-family:var(--mono);font-size:.76rem;color:var(--ink-dim);text-align:right;
+  max-width:46%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tgt-foot{display:flex;gap:9px;margin-top:18px;flex-wrap:wrap}
+.tgt-foot button{font-size:.86rem;padding:8px 20px;color:var(--ink)}
+/* 考卷年份：預設只顯示最近 5 年，其餘收起來 */
+.sp-sch a.old{display:none}
+.sp-sch.all a.old{display:inline-block}
+.ex-more{font-size:.8rem;color:var(--dawn);background:none;border:0;cursor:pointer;
+  font-family:var(--sans);padding:4px 0;margin-top:6px;text-decoration:underline;text-underline-offset:3px}
+
+/* ============ 衝刺看板（28 天章節熱區） ============ */
+.sprint{padding:22px 24px}
+.sp-head{display:flex;flex-wrap:wrap;gap:12px 24px;align-items:center}
+.sp-head .sp-pb{flex:1;min-width:150px}
+.sp-head.behind .tk-stat.hi b{color:var(--ember)}
+.sp-note{font-size:.76rem;color:var(--ink-dim);margin:12px 0 2px;line-height:1.6}
+.sp-note b{color:var(--dawn);font-weight:500}
+.sp-week{margin-top:14px;border-top:1px solid var(--glass-line);padding-top:10px}
+.sp-wh{display:flex;align-items:baseline;gap:10px;font-family:var(--mono);font-size:.7rem;
+  color:var(--ink-dim);letter-spacing:.08em;margin-bottom:4px}
+.sp-wh b{color:var(--ink);font-size:.8rem;font-family:var(--serif);letter-spacing:.1em}
+.sp-week.now .sp-wh b{color:var(--dawn)}
+.sp-week.now .sp-wh::after{content:'← 本週';color:var(--dawn);font-size:.66rem}
+.sp-ch{padding:7px 0;border-top:1px solid rgba(255,255,255,.05)}
+.sp-row{display:flex;align-items:center;gap:9px;cursor:pointer}
+.sp-row input{accent-color:var(--ember);width:15px;height:15px;flex:none;cursor:pointer}
+.sp-tag{flex:none;font-family:var(--mono);font-size:.62rem;padding:2px 7px;border-radius:6px;letter-spacing:.05em}
+.sp-tag.elec{background:rgba(240,190,110,.16);color:#EFC98A}
+.sp-tag.math{background:rgba(140,190,220,.15);color:#9FD0E8}
+.sp-tag.ctrl{background:rgba(194,94,46,.2);color:#E8A47C}
+.sp-nm{color:var(--ink);font-size:.84rem}
+.sp-ch.done .sp-nm{color:var(--ink-dim);text-decoration:line-through}
+.sp-hrs{font-family:var(--mono);font-size:.68rem;color:var(--ink-dim);margin-left:auto;white-space:nowrap}
+.sp-ex{margin:3px 0 0 24px}
+.sp-ex summary{font-size:.68rem;color:var(--ink-dim);cursor:pointer;list-style:none;display:inline-block;user-select:none}
+.sp-ex summary::-webkit-details-marker{display:none}
+.sp-ex summary::before{content:'▸ '}
+.sp-ex[open] summary::before{content:'▾ '}
+.sp-sch{display:flex;flex-wrap:wrap;gap:5px;align-items:baseline;margin:7px 0 0;font-size:.82rem}
+.sp-sch b{color:var(--ink-dim);font-weight:500;white-space:nowrap;min-width:4.4em}
+.sp-sch a{font-family:var(--mono);color:var(--ink);text-decoration:none;
+  background:rgba(255,255,255,.08);border-radius:6px;padding:3px 8px}
+.sp-sch a:hover{background:rgba(255,255,255,.28)}
+.sp-open{font-size:.82rem;padding:5px 13px}
+/* 有標到題號的年份格：放寬、標出「第幾題」，一眼看得出哪幾份已定位 */
+.sp-sch a.hasq{background:color-mix(in srgb,var(--sc) 18%,transparent);
+  border:1px solid color-mix(in srgb,var(--sc) 32%,transparent);display:inline-flex;gap:6px;align-items:baseline}
+.sp-sch a.hasq em{font-style:normal;font-size:.72rem;color:var(--sc);font-family:var(--sans)}
+.q-note{font-size:.78rem;color:var(--ink-dim);margin-top:10px;line-height:1.6}
+.q-note b{font-family:var(--mono);color:var(--sc);font-weight:500}
+.sp-vid{display:flex;align-items:baseline;gap:8px;font-size:.74rem;color:var(--ink);text-decoration:none;
+  padding:4px 0;border-top:1px solid rgba(255,255,255,.05)}
+.sp-vid:first-of-type{border-top:0;margin-top:5px}
+.sp-vid b{font-family:var(--mono);font-weight:500;color:var(--dawn);white-space:nowrap}
+.sp-vid i{font-style:normal;font-family:var(--mono);font-size:.66rem;color:var(--ink-dim);margin-left:auto;white-space:nowrap}
+.sp-vid:hover{color:#fff}
+.sp-ex.istudy summary{color:#EFC98A}
+.sp-ep{display:flex;gap:10px;align-items:baseline;font-size:.92rem;color:var(--ink);padding:7px 0;
+  border-top:1px solid rgba(255,255,255,.05);width:100%;text-align:left;background:none;border-left:0;border-right:0;border-bottom:0}
+.sp-ep:first-of-type{border-top:0;margin-top:5px}
+.sp-ep b{font-family:var(--mono);font-weight:500;color:#EFC98A;white-space:nowrap}
+.sp-ep i{font-style:normal;font-family:var(--mono);font-size:.8rem;color:var(--ink-dim);margin-left:auto;white-space:nowrap}
+button.sp-ep{cursor:pointer;border-radius:8px;padding:8px 10px;transition:background .18s ease}
+button.sp-ep:hover{background:rgba(255,255,255,.1)}
+button.sp-ep .pl{color:var(--dawn);font-size:.85rem;flex:none}
+.sp-ep:not(.have) i{opacity:.55}
+/* 離線播放器 */
+.vid-panel{max-width:min(1100px,94vw)}
+.vid-panel h3{font-family:var(--serif);font-size:.95rem;color:var(--dawn);margin:0 0 12px;padding-right:40px;letter-spacing:.04em}
+.vid-panel video{width:100%;max-height:70vh;border-radius:12px;background:#000;display:block}
+#vidFrame{width:100%;aspect-ratio:16/9;max-height:70vh;border:0;border-radius:12px;
+  background:#000;display:block}
+/* display:block 蓋掉 UA 的 [hidden]{display:none}；隱藏規則的權重必須大於等於上面那條，
+   所以 iframe 這條要用 id 選擇器寫（先前用 .vid-panel iframe[hidden] 權重不夠而失效）。 */
+.vid-panel video[hidden]{display:none}
+#vidFrame[hidden]{display:none}
+/* YouTube 內嵌時用它自己的控制項，隱藏我們這排（class 掛在 #vidModal 上） */
+#vidModal.yt .vid-bar{display:none}
+#vidModal.yt .yt-hint{display:block}
+.yt-hint{display:none;font-size:.82rem;color:var(--ink-dim);margin-top:14px}
+.yt-hint b{color:var(--sc);font-family:var(--mono);font-weight:500}
+/* 全螢幕時 max-height:70vh 會把畫面切掉，必須解除並改用 contain 完整顯示 */
+.vid-panel video:fullscreen,.vid-panel video:-webkit-full-screen{
+  max-height:none;width:100%;height:100%;border-radius:0;object-fit:contain;background:#000}
+.vid-resume{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:10px;
+  font-size:.84rem;color:var(--ink-dim)}
+.vid-resume b{color:var(--dawn);font-family:var(--mono);font-weight:500}
+.vid-resume button{font-size:.78rem;padding:5px 13px;color:var(--ink)}
+.vid-bar{display:flex;gap:7px;align-items:center;margin-top:12px;flex-wrap:wrap;
+  font-size:.72rem;color:var(--ink-dim);font-family:var(--mono)}
+.vid-bar .rate{font-size:.72rem;padding:4px 12px;color:var(--ink);font-family:var(--mono)}
+.vid-bar .rate.on{background:rgba(240,201,138,.28);color:#fff}
+/* 控制列：整排併成一條膠囊，內部用細分隔線切開，不再是五顆各自為政的按鈕 */
+.vid-bar{display:flex;align-items:center;gap:14px;margin-top:16px;flex-wrap:wrap}
+.vgrp{display:flex;align-items:center;background:rgba(255,255,255,.06);
+  border:1px solid var(--glass-line);border-radius:999px;overflow:hidden}
+.vbtn{font-family:var(--mono);font-size:.82rem;padding:9px 15px;cursor:pointer;
+  background:none;border:0;color:var(--ink-dim);letter-spacing:.02em;
+  transition:background .16s ease,color .16s ease}
+.vbtn+.vbtn{box-shadow:inset 1px 0 0 var(--glass-line)}
+.vbtn:hover{background:rgba(255,255,255,.12);color:var(--ink)}
+.vbtn.big{font-size:.95rem;padding:8px 19px;color:var(--ink)}
+.vsel{font-family:var(--mono);font-size:.82rem;padding:9px 12px 9px 14px;cursor:pointer;
+  background:rgba(255,255,255,.06);border:1px solid var(--glass-line);border-radius:999px;
+  color:var(--ink);appearance:none;
+  background-image:linear-gradient(45deg,transparent 50%,currentColor 50%),
+                   linear-gradient(135deg,currentColor 50%,transparent 50%);
+  background-position:calc(100% - 15px) 52%,calc(100% - 11px) 52%;
+  background-size:4px 4px,4px 4px;background-repeat:no-repeat;padding-right:30px}
+.vsel option{background:#12151A;color:#fff}
+.vid-left{font-family:var(--mono);font-size:.82rem;color:var(--sc);margin-left:auto;white-space:nowrap}
+.vid-resume{font-size:.78rem;color:var(--ink-dim);white-space:nowrap;display:flex;align-items:center;gap:8px}
+.vid-resume b{color:var(--sc);font-family:var(--mono);font-weight:500}
+.vid-resume button{font-family:var(--sans);font-size:.74rem;padding:5px 12px;border-radius:999px;
+  background:none;border:1px solid var(--glass-line);color:var(--ink-dim);cursor:pointer;
+  transition:background .16s ease,color .16s ease}
+.vid-resume button:hover{background:rgba(255,255,255,.12);color:var(--ink)}
+/* 字幕開關與字幕外觀 */
+#vidSubs .vbtn{border:1px solid var(--glass-line);border-radius:999px;
+  background:color-mix(in srgb,var(--sc) 20%,transparent);color:var(--ink)}
+#vidSubs .vbtn.off{background:rgba(255,255,255,.06);color:var(--ink-dim)}
+/* 字級用 vh：視窗放大字幕才會跟著放大，全螢幕不會變成一行小字 */
+.vid-panel video::cue{background:rgba(0,0,0,.7);color:#fff;
+  font-family:var(--sans);font-size:2.6vh;line-height:1.45}
+.vid-panel video:fullscreen::cue,.vid-panel video:-webkit-full-screen::cue{font-size:3.1vh}
+/* 重點時段的字幕上色（.vtt 內 <c.key> 標記，make_notes.py 產生） */
+.vid-panel video::cue(.key){color:#FFD98A;background:rgba(46,34,6,.78)}
+/* 章節條：讀 .notes.json——段落=章節、底部亮條=重點時段、白線=播放位置 */
+#vidChap{margin-top:14px}
+.chap-strip{position:relative;height:30px;border-radius:9px;overflow:hidden;cursor:pointer;
+  background:rgba(255,255,255,.07);border:1px solid var(--glass-line)}
+.chap-strip .seg{position:absolute;top:0;bottom:0;box-shadow:inset 1px 0 0 rgba(0,0,0,.4)}
+.chap-strip .seg:hover{background:rgba(255,255,255,.15)}
+.chap-strip .seg.cur{background:color-mix(in srgb,var(--sc) 30%,transparent)}
+.chap-strip .hot{position:absolute;bottom:0;height:5px;border-radius:3px;
+  background:var(--dawn);opacity:.9;pointer-events:none}
+.chap-strip .ph{position:absolute;top:0;bottom:0;width:2px;background:#fff;
+  box-shadow:0 0 7px rgba(255,255,255,.9);pointer-events:none}
+.chap-now{display:flex;align-items:center;gap:12px;margin-top:9px;font-size:.86rem;
+  color:var(--ink-dim);flex-wrap:wrap}
+.chap-now b{color:var(--sc);font-weight:500}
+.chap-now .lq{margin-left:auto}
+.chap-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:7px;margin-top:10px}
+.chap-list[hidden]{display:none}   /* display:grid 會蓋掉 UA 的 [hidden]，同坑第三次，必須明寫 */
+.chap-list button{display:flex;gap:9px;align-items:baseline;text-align:left;font-size:.84rem;
+  color:var(--ink);background:rgba(255,255,255,.05);border:1px solid var(--glass-line);
+  border-radius:9px;padding:8px 12px;cursor:pointer;transition:background .16s ease}
+.chap-list button:hover{background:rgba(255,255,255,.13)}
+.chap-list b{font-family:var(--mono);font-weight:500;color:var(--dawn);white-space:nowrap}
+/* 思考地圖面板 */
+#vidMapBtn{border:1px solid var(--glass-line);border-radius:999px;background:rgba(255,255,255,.06)}
+#vidMap{margin-top:20px;border-top:1px solid var(--glass-line);padding-top:16px}
+.map-head{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin:0 0 4px}
+.map-head h4{font-family:var(--serif);font-size:1.05rem;color:var(--dawn);margin:0;letter-spacing:.06em}
+.map-head span{font-size:.76rem;color:var(--ink-dim)}
+.map-sec{font-family:var(--serif);font-size:.92rem;color:var(--sc);letter-spacing:.12em;
+  margin:20px 0 10px;display:flex;align-items:center;gap:10px}
+.map-sec::after{content:'';flex:1;height:1px;background:var(--glass-line)}
+.map-tldr{margin:0;padding-left:1.3em;font-size:.95rem;line-height:1.9}
+.map-card{background:rgba(255,255,255,.05);border:1px solid var(--glass-line);
+  border-radius:13px;padding:14px 18px;margin-top:10px}
+.map-card summary{font-size:1rem;font-weight:600;color:var(--ink);cursor:pointer;user-select:none}
+.map-md{font-size:.93rem;line-height:1.95;color:var(--ink)}
+.map-md p{margin:.5em 0}
+.map-md ul,.map-md ol{padding-left:1.4em;margin:.4em 0}
+.map-md code{font-family:var(--mono);font-size:.85em;background:rgba(255,255,255,.09);
+  border-radius:5px;padding:1px 6px}
+.map-md .katex{font-size:1.02em}
+.map-md .katex-display{overflow-x:auto;padding:4px 0}
+.mermaid{display:flex;justify-content:center;margin:10px 0;overflow-x:auto}
+.mermaid svg{max-width:100%}
+.map-svg{display:flex;justify-content:center;margin:10px 0;color:var(--ink)}
+.map-svg svg{max-width:100%;height:auto}
+.t-jump{font-family:var(--mono);font-size:.8rem;color:var(--sc);cursor:pointer;white-space:nowrap;
+  background:color-mix(in srgb,var(--sc) 16%,transparent);
+  border:1px solid color-mix(in srgb,var(--sc) 30%,transparent);
+  border-radius:999px;padding:4px 13px;transition:background .16s ease}
+.t-jump:hover{background:color-mix(in srgb,var(--sc) 30%,transparent)}
+.map-ex-h{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.map-tag{font-size:.76rem;color:var(--ink);background:rgba(255,255,255,.09);
+  border-radius:999px;padding:4px 12px}
+.map-trap{font-size:.86rem;color:#E8A47C;margin-top:8px;line-height:1.7}
+.map-snap{margin:10px 0 0}
+.map-snap img{max-width:100%;border-radius:10px;border:1px solid var(--glass-line);display:block}
+.map-snap figcaption{font-size:.76rem;color:var(--ink-dim);margin-top:5px;
+  display:flex;gap:8px;align-items:center}
+.snap-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;margin-top:10px}
+/* 逐字稿全文搜尋 */
+.wm-srch{position:relative;flex:1;min-width:200px;max-width:380px}
+.wm-srch input{width:100%;font-family:var(--sans);font-size:.92rem;padding:10px 18px;
+  border-radius:999px;border:1px solid var(--glass-line);
+  background:rgba(255,255,255,.06);color:var(--ink);outline:none}
+.wm-srch input:focus{border-color:color-mix(in srgb,var(--sc) 55%,transparent)}
+.wm-srch input::placeholder{color:var(--ink-dim)}
+.srch-pop{position:absolute;top:calc(100% + 10px);left:0;width:min(560px,calc(94vw - 40px));
+  z-index:80;max-height:56vh;overflow:auto;border-radius:16px;padding:10px}
+.srch-hd{font-size:.74rem;color:var(--ink-dim);padding:4px 10px 8px}
+.srch-row{display:flex;gap:10px;align-items:baseline;width:100%;text-align:left;font-size:.86rem;
+  color:var(--ink);background:none;border:0;border-top:1px solid rgba(255,255,255,.06);
+  padding:9px 10px;cursor:pointer;border-radius:8px}
+.srch-row:hover{background:rgba(255,255,255,.1)}
+.srch-row b{font-family:var(--mono);font-weight:500;color:var(--dawn);white-space:nowrap;font-size:.78rem}
+.srch-row i{font-style:normal;font-family:var(--mono);color:var(--sc);white-space:nowrap;font-size:.78rem}
+.srch-row span{color:var(--ink-dim);line-height:1.6}
+.srch-row mark{background:none;color:var(--sc);font-weight:600}
+/* 影片庫 */
+.lib{padding:22px 24px}
+.lib-grp{margin-top:18px}
+.lib-gh{font-family:var(--serif);font-weight:600;font-size:.95rem;color:var(--dawn);letter-spacing:.1em;
+  margin:0 0 10px;padding-bottom:6px;border-bottom:1px solid var(--glass-line);
+  display:flex;align-items:baseline;gap:10px}
+.lib-gh span{font-family:var(--mono);font-size:.68rem;color:var(--ink-dim);letter-spacing:0;margin-left:auto}
+.lib-ser{border-top:1px solid rgba(255,255,255,.06)}
+.lib-ser:first-of-type{border-top:0}
+.lib-head{display:flex;align-items:center;gap:12px;padding:9px 0;cursor:pointer;user-select:none;font-size:.8rem}
+.lib-head b{font-weight:500;color:var(--ink);white-space:nowrap}
+.lib-head .lib-meta{font-family:var(--mono);font-size:.68rem;color:var(--ink-dim);white-space:nowrap}
+.lib-head .tk-bar{flex:1;min-width:60px;max-width:240px}
+.lib-head .lib-val{font-family:var(--mono);font-size:.68rem;color:var(--ink-dim);white-space:nowrap}
+.lib-ser.open .tk-caret{transform:rotate(90deg)}
+.lib-body{display:grid;grid-template-rows:0fr;transition:grid-template-rows .4s cubic-bezier(.2,.7,.2,1)}
+.lib-ser.open .lib-body{grid-template-rows:1fr}
+.lib-inner{overflow:hidden;min-height:0}
+.lib-inner .sp-ep{padding-left:6px}
+a.sp-ep{text-decoration:none}
+.sp-open{display:inline-block;margin-top:7px;font-size:.7rem;font-family:var(--mono);color:var(--ink);
+  text-decoration:none;background:rgba(240,201,138,.16);border-radius:6px;padding:3px 10px}
+.sp-open:hover{background:rgba(240,201,138,.32)}
+.sp-p2{margin-top:16px;border-top:1px solid var(--glass-line);padding-top:10px}
+.sp-p2>summary{font-size:.78rem;color:var(--ink-dim);cursor:pointer;list-style:none;user-select:none}
+.sp-p2>summary::-webkit-details-marker{display:none}
+.sp-p2>summary::before{content:'▸ ';font-size:.7rem}
+.sp-p2[open]>summary::before{content:'▾ '}
+.sp-p2>summary b{color:var(--ink);font-weight:500}
+.sp-final{margin-top:12px;font-size:.76rem;color:var(--dawn)}
+.sp-final a{color:var(--dawn);text-decoration:underline;text-underline-offset:3px}
+.sp-def{margin-top:10px;font-size:.68rem;color:var(--ink-dim);line-height:1.6}
+
+/* 科目分析（學校卡內展開） */
+.ana{margin-top:10px;padding:16px 18px;border-radius:14px;
+  background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1)}
+.ana .upd{font-family:var(--mono);font-size:.68rem;color:var(--ink-dim);margin-bottom:8px}
+.ana-scroll{overflow-x:auto}
+.ana table{border-collapse:collapse;width:100%;min-width:560px;font-size:.74rem;margin:8px 0}
+.ana th,.ana td{padding:4px 6px;text-align:center;border-bottom:1px solid rgba(255,255,255,.08)}
+.ana th{font-family:var(--mono);font-weight:400;color:var(--ink-dim)}
+.ana td.n{text-align:left;white-space:nowrap}
+.heat{display:inline-block;min-width:20px;border-radius:5px;padding:1px 4px;font-family:var(--mono);font-size:.68rem}
+.ana ul{margin:8px 0 0 1.2em;font-size:.78rem;color:var(--ink-dim)}
+.ana ul li{margin-bottom:4px}
+.ana ul li b{color:var(--ink);font-weight:500}
+.ana .trend{font-size:.78rem;color:var(--ink-dim);margin-top:8px;border-top:1px solid var(--glass-line);padding-top:8px}
+.pending{font-size:.76rem;color:var(--ink-dim);margin-top:8px}
+
+/* ============ 角落設定面板 ============ */
+.setbtn{position:fixed;right:18px;bottom:18px;z-index:80;width:46px;height:46px;padding:0;
+  font-size:1.1rem;line-height:44px;text-align:center;color:var(--ink);border-radius:50%}
+.setpanel{position:fixed;right:18px;bottom:74px;z-index:80;width:min(340px,calc(100vw - 36px));
+  max-height:min(74vh,620px);overflow:auto;padding:20px 22px 24px;
+  /* 面板要壓在任何背景上都讀得到，不能只靠 7% 白玻璃 */
+  background:rgba(10,13,18,.88);
+  animation:setin .32s cubic-bezier(.22,.61,.36,1) forwards}
+.setpanel[hidden]{display:none}
+@keyframes setin{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){.setpanel{animation:none}}
+.setpanel h3{font-weight:600;font-size:1rem;letter-spacing:-.01em;margin-bottom:2px}
+.setpanel .note{font-size:.72rem;color:var(--ink-dim);margin-bottom:14px}
+.setpanel h4{font-weight:500;font-size:.76rem;color:var(--ink-dim);letter-spacing:.1em;
+  margin:18px 0 8px;text-transform:uppercase}
+.setpanel .pills{gap:7px}
+.setpanel .pill{font-size:.74rem;padding:5px 14px;color:var(--ink)}
+.setpanel .pill i{font-style:normal;margin-left:7px;opacity:.5;font-size:.7em}
+.setpanel .pill i:hover{opacity:1;color:var(--ember)}
+.setrow{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}
+.setpanel input[type=text],.setpanel input[type=date]{flex:1;min-width:0;
+  background:rgba(255,255,255,.07);border:1px solid var(--glass-line);color:var(--ink);
+  border-radius:10px;padding:7px 11px;font-family:var(--sans);font-size:.78rem;color-scheme:dark}
+.setpanel input#bgName{flex:0 0 84px}
+.setpanel .setrow button{font-size:.76rem;padding:7px 16px;color:var(--ink)}
+.setfile{display:block;font-size:.72rem;color:var(--ink-dim);margin-top:9px}
+.setfile input{display:block;margin-top:5px;font-size:.7rem;max-width:100%;color:var(--ink-dim)}
+.setmsg{font-size:.72rem;color:var(--ember);margin-top:8px;min-height:1.2em}
+
+footer{padding:60px 0 40px;color:rgba(255,255,255,.4);font-size:.75rem;text-align:center}
+.err{padding:30px;color:#F2B8A0}
+
+/* ============ !Boring 版面風格（data-skin=boring）· 目前套用於進度追蹤器 ============ */
+:root{--bo-red:#FF3B30;--bo-ink:#111;--bo-dim:#6b6b6b;--bo-line:#e7e7e7;
+  --bo-grotesk:'Space Grotesk','Helvetica Neue',Arial,sans-serif;
+  --bo-mono:'JetBrains Mono',ui-monospace,'SF Mono',monospace}
+.tk-head{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:4px}
+.skin-toggle{font-size:.72rem;letter-spacing:.06em;padding:8px 16px;white-space:nowrap;color:var(--ink);font-family:var(--sans)}
+body[data-skin=boring][data-mode=study]{background:#fff}
+body[data-skin=boring][data-mode=study] .scene{opacity:0}
+.bo-grain{display:none}
+/* 紙張顆粒：頻率調低、透明度減半，原本 0.85 的高頻雜訊在高解析度螢幕上就是一層像素點 */
+body[data-skin=boring][data-mode=study] .bo-grain{display:block;position:fixed;inset:0;z-index:2;pointer-events:none;
+  opacity:.14;mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.55' numOctaves='3' stitchTiles='stitch'/%3E%3CfeGaussianBlur stdDeviation='0.4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+body[data-skin=boring][data-mode=study] header.top{background:rgba(255,255,255,.72);border-color:var(--bo-line);
+  text-shadow:none;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+body[data-skin=boring][data-mode=study] header.top .brand,
+body[data-skin=boring][data-mode=study] header.top .lq{color:var(--bo-ink)}
+body[data-skin=boring] #study{color:var(--bo-ink)}
+body[data-skin=boring] #study h2{font-family:var(--bo-grotesk);font-weight:700;color:var(--bo-ink);
+  font-size:clamp(2.4rem,6vw,3.8rem);letter-spacing:-.03em;line-height:.96}
+body[data-skin=boring] #study .sec-note{font-family:var(--bo-grotesk);color:#333;font-size:1.05rem;line-height:1.5}
+body[data-skin=boring] #study .sec-note b{color:var(--bo-red);font-weight:700}
+body[data-skin=boring] .skin-toggle{background:var(--bo-ink);color:#fff;border:none;border-radius:999px;
+  font-family:var(--bo-mono);text-transform:uppercase;box-shadow:none;backdrop-filter:none}
+body[data-skin=boring] #study .tk-top,body[data-skin=boring] #study .panel,body[data-skin=boring] #study .tk-card{
+  background:#fff;border:1px solid var(--bo-line);box-shadow:0 2px 0 var(--bo-line);
+  backdrop-filter:none;-webkit-backdrop-filter:none;border-radius:14px}
+body[data-skin=boring] #study .panel h3,body[data-skin=boring] .tk-gh{font-family:var(--bo-grotesk);color:var(--bo-ink);font-weight:700}
+body[data-skin=boring] .tk-gh{border-bottom:2px solid var(--bo-ink)}
+body[data-skin=boring] .tk-sub{font-family:var(--bo-mono);text-transform:uppercase;font-size:.62rem;letter-spacing:.1em;color:var(--bo-dim)}
+body[data-skin=boring] .tk-stat i{font-family:var(--bo-mono);text-transform:uppercase;color:var(--bo-dim);font-size:.62rem;letter-spacing:.12em}
+body[data-skin=boring] .tk-stat b{font-family:var(--bo-grotesk);color:var(--bo-ink)}
+body[data-skin=boring] .tk-stat.hi b{color:var(--bo-red);font-size:2rem}
+body[data-skin=boring] .tk-top.behind .tk-stat.hi b{color:var(--bo-red)}
+body[data-skin=boring] .tk-done-all{color:var(--bo-red);font-family:var(--bo-grotesk);font-weight:700}
+body[data-skin=boring] .tk-date input{background:#fff;border:1px solid var(--bo-line);color:var(--bo-ink);
+  color-scheme:light;font-family:var(--bo-mono)}
+body[data-skin=boring] .tk-wrow{border-top-color:var(--bo-line)}
+body[data-skin=boring] .tk-wrow .nm{font-family:var(--bo-grotesk);font-weight:500;color:var(--bo-ink)}
+body[data-skin=boring] .tk-wrow .q{color:var(--bo-dim)}
+body[data-skin=boring] .tk-wrow .q b{color:var(--bo-ink);font-family:var(--bo-mono)}
+body[data-skin=boring] .tk-wrow.behind .q b{color:var(--bo-red)}
+body[data-skin=boring] .tk-wrow .wd{font-family:var(--bo-mono);color:var(--bo-dim)}
+body[data-skin=boring] .tk-bar{background:#ececec}
+body[data-skin=boring] .tk-bar i{background:var(--bo-ink)}
+body[data-skin=boring] .tk-wrow.behind .tk-bar i{background:var(--bo-red)}
+body[data-skin=boring] .tk-cn b{font-family:var(--bo-grotesk);font-weight:700;color:var(--bo-ink)}
+body[data-skin=boring] .tk-cn .ok{color:var(--bo-red);font-family:var(--bo-mono);font-size:.62rem;text-transform:uppercase}
+body[data-skin=boring] .tk-cmeta .val{font-family:var(--bo-mono);color:var(--bo-dim)}
+body[data-skin=boring] .tk-caret,body[data-skin=boring] .tk-x{color:var(--bo-dim)}
+body[data-skin=boring] .tk-x:hover{color:var(--bo-red);border-color:var(--bo-red)}
+body[data-skin=boring] .tk-sess{border-top-color:#f0f0f0}
+body[data-skin=boring] .tk-sess .sn{font-family:var(--bo-mono);color:var(--bo-red)}
+body[data-skin=boring] .tk-sess .st{color:#222}
+body[data-skin=boring] .tk-sess.done .sn,body[data-skin=boring] .tk-sess.done .st{color:#bbb}
+body[data-skin=boring] .tk-sess input{accent-color:var(--bo-red)}
+body[data-skin=boring] .tk-add select,body[data-skin=boring] .tk-add input,body[data-skin=boring] .tk-add textarea{
+  background:#fff;border:1px solid var(--bo-line);color:var(--bo-ink);font-family:var(--bo-mono)}
+body[data-skin=boring] #study .lq.gold{background:var(--bo-ink);color:#fff!important;border:none;border-radius:999px;
+  box-shadow:none;backdrop-filter:none;font-family:var(--bo-mono);text-transform:uppercase;letter-spacing:.06em}
+body[data-skin=boring] #study .lq.gold:hover{background:var(--bo-red)}
+body[data-skin=boring] .tk-hint,body[data-skin=boring] .empty,body[data-skin=boring] .tk-file{color:var(--bo-dim)}
+/* 衝刺看板 boring 皮膚 */
+body[data-skin=boring] .sp-note,body[data-skin=boring] .sp-wh,body[data-skin=boring] .sp-hrs,
+body[data-skin=boring] .sp-def,body[data-skin=boring] .sp-ex summary,body[data-skin=boring] .sp-p2>summary,
+body[data-skin=boring] .sp-sch b{color:var(--bo-dim)}
+body[data-skin=boring] .sp-nm,body[data-skin=boring] .sp-note b,body[data-skin=boring] .sp-wh b,
+body[data-skin=boring] .sp-p2>summary b{color:var(--bo-ink)}
+body[data-skin=boring] .sp-week,body[data-skin=boring] .sp-p2{border-top-color:var(--bo-line)}
+body[data-skin=boring] .sp-ch{border-top-color:#f0f0f0}
+body[data-skin=boring] .sp-week.now .sp-wh b,body[data-skin=boring] .sp-week.now .sp-wh::after,
+body[data-skin=boring] .sp-final,body[data-skin=boring] .sp-final a{color:var(--bo-red)}
+body[data-skin=boring] .sp-row input{accent-color:var(--bo-red)}
+body[data-skin=boring] .sp-ch.done .sp-nm{color:#bbb}
+body[data-skin=boring] .sp-tag{background:#f2f2f2;color:var(--bo-ink);font-family:var(--bo-mono)}
+body[data-skin=boring] .sp-vid{color:var(--bo-ink);border-top-color:#f0f0f0}
+body[data-skin=boring] .sp-vid b{color:var(--bo-red)}
+body[data-skin=boring] .sp-vid i{color:var(--bo-dim)}
+body[data-skin=boring] .sp-vid:hover{color:var(--bo-red)}
+body[data-skin=boring] .sp-ex.istudy summary,body[data-skin=boring] .sp-ep b{color:#b8791f}
+body[data-skin=boring] .sp-ep{color:var(--bo-ink);border-top-color:#f0f0f0}
+body[data-skin=boring] .sp-open{background:#f2f2f2;color:var(--bo-ink)}
+body[data-skin=boring] .sp-open:hover{background:var(--bo-ink);color:#fff}
+body[data-skin=boring] .lib-gh{color:var(--bo-ink);border-bottom:2px solid var(--bo-ink)}
+body[data-skin=boring] .lib-gh span,body[data-skin=boring] .lib-head .lib-meta,
+body[data-skin=boring] .lib-head .lib-val{color:var(--bo-dim)}
+body[data-skin=boring] .lib-head b{color:var(--bo-ink)}
+body[data-skin=boring] .lib-ser{border-top-color:var(--bo-line)}
+body[data-skin=boring] button.sp-ep:hover{background:#f2f2f2}
+body[data-skin=boring] .sp-sch a{background:#f2f2f2;color:var(--bo-ink)}
+body[data-skin=boring] .sp-sch a:hover{background:var(--bo-ink);color:#fff}
+</style>
+</head>
+<body data-mode="home" data-theme="graph" data-wx="clear">
+
+<div class="scene" aria-hidden="true">
+  <div class="sky"></div>
+  <video class="bgvid" loop muted playsinline preload="auto"></video>
+  <div class="cbg"></div>
+  <div class="photo"></div><div class="stars"></div>
+  <div class="mat" aria-hidden="true">
+    <span class="m-grid"></span><span class="m-glow"></span>
+    <span class="m-sweep"></span><span class="m-grain"></span>
+  </div>
+  <div class="sun2"></div><div class="moon"></div>
+  <div class="aurora"><i></i><i></i><i></i></div>
+  <div class="meteor m1"></div><div class="meteor m2"></div><div class="meteor m3"></div>
+  <!-- 山稜 -->
+  <svg class="t-mtn r3" viewBox="0 0 1440 320" preserveAspectRatio="none"><path fill="var(--l3)" d="M0,240 C180,140 300,220 460,170 C620,120 700,200 880,150 C1060,100 1180,190 1440,130 L1440,320 L0,320 Z"/></svg>
+  <svg class="t-mtn r2" viewBox="0 0 1440 320" preserveAspectRatio="none"><path fill="var(--l2)" d="M0,270 C200,190 340,250 520,210 C700,170 820,240 1000,200 C1180,160 1300,230 1440,190 L1440,320 L0,320 Z"/></svg>
+  <!-- 海岸（波浪內層飄移） -->
+  <svg class="t-sea r3" viewBox="0 0 1440 320" preserveAspectRatio="none"><g class="drift"><path fill="var(--l3)" d="M-60,196 C60,176 180,214 300,199 C420,184 540,218 660,203 C780,188 900,222 1020,207 C1140,192 1260,220 1380,205 C1440,198 1500,208 1500,208 L1500,320 L-60,320 Z"/></g></svg>
+  <svg class="t-sea r2" viewBox="0 0 1440 320" preserveAspectRatio="none"><g class="drift"><path fill="var(--l2)" d="M-60,238 C80,222 200,252 340,240 C480,228 600,258 740,246 C880,234 1000,262 1140,250 C1280,238 1380,258 1500,248 L1500,320 L-60,320 Z"/></g></svg>
+  <svg class="t-sea r1" viewBox="0 0 1440 320" preserveAspectRatio="none"><g class="drift"><path fill="var(--l1)" d="M-60,276 C100,264 240,288 400,278 C560,268 700,292 860,282 C1020,272 1160,294 1320,284 C1400,280 1500,288 1500,288 L1500,320 L-60,320 Z"/></g></svg>
+  <!-- 森林（鋸齒樹冠線） -->
+  <svg class="t-for r3" viewBox="0 0 1440 320" preserveAspectRatio="none"><path fill="var(--l3)" d="M0,230 C180,190 300,225 460,200 C640,175 780,215 960,195 C1140,175 1300,210 1440,190 L1440,320 L0,320 Z"/></svg>
+  <svg class="t-for r2" viewBox="0 0 1440 320" preserveAspectRatio="none"><path fill="var(--l2)" d="M0,260 L60,230 L110,262 L170,225 L230,265 L290,232 L350,268 L420,228 L480,266 L560,235 L620,270 L700,238 L770,272 L850,240 L920,274 L1000,242 L1080,276 L1160,244 L1240,278 L1320,246 L1440,270 L1440,320 L0,320 Z"/></svg>
+  <svg class="t-for r1" viewBox="0 0 1440 320" preserveAspectRatio="none"><path fill="var(--l1)" d="M0,305 L70,255 L130,306 L210,250 L280,308 L370,258 L450,310 L540,255 L620,308 L720,260 L800,312 L900,258 L990,310 L1090,262 L1180,312 L1290,258 L1380,310 L1440,280 L1440,320 L0,320 Z"/></svg>
+  <div class="mist"></div>
+  <svg class="t-mtn r1" viewBox="0 0 1440 320" preserveAspectRatio="none"><path fill="var(--l1)" d="M0,300 C240,240 380,290 560,262 C740,234 900,292 1080,258 C1260,224 1360,280 1440,252 L1440,320 L0,320 Z"/></svg>
+  <!-- 天氣層 -->
+  <div class="wx clouds"><i></i><i></i><i></i></div>
+  <canvas class="wx rain" id="rainCv"></canvas>
+  <div class="wx snow"></div>
+  <div class="wx fogL"><i></i><i></i></div>
+  <div class="wx flash"></div>
+</div>
+
+<!-- ============ 待機畫面 ============ -->
+<div id="home">
+  <div class="eyebrow boot d1">FEB · GRAD EXAM HUB</div>
+  <div class="clock boot d2" id="clock">--:--</div>
+  <div class="date boot d3" id="homeDate"></div>
+  <div class="count boot d3" id="homeCount"></div>
+  <div class="wxline boot d3" id="wxBadge"></div>
+  <div class="modes boot d4">
+    <button class="lq gold" id="btnExam"><b>考古題</b><i>簡章・題庫・選校比對</i></button>
+    <button class="lq ember" id="btnStudy"><b>讀書</b><i>進度日程・待辦・倒數</i></button>
+  </div>
+  <div class="themes boot d5" id="themePills"></div>
+  <div class="hint boot d5">二月見。</div>
+</div>
+
+<header class="top glass boot">
+  <button class="brand" id="brandHome" title="回待機畫面">Feb<em>.</em></button>
+  <nav class="menu" id="menu">
+    <a class="lq gold seclink only-exam" href="#overview">總覽</a>
+    <a class="lq mist2 seclink only-exam" href="#finder">反向選校</a>
+    <button class="lq ember only-exam" id="toStudy">讀書模式</button>
+    <button class="lq gold only-study" id="toExam">考古題模式</button>
+  </nav>
+</header>
+
+<div class="wrap">
+  <section class="hero">
+    <div class="eyebrow boot d1">電機控制組 · 116 學年度</div>
+    <h1 class="boot d2">八校<span>總覽</span></h1>
+    <p class="sub boot d3">台大、清大、陽明交大、中央、中山、成大、台科大、北科大——電機控制組的簡章、推甄與考試資訊、近十年考古題與精準考科比對，整合在這一頁。</p>
+    <div class="stats boot d4" id="stats"></div>
+  </section>
+
+  <section id="overview" class="reveal">
+    <h2>總覽</h2>
+    <p class="sec-note">八校一張表：報名日、筆試日、考科、免筆試路徑、題庫與分析進度。點<b>學校名稱</b>開該校完整資料：系所組考科、名額審查、十年題庫、各科章節出題分析。</p>
+    <div class="ov-wrap"><table class="ov"><thead><tr>
+      <th>學校</th><th>報名</th><th>筆試</th><th>筆試科目</th><th>免筆試</th><th>題庫</th><th>分析</th>
+    </tr></thead><tbody id="ovBody"></tbody></table></div>
+    <p class="ov-note">日程與考科逐字核對自 115 學年度官方簡章；116 簡章公告後（每年 10–11 月）需再核對一次。</p>
+    <h3 class="agg-h">共同必考章節</h3>
+    <p class="agg-note">已完成的 NotebookLM 分析跨校彙整，隨進度自動更新。</p>
+    <div class="agg" id="aggArea"></div>
+  </section>
+
+  <div id="schoolModal" class="modal" hidden>
+    <div class="modal-back" data-close></div>
+    <div class="modal-panel glass" role="dialog" aria-modal="true">
+      <button class="modal-x lq" type="button" data-close aria-label="關閉">✕</button>
+      <div class="modal-body school" id="modalBody"></div>
+    </div>
+  </div>
+
+  <section id="finder" class="reveal acc">
+    <div class="sec-head" data-acc><h2>反向選校</h2><span class="hintline">勾強項 → 看哪裡能考</span><span class="arrow">▸</span></div>
+    <div class="sec-body"><div class="sec-inner">
+      <p class="sec-note">勾選你的<b>強項科目</b>（工數可細到章節），即時比對各校筆試要求。資料來源是 115 簡章逐字核對的考科組合，含「二選一」選考規則與各校工數卷別範圍。</p>
+      <div class="glass finder">
+        <h4>我的強項科目</h4>
+        <div class="pills" id="subjPills"></div>
+        <h4>工程數學章節（勾了「工程數學」後細選）</h4>
+        <div class="pills" id="chapPills"></div>
+        <div class="verdicts" id="verdicts"></div>
+        <div class="disclaimer">⚠ 章節比對依據各校簡章載明範圍與考卷實測；「各校特別愛出的章節」由考題分析（NotebookLM）完成後回填，屆時此區會加上出題頻率權重。標示「範圍未載明」者以歷年考卷為準。</div>
+      </div>
+    </div></div>
+  </section>
+
+  <!-- ============ 讀書模式：進度追蹤器 ============ -->
+  <section id="study">
+    <div class="tk-head">
+      <h2>讀書模式</h2>
+      <button class="skin-toggle lq mist2" id="skinToggle" type="button" title="切換版面風格：深色氛圍 ⇄ !Boring 白"></button>
+    </div>
+    <p class="sec-note">左邊選章節，右邊出材料——該看的集數、該寫的考卷，一次到位。章節旁的十格條是<b>十年出題分佈</b>，亮得越多代表越常考。切到<b>影片庫</b>可以看所有課程。</p>
+
+    <div class="wm" id="wm" hidden>
+      <div class="wm-bar glass" id="wmBar"></div>
+      <div class="wm-body">
+        <div class="wm-list glass" id="wmList"></div>
+        <div class="wm-detail glass" id="wmDetail"></div>
+      </div>
+    </div>
+  </section>
+
+  <footer id="foot"></footer>
+</div>
+
+<div class="bo-grain" aria-hidden="true"></div>
+<div id="wipe" aria-hidden="true"></div>
+
+<!-- ============ 角落設定 ============ -->
+<button class="setbtn lq mist2" id="setBtn" type="button" aria-label="設定" aria-expanded="false">⚙</button>
+<div class="setpanel glass" id="setPanel" hidden>
+  <h3>設定</h3>
+  <p class="note">全部存在這台電腦的瀏覽器裡</p>
+
+  <h4>背景</h4>
+  <div class="pills" id="bgPills"></div>
+  <div class="setrow">
+    <input type="text" id="bgUrl" placeholder="影片或圖片網址／assets/xxx.mp4">
+    <input type="text" id="bgName" placeholder="名稱">
+    <button class="lq gold" id="bgAdd" type="button">新增</button>
+  </div>
+  <label class="setfile">或從電腦挑一張圖片（存進瀏覽器，上限 1.5MB）
+    <input type="file" id="bgFile" accept="image/*">
+  </label>
+  <p class="setmsg" id="bgMsg"></p>
+
+  <h4>晝夜</h4>
+  <div class="pills" id="dayPills">
+    <button class="pill lq mist2" data-day="auto">自動</button>
+    <button class="pill lq mist2" data-day="day">白天</button>
+    <button class="pill lq mist2" data-day="night">夜晚</button>
+  </div>
+
+  <h4>天氣</h4>
+  <div class="pills" id="wxPills">
+    <button class="pill lq mist2" data-wxset="auto">自動</button>
+    <button class="pill lq mist2" data-wxset="clear">晴</button>
+    <button class="pill lq mist2" data-wxset="cloud">雲</button>
+    <button class="pill lq mist2" data-wxset="rain">雨</button>
+    <button class="pill lq mist2" data-wxset="snow">雪</button>
+    <button class="pill lq mist2" data-wxset="fog">霧</button>
+    <button class="pill lq mist2" data-wxset="storm">雷雨</button>
+  </div>
+
+  <h4>版面風格</h4>
+  <div class="pills" id="skinPills">
+    <button class="pill lq mist2" data-skinset="ambient">氛圍</button>
+    <button class="pill lq mist2" data-skinset="boring">!Boring 白</button>
+  </div>
+
+  <h4>筆試日（倒數目標）</h4>
+  <div class="setrow"><input type="date" id="examDate"></div>
+</div>
+
+<script>
+const YEARS = [106,107,108,109,110,111,112,113,114,115];
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+let DATA=null, INDEX=null, SPRINT_PLAN=null, VIDEOS=null, LOCAL={};
+const state = { subjects:new Set(), chapters:new Set() };
+
+/* ============ 模式切換（液態轉場） ============ */
+function setMode(m){
+  document.body.dataset.mode = m;
+  if(m!=='home') scrollTo({top:0});
+}
+function wipeTo(fn){
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches){ fn(); return; }
+  const w=document.getElementById('wipe');
+  w.classList.remove('go'); void w.offsetWidth; w.classList.add('go');
+  setTimeout(fn,480);
+  setTimeout(()=>w.classList.remove('go'),1150);
+}
+function switchMode(m){ wipeTo(()=>setMode(m)); }
+document.getElementById('btnExam').onclick = ()=>switchMode('exam');
+document.getElementById('btnStudy').onclick = ()=>switchMode('study');
+document.getElementById('toStudy').onclick = ()=>switchMode('study');
+document.getElementById('toExam').onclick = ()=>switchMode('exam');
+document.getElementById('brandHome').onclick = ()=>switchMode('home');
+
+/* ============ 收合區塊（一次只開一個）＋點擊液爆 ============ */
+function openSec(sec){
+  document.querySelectorAll('section.acc.open').forEach(s=>s!==sec&&s.classList.remove('open'));
+  if(sec) sec.classList.add('open');
+}
+document.addEventListener('click',e=>{
+  if(e.target.closest('[data-close]')){ closeSchool(); return; }
+  const row=e.target.closest('#ovBody [data-open]');
+  if(row){ openSchool(row.dataset.open); return; }
+  const h=e.target.closest('[data-acc]');
+  if(h){
+    const sec=h.closest('section');
+    sec.classList.contains('open') ? sec.classList.remove('open') : openSec(sec);
+  }
+  const a=e.target.closest('a.seclink, a[href^="#sc-"]');
+  if(a){
+    const sec=document.querySelector(a.getAttribute('href'));
+    if(sec&&sec.classList.contains('acc')) openSec(sec);
+  }
+  // 液爆：所有 liquid 元件點擊時波紋圈＋飛濺液滴
+  const b=e.target.closest('.lq');
+  if(!b||matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const burst=document.createElement('span'); burst.className='burst';
+  burst.style.left=e.clientX+'px'; burst.style.top=e.clientY+'px';
+  const col=getComputedStyle(b).getPropertyValue('--lq-color').trim();
+  if(col) burst.style.setProperty('--bc',col);
+  for(let i=0;i<8;i++){
+    const d=document.createElement('i');
+    const ang=Math.random()*Math.PI*2, v=28+Math.random()*50;
+    d.style.setProperty('--dx',Math.cos(ang)*v+'px');
+    d.style.setProperty('--dy',Math.sin(ang)*v-34+'px');
+    d.style.animationDelay=(Math.random()*.07)+'s';
+    burst.appendChild(d);
+  }
+  document.body.appendChild(burst);
+  setTimeout(()=>burst.remove(),950);
+});
+
+/* ============ 風景風格＋即時天氣（Open-Meteo，免金鑰） ============ */
+const PHOTO_THEMES=['peaks','village','valley','lake'];
+const PORTIVA_MP4='https://cdn.sceneai.art/Hero%20section%20video%20file%20(2)/13c2a27f-30ac-44f1-866d-94fca9c614d7.mp4';
+/* 2026-08-17：照片／影片背景全數移除（免費圖庫照片放大後質感會塌），
+   只留程序化材質——飽和度提高、流動更明顯，走青春活潑路線。 */
+const BUILTIN_BG=[['graph','方格紙'],['vellum','描圖紙'],['terrazzo','水磨石'],
+  ['blueprint','藍曬圖'],['chalk','黑板'],['onyx','曜黑']];
+const MAT_BG=new Set(BUILTIN_BG.map(b=>b[0]));
+const LIGHT_BG=new Set(['graph','vellum','terrazzo']);   // 這幾款要翻成深色文字
+const readJSON=(k,d)=>{try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}};
+const customBgs=()=>readJSON('feb-bg',[]);
+const curBg=()=>localStorage.getItem('feb-theme')||'graph';
+/* 副檔名判型；認不出來就當圖片 */
+const bgTypeOf=u=>/\.(mp4|webm|ogv|mov|m4v)(\?|#|$)/i.test(u)?'video':'image';
+/* 只收得進 <video src> 或 CSS url() 的來源：站內相對路徑、http(s)、data:image */
+const bgUrlOk=u=>/^(https?:\/\/|data:image\/|[.\w][^:]*$)/i.test(u.trim());
+
+function applyTheme(t){
+  const bg=customBgs().find(b=>b.id===t);
+  const isVid=t==='portiva'||(bg&&bg.type==='video');
+  const isImg=!!(bg&&bg.type==='image');
+  document.body.dataset.theme=bg?'custom':t;
+  document.body.classList.toggle('mat-on',MAT_BG.has(t));
+  document.body.classList.toggle('lt',LIGHT_BG.has(t));
+  document.body.classList.toggle('swiss',PHOTO_THEMES.includes(t));
+  document.body.classList.toggle('media',isVid||isImg);
+  document.body.classList.toggle('vid-on',isVid);
+  document.body.classList.toggle('img-on',isImg);
+  const v=document.querySelector('.bgvid'), c=document.querySelector('.cbg');
+  c.style.backgroundImage=isImg?`url("${bg.url.replace(/"/g,'%22')}")`:'';
+  if(!isVid){ v.pause(); v.removeAttribute('src'); v.load(); return; }
+  const src=t==='portiva'?PORTIVA_MP4:bg.url;
+  if(v.getAttribute('src')!==src){ v.setAttribute('src',src); v.load(); }
+  // 使用者要求減少動態時定格在第一幀
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches) v.pause();
+  else v.play().catch(()=>{});
+}
+function bgPills(del){
+  const list=[...BUILTIN_BG.map(([id,name])=>({id,name,builtin:1})),...customBgs()], cur=curBg();
+  return list.map(b=>`<button class="pill lq mist2${b.id===cur?' on':''}" data-theme="${esc(b.id)}">`
+    +esc(b.name)+(del&&!b.builtin?`<i data-del="${esc(b.id)}" title="刪除">✕</i>`:'')+'</button>').join('');
+}
+function renderBgs(){
+  const a=document.getElementById('themePills'), b=document.getElementById('bgPills');
+  if(a) a.innerHTML=bgPills(false);
+  if(b) b.innerHTML=bgPills(true);
+}
+function selectBg(id){ localStorage.setItem('feb-theme',id); applyTheme(id); renderBgs(); }
+function initTheme(){ applyTheme(curBg()); renderBgs(); }
+/* 背景膠囊只在這兩個容器裡認（body 自己也有 data-theme，全域 closest 會誤中） */
+document.addEventListener('click',e=>{
+  const d=e.target.closest('#bgPills [data-del]');
+  if(d){
+    e.stopPropagation();
+    const id=d.dataset.del;
+    localStorage.setItem('feb-bg',JSON.stringify(customBgs().filter(b=>b.id!==id)));
+    if(curBg()===id) selectBg('portiva'); else renderBgs();
+    return;
+  }
+  const p=e.target.closest('#themePills [data-theme],#bgPills [data-theme]');
+  if(p) selectBg(p.dataset.theme);
+});
+function wxOf(c){
+  if(c<=1) return ['clear','晴'];
+  if(c<=3) return ['cloud',c===2?'多雲':'陰'];
+  if(c===45||c===48) return ['fog','霧'];
+  if((c>=51&&c<=67)||(c>=80&&c<=82)) return ['rain','雨'];
+  if((c>=71&&c<=77)||c===85||c===86) return ['snow','雪'];
+  if(c>=95) return ['storm','雷雨'];
+  return ['cloud','多雲'];
+}
+/* ============ 綿綿細雨：canvas 逐滴，落點隨機、依遠近分層 ============ */
+function initRain(){
+  const cv=document.getElementById('rainCv');
+  if(!cv||!cv.getContext) return ()=>{};
+  const ctx=cv.getContext('2d');
+  let W=0,H=0,drops=[],raf=0,running=false,storm=false,last=0;
+  function resize(){
+    const dpr=Math.min(devicePixelRatio||1,2);   // 依實際像素密度繪製，2K 下雨絲才不會糊
+    W=cv.clientWidth||innerWidth; H=cv.clientHeight||innerHeight;
+    cv.width=Math.round(W*dpr); cv.height=Math.round(H*dpr);
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+  }
+  /* z：0 遠 → 1 近。遠的短、慢、淡、細，近的長、快、亮、粗，疊起來才有景深 */
+  const mk=()=>{ const z=Math.random()**1.5; return {
+    x:Math.random()*W, y:Math.random()*H,
+    len:4+z*7+(storm?z*18:0),
+    v:70+z*130+(storm?z*430:0),
+    a:.07+z*.16+(storm?.14:0),
+    w:.5+z*.45+(storm?.3:0),
+    ph:Math.random()*6.28 };
+  };
+  function build(){
+    const n=Math.round((storm?460:260)*Math.max(.6,Math.min(W*H/2e6,2.4)));
+    drops=Array.from({length:n},mk);
+  }
+  function frame(t){
+    if(!running) return;
+    const dt=Math.min((t-last)/1000||0,.05); last=t;
+    ctx.clearRect(0,0,W,H);
+    ctx.lineCap='round';
+    const tilt=storm?.3:.14;
+    for(const d of drops){
+      d.y+=d.v*dt; d.ph+=dt*1.1;
+      // 細雨會被風輕輕吹歪，每滴擺動相位不同
+      const dx=d.len*tilt+(storm?0:Math.sin(d.ph)*.7);
+      ctx.strokeStyle=`rgba(198,226,255,${d.a})`;
+      ctx.lineWidth=d.w;
+      ctx.beginPath(); ctx.moveTo(d.x,d.y); ctx.lineTo(d.x-dx,d.y-d.len); ctx.stroke();
+      if(d.y-d.len>H){ d.y=-Math.random()*60; d.x=Math.random()*W; }  // 落點每輪重抽
+    }
+    raf=requestAnimationFrame(frame);
+  }
+  addEventListener('resize',()=>{ if(running){ resize(); build(); } });
+  return function sync(){
+    const wx=document.body.dataset.wx;
+    const want=(wx==='rain'||wx==='storm')&&!matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const wasStorm=storm; storm=wx==='storm';
+    if(want&&running){ if(wasStorm!==storm) build(); return; }
+    running=want;
+    if(!want){ cancelAnimationFrame(raf); if(W) ctx.clearRect(0,0,W,H); return; }
+    resize(); build(); last=performance.now(); raf=requestAnimationFrame(frame);
+  };
+}
+const rainSync=initRain();
+
+/* API 的實測值；設定裡改成手動時只是不套用，值仍持續更新 */
+const live={wx:'clear',day:true,label:''};
+function applySky(){
+  document.body.dataset.wx = SET.wx==='auto'?live.wx:SET.wx;
+  document.body.classList.toggle('day', SET.day==='auto'?live.day:SET.day==='day');
+  rainSync();
+}
+async function fetchWx(){
+  const geo = readJSON('feb-geo',null) || {lat:25.04,lon:121.56};
+  try{
+    const r=await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${geo.lat}&longitude=${geo.lon}&current=weather_code,is_day,temperature_2m`);
+    const c=(await r.json()).current;
+    const [wx,label]=wxOf(c.weather_code);
+    live.wx=wx; live.day=c.is_day===1;
+    live.label=`${label} ${Math.round(c.temperature_2m)}°C`;
+    applySky();
+    document.getElementById('wxBadge').textContent=live.label;
+  }catch(e){ /* 離線時保持上次狀態 */ }
+}
+function initWeather(){
+  if(!localStorage.getItem('feb-geo') && navigator.geolocation){
+    navigator.geolocation.getCurrentPosition(p=>{
+      localStorage.setItem('feb-geo',JSON.stringify({lat:+p.coords.latitude.toFixed(3),lon:+p.coords.longitude.toFixed(3)}));
+      fetchWx();
+    },()=>{},{timeout:8000,maximumAge:36e5});
+  }
+  fetchWx();
+  setInterval(fetchWx,30*60*1000);
+}
+/* ============ 角落設定：背景、晝夜、天氣、版面、筆試日 ============ */
+const SET=Object.assign({day:'auto',wx:'auto',exam:'2027-02-01'},readJSON('feb-set',{}));
+const saveSet=()=>localStorage.setItem('feb-set',JSON.stringify(SET));
+function setMsg(t){ const el=document.getElementById('bgMsg'); if(el) el.textContent=t||''; }
+function addBg(name,url,type){
+  const list=customBgs();
+  list.push({id:'c'+Date.now().toString(36),name:(name||'自訂').slice(0,12),url,type});
+  try{ localStorage.setItem('feb-bg',JSON.stringify(list)); }
+  catch(e){ setMsg('瀏覽器儲存空間滿了，先刪掉幾個自訂背景'); return false; }
+  renderBgs(); selectBg(list[list.length-1].id); setMsg(''); return true;
+}
+function syncSetPills(){
+  const mark=(sel,attr,val)=>document.querySelectorAll(sel).forEach(b=>b.classList.toggle('on',b.dataset[attr]===val));
+  mark('#dayPills [data-day]','day',SET.day);
+  mark('#wxPills [data-wxset]','wxset',SET.wx);
+  mark('#skinPills [data-skinset]','skinset',document.body.dataset.skin||'ambient');
+}
+function initSettings(){
+  const btn=document.getElementById('setBtn'), panel=document.getElementById('setPanel');
+  const open=v=>{ panel.hidden=!v; btn.setAttribute('aria-expanded',v); if(v) syncSetPills(); };
+  btn.onclick=e=>{ e.stopPropagation(); open(panel.hidden); };
+  document.addEventListener('click',e=>{
+    if(!panel.hidden && !panel.contains(e.target) && e.target!==btn) open(false);
+  });
+  document.addEventListener('keydown',e=>{ if(e.key==='Escape') open(false); });
+
+  document.getElementById('bgAdd').onclick=()=>{
+    const url=document.getElementById('bgUrl').value.trim();
+    const name=document.getElementById('bgName').value.trim();
+    if(!url) return setMsg('先填網址');
+    if(!bgUrlOk(url)) return setMsg('只收 http(s) 網址或站內相對路徑');
+    if(addBg(name||url.split('/').pop().slice(0,12),url,bgTypeOf(url))){
+      document.getElementById('bgUrl').value=''; document.getElementById('bgName').value='';
+    }
+  };
+  document.getElementById('bgFile').onchange=e=>{
+    const f=e.target.files[0]; if(!f) return;
+    if(f.size>1.5*1024*1024) return setMsg('超過 1.5MB，請先縮圖或改用網址');
+    const r=new FileReader();
+    r.onload=()=>addBg(f.name.replace(/\.[^.]+$/,''),r.result,'image');
+    r.readAsDataURL(f);
+    e.target.value='';
+  };
+  panel.addEventListener('click',e=>{
+    const d=e.target.closest('[data-day]'), w=e.target.closest('[data-wxset]'),
+          s=e.target.closest('[data-skinset]');
+    if(d){ SET.day=d.dataset.day; saveSet(); applySky(); }
+    if(w){ SET.wx=w.dataset.wxset; saveSet(); applySky(); }
+    if(s){ applySkin(s.dataset.skinset); }
+    if(d||w||s) syncSetPills();
+  });
+  const ed=document.getElementById('examDate');
+  ed.value=SET.exam;
+  ed.onchange=()=>{ if(ed.value){ SET.exam=ed.value; saveSet(); tickClock(); } };
+}
+initTheme(); initWeather(); applySky(); initSettings();
+
+/* ============ 待機時鐘＋倒數 ============ */
+// 116 筆試估約 2027/2 上旬，簡章公告後可在角落設定裡改
+const examDay=()=>{ const d=new Date(SET.exam+'T08:00:00+08:00'); return isNaN(d)?new Date('2027-02-01T08:00:00+08:00'):d; };
+function tickClock(){
+  const n=new Date();
+  document.getElementById('clock').innerHTML =
+    `${String(n.getHours()).padStart(2,'0')}:${String(n.getMinutes()).padStart(2,'0')}<small>${String(n.getSeconds()).padStart(2,'0')}</small>`;
+  document.getElementById('homeDate').textContent =
+    `${n.getFullYear()}.${String(n.getMonth()+1).padStart(2,'0')}.${String(n.getDate()).padStart(2,'0')} 週${'日一二三四五六'[n.getDay()]}`;
+  const d=Math.ceil((examDay()-n)/864e5);
+  document.getElementById('homeCount').textContent = d>0?`距 116 學年度筆試 約 ${d} 天`:'筆試季';
+}
+tickClock(); setInterval(tickClock,1000);
+
+/* ============ 資料載入 ============ */
+async function load(){
+  try{
+    [DATA, INDEX, SPRINT_PLAN, VIDEOS] = await Promise.all([
+      fetch('../data/schools.json').then(r=>r.json()),
+      fetch('../data/exam-index.json').then(r=>r.json()),
+      // 這兩份會隨進度更新，不能吃快取，否則改了資料畫面不會變
+      fetch('../data/sprint.json',{cache:'no-store'}).then(r=>r.ok?r.json():null).catch(()=>null),
+      fetch('../data/videos.json',{cache:'no-store'}).then(r=>r.ok?r.json():null).catch(()=>null)
+    ]);
+    await loadLocal();
+    await loadManifest();
+    await loadAna();
+    renderStats(); renderOverview(); renderAgg();
+    renderFinderControls(); renderVerdicts();
+    initStudy();
+    document.getElementById('foot').innerHTML =
+      `資料更新：${esc(DATA.updated)} ・ 簡章基準：${esc(DATA.baseAcademicYear)} 學年度 ・ ${esc(DATA.note)}`;
+    initHeadingReveal(); initReveal(); initSpy(); initParallax();
+  }catch(e){
+    document.getElementById('ovBody').innerHTML =
+      `<tr><td colspan="7"><div class="glass err">讀不到資料（${esc(e.message)}）。請從專案根目錄啟動：<code>python -m http.server</code>，再開 <code>http://localhost:8000/site/</code></div></td></tr>`;
+    initStudy();
+  }
+}
+
+/* ---------- hero ---------- */
+function renderStats(){
+  const got = INDEX.filter(e=>e.status==='downloaded').length;
+  const progs = DATA.channels.reduce((n,c)=>n+c.programs.length,0);
+  const defs = [[DATA.channels.length,'份簡章來源'],[progs,'個目標系所組'],[got,'份考古題已收'],[YEARS.length,'年題庫縱深']];
+  document.getElementById('stats').innerHTML =
+    defs.map(([n,l])=>`<div class="stat glass"><b class="cnt" data-n="${n}">0</b><i>${l}</i></div>`).join('');
+  document.querySelectorAll('.cnt').forEach(el=>{
+    const target=+el.dataset.n, t0=performance.now(), dur=1100;
+    (function tick(t){const p=Math.min(1,(t-t0)/dur);
+      el.textContent=Math.round(target*(1-Math.pow(1-p,3)));
+      if(p<1) requestAnimationFrame(tick);})(t0);
+  });
+}
+/* ---------- 招生管道 ---------- */
+function writtenBadges(p){
+  if(!p.written.length) return `<span class="hot">無筆試：${esc(p.nonWritten.join('＋')||'審查')}</span>`;
+  return p.written.map(slot=>{
+    const names = slot.options.map(o=>o.paper||o.subject);
+    const s = names.join(' / ');
+    return `<span title="${esc(slot.note||'')}">${esc(s)}${slot.options.length>1?'（擇一）':''}</span>`;
+  }).join('');
+}
+/* ---------- 學校為軸：總覽表＋作戰卡 ---------- */
+const SCHOOL_ORDER = ['ntu','ust','ncu','nthu-pme','ncku','nsysu','ntust','ntut'];
+// 分析檔 key → [題庫學校id, 題庫科目名]（nsysu 兩份分析共掛同一份合集）
+const ANA_MAP = {
+ 'ust-control':['ust','控制系統'], 'ust-math':['ust','工程數學C'], 'ust-elec':['ust','電子學'],
+ 'ntu-control':['ntu','控制系統'], 'ntu-math':['ntu','工程數學'],
+ 'nthupme-control':['nthu-pme','控制系統'],
+ 'ncku-control':['ncku','控制系統'], 'ncku-math':['ncku','工程數學'],
+ 'nckues-control':['ncku','工科-控制系統'], 'nckues-math':['ncku','工科-工程數學'],
+ 'nckues-circ':['ncku','工科-電子電路'], 'nckues-sig':['ncku','工科-訊號與系統'], 'nckues-la':['ncku','工科-線性代數'],
+ 'nsysu-control':['nsysu','全系試題合集(含乙組工數乙+控制系統)'],
+ 'nsysu-math':['nsysu','全系試題合集(含乙組工數乙+控制系統)'],
+ 'ntust-math':['ntust','工程數學'],
+ 'ntut-control':['ntut','控制系統'], 'ntut-math':['ntut','工程數學'],
+ 'ncu-math':['ncu','工程數學（不含複變）'], 'ncu-elec':['ncu','電子學'], 'ncu-sig':['ncu','信號與系統'],
+};
+// 已停考科目：保留題庫存檔、不做分析
+const DISCONTINUED = {ntust:{'自動控制系統':'113 起未再公布'}};
+let ANA = {};
+async function loadAna(){
+  try{
+    const list = await fetch('../data/analysis/index.json').then(r=>{if(!r.ok)throw 0;return r.json();});
+    const docs = await Promise.all(list.map(m=>
+      fetch('../data/analysis/'+m.file).then(r=>r.json()).then(d=>[m.file.replace(/\.json$/,''),d])));
+    ANA = Object.fromEntries(docs);
+  }catch(e){ ANA = {}; }
+}
+const chanById = id => DATA.channels.find(c=>c.id===id);
+function examRows(sid){
+  const rows=new Map();
+  for(const e of INDEX){
+    if(e.school!==sid) continue;
+    if(!rows.has(e.subject)) rows.set(e.subject,{dept:e.dept,years:{}});
+    rows.get(e.subject).years[e.year]=e;
+  }
+  return rows;
+}
+const anaOf=(sid,subject)=>Object.entries(ANA)
+  .filter(([k])=>ANA_MAP[k]&&ANA_MAP[k][0]===sid&&ANA_MAP[k][1]===subject).map(([,d])=>d);
+const chapTotals=d=>(d.chapters||[])
+  .map(ch=>[ch.name,(d.years||[]).reduce((s,y)=>s+(+ch.years?.[y]||0),0)])
+  .filter(([,t])=>t>0).sort((a,b)=>b[1]-a[1]);
+
+function renderAgg(){
+  const groups=[
+    ['控制系統', k=>k.includes('control')],
+    ['工程數學', k=>k.includes('math')],
+    ['電子學',   k=>k.includes('elec')||k.includes('circ')],
+    ['線性代數', k=>k.includes('la')],
+  ];
+  document.getElementById('aggArea').innerHTML = groups.map(([title,match])=>{
+    const docs=Object.entries(ANA).filter(([k])=>match(k)).map(([,d])=>d);
+    if(!docs.length) return '';
+    const agg={};
+    docs.forEach(d=>chapTotals(d).forEach(([name,t])=>{
+      (agg[name]??={n:0,total:0}); agg[name].n++; agg[name].total+=t;
+    }));
+    const rows=Object.entries(agg).filter(([n])=>n!=='其他')
+      .sort((a,b)=>b[1].n-a[1].n||b[1].total-a[1].total).slice(0,8);
+    if(!rows.length) return '';
+    const max=Math.max(...rows.map(([,v])=>v.total));
+    return `<div class="panel glass"><h3>${esc(title)}<small>${docs.length} 份分析彙整</small></h3>
+      <div class="bars">${rows.map(([name,v],i)=>`
+        <div class="bar-row"><span class="nm" title="${esc(name)}">${esc(name)}</span>
+          <span class="tk"><i style="transform:scaleX(${Math.max(.05,v.total/max)});--i:${i}"></i></span>
+          <span class="val"><b>${v.n} 校考</b> ・${v.total} 大題</span></div>`).join('')}
+      </div></div>`;
+  }).join('');
+}
+
+function anaHTML(d){
+  const ys=d.years||[];
+  let tbl='';
+  if(d.chapters?.length){
+    tbl = `<table><thead><tr><th></th>${ys.map(y=>`<th>${esc(y)}</th>`).join('')}<th>計</th></tr></thead><tbody>`+
+      d.chapters.map(ch=>{
+        const tot = ys.reduce((s,y)=>s+(+ch.years?.[y]||0),0);
+        return `<tr><td class="n">${esc(ch.name)}</td>${ys.map(y=>{
+          const v=+ch.years?.[y]||0;
+          const bg=v?`background:rgba(255,255,255,${Math.min(.85,.15+v*.2)});color:#000`:'color:rgba(255,255,255,.25)';
+          return `<td><span class="heat" style="${bg}">${v||'·'}</span></td>`;}).join('')}
+          <td><b style="font-family:var(--mono)">${tot}</b></td></tr>`;
+      }).join('')+`</tbody></table>`;
+  }
+  return `<details class="more"><summary>完整分析：${esc(d.subject)}（章節×年度熱度・必考重點・命題趨勢）</summary>
+    <div class="ana">
+      <div class="upd">NotebookLM 分析 ・ ${esc(d.updated||'')}</div>
+      <div class="ana-scroll">${tbl}</div>
+      ${d.mustKnow?.length?`<ul>${d.mustKnow.map(m=>`<li><b>${esc(m.split('：')[0])}</b>${esc(m.includes('：')?'：'+m.split('：').slice(1).join('：'):'')}</li>`).join('')}</ul>`:''}
+      ${d.trend?`<div class="trend">${esc(d.trend)}</div>`:''}
+      ${d.notebook?`<div style="margin-top:12px"><a class="lq mist2" style="font-size:.74rem;padding:6px 16px;color:var(--ink);text-decoration:none" href="https://notebooklm.google.com/notebook/${esc(d.notebook)}" target="_blank" rel="noopener">開啟 NotebookLM 筆記本 → 直接追問</a></div>`:''}
+    </div></details>`;
+}
+
+// 收合表：一列一校，學校名可點開懸浮視窗
+function renderOverview(){
+  document.getElementById('ovBody').innerHTML = SCHOOL_ORDER.map(sid=>{
+    const c=chanById(sid); if(!c) return '';
+    const joint=c.channel.includes('聯合');
+    const er=examRows(sid);
+    const subjSet=new Set(), free=[];
+    for(const p of c.programs){
+      if(!p.written.length){ free.push(`${p.dept}${p.group}`); continue; }
+      for(const slot of p.written) for(const o of slot.options) subjSet.add(o.paper||o.subject);
+    }
+    const got=[...er.values()].reduce((n,r)=>n+Object.values(r.years).filter(e=>e.status==='downloaded').length,0);
+    const planned=Object.keys(ANA_MAP).filter(k=>ANA_MAP[k][0]===sid);
+    const done=planned.filter(k=>ANA[k]).length;
+    return `<tr data-open="${esc(sid)}">
+      <td><button class="sch" type="button">${esc(c.shortName)}<small>${joint?'聯合招生':'自辦招生'}</small></button></td>
+      <td class="dt">${esc(c.schedule.apply)}</td>
+      <td class="dt">${esc(c.schedule.writtenExam)}</td>
+      <td>${[...subjSet].map(s=>`<span class="subj-chip">${esc(s)}</span>`).join('')||'—'}</td>
+      <td class="free">${free.length?free.map(esc).join('<br>'):'—'}</td>
+      <td class="st">${got?`<b>${got}</b> 份`:'—'}</td>
+      <td class="st">${planned.length?`<b>${done}</b>/${planned.length} 科`:'—'}</td>
+    </tr>`;
+  }).join('');
+}
+
+// 懸浮視窗內容：該校完整資料（招生管道、系所組、每科題庫年份格＋章節出題分析）
+function schoolDetailHTML(sid){
+  const c=chanById(sid); if(!c) return '';
+  const joint=c.channel.includes('聯合');
+  const er=examRows(sid), dead=DISCONTINUED[sid]||{};
+  const progs=c.programs.map(p=>`
+    <div class="prog">
+      <b>${esc(p.dept)}</b> <span class="grp">${esc(p.group)}</span>
+      <div class="subj">${writtenBadges(p)}</div>
+      <details class="more"><summary>名額・審查・備註</summary>
+        <div class="quota">${esc(p.quota?.exam||'')}${p.quota?.recommend?'｜'+esc(p.quota.recommend):''}</div>
+        ${p.nonWritten.length&&p.written.length?`<div class="note">併採：${esc(p.nonWritten.join('、'))}</div>`:''}
+        ${p.recommend?`<div class="note">推甄：${esc(p.recommend)}</div>`:''}
+        <div class="note ${p.notes&&p.notes.startsWith('★')?'star':''}">${esc(p.notes||'')}</div>
+      </details>
+    </div>`).join('');
+  let subj='';
+  for(const [name,r] of er){
+    const deadNote=dead[name];
+    const anas=deadNote?[]:anaOf(sid,name);
+    const quick=anas.map(d=>{
+      const top=chapTotals(d).filter(([n])=>n!=='其他').slice(0,3);
+      return top.length?`<div class="quick">重點章節${anas.length>1?`（${esc(d.subject)}）`:''}：${
+        top.map(([n,t])=>`<b>${esc(n)}</b> ×${t}`).join('　')}</div>`:'';
+    }).join('');
+    const years=YEARS.map(y=>{
+      const e=r.years[y];
+      if(e&&e.status==='downloaded')
+        return `<a class="lq" href="../data/exams/${esc(e.path)}" target="_blank" rel="noopener" title="${esc(name)} ${y}年">${y}</a>`;
+      const why=e?(e.reason||e.status):'該年份不在來源清單（可能未招生或未公開）';
+      return `<span title="${esc(why)}">${y}</span>`;
+    }).join('');
+    subj+=`<div class="sb">
+      <div class="sbh"><h4>${esc(name)}<small>${esc(r.dept)}</small></h4>
+        ${deadNote?`<span class="badge dead">已停考・${esc(deadNote)}・題庫僅存檔</span>`:''}</div>
+      ${quick}
+      <div class="yrow">${years}</div>
+      ${anas.length?anas.map(anaHTML).join('')
+        :(!deadNote&&Object.values(ANA_MAP).some(([s,n])=>s===sid&&n===name)
+          ?`<div class="pending">章節分析產生中——完成後自動出現（run_analysis.bat 可續跑）。</div>`:'')}
+    </div>`;
+  }
+  if(!er.size) subj=`<div class="sb"><div class="pending">此校未收考古題（未公開或走台聯大共同筆試）；筆試科目見上方系所組。</div></div>`;
+  return `
+    <div class="dhead"><h2>${esc(c.shortName)}</h2>
+      <span class="badge ${joint?'joint':''}">${joint?'聯合招生':'自辦招生'}</span></div>
+    <div class="chow">${esc(c.channel)}</div>
+    <div class="sched">報名 ${esc(c.schedule.apply)} ・ 筆試 ${esc(c.schedule.writtenExam)}</div>
+    <div class="links">
+      <a class="lq gold" href="../data/${esc(c.brochure)}" target="_blank" rel="noopener">簡章 PDF</a>
+      <a class="lq mist2" href="${esc(c.admissionUrl)}" target="_blank" rel="noopener">招生網站</a>
+      <a class="lq mist2" href="${esc(c.pastExamsSource)}" target="_blank" rel="noopener">考古題來源</a>
+    </div>
+    <div class="progs">${progs}</div>
+    ${subj}`;
+}
+function openSchool(sid){
+  const m=document.getElementById('schoolModal');
+  document.getElementById('modalBody').innerHTML = schoolDetailHTML(sid);
+  m.querySelector('.modal-panel').scrollTop=0;
+  m.hidden=false; document.body.classList.add('modal-open');
+}
+function closeSchool(){
+  document.getElementById('schoolModal').hidden=true;
+  document.body.classList.remove('modal-open');
+}
+addEventListener('keydown',e=>{
+  const vm=document.getElementById('vidModal');
+  const playing=vm&&!vm.hidden;
+  if(playing&&!/^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName)){
+    const v=vidEl();
+    const jump=e.shiftKey?60:10;
+    if(e.key==='ArrowLeft'){ e.preventDefault(); return vidSeek(-jump); }
+    if(e.key==='ArrowRight'){ e.preventDefault(); return vidSeek(jump); }
+    if(e.key===' '){ e.preventDefault(); return vidToggle(); }
+    if(e.key==='ArrowUp'||e.key==='ArrowDown'){
+      e.preventDefault();
+      const i=RATES.indexOf(v?.playbackRate);
+      const j=Math.min(RATES.length-1,Math.max(0,(i<0?4:i)+(e.key==='ArrowUp'?1:-1)));
+      return vidRate(RATES[j]);
+    }
+  }
+  if(e.key!=='Escape') return;
+  if(playing) return closePlayer();
+  if(!document.getElementById('schoolModal').hidden) closeSchool();
+});
+
+/* ---------- 反向選校 ---------- */
+function renderFinderControls(){
+  const sp=document.getElementById('subjPills');
+  sp.innerHTML = DATA.subjectCatalog.map(s=>
+    `<button class="pill lq ${s==='工程數學'?'mist2':'gold'}" data-s="${esc(s)}">${esc(s)}</button>`).join('');
+  const cp=document.getElementById('chapPills');
+  cp.innerHTML = DATA.mathChapters.map(c=>
+    `<button class="pill chap lq mist2" data-c="${esc(c)}">${esc(c)}</button>`).join('');
+  sp.addEventListener('click',e=>{
+    const b=e.target.closest('[data-s]'); if(!b) return;
+    toggle(state.subjects,b.dataset.s,b); renderVerdicts();
+  });
+  cp.addEventListener('click',e=>{
+    const b=e.target.closest('[data-c]'); if(!b) return;
+    toggle(state.chapters,b.dataset.c,b); renderVerdicts();
+  });
+}
+function toggle(set,v,btn){ set.has(v)?set.delete(v):set.add(v); btn.classList.toggle('on'); }
+
+function optionOK(o){
+  if(o.subject==='工程數學'){
+    if(!state.subjects.has('工程數學')) return false;
+    const need = o.chapters===null ? DATA.mathChapters : o.chapters;
+    return need.every(ch=>state.chapters.has(ch));
+  }
+  if(o.subject==='線性代數')
+    return state.subjects.has('線性代數') || state.chapters.has('線性代數');
+  return state.subjects.has(o.subject);
+}
+function verdictOf(p){
+  if(!p.written.length) return {cls:'doc',label:'無筆試門檻',detail:'審查／口試取才，不受筆試科目限制'};
+  const missing=[];
+  for(const slot of p.written){
+    if(!slot.options.some(optionOK)){
+      missing.push(slot.options.map(o=>o.paper||o.subject).join('或'));
+    }
+  }
+  if(!missing.length) return {cls:'ok',label:'✓ 筆試全對口',detail:''};
+  return {cls:'no',label:'缺 '+missing.length+' 科',detail:missing.join('、')};
+}
+function reqText(p){
+  if(!p.written.length) return esc(p.nonWritten.join('＋'));
+  return p.written.map(slot=>{
+    const parts = slot.options.map(o=>{
+      const nm = o.paper||o.subject;
+      const scope = o.scope?`〔${o.scope}〕`:'';
+      return `<em>${esc(nm)}</em>${esc(scope)}`;
+    }).join(' 或 ');
+    return parts + (slot.note?`<s title="規則">（${esc(slot.note)}）</s>`:'');
+  }).join('　＋　');
+}
+function renderVerdicts(){
+  const nothing = !state.subjects.size && !state.chapters.size;
+  const cards=[];
+  for(const c of DATA.channels){
+    for(const p of c.programs){
+      const v = nothing && p.written.length ? {cls:'no',label:'請先勾選強項',detail:''} : verdictOf(p);
+      cards.push({c,p,v});
+    }
+  }
+  cards.sort((a,b)=>({ok:0,doc:1,no:2}[a.v.cls]-{ok:0,doc:1,no:2}[b.v.cls]));
+  document.getElementById('verdicts').innerHTML = cards.map(({c,p,v})=>`
+    <div class="verdict ${v.cls==='no'?'dim':''}">
+      <div class="vh"><b>${esc(c.shortName)}｜${esc(p.dept)} ${esc(p.group)}</b>
+        <span class="tag ${v.cls}">${esc(v.label)}</span></div>
+      <div class="req">${reqText(p)}</div>
+      ${v.detail?`<div class="req">→ ${esc(v.detail)}</div>`:''}
+      ${p.nonWritten.length&&p.written.length?`<div class="req">併採：${esc(p.nonWritten.join('、'))}</div>`:''}
+    </div>`).join('');
+}
+
+/* ============ 讀書模式：進度追蹤器 ============ */
+/* 舊進度追蹤器（feb-tracker-v1）已於 2026-08-16 移除：
+   逐堂打勾的單位不對（該問的是「這章會不會寫題」），且其課程清單與 iStudy 實際集數不符。
+   取而代之＝衝刺看板（章節×考古題）＋影片庫（依學科分類的全部影片）。 */
+const SUBJECT_ORDER=['多益','工數','線性代數','自動控制','電子學'];
+
+/* 種子課程：截圖擷取＝待看；被切掉者＝已看、不列入。base=起始堂號 */
+
+/* ---------- 日期工具（本地時區） ---------- */
+function todayStr(d=new Date()){return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;}
+function parseD(s){const[y,m,dd]=s.split('-').map(Number);return new Date(y,m-1,dd);}
+function dayDiff(a,b){return Math.round((parseD(a)-parseD(b))/864e5);}
+function weekRange(s){const d=parseD(s),wd=(d.getDay()+6)%7;const mon=new Date(d);mon.setDate(d.getDate()-wd);
+  const sun=new Date(mon);sun.setDate(mon.getDate()+6);return{mon:todayStr(mon),sun:todayStr(sun),idx:wd+1};}
+
+/* ---------- 狀態 ---------- */
+/* ---------- 本機離線影片：F:\istudy-backup 經 media/ 連結對外供應 ---------- */
+const spNorm = c => (c || '').replace(/\([^)]*\)/g, '').trim();
+// 媒體來源優先序：8795 媒體伺服器（支援 Range，可拖曳快轉）→ 退回 media/ 連結（不能跳轉）
+const MEDIA_SRV = 'http://localhost:8795/';
+let MEDIA_BASE = '../media/', MEDIA_SEEKABLE = false;
+async function loadLocal(){
+  let st = null;
+  try{
+    st = await fetch(MEDIA_SRV + 'state.json', {cache:'no-store'}).then(r=>{if(!r.ok)throw 0;return r.json();});
+    MEDIA_BASE = MEDIA_SRV; MEDIA_SEEKABLE = true;
+  }catch(e){
+    try{
+      st = await fetch('../media/state.json', {cache:'no-store'}).then(r=>{if(!r.ok)throw 0;return r.json();});
+      MEDIA_BASE = '../media/'; MEDIA_SEEKABLE = false;
+    }catch(e2){ LOCAL = {}; return; }
+  }
+  const map = {};
+  for(const v of Object.values(st)){
+    if(v.status !== 'done' || !v.path) continue;
+    const rel = v.path.replace(/^[A-Za-z]:\\istudy-backup\\/, '').replace(/\\/g, '/');
+    map[spNorm(v.code)] = {url: MEDIA_BASE + rel.split('/').map(encodeURIComponent).join('/'),
+                           min: Math.round((v.sec||0)/60), gb: (v.bytes||0)/2**30};
+  }
+  LOCAL = map;
+}
+
+/* ---------- 版面風格：深色氛圍 ⇄ !Boring 白 ---------- */
+const SKIN_LS='feb-skin';
+function applySkin(s){
+  document.body.dataset.skin=s;
+  const b=document.getElementById('skinToggle');
+  if(b)b.textContent=s==='boring'?'🌙 氛圍版':'☀︎ !Boring';
+  localStorage.setItem(SKIN_LS,s);
+  syncSetPills();
+}
+applySkin(localStorage.getItem(SKIN_LS)||'ambient');
+
+function initStudy(){
+  _febSelfCheck();
+  const st=document.getElementById('skinToggle');
+  if(st) st.onclick=()=>applySkin(document.body.dataset.skin==='boring'?'ambient':'boring');
+  renderStudy();
+}
+
+/* ---------- 讀書模式：主從式（左選、右看），取代原本層層展開的長列 ---------- */
+const SP_LS='feb-sprint-v1';
+const WM_LS='feb-wm-v1';
+const SP_WEEKS=['地基','最大板塊','衝刺主峰','收攏第一輪'];
+const SP_STAT={elec:'MOSFET 31%，前 6 章 ≈ 80%',math:'線代 39%＋ODE 38%＋拉氏傅立葉 10% ≈ 87%',
+  ctrl:'7 大章均勻分佈，一章不可跳'};
+const SUBJ_TAG={elec:'電子',math:'工數',la:'線代',ctrl:'控制'};
+let SP=readJSON(SP_LS,{done:{}});
+SP.miss=SP.miss||{};          // 章節 → 累計錯題數（只記數字，不要求打字）
+const spSave=()=>localStorage.setItem(SP_LS,JSON.stringify(SP));
+const WM=Object.assign({view:'sprint',week:0,sel:null,libSel:null},readJSON(WM_LS,{}));
+const wmSave=()=>localStorage.setItem(WM_LS,JSON.stringify({view:WM.view,sel:WM.sel,libSel:WM.libSel}));
+
+/* ---------- 目標校系：只把想考的學校算進熱區 ---------- */
+const TGT_LS='feb-target-v1';
+/* 系所組 → 該組筆試會用到的分析卷。成大電機乙組(ncku-*)與工科甲組(nckues-*)是不同考卷，
+   不能只用學校 id 對應，所以逐組列明。無筆試的組別不貢獻任何考卷。 */
+const PROG_ANA={
+  'ntu|甲組':['ntu-math','ntu-control'],
+  'ust|乙A組':['ust-control','ust-math'],
+  'ust|清大丙組':['ust-elec'],
+  'ncu|智慧系統組':['ncu-math','ncu-elec'],
+  'nthu-pme|乙組':['nthupme-control'],
+  'nsysu|乙組':['nsysu-math','nsysu-control'],
+  'ntust|自控所':['ntust-math'],
+  'ncku|電機乙組':['ncku-math','ncku-control'],
+  'ncku|工科甲組':['nckues-math','nckues-la','nckues-control','nckues-sig','nckues-circ'],
+  'ntut|丙組':['ntut-math','ntut-control'],
+};
+const PROG_LABEL={
+  'ntu|甲組':'台大 電機所 甲組（自動控制）',
+  'ust|乙A組':'陽交 電控所 乙A組（筆試入學）',
+  'ust|清大丙組':'清大 電機 丙組（電子學）',
+  'ncu|智慧系統組':'中央 電機 智慧系統組',
+  'nthu-pme|乙組':'清大 動機 乙組（電機控制）',
+  'nsysu|乙組':'中山 電機 乙組（控制組）',
+  'ntust|自控所':'台科 自動化及控制所',
+  'ncku|電機乙組':'成大 電機 乙組（系統控制）',
+  'ncku|工科甲組':'成大 工科 甲組（控制與通訊）',
+  'ntut|丙組':'北科 電機 丙組（控制工程）',
+};
+let TGT=new Set(readJSON(TGT_LS,[]));
+const tgtSave=()=>localStorage.setItem(TGT_LS,JSON.stringify([...TGT]));
+/* 目前生效的分析卷；沒選目標＝全部 8 校都算 */
+function activeAnaKeys(){
+  if(!TGT.size) return null;
+  const s=new Set();
+  for(const p of TGT) (PROG_ANA[p]||[]).forEach(k=>s.add(k));
+  return s;
+}
+
+/* 該章在十年裡的出題分佈：回傳 {year:count} 與可開的考卷連結 */
+function spExamData(subj,ch){
+  const years={}, bySch={}, seen=new Set();
+  if(!INDEX||!DATA) return {years,bySch,n:0};
+  const allow=activeAnaKeys();
+  for(const key of (subj.anaKeys||[]).filter(k=>!allow||allow.has(k))){
+    const d=ANA[key], map=ANA_MAP[key];
+    if(!d||!map) continue;
+    const [sid,subName]=map;
+    const row=examRows(sid).get(subName);
+    for(const c of (d.chapters||[])){
+      if(!ch.match.some(t=>c.name.includes(t))) continue;
+      for(const y in (c.years||{})){
+        const v=+c.years[y]||0;
+        if(!v) continue;
+        years[y]=(years[y]||0)+v;
+        const e=row?.years[y];
+        if(!e||e.status!=='downloaded'||seen.has(e.path)) continue;
+        seen.add(e.path);
+        const sn=(chanById(sid)?.shortName||sid)+(subName.startsWith('工科')?'工科':'');
+        // qs：該年屬於這章的大題題號（NotebookLM 分析產出，沒有就留空）
+        const qs=(c.qs?.[y]||[]).filter(n=>+n>0);
+        (bySch[sn]??=[]).push([+y,e.path,qs]);
+      }
+    }
+  }
+  return {years,bySch,n:seen.size};
+}
+/* 該章影片看了多少：從播放器存的位置回推。
+   進度條算的是「章節打勾」，看影片不會讓它動——這裡補上真正的觀看進度。 */
+function watchOf(ch){
+  const eps=VIDEOS?.istudy?.byChapter?.[ch.id]||[];
+  if(!eps.length) return null;
+  const pos=readJSON(PL_LS,{});
+  let seen=0, total=0, started=0;
+  for(const e of eps){
+    const f=LOCAL[spNorm(e.code)];
+    if(!f) continue;
+    total++;
+    const rec=pos[f.url];
+    const pct=typeof rec==='number'?0:(rec?.pct||0);
+    if(pct>=90) seen++;
+    else if(pct>2){ seen+=pct/100; started++; }
+  }
+  if(!total) return null;
+  return {frac:Math.min(1,seen/total), total, started};
+}
+
+function yrStrip(years){
+  return `<span class="yr" title="十年出題分佈（亮＝該年有考）">${YEARS.map(y=>{
+    const v=years[y]||0;
+    return `<i class="${v>=3?'h3':v===2?'h2':v?'h1':''}"></i>`;}).join('')}</span>`;
+}
+
+/* 目前所在的週次（1–4，超出範圍就夾住） */
+function wmCurWeek(){
+  if(!SPRINT_PLAN) return 1;
+  const d=Math.max(0,dayDiff(todayStr(),SPRINT_PLAN.start));
+  return Math.min(4,Math.max(1,Math.floor(d/7)+1));
+}
+function wmChapters(){
+  const out=[];
+  for(const s of (SPRINT_PLAN?.subjects||[]))
+    for(const c of s.chapters) out.push({subj:s,ch:c,phase2:!!s.phase2});
+  return out;
+}
+function wmHours(week){
+  let tot=0,done=0;
+  for(const {ch,phase2} of wmChapters()){
+    if(phase2||(week&&ch.week!==week)) continue;
+    tot+=ch.hours; if(SP.done[ch.id]) done+=ch.hours;
+  }
+  return {tot,done};
+}
+
+function renderWmBar(){
+  const bar=document.getElementById('wmBar');
+  if(!SPRINT_PLAN){bar.innerHTML='';return;}
+  const now=wmCurWeek();
+  if(!WM.week) WM.week=now;
+  const left=Math.max(0,dayDiff(SPRINT_PLAN.deadline,todayStr()));
+  const all=wmHours(0), frac=all.tot?all.done/all.tot:0;
+  const fmt=d=>`${d.getMonth()+1}/${d.getDate()}`;
+  const weeks=[1,2,3,4].map(w=>{
+    const a=parseD(SPRINT_PLAN.start); a.setDate(a.getDate()+(w-1)*7);
+    let b=new Date(a); b.setDate(a.getDate()+6);
+    const dl=parseD(SPRINT_PLAN.deadline); if(b>dl)b=dl;
+    const h=wmHours(w);
+    return `<button class="${w===WM.week?'on':''} ${w===now?'now':''}" data-wk="${w}"
+      title="${esc(SP_WEEKS[w-1])}・${fmt(a)}–${fmt(b)}・${h.done}/${h.tot}h">W${w}</button>`;
+  }).join('');
+  bar.innerHTML=`
+    <div class="wm-cd"><b>${left}</b><i>天到 9/12</i></div>
+    <div class="wm-prog"><span class="tk-bar"><i style="transform:scaleX(${frac})"></i></span>
+      <span>${all.done}/${all.tot}h</span></div>
+    <button class="${TGT.size?'ui-solid':'ui-ghost'} sm" id="wmTgt" type="button">${
+      TGT.size?`目標 ${TGT.size} 校系`:'目標校系：全部'}</button>
+    <div class="wm-srch">
+      <input id="wmQ" type="search" placeholder="搜尋所有影片逐字稿…" autocomplete="off">
+      <div class="srch-pop glass" id="wmQPop" hidden></div>
+    </div>
+    <div class="wm-right">
+      <div class="ui-seg">${weeks}</div>
+      <div class="ui-seg">
+        <button class="${WM.view==='sprint'?'on':''}" data-view="sprint">衝刺</button>
+        <button class="${WM.view==='lib'?'on':''}" data-view="lib">影片庫</button>
+      </div>
+    </div>`;
+  bar.querySelectorAll('[data-wk]').forEach(b=>b.onclick=()=>{
+    WM.week=+b.dataset.wk; WM.view='sprint'; WM.sel=null; renderStudy();});
+  bar.querySelectorAll('[data-view]').forEach(b=>b.onclick=()=>{
+    WM.view=b.dataset.view; wmSave(); renderStudy();});
+  const tb=document.getElementById('wmTgt');
+  if(tb) tb.onclick=openTarget;
+  bindSearch();
+}
+
+/* 目標校系挑選：勾了哪幾組，十年考點就只算那幾組的考卷 */
+function openTarget(){
+  let m=document.getElementById('tgtModal');
+  if(!m){
+    m=document.createElement('div'); m.id='tgtModal'; m.className='modal';
+    m.innerHTML=`<div class="modal-back" data-tclose></div>
+      <div class="modal-panel glass tgt-panel">
+        <button class="modal-x lq" type="button" data-tclose aria-label="關閉">✕</button>
+        <h3>目標校系</h3>
+        <p class="tgt-note">勾選你要報考的組別，章節旁的<b>十年考點</b>與右欄考卷就只算這些組的考題。
+          全部不勾＝八校都算。無筆試的組別（陽交甲組、台科電機丙組、成大機械戊組）不影響考點統計，故未列出。</p>
+        <div class="tgt-list" id="tgtList"></div>
+        <div class="tgt-foot">
+          <button class="lq mist2" type="button" data-tall>全選</button>
+          <button class="lq mist2" type="button" data-tnone>全部取消</button>
+          <button class="lq gold" type="button" data-tclose>完成</button>
+        </div>
+      </div>`;
+    document.body.appendChild(m);
+    m.addEventListener('click',ev=>{
+      if(ev.target.closest('[data-tclose]')){ m.hidden=true;
+        document.body.classList.remove('modal-open'); renderStudy(); return; }
+      if(ev.target.closest('[data-tall]')){ TGT=new Set(Object.keys(PROG_ANA)); tgtSave(); fillTarget(); return; }
+      if(ev.target.closest('[data-tnone]')){ TGT.clear(); tgtSave(); fillTarget(); }
+    });
+  }
+  fillTarget();
+  m.hidden=false; document.body.classList.add('modal-open');
+}
+function fillTarget(){
+  const host=document.getElementById('tgtList');
+  if(!host||!DATA) return;
+  const bySchool={};
+  for(const k of Object.keys(PROG_ANA)) (bySchool[k.split('|')[0]] ??= []).push(k);
+  host.innerHTML=SCHOOL_ORDER.filter(sid=>bySchool[sid]).map(sid=>{
+    const c=chanById(sid);
+    return `<div class="tgt-grp"><h4>${esc(c?.shortName||sid)}</h4>${
+      bySchool[sid].map(k=>{
+        const subs=(PROG_ANA[k]||[]).map(a=>ANA_MAP[a]?.[1]).filter(Boolean);
+        return `<label class="tgt-row ${TGT.has(k)?'on':''}">
+          <input type="checkbox" data-prog="${esc(k)}" ${TGT.has(k)?'checked':''}>
+          <span class="t1">${esc(PROG_LABEL[k].replace(/^\S+\s/,''))}</span>
+          <span class="t2">${esc([...new Set(subs)].join('・')||'—')}</span></label>`;
+      }).join('')}</div>`;
+  }).join('');
+  host.querySelectorAll('input[data-prog]').forEach(cb=>cb.onchange=()=>{
+    cb.checked?TGT.add(cb.dataset.prog):TGT.delete(cb.dataset.prog);
+    tgtSave(); fillTarget();
+  });
+}
+
+function renderWmList(){
+  const host=document.getElementById('wmList');
+  if(WM.view==='lib') return renderLibList(host);
+  const rows=wmChapters().filter(x=>!x.phase2&&x.ch.week===WM.week);
+  const ctrl=wmChapters().filter(x=>x.phase2);
+  // 選取合法性要連控制章節一起看，否則點控制的章節會被彈回當週第一項
+  if(!WM.sel||![...rows,...ctrl].some(r=>r.ch.id===WM.sel)) WM.sel=rows[0]?.ch.id||ctrl[0]?.ch.id||null;
+  const line=({subj,ch})=>{
+    const dn=!!SP.done[ch.id], ex=spExamData(subj,ch);
+    const w=watchOf(ch);
+    return `<button class="wm-row ${dn?'done':''} ${ch.id===WM.sel?'on':''}"
+      data-ch="${esc(ch.id)}" data-subj="${esc(subj.id)}">
+      <input type="checkbox" data-sp="${esc(ch.id)}" ${dn?'checked':''} onclick="event.stopPropagation()">
+      <span class="dot"></span>
+      <span class="nm">${esc(ch.name.replace(/^(電子學|線代)：/,''))}${
+        w&&w.frac>0.01?`<i class="seen" title="影片已看約 ${Math.round(w.frac*100)}%"
+          style="--w:${w.frac}"></i>`:''}</span>
+      ${yrStrip(ex.years)}
+      <span class="miss ${SP.miss[ch.id]?'has':''}" data-miss="${esc(ch.id)}"
+        title="寫考古題錯幾題就點幾下（右鍵減一）">${SP.miss[ch.id]?'✕'+SP.miss[ch.id]:'✕'}</span>
+      <span class="hrs">${ch.hours}h</span></button>`;
+  };
+  const cols=`<div class="wm-cols"><span class="c1">章節</span>
+    <span class="c2" title="106–115 每年一格，該年考過就亮">十年考點</span>
+    <span class="c4" title="寫考古題錯幾題就點幾下">錯題</span>
+    <span class="c3">時數</span></div>`;
+  // 錯最多的三章：這才是計數的目的——知道哪裡要回頭補
+  const weak=Object.entries(SP.miss||{}).sort((a,b)=>b[1]-a[1]).slice(0,3);
+  const all=wmChapters();
+  const weakBar=weak.length?`<div class="wm-weak">弱點：${weak.map(([id,n])=>{
+      const c=all.find(x=>x.ch.id===id);
+      return `<button data-ch="${esc(id)}" data-subj="${esc(c?.subj.id||'')}">${
+        esc((c?.ch.name||id).replace(/^(電子學|線代)：/,''))}<b>✕${n}</b></button>`;
+    }).join('')}</div>`:'';
+  host.innerHTML=`${weakBar}<div class="wm-sec">W${WM.week}・${esc(SP_WEEKS[WM.week-1])}</div>${cols}
+    ${rows.map(line).join('')||'<div class="wm-empty">這週沒有排章節</div>'}
+    <div class="wm-sec">控制系統・9/13 起</div>${cols}${ctrl.map(line).join('')}`;
+  host.querySelectorAll('[data-ch]').forEach(b=>b.onclick=()=>{
+    const id=b.dataset.ch;
+    const hit=wmChapters().find(x=>x.ch.id===id);
+    if(hit&&!hit.phase2&&hit.ch.week!==WM.week) WM.week=hit.ch.week;  // 弱點捷徑會跨週
+    WM.sel=id; wmSave(); renderStudy();});
+  host.querySelectorAll('input[data-sp]').forEach(cb=>cb.onchange=()=>{
+    const id=cb.dataset.sp;
+    if(cb.checked)SP.done[id]=todayStr(); else delete SP.done[id];
+    spSave(); renderStudy();});
+  // 錯題計數：左鍵 +1、右鍵 −1，不打字所以不會被放棄
+  host.querySelectorAll('[data-miss]').forEach(el=>{
+    const bump=(d,ev)=>{
+      ev.preventDefault(); ev.stopPropagation();
+      const id=el.dataset.miss;
+      SP.miss[id]=Math.max(0,(SP.miss[id]||0)+d);
+      if(!SP.miss[id]) delete SP.miss[id];
+      spSave(); renderStudy();
+    };
+    el.onclick=e=>bump(1,e);
+    el.oncontextmenu=e=>bump(-1,e);
+    // 觸控：右滑 +1、左滑 −1（平板上沒有右鍵可按）
+    let x0=null;
+    el.addEventListener('touchstart',e=>{x0=e.touches[0].clientX;},{passive:true});
+    el.addEventListener('touchend',e=>{
+      if(x0===null) return;
+      const dx=e.changedTouches[0].clientX-x0; x0=null;
+      if(Math.abs(dx)<24) return;          // 太短當作點擊，交給 onclick
+      bump(dx>0?1:-1,e);
+    });
+  });
+}
+
+function renderWmDetail(){
+  const host=document.getElementById('wmDetail');
+  if(WM.view==='lib') return renderLibDetail(host);
+  const hit=wmChapters().find(x=>x.ch.id===WM.sel);
+  if(!hit){host.innerHTML='<div class="wm-empty">左邊選一個章節</div>';return;}
+  const {subj,ch}=hit, ex=spExamData(subj,ch);
+  host.dataset.subj=subj.id;   // 讓右欄玻璃染上該科色溫
+  const eps=VIDEOS?.istudy?.byChapter?.[ch.id]||[];
+  const yt=VIDEOS?.byChapter?.[ch.id]||[];
+  const ce=VIDEOS?.istudy?.courseCE?.[ch.id];
+  const got=eps.filter(e=>LOCAL[spNorm(e.code)]).length;
+
+  const epRows=eps.map(e=>{
+    const f=LOCAL[spNorm(e.code)];
+    return f?`<button class="sp-ep have" type="button" data-play="${esc(f.url)}" data-name="${esc(e.code+' '+e.title)}">
+        <span class="pl">▶</span><b>${esc(e.code)}</b> ${esc(e.title)}<i>${f.min} 分</i></button>`
+      :`<span class="sp-ep"><b>${esc(e.code)}</b> ${esc(e.title)}<i>未下載</i></span>`;
+  }).join('');
+  const ytRows=yt.map(v=>`<button class="sp-ep have" type="button" data-yt="${esc(v.id)}"
+    data-name="${esc(v.lec+' '+v.title)}">
+    <span class="pl">▶</span><b>${esc(v.lec)}</b> ${esc(v.title)}<i>${v.min} 分</i></button>`).join('');
+  // 年份多的時候只先給最近 5 年，其餘收在「顯示全部」後面
+  let hidden=0, withQ=0;
+  const exRows=Object.entries(ex.bySch).map(([sn,arr])=>{
+    arr.sort((a,b)=>b[0]-a[0]);
+    return `<span class="sp-sch"><b>${esc(sn)}</b>${arr.map(([y,p,qs],i)=>{
+      if(i>=5) hidden++;
+      if(qs?.length) withQ++;
+      // 有題號就標出來，點開考卷直接翻那幾題，不必整份掃
+      const label=qs?.length?`${y}<em>第 ${qs.join('、')} 題</em>`:`${y}`;
+      return `<a class="${i>=5?'old':''} ${qs?.length?'hasq':''}" href="../data/exams/${esc(p)}"
+        target="_blank" rel="noopener"
+        title="${qs?.length?`這份考卷的第 ${qs.join('、')} 大題屬於本章`:'尚未標出題號'}">${label}</a>`;
+      }).join('')}</span>`;
+  }).join('');
+  const hot=Object.values(ex.years).reduce((a,b)=>a+b,0);
+  const yrsHit=Object.keys(ex.years).length;
+
+  host.innerHTML=`
+    <div class="wm-dh"><h3>${esc(ch.name)}</h3>
+      <span class="tag">${esc(SUBJ_TAG[subj.id]||subj.id)}</span>
+      <span class="tag">${ch.hours}h</span>
+      ${SP.done[ch.id]?'<span class="tag">已完成</span>':''}</div>
+    <p class="wm-dsub">${TGT.size?`依你勾的 <b>${TGT.size} 個目標校系</b>：`:'八校合計：'}十年裡
+      <b>${yrsHit} 個年份</b>考過、共 <b>${hot}</b> 大題。${esc(SP_STAT[subj.id]||'')}。
+      <br>勾完成的標準是<b>該章考古題能動筆</b>，不是影片看完。</p>
+    ${eps.length?`<div class="wm-blk"><h4>iStudy 集數 <em>${got}/${eps.length} 已離線</em></h4>${epRows}
+      ${ce?`<a class="sp-open" href="https://istudy.way-to-win.com/cloud/video_main.php?ce=${encodeURIComponent(ce)}"
+        target="_blank" rel="noopener">→ 開 iStudy 課程列表</a>`:''}</div>`:''}
+    ${yt.length?`<div class="wm-blk"><h4>YouTube <em>${yt.length} 支</em></h4>${ytRows}</div>`:''}
+    ${ex.n?`<div class="wm-blk"><h4>考古題 <em>${ex.n} 份</em><span style="margin-left:auto;font-size:.72rem">${
+        withQ?`${withQ} 份已標題號`:'近年在前'}</span></h4>${exRows}
+      ${withQ?'':'<p class="q-note">年份旁還沒有題號——跑一次 <b>run_redo.bat</b> 讓 NotebookLM 補上「這章是第幾題」，之後點開考卷就能直接翻到那幾題。</p>'}
+      ${hidden?`<button class="ex-more" type="button" data-exmore>顯示較早的 ${hidden} 份</button>`:''}</div>`
+      :`<div class="wm-blk"><h4>考古題</h4><span class="wm-dsub">${
+        TGT.size?'你勾的目標校系裡，這章沒有已收的考卷':'這章沒有對應的已收考卷'}</span></div>`}`;
+  host.querySelectorAll('[data-play]').forEach(b=>b.onclick=()=>openPlayer(b.dataset.play,b.dataset.name));
+  host.querySelectorAll('[data-yt]').forEach(b=>b.onclick=()=>openYT(b.dataset.yt,b.dataset.name));
+  const more=host.querySelector('[data-exmore]');
+  if(more) more.onclick=()=>{
+    host.querySelectorAll('.sp-sch').forEach(s=>s.classList.add('all'));
+    more.remove();
+  };
+}
+
+/* ---------- 影片庫（同一套主從版面） ---------- */
+const LIB_SUBJ=[
+  {id:'elec', name:'電子學',   pre:'電子學/'},
+  {id:'math', name:'工程數學', pre:'工數/'},
+  {id:'la',   name:'線性代數', pre:'線代/'},
+  {id:'toeic',name:'多益',     pre:'多益/'},
+];
+// 使用者 2026-08-17 指定不在側欄列出的系列（檔案照抓，只是不顯示）
+const LIB_HIDE=new Set(['電子學/114暑電子']);
+let MANIFEST=null;
+async function loadManifest(){
+  for(const base of [MEDIA_BASE,'../media/']){
+    try{
+      const m=await fetch(base+'manifest.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw 0;return r.json();});
+      MANIFEST=m.episodes||[]; return;
+    }catch(e){}
+  }
+  MANIFEST=[];
+}
+function libGroups(){
+  const out=[];
+  for(const s of LIB_SUBJ){
+    const eps=(MANIFEST||[]).filter(e=>e.series.startsWith(s.pre));
+    if(!eps.length) continue;
+    const bySer={};
+    for(const e of eps)(bySer[e.series]??=[]).push(e);
+    for(const [ser,list] of Object.entries(bySer)){
+      if(LIB_HIDE.has(ser)) continue;
+      list.sort((a,b)=>a.code.localeCompare(b.code,'zh-Hant',{numeric:true}));
+      out.push({key:ser,subj:s.name,label:ser.split('/')[1],eps:list,
+        got:list.filter(e=>LOCAL[spNorm(e.code)]).length});
+    }
+  }
+  const yt=VIDEOS?.byChapter;
+  if(yt){
+    const seen=new Set(),list=[];
+    for(const arr of Object.values(yt))for(const v of arr)
+      if(!seen.has(v.id)){seen.add(v.id);list.push(v);}
+    list.sort((a,b)=>a.lec.localeCompare(b.lec,'en',{numeric:true}));
+    out.push({key:'yt-ctrl',subj:'自動控制',label:'T Video（YouTube）',yt:list,got:0,eps:list});
+  }
+  return out;
+}
+function renderLibList(host){
+  const gs=libGroups();
+  if(!gs.length){host.innerHTML='<div class="wm-empty">還沒有影片資料</div>';return;}
+  if(!WM.libSel||!gs.some(g=>g.key===WM.libSel)) WM.libSel=gs[0].key;
+  let html='',cur='';
+  for(const g of gs){
+    if(g.subj!==cur){cur=g.subj;html+=`<div class="wm-sec">${esc(cur)}</div>`;}
+    html+=`<button class="wm-row ${g.key===WM.libSel?'on':''}" data-lib="${esc(g.key)}">
+      <span class="nm">${esc(g.label)}</span>
+      <span class="hrs">${g.yt?`${g.eps.length} 支`:`${g.got}/${g.eps.length} 離線`}</span></button>`;
+  }
+  host.innerHTML=html;
+  host.querySelectorAll('[data-lib]').forEach(b=>b.onclick=()=>{
+    WM.libSel=b.dataset.lib; wmSave(); renderStudy();});
+}
+function renderLibDetail(host){
+  const g=libGroups().find(x=>x.key===WM.libSel);
+  if(!g){host.innerHTML='<div class="wm-empty">左邊選一個課程</div>';return;}
+  const mins=g.yt?g.eps.reduce((s,v)=>s+(v.min||0),0)
+                 :g.eps.reduce((s,e)=>s+(LOCAL[spNorm(e.code)]?.min||0),0);
+  const rows=g.yt
+    ? g.eps.map(v=>`<button class="sp-ep have" type="button" data-yt="${esc(v.id)}"
+        data-name="${esc(v.lec+' '+v.title)}">
+        <span class="pl">▶</span><b>${esc(v.lec)}</b> ${esc(v.title)}<i>${v.min} 分</i></button>`).join('')
+    : g.eps.map(e=>{
+        const f=LOCAL[spNorm(e.code)];
+        return f?`<button class="sp-ep have" type="button" data-play="${esc(f.url)}" data-name="${esc(e.code+' '+e.title)}">
+            <span class="pl">▶</span><b>${esc(e.code)}</b> ${esc(e.title)}<i>${f.min} 分</i></button>`
+          :`<span class="sp-ep"><b>${esc(e.code)}</b> ${esc(e.title)}<i>未下載</i></span>`;
+      }).join('');
+  host.dataset.subj=g.yt?'ctrl':({'電子學':'elec','工程數學':'math','線性代數':'math','多益':'toeic'}[g.subj]||'');
+  host.innerHTML=`
+    <div class="wm-dh"><h3>${esc(g.label)}</h3><span class="tag">${esc(g.subj)}</span>
+      <span class="tag">${g.eps.length} 集</span></div>
+    <p class="wm-dsub">${g.yt?`線上觀看，約 ${Math.round(mins/60)} 小時。`
+      :`<b>${g.got}/${g.eps.length}</b> 已離線${mins?`（約 ${Math.round(mins/60)} 小時）`:''}。
+        ${MEDIA_SEEKABLE?'離線檔預設 2 倍速、可拖曳快轉。':'<b>媒體伺服器未啟動</b>，離線檔無法拖曳。'}`}</p>
+    <div class="wm-blk">${rows}</div>`;
+  host.querySelectorAll('[data-play]').forEach(b=>b.onclick=()=>openPlayer(b.dataset.play,b.dataset.name));
+}
+
+function renderStudy(){
+  const wm=document.getElementById('wm');
+  if(!wm) return;
+  wm.hidden=!SPRINT_PLAN&&!MANIFEST;
+  renderWmBar(); renderWmList(); renderWmDetail();
+}
+
+/* 離線影片播放器：預設 2 倍速、記住上次播放位置 */
+const PL_LS='feb-playpos-v1';
+function openPlayer(url,name){
+  let m=document.getElementById('vidModal');
+  if(!m){
+    m=document.createElement('div'); m.id='vidModal'; m.className='modal';
+    m.innerHTML=`<div class="modal-back" data-vclose></div>
+      <div class="modal-panel glass vid-panel">
+        <button class="modal-x lq" type="button" data-vclose aria-label="關閉">✕</button>
+        <h3 id="vidName"></h3>
+        <video id="vidEl" controls preload="metadata" crossorigin="anonymous"></video>
+        <iframe id="vidFrame" hidden allow="autoplay; encrypted-media; fullscreen"
+          allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
+        <div id="vidChap" hidden></div>
+        <div class="vid-bar" title="鍵盤：← → 退進 10 秒　Shift+← → 60 秒　空白鍵 播放暫停　↑ ↓ 調速　Esc 關閉">
+          <span class="vgrp">
+            <button type="button" class="vbtn" data-seek="-60" title="倒轉 60 秒">−60</button>
+            <button type="button" class="vbtn" data-seek="-10" title="倒轉 10 秒">−10</button>
+            <button type="button" class="vbtn big" data-toggle title="播放／暫停">⏸</button>
+            <button type="button" class="vbtn" data-seek="10" title="快轉 10 秒">+10</button>
+            <button type="button" class="vbtn" data-seek="60" title="快轉 60 秒">+60</button>
+          </span>
+          <select class="vsel" id="vidRateSel" title="播放速度">
+            ${[1,1.25,1.5,1.75,2,2.5,3].map(r=>`<option value="${r}"${r===2?' selected':''}>${r}×</option>`).join('')}
+          </select>
+          <span id="vidSubs"></span>
+          <button type="button" class="vbtn" id="vidMapBtn" data-map hidden>🧠 思考地圖</button>
+          <span class="vid-left" id="vidLeft"></span>
+          <span class="vid-resume" id="vidResume"></span>
+        </div>
+        <p class="yt-hint">YouTube 播放器控制：<b>k</b> 播放暫停　<b>j</b>／<b>l</b> 退進 10 秒　<b>&lt;</b>／<b>&gt;</b> 調速</p>
+        <div id="vidMap" hidden></div>
+      </div>`;
+    document.body.appendChild(m);
+    m.addEventListener('click',ev=>{
+      if(ev.target.closest('[data-vclose]')) return closePlayer();
+      const v=document.getElementById('vidEl');
+      const s=ev.target.closest('[data-seek]');
+      if(s){ vidSeek(+s.dataset.seek); return; }
+      const sb=ev.target.closest('[data-subs]');
+      if(sb){ vidSubs(sb); return; }
+      if(ev.target.closest('[data-toggle]')) return vidToggle();
+      const tj=ev.target.closest('[data-t]');
+      if(tj){ vidSeekTo(+tj.dataset.t); return; }
+      if(ev.target.closest('[data-map]')){
+        const p=document.getElementById('vidMap');
+        if(p&&p.innerHTML){ p.hidden=!p.hidden;
+          if(!p.hidden) p.scrollIntoView({behavior:'smooth',block:'nearest'}); }
+        return;
+      }
+      if(ev.target.closest('[data-chlist]')){
+        const l=m.querySelector('.chap-list');
+        if(l) l.hidden=!l.hidden;
+        return;
+      }
+    });
+  }
+  const v=m.querySelector('#vidEl');
+  const fr=m.querySelector('#vidFrame');
+  m.querySelector('#vidName').textContent=name;
+  // 本機檔：用原生 video，帶自訂快轉／記憶進度
+  m.classList.remove('yt');
+  fr.removeAttribute('src'); fr.hidden=true; v.hidden=false;
+  PL_CUR=url;
+  notesReset();
+  v.src=url;
+  const rsel=m.querySelector('#vidRateSel');
+  if(rsel) rsel.onchange=()=>vidRate(+rsel.value);
+  attachSubs(v,url);
+  loadNotes(url);
+  const saved=readJSON(PL_LS,{})[url];
+  const pos=typeof saved==='number'?saved:(saved?.t||0);
+  v.onloadedmetadata=()=>{
+    vidRate(2);
+    if(PENDING_SEEK!=null){ v.currentTime=PENDING_SEEK; PENDING_SEEK=null; v.play(); }
+    else if(pos>1&&pos<v.duration-2) v.currentTime=pos;   // 記到秒，不再因為門檻寬鬆而漏掉
+    vidLeft(); vidResumeBar(pos); renderChapters();
+  };
+  let tick=0;
+  v.ontimeupdate=()=>{ chapTick(v); if(++tick%4===0) plSave(v); if(tick%8===0) vidLeft(); };
+  v.onpause=v.onseeked=v.onended=()=>plSave(v);      // 暫停／跳轉／播完都立刻落地
+  v.onplay=v.onpause=()=>{ const b=m.querySelector('[data-toggle]');
+    if(b) b.textContent=v.paused?'▶ 播放':'⏸ 暫停'; };
+  m.hidden=false; document.body.classList.add('modal-open');
+}
+const RATES=[1,1.25,1.5,1.75,2,2.5,3];
+let PL_CUR=null;
+/* 字幕：make_subs.py 產生的 .vtt 就放在 mp4 旁邊，同一台媒體伺服器供應。
+   先探測檔案在不在，有才掛字幕軌，避免播放器出現空的字幕選項。 */
+async function attachSubs(v,url){
+  v.querySelectorAll('track').forEach(t=>t.remove());
+  const vtt=url.replace(/\.mp4($|\?)/i,'.vtt$1');
+  if(vtt===url) return;
+  try{
+    const r=await fetch(vtt,{method:'HEAD'});
+    if(!r.ok) return;
+  }catch(e){ return; }
+  const tr=document.createElement('track');
+  tr.kind='subtitles'; tr.label='中文'; tr.srclang='zh-TW'; tr.src=vtt; tr.default=true;
+  v.appendChild(tr);
+  v.textTracks[0] && (v.textTracks[0].mode='showing');
+  const box=document.getElementById('vidSubs');
+  if(box) box.innerHTML='<button type="button" class="vbtn" data-subs>字幕 開</button>';
+}
+function vidEl(){ return document.getElementById('vidEl'); }
+const hms=s=>{s=Math.max(0,Math.round(s));
+  const h=Math.floor(s/3600),m=Math.floor(s%3600/60),x=s%60;
+  return (h?h+':':'')+String(m).padStart(h?2:1,'0')+':'+String(x).padStart(2,'0');};
+/* 存進度：記時間點、片長、看到幾成與更新時間，換裝置或重開都還原得回來 */
+function plSave(v){
+  if(!PL_CUR||!v||!isFinite(v.duration)) return;
+  const s=readJSON(PL_LS,{});
+  s[PL_CUR]={t:v.currentTime,dur:v.duration,
+             pct:Math.round(v.currentTime/v.duration*100),at:todayStr()};
+  localStorage.setItem(PL_LS,JSON.stringify(s));
+}
+function vidResumeBar(pos){
+  const box=document.getElementById('vidResume');
+  if(!box) return;
+  if(pos>30){
+    box.innerHTML=`已從上次的 <b>${hms(pos)}</b> 繼續
+      <button class="lq" type="button" data-restart>從頭播放</button>`;
+    box.querySelector('[data-restart]').onclick=()=>{
+      const v=vidEl(); v.currentTime=0; plSave(v); box.innerHTML='已回到開頭'; };
+  }else box.innerHTML='';
+}
+function vidSeek(sec){
+  const v=vidEl(); if(!v||!isFinite(v.duration)) return;
+  v.currentTime=Math.min(v.duration-1,Math.max(0,v.currentTime+sec));
+  vidLeft();
+}
+function vidRate(r){
+  const v=vidEl(); if(!v) return;
+  v.playbackRate=r;
+  const sel=document.getElementById('vidRateSel');
+  if(sel) sel.value=String(r);
+  vidLeft();
+}
+function vidSubs(btn){
+  const v=vidEl(); if(!v||!v.textTracks.length) return;
+  const t=v.textTracks[0];
+  const on=t.mode!=='showing';
+  t.mode=on?'showing':'hidden';
+  btn.textContent=on?'字幕 開':'字幕 關';
+  btn.classList.toggle('off',!on);
+}
+function vidToggle(){
+  const v=vidEl(); if(!v) return;
+  v.paused?v.play():v.pause();
+  const b=document.querySelector('#vidModal [data-toggle]');
+  if(b) b.textContent=v.paused?'▶ 播放':'⏸ 暫停';
+}
+/* 以目前倍速估還要坐多久——排讀書時段時比「片長」有用 */
+function vidLeft(){
+  const v=vidEl(), el=document.getElementById('vidLeft');
+  if(!v||!el||!isFinite(v.duration)) return;
+  const wall=(v.duration-v.currentTime)/(v.playbackRate||1);
+  el.textContent=`剩 ${Math.round(wall/60)} 分（${v.playbackRate}x）`;
+}
+/* ---------- 思考地圖：影片旁的 .notes.json（make_notes.py 產生） ----------
+   章節時間軸＋重點時段＋邏輯重構筆記＋板書快照，時間戳一律可點跳轉。 */
+let NOTES=null,NOTES_URL='',NOTES_TOK=0,PENDING_SEEK=null,LIBS_P=null;
+function ensureLibs(){
+  if(LIBS_P) return LIBS_P;
+  const css=document.createElement('link');
+  css.rel='stylesheet'; css.href='vendor/katex.min.css';
+  document.head.appendChild(css);
+  const load=src=>new Promise((res,rej)=>{
+    const s=document.createElement('script');
+    s.src=src; s.onload=res; s.onerror=()=>rej(new Error(src));
+    document.head.appendChild(s);});
+  LIBS_P=load('vendor/marked.min.js')
+    .then(()=>load('vendor/katex.min.js'))
+    .then(()=>load('vendor/auto-render.min.js'))
+    .then(()=>load('vendor/mermaid.min.js'));
+  return LIBS_P;
+}
+/* marked 的輸出再過一道：拔掉 script 類節點與 on* 屬性才上 DOM */
+function sanitize(html){
+  const t=document.createElement('template'); t.innerHTML=html;
+  t.content.querySelectorAll('script,iframe,object,embed,link,style').forEach(n=>n.remove());
+  t.content.querySelectorAll('*').forEach(el=>{
+    [...el.attributes].forEach(a=>{
+      if(/^on/i.test(a.name)||(/^(href|src|xlink:href)$/i.test(a.name)&&/^\s*javascript:/i.test(a.value)))
+        el.removeAttribute(a.name);
+    });
+  });
+  return t.innerHTML;
+}
+function notesReset(){
+  NOTES=null; NOTES_URL='';
+  for(const id of ['vidChap','vidMap']){
+    const el=document.getElementById(id);
+    if(el){ el.hidden=true; el.innerHTML=''; }
+  }
+  const b=document.getElementById('vidMapBtn'); if(b) b.hidden=true;
+}
+async function loadNotes(url){
+  const tok=++NOTES_TOK;
+  const nu=url&&url.replace(/\.mp4($|\?)/i,'.notes.json$1');
+  if(!nu||nu===url) return;
+  let d=null;
+  try{
+    const r=await fetch(nu,{cache:'no-store'});
+    if(r.ok) d=await r.json();
+  }catch(e){ /* 沒筆記就維持原樣 */ }
+  if(!d||tok!==NOTES_TOK) return;
+  NOTES=d; NOTES_URL=url;
+  renderChapters(); renderMap();
+}
+const snapUrl=(url,t)=>url.replace(/\.mp4($|\?)/i,`.snap_${t}.jpg$1`);
+function vidSeekTo(t){
+  const v=vidEl(); if(!v||!isFinite(v.duration)) return;
+  v.currentTime=Math.max(0,Math.min(v.duration-1,t));
+  if(v.paused) v.play();
+  vidLeft();
+}
+function renderChapters(){
+  const box=document.getElementById('vidChap'), v=vidEl();
+  if(!box||!NOTES) return;
+  const dur=NOTES.dur||((v&&isFinite(v.duration))?v.duration:0);
+  const ch=NOTES.chapters||[];
+  if(!dur||ch.length<2) return;
+  const pct=t=>(t/dur*100).toFixed(2)+'%';
+  const segs=ch.map((c,i)=>{
+    const end=i+1<ch.length?ch[i+1].t:dur;
+    return `<div class="seg" style="left:${pct(c.t)};width:${pct(end-c.t)}"
+      title="${esc(hms(c.t)+'　'+c.title)}"></div>`;}).join('');
+  const hots=(NOTES.keys||[]).map(k=>
+    `<div class="hot" style="left:${pct(k.a)};width:${pct(k.b-k.a)}" title="${esc(k.why||'')}"></div>`).join('');
+  box.innerHTML=`
+    <div class="chap-strip">${segs}${hots}<div class="ph" style="left:0"></div></div>
+    <div class="chap-now">▸ <b id="chapCur"></b><span id="chapWhy"></span>
+      <button class="lq" type="button" data-chlist>章節列表 ▾</button></div>
+    <div class="chap-list" hidden>${ch.map(c=>
+      `<button type="button" data-t="${c.t}"><b>${hms(c.t)}</b>${esc(c.title)}</button>`).join('')}</div>`;
+  box.hidden=false;
+  box.querySelector('.chap-strip').onclick=ev=>{
+    const r=ev.currentTarget.getBoundingClientRect();
+    vidSeekTo((ev.clientX-r.left)/r.width*dur);
+  };
+  chapTick(v);
+}
+function chapTick(v){
+  if(!NOTES||!v||!isFinite(v.duration)) return;
+  const box=document.getElementById('vidChap');
+  if(!box||box.hidden) return;
+  const dur=NOTES.dur||v.duration, t=v.currentTime;
+  const ph=box.querySelector('.ph');
+  if(ph) ph.style.left=(t/dur*100).toFixed(2)+'%';
+  const ch=NOTES.chapters||[];
+  let cur=0;
+  for(let i=0;i<ch.length;i++) if(t>=ch[i].t) cur=i;
+  box.querySelectorAll('.seg').forEach((s,i)=>s.classList.toggle('cur',i===cur));
+  const lb=document.getElementById('chapCur');
+  if(lb) lb.textContent=ch[cur]?.title||'';
+  const hot=(NOTES.keys||[]).find(k=>t>=k.a&&t<=k.b);
+  const why=document.getElementById('chapWhy');
+  if(why) why.textContent=hot?`★ 重點：${hot.why||''}`:'';
+}
+async function renderMap(){
+  const box=document.getElementById('vidMap'); if(!box) return;
+  const n=NOTES, m=n?.map;
+  if(!m||!((m.tldr||[]).length||(m.concepts||[]).length||(m.examples||[]).length)) return;
+  try{ await ensureLibs(); }catch(e){ console.warn('思考地圖函式庫載入失敗',e); return; }
+  if(NOTES!==n) return;                       // 載入期間換了片就丟棄這次結果
+  const md=s=>sanitize(marked.parse(String(s||'')));
+  const mm=s=>s?`<pre class="mermaid">${esc(s)}</pre>`:'';
+  const parts=[`<div class="map-head"><h4>🧠 思考地圖</h4>
+    <span>AI 讀逐字稿重構的觀念筆記——時間戳都能點，直接跳回影片</span></div>`];
+  if((m.tldr||[]).length) parts.push(`<div class="map-sec">本集速覽</div>
+    <ul class="map-tldr">${m.tldr.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`);
+  if(m.flow) parts.push(`<div class="map-sec">概念脈絡</div>${mm(m.flow)}`);
+  if((m.concepts||[]).length) parts.push(`<div class="map-sec">觀念重構</div>`+
+    m.concepts.map(c=>`<details class="map-card" open><summary>${esc(c.name)}</summary>
+      <div class="map-md">${md(c.md)}</div>${mm(c.mermaid)}
+      ${c.svg?`<div class="map-svg">${sanitize(c.svg)}</div>`:''}</details>`).join(''));
+  if((m.examples||[]).length) parts.push(`<div class="map-sec">例題消化</div>`+
+    m.examples.map(e=>{
+      const img=e.snap?`<figure class="map-snap">
+          <img loading="lazy" src="${snapUrl(NOTES_URL,e.snap)}" alt="板書快照"
+            onerror="this.parentNode.hidden=true">
+          <figcaption>板書快照</figcaption></figure>`:'';
+      return `<div class="map-card"><div class="map-ex-h">
+          <button type="button" class="t-jump" data-t="${e.t}">▶ ${hms(e.t)}</button>
+          ${e.tag?`<span class="map-tag">${esc(e.tag)}</span>`:''}</div>
+        <div class="map-md">${md(e.md)}</div>
+        ${e.trap?`<div class="map-trap">⚠ ${esc(e.trap)}</div>`:''}${img}</div>`;}).join(''));
+  const extra=(n.snaps||[]).filter(s=>!(m.examples||[]).some(e=>e.snap===s.t));
+  if(extra.length) parts.push(`<div class="map-sec">板書快照</div><div class="snap-grid">`+
+    extra.map(s=>`<figure class="map-snap">
+      <img loading="lazy" src="${snapUrl(NOTES_URL,s.t)}" alt="" onerror="this.parentNode.hidden=true">
+      <figcaption><button type="button" class="t-jump" data-t="${s.t}">▶ ${hms(s.t)}</button>
+        ${esc(s.cap||'')}</figcaption></figure>`).join('')+`</div>`);
+  if((m.pitfalls||[]).length) parts.push(`<div class="map-sec">老師提醒的坑</div>
+    <ul class="map-tldr">${m.pitfalls.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`);
+  box.innerHTML=parts.join('');
+  try{
+    renderMathInElement(box,{delimiters:[
+      {left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}],
+      throwOnError:false});
+  }catch(e){ console.warn('KaTeX',e); }
+  box.hidden=false;                 // 必須先顯示：mermaid 在 hidden 容器裡量字寬全是 0，會畫出空圖
+  try{
+    mermaid.initialize({startOnLoad:false,securityLevel:'strict',
+      theme:document.body.classList.contains('lt')?'neutral':'dark'});
+    await mermaid.run({nodes:box.querySelectorAll('.mermaid')});
+  }catch(e){ console.warn('Mermaid',e); }
+  const b=document.getElementById('vidMapBtn'); if(b) b.hidden=false;
+}
+
+/* ---------- 逐字稿全文搜尋：search_index.json（make_notes.py 產生） ---------- */
+let SIDX=null,SIDX_P=null,SRCH_T=0;
+function loadSIdx(){
+  if(SIDX_P) return SIDX_P;
+  SIDX_P=fetch(MEDIA_SRV+'search_index.json',{cache:'no-store'})
+    .then(r=>{ if(!r.ok) throw 0; return r.json(); })
+    .then(j=>SIDX=j)
+    .catch(()=>{ SIDX_P=null; return null; });
+  return SIDX_P;
+}
+function bindSearch(){
+  const q=document.getElementById('wmQ'), pop=document.getElementById('wmQPop');
+  if(!q||!pop) return;
+  q.onfocus=()=>loadSIdx();
+  q.oninput=()=>{ clearTimeout(SRCH_T); SRCH_T=setTimeout(doSearch,240); };
+  q.onkeydown=ev=>{ if(ev.key==='Escape'){ pop.hidden=true; q.blur(); } };
+  if(!document.body.dataset.srchDoc){
+    document.body.dataset.srchDoc='1';
+    document.addEventListener('click',ev=>{
+      const p=document.getElementById('wmQPop');
+      if(p&&!ev.target.closest('.wm-srch')) p.hidden=true;
+    });
+  }
+}
+async function doSearch(){
+  const q=document.getElementById('wmQ'), pop=document.getElementById('wmQPop');
+  if(!q||!pop) return;
+  const term=q.value.trim();
+  if(term.length<2){ pop.hidden=true; return; }
+  await loadSIdx();
+  if(!SIDX){
+    pop.innerHTML='<div class="srch-hd">搜尋索引還沒建立——跑一次「補字幕與筆記.bat」就有了</div>';
+    pop.hidden=false; return;
+  }
+  const lo=term.toLowerCase(), hits=[];
+  outer:
+  for(const vd of SIDX.videos){
+    for(const c of vd.cues){
+      const i=c[1].toLowerCase().indexOf(lo);
+      if(i>=0){ hits.push([vd,c[0],c[1],i]); if(hits.length>=80) break outer; }
+    }
+  }
+  if(!hits.length){
+    pop.innerHTML=`<div class="srch-hd">找不到「${esc(term)}」</div>`;
+    pop.hidden=false; return;
+  }
+  const rows=hits.map(([vd,t,txt,i],n)=>{
+    const a=Math.max(0,i-14);
+    return `<button type="button" class="srch-row" data-srch="${n}">
+      <b>${esc(spNorm(vd.code))}</b><i>${hms(t)}</i>
+      <span>${a>0?'…':''}${esc(txt.slice(a,i))}<mark>${esc(txt.substr(i,term.length))}</mark>${
+        esc(txt.slice(i+term.length,i+term.length+38))}</span></button>`;
+  }).join('');
+  pop.innerHTML=`<div class="srch-hd">${hits.length>=80?'80+':hits.length} 個片段（點了直接跳播）</div>`+rows;
+  pop.hidden=false;
+  pop.querySelectorAll('[data-srch]').forEach(b=>b.onclick=()=>{
+    const [vd,t]=hits[+b.dataset.srch];
+    const u=MEDIA_BASE+vd.rel.split('/').map(encodeURIComponent).join('/');
+    pop.hidden=true;
+    PENDING_SEEK=Math.max(0,t-3);        // 回退 3 秒讓句子有頭
+    openPlayer(u, spNorm(vd.code)+'｜'+(vd.title||''));
+  });
+}
+
+/* 控制系統走 YouTube：內嵌在同一個播放視窗，不另開分頁。
+   倍速與快轉交給 YouTube 自己的播放器（它的鍵盤快捷鍵也能用）。 */
+function openYT(id,name){
+  openPlayer('',name);
+  const m=document.getElementById('vidModal');
+  const v=m.querySelector('#vidEl'), fr=m.querySelector('#vidFrame');
+  PL_CUR=null;
+  v.pause(); v.removeAttribute('src'); v.load(); v.hidden=true;
+  fr.hidden=false;
+  fr.src=`https://www.youtube-nocookie.com/embed/${encodeURIComponent(id)}`
+        +`?autoplay=1&rel=0&modestbranding=1&cc_load_policy=0`;
+  m.classList.add('yt');
+  const box=document.getElementById('vidResume');
+  if(box) box.innerHTML='';
+}
+
+function closePlayer(){
+  const m=document.getElementById('vidModal'); if(!m) return;
+  const v=m.querySelector('#vidEl'), fr=m.querySelector('#vidFrame');
+  plSave(v);                       // 關閉前先落地，否則最後幾秒會遺失
+  v.pause(); v.removeAttribute('src'); v.load();
+  if(fr){ fr.removeAttribute('src'); fr.hidden=true; }  // 移掉 iframe 才會真的停止播放
+  v.hidden=false; m.classList.remove('yt');
+  PL_CUR=null;
+  m.hidden=true; document.body.classList.remove('modal-open');
+  renderStudy();                   // 讓清單上的「看到幾成」立刻更新
+}
+// 關分頁、切到別的視窗、電腦睡著都可能來不及存，這裡補一道
+addEventListener('pagehide',()=>plSave(vidEl()));
+addEventListener('visibilitychange',()=>{ if(document.hidden) plSave(vidEl()); });
+
+function _febSelfCheck(){
+  console.assert(dayDiff('2026-09-01','2026-07-24')===39,'dayDiff 39');
+  console.assert(dayDiff('2026-09-01','2026-09-01')===0,'same day 0');
+  console.assert(spNorm('115春矩陣(喻)01')==='115春矩陣01','spNorm 去講師標記');
+  console.assert(bgTypeOf('assets/a.mp4')==='video'&&bgTypeOf('https://x/y.MP4?t=1')==='video','bgType video');
+  console.assert(bgTypeOf('assets/a.jpg')==='image'&&bgTypeOf('https://x/pic')==='image','bgType image');
+  console.assert(bgUrlOk('assets/a.mp4')&&bgUrlOk('https://x/y.jpg')&&bgUrlOk('data:image/png;base64,AA'),'url ok');
+  console.assert(!bgUrlOk('javascript:alert(1)')&&!bgUrlOk('file:///c:/a.mp4'),'url rejected');
+  console.assert(document.querySelectorAll('#bgPills [data-theme]').length>=8,'bg pills rendered');
+}
+/* ---------- 動畫：主標逐字浮現（每字 120ms） ---------- */
+function initHeadingReveal(){
+  const h=document.querySelector('.hero h1');
+  if(!h||h.dataset.split) return;
+  h.dataset.split='1';
+  let i=0;
+  const wrap=node=>{
+    [...node.childNodes].forEach(n=>{
+      if(n.nodeType===3){
+        const frag=document.createDocumentFragment();
+        [...n.textContent].forEach(c=>{
+          const s=document.createElement('span');
+          s.className='ch'; s.textContent=c;
+          s.style.transitionDelay=(i++*120)+'ms';
+          frag.appendChild(s);
+        });
+        n.replaceWith(frag);
+      } else if(n.nodeType===1) wrap(n);
+    });
+  };
+  wrap(h);
+  requestAnimationFrame(()=>h.querySelectorAll('.ch').forEach(s=>s.classList.add('in')));
+}
+
+/* ---------- 動畫：捲動顯示、目錄 spy、山稜視差 ---------- */
+function initReveal(){
+  const io=new IntersectionObserver(es=>es.forEach(e=>{
+    if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}
+  }),{threshold:.12});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+}
+function initSpy(){
+  const links=[...document.querySelectorAll('#menu a.seclink')];
+  const secs=links.map(a=>document.querySelector(a.getAttribute('href')));
+  const io=new IntersectionObserver(es=>{
+    es.forEach(e=>{
+      if(e.isIntersecting){
+        links.forEach(a=>a.classList.toggle('active', a.getAttribute('href')==='#'+e.target.id));
+      }
+    });
+  },{rootMargin:'-30% 0px -60% 0px'});
+  secs.forEach(s=>s&&io.observe(s));
+}
+function initParallax(){
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const r1=[...document.querySelectorAll('.r1')], r2=[...document.querySelectorAll('.r2')], r3=[...document.querySelectorAll('.r3')];
+  let ticking=false;
+  addEventListener('scroll',()=>{
+    if(ticking) return; ticking=true;
+    requestAnimationFrame(()=>{
+      const y=scrollY;
+      r3.forEach(el=>el.style.transform=`translateY(${y*0.06}px)`);
+      r2.forEach(el=>el.style.transform=`translateY(${y*0.03}px)`);
+      r1.forEach(el=>el.style.transform=`translateY(${y*0.012}px)`);
+      ticking=false;
+    });
+  },{passive:true});
+}
+load();
+
+</script>
+</body>
+</html>
