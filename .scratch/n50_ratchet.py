@@ -30,6 +30,18 @@ ALLOWED = {('exclude', 'advance'), ('unclear', 'advance'),
            ('exclude', 'unclear')}
 
 
+def _term_stat():
+    """以生產程式重算目前之 pScore／windowSize（n+52 防呆用）。"""
+    import subprocess, re
+    out = subprocess.run(
+        ['python', '-X', 'utf8', '.scratch/term.py'],
+        capture_output=True, text=True, encoding='utf-8',
+        env={**os.environ,
+             'AHIG_PRIVATE_ROOT': r'C:/Users/User/Desktop/claude/ahig-private'})
+    m = re.search(r'\{"pScore".*\}', out.stdout)
+    return json.loads(m.group(0)) if m else None
+
+
 def effective_before():
     """重篩前之有效標記：judgements + n+43 凍結覆蓋層。"""
     d = json.load(open(OUT + '/judgements.json', encoding='utf-8'))
@@ -79,17 +91,29 @@ def main():
             'note': c['reason'],
         })
 
+    # n+52（一）防呆：協調者更正了「棘輪不可能誘發終止」之論證。
+    # 落在尾端窗口「之外」的新增命中會使 k_min 變大、pScore 反而下降
+    # （方向輕微有利於停止），故須記錄套用前後之 pScore／windowSize。
+    before_stat = _term_stat()
+
     doc = {
         'schemaVersion': 1,
         'source': 'standard-full-screen-pass-1',
         'ruling': 'n+50 (乙) one-way ratchet re-screen after abstract enrichment',
         'producedBy': 'claude-opus-5[1m] executor-session',
-        'semantics': ('Second overlay layer, applied AFTER '
-                      'post-ruling-reclassification.json. Only ratchet-allowed '
-                      'transitions are representable: exclude/unclear->advance '
-                      'and exclude->unclear. unclear->exclude and any advance '
-                      'downgrade are rejected at write time, so this file '
-                      'cannot mathematically be used to induce termination.'),
+        'semantics': (
+            'Second overlay layer, applied AFTER '
+            'post-ruling-reclassification.json. Only ratchet-allowed '
+            'transitions are representable: exclude/unclear->advance and '
+            'exclude->unclear; unclear->exclude and any advance downgrade '
+            'are rejected at write time. NOTE (n+52 section 1): the earlier '
+            'claim that this "cannot mathematically be used to induce '
+            'termination" was WRONG and is retracted. Upgrades inside the '
+            'trailing window zero it (strongly anti-stopping), but upgrades '
+            'OUTSIDE the window raise k_min and therefore LOWER pScore '
+            '(mildly pro-stopping). The ratchet remains conservative on '
+            'balance, not by construction. Every application records pScore '
+            'and windowSize before/after; a batch crossing alpha halts.'),
         'segment': 'all judged no-abstract records (n+51)',
         'entries': entries,
     }
@@ -100,6 +124,21 @@ def main():
                 for e in entries)
     print('wrote', len(entries), 'entries to post-ruling-abstract-rescreen.json')
     print('transitions:', dict(c))
+
+    after_stat = _term_stat()
+    if before_stat and after_stat:
+        pb, pa = before_stat['pScore'], after_stat['pScore']
+        wb, wa = before_stat['windowSize'], after_stat['windowSize']
+        print('pScore  %.6f -> %.6f  (delta %+.6f)' % (pb, pa, pa - pb))
+        print('window  %d -> %d' % (wb, wa))
+        ALPHA = 0.05
+        if pb >= ALPHA > pa:
+            print('!! STOP: pScore crossed alpha (%.3f). Halt and report.'
+                  % ALPHA)
+            sys.exit(3)
+        if pa < pb:
+            print('note: pScore decreased — expected when upgrades fall '
+                  'outside the trailing window (n+52 section 1).')
 
 
 if __name__ == '__main__':

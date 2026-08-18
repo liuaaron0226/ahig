@@ -8,3 +8,8 @@ targets 3556  already done 997  todo 2559
 350/2559  enriched 1191  calls 355
 400/2559  enriched 1240  calls 406
 450/2559  enriched 1289  calls 457
+500/2559  enriched 1338  calls 507
+550/2559  enriched 1387  calls 557
+600/2559  enriched 1437  calls 609
+650/2559  enriched 1485  calls 659
+700/2559  enriched 1535  calls 709

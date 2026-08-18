@@ -42159,3 +42159,148 @@ liquid transit** acceleration〉（1993）
   ——**同為觀察性營養攝取調查、族群同樣相符，差別全在結果軸。**
 - **🆕 「乳果糖作為診斷試劑」第 3 例**，確認穩定型態。
 - **🆕 `[placebo-cho-vehicle]` 成分變異**：乳糖。
+## B.11 執行室心跳 — n+52 三項已執行；standard lane page 226（第 281 輪）
+
+**時間**：2026-08-18 · **模型**：`claude-opus-5[1m]`
+
+**合併已執行且已驗證**（依 n+48 第二節）：
+`git merge` → CONFLICT → 解衝突 → commit；
+`git merge-base --is-ancestor c9c9649 HEAD` → **MERGED: yes**。
+**n+48 內容制衛生檢查** → 輸出為空，**PASS**。
+
+---
+
+## 一、n+52（二）`[title-only-judged]` 名冊已建立：**77 筆**
+
+`title-only-judged-roster.json`（寫於 `AHIG_PRIVATE_ROOT`）：
+
+```
+roster entries: 77
+by enrichmentStatus: upstream-no-abstract 39, no-identifier 29,
+                     not-found-all-ids 9
+by screeningDecision: unclear 43, exclude 34
+year range: 1946 - 2026
+```
+
+**筆數與裁定所述之 39＋29＋9 完全吻合。**
+
+**⚠️ 零影響已驗證**：`grep -c "title-only-judged\|roster" .scratch/term.py`
+→ **0**；建檔前後 `pScore 0.8205`／`windowSize 19`／`relevantFound 682`
+**完全相同**；測試 737/737。
+
+**檔案語意已依裁定明載**：`affectsTerminationStatistic: false`、
+`screeningDecision` 為**有效標記之複本而非覆寫**、
+**一律取全文並於萃取期逐筆覆核**、更正走 n+43（甲）類路徑。
+
+---
+
+## 二、n+52（一）棘輪防呆已加入，並**同時更正檔案內的錯誤語意**
+
+`n50_ratchet.py` 現於每次套用前後以生產程式重算 `pScore`／
+`windowSize` 並印出差值；**若單批次使 `pScore` 跨越 α = 0.05
+即以 exit code 3 中止並要求回報。**
+
+**⚠️ 並記下一項本執行室主動處理的事**：既有覆蓋層檔案之
+`semantics` 欄仍寫著協調者已撤回的那句
+——「cannot mathematically be used to induce termination」。
+**若不改，稽核時會讀到錯誤論證。** 已重寫該欄並重跑寫入器：
+
+```
+wrote 5 entries；transitions: unclear->advance 3, exclude->unclear 2
+pScore  0.820530 -> 0.820530  (delta +0.000000)
+window  19 -> 19
+```
+
+**新語意明載**：窗口內升級強烈不利於停止、**窗口外升級會抬高
+`k_min` 而輕微有利於停止**，**棘輪整體保守是結果而非構造保證**
+（`conservative on balance, not by construction`）。
+
+---
+
+## 三、本輪判讀：page 226
+
+| 項目 | 數值 |
+|---|---|
+| 本輪判讀 | page 226，22 筆（另 3 筆屬跳頁補判已判讀） |
+| **該頁補摘要涵蓋**（n+51 管線約束） | **25/25（100%）** |
+| 累計判讀 | **5,671 / 9,091（62.38%）** |
+| 剩餘 | 3,420 |
+| 有效標記 | advance 311、unclear 375、exclude 4,985 |
+
+**ADR-0008**：`pScore 0.9577`、`relevantFound 684`、
+**windowSize 4**、序列長度 5,650。`allowedToStop = false`。
+本輪 **advance 0、unclear 2、exclude 20**。測試 737/737，`ahig/` 零改動。
+
+### ⭐⭐⭐⭐ `4e24403b`——介入軸即為碳水屬性本身
+
+〈The effect of the **glycemic index** on **endurance performance**〉
+（`dissertation`，1999，**學位論文累計第 80 筆**；`no-identifier`）
+
+**🚨 升糖指數研究之受測變項就是碳水種類**——**介入軸與結果軸
+雙軸明確指向契約內**，僅族群與時序未載。
+
+**建議列優先全文清單高位，並與第 279 輪 `e4d2c58c`（十週低／高
+GI 飲食型態，因時序為每日飲食而排除）併同檢視**
+——**本筆時序未載，全文期須優先確認是「運動中給予」或
+「每日飲食型態」。**
+
+### ⭐⭐⭐ `e218de6d`——首見 `Conference Proceedings` 型態
+
+〈To evaluate the influence that **feeding state** may exert on
+**metabolic and physiological responses to exercise**〉（1999）
+
+`feeding state` 為明示受測操弄且可能涵蓋碳水給予，結果軸未指名。
+**為第三筆「上游確認無摘要卻仍判 unclear」之記錄。**
+
+**🆕 型別處置清單現含六類**：Comment、Editorial、Published Erratum、
+Retracted Publication、Letter、**Conference Proceedings**。
+
+---
+
+### 🚨 四、R3「非經口途徑」裁定之明確適用
+
+`240d846f`〈**Semistarvation and exercise**〉（1986）
+——**葡萄糖 440 kcal/日與胺基酸 480 kcal/日皆為靜脈輸注給予。**
+
+**⚠️ 其葡萄糖劑量與熱量規模與契約相近，僅途徑不同**
+——建議 W4b 記為 `[route]` 規則之靜脈給予範例
+（與第 268 輪 `b6b42efd` 腎上腺素輸注並列）。
+
+---
+
+### 本輪其餘判讀摘要
+
+- **🚨 「醣類但非可氧化供能」第 9 個成員**：`7eee7a1a` 之
+  **冬蟲夏草菌絲體多醣**——**藥用真菌之生物活性成分，屬新子類**
+  （前八為殼聚醣、膳食纖維、乳果糖、FODMAP、菊糖 ×2、玻尿酸、
+  葡萄糖胺、麥麩）。
+- **益生菌語料第 5 筆**（`ec5793cb` 馬拉松跑者情緒）——**其結果軸
+  （情緒量表）為該判準說明組中最遠離契約者。**
+- **非人類生物體本輪 5 筆**；**「動物運動生理學」測試集之魚類
+  第 4 例**（`6c368007` 大口黑鱸）——⚠️ **該筆主題為「餵食狀態對
+  運動表現」，與同頁 `e218de6d` 之人體研究恰成物種對照。**
+- **`supplement` 詞族新實例**：`6e79a515` 之
+  `treadmill exercise **supplemented by** OPN`——**指以蛋白質輔助
+  運動方案，非營養補充**。
+- **乙醇語料第 2 筆**（`4d27ad7d`）；**「觀察性營養攝取調查」型態
+  第 3 筆**（`75267ff6` 女性中長跑者，且年齡下緣 15 歲低於契約下限）。
+- **`5b56e0e5`（Ironman 三鐵與 DNA 損傷）之族群與運動型態皆與契約
+  高度相符**，惟介入與結果兩軸獨立出局。
+
+---
+
+### 待裁示事項
+
+1. **（續留）206 筆之 OA 可得性**，待擁有者決定
+   `AHIG_CONTACT_EMAIL`。
+
+**W4b 設計輸入**。本輪新增：
+
+- **🚨 全文期名冊**：**`[title-only-judged]` 77 筆已建檔**
+  ——1946–2026 年，unclear 43／exclude 34，**一律取全文覆核**。
+- **🚨 `[route]` 靜脈給予範例**：`240d846f`（**葡萄糖靜脈輸注，
+  劑量規模與契約相近，僅途徑不同**）。
+- **🆕 「醣類但非可氧化供能」第 9 例**：**真菌多醣**。
+- **🆕 型別處置清單第六類**：**Conference Proceedings**。
+- **🆕 優先全文清單高位**：**`4e24403b`（升糖指數對耐力表現）**
+  ——**介入軸即為碳水屬性本身**，須與 `e4d2c58c` 併同檢視時序。
