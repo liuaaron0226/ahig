@@ -25,6 +25,26 @@ if os.path.exists(rc_path):
         op[cid] = e['effectiveDecision']
         n_over += 1
 
+# n+50（乙）：補摘要後之單向棘輪重篩，為第二層覆蓋，套用於凍結覆蓋層之後。
+# 只可能含 exclude/unclear->advance 與 exclude->unclear（寫入器強制），
+# 故其效果必然是提高命中、不可能誘發終止。
+rs_path = OUT + '/post-ruling-abstract-rescreen.json'
+n_rescreen = 0
+if os.path.exists(rs_path):
+    ALLOWED = {('exclude', 'advance'), ('unclear', 'advance'),
+               ('exclude', 'unclear')}
+    seen_rs = set()
+    for e in json.load(open(rs_path, encoding='utf-8'))['entries']:
+        cid = e['candidateId']
+        assert cid in op, 'rescreen id not judged: ' + cid
+        assert cid not in seen_rs, 'duplicate in rescreen: ' + cid
+        assert op[cid] == e['originalOpinion'], 'rescreen originalOpinion mismatch: ' + cid
+        assert (e['originalOpinion'], e['effectiveDecision']) in ALLOWED, \
+            'ratchet violation in file: ' + cid
+        seen_rs.add(cid)
+        op[cid] = e['effectiveDecision']
+        n_rescreen += 1
+
 # 協調者第 n+40 輪選項（丙）：跳頁補判之 critical-harms 紀錄已篩畢（計入前置
 # 條件），但暫不進 labels 序列——直接接入會把相距上百頁的紀錄接在一起，
 # windowSize（尾端連續無命中長度）就不再是「連續」的。逐頁推進到該筆所在頁
@@ -47,7 +67,8 @@ labels = [1 if op[it['candidateId']] in ('advance','unclear') else 0
           for it in w['items']
           if it['candidateId'] in op and it['candidateId'] not in excluded]
 print('raw      ', dict(raw), 'judged', len(op))
-print('overlay  ', n_over, 'entries applied')
+print('overlay  ', n_over, 'entries applied',
+      ('; rescreen %d applied' % n_rescreen) if n_rescreen else '')
 print('effective', dict(Counter(op.values())))
 print(f'p 值序列排除中 {len(excluded)} 筆（已納回 {len(reintegrated)}）'
       f'；連續判畢至 page {contiguous}；序列長度 {len(labels)}')
