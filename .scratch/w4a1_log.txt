@@ -1,1 +1,3 @@
 candidates 308  unpaywall SKIPPED (AHIG_CONTACT_EMAIL unset)
+{"candidateCount": 308, "acquiredCount": 26, "availablePdfCount": 33, "unavailableCount": 0, "incompleteCount": 216, "batchManifest": "fulltext-acquisition/fulltext-batch-5726c66e7ae834a3.json", "httpCalls": 578, "elapsedSec": 930.6}
+status counts {'acquired': 26, 'available-landing-page': 33, 'available-pdf': 33, 'incomplete': 216}
