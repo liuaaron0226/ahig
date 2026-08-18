@@ -1,0 +1,12 @@
+[
+ {
+  "candidateId": "ahig:candidate:publication:8ef11f82b53b2f50ddd538c6",
+  "newDecision": "unclear",
+  "reason": "補摘要後結果軸與介入劑量皆明確落在契約內：221 名耐力運動員於實際賽事（Ironman ×2、半 Ironman、馬拉松、100/150 km 自行車賽、職業車手分站賽）期間之碳水攝取率為 35–71 g/h，**落在契約 10–150 g/h 區間**；結果軸為 12 項腸胃道症狀之 0–9 分量表，直接對應契約之 gi-symptom-incidence 與 gi-symptom-severity，且量到「總碳水攝取率與噁心、脹氣呈正相關」之劑量—症狀關聯。⚠️ 惟設計軸為賽後問卷之觀察性研究，無隨機分派亦無對照臂，不符契約之 RCT-parallel／RCT-crossover——**故依棘輪僅升至 unclear 而非 advance**，由全文期定案。原判 exclude 係因無摘要時標題僅載「營養攝取與腸胃道問題」，未載劑量、族群規模與量表。依 n+50（乙）棘輪 exclude→unclear 為允許方向。"
+ },
+ {
+  "candidateId": "ahig:candidate:publication:7dc7529cc1bd8a472874c732",
+  "newDecision": "unclear",
+  "reason": "補摘要後結果軸明確落在契約內：18 名耐力跑者於 35°C 環境完成 2 小時 60% 最大攝氧量跑步，結果軸包含腸胃道症狀嚴重度（明載 HFOD 於運動前、運動中與總分皆顯著高於 LFOD），直接對應契約之 gi-symptom-severity。⚠️ 惟介入軸為 24 小時 FODMAP 飲食（高／低可發酵寡糖、雙糖、單糖與多元醇），屬**運動前之飲食型態操弄而非運動中外源碳水給予**，且 FODMAP 之作用機轉為腸道發酵而非供能——與第 268 輪 42cec87a（乳果糖為診斷試劑）同屬「醣類但非可氧化供能」型態。**故依棘輪僅升至 unclear，由全文期就介入軸定案。** 原判 exclude 係因無摘要時標題之 FODMAP 一詞未顯示其為醣類介入。依棘輪 exclude→unclear 為允許方向。"
+ }
+]
