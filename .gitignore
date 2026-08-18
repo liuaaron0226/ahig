@@ -71,3 +71,6 @@ trading-desk/data/
 # 逐檔列名，不擴張上面的樣式——`_n65skill.txt` 不符 `_p[0-9]*`，
 # 若靠改寬樣式來涵蓋，就會重蹈本檔第 55 行所記的覆轍。
 .scratch/_n65skill.txt
+# n+57 第 5 步之尾端抽驗傾印（含 TITLE:／ABS: 全文）。
+# 逐檔列名，不擴張上方樣式（同第 333 輪之做法）。
+.scratch/_tail.txt
