@@ -76,14 +76,20 @@ def build_targets():
     return out
 
 
-def query_for(row):
+def queries_for(row):
+    """回傳所有可用識別碼之查詢，依優先序。
+
+    ⚠️ 原本一筆只試一種：pmcid 查不到就記 not-found。實測發現
+    pmcid 失敗之 12 筆**全都另有 pmid 且查得到**——那是 fallback
+    缺口，不是資料缺失。故改為逐一嘗試直到命中。"""
+    out = []
     if row['pmcid']:
-        return 'PMCID:%s' % row['pmcid'], 'pmcid'
+        out.append(('pmcid', 'PMCID:%s' % row['pmcid']))
     if row['pmid']:
-        return 'EXT_ID:%s AND SRC:MED' % row['pmid'], 'pmid'
+        out.append(('pmid', 'EXT_ID:%s AND SRC:MED' % row['pmid']))
     if row['doi']:
-        return 'DOI:"%s"' % row['doi'], 'doi'
-    return None, None
+        out.append(('doi', 'DOI:"%s"' % row['doi']))
+    return out
 
 
 def main():
@@ -131,55 +137,60 @@ def main():
     n = 0
     for row in todo:
         cid = row['candidateId']
-        q, kind = query_for(row)
-        rec = {'idKind': kind, 'attemptedAt': time.strftime('%Y-%m-%dT%H:%M:%S'),
-               'source': 'europepmc-search'}
-        if q is None:
-            # 與「上游確認無摘要」明確可分：這是未嘗試
-            rec['status'] = 'no-identifier'
+        cands = queries_for(row)
+        rec = {'attemptedAt': time.strftime('%Y-%m-%dT%H:%M:%S'),
+               'source': 'europepmc-search',
+               'triedKinds': [k for k, _ in cands]}
+        if not cands:
+            rec['idKind'] = None
+            rec['status'] = 'no-identifier'   # 未嘗試
             rec['hasAbstract'] = None
             prov[cid] = rec
             continue
-        url = SEARCH + '?' + urllib.parse.urlencode(
-            {'query': q, 'resultType': 'core', 'format': 'json', 'pageSize': 1})
-        try:
-            ex = t.get_bytes(url=url, headers={
-                'Accept': 'application/json',
-                'User-Agent': 'AHIG/0.2.1 fulltext-calibration'})
-        except Exception as exc:
-            rec['status'] = 'transport-error'
-            rec['detail'] = type(exc).__name__
-            rec['hasAbstract'] = None
-            prov[cid] = rec
-            continue
-        code = int(ex.get('status') or 0)
-        if not 200 <= code < 300:
-            rec['status'] = 'http-%d' % code
-            rec['hasAbstract'] = None
-            prov[cid] = rec
-            continue
-        try:
-            body = json.loads(ex['body'].decode('utf-8'))
-        except Exception:
-            rec['status'] = 'bad-json'
-            rec['hasAbstract'] = None
-            prov[cid] = rec
-            continue
-        hits = (body.get('resultList') or {}).get('result') or []
-        if not hits:
-            rec['status'] = 'not-found'      # 查過但上游沒有這筆
-            rec['hasAbstract'] = None
-        else:
+        resolved = False
+        for kind, q in cands:
+            url = SEARCH + '?' + urllib.parse.urlencode(
+                {'query': q, 'resultType': 'core', 'format': 'json',
+                 'pageSize': 1})
+            try:
+                ex = t.get_bytes(url=url, headers={
+                    'Accept': 'application/json',
+                    'User-Agent': 'AHIG/0.2.1 fulltext-calibration'})
+            except Exception as exc:
+                rec['status'] = 'transport-error'
+                rec['detail'] = type(exc).__name__
+                continue
+            code = int(ex.get('status') or 0)
+            if not 200 <= code < 300:
+                rec['status'] = 'http-%d' % code
+                continue
+            try:
+                body = json.loads(ex['body'].decode('utf-8'))
+            except Exception:
+                rec['status'] = 'bad-json'
+                continue
+            hits = (body.get('resultList') or {}).get('result') or []
+            if not hits:
+                continue                      # 換下一種識別碼
             ab = (hits[0].get('abstractText') or '').strip()
+            rec['idKind'] = kind
             if ab:
                 rec['status'] = 'enriched'
                 rec['hasAbstract'] = True
                 rec['abstractChars'] = len(ab)
                 abstracts[cid] = ab
             else:
-                # 明確：查到了紀錄，上游確認沒有摘要（≠ 未嘗試）
+                # 查到紀錄，上游確認無摘要（≠ 未嘗試）
                 rec['status'] = 'upstream-no-abstract'
                 rec['hasAbstract'] = False
+            resolved = True
+            break
+        if not resolved:
+            rec.setdefault('idKind', cands[0][0])
+            # 所有識別碼都試過仍查無，與「只試一種」明確可分
+            rec['status'] = rec.get('status') if rec.get('status', '').startswith(
+                ('transport-error', 'http-', 'bad-json')) else 'not-found-all-ids'
+            rec['hasAbstract'] = None
         prov[cid] = rec
         n += 1
         if n % 50 == 0:
