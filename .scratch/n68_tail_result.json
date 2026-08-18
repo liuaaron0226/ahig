@@ -1,0 +1,32 @@
+{
+ "documentType": "tail-spot-check-report",
+ "note": "執行室回報，**不含終止裁定**——n+57 二 6：終止之成立或失效由協調者裁定並先送擁有者。",
+ "readsStep3": {
+  "sampleHash": "sha256:f407495009760090038dfd27084f82851275bc7eb955189201e9e64e4a69b817",
+  "itsReadsStep1": {
+   "terminationEvidenceHash": "sha256:ee4ed745e28f0c3c70fc4258b037bef2f3b74a7dfb99b7c94578334dabc1ddc1"
+  },
+  "itsReadsStep2": {
+   "preconditionsCheckHash": "sha256:44b105318c66d813857c8f45f3b36246da225abc7fdd5f54dd25304e0a040118"
+  }
+ },
+ "anchorNote": "⚠️ 本 lane 無 queueHash。依 n+51 核准之等效替代，以 worksheet 雜湊為種子錨定。**此值不是 queueHash**，報告中不得如此稱呼（n+57 第 3 步）。",
+ "result": {
+  "documentType": "tail-spot-check-result",
+  "adr": "ADR-0008",
+  "screeningQueueHash": "sha256:4eb2dc606b4b12db2ea9142e98df74bf6dfaedc7039122c7d53e7b45f38430da",
+  "sampleSize": 200,
+  "relevantOrUnclearFound": [
+   "ahig:candidate:publication:ed93a10782e1975d7c2bf4df",
+   "ahig:candidate:publication:fd5c32eca30115d3ad555302"
+  ],
+  "resumeScreening": true,
+  "verdict": "尾端抽驗發現相關或 unclear 紀錄：終止失效，恢復篩選",
+  "evaluatedAt": "2026-08-18T12:05:00+00:00"
+ },
+ "decisionCounts": {
+  "exclude": 198,
+  "unclear": 1,
+  "advance": 1
+ }
+}
