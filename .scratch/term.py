@@ -56,20 +56,32 @@ contiguous = 0
 while all(c in op for c in by_page.get(contiguous + 1, [None])):
     contiguous += 1
 
+# 協調者第 n+72 輪核准之第三態：尾端抽驗那 200 筆是「對剩餘池的獨立隨機
+# 稽核」，不是逐頁篩選的延續，故**永久**不入 labels 序列，不隨頁面推進納回。
+# 依清單上的 `state` 欄位分流（n72_relabel.py 寫入），不靠頁碼推導——
+# 用頁碼會把已被推進涵蓋的抽驗記錄誤當暫時排除而納回。
 exc_path = OUT + '/p-score-sequence-exclusions.json'
-excluded, reintegrated = set(), []
+excluded, reintegrated, out_of_sequence = set(), [], set()
 if os.path.exists(exc_path):
     for e in json.load(open(exc_path, encoding='utf-8'))['entries']:
-        (reintegrated.append(e['candidateId']) if e['page'] <= contiguous
-         else excluded.add(e['candidateId']))
+        st = e.get('state', 'pending-reintegration')
+        if st == 'out-of-sequence-permanent':
+            out_of_sequence.add(e['candidateId'])
+        elif e['page'] <= contiguous:
+            reintegrated.append(e['candidateId'])
+        else:
+            excluded.add(e['candidateId'])
+assert not (excluded & out_of_sequence), '兩集合必須互斥'
 
+skip = excluded | out_of_sequence
 labels = [1 if op[it['candidateId']] in ('advance','unclear') else 0
           for it in w['items']
-          if it['candidateId'] in op and it['candidateId'] not in excluded]
+          if it['candidateId'] in op and it['candidateId'] not in skip]
 print('raw      ', dict(raw), 'judged', len(op))
 print('overlay  ', n_over, 'entries applied',
       ('; rescreen %d applied' % n_rescreen) if n_rescreen else '')
 print('effective', dict(Counter(op.values())))
 print(f'p 值序列排除中 {len(excluded)} 筆（已納回 {len(reintegrated)}）'
+      f'；永久不入序列 {len(out_of_sequence)} 筆（n+72 第三態）'
       f'；連續判畢至 page {contiguous}；序列長度 {len(labels)}')
 print(json.dumps(p_score(labels, w['itemCount']), ensure_ascii=False, default=str))
