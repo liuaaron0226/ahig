@@ -1,0 +1,90 @@
+# -*- coding: utf-8 -*-
+"""第 335 輪：三個族群之編號重號／跳號，及其被漏看的原因。
+
+⚠️ **不修改 judgements.json**（append-only，n+56 一不重判）。
+本檔只把已寫入的編號錯誤登記下來，使 M1 不會拿錯的分母去推論。
+
+🚨 **為什麼此前每輪都回報「非遞增 0」**：
+`n59_counters.py` 的三式太窄，看不到出問題的那幾筆——
+
+| 族群 | 窄式 | 漏看 | 漏看的那幾筆 |
+|---|---|---|---|
+| `[methodological]` | `\\[methodological\\] 累計第` | 3 | 後期理由改用反引號包標籤 |
+| 第 45 項活躍案例 | 中綴只允許「待裁之」 | 1 | 中綴另有他寫法 |
+| 診斷性葡萄糖負荷型 | 量詞只允許「增至」 | 2 | 另寫過「第 N 筆」 |
+
+**🚨 而漏看的那幾筆，正好就是有問題的那幾筆**——
+**不是巧合：新寫法出現的時期，也正是我開始寫錯編號的時期。**
+
+⚠️ **與 n+54 未錨定 grep 恰好相反**：那次是樣式太鬆吃進不該吃的，
+**這次是樣式太緊看不到該看的**。**前者會產生假警報，後者會產生
+假 PASS**——**假 PASS 更危險，因為沒有人會去追一個乾淨的 0。**
+"""
+import io
+import json
+import re
+
+OUT = (r'C:/Users/User/Desktop/claude/ahig-private/search-runs'
+       r'/b11-exogenous-cho-endurance/b11-full-run'
+       r'/standard-full-screen-pass-1')
+
+E = json.load(io.open(OUT + '/judgements.json', encoding='utf-8'))['entries']
+W = json.load(io.open(OUT + '/worksheet.json', encoding='utf-8'))['items']
+page = {x['candidateId'][-8:]: x['page'] for x in W}
+order = {e['candidateId'][-8:]: i for i, e in enumerate(E)}
+
+FINDINGS = [
+    {
+        'family': '[methodological] 累計',
+        'records': ['26009185', '3f19c805', '79474396', '3fe5b1c4'],
+        'written': [32, 47, 33, 33],
+        'defect': '一處跳號（32 → 47）、一處重號（33 寫兩次）',
+        'cause': (
+            '3f19c805（page 261）寫 47，而該族在它之前的最大值是 32。'
+            '47 無來源可考，判斷為抄錯：其理由中另有「檢索雜訊累計第 601 筆」，'
+            '兩個數字都不接近 47，故非相鄰誤植，而是憑印象寫的。'
+            '其後 79474396（page 269）與 3fe5b1c4（page 271）各寫 33 '
+            '——兩者都接續 32 而忽略了 47，且我在 page 271 那輪'
+            '查詢時看到的最後一筆仍是 26009185（第 32 筆），'
+            '正因為查詢樣式漏看了 3f19c805 與 79474396。'),
+        'correct': '該族實際成員 29 筆（含編號者）；正確編號應為 32 → 33 → 34 → 35',
+    },
+    {
+        'family': '診斷性葡萄糖負荷型',
+        'records': ['3e111a16', '9b40c626', '025cefe4'],
+        'written': [59, 60, 60],
+        'defect': '一處重號（60 寫兩次）',
+        'cause': (
+            '9b40c626 與 025cefe4 分屬 page 270 與 271。'
+            'page 271 該輪查詢回報「最後一筆 3e111a16 → 第 59 筆」，'
+            '因為窄式只認「增至 N 筆」而 9b40c626 寫的是「第 60 筆」'
+            '——**即我依據一個漏看了前一筆的查詢結果，寫出了重號。**'),
+        'correct': '正確編號應為 59 → 60 → 61',
+    },
+]
+
+print('=' * 66)
+print('第 335 輪：已寫入之編號錯誤登記（judgements.json 不修改）')
+print('=' * 66)
+for f in FINDINGS:
+    print()
+    print('== %s ==' % f['family'])
+    print('  缺陷：%s' % f['defect'])
+    for s, n in zip(f['records'], f['written']):
+        print('    %-9s page %-4s 判讀序 %-5d 寫「第 %d 筆」'
+              % (s, page.get(s, '?'), order.get(s, -1), n))
+    print('  成因：%s' % f['cause'])
+    print('  更正：%s' % f['correct'])
+
+print()
+print('=' * 66)
+print('⚠️ 對 M1 的意義：這兩族的「第 N 筆」不得作為族群大小使用。')
+print('   族群大小一律以內容制實測為準，與 n+65（四）之計數改名')
+print('   通則同一理由——**編號是流水號，不是計數**。')
+print()
+
+# 內容制實測：兩族之真實規模
+for fam, pat in [('[methodological]', r'\[methodological\]'),
+                 ('診斷性葡萄糖負荷型', r'診斷性葡萄糖負荷')]:
+    n = sum(1 for e in E if re.search(pat, e['reason']))
+    print('  %-22s 內容制實測 %d 筆（含未寫編號者）' % (fam, n))
