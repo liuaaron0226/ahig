@@ -1,0 +1,282 @@
+{
+ "documentType": "n49-abstract-availability-sample",
+ "anchor": "sha256:e228e94c312afa3acd9af62667c3ea5947b941a728d7277e2671ceb49a0b2554",
+ "anchorNote": "worksheet.json SHA-256; used in place of queueHash, which this lane does not have",
+ "seedDerivation": "int(anchor_hex[:16], 16)",
+ "populationDefinition": "judged records whose worksheet abstract is empty",
+ "populationSize": 245,
+ "judgedTotal": 5431,
+ "sampleSize": 30,
+ "sample": [
+  {
+   "candidateId": "ahig:candidate:publication:2e85f34288852f9000a9a322",
+   "seq": 5307,
+   "page": 213,
+   "year": 2022,
+   "pmid": "35277069",
+   "pmcid": "PMC8838653",
+   "doi": "10.3390/nu14030710"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:782ee788b60a05b5b6a456a8",
+   "seq": 5355,
+   "page": 215,
+   "year": 2024,
+   "pmid": "38441690",
+   "pmcid": "PMC11199313",
+   "doi": "10.1007/s00421-024-05437-y"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:4d21bd795d4c644079fd5f74",
+   "seq": 5365,
+   "page": 215,
+   "year": 2023,
+   "pmid": "37181252",
+   "pmcid": "PMC10174327",
+   "doi": "10.3389/fspor.2023.1158167"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:787dfadba05dcbdfd0ec7ac1",
+   "seq": 5388,
+   "page": 216,
+   "year": 1970,
+   "pmid": "5457228",
+   "pmcid": null,
+   "doi": "10.1080/00039896.1970.10667282"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:94684488a20c0aea7c6283f9",
+   "seq": 5393,
+   "page": 216,
+   "year": 1996,
+   "pmid": "8847329",
+   "pmcid": null,
+   "doi": "10.1152/jappl.1996.80.1.363"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:71725a92d48aced52af19c25",
+   "seq": 5300,
+   "page": 212,
+   "year": 2023,
+   "pmid": "37062892",
+   "pmcid": null,
+   "doi": "10.1113/jp284346"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:94e2bc76fc25266f05adca3c",
+   "seq": 5313,
+   "page": 213,
+   "year": 2003,
+   "pmid": "14666945",
+   "pmcid": null,
+   "doi": "10.1519/1533-4287(2003)017<0792:eoveac>2.0.co;2"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:3d06fa56e19bf950f7b29d03",
+   "seq": 5311,
+   "page": 213,
+   "year": 2020,
+   "pmid": "32636892",
+   "pmcid": "PMC7330616",
+   "doi": "10.1016/j.jesf.2020.06.003"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:949b4e1c3ae3ce274e0e8148",
+   "seq": 5775,
+   "page": 231,
+   "year": 2022,
+   "pmid": "34726114",
+   "pmcid": null,
+   "doi": "10.1080/17461391.2021.2001575"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:f673041d4f5086e4332bb8e5",
+   "seq": 5189,
+   "page": 208,
+   "year": 2022,
+   "pmid": "36155132",
+   "pmcid": "PMC9645808",
+   "doi": "10.7554/elife.79939"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:87f63de0cd28c60c0968ede4",
+   "seq": 5281,
+   "page": 212,
+   "year": 2018,
+   "pmid": "30058508",
+   "pmcid": null,
+   "doi": "10.1017/s0007114518001873"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:56c625da7a4d5572f3136999",
+   "seq": 4009,
+   "page": 161,
+   "year": 2019,
+   "pmid": "30652917",
+   "pmcid": null,
+   "doi": "10.1139/apnm-2018-0853"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:a6e21a9bd2b974cf36bb8d30",
+   "seq": 5367,
+   "page": 215,
+   "year": 1989,
+   "pmid": "2767067",
+   "pmcid": null,
+   "doi": "10.1007/bf02332219"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:82fa86699ebe00461c7ff15b",
+   "seq": 4803,
+   "page": 193,
+   "year": 2020,
+   "pmid": "32974378",
+   "pmcid": "PMC7461794",
+   "doi": "10.3389/fnut.2020.00128"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:e7f071707ecec32654462b12",
+   "seq": 5397,
+   "page": 216,
+   "year": 2021,
+   "pmid": "34153190",
+   "pmcid": "PMC8532161",
+   "doi": "10.1021/acs.jafc.1c00943"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:5a3b3c9a2d00cabb6d8840dc",
+   "seq": 2156,
+   "page": 87,
+   "year": 2019,
+   "pmid": "30702374",
+   "pmcid": null,
+   "doi": "10.1123/ijspp.2018-0624"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:0b13175a886219c4d7e9ee4e",
+   "seq": 2930,
+   "page": 118,
+   "year": 2004,
+   "pmid": null,
+   "pmcid": null,
+   "doi": null
+  },
+  {
+   "candidateId": "ahig:candidate:publication:8063d534a4377df255505b58",
+   "seq": 5385,
+   "page": 216,
+   "year": 2020,
+   "pmid": "32054486",
+   "pmcid": "PMC7020555",
+   "doi": "10.1186/s12970-020-0341-4"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:ced1256bf3984c841b0a92da",
+   "seq": 5322,
+   "page": 213,
+   "year": 2022,
+   "pmid": "35235092",
+   "pmcid": "PMC8891421",
+   "doi": "10.1186/s40798-022-00417-y"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:e182d28d762b1dfa143c91e9",
+   "seq": 4652,
+   "page": 187,
+   "year": 2018,
+   "pmid": null,
+   "pmcid": null,
+   "doi": "10.12691/jfnr-6-6-8"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:eaf1e6e8126088372635867c",
+   "seq": 5283,
+   "page": 212,
+   "year": 2013,
+   "pmid": "23439421",
+   "pmcid": null,
+   "doi": "10.1249/mss.0b013e31828af183"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:c394b8a6d1ba6a3cebac383e",
+   "seq": 5323,
+   "page": 213,
+   "year": 2026,
+   "pmid": "41128911",
+   "pmcid": null,
+   "doi": "10.1007/s00421-025-05995-9"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:bcdded4028d235447e41f558",
+   "seq": 2395,
+   "page": 96,
+   "year": 2024,
+   "pmid": null,
+   "pmcid": null,
+   "doi": "10.3390/app14073005"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:66d2d5f4874a20f98e0d4a4c",
+   "seq": 5318,
+   "page": 213,
+   "year": 2004,
+   "pmid": "15630143",
+   "pmcid": null,
+   "doi": "10.1139/h04-044"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:4f891e3e5e400117a73129d9",
+   "seq": 5282,
+   "page": 212,
+   "year": 2021,
+   "pmid": "33196605",
+   "pmcid": "PMC8048725",
+   "doi": "10.1249/mss.0000000000002552"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:4bf16ffd49e6f9fefabfd12f",
+   "seq": 2499,
+   "page": 100,
+   "year": 1993,
+   "pmid": null,
+   "pmcid": null,
+   "doi": null
+  },
+  {
+   "candidateId": "ahig:candidate:publication:dfc55c4143d7060b12785ef0",
+   "seq": 5380,
+   "page": 216,
+   "year": 2011,
+   "pmid": null,
+   "pmcid": null,
+   "doi": "10.26021/7427"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:ea0f9dd82d739090a7b364fc",
+   "seq": 4584,
+   "page": 184,
+   "year": 2017,
+   "pmid": "28910233",
+   "pmcid": null,
+   "doi": "10.1080/07315724.2017.1335248"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:0917a892004332fb70ac7b35",
+   "seq": 5314,
+   "page": 213,
+   "year": 1996,
+   "pmid": "8604729",
+   "pmcid": null,
+   "doi": "10.1016/s0002-9394(14)70432-5"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:56aab1fbd07d05ffaff699d4",
+   "seq": 2468,
+   "page": 99,
+   "year": 2018,
+   "pmid": "30038576",
+   "pmcid": "PMC6046468",
+   "doi": "10.3389/fphys.2018.00830"
+  }
+ ]
+}

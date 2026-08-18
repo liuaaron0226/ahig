@@ -1,0 +1,237 @@
+{
+ "documentType": "n49-abstract-availability-result",
+ "anchor": "sha256:e228e94c312afa3acd9af62667c3ea5947b941a728d7277e2671ceb49a0b2554",
+ "httpCalls": 28,
+ "results": [
+  {
+   "candidateId": "ahig:candidate:publication:2e85f34288852f9000a9a322",
+   "year": 2022,
+   "idKind": "pmcid",
+   "status": "found",
+   "hasAbstract": true,
+   "abstractChars": 1304
+  },
+  {
+   "candidateId": "ahig:candidate:publication:782ee788b60a05b5b6a456a8",
+   "year": 2024,
+   "idKind": "pmcid",
+   "status": "found",
+   "hasAbstract": true,
+   "abstractChars": 1955
+  },
+  {
+   "candidateId": "ahig:candidate:publication:4d21bd795d4c644079fd5f74",
+   "year": 2023,
+   "idKind": "pmcid",
+   "status": "found",
+   "hasAbstract": true,
+   "abstractChars": 1475
+  },
+  {
+   "candidateId": "ahig:candidate:publication:787dfadba05dcbdfd0ec7ac1",
+   "year": 1970,
+   "idKind": "pmid",
+   "status": "found",
+   "hasAbstract": false,
+   "abstractChars": 0
+  },
+  {
+   "candidateId": "ahig:candidate:publication:94684488a20c0aea7c6283f9",
+   "year": 1996,
+   "idKind": "pmid",
+   "status": "found",
+   "hasAbstract": true,
+   "abstractChars": 1480
+  },
+  {
+   "candidateId": "ahig:candidate:publication:71725a92d48aced52af19c25",
+   "year": 2023,
+   "idKind": "pmid",
+   "status": "found",
+   "hasAbstract": true,
+   "abstractChars": 2888
+  },
+  {
+   "candidateId": "ahig:candidate:publication:94e2bc76fc25266f05adca3c",
+   "year": 2003,
+   "idKind": "pmid",
+   "status": "found",
+   "hasAbstract": true,
+   "abstractChars": 2082
+  },
+  {
+   "candidateId": "ahig:candidate:publication:3d06fa56e19bf950f7b29d03",
+   "year": 2020,
+   "idKind": "pmcid",
+   "status": "found",
+   "hasAbstract": true,
+   "abstractChars": 1453
+  },
+  {
+   "candidateId": "ahig:candidate:publication:949b4e1c3ae3ce274e0e8148",
+   "year": 2022,
+   "idKind": "pmid",
+   "status": "found",
+   "hasAbstract": true,
+   "abstractChars": 4256
+  },
+  {
+   "candidateId": "ahig:candidate:publication:f673041d4f5086e4332bb8e5",
+   "year": 2022,
+   "idKind": "pmcid",
+   "status": "found",
+   "hasAbstract": true,
+   "abstractChars": 1655
+  },
+  {
+   "candidateId": "ahig:candidate:publication:87f63de0cd28c60c0968ede4",
+   "year": 2018,
+   "idKind": "pmid",
+   "status": "found",
+   "hasAbstract": true,
+   "abstractChars": 1747
+  },
+  {
+   "candidateId": "ahig:candidate:publication:56c625da7a4d5572f3136999",
+   "year": 2019,
+   "idKind": "pmid",
+   "status": "found",
+   "hasAbstract": false,
+   "abstractChars": 0
+  },
+  {
+   "candidateId": "ahig:candidate:publication:a6e21a9bd2b974cf36bb8d30",
+   "year": 1989,
+   "idKind": "pmid",
+   "status": "found",
+   "hasAbstract": true,
+   "abstractChars": 1553
+  },
+  {
+   "candidateId": "ahig:candidate:publication:82fa86699ebe00461c7ff15b",
+   "year": 2020,
+   "idKind": "pmcid",
+   "status": "found",
+   "hasAbstract": true,
+   "abstractChars": 64
+  },
+  {
+   "candidateId": "ahig:candidate:publication:e7f071707ecec32654462b12",
+   "year": 2021,
+   "idKind": "pmcid",
+   "status": "found",
+   "hasAbstract": true,
+   "abstractChars": 1132
+  },
+  {
+   "candidateId": "ahig:candidate:publication:5a3b3c9a2d00cabb6d8840dc",
+   "year": 2019,
+   "idKind": "pmid",
+   "status": "found",
+   "hasAbstract": true,
+   "abstractChars": 1615
+  },
+  {
+   "candidateId": "ahig:candidate:publication:0b13175a886219c4d7e9ee4e",
+   "year": 2004,
+   "idKind": null,
+   "status": "no-identifier"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:8063d534a4377df255505b58",
+   "year": 2020,
+   "idKind": "pmcid",
+   "status": "found",
+   "hasAbstract": true,
+   "abstractChars": 2260
+  },
+  {
+   "candidateId": "ahig:candidate:publication:ced1256bf3984c841b0a92da",
+   "year": 2022,
+   "idKind": "pmcid",
+   "status": "found",
+   "hasAbstract": true,
+   "abstractChars": 3191
+  },
+  {
+   "candidateId": "ahig:candidate:publication:e182d28d762b1dfa143c91e9",
+   "year": 2018,
+   "idKind": "doi",
+   "status": "not-found"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:eaf1e6e8126088372635867c",
+   "year": 2013,
+   "idKind": "pmid",
+   "status": "found",
+   "hasAbstract": true,
+   "abstractChars": 2048
+  },
+  {
+   "candidateId": "ahig:candidate:publication:c394b8a6d1ba6a3cebac383e",
+   "year": 2026,
+   "idKind": "pmid",
+   "status": "found",
+   "hasAbstract": true,
+   "abstractChars": 1863
+  },
+  {
+   "candidateId": "ahig:candidate:publication:bcdded4028d235447e41f558",
+   "year": 2024,
+   "idKind": "doi",
+   "status": "not-found"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:66d2d5f4874a20f98e0d4a4c",
+   "year": 2004,
+   "idKind": "pmid",
+   "status": "found",
+   "hasAbstract": true,
+   "abstractChars": 1574
+  },
+  {
+   "candidateId": "ahig:candidate:publication:4f891e3e5e400117a73129d9",
+   "year": 2021,
+   "idKind": "pmcid",
+   "status": "found",
+   "hasAbstract": true,
+   "abstractChars": 1809
+  },
+  {
+   "candidateId": "ahig:candidate:publication:4bf16ffd49e6f9fefabfd12f",
+   "year": 1993,
+   "idKind": null,
+   "status": "no-identifier"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:dfc55c4143d7060b12785ef0",
+   "year": 2011,
+   "idKind": "doi",
+   "status": "not-found"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:ea0f9dd82d739090a7b364fc",
+   "year": 2017,
+   "idKind": "pmid",
+   "status": "found",
+   "hasAbstract": true,
+   "abstractChars": 1760
+  },
+  {
+   "candidateId": "ahig:candidate:publication:0917a892004332fb70ac7b35",
+   "year": 1996,
+   "idKind": "pmid",
+   "status": "found",
+   "hasAbstract": true,
+   "abstractChars": 1938
+  },
+  {
+   "candidateId": "ahig:candidate:publication:56aab1fbd07d05ffaff699d4",
+   "year": 2018,
+   "idKind": "pmcid",
+   "status": "found",
+   "hasAbstract": true,
+   "abstractChars": 1844
+  }
+ ]
+}
