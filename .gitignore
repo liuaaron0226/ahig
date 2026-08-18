@@ -74,3 +74,4 @@ trading-desk/data/
 # n+57 第 5 步之尾端抽驗傾印（含 TITLE:／ABS: 全文）。
 # 逐檔列名，不擴張上方樣式（同第 333 輪之做法）。
 .scratch/_tail.txt
+.scratch/_tail2.txt
