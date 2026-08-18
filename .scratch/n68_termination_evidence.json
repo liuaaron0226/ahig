@@ -1,0 +1,59 @@
+{
+ "schemaVersion": 1,
+ "documentType": "termination-evidence-freeze",
+ "step": "n+57 section 2 step 1 (freeze evidence)",
+ "producedAt": "2026-08-18T10:28:28.794825+00:00",
+ "producedBy": "claude-opus-5[1m] executor-session round 344",
+ "trigger": {
+  "atPage": 279,
+  "note": "page 279 判畢後實算 pScore < 0.05；依 n+68（〇）立即停判，page 280 起未動"
+ },
+ "terminationResult": {
+  "documentType": "statistical-termination-evaluation",
+  "schemaVersion": "1.1.0",
+  "adr": "ADR-0008",
+  "alpha": 0.05,
+  "pScore": 0.04602304387116314,
+  "relevantFound": 709,
+  "screenedCount": 6975,
+  "poolSize": 9091,
+  "targetRecall": 0.95,
+  "h0MinTotalRelevant": 747,
+  "windowSize": 177,
+  "notScreenedCount": 2116,
+  "notScreenedStatus": "not-screened",
+  "notScreenedIsNotExcluded": true,
+  "mandatoryLanesFullyScreened": true,
+  "mandatoryUnscreenedCandidateIds": [],
+  "pScoreExcludedCount": 0,
+  "pScoreExcludedCandidateIds": [],
+  "pScoreExcludedIsScreened": true,
+  "allowedToStop": true,
+  "reason": "p < α 且安全/critical-harms 全數人工篩畢；允許終止，剩餘標記 not-screened，須完成尾端抽驗（ADR-0008 條件 4）",
+  "evaluatedAt": "2026-08-18T10:28:28+00:00",
+  "terminationEvidenceHash": "sha256:1b27a710754e85a53c590b4d5800e83e1b10077bf797f0143d0c198e62942541"
+ },
+ "counts": {
+  "judgedCount": 6975,
+  "poolSize": 9091,
+  "notScreenedCount": 2116,
+  "rawOpinions": {
+   "advance": 308,
+   "exclude": 6181,
+   "unclear": 486
+  },
+  "effectiveDecisions": {
+   "advance": 312,
+   "exclude": 6266,
+   "unclear": 397
+  },
+  "overlayApplied": 120,
+  "ratchetApplied": 5
+ },
+ "anchors": {
+  "worksheetSha256": "sha256:4eb2dc606b4b12db2ea9142e98df74bf6dfaedc7039122c7d53e7b45f38430da",
+  "anchorNote": "本 lane 無 queueHash；依 n+51 核准之等效替代，以 worksheet 之 SHA-256 為抽樣種子錨定。⚠️ 此值為 worksheet 雜湊，不得稱為 queueHash。",
+  "judgementsSha256": "sha256:9d035c26a75e1bd10b74d40ade16e65fc95e9ed412bde76575dd8bfc07e81049"
+ },
+ "terminationEvidenceHash": "sha256:ee4ed745e28f0c3c70fc4258b037bef2f3b74a7dfb99b7c94578334dabc1ddc1"
+}

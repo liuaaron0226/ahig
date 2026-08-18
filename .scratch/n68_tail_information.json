@@ -1,0 +1,1438 @@
+{
+ "schemaVersion": 1,
+ "documentType": "termination-tail-sample-information-condition",
+ "step": "n+57 section 2 step 4 (verify enrichment before judging)",
+ "producedAt": "2026-08-18T10:32:18.052213+00:00",
+ "readsStep3": {
+  "sampleHash": "sha256:f407495009760090038dfd27084f82851275bc7eb955189201e9e64e4a69b817"
+ },
+ "sampleSize": 200,
+ "enrichAttempted": 194,
+ "withAbstract": 199,
+ "enrichStatusDistribution": {
+  "enriched": 193,
+  "(未嘗試)": 6,
+  "not-found-all-ids": 1
+ },
+ "notAttempted": [
+  "c620d642",
+  "1ff18fd9",
+  "60300744",
+  "b89155fb",
+  "91c98757",
+  "83dcba1c"
+ ],
+ "notAttemptedButHaveOriginalAbstract": [
+  "c620d642",
+  "1ff18fd9",
+  "60300744",
+  "b89155fb",
+  "91c98757",
+  "83dcba1c"
+ ],
+ "informationGap": [],
+ "resolvedCount": 200,
+ "rows": [
+  {
+   "short": "51b9bf6f",
+   "page": 316,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "f069513b",
+   "page": 306,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "c620d642",
+   "page": 341,
+   "hasAbstract": true,
+   "enrichAttempted": false,
+   "enrichStatus": null
+  },
+  {
+   "short": "0cf71938",
+   "page": 303,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "01cbc432",
+   "page": 346,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "ee3190fe",
+   "page": 338,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "eb12abec",
+   "page": 295,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "171ab2fc",
+   "page": 323,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "6c7a3488",
+   "page": 336,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "b9bb395d",
+   "page": 348,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "1d33ec22",
+   "page": 294,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "89f0f5aa",
+   "page": 330,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "5aebf9e4",
+   "page": 293,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "984f6971",
+   "page": 364,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "dcb1a8fa",
+   "page": 289,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "0e86a48c",
+   "page": 364,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "a8aefd92",
+   "page": 352,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "0b2c9d30",
+   "page": 290,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "b3b6ed57",
+   "page": 281,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "d58d47a4",
+   "page": 321,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "817266c6",
+   "page": 316,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "ed3ddad7",
+   "page": 350,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "b307f447",
+   "page": 360,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "50a85fcc",
+   "page": 335,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "3e65a00e",
+   "page": 319,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "ad555302",
+   "page": 349,
+   "hasAbstract": false,
+   "enrichAttempted": true,
+   "enrichStatus": "not-found-all-ids"
+  },
+  {
+   "short": "93542542",
+   "page": 290,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "73e9e06e",
+   "page": 319,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "4185b427",
+   "page": 324,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "22c655bf",
+   "page": 315,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "00365055",
+   "page": 356,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "87bdccfe",
+   "page": 283,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "e926cde0",
+   "page": 351,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "5fe2d87b",
+   "page": 322,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "70d72cc0",
+   "page": 332,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "5f7b4377",
+   "page": 291,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "dae1e134",
+   "page": 337,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "8a9f728b",
+   "page": 313,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "15194590",
+   "page": 285,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "63747f6a",
+   "page": 282,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "049259d8",
+   "page": 348,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "171e26f6",
+   "page": 307,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "dfed8b71",
+   "page": 330,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "f5462472",
+   "page": 343,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "14070c10",
+   "page": 346,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "8568e3e8",
+   "page": 317,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "7dbbcdc5",
+   "page": 304,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "db8d8e57",
+   "page": 310,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "6d678be5",
+   "page": 337,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "24da2973",
+   "page": 359,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "d59c5eaf",
+   "page": 338,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "03be29bc",
+   "page": 359,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "5d458f1a",
+   "page": 348,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "b6e2cce9",
+   "page": 298,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "1ff18fd9",
+   "page": 348,
+   "hasAbstract": true,
+   "enrichAttempted": false,
+   "enrichStatus": null
+  },
+  {
+   "short": "1952f1a6",
+   "page": 353,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "9380d41d",
+   "page": 344,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "afc8ec4d",
+   "page": 329,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "d01eab72",
+   "page": 332,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "bd0055b7",
+   "page": 320,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "49026eab",
+   "page": 332,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "fe416763",
+   "page": 305,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "7e652c81",
+   "page": 335,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "357b6b7f",
+   "page": 322,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "ef86575e",
+   "page": 282,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "9dbfb311",
+   "page": 307,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "447a2fe1",
+   "page": 360,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "c0efac9a",
+   "page": 317,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "6d1bff4e",
+   "page": 281,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "678af13c",
+   "page": 347,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "0fe0b66c",
+   "page": 331,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "1c9b1088",
+   "page": 344,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "b3ef29b7",
+   "page": 361,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "c0415881",
+   "page": 322,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "db9c8136",
+   "page": 362,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "25016835",
+   "page": 301,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "aee33fed",
+   "page": 346,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "83b16401",
+   "page": 354,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "fd7006cb",
+   "page": 317,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "60300744",
+   "page": 346,
+   "hasAbstract": true,
+   "enrichAttempted": false,
+   "enrichStatus": null
+  },
+  {
+   "short": "2d5c098e",
+   "page": 305,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "3040b5f4",
+   "page": 287,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "970af0d1",
+   "page": 363,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "0730252a",
+   "page": 283,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "401edc06",
+   "page": 291,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "a7fc5065",
+   "page": 311,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "fab128bc",
+   "page": 338,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "26f7ca74",
+   "page": 284,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "6eba3bdd",
+   "page": 351,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "cd943355",
+   "page": 326,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "3527a541",
+   "page": 336,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "a07057ab",
+   "page": 332,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "e393c0bd",
+   "page": 342,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "6e3ed90b",
+   "page": 322,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "e1639444",
+   "page": 314,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "7b3e99bd",
+   "page": 287,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "c9d97f13",
+   "page": 339,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "6e022408",
+   "page": 313,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "4ca45f95",
+   "page": 334,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "51ae27aa",
+   "page": 325,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "3b8802ba",
+   "page": 333,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "b31917a3",
+   "page": 316,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "234729aa",
+   "page": 332,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "93fd42e6",
+   "page": 308,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "5ebc8ae0",
+   "page": 323,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "dde0ed12",
+   "page": 296,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "a2bed4bf",
+   "page": 302,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "6d377477",
+   "page": 359,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "223f9129",
+   "page": 287,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "e20d4b7d",
+   "page": 327,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "4ae4d112",
+   "page": 306,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "215e2649",
+   "page": 304,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "37043b55",
+   "page": 297,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "68cc7139",
+   "page": 291,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "2baeeded",
+   "page": 296,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "6e73ab7d",
+   "page": 346,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "46243bde",
+   "page": 353,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "22bb396f",
+   "page": 294,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "7b4294dc",
+   "page": 289,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "cd3831d3",
+   "page": 355,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "9808c37b",
+   "page": 333,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "0059568f",
+   "page": 315,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "62b30324",
+   "page": 353,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "3e2c7df1",
+   "page": 330,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "15611f3d",
+   "page": 341,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "27398279",
+   "page": 313,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "77cdeba3",
+   "page": 295,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "a6a2c242",
+   "page": 314,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "d474189d",
+   "page": 350,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "98ce3105",
+   "page": 362,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "dc118dc7",
+   "page": 302,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "0879cbb6",
+   "page": 285,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "bfcbca3f",
+   "page": 359,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "d17e8f0a",
+   "page": 337,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "9fafe85f",
+   "page": 302,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "c023c012",
+   "page": 348,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "d012dc21",
+   "page": 320,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "64a75525",
+   "page": 354,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "e5a55bb8",
+   "page": 336,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "9cfce6dc",
+   "page": 326,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "6bc8925d",
+   "page": 317,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "0633a0df",
+   "page": 344,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "7b090b86",
+   "page": 345,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "4a2a9379",
+   "page": 356,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "71102eed",
+   "page": 358,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "d6e29a89",
+   "page": 295,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "b75e85c5",
+   "page": 305,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "c3af0176",
+   "page": 352,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "077fdfd2",
+   "page": 343,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "c807e497",
+   "page": 318,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "4d53134d",
+   "page": 356,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "661cc62a",
+   "page": 362,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "b89155fb",
+   "page": 328,
+   "hasAbstract": true,
+   "enrichAttempted": false,
+   "enrichStatus": null
+  },
+  {
+   "short": "c3b3dab3",
+   "page": 345,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "e4499a76",
+   "page": 295,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "4eb2648c",
+   "page": 357,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "5f5d4fe1",
+   "page": 345,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "3f846e0a",
+   "page": 329,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "33e3898d",
+   "page": 316,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "12b3942c",
+   "page": 352,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "f26f0081",
+   "page": 322,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "c7af1896",
+   "page": 288,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "e7baaadb",
+   "page": 294,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "7c2bf4df",
+   "page": 282,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "99b00e92",
+   "page": 344,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "e35272ef",
+   "page": 318,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "ebbda614",
+   "page": 322,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "6050e1fe",
+   "page": 310,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "5c286cef",
+   "page": 287,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "33636406",
+   "page": 280,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "bd531ab6",
+   "page": 360,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "91c98757",
+   "page": 328,
+   "hasAbstract": true,
+   "enrichAttempted": false,
+   "enrichStatus": null
+  },
+  {
+   "short": "ca95d407",
+   "page": 284,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "a84b2cb2",
+   "page": 298,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "491f0b68",
+   "page": 326,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "5cf1053a",
+   "page": 281,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "3668872a",
+   "page": 283,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "34d3869d",
+   "page": 362,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "c5b9b7ce",
+   "page": 362,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "04d339b5",
+   "page": 317,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "02c09e33",
+   "page": 328,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "ea857ca1",
+   "page": 330,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "78aa2fc8",
+   "page": 357,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "579a6e62",
+   "page": 308,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "4c889fae",
+   "page": 297,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "8fc63003",
+   "page": 308,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "2162f865",
+   "page": 321,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "83dcba1c",
+   "page": 290,
+   "hasAbstract": true,
+   "enrichAttempted": false,
+   "enrichStatus": null
+  },
+  {
+   "short": "bc7499f0",
+   "page": 318,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "54ebe1a8",
+   "page": 344,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "1660ce85",
+   "page": 354,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "b3a0bfc4",
+   "page": 338,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "16411a5b",
+   "page": 322,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "1db8d7d3",
+   "page": 290,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "72608cd5",
+   "page": 294,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "31daa623",
+   "page": 330,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "a84d2174",
+   "page": 284,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "7a5775c6",
+   "page": 352,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "ac8a36e2",
+   "page": 318,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  },
+  {
+   "short": "a0020bed",
+   "page": 312,
+   "hasAbstract": true,
+   "enrichAttempted": true,
+   "enrichStatus": "enriched"
+  }
+ ],
+ "informationConditionHash": "sha256:a28b3df4d07352de252fd47d8f4435a8d767aa0ce950652a4eb252d495577c7a"
+}

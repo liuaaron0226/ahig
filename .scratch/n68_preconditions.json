@@ -1,0 +1,58 @@
+{
+ "schemaVersion": 1,
+ "documentType": "termination-preconditions-check",
+ "step": "n+57 section 2 step 2 (verify preconditions programmatically)",
+ "producedAt": "2026-08-18T10:29:05.810153+00:00",
+ "readsStep1": {
+  "path": ".scratch/n68_termination_evidence.json",
+  "terminationEvidenceHash": "sha256:ee4ed745e28f0c3c70fc4258b037bef2f3b74a7dfb99b7c94578334dabc1ddc1",
+  "note": "⚠️ 記錄所讀入之第 1 步雜湊，使順序可由內容覆核（n+67 四：git 不保存 mtime，檔案時間不可作為順序證據）"
+ },
+ "checks": [
+  {
+   "condition": "allowedToStop == true",
+   "observed": true,
+   "pass": true,
+   "source": "evaluate_termination() 輸出（第 1 步已落盤）"
+  },
+  {
+   "condition": "pScoreExcludedCount == 0",
+   "observed": 0,
+   "pass": true,
+   "source": "evaluate_termination() 輸出"
+  },
+  {
+   "condition": "序列長度 == 判讀數（無記錄被排除於 p 值序列外）",
+   "observed": "6975 == 6975",
+   "pass": true,
+   "source": "第 1 步落盤之 counts"
+  },
+  {
+   "condition": "mandatoryLanesFullyScreened == true",
+   "observed": [
+    {
+     "lane": "safety lane 第一遍",
+     "judged": 2316,
+     "total": 2316,
+     "pass": true
+    },
+    {
+     "lane": "safety lane 第二遍（雙模型盲判）",
+     "judged": 2316,
+     "total": 2316,
+     "pass": true
+    },
+    {
+     "lane": "critical-harms sweep",
+     "judged": 116,
+     "total": 116,
+     "pass": true
+    }
+   ],
+   "pass": true,
+   "source": "逐 lane 判讀檔筆數 vs worksheet itemCount（實數核對）"
+  }
+ ],
+ "allPass": true,
+ "preconditionsCheckHash": "sha256:44b105318c66d813857c8f45f3b36246da225abc7fdd5f54dd25304e0a040118"
+}
