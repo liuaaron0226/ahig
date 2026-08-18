@@ -345,6 +345,11 @@ def test_out_of_sequence_and_excluded_must_be_disjoint():
     """兩集合互斥（n+72 四 2）：同一筆不可能既待納回又永久在外。
 
     若容許重疊，歸屬會取決於程式中的判斷順序——最難察覺的一種錯。
+
+    ⚠️ 斷言的是**互斥檢查本身**的訊息，不只是「有拋錯」。突變驗證顯示
+    後者太寬：拿掉互斥檢查後，該 id 會先被 excluded 分支接走、不進
+    out_perm_seen，於是「含未篩畢紀錄」那道備援檢查一樣拋錯、訊息裡
+    一樣有這個 id，測試照樣綠。斷言粒度必須細到能分辨是哪道檢查擋的。
     """
     q = queue(400)
     decisions = [(f"c{i}", "exclude") for i in range(1, 392)]
@@ -354,19 +359,26 @@ def test_out_of_sequence_and_excluded_must_be_disjoint():
                                 out_of_sequence={"c391"})
     except st.TerminationError as exc:
         assert "c391" in str(exc)
+        assert "同時列於" in str(exc), f"擋下它的不是互斥檢查：{exc}"
     else:
         raise AssertionError("兩集合重疊必須拒絕")
 
 
 def test_out_of_sequence_rejects_unknown_or_unscreened_ids():
-    """與排除清單同樣的入口檢查：不在 queue、或還沒判讀，都要擋。"""
+    """與排除清單同樣的入口檢查：不在 queue、或還沒判讀，都要擋。
+
+    ⚠️ 兩者各自斷言自己的訊息。突變驗證顯示只問「有沒有拋錯」不夠：
+    不在 queue 的 id 同時也不在 decisions 裡，所以拿掉入口檢查後，
+    「含未篩畢紀錄」那道備援檢查會接住它，測試照樣綠。
+    """
     q = queue(10)
     decisions = [(f"c{i}", "exclude") for i in range(1, 6)]
-    for bad in ({"c99"},          # 不在 queue
-                {"c7"}):          # 在 queue 但還沒判讀
+    for bad, marker in (({"c99"}, "不在 queue"),      # 不在 queue
+                        ({"c7"}, "含未篩畢紀錄")):    # 在 queue 但還沒判讀
         try:
             st.evaluate_termination(q, decisions, out_of_sequence=bad)
-        except st.TerminationError:
+        except st.TerminationError as exc:
+            assert marker in str(exc), f"擋下 {bad} 的不是預期那道檢查：{exc}"
             continue
         raise AssertionError(f"必須拒絕：{bad}")
 
