@@ -277,3 +277,126 @@ def test_review_mode_follows_adr_0007():
     assert (major, minor) >= (1, 3)
     assert all(e["requiresHumanScreening"] is True for e in built["queue"])
     assert all(e["autoDecision"] is None for e in built["queue"])
+
+
+def test_out_of_sequence_records_do_not_enter_labels():
+    """第三態（n+72）：已篩畢但永久不進 labels 序列，windowSize 不受影響。
+
+    釘住抽驗那批的核心性質——它們是對剩餘池的獨立隨機稽核，判讀順序與
+    工作單頁序無關，接進標籤流會讓命中在任意位置打斷視窗。
+    """
+    q = queue(400)
+    decisions = [(f"c{i}", "exclude") for i in range(1, 391)]
+    # 抽驗那批：其中一筆命中。若進了序列，視窗會被它從中間切斷。
+    audit = [("c391", "exclude"), ("c392", "advance"), ("c393", "exclude")]
+    ids = {"c391", "c392", "c393"}
+
+    out = st.evaluate_termination(q, decisions + audit, out_of_sequence=ids)
+    assert out["outOfSequenceCount"] == 3
+    assert out["outOfSequenceCandidateIds"] == ["c391", "c392", "c393"]
+    assert out["screenedCount"] == 390        # 序列長度不含那三筆
+    assert out["windowSize"] == 390           # 視窗完全未被打斷
+    assert out["relevantFound"] == 0          # 那筆 advance 不進序列
+
+    # 對照：同一批決策若接進序列，視窗被 c392 切成 1。
+    inside = st.evaluate_termination(q, decisions + audit)
+    assert inside["screenedCount"] == 393
+    assert inside["windowSize"] == 1
+    assert inside["relevantFound"] == 1
+
+
+def test_out_of_sequence_does_not_block_stopping():
+    """第三態與排除清單的關鍵差異：前者不擋終止，後者擋。
+
+    排除清單是「暫時排除、待納回」，非空即不得終止；第三態是「永久在外」，
+    沒有待納回可等，故 allowedToStop 只看前置條件與 p 值。
+    """
+    q = queue(400)
+    decisions = [(f"c{i}", "exclude") for i in range(1, 392)]
+
+    perm = st.evaluate_termination(q, decisions, out_of_sequence={"c391"})
+    assert perm["outOfSequenceCount"] == 1
+    assert perm["pScoreExcludedCount"] == 0
+    assert perm["allowedToStop"] is True      # 不擋
+    assert "未納回" not in perm["reason"]
+
+    held = st.evaluate_termination(q, decisions, p_score_excluded={"c391"})
+    assert held["allowedToStop"] is False     # 擋
+    assert "未納回 p 值序列" in held["reason"]
+
+
+def test_out_of_sequence_still_counts_as_screened():
+    """第三態計入 seen：它們確實已篩畢，不是 not-screened。
+
+    若漏了這一步，notScreenedCount 會把已判讀的紀錄算成未篩，
+    而前置條件（safety/critical-harms 全數篩畢）也會誤報未達成。
+    """
+    q = queue(400, harms={"c391"})
+    decisions = [(f"c{i}", "exclude") for i in range(1, 392)]
+
+    out = st.evaluate_termination(q, decisions, out_of_sequence={"c391"})
+    assert out["notScreenedCount"] == 400 - 391       # 391 筆已篩畢
+    assert out["mandatoryLanesFullyScreened"] is True  # c391 算篩畢了
+    assert out["mandatoryUnscreenedCandidateIds"] == []
+    assert out["outOfSequenceIsScreened"] is True
+
+
+def test_out_of_sequence_and_excluded_must_be_disjoint():
+    """兩集合互斥（n+72 四 2）：同一筆不可能既待納回又永久在外。
+
+    若容許重疊，歸屬會取決於程式中的判斷順序——最難察覺的一種錯。
+    """
+    q = queue(400)
+    decisions = [(f"c{i}", "exclude") for i in range(1, 392)]
+    try:
+        st.evaluate_termination(q, decisions,
+                                p_score_excluded={"c390", "c391"},
+                                out_of_sequence={"c391"})
+    except st.TerminationError as exc:
+        assert "c391" in str(exc)
+    else:
+        raise AssertionError("兩集合重疊必須拒絕")
+
+
+def test_out_of_sequence_rejects_unknown_or_unscreened_ids():
+    """與排除清單同樣的入口檢查：不在 queue、或還沒判讀，都要擋。"""
+    q = queue(10)
+    decisions = [(f"c{i}", "exclude") for i in range(1, 6)]
+    for bad in ({"c99"},          # 不在 queue
+                {"c7"}):          # 在 queue 但還沒判讀
+        try:
+            st.evaluate_termination(q, decisions, out_of_sequence=bad)
+        except st.TerminationError:
+            continue
+        raise AssertionError(f"必須拒絕：{bad}")
+
+
+def test_out_of_sequence_count_is_inside_the_evidence_hash():
+    """outOfSequenceCount 必須在證據雜湊的 key 清單內（n+72 四 1）。
+
+    否則「200 筆在第三態」與「200 筆從未判讀」會雜湊相同——兩種實質
+    不同的狀態被誤認為同一份證據，正是雜湊要防的事。
+
+    ⚠️ 這裡**直接對 key 清單斷言**，不比較兩份輸出的雜湊。理由是實測
+    出來的：`outOfSequenceCount` 一動，`notScreenedCount` 必然跟著動
+    （多判一筆＝少一筆未篩），兩者在真實輸出中連動，無法只差一欄。
+    比較雜湊的寫法會是**假 PASS**——把 `outOfSequenceCount` 從清單裡
+    拿掉，該斷言照樣成立，因為 `notScreenedCount` 已經讓雜湊不同了。
+    key 清單本身是一份契約，測試該釘住的正是「這兩個計數在清單內」。
+    """
+    import inspect
+    src = inspect.getsource(st.evaluate_termination)
+    key_list = src.split("terminationEvidenceHash")[1]
+    for required in ("pScoreExcludedCount", "outOfSequenceCount"):
+        assert required in key_list, f"{required} 不在證據雜湊的 key 清單內"
+
+    # 兩種狀態確實不同：同一批決策，c391 走排除清單 vs 走第三態。
+    q = queue(400)
+    base = [(f"c{i}", "exclude") for i in range(1, 392)]
+    held = st.evaluate_termination(q, base, p_score_excluded={"c391"})
+    perm = st.evaluate_termination(q, base, out_of_sequence={"c391"})
+    assert held["notScreenedCount"] == perm["notScreenedCount"]
+    assert held["screenedCount"] == perm["screenedCount"]
+    assert held["pScore"] == perm["pScore"]
+    assert (held["terminationEvidenceHash"]
+            != perm["terminationEvidenceHash"])

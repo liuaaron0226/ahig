@@ -41,12 +41,18 @@ contiguous = 0
 while contiguous + 1 in done_pages:
     contiguous += 1
 
-# option (C) exclusions, minus any the paging front has now reached
+# n+72 third state: the 200 tail-spot-check records are an independent random
+# audit of the remaining pool, not a continuation of sequential screening, so
+# they stay out of the label sequence permanently rather than pending
+# reintegration. Split on the explicit `state` field, not on page numbers --
+# by page, an audit record the paging front has reached looks reintegratable.
 exc_doc = json.loads((OUT / 'p-score-sequence-exclusions.json').read_text(encoding='utf-8'))
-reintegrated = [e['candidateId'] for e in exc_doc['entries']
-                if e['page'] <= contiguous]
-excluded = {e['candidateId'] for e in exc_doc['entries']
-            if e['page'] > contiguous}
+out_of_sequence = {e['candidateId'] for e in exc_doc['entries']
+                   if e.get('state') == 'out-of-sequence-permanent'}
+temp = [e for e in exc_doc['entries'] if e['candidateId'] not in out_of_sequence]
+reintegrated = [e['candidateId'] for e in temp if e['page'] <= contiguous]
+excluded = {e['candidateId'] for e in temp if e['page'] > contiguous}
+assert not (excluded & out_of_sequence), 'the two sets must be disjoint'
 
 decisions = [(it['candidateId'], op[it['candidateId']])
              for it in w['items'] if it['candidateId'] in op]
@@ -61,14 +67,16 @@ for d in ['safety-full-screen-pass-1', 'critical-harms-sweep',
                 decisions.append((e['candidateId'], e['opinion']))
                 op[e['candidateId']] = e['opinion']
 
-res = evaluate_termination(queue, decisions, p_score_excluded=excluded)
+res = evaluate_termination(queue, decisions, p_score_excluded=excluded,
+                           out_of_sequence=out_of_sequence)
 print('raw       ', dict(raw))
 print('overlay   ', len(rc['entries']), 'entries applied')
 print('standard contiguous pages judged:', contiguous,
       '| exclusions still held:', len(excluded),
-      '| auto-reintegrated:', len(reintegrated))
+      '| auto-reintegrated:', len(reintegrated),
+      '| out-of-sequence (n+72):', len(out_of_sequence))
 for k in ('pScore', 'relevantFound', 'screenedCount', 'poolSize', 'windowSize',
           'h0MinTotalRelevant', 'mandatoryLanesFullyScreened',
-          'pScoreExcludedCount', 'allowedToStop'):
+          'pScoreExcludedCount', 'outOfSequenceCount', 'allowedToStop'):
     print(f'  {k}: {res[k]}')
 print('  reason:', res['reason'])

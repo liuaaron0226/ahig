@@ -93,7 +93,8 @@ def evaluate_termination(queue: list[dict],
                          decisions_in_order: list[tuple[str, str]], *,
                          alpha: float = DEFAULT_ALPHA,
                          target_recall: float = DEFAULT_TARGET_RECALL,
-                         p_score_excluded: set[str] | None = None) -> dict:
+                         p_score_excluded: set[str] | None = None,
+                         out_of_sequence: set[str] | None = None) -> dict:
     """依 ADR-0008 評估是否允許統計終止，輸出可凍結的證據產物。
 
     ``decisions_in_order``：[(candidateId, decision)]，依實際篩選順序；
@@ -109,15 +110,40 @@ def evaluate_termination(queue: list[dict],
     這是**暫時**狀態：逐頁推進到該紀錄所在頁時，呼叫端把它移出集合，
     它便依原本的工作單順序進入序列（見 ``.scratch/term.py``）。
     集合為顯式 id 而非規則推導，落盤留痕，M1 稽核可逐筆覆核。
+
+    ``out_of_sequence``：**顯式** candidateId 集合，這些紀錄已人工篩畢，
+    但依設計**永久**不進入 p 值 labels 序列——協調者第 n+72 輪核准之
+    第三態。用於 ADR-0008 條件 4 的尾端抽驗：抽驗是**對剩餘池的獨立
+    隨機稽核**，不是逐頁篩選的延續，把獨立稽核的結果接進循序檢定的
+    標籤流是範疇錯誤（n+70 丙）。
+
+    與 ``p_score_excluded`` 的關鍵差異：排除清單是「暫時排除、待納回」，
+    非空即擋住 ``allowedToStop``；第三態是「永久在外」，**不擋終止**。
+    兩者相同之處是都計入 ``seen``——它們確實已篩畢，不是 not-screened。
+
+    對 p 值的影響是**零**而非保守：``p_score`` 只吃 ``labels`` 與
+    ``n_total``，第三態兩者都不碰（``n_total`` 是整個池，本就含這些紀錄）。
     """
     queue_by_id = {e["candidateId"]: e for e in queue}
     excluded = set(p_score_excluded or ())
+    out_perm = set(out_of_sequence or ())
     unknown = sorted(excluded - set(queue_by_id))
     if unknown:
         raise TerminationError(f"p 值排除清單的 candidateId 不在 queue：{unknown[:3]}")
+    unknown_perm = sorted(out_perm - set(queue_by_id))
+    if unknown_perm:
+        raise TerminationError(
+            f"永久不入序列集合的 candidateId 不在 queue：{unknown_perm[:3]}")
+    # 兩集合互斥：同一筆不可能既「待納回」又「永久在外」。
+    # 若容許重疊，其歸屬取決於程式中的判斷順序——那是最難察覺的一種錯。
+    both = sorted(excluded & out_perm)
+    if both:
+        raise TerminationError(
+            f"同一 candidateId 同時列於排除清單與永久不入序列集合：{both[:3]}")
     seen: set[str] = set()
     labels = []
     excluded_seen: set[str] = set()
+    out_perm_seen: set[str] = set()
     for cid, decision in decisions_in_order:
         if cid not in queue_by_id:
             raise TerminationError(f"決策的 candidateId 不在 queue：{cid}")
@@ -131,12 +157,21 @@ def evaluate_termination(queue: list[dict],
             # 已篩畢（計入前置條件、非 not-screened），但不進 labels 序列。
             excluded_seen.add(cid)
             continue
+        if cid in out_perm:
+            # 同上，惟依設計永久不納回（第三態，n+72）。
+            out_perm_seen.add(cid)
+            continue
         labels.append(1 if decision in _RELEVANT_DECISIONS else 0)
 
     never_screened = sorted(excluded - excluded_seen)
     if never_screened:
         raise TerminationError(
             f"p 值排除清單含未篩畢紀錄（排除只適用已判讀者）：{never_screened[:3]}")
+    never_screened_perm = sorted(out_perm - out_perm_seen)
+    if never_screened_perm:
+        raise TerminationError(
+            "永久不入序列集合含未篩畢紀錄（第三態只適用已判讀者）："
+            f"{never_screened_perm[:3]}")
 
     # 前置條件：safety 與 critical harms 全數人工篩畢（ADR-0008 條件 2）。
     mandatory_unscreened = sorted(
@@ -151,6 +186,8 @@ def evaluate_termination(queue: list[dict],
     # 排除清單非空時不得終止：p 值序列尚未涵蓋全部已篩紀錄，
     # 此時的統計證據是「部分序列」的，不足以支撐涵蓋宣稱。
     pending_reintegration = sorted(excluded_seen)
+    # 第三態不擋終止——它永久在外，沒有「待納回」可等（n+72 四）。
+    out_of_sequence_seen = sorted(out_perm_seen)
     allowed = (preconditions_met and not pending_reintegration
                and score["pScore"] < alpha)
     result = {
@@ -167,6 +204,9 @@ def evaluate_termination(queue: list[dict],
         "pScoreExcludedCount": len(pending_reintegration),
         "pScoreExcludedCandidateIds": pending_reintegration,
         "pScoreExcludedIsScreened": True,
+        "outOfSequenceCount": len(out_of_sequence_seen),
+        "outOfSequenceCandidateIds": out_of_sequence_seen,
+        "outOfSequenceIsScreened": True,
         "allowedToStop": allowed,
         "reason": (
             "p < α 且安全/critical-harms 全數人工篩畢；允許終止，"
@@ -179,12 +219,14 @@ def evaluate_termination(queue: list[dict],
             "統計證據不足（p ≥ α）；預設繼續篩選"),
         "evaluatedAt": _utc_now(),
     }
+    # ⚠️ outOfSequenceCount 必須在清單內：否則「200 筆在第三態」與
+    # 「200 筆從未判讀」會雜湊相同——兩種實質不同的狀態不可分辨（n+72 四 1）。
     result["terminationEvidenceHash"] = content_hash(
         {key: result[key] for key in
          ("alpha", "pScore", "relevantFound", "screenedCount", "poolSize",
           "targetRecall", "windowSize", "notScreenedCount",
           "mandatoryLanesFullyScreened", "pScoreExcludedCount",
-          "allowedToStop")})
+          "outOfSequenceCount", "allowedToStop")})
     return result
 
 
