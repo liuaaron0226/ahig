@@ -956,31 +956,80 @@ button.sp-ep .pl{color:var(--dawn);font-size:.85rem;flex:none}
 .vid-panel video:fullscreen::cue,.vid-panel video:-webkit-full-screen::cue{font-size:3.1vh}
 /* 重點時段的字幕上色（.vtt 內 <c.key> 標記，make_notes.py 產生） */
 .vid-panel video::cue(.key){color:#FFD98A;background:rgba(46,34,6,.78)}
-/* 章節條：讀 .notes.json——段落=章節、底部亮條=重點時段、白線=播放位置 */
+/* 章節軌：時間軸、目前章節、章節列表三件事收進同一個玻璃容器。
+   重點時段原本是浮在下緣的白色短棒，看起來像散落的碎片；改成從底緣升起的暖光帶，
+   讀起來是「這一段是熱區」而不是「這裡多了一根棒子」。 */
 #vidChap{margin-top:14px}
-.chap-strip{position:relative;height:30px;border-radius:9px;overflow:hidden;cursor:pointer;
-  background:rgba(255,255,255,.07);border:1px solid var(--glass-line)}
-.chap-strip .seg{position:absolute;top:0;bottom:0;box-shadow:inset 1px 0 0 rgba(0,0,0,.4)}
-.chap-strip .seg:hover{background:rgba(255,255,255,.15)}
-.chap-strip .seg.cur{background:color-mix(in srgb,var(--sc) 30%,transparent)}
-.chap-strip .hot{position:absolute;bottom:0;height:5px;border-radius:3px;
-  background:var(--dawn);opacity:.9;pointer-events:none}
+.chap-rail{border:1px solid var(--glass-line);border-radius:14px;overflow:hidden;
+  background:rgba(255,255,255,.045)}
+.chap-strip{position:relative;height:34px;cursor:pointer}
+.chap-strip .seg{position:absolute;top:0;bottom:0;
+  box-shadow:inset -1px 0 0 rgba(255,255,255,.08);transition:background .16s ease}
+.chap-strip .seg:last-of-type{box-shadow:none}
+.chap-strip .seg:hover{background:rgba(255,255,255,.12)}
+/* 三種角色要一眼分得開，所以各自用固定語彙、不跟著主題色漂：
+   目前章節＝中性提亮、重點時段＝金色暖光、播放頭＝白線。
+   （原本重點用 --dawn，但它在 onyx 主題是純白、在亮色是深棕，
+     兩邊都跟旁邊的色塊糊在一起，看不出哪個是重點。） */
+.chap-strip{--keyc:#E8B45C}
+.chap-strip .seg.cur{background:rgba(255,255,255,.17)}
+.chap-strip .hot{position:absolute;top:0;bottom:0;pointer-events:none;
+  background:linear-gradient(to top,color-mix(in srgb,var(--keyc) 62%,transparent),transparent 68%)}
 .chap-strip .ph{position:absolute;top:0;bottom:0;width:2px;background:#fff;
-  box-shadow:0 0 7px rgba(255,255,255,.9);pointer-events:none}
-.chap-now{display:flex;align-items:center;gap:12px;margin-top:9px;font-size:.86rem;
-  color:var(--ink-dim);flex-wrap:wrap}
-.chap-now b{color:var(--sc);font-weight:500}
-.chap-now .lq{margin-left:auto}
-.chap-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:7px;margin-top:10px}
+  box-shadow:0 0 8px rgba(255,255,255,.8);pointer-events:none}
+.chap-strip .ph::before{content:'';position:absolute;top:0;left:50%;translate:-50% 0;
+  border:4px solid transparent;border-top-color:#fff}
+/* 目前章節＝容器底列，整條可點就是展開列表，不必再放一顆獨立按鈕 */
+.chap-head{display:flex;align-items:center;gap:11px;width:100%;padding:9px 14px;
+  background:none;border:0;border-top:1px solid var(--glass-line);
+  font-family:var(--sans);font-size:.86rem;color:var(--ink-dim);text-align:left;
+  cursor:pointer;transition:background .16s ease}
+.chap-head:hover{background:rgba(255,255,255,.06)}
+.chap-head b{color:var(--sc);font-weight:500;white-space:nowrap}
+.chap-head .why{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+  font-size:.79rem;color:var(--dawn)}
+.chap-head .caret{font-size:.8rem;opacity:.85;margin-left:auto;transition:rotate .2s ease}
+.chap-rail.open .caret{rotate:180deg}
+.chap-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(206px,1fr));gap:6px;
+  padding:10px 12px;border-top:1px solid var(--glass-line);background:rgba(0,0,0,.16)}
 .chap-list[hidden]{display:none}   /* display:grid 會蓋掉 UA 的 [hidden]，同坑第三次，必須明寫 */
-.chap-list button{display:flex;gap:9px;align-items:baseline;text-align:left;font-size:.84rem;
-  color:var(--ink);background:rgba(255,255,255,.05);border:1px solid var(--glass-line);
-  border-radius:9px;padding:8px 12px;cursor:pointer;transition:background .16s ease}
-.chap-list button:hover{background:rgba(255,255,255,.13)}
+.chap-list button{display:flex;gap:9px;align-items:baseline;text-align:left;font-size:.82rem;
+  color:var(--ink);background:rgba(255,255,255,.05);border:1px solid transparent;
+  border-radius:8px;padding:7px 11px;cursor:pointer;transition:background .16s ease}
+.chap-list button:hover{background:rgba(255,255,255,.14)}
+.chap-list button.cur{background:color-mix(in srgb,var(--sc) 15%,transparent);
+  border-color:color-mix(in srgb,var(--sc) 42%,transparent)}
 .chap-list b{font-family:var(--mono);font-weight:500;color:var(--dawn);white-space:nowrap}
+/* 亮色主題：白色播放頭在淺底上完全看不見，而 --dawn 在亮色是深棕(#8A5A18)，
+   同樣的 46% 熱區會變成一塊塊厚重的褐色磚。整組壓深、降透明度重配。 */
+body.lt .chap-rail{background:rgba(23,27,33,.035)}
+body.lt .chap-strip .seg{box-shadow:inset -1px 0 0 rgba(23,27,33,.12)}
+body.lt .chap-strip{--keyc:#C2860F}
+body.lt .chap-strip .seg:hover{background:rgba(23,27,33,.07)}
+body.lt .chap-strip .seg.cur{background:rgba(23,27,33,.13)}
+body.lt .chap-strip .ph{background:var(--ink);box-shadow:0 0 6px rgba(23,27,33,.35)}
+body.lt .chap-strip .ph::before{border-top-color:var(--ink)}
+body.lt .chap-head:hover{background:rgba(23,27,33,.05)}
+body.lt .chap-list{background:rgba(23,27,33,.04)}
+body.lt .chap-list button{background:rgba(23,27,33,.045)}
+body.lt .chap-list button:hover{background:rgba(23,27,33,.1)}
 /* 思考地圖面板 */
 #vidMapBtn{border:1px solid var(--glass-line);border-radius:999px;background:rgba(255,255,255,.06)}
 #vidMap{margin-top:20px;border-top:1px solid var(--glass-line);padding-top:16px}
+/* 夠寬就左右分欄：左邊上課、右邊讀筆記，兩欄各自捲動互不影響。
+   窄螢幕自動退回上下堆疊（媒體查詢不成立，two-col 這條就不生效）。 */
+@media (min-width:1200px){
+  /* width 要一起寫：.modal-panel 的 width:min(920px,100%) 會壓過單純的 max-width */
+  .vid-panel.two-col{width:min(1680px,96vw);max-width:min(1680px,96vw);display:grid;
+    grid-template-columns:minmax(0,1.46fr) minmax(372px,.92fr);
+    column-gap:26px;align-items:start;max-height:92vh;overflow:hidden}
+  .vid-panel.two-col>h3{grid-column:1/-1}
+  .vid-panel.two-col .vid-main{min-width:0;max-height:calc(92vh - 92px);
+    overflow-y:auto;overscroll-behavior:contain;padding-right:4px}
+  .vid-panel.two-col #vidMap{margin-top:0;border-top:0;padding-top:2px;
+    border-left:1px solid var(--glass-line);padding-left:24px;
+    max-height:calc(92vh - 92px);overflow-y:auto;overscroll-behavior:contain}
+}
 .map-head{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin:0 0 4px}
 .map-head h4{font-family:var(--serif);font-size:1.05rem;color:var(--dawn);margin:0;letter-spacing:.06em}
 .map-head span{font-size:.76rem;color:var(--ink-dim)}
@@ -2510,6 +2559,7 @@ function openPlayer(url,name){
       <div class="modal-panel glass vid-panel">
         <button class="modal-x lq" type="button" data-vclose aria-label="關閉">✕</button>
         <h3 id="vidName"></h3>
+        <div class="vid-main">
         <video id="vidEl" controls preload="metadata" crossorigin="anonymous"></video>
         <iframe id="vidFrame" hidden allow="autoplay; encrypted-media; fullscreen"
           allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
@@ -2531,6 +2581,7 @@ function openPlayer(url,name){
           <span class="vid-resume" id="vidResume"></span>
         </div>
         <p class="yt-hint">YouTube 播放器控制：<b>k</b> 播放暫停　<b>j</b>／<b>l</b> 退進 10 秒　<b>&lt;</b>／<b>&gt;</b> 調速</p>
+        </div>
         <div id="vidMap" hidden></div>
       </div>`;
     document.body.appendChild(m);
@@ -2546,13 +2597,14 @@ function openPlayer(url,name){
       if(tj){ vidSeekTo(+tj.dataset.t); return; }
       if(ev.target.closest('[data-map]')){
         const p=document.getElementById('vidMap');
-        if(p&&p.innerHTML){ p.hidden=!p.hidden;
-          if(!p.hidden) p.scrollIntoView({behavior:'smooth',block:'nearest'}); }
+        if(p&&p.innerHTML){ p.hidden=!p.hidden; syncTwoCol();
+          if(!p.hidden&&!m.querySelector('.vid-panel.two-col'))
+            p.scrollIntoView({behavior:'smooth',block:'nearest'}); }
         return;
       }
       if(ev.target.closest('[data-chlist]')){
         const l=m.querySelector('.chap-list');
-        if(l) l.hidden=!l.hidden;
+        if(l){ l.hidden=!l.hidden; m.querySelector('.chap-rail')?.classList.toggle('open',!l.hidden); }
         return;
       }
     });
@@ -2689,6 +2741,12 @@ function sanitize(html){
   });
   return t.innerHTML;
 }
+/* 分欄與否只看「地圖現在有沒有在顯示」；實際要不要並排交給媒體查詢決定 */
+function syncTwoCol(){
+  const panel=document.querySelector('#vidModal .vid-panel');
+  const map=document.getElementById('vidMap');
+  if(panel) panel.classList.toggle('two-col',!!map&&!map.hidden&&!!map.innerHTML);
+}
 function notesReset(){
   NOTES=null; NOTES_URL='';
   for(const id of ['vidChap','vidMap']){
@@ -2696,6 +2754,7 @@ function notesReset(){
     if(el){ el.hidden=true; el.innerHTML=''; }
   }
   const b=document.getElementById('vidMapBtn'); if(b) b.hidden=true;
+  syncTwoCol();
 }
 async function loadNotes(url){
   const tok=++NOTES_TOK;
@@ -2731,11 +2790,14 @@ function renderChapters(){
   const hots=(NOTES.keys||[]).map(k=>
     `<div class="hot" style="left:${pct(k.a)};width:${pct(k.b-k.a)}" title="${esc(k.why||'')}"></div>`).join('');
   box.innerHTML=`
-    <div class="chap-strip">${segs}${hots}<div class="ph" style="left:0"></div></div>
-    <div class="chap-now">▸ <b id="chapCur"></b><span id="chapWhy"></span>
-      <button class="lq" type="button" data-chlist>章節列表 ▾</button></div>
-    <div class="chap-list" hidden>${ch.map(c=>
-      `<button type="button" data-t="${c.t}"><b>${hms(c.t)}</b>${esc(c.title)}</button>`).join('')}</div>`;
+    <div class="chap-rail">
+      <div class="chap-strip">${segs}${hots}<div class="ph" style="left:0"></div></div>
+      <button class="chap-head" type="button" data-chlist>
+        <b id="chapCur"></b><span class="why" id="chapWhy"></span>
+        <span class="caret">▾</span></button>
+      <div class="chap-list" hidden>${ch.map(c=>
+        `<button type="button" data-t="${c.t}"><b>${hms(c.t)}</b>${esc(c.title)}</button>`).join('')}</div>
+    </div>`;
   box.hidden=false;
   box.querySelector('.chap-strip').onclick=ev=>{
     const r=ev.currentTarget.getBoundingClientRect();
@@ -2754,11 +2816,12 @@ function chapTick(v){
   let cur=0;
   for(let i=0;i<ch.length;i++) if(t>=ch[i].t) cur=i;
   box.querySelectorAll('.seg').forEach((s,i)=>s.classList.toggle('cur',i===cur));
+  box.querySelectorAll('.chap-list button').forEach((b,i)=>b.classList.toggle('cur',i===cur));
   const lb=document.getElementById('chapCur');
   if(lb) lb.textContent=ch[cur]?.title||'';
   const hot=(NOTES.keys||[]).find(k=>t>=k.a&&t<=k.b);
   const why=document.getElementById('chapWhy');
-  if(why) why.textContent=hot?`★ 重點：${hot.why||''}`:'';
+  if(why) why.textContent=hot?`★ ${hot.why||'重點時段'}`:'';
 }
 async function renderMap(){
   const box=document.getElementById('vidMap'); if(!box) return;
@@ -2803,6 +2866,7 @@ async function renderMap(){
       throwOnError:false});
   }catch(e){ console.warn('KaTeX',e); }
   box.hidden=false;                 // 必須先顯示：mermaid 在 hidden 容器裡量字寬全是 0，會畫出空圖
+  syncTwoCol();                     // 先切成分欄再畫圖，讓 mermaid 量到的是分欄後的實際寬度
   try{
     mermaid.initialize({startOnLoad:false,securityLevel:'strict',
       theme:document.body.classList.contains('lt')?'neutral':'dark'});
