@@ -49,6 +49,9 @@ def main():
 
     w = json.load(open(OUT + '/worksheet.json', encoding='utf-8'))
     page = {it['candidateId']: it['page'] for it in w['items']}
+    # 重篩母體：worksheet 中原本無摘要者（n+51：不再以頁次劃分）
+    noabs_ids = {it['candidateId'] for it in w['items']
+                 if not (it.get('abstract') or '').strip()}
 
     entries, seen = [], set()
     for c in changes:
@@ -61,9 +64,12 @@ def main():
         assert (old, new) in ALLOWED, (
             'RATCHET VIOLATION %s: %s -> %s (allowed: %s)'
             % (cid, old, new, sorted(ALLOWED)))
-        # 重篩範圍限 page 212-219（裁定乙）
-        assert 212 <= page[cid] <= 219, (
-            'outside rescreen segment: %s page %s' % (cid, page[cid]))
+        # n+51（二）撤銷 n+50 之區段劃分：重篩範圍改為
+        # **全體已判之無摘要記錄**。故此處改驗「該筆原本無摘要」，
+        # 不再驗頁次——有摘要者本就不在重篩母體內。
+        assert cid in noabs_ids, (
+            'not a no-abstract record, outside rescreen population: %s page %s'
+            % (cid, page[cid]))
         entries.append({
             'candidateId': cid,
             'originalOpinion': old,
@@ -84,7 +90,7 @@ def main():
                       'and exclude->unclear. unclear->exclude and any advance '
                       'downgrade are rejected at write time, so this file '
                       'cannot mathematically be used to induce termination.'),
-        'segment': 'page 212-219',
+        'segment': 'all judged no-abstract records (n+51)',
         'entries': entries,
     }
     json.dump(doc, open(DEST, 'w', encoding='utf-8'), ensure_ascii=False, indent=1)

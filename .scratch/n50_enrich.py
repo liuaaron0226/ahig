@@ -14,7 +14,13 @@
 
 可重入：已有結果者跳過，中斷後重跑安全。
 """
-import json, os, sys, time, urllib.parse
+import json, os, re, sys, time, urllib.parse
+
+# n+51（一）：標題碳水訊號——已驗證 16 倍鑑別力（advance 14.7% vs 0.9%）。
+# ⚠️ 依裁定僅為相關性之代理指標，只用於排序與分層，**不得用作排除軸**。
+CHO_SIGNAL = re.compile(
+    r'carbohydrate|glucose|sucrose|fructose|maltodextrin|dextrin|'
+    r'starch|honey|glycogen|sports drink|CHO\b', re.I)
 
 os.environ.setdefault('AHIG_PRIVATE_ROOT', r'C:/Users/User/Desktop/claude/ahig-private')
 sys.path.insert(0, 'ahig')
@@ -62,17 +68,22 @@ def build_targets():
     out = []
     for it in w['items']:
         cid = it['candidateId']
-        rescreen = 212 <= it['page'] <= 219 and cid in judged
-        if cid in judged and not rescreen:
-            continue
+        # n+51（二）：重篩範圍改為**全體已判之無摘要記錄**，不再挑區段。
+        # 故此處不得再以頁次篩選——已判讀者只要無摘要就是重篩對象。
+        rescreen = cid in judged
         if (it.get('abstract') or '').strip():
             continue
         pmcid, pmid, doi = ident_of(ident.get(cid, {}))
         out.append({'candidateId': cid, 'seq': it['seq'], 'page': it['page'],
                     'year': it.get('publicationYear'), 'rescreen': rescreen,
                     'pmcid': pmcid, 'pmid': pmid, 'doi': doi})
-    # 重篩段優先：它擋住後續所有工作（n+50 第四節「重篩完成前不判新頁」）
-    out.sort(key=lambda r: (not r['rescreen'], r['seq']))
+    # n+51（四）：改依標題碳水訊號優先（16 倍鑑別力）。
+    # 理由——若中途中斷，已補的會是最可能藏著漏網 advance 的那批。
+    # 只改順序不改範圍；重篩段仍排最前（它擋住重篩工作）。
+    title = {it['candidateId']: (it.get('title') or '') for it in w['items']}
+    for r in out:
+        r['choSignal'] = bool(CHO_SIGNAL.search(title.get(r['candidateId'], '')))
+    out.sort(key=lambda r: (not r['rescreen'], not r['choSignal'], r['seq']))
     return out
 
 

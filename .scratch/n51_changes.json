@@ -1,0 +1,17 @@
+[
+ {
+  "candidateId": "ahig:candidate:publication:fc75f1d5298c326024d22835",
+  "newDecision": "advance",
+  "reason": "補摘要後四軸全符：介入軸為 1:1 麥芽糊精果糖溶液於 30 公里越野滑雪計時賽「期間」給予（劑量 2.4 vs 1.2 g/min、頻率六次 vs 兩次之二因子劑量對照）；族群為受訓越野滑雪者（VO2max 59.6）；結果軸同時涵蓋契約之 tt-completion-time（計時賽表現）與 gi-symptom-severity（腸胃道不適，明載 HC-LF 顯著較高）；設計為交叉試驗。原判 unclear 係因無摘要時標題未載族群與劑量，摘要證實全數相符。依 n+50（乙）棘輪 unclear→advance 為允許方向。"
+ },
+ {
+  "candidateId": "ahig:candidate:publication:b554aa56ca1f82722247967c",
+  "newDecision": "advance",
+  "reason": "補摘要後介入與結果兩軸明確落在契約內：介入軸為 13C 標記葡萄糖加果糖 vs 單獨葡萄糖之經口給予（400+400 vs 800 mg/min，屬契約之劑量／組成對照）；結果軸為外源碳水氧化率峰值（exogenous CHO oxidation peak，契約六項之第三項），並與純水條件比較。原判 unclear 係因標題僅載 in the cold 而未載受試者與設計。⚠️ 惟運動情境為低溫暴露誘發之顫抖產熱（~2.5 倍靜息代謝率）而非自主耐力運動，全文期須確認運動型態軸；依棘輪不確定性不得降級，且相關性明確提高，判 advance 送全文。"
+ },
+ {
+  "candidateId": "ahig:candidate:publication:56aab1fbd07d05ffaff699d4",
+  "newDecision": "advance",
+  "reason": "補摘要後四軸全符：介入軸為運動「期間」給予 65.25 g 果糖加 79.75 g 葡萄糖（1.8 g/min）vs 安慰劑；族群為海平面居民男性 14 名之 80 分鐘穩定狀態有氧運動；結果軸為外源葡萄糖氧化量（13C 示蹤法，契約六項之第三項）；設計為對照試驗。原判 unclear 係因標題未載劑量與對照臂。本筆並提供高海拔（4300 m）情境下外源碳水氧化受抑與適應後回復之資料，對 W4c 之情境調節章節有價值。依棘輪 unclear→advance 為允許方向。"
+ }
+]
