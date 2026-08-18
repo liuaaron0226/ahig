@@ -93,6 +93,29 @@ CLASS = {
                  '**惟它用兩張獨立的網**：我的理由措辭 ＋ 摘要原文，'
                  '且輸出逐筆標明命中來自 `[reason]` 抑或 `[abs]`；'
                  '🚨 即「用敘述當線索但不當證據」，此為第九型之正解'),
+    # ── 第 361 輪：B 級 15 個逐檔判定完畢，補入 ──
+    'sweep5': ('甲 正當（正解示範）', '設計是否單臂',
+               '主判定用摘要之 `cmp_pat`，理由僅為第三道補網（elif），'
+               '且輸出以 BLANK／NO-CMP／REASON 標明命中來源'),
+    'sweep2': ('甲 正當', '不以 reason 判定',
+               'reason 僅隨題摘一併印出供我人工閱讀，未參與任何篩選條件'),
+    'sweep4': ('甲 正當', '不以 reason 判定', '同 sweep2'),
+    'sweep6': ('甲 正當', '不以 reason 判定', '同 sweep2'),
+    'unc': ('甲 正當', '不以 reason 判定', '同 sweep2'),
+    'chk': ('甲 正當', '不以 reason 判定',
+            'reason 僅印出供人工閱讀（chk2 之關鍵字為列印過濾，'
+            '非研究性質之判定）'),
+    'prec137': ('甲 正當', '我寫的先例與族序號', '判讀前讀回先例'),
+    'prec_e8': ('甲 正當', '不以 reason 判定', 'reason 僅印出供閱讀'),
+    'probe137': ('甲 正當', '不以 reason 判定', '同上'),
+    'probe_unclear': ('甲 正當', '不以 reason 判定', '同上'),
+    'p2_final': ('甲 正當', '我寫的理由之結構',
+                 '量測空理由數與理由長度分布，對象即理由本身'),
+    'verify_n31': ('甲 正當（三網並用）', '記錄是否含某特徵',
+                   '`pat.search(ab) or pat.search(ti) or pat.search(reason)`'
+                   '——摘要與標題為主，理由為第三網，且輸出標明來源為 '
+                   '`ABS`／`TITLE`／`reason-only`'),
+    'chk5': ('甲 正當', '我寫的族序號', '族序號抽取，同 n59'),
 }
 
 print('== 我的分類（⚠️ 此為我的判斷，非程式測得，請覆核）==')
@@ -144,8 +167,24 @@ print('        結構上不可能是第九型）**、%d 個 B 級（有替代來
       % len(tiers['B 讀 reason 但也讀 title/abstract']))
 print('        %d 個 C 級。'
       % len(tiers['🚨 C 只讀 reason（高風險，須逐檔判）']))
-print('   （三）⚠️ **B 級與 C 級我尚未逐檔判定**——本檔目前**不足以**')
-print('        宣稱「全 lane 無第九型」，只能說已檢視者中僅一例且已改正。')
+n_b = len(tiers['B 讀 reason 但也讀 title/abstract'])
+n_c = len(tiers['🚨 C 只讀 reason（高風險，須逐檔判）'])
+if n_b == 0 and n_c == 0:
+    print('   （三）✅ **第 361 輪已將 B 級 15 個逐檔判定完畢**，'
+          'B 與 C 兩層現皆為 0。')
+    print('        🚨 **惟「全 lane 無第九型」仍是一個有邊界的宣稱**：')
+    print('        本檔只涵蓋 `.scratch/*.py`，且分類依據是我讀程式碼後之判斷。')
+    print('        ⚠️ `ahig/` 我另行查過（不是憑印象）：10 個模組出現 reason')
+    print('        字樣，**無一讀取 `entry[\'reason\']` 做分類**——')
+    print('          • `judgement_worksheet` 只**寫入**並驗其非空；')
+    print('          • `screening_decisions` 用的是列舉型 `primaryReasonCode`，')
+    print('            非自由文；')
+    print('          • `grade.py` 之 reasons 是它自己生成的降級理由。')
+    print('        **若協調者對任一分類有異議，請直接指出該檔。**')
+else:
+    print('   （三）⚠️ **尚有 B 級 %d、C 級 %d 未逐檔判定**——本檔目前'
+          % (n_b, n_c))
+    print('        **不足以**宣稱「全 lane 無第九型」。')
 print()
 print('⚠️ 兩個邊界案例（n64_skillperf、n65_direction）我標了限制而非改寫')
 print('   ——理由是那兩個構念在標題層沒有特徵詞，沒有替代資料來源；')
