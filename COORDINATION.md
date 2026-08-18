@@ -55141,3 +55141,74 @@ pScore          0.585988         0.631101    （上升，更難停）
 `pScoreExcludedCount 0`、`outOfSequenceCount 200`、**`allowedToStop False`**。
 測試 **743/743**。名冊維持 **165 筆**。
 內容制掃描空；`_p*.txt` 追蹤 0；議題檔 10。
+
+## 🔬 執行室回報：p283 判畢，**2 筆命中**，其一為四軸全指入局之斯洛維尼亞文學位論文（第 354 輪）
+
+### 〇、無新指示
+
+主幹停在 `4f6b6e3`（n+73），已於上輪回報。三項衛生檢查與 n+59 皆 PASS。
+
+### 一、🚨 `25a4bf7b`：本名冊中全文優先度最高者之一
+
+〈**Vpliv strategije vnosa ogljikovih hidratov na zmogljivost med
+simulacijo kolesarske dirke**〉（2024，`dissertation`，斯洛維尼亞文，
+池中無任何識別碼，`[title-only-judged]`）。
+
+**直譯**：〈**碳水化合物攝取策略**對**模擬自行車賽期間**表現之影響〉。
+
+| 軸 | 判定 | 標題依據 |
+|---|---|---|
+| 介入 | ✅✅ | `vnos ogljikovih hidratov` 逐字對應契約標的物；`strategije` 指向比較設計 |
+| 時序 | ✅✅ | `med simulacijo kolesarske dirke`＝**於模擬自行車賽期間**，即決定性軸 |
+| 型態 | ✅✅ | 自行車，契約 `allowedInstruments` 核心 |
+| 結果 | ✅ | `zmogljivost`（表現）指向 `tt-completion-time` |
+| 族群 | ⬜ | 完全未載 |
+| 設計 | ⬜ | 未載對照臂與隨機分派 |
+
+**判 unclear 而非 advance**：族群與設計兩軸完全未載，若受試者未受訓
+或無對照臂仍會出局。依 fail-closed 送全文。
+
+**🚨 但我要主動提一個「不得當獨立證據」的警告**——這是本輪第三次遇到：
+
+**與 `26d9c8ed`（斯洛維尼亞文學位論文，〈比較攝取 90 或 120 g/h 時之
+外源碳水氧化〉，2023，同判 unclear——已程式讀回確認）併看**：
+**兩筆年份相鄰、語言相同、主題同屬運動中碳水補給**——
+**極可能出自同一研究單位甚至同一指導教授。**
+
+**同一警告本輪還有第二例**：`4b60c9b1`（英超 6 名選手之日內分布）
+與 `e35272ef`（英超 24 名選手之賽週 RMR，已讀回確認）**同聯賽、
+同方法（遠端食物攝影法）、同結論（碳水低於建議）**——作者群可能重疊。
+
+**⚠️ 加上上一輪立陶宛三筆，本 lane 已累積三組「疑似重疊樣本」。**
+**🚨 建議協調者考慮把「樣本／作者重疊查證」列為全文期之固定步驟**，
+而不是靠我每次臨場察覺——**我上上輪就是把立陶宛前兩筆寫成
+「跨樣本重現」，看到第三筆才警覺的。**
+
+### 二、另一筆命中 `2360be3c`：介入軸措辭為名冊中最上位者
+
+〈Effects of acute nutritional interventions on athletic performance〉
+（2010，`dissertation`，無識別碼）。**時序軸 ✅ `acute` 明確排除多日
+策略**、**結果軸 ✅ athletic performance**，惟 **介入軸 `nutritional
+interventions` 為上位詞**——涵蓋碳水，也可能是咖啡因、硝酸鹽、
+碳酸氫鈉等本 lane 已大量排除者。標題無正向出局證據，判 unclear。
+
+⚠️ **並記其為「上位詞標題」之典型**，建議 W4b 記錄此類標題之全文轉化率。
+
+### 三、統計量：windowSize 歸零
+
+```
+pScore 1.000000   windowSize 0   relevantFound 714
+```
+
+**⚠️ 說明**：`25a4bf7b` 是 p283 的**最後一筆**（seq 7074），且為命中，
+故「最後一筆相關之後的連續尾段」長度為 0——**依 `p_score` 之定義，
+window 為 0 時 p 值取 1.0（對「尾段乾了」毫無證據）**。
+**🚨 這不是異常，是定義使然**；下一頁若無命中，window 即重新累積。
+
+### 四、進度
+
+判讀 **7,265/9,091（79.91%）**、逐頁連續判畢至 **p283**、未篩 **1,826**。
+`pScore 1.0`、`windowSize 0`、`relevantFound 714`、
+`pScoreExcludedCount 0`、`outOfSequenceCount 200`、**`allowedToStop False`**。
+測試 **743/743**。名冊 **165 → 167 筆**。
+內容制掃描空；`_p*.txt` 追蹤 0；議題檔 10。
