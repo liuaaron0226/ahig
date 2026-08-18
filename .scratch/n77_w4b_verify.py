@@ -62,6 +62,15 @@ assert int(m.group(1)) == len(ids), (
     '🚨 檔頭自述 %s 條，實測 %d 條' % (m.group(1), len(ids)))
 assert int(m.group(2)) == len(cids), (
     '🚨 檔頭自述引用 %s 個 ID，實測 %d 個' % (m.group(2), len(cids)))
-print('✅ 編號無重複；✅ 所有 candidateId 皆可回溯')
+# 🚨 類別標題數必須等於條目代號數。
+# ⚠️ 第 384 輪：有一節標題另立而條目沿用既有代號（劑型 vs 劑量與型態），
+# 於是 17 個標題對 16 個代號——**讀者會以為有 17 類，實際只有 16 類可被引用。**
+heads = re.findall(r'^## 類別：', t, re.M)
+prefixes = {i.split('-')[0] for i in ids}
+assert len(heads) == len(prefixes), (
+    '🚨 類別標題 %d 個，條目代號 %d 種——有標題未配得自己的代號，'
+    '或有代號未配得標題' % (len(heads), len(prefixes)))
+
+print('✅ 編號無重複；✅ 所有 candidateId 皆可回溯；✅ 標題與代號數一致')
 print()
 print('⚠️ 本檔未驗證主張句是否忠於判讀原文——那需要人讀，不能由樣式代勞。')
