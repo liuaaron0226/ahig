@@ -1,9 +1,18 @@
 # -*- coding: utf-8 -*-
 """n+52（二）：建立 [title-only-judged] 全文期名冊。
 
-母體：p<212 之已判無摘要記錄中，**補摘要無法取得摘要者**
+母體：**全體已判之無摘要記錄**中，**補摘要無法取得摘要者**
 （`upstream-no-abstract` / `no-identifier` / `not-found-all-ids`）。
 這批僅憑標題判讀，且上游本來就沒有摘要可補。
+
+⚠️ **n+53 後之範圍擴充（原為 p<212）**：n+52 建檔時只涵蓋
+p<212，因當時該區段是重篩母體之外緣。**惟 n+53 裁定明白以本名冊
+為「標題具名即可判 exclude」之 recall 保護依據**——
+「recall 保護已經由別的機制提供，不需要用標籤再做一次」。
+**保護若只到 p211，則 p212 以後依該裁定判 exclude 之同型記錄
+就沒有任何機制接住。** 故改為涵蓋全體已判頁。
+本檔 `affectsTerminationStatistic: False`，擴充只增加全文取得筆數，
+不動任何標籤與序列——方向為純保護，建檔前後統計量須完全相同。
 
 ⚠️ 依裁定：
   - **不改判、不動標籤序列**——升級會使這批（全在尾端窗口之外）
@@ -43,7 +52,7 @@ pv = json.load(open(RUN + '/abstract-enrichment/provenance.json',
 entries = []
 for it in w['items']:
     cid = it['candidateId']
-    if cid not in op or it['page'] >= 212:
+    if cid not in op:
         continue
     if (it.get('abstract') or '').strip():
         continue
@@ -64,7 +73,7 @@ doc = {
     'schemaVersion': 1,
     'documentType': 'title-only-judged-roster',
     'source': 'standard-full-screen-pass-1',
-    'ruling': 'n+52 (二)',
+    'ruling': 'n+52 (二), scope widened per n+53 (一)(二)',
     'producedBy': 'claude-opus-5[1m] executor-session',
     'semantics': (
         'Records judged from TITLE ONLY: no abstract in the pool and none '
@@ -76,7 +85,13 @@ doc = {
         'screening decision; corrections, if any, go through n+43 class (甲) '
         'factual-error correction, not through this file.'),
     'affectsTerminationStatistic': False,
-    'segment': 'page < 212 (n+50 (丙) segment, left unchanged by ruling)',
+    'segment': (
+        'ALL judged pages. Originally page < 212 under n+52 (二); widened '
+        'after n+53 made this roster the stated recall-protection mechanism '
+        'for title-only records judged exclude under independent-axis-first. '
+        'Protection that stopped at page 211 would leave later records of the '
+        'same kind uncovered. Widening only adds full-text acquisitions; it '
+        'changes no label and no sequence position.'),
     'entryCount': len(entries),
     'entries': entries,
 }

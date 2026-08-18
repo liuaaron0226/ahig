@@ -42,3 +42,13 @@ targets 3556  already done 997  todo 2559
 2050/2559  enriched 2865  calls 2077
 2100/2559  enriched 2915  calls 2128
 2150/2559  enriched 2965  calls 2180
+2200/2559  enriched 3014  calls 2230
+2250/2559  enriched 3064  calls 2280
+2300/2559  enriched 3113  calls 2330
+2350/2559  enriched 3161  calls 2380
+2400/2559  enriched 3211  calls 2430
+2450/2559  enriched 3261  calls 2481
+2500/2559  enriched 3311  calls 2532
+
+provenance {'enriched': 3357, 'upstream-no-abstract': 106, 'not-found-all-ids': 47, 'no-identifier': 46}
+abstracts stored 3357 httpCalls 2580
