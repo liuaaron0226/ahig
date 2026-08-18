@@ -1,0 +1,1039 @@
+{
+ "schemaVersion": 1,
+ "documentType": "title-only-judged-roster",
+ "source": "standard-full-screen-pass-1",
+ "ruling": "n+52 (二), scope widened per n+53 (一)(二)",
+ "producedBy": "claude-opus-5[1m] executor-session",
+ "semantics": "Records judged from TITLE ONLY: no abstract in the pool and none obtainable upstream. This file is a FULL-TEXT-PHASE roster only. It records; it does not relabel. It MUST NOT be read by the termination statistic — screeningDecision here is a copy of the effective label, not an override. Every entry is to be acquired in full text and re-checked during extraction regardless of its screening decision; corrections, if any, go through n+43 class (甲) factual-error correction, not through this file.",
+ "affectsTerminationStatistic": false,
+ "segment": "ALL judged pages. Originally page < 212 under n+52 (二); widened after n+53 made this roster the stated recall-protection mechanism for title-only records judged exclude under independent-axis-first. Protection that stopped at page 211 would leave later records of the same kind uncovered. Widening only adds full-text acquisitions; it changes no label and no sequence position.",
+ "entryCount": 114,
+ "entries": [
+  {
+   "candidateId": "ahig:candidate:publication:526f419466c5d7bf20581469",
+   "seq": 1181,
+   "page": 48,
+   "publicationYear": 1998,
+   "screeningDecision": "unclear",
+   "enrichmentStatus": "upstream-no-abstract",
+   "tag": "title-only-judged"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:afd6ab4767bbdafeb4330a41",
+   "seq": 1450,
+   "page": 58,
+   "publicationYear": 1987,
+   "screeningDecision": "unclear",
+   "enrichmentStatus": "upstream-no-abstract",
+   "tag": "title-only-judged"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:73c94575ebd208860c21d469",
+   "seq": 1642,
+   "page": 66,
+   "publicationYear": 2015,
+   "screeningDecision": "exclude",
+   "enrichmentStatus": "upstream-no-abstract",
+   "tag": "title-only-judged"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:df9308bc665bf9495b6df077",
+   "seq": 1781,
+   "page": 72,
+   "publicationYear": 1976,
+   "screeningDecision": "unclear",
+   "enrichmentStatus": "upstream-no-abstract",
+   "tag": "title-only-judged"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:315f576165924902c780fe8f",
+   "seq": 1899,
+   "page": 76,
+   "publicationYear": 1977,
+   "screeningDecision": "exclude",
+   "enrichmentStatus": "upstream-no-abstract",
+   "tag": "title-only-judged"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:5373ca2cf2accf4a97168378",
+   "seq": 1990,
+   "page": 80,
+   "publicationYear": 1960,
+   "screeningDecision": "exclude",
+   "enrichmentStatus": "upstream-no-abstract",
+   "tag": "title-only-judged"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:e25b6970e5814a0b7840571f",
+   "seq": 2029,
+   "page": 82,
+   "publicationYear": 1979,
+   "screeningDecision": "exclude",
+   "enrichmentStatus": "upstream-no-abstract",
+   "tag": "title-only-judged"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:0fe93e40b07decaa0ccc2cf2",
+   "seq": 2305,
+   "page": 93,
+   "publicationYear": 1986,
+   "screeningDecision": "unclear",
+   "enrichmentStatus": "upstream-no-abstract",
+   "tag": "title-only-judged"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:dda4a49c3886a981581872d8",
+   "seq": 2306,
+   "page": 93,
+   "publicationYear": 1992,
+   "screeningDecision": "exclude",
+   "enrichmentStatus": "upstream-no-abstract",
+   "tag": "title-only-judged"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:d5028b03858e82edbb67b9ba",
+   "seq": 2307,
+   "page": 93,
+   "publicationYear": 2011,
+   "screeningDecision": "exclude",
+   "enrichmentStatus": "upstream-no-abstract",
+   "tag": "title-only-judged"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:5bad7c0710c14ee3eb1a0a81",
+   "seq": 2329,
+   "page": 94,
+   "publicationYear": 1986,
+   "screeningDecision": "unclear",
+   "enrichmentStatus": "upstream-no-abstract",
+   "tag": "title-only-judged"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:5431f2eb97e3ad5a9d0f2177",
+   "seq": 2383,
+   "page": 96,
+   "publicationYear": 2018,
+   "screeningDecision": "unclear",
+   "enrichmentStatus": "no-identifier",
+   "tag": "title-only-judged"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:bcdded4028d235447e41f558",
+   "seq": 2395,
+   "page": 96,
+   "publicationYear": 2024,
+   "screeningDecision": "unclear",
+   "enrichmentStatus": "not-found-all-ids",
+   "tag": "title-only-judged"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:dd74d4339d0bb8d5a8f78d90",
+   "seq": 2475,
+   "page": 99,
+   "publicationYear": 1946,
+   "screeningDecision": "exclude",
+   "enrichmentStatus": "upstream-no-abstract",
+   "tag": "title-only-judged"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:aba8f4d23c882adf5d55778e",
+   "seq": 2477,
+   "page": 100,
+   "publicationYear": 2021,
+   "screeningDecision": "exclude",
+   "enrichmentStatus": "upstream-no-abstract",
+   "tag": "title-only-judged"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:c63b5a7d6d1b3139794865c9",
+   "seq": 2490,
+   "page": 100,
+   "publicationYear": 1973,
+   "screeningDecision": "unclear",
+   "enrichmentStatus": "upstream-no-abstract",
+   "tag": "title-only-judged"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:4bf16ffd49e6f9fefabfd12f",
+   "seq": 2499,
+   "page": 100,
+   "publicationYear": 1993,
+   "screeningDecision": "unclear",
+   "enrichmentStatus": "no-identifier",
+   "tag": "title-only-judged"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:a82518df7330939acc84a8c2",
+   "seq": 2530,
+   "page": 102,
+   "publicationYear": 2016,
+   "screeningDecision": "exclude",
+   "enrichmentStatus": "upstream-no-abstract",
+   "tag": "title-only-judged"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:9ca510cf2419a4ce582fa5b3",
+   "seq": 2561,
+   "page": 103,
+   "publicationYear": 1972,
+   "screeningDecision": "unclear",
+   "enrichmentStatus": "upstream-no-abstract",
+   "tag": "title-only-judged"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:40d679afa55c00392ced32ed",
+   "seq": 2565,
+   "page": 103,
+   "publicationYear": 2026,
+   "screeningDecision": "exclude",
+   "enrichmentStatus": "upstream-no-abstract",
+   "tag": "title-only-judged"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:7267855bcf8be483970f49d0",
+   "seq": 2570,
+   "page": 103,
+   "publicationYear": 2015,
+   "screeningDecision": "exclude",
+   "enrichmentStatus": "upstream-no-abstract",
+   "tag": "title-only-judged"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:6ba0fac8915aef82fc89be91",
+   "seq": 2655,
+   "page": 107,
+   "publicationYear": 1973,
+   "screeningDecision": "unclear",
+   "enrichmentStatus": "upstream-no-abstract",
+   "tag": "title-only-judged"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:3dc5ab8d1722cdbaa78527f5",
+   "seq": 2704,
+   "page": 109,
+   "publicationYear": 1995,
+   "screeningDecision": "unclear",
+   "enrichmentStatus": "upstream-no-abstract",
+   "tag": "title-only-judged"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:e5fd8b32a2aefd2e574fac75",
+   "seq": 2827,
+   "page": 114,
+   "publicationYear": 1973,
+   "screeningDecision": "unclear",
+   "enrichmentStatus": "upstream-no-abstract",
+   "tag": "title-only-judged"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:376b8695fb6b5cde506a0362",
+   "seq": 2865,
+   "page": 115,
+   "publicationYear": 2015,
+   "screeningDecision": "exclude",
+   "enrichmentStatus": "upstream-no-abstract",
+   "tag": "title-only-judged"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:a20105aad43e78ad3980bedd",
+   "seq": 2880,
+   "page": 116,
+   "publicationYear": 2017,
+   "screeningDecision": "exclude",
+   "enrichmentStatus": "no-identifier",
+   "tag": "title-only-judged"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:0b13175a886219c4d7e9ee4e",
+   "seq": 2930,
+   "page": 118,
+   "publicationYear": 2004,
+   "screeningDecision": "unclear",
+   "enrichmentStatus": "no-identifier",
+   "tag": "title-only-judged"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:3aed293296b59df3224f5422",
+   "seq": 2939,
+   "page": 118,
+   "publicationYear": 2019,
+   "screeningDecision": "unclear",
+   "enrichmentStatus": "no-identifier",
+   "tag": "title-only-judged"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:f3350f933e27bd795827901a",
+   "seq": 2953,
+   "page": 119,
+   "publicationYear": 1997,
+   "screeningDecision": "unclear",
+   "enrichmentStatus": "not-found-all-ids",
+   "tag": "title-only-judged"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:3bc6773bf19200bead30f0ef",
+   "seq": 2990,
+   "page": 120,
+   "publicationYear": 2017,
+   "screeningDecision": "exclude",
+   "enrichmentStatus": "no-identifier",
+   "tag": "title-only-judged"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:8bfaddda88d20ead5f704d90",
+   "seq": 2999,
+   "page": 120,
+   "publicationYear": 2005,
+   "screeningDecision": "unclear",
+   "enrichmentStatus": "no-identifier",
+   "tag": "title-only-judged"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:cd1ce58e6a01092f20d138ec",
+   "seq": 3027,
+   "page": 122,
+   "publicationYear": 2002,
+   "screeningDecision": "unclear",
+   "enrichmentStatus": "no-identifier",
+   "tag": "title-only-judged"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:142cc595d9fd93646c8d8415",
+   "seq": 3050,
+   "page": 122,
+   "publicationYear": 2005,
+   "screeningDecision": "exclude",
+   "enrichmentStatus": "upstream-no-abstract",
+   "tag": "title-only-judged"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:ab8e4f95edb4801f8753f918",
+   "seq": 3127,
+   "page": 126,
+   "publicationYear": 2008,
+   "screeningDecision": "unclear",
+   "enrichmentStatus": "not-found-all-ids",
+   "tag": "title-only-judged"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:c9c91436bd5f5ac083238e17",
+   "seq": 3201,
+   "page": 129,
+   "publicationYear": 2011,
+   "screeningDecision": "unclear",
+   "enrichmentStatus": "no-identifier",
+   "tag": "title-only-judged"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:124e1321eee934af1c5cbaa2",
+   "seq": 3205,
+   "page": 129,
+   "publicationYear": 2009,
+   "screeningDecision": "exclude",
+   "enrichmentStatus": "no-identifier",
+   "tag": "title-only-judged"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:aaa117dbbd72c2eab0bc5dbb",
+   "seq": 3280,
+   "page": 132,
+   "publicationYear": 1985,
+   "screeningDecision": "unclear",
+   "enrichmentStatus": "upstream-no-abstract",
+   "tag": "title-only-judged"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:53502e4d30d8b645cba97c4d",
+   "seq": 3442,
+   "page": 138,
+   "publicationYear": 2005,
+   "screeningDecision": "exclude",
+   "enrichmentStatus": "no-identifier",
+   "tag": "title-only-judged"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:0d07daa1ccd8025fa48027e4",
+   "seq": 3582,
+   "page": 144,
+   "publicationYear": 2024,
+   "screeningDecision": "unclear",
+   "enrichmentStatus": "no-identifier",
+   "tag": "title-only-judged"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:1f42a4d81435a53510fc45e7",
+   "seq": 3637,
+   "page": 146,
+   "publicationYear": 2025,
+   "screeningDecision": "exclude",
+   "enrichmentStatus": "upstream-no-abstract",
+   "tag": "title-only-judged"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:241ddcb7b38e3e249b67e9dc",
+   "seq": 3657,
+   "page": 147,
+   "publicationYear": 1985,
+   "screeningDecision": "unclear",
+   "enrichmentStatus": "upstream-no-abstract",
+   "tag": "title-only-judged"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:9b76e804600c7c813c995e7e",
+   "seq": 3710,
+   "page": 149,
+   "publicationYear": 2016,
+   "screeningDecision": "unclear",
+   "enrichmentStatus": "not-found-all-ids",
+   "tag": "title-only-judged"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:eaf32e1d990ef279a3ef723f",
+   "seq": 3728,
+   "page": 150,
+   "publicationYear": 2003,
+   "screeningDecision": "unclear",
+   "enrichmentStatus": "no-identifier",
+   "tag": "title-only-judged"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:fca770cc1381a1bc664fdb0d",
+   "seq": 3875,
+   "page": 155,
+   "publicationYear": 1974,
+   "screeningDecision": "exclude",
+   "enrichmentStatus": "upstream-no-abstract",
+   "tag": "title-only-judged"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:a583069c7a6ca310f00f9309",
+   "seq": 3907,
+   "page": 157,
+   "publicationYear": 1995,
+   "screeningDecision": "exclude",
+   "enrichmentStatus": "no-identifier",
+   "tag": "title-only-judged"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:7809b12dd0df82db58875db1",
+   "seq": 3972,
+   "page": 159,
+   "publicationYear": 2006,
+   "screeningDecision": "unclear",
+   "enrichmentStatus": "no-identifier",
+   "tag": "title-only-judged"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:56c625da7a4d5572f3136999",
+   "seq": 4009,
+   "page": 161,
+   "publicationYear": 2019,
+   "screeningDecision": "exclude",
+   "enrichmentStatus": "upstream-no-abstract",
+   "tag": "title-only-judged"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:a34f3cd3bda66aed6bfa2ec5",
+   "seq": 4076,
+   "page": 164,
+   "publicationYear": 2011,
+   "screeningDecision": "exclude",
+   "enrichmentStatus": "upstream-no-abstract",
+   "tag": "title-only-judged"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:b12ca48456248a1d76b1ea85",
+   "seq": 4248,
+   "page": 170,
+   "publicationYear": 2020,
+   "screeningDecision": "exclude",
+   "enrichmentStatus": "upstream-no-abstract",
+   "tag": "title-only-judged"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:3e397d9a5e21005793e731dd",
+   "seq": 4276,
+   "page": 172,
+   "publicationYear": 2010,
+   "screeningDecision": "unclear",
+   "enrichmentStatus": "no-identifier",
+   "tag": "title-only-judged"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:7320ed4d7e215e4c5a84baf2",
+   "seq": 4312,
+   "page": 173,
+   "publicationYear": 2012,
+   "screeningDecision": "unclear",
+   "enrichmentStatus": "no-identifier",
+   "tag": "title-only-judged"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:3d3bcb9f198f989aee2ef12f",
+   "seq": 4349,
+   "page": 174,
+   "publicationYear": 2025,
+   "screeningDecision": "unclear",
+   "enrichmentStatus": "upstream-no-abstract",
+   "tag": "title-only-judged"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:125b3a4b5dc92c2d3ee4f67d",
+   "seq": 4384,
+   "page": 176,
+   "publicationYear": 2007,
+   "screeningDecision": "unclear",
+   "enrichmentStatus": "no-identifier",
+   "tag": "title-only-judged"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:7529b3121610e539bb1b6adc",
+   "seq": 4528,
+   "page": 182,
+   "publicationYear": 2010,
+   "screeningDecision": "unclear",
+   "enrichmentStatus": "no-identifier",
+   "tag": "title-only-judged"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:dd52067e93b82777abd9de02",
+   "seq": 4535,
+   "page": 182,
+   "publicationYear": 2023,
+   "screeningDecision": "exclude",
+   "enrichmentStatus": "upstream-no-abstract",
+   "tag": "title-only-judged"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:e182d28d762b1dfa143c91e9",
+   "seq": 4652,
+   "page": 187,
+   "publicationYear": 2018,
+   "screeningDecision": "unclear",
+   "enrichmentStatus": "not-found-all-ids",
+   "tag": "title-only-judged"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:05097d0c12a6131a122e2544",
+   "seq": 4702,
+   "page": 189,
+   "publicationYear": 2024,
+   "screeningDecision": "exclude",
+   "enrichmentStatus": "upstream-no-abstract",
+   "tag": "title-only-judged"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:0ee2a70ec2afda900700220a",
+   "seq": 4703,
+   "page": 189,
+   "publicationYear": 2024,
+   "screeningDecision": "exclude",
+   "enrichmentStatus": "upstream-no-abstract",
+   "tag": "title-only-judged"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:c9dce6869ff71f5cabea18f2",
+   "seq": 4719,
+   "page": 189,
+   "publicationYear": 2024,
+   "screeningDecision": "exclude",
+   "enrichmentStatus": "upstream-no-abstract",
+   "tag": "title-only-judged"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:1824c497aeff3004a756df02",
+   "seq": 4734,
+   "page": 190,
+   "publicationYear": 2012,
+   "screeningDecision": "exclude",
+   "enrichmentStatus": "upstream-no-abstract",
+   "tag": "title-only-judged"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:7fbb4c6991c39c6b0d6469ce",
+   "seq": 4800,
+   "page": 192,
+   "publicationYear": 2025,
+   "screeningDecision": "unclear",
+   "enrichmentStatus": "no-identifier",
+   "tag": "title-only-judged"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:ae293e7cd402e748ed03926f",
+   "seq": 4801,
+   "page": 193,
+   "publicationYear": 2013,
+   "screeningDecision": "unclear",
+   "enrichmentStatus": "no-identifier",
+   "tag": "title-only-judged"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:3a6cf4ec81b974b745a5f955",
+   "seq": 4806,
+   "page": 193,
+   "publicationYear": 2014,
+   "screeningDecision": "exclude",
+   "enrichmentStatus": "not-found-all-ids",
+   "tag": "title-only-judged"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:244bc982ea4ff02fe03fe90b",
+   "seq": 4884,
+   "page": 196,
+   "publicationYear": 2022,
+   "screeningDecision": "unclear",
+   "enrichmentStatus": "not-found-all-ids",
+   "tag": "title-only-judged"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:1b872e5f7c693dfe20e9deba",
+   "seq": 4887,
+   "page": 196,
+   "publicationYear": 2009,
+   "screeningDecision": "unclear",
+   "enrichmentStatus": "no-identifier",
+   "tag": "title-only-judged"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:b58a6f3dfb06b366a01b3723",
+   "seq": 4905,
+   "page": 197,
+   "publicationYear": 2003,
+   "screeningDecision": "unclear",
+   "enrichmentStatus": "no-identifier",
+   "tag": "title-only-judged"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:c1ccc4872a0c3006e3d85717",
+   "seq": 4909,
+   "page": 197,
+   "publicationYear": 2017,
+   "screeningDecision": "unclear",
+   "enrichmentStatus": "no-identifier",
+   "tag": "title-only-judged"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:53baedac6354276a8f3b87ee",
+   "seq": 5032,
+   "page": 202,
+   "publicationYear": 2013,
+   "screeningDecision": "exclude",
+   "enrichmentStatus": "upstream-no-abstract",
+   "tag": "title-only-judged"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:b518c0057115780748006883",
+   "seq": 5036,
+   "page": 202,
+   "publicationYear": 2018,
+   "screeningDecision": "unclear",
+   "enrichmentStatus": "no-identifier",
+   "tag": "title-only-judged"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:1d6633bfbd5eec93e238d994",
+   "seq": 5070,
+   "page": 203,
+   "publicationYear": 2010,
+   "screeningDecision": "unclear",
+   "enrichmentStatus": "not-found-all-ids",
+   "tag": "title-only-judged"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:bc15ab60f35178534fa0585e",
+   "seq": 5079,
+   "page": 204,
+   "publicationYear": 2026,
+   "screeningDecision": "exclude",
+   "enrichmentStatus": "upstream-no-abstract",
+   "tag": "title-only-judged"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:5d00b81574444b010ded636b",
+   "seq": 5092,
+   "page": 204,
+   "publicationYear": 2014,
+   "screeningDecision": "unclear",
+   "enrichmentStatus": "no-identifier",
+   "tag": "title-only-judged"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:d4dc3d3f2d8da1b3e14a0fca",
+   "seq": 5151,
+   "page": 207,
+   "publicationYear": 2016,
+   "screeningDecision": "exclude",
+   "enrichmentStatus": "upstream-no-abstract",
+   "tag": "title-only-judged"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:02e03f823f3a4c1fd76a59b3",
+   "seq": 5177,
+   "page": 208,
+   "publicationYear": 2003,
+   "screeningDecision": "unclear",
+   "enrichmentStatus": "no-identifier",
+   "tag": "title-only-judged"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:870526b0dd155a5f7f9689bf",
+   "seq": 5225,
+   "page": 209,
+   "publicationYear": 2017,
+   "screeningDecision": "exclude",
+   "enrichmentStatus": "no-identifier",
+   "tag": "title-only-judged"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:097c33e0d53aa0bb5c041b93",
+   "seq": 5253,
+   "page": 211,
+   "publicationYear": 2015,
+   "screeningDecision": "unclear",
+   "enrichmentStatus": "not-found-all-ids",
+   "tag": "title-only-judged"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:4e58c0a9110c2b98798cbdc3",
+   "seq": 5274,
+   "page": 211,
+   "publicationYear": 2011,
+   "screeningDecision": "exclude",
+   "enrichmentStatus": "no-identifier",
+   "tag": "title-only-judged"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:43b05151cfb0f5d57737c315",
+   "seq": 5321,
+   "page": 213,
+   "publicationYear": 2026,
+   "screeningDecision": "unclear",
+   "enrichmentStatus": "not-found-all-ids",
+   "tag": "title-only-judged"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:f0681e9068aef6cdf090a9cb",
+   "seq": 5335,
+   "page": 214,
+   "publicationYear": 2023,
+   "screeningDecision": "exclude",
+   "enrichmentStatus": "upstream-no-abstract",
+   "tag": "title-only-judged"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:f426a45753e4490abf0077c0",
+   "seq": 5344,
+   "page": 214,
+   "publicationYear": 2021,
+   "screeningDecision": "unclear",
+   "enrichmentStatus": "not-found-all-ids",
+   "tag": "title-only-judged"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:2f6434f1455a178467f69e23",
+   "seq": 5354,
+   "page": 215,
+   "publicationYear": 1980,
+   "screeningDecision": "exclude",
+   "enrichmentStatus": "upstream-no-abstract",
+   "tag": "title-only-judged"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:1ab070af8c3cde8ba28c2017",
+   "seq": 5360,
+   "page": 215,
+   "publicationYear": 2013,
+   "screeningDecision": "unclear",
+   "enrichmentStatus": "not-found-all-ids",
+   "tag": "title-only-judged"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:ce2f4c7756add0635b6e0894",
+   "seq": 5373,
+   "page": 215,
+   "publicationYear": 1994,
+   "screeningDecision": "exclude",
+   "enrichmentStatus": "not-found-all-ids",
+   "tag": "title-only-judged"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:dfc55c4143d7060b12785ef0",
+   "seq": 5380,
+   "page": 216,
+   "publicationYear": 2011,
+   "screeningDecision": "exclude",
+   "enrichmentStatus": "not-found-all-ids",
+   "tag": "title-only-judged"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:787dfadba05dcbdfd0ec7ac1",
+   "seq": 5388,
+   "page": 216,
+   "publicationYear": 1970,
+   "screeningDecision": "unclear",
+   "enrichmentStatus": "upstream-no-abstract",
+   "tag": "title-only-judged"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:1688d9334c7d056efb40735a",
+   "seq": 5408,
+   "page": 217,
+   "publicationYear": 2013,
+   "screeningDecision": "exclude",
+   "enrichmentStatus": "no-identifier",
+   "tag": "title-only-judged"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:65b0ddacdb22ebdc1e183fd2",
+   "seq": 5437,
+   "page": 218,
+   "publicationYear": 2022,
+   "screeningDecision": "unclear",
+   "enrichmentStatus": "not-found-all-ids",
+   "tag": "title-only-judged"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:2444ec6f527afbbc0f8a9ae8",
+   "seq": 5445,
+   "page": 218,
+   "publicationYear": 2012,
+   "screeningDecision": "exclude",
+   "enrichmentStatus": "upstream-no-abstract",
+   "tag": "title-only-judged"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:6e5199d298fc97aabe593538",
+   "seq": 5473,
+   "page": 219,
+   "publicationYear": 2011,
+   "screeningDecision": "unclear",
+   "enrichmentStatus": "no-identifier",
+   "tag": "title-only-judged"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:5b116a8ef14401e7242a06dc",
+   "seq": 5507,
+   "page": 221,
+   "publicationYear": 1974,
+   "screeningDecision": "exclude",
+   "enrichmentStatus": "upstream-no-abstract",
+   "tag": "title-only-judged"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:37bd947121160798a3fb869e",
+   "seq": 5533,
+   "page": 222,
+   "publicationYear": 2016,
+   "screeningDecision": "unclear",
+   "enrichmentStatus": "not-found-all-ids",
+   "tag": "title-only-judged"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:e18c4f01fc153882ced72f3a",
+   "seq": 5569,
+   "page": 223,
+   "publicationYear": 2023,
+   "screeningDecision": "unclear",
+   "enrichmentStatus": "not-found-all-ids",
+   "tag": "title-only-judged"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:f55d4b42acd6e16f6ca98d57",
+   "seq": 5585,
+   "page": 224,
+   "publicationYear": 2017,
+   "screeningDecision": "exclude",
+   "enrichmentStatus": "upstream-no-abstract",
+   "tag": "title-only-judged"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:ce520aee6acaeec0054f5a81",
+   "seq": 5587,
+   "page": 224,
+   "publicationYear": 2014,
+   "screeningDecision": "exclude",
+   "enrichmentStatus": "upstream-no-abstract",
+   "tag": "title-only-judged"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:1f580cfc631d6f427ca89e2e",
+   "seq": 5606,
+   "page": 225,
+   "publicationYear": 2017,
+   "screeningDecision": "unclear",
+   "enrichmentStatus": "upstream-no-abstract",
+   "tag": "title-only-judged"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:0698f12e5e9a2815f5cc29d1",
+   "seq": 5621,
+   "page": 225,
+   "publicationYear": 2020,
+   "screeningDecision": "exclude",
+   "enrichmentStatus": "upstream-no-abstract",
+   "tag": "title-only-judged"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:47e92656285c3940f04b53e3",
+   "seq": 5622,
+   "page": 225,
+   "publicationYear": 2005,
+   "screeningDecision": "exclude",
+   "enrichmentStatus": "upstream-no-abstract",
+   "tag": "title-only-judged"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:ffd20c37f3075f72413fdd0a",
+   "seq": 5627,
+   "page": 226,
+   "publicationYear": 1964,
+   "screeningDecision": "exclude",
+   "enrichmentStatus": "upstream-no-abstract",
+   "tag": "title-only-judged"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:2a37f47bcd95e16ae218de6d",
+   "seq": 5639,
+   "page": 226,
+   "publicationYear": 1999,
+   "screeningDecision": "unclear",
+   "enrichmentStatus": "upstream-no-abstract",
+   "tag": "title-only-judged"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:0fd5a2080ee2f05d4e24403b",
+   "seq": 5646,
+   "page": 226,
+   "publicationYear": 1999,
+   "screeningDecision": "unclear",
+   "enrichmentStatus": "no-identifier",
+   "tag": "title-only-judged"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:ac092da3dd5ee991db1fdcf2",
+   "seq": 5661,
+   "page": 227,
+   "publicationYear": 1981,
+   "screeningDecision": "unclear",
+   "enrichmentStatus": "upstream-no-abstract",
+   "tag": "title-only-judged"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:af877a80b40d856865539582",
+   "seq": 5693,
+   "page": 228,
+   "publicationYear": 1970,
+   "screeningDecision": "unclear",
+   "enrichmentStatus": "upstream-no-abstract",
+   "tag": "title-only-judged"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:22237edfc7336b6ed07661d1",
+   "seq": 5697,
+   "page": 228,
+   "publicationYear": 2019,
+   "screeningDecision": "exclude",
+   "enrichmentStatus": "not-found-all-ids",
+   "tag": "title-only-judged"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:cd7c43cae4d22e2e87a4644e",
+   "seq": 5741,
+   "page": 230,
+   "publicationYear": 2018,
+   "screeningDecision": "exclude",
+   "enrichmentStatus": "upstream-no-abstract",
+   "tag": "title-only-judged"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:312a768eb9bbd65357c976c1",
+   "seq": 5801,
+   "page": 233,
+   "publicationYear": 2026,
+   "screeningDecision": "exclude",
+   "enrichmentStatus": "not-found-all-ids",
+   "tag": "title-only-judged"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:ac47c40baa2906b06c527033",
+   "seq": 5811,
+   "page": 233,
+   "publicationYear": 2020,
+   "screeningDecision": "unclear",
+   "enrichmentStatus": "not-found-all-ids",
+   "tag": "title-only-judged"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:ab830d244ce0e413ba0487bb",
+   "seq": 5822,
+   "page": 233,
+   "publicationYear": 1970,
+   "screeningDecision": "exclude",
+   "enrichmentStatus": "upstream-no-abstract",
+   "tag": "title-only-judged"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:fac966f449cd192486c4885f",
+   "seq": 5868,
+   "page": 235,
+   "publicationYear": 2023,
+   "screeningDecision": "exclude",
+   "enrichmentStatus": "not-found-all-ids",
+   "tag": "title-only-judged"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:8866c152ae0dfc3710c8e1dc",
+   "seq": 5871,
+   "page": 235,
+   "publicationYear": 2019,
+   "screeningDecision": "unclear",
+   "enrichmentStatus": "not-found-all-ids",
+   "tag": "title-only-judged"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:21e80748ae641aec4c9a9233",
+   "seq": 5876,
+   "page": 236,
+   "publicationYear": 2020,
+   "screeningDecision": "unclear",
+   "enrichmentStatus": "not-found-all-ids",
+   "tag": "title-only-judged"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:daa397f859bf0761d5f8a9db",
+   "seq": 5916,
+   "page": 237,
+   "publicationYear": 2015,
+   "screeningDecision": "exclude",
+   "enrichmentStatus": "upstream-no-abstract",
+   "tag": "title-only-judged"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:9b27226dcbf1ef1f91b998dd",
+   "seq": 5935,
+   "page": 238,
+   "publicationYear": 1985,
+   "screeningDecision": "exclude",
+   "enrichmentStatus": "upstream-no-abstract",
+   "tag": "title-only-judged"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:ccd7a89a09f194c031e6cd0b",
+   "seq": 5942,
+   "page": 238,
+   "publicationYear": 2003,
+   "screeningDecision": "exclude",
+   "enrichmentStatus": "upstream-no-abstract",
+   "tag": "title-only-judged"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:c6f2ad569a8c51af72e1418f",
+   "seq": 5991,
+   "page": 240,
+   "publicationYear": 1970,
+   "screeningDecision": "exclude",
+   "enrichmentStatus": "upstream-no-abstract",
+   "tag": "title-only-judged"
+  }
+ ]
+}
