@@ -63,3 +63,7 @@ trading-desk/data/
 .scratch/sweep4.txt
 .scratch/sweep6.txt
 .scratch/unc.txt
+# 逐頁轉存檔 _pNNN.txt（含 TITLE:／ABS: 全文）。第 329 輪以
+# `git add -A .scratch` 誤將 39 個納入追蹤，n+48 檢查隨即測出。
+# 此樣式已驗證只匹配 _pNNN.txt，不匹配 _p268_ids.json 等純識別碼檔。
+.scratch/_p[0-9]*.txt
