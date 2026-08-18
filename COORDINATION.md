@@ -41165,3 +41165,104 @@ alpha-keto acid dehydrogenase during exercise in man〉（1996）。
   不足例外清單亦應以此重驗。
 - **🆕 狀態碼設計**：**`not-found-all-ids` 與 `not-found` 須可分**
   ——否則無法分辨「確認上游沒有」與「我沒試完」。
+## B.11 執行室心跳 — 重驗 W4a-1 例外清單：**是真實缺口，不是 fallback 缺口**（第 275 輪）
+
+**時間**：2026-08-18 · **模型**：`claude-opus-5[1m]`
+
+**每輪必做（依 n+48 第二節，以指令輸出為憑）**：
+`git pull --ff-only` → `Already up to date.`；
+`git log HEAD..origin/feature/...` → 空；
+`docs/agents/pass2-briefing.md` → `19aa5ce`（R3）。**無新指示。**
+**n+48 內容制衛生檢查** → 輸出為空，**PASS**。
+
+**⚠️ 本輪未判新頁**（依 n+50 順序）。判讀進度維持
+**5,554 / 9,091（61.09%）**，`pScore 0.5923`、`windowSize 52`、
+advance 308。
+
+**補摘要進度**：`615 / 3,386（18.2%）`
+——`enriched 582`、`not-found-all-ids 13`、`upstream-no-abstract 17`、
+`no-identifier 3`。
+
+---
+
+## 🚨 一、上輪的發現有個直接延伸該驗，本輪驗了——**結論相反**
+
+**第 274 輪修好「一筆只試一種識別碼」的 fallback 缺口後，
+我提出 W4a-1 那 10 筆識別碼不足之例外清單「亦應以此重驗」。
+本輪執行該重驗。**
+
+**結果：那 10 筆是真實缺口，不是同類問題。上輪的修補不適用。**
+
+### 查證過程（三步，逐步排除）
+
+**（甲）先看 W4a-1 之 attempts**：8 筆有識別碼者皆為
+`europe-pmc=miss`、`openalex=not-applicable`、
+`unpaywall=not-applicable`。
+**→ 不是「擇一即止」，是後兩個來源都需要 DOI 而池中無 DOI。**
+
+**（乙）那能否經 PMID/PMCID 反查出 DOI？** 實測 10 筆：
+
+```
+probed 10  resolved-with-DOI 0  httpCalls 8
+```
+
+**8 筆在 Europe PMC 查得到記錄，但上游本身就沒有 DOI**
+（多為 1979–2009 年舊文獻），另 2 筆池中無任何識別碼。
+**→ DOI 無從補齊，OpenAlex 與 Unpaywall 對這批確實不適用。**
+
+**（丙）其中 2 筆顯示 `inEPMC=Y, hasPDF=Y`，值得追**
+——池中已有 PMCID，為何仍 miss？直接測端點：
+
+```
+PMC6818943 status 404
+PMC6578418 status 404
+```
+
+**兩筆 `isOpenAccess=N`。Europe PMC 之 `fullTextXML` 端點
+只涵蓋 Open Access 子集**，故有 PMCID、有 PDF，仍取不到 XML。
+**→ W4a-1 記 `miss` 是正確行為。**
+
+### 結論
+
+**W4a-1 之 10 筆例外清單維持原判，不需重跑。**
+**⚠️ 且本執行室要更正上輪那句「亦應以此重驗」所隱含的預期**
+——**我當時假設它與補摘要同因，實測顯示不同因。**
+兩者表面都是「取不到」，成因完全不同：
+
+| | 補摘要之 27 筆 | W4a-1 之 10 筆 |
+|---|---|---|
+| 成因 | **腳本擇一即止**（我的缺陷） | **上游無 DOI／非 OA**（真實缺口） |
+| 可救 | **11 筆（41%）** | **0 筆** |
+
+---
+
+## 🆕 二、順帶取得一項 W4b 可用的判準
+
+**`inEPMC=Y` 與 `hasPDF=Y` 不蘊含 `fullTextXML` 可取得**
+——**該端點只服務 Open Access 子集**，`isOpenAccess=N` 者即使
+在 EPMC 有全文頁面與 PDF，XML 仍回 404。
+
+**建議 W4b 之全文取得流程明列此一區辨**，
+避免把「EPMC 有這篇」誤解為「EPMC 給得到全文」。
+**判斷可得性應以 `isOpenAccess` 為準，不是 `inEPMC`／`hasPDF`。**
+
+---
+
+### 待裁示事項
+
+1. **（續留）重篩零轉換之解讀**（第 272–273 輪已補上可量測成因）。
+2. **（續留）補摘要完成前是否恢復逐頁推進。**
+3. **（續留）重篩段補摘要之擴充是否認可**（第 269 輪報備）。
+4. **（續留）206 筆之 OA 可得性**，待擁有者決定
+   `AHIG_CONTACT_EMAIL`。**⚠️ 本輪查證與此項相關**：
+   那 206 筆之所以卡在 Unpaywall，正因為該來源需要
+   `AHIG_CONTACT_EMAIL`；**而本輪那 8 筆則是連 DOI 都沒有，
+   即使設了信箱也無濟於事**——兩者不可混為一談。
+
+**W4b 設計輸入**。本輪新增：
+
+- **🚨 可得性判準**：**`isOpenAccess` 才是 `fullTextXML` 可得性
+  之依據；`inEPMC=Y`／`hasPDF=Y` 不蘊含可取得**（實測 404）。
+- **🆕 例外清單之分類**：**「腳本缺陷」與「上游真實缺口」須分開
+  記錄**——前者可修（本 lane 已救回 41%），後者只能標注。
+  **建議 W4b 之全文取得例外清單採此二分。**
