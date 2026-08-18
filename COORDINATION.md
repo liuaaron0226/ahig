@@ -54655,3 +54655,173 @@ McArdle 病（肌肉磷酸化酶活性僅正常值 13%）之磷-31 磁振頻譜�
 - **⚠️ 靜脈途徑於補液情境有優勢，但不可誤讀為碳水途徑之證據。**
 - **⚠️ 短暫活動中斷即可改變骨骼肌碳水代謝基因表現。**
 - **⚠️ 馬拉松後之肌肉損傷可能極小**（恢復期素材之前提須檢視）。
+
+## 🔬 執行室回報：尾端抽驗 200/200 判畢，**攔到 2 筆**；n+70（甲）已執行（第 349 輪）
+
+### 〇、先回報結果，不下裁定
+
+**n+57 第二節第 6 步明定執行室不得宣告終止成立或失效**，故本節只給
+`evaluate_tail_spot_check` 之回傳值與命中內容。
+
+```
+sampleSize            200
+relevantOrUnclearFound  2
+resumeScreening       true
+verdict               尾端抽驗發現相關或 unclear 紀錄：終止失效，恢復篩選
+判讀分布              exclude 198 / unclear 1 / advance 1
+```
+
+**順序證據鏈（n+67：git 不保留 mtime，故寫進內容）**：
+
+```
+第 6 步報告 readsStep3.sampleHash            f4074950…
+  └ 其 itsReadsStep1.terminationEvidenceHash ee4ed745…
+  └ 其 itsReadsStep2.preconditionsCheckHash  44b10531…
+錨定值 4eb2dc60… ——⚠️ **worksheet 雜湊，不得稱為 queueHash**
+```
+
+### 一、兩筆命中之內容
+
+**（一）第 25 筆 `ad555302`（unclear）**——第 346 輪已報，此處不重述。
+〈Development of jujube matcha energy gel…〉，上游無摘要、識別碼全查無，
+屬 `[title-only-judged]`。**本輪已自動進入名冊（161 → 162 筆）。**
+
+**（二）第 163 筆 `7c2bf4df`（advance）——本輪新命中，且四軸齊備。**
+
+〈Self-selecting fluid intake while maintaining high carbohydrate
+availability does not impair half-marathon performance〉（2014）：
+
+| 軸 | 判定 | 依據 |
+|---|---|---|
+| 介入 | ✅ | 運動中 **60 g/h**（契約 `high` 帶）；DRINK 6% 飲料 / G-GEL 3×20 g 葡萄糖凝膠 / GF-GEL 3×(13 g 葡萄糖＋7 g 果糖) |
+| 對照 | ✅ | **同劑量、異劑型（飲料 vs 凝膠）＋異組成（G vs GF）**＝裁定A型，且兩軸兼具 |
+| 時序 | ✅ | 比賽期間給予 |
+| 型態 | ✅ | 半程馬拉松＝契約 `running-time-trial-fixed-distance` |
+| 結果 | ✅ | `tt-completion-time`（110.6 / 110.3 / 113.7 min）＋總碳水氧化率 |
+| 族群 | ⚠️ | 僅載 15 名受試，未報訓練狀態客觀指標 → 依 recall-biased 放行 |
+| 設計 | ⚠️ | 三條件重複量測（實質交叉），**摘要未明載隨機分派** |
+
+**設計軸之寫法我特別謹慎**：與 `9d79af41`（摘要**明載** quasi-experimental
+故判 unclear）不同，本筆**沒有反向明證**，未載 ≠ 出局證據，故不據以扣分。
+判讀與劑型／組成對照群一致——`f23b3a3f`、`77366c70`、`3e4e6f10`、
+`c386f31c` 皆 advance，**已全數程式讀回確認**。
+
+**🚨 這筆的意義**：抽驗不是只撈到一筆邊緣的無摘要記錄。
+**它撈到了一篇完全在範圍內、四軸齊備的半馬交叉試驗。**
+n+69 說「機制觸發過一次、被抽驗攔下」——**攔下的理由比上輪更硬。**
+
+### 二、n+70（甲）已執行，並先量測後動手
+
+**⚠️ 依 n+62 三段式，我先量測再寫入。實測結果**：
+
+```
+現況         pScore 0.046023  windowSize 177  序列 6975
+併入＋排除   pScore 0.046023  windowSize 177  序列 6975   Δ 全為 0 ✅
+對照：直接接進序列（不採排除清單）
+             pScore 0.480049  windowSize 37   序列 7175
+             🚨 windowSize 177 → 37，即 n+70（二）所述之語意破壞
+```
+
+**寫入後 `evaluate_termination` 實測**：
+
+```
+pScoreExcludedCount 200
+allowedToStop       False
+reason              尚有 200 篇跳頁補判紀錄未納回 p 值序列；不得終止
+```
+
+**⚠️ 我把兩件事一起做，因為缺一即錯**：只 append 判讀而不列排除清單，
+window 會壞；只列清單而不 append，`evaluate_termination` 會丟
+`TerminationError`（排除只適用已篩畢者）。
+
+**（乙）之代價我照實記**：本批最遠一筆在 **p364＝全池最後一頁**，
+故最後一筆要篩到底才納回。**排除清單之 `semantics` 已寫入此後果，
+並註明其與原本 74 筆性質不同**（原本＝跳頁補判，本批＝獨立稽核）。
+
+### 三、（丙）三項事實回報
+
+**1. `evaluate_termination` 要支援第三態，須改動哪些欄位與判斷式？**
+
+**欄位**：新增 `permanently_out_of_sequence: set[str]` 參數；輸出加
+`outOfSequenceCount` / `outOfSequenceCandidateIds` / `outOfSequenceIsScreened`。
+
+**判斷式**：現行 `allowed = preconditions_met and not pending_reintegration
+and score.pScore < alpha`。第三態之要旨是**它不進 labels、也不擋 allowed**，
+故 `pending_reintegration` 之計算須把第三態排掉；`seen` 仍要納入
+（否則會被算成 not-screened，前置條件與 `notScreenedCount` 都會錯）。
+**即動兩處：`excluded` 之分流，與 `allowed` 之第二個合取項。**
+
+**2. `n_seen` 與 `n_start` 之關係——⚠️ 協調者之推論方向正確，但幅度我實算了：**
+
+```
+n_total = 9091 固定（第三態不改池大小）
+n_seen  = len(labels) = 6975（第三態不進序列，故不變）
+window  = 177（不變）
+n_start = n_total - (n_seen - window) = 9091 - 6798 = 2293（不變）
+```
+
+**🚨 也就是說：第三態對 p 值之影響是「零」，不是「保守」。**
+協調者猜「`n_seen` 低估 → `n_start` 高估 → p 偏大」，
+**方向對（不會誤停），但實際上三個量都不動**——因為
+`p_score` 只吃 `labels` 與 `n_total`，第三態兩者都不碰。
+
+**⚠️ 惟有一個真實效應**，我認為協調者該知道：**`n_total` 仍計入
+那 200 筆**，而它們已篩畢。若日後要把「已篩畢」從池中扣除，
+`n_start` 會下降、p 會**上升**（更難停）——仍是保守側，
+**但那是另一個設計決定，本輪不碰。**
+
+**3. 737 條測試中哪幾條要改？**
+
+`test_statistical_termination.py` 共 15 條。**現有 15 條無一需要改**
+——第三態是新增參數且預設為空，既有呼叫行為完全不變（本輪已實測
+737/737 通過）。**需要新增者為 4 條**：
+（a）第三態記錄不進 labels（window 不變）；
+（b）第三態記錄**不擋** `allowedToStop`（與排除清單相反之關鍵差異）；
+（c）第三態記錄不算 not-screened（`notScreenedCount` 正確）；
+（d）第三態與排除清單同時非空時之交互作用。
+
+**⚠️ 依指示未動 `ahig/` 之統計模組**，以上為靜態分析之回報。
+
+### 四、🚨 本輪另發現一件事：夾雜外文掃描**從未掃過累積檔**
+
+`scan.py` 假設輸入為 list-of-entry，而 `judgements.json` 是
+`{"entries": [...]}`，餵它會 `TypeError`。**歷來只在每頁 append 前
+掃該頁的暫存 list**——尾端抽驗之 dict 形狀更是連跑都沒跑過。
+
+**🚨 這是第 8 型（誤讀檢查之涵蓋範圍）之又一例：
+掃描每次都通過，是因為它每次只看新的一頁；我沒問過它「掃過全部沒有」。**
+
+補了形狀相容之 `scan_any.py`（**不改 `scan.py`**），回頭掃全部 7,175 筆：
+
+```
+（甲）僅慣用語命中（裁定A＊、GI、輔酶A）：138 筆——白名單缺口，非缺陷
+（乙）真的夾雜外文：9 筆 / 6,975（0.13%）
+      water、athlete、individuals、физ、food、prevalence、older、
+      participants、специфи
+```
+
+**⚠️ 我第一版的慣用語模式只列「裁定A型」一種，於是把 9 筆慣用語
+誤計為缺陷**——逐筆讀回才發現還有「裁定A範圍」「裁定A相關」與
+「輔酶A」。**模式訂太緊會製造假缺陷，訂太鬆會漏掉真缺陷，
+這與 n+68（七）同型，只是方向相反。**
+
+那 9 筆之漏譯處皆為敘述性名詞，四軸出局理由仍以中文寫明，
+**我判斷不影響判讀結論——但這是我的判讀，請協調者覆核。**
+`judgements.json` append-only，**不重寫**，登記於 `n68_scan_audit.py`。
+
+### 五、另補：六個分塊建置檔**都沒有順序 assert**
+
+頁面建置檔自第 337 輪起每檔自帶 assert，**但尾端抽驗之六個分塊檔
+`grep assert` 六檔皆空**——我以為有，實際沒有。補了
+`n68_tail_order.py` 集中核對全部八塊（**200/200 順序 PASS**），
+並於第 150、175 兩塊起自帶 assert。
+
+### 六、進度
+
+判讀 **7,175/9,091（78.92%）**、逐頁連續判畢至 **p279**、未篩 **1,916**。
+`pScore 0.046023`、`windowSize 177`、`relevantFound 709`、
+`pScoreExcludedCount 200`、**`allowedToStop False`**。
+測試 **737/737**，`ahig/` 零改動。名冊 **161 → 162 筆**。
+內容制掃描：新分塊 flagged 1（慣用語）；`_p*.txt` 追蹤 0；議題檔 10。
+
+**下輪起恢復逐頁推進，自 p280 開始。**
