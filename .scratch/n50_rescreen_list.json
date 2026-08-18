@@ -1477,8 +1477,8 @@
    "page": 218,
    "year": 2021,
    "original": "exclude",
-   "enrichStatus": "not-attempted",
-   "abstractChars": 0
+   "enrichStatus": "enriched",
+   "abstractChars": 1633
   },
   {
    "candidateId": "ahig:candidate:publication:1761145230b29cd084fb9706",
@@ -1486,8 +1486,8 @@
    "page": 218,
    "year": 1990,
    "original": "exclude",
-   "enrichStatus": "not-attempted",
-   "abstractChars": 0
+   "enrichStatus": "enriched",
+   "abstractChars": 988
   },
   {
    "candidateId": "ahig:candidate:publication:d597378c4d8f28393d16c514",
@@ -1495,8 +1495,8 @@
    "page": 218,
    "year": 1991,
    "original": "exclude",
-   "enrichStatus": "not-attempted",
-   "abstractChars": 0
+   "enrichStatus": "enriched",
+   "abstractChars": 1436
   },
   {
    "candidateId": "ahig:candidate:publication:2444ec6f527afbbc0f8a9ae8",
@@ -1504,7 +1504,7 @@
    "page": 218,
    "year": 2012,
    "original": "exclude",
-   "enrichStatus": "not-attempted",
+   "enrichStatus": "not-found",
    "abstractChars": 0
   },
   {
@@ -1513,8 +1513,8 @@
    "page": 218,
    "year": 2024,
    "original": "exclude",
-   "enrichStatus": "not-attempted",
-   "abstractChars": 0
+   "enrichStatus": "enriched",
+   "abstractChars": 1407
   },
   {
    "candidateId": "ahig:candidate:publication:151456979dff0289ce77ddf7",
@@ -1522,8 +1522,8 @@
    "page": 218,
    "year": 2018,
    "original": "exclude",
-   "enrichStatus": "not-attempted",
-   "abstractChars": 0
+   "enrichStatus": "enriched",
+   "abstractChars": 2289
   },
   {
    "candidateId": "ahig:candidate:publication:2c32db8fc55032b20ed82e20",
@@ -1531,8 +1531,8 @@
    "page": 218,
    "year": 2020,
    "original": "exclude",
-   "enrichStatus": "not-attempted",
-   "abstractChars": 0
+   "enrichStatus": "enriched",
+   "abstractChars": 1786
   },
   {
    "candidateId": "ahig:candidate:publication:65e3dccaa3737dcb76b89c8b",
@@ -1540,8 +1540,8 @@
    "page": 218,
    "year": 1999,
    "original": "exclude",
-   "enrichStatus": "not-attempted",
-   "abstractChars": 0
+   "enrichStatus": "enriched",
+   "abstractChars": 1842
   },
   {
    "candidateId": "ahig:candidate:publication:07b9acf26faad54364c62839",
@@ -1549,8 +1549,8 @@
    "page": 218,
    "year": 2015,
    "original": "exclude",
-   "enrichStatus": "not-attempted",
-   "abstractChars": 0
+   "enrichStatus": "enriched",
+   "abstractChars": 1350
   },
   {
    "candidateId": "ahig:candidate:publication:cb6128c3fed60335fe89e264",
@@ -1558,7 +1558,7 @@
    "page": 219,
    "year": 1996,
    "original": "exclude",
-   "enrichStatus": "not-attempted",
+   "enrichStatus": "not-found",
    "abstractChars": 0
   },
   {
@@ -1567,8 +1567,8 @@
    "page": 219,
    "year": 1999,
    "original": "exclude",
-   "enrichStatus": "not-attempted",
-   "abstractChars": 0
+   "enrichStatus": "enriched",
+   "abstractChars": 1181
   },
   {
    "candidateId": "ahig:candidate:publication:4cae7395212bdafe84223e59",
@@ -1576,8 +1576,8 @@
    "page": 219,
    "year": 2015,
    "original": "exclude",
-   "enrichStatus": "not-attempted",
-   "abstractChars": 0
+   "enrichStatus": "enriched",
+   "abstractChars": 1627
   },
   {
    "candidateId": "ahig:candidate:publication:682498d13c9ffd26f0991b88",
@@ -1585,8 +1585,8 @@
    "page": 219,
    "year": 2026,
    "original": "unclear",
-   "enrichStatus": "not-attempted",
-   "abstractChars": 0
+   "enrichStatus": "enriched",
+   "abstractChars": 1808
   },
   {
    "candidateId": "ahig:candidate:publication:08d1eb1a53eb20131d259e3b",
@@ -1594,8 +1594,8 @@
    "page": 219,
    "year": 2003,
    "original": "exclude",
-   "enrichStatus": "not-attempted",
-   "abstractChars": 0
+   "enrichStatus": "enriched",
+   "abstractChars": 1454
   },
   {
    "candidateId": "ahig:candidate:publication:3bac9f11e503a6f6ba6b98a2",
@@ -1603,8 +1603,8 @@
    "page": 219,
    "year": 2008,
    "original": "exclude",
-   "enrichStatus": "not-attempted",
-   "abstractChars": 0
+   "enrichStatus": "enriched",
+   "abstractChars": 1285
   },
   {
    "candidateId": "ahig:candidate:publication:9ec249b8d1067e382fd293ed",
@@ -1612,8 +1612,8 @@
    "page": 219,
    "year": 2024,
    "original": "exclude",
-   "enrichStatus": "not-attempted",
-   "abstractChars": 0
+   "enrichStatus": "enriched",
+   "abstractChars": 1388
   },
   {
    "candidateId": "ahig:candidate:publication:f7a76e04b8e96b2248f40329",
@@ -1621,8 +1621,8 @@
    "page": 219,
    "year": 2020,
    "original": "exclude",
-   "enrichStatus": "not-attempted",
-   "abstractChars": 0
+   "enrichStatus": "enriched",
+   "abstractChars": 1949
   },
   {
    "candidateId": "ahig:candidate:publication:ec21f125a457525628793a86",
@@ -1630,8 +1630,8 @@
    "page": 219,
    "year": 2008,
    "original": "exclude",
-   "enrichStatus": "not-attempted",
-   "abstractChars": 0
+   "enrichStatus": "enriched",
+   "abstractChars": 1513
   },
   {
    "candidateId": "ahig:candidate:publication:89d358c63cd7705bfc13c594",
@@ -1639,8 +1639,8 @@
    "page": 219,
    "year": 2013,
    "original": "exclude",
-   "enrichStatus": "not-attempted",
-   "abstractChars": 0
+   "enrichStatus": "enriched",
+   "abstractChars": 1396
   },
   {
    "candidateId": "ahig:candidate:publication:1324005ed2293a6953f2a331",
@@ -1648,8 +1648,8 @@
    "page": 219,
    "year": 2023,
    "original": "exclude",
-   "enrichStatus": "not-attempted",
-   "abstractChars": 0
+   "enrichStatus": "enriched",
+   "abstractChars": 1571
   },
   {
    "candidateId": "ahig:candidate:publication:c323169679684901f74beb33",
@@ -1657,8 +1657,8 @@
    "page": 219,
    "year": 1995,
    "original": "exclude",
-   "enrichStatus": "not-attempted",
-   "abstractChars": 0
+   "enrichStatus": "enriched",
+   "abstractChars": 1348
   },
   {
    "candidateId": "ahig:candidate:publication:480522a9462ed2f254084e5a",
@@ -1666,8 +1666,8 @@
    "page": 219,
    "year": 1999,
    "original": "exclude",
-   "enrichStatus": "not-attempted",
-   "abstractChars": 0
+   "enrichStatus": "enriched",
+   "abstractChars": 960
   },
   {
    "candidateId": "ahig:candidate:publication:bd6ffc687a770028189352a7",
@@ -1675,8 +1675,8 @@
    "page": 219,
    "year": 2025,
    "original": "exclude",
-   "enrichStatus": "not-attempted",
-   "abstractChars": 0
+   "enrichStatus": "enriched",
+   "abstractChars": 1795
   },
   {
    "candidateId": "ahig:candidate:publication:0ca29a9feebfe5ac9b2fdde0",
@@ -1684,8 +1684,8 @@
    "page": 219,
    "year": 2010,
    "original": "exclude",
-   "enrichStatus": "not-attempted",
-   "abstractChars": 0
+   "enrichStatus": "enriched",
+   "abstractChars": 1619
   },
   {
    "candidateId": "ahig:candidate:publication:dca5536e2aec2f74640dda62",
@@ -1693,8 +1693,8 @@
    "page": 219,
    "year": 2018,
    "original": "exclude",
-   "enrichStatus": "not-attempted",
-   "abstractChars": 0
+   "enrichStatus": "enriched",
+   "abstractChars": 1744
   },
   {
    "candidateId": "ahig:candidate:publication:2836b938dad5a543ddf6a027",
@@ -1702,8 +1702,8 @@
    "page": 219,
    "year": 2014,
    "original": "exclude",
-   "enrichStatus": "not-attempted",
-   "abstractChars": 0
+   "enrichStatus": "enriched",
+   "abstractChars": 1751
   },
   {
    "candidateId": "ahig:candidate:publication:cd244cebb9370bd7c13aa1b0",
@@ -1711,8 +1711,8 @@
    "page": 219,
    "year": 2014,
    "original": "exclude",
-   "enrichStatus": "not-attempted",
-   "abstractChars": 0
+   "enrichStatus": "enriched",
+   "abstractChars": 1586
   },
   {
    "candidateId": "ahig:candidate:publication:d07db4e3fa4591dbde2f72bd",
@@ -1720,8 +1720,8 @@
    "page": 219,
    "year": 2019,
    "original": "exclude",
-   "enrichStatus": "not-attempted",
-   "abstractChars": 0
+   "enrichStatus": "enriched",
+   "abstractChars": 1631
   },
   {
    "candidateId": "ahig:candidate:publication:3161356097e4d500c3e4c606",
@@ -1729,8 +1729,8 @@
    "page": 219,
    "year": 2015,
    "original": "exclude",
-   "enrichStatus": "not-attempted",
-   "abstractChars": 0
+   "enrichStatus": "enriched",
+   "abstractChars": 1631
   },
   {
    "candidateId": "ahig:candidate:publication:b4aaaa5fe75995e71dd5c671",
@@ -1738,8 +1738,8 @@
    "page": 219,
    "year": 2002,
    "original": "exclude",
-   "enrichStatus": "not-attempted",
-   "abstractChars": 0
+   "enrichStatus": "enriched",
+   "abstractChars": 1491
   },
   {
    "candidateId": "ahig:candidate:publication:75d182ed8f383699bae04874",
@@ -1747,8 +1747,8 @@
    "page": 219,
    "year": 2003,
    "original": "exclude",
-   "enrichStatus": "not-attempted",
-   "abstractChars": 0
+   "enrichStatus": "enriched",
+   "abstractChars": 743
   },
   {
    "candidateId": "ahig:candidate:publication:6e5199d298fc97aabe593538",
@@ -1756,7 +1756,7 @@
    "page": 219,
    "year": 2011,
    "original": "unclear",
-   "enrichStatus": "not-attempted",
+   "enrichStatus": "no-identifier",
    "abstractChars": 0
   },
   {
@@ -1765,8 +1765,8 @@
    "page": 219,
    "year": 1999,
    "original": "exclude",
-   "enrichStatus": "not-attempted",
-   "abstractChars": 0
+   "enrichStatus": "enriched",
+   "abstractChars": 1714
   },
   {
    "candidateId": "ahig:candidate:publication:d8c061f8d92ed0bab5155f0c",
@@ -1774,8 +1774,8 @@
    "page": 219,
    "year": 1993,
    "original": "exclude",
-   "enrichStatus": "not-attempted",
-   "abstractChars": 0
+   "enrichStatus": "enriched",
+   "abstractChars": 1076
   }
  ]
 }
