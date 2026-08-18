@@ -33,6 +33,36 @@ if os.path.exists(DEST + '/provenance.json'):
     pv = json.load(open(DEST + '/provenance.json',
                         encoding='utf-8'))['records']
 
+# ---- n+56（三）：同標題副本查找（僅適用於「尚未判讀」之記錄）----
+# 判讀前若該筆無摘要、但池中有同標題副本且副本有摘要，以副本摘要
+# 供判讀使用，並記錄來源為副本。這是資訊條件之改善，前瞻適用。
+# ⚠️ 已判讀者不適用——n+56（一）明令不重判（n+49 位置盲目）。
+import re as _re
+
+
+def _norm(t):
+    return _re.sub(r'[^a-z0-9 ]', '', (t or '').lower()).strip()
+
+
+_by_title = {}
+for _it in w['items']:
+    _by_title.setdefault(_norm(_it.get('title')), []).append(_it)
+
+
+def dup_text(it):
+    """同標題副本之全文（無則 None）。空標題不比對。"""
+    key = _norm(it.get('title'))
+    if not key:
+        return None, None
+    for tw in _by_title.get(key, []):
+        if tw['candidateId'] == it['candidateId']:
+            continue
+        t = (tw.get('abstract') or '').strip() or ab.get(tw['candidateId'])
+        if t:
+            return t, tw['candidateId']
+    return None, None
+
+
 buf, ids, total = [], [], 0
 for it in w['items']:
     if it['page'] != page:
@@ -44,6 +74,10 @@ for it in w['items']:
     text = (it.get('abstract') or '').strip() or ab.get(cid) or ''
     st = 'inline' if (it.get('abstract') or '').strip() else \
         (pv.get(cid) or {}).get('status', 'no-abstract')
+    if not text:
+        text, dup_id = dup_text(it)
+        if text:
+            st = 'same-title-duplicate:%s' % dup_id[-8:]
     buf.append('--- %s seq%s [%s]' % (cid[-8:], it['seq'], st))
     buf.append('Y:%s T:%s' % (it.get('publicationYear'),
                               it.get('publicationTypes')))

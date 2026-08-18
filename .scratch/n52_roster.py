@@ -21,9 +21,16 @@ p<212，因當時該區段是重篩母體之外緣。**惟 n+53 裁定明白以�
     統計量讀取**。
   - 無論篩選判讀為何，一律取全文並於萃取期逐筆覆核。
 
+⚠️ **n+56 事實欄更正**：名冊原敘述「上游無摘要、無從再取得更多
+資訊」對其中 8 筆是錯的——**池中有同標題副本且副本有摘要**。
+依裁定新增 `hasSameTitleDuplicate` 與副本之 candidateId，
+**`screeningDecision` 一律不動**（那會是重判，n+56 已明令不重判）。
+更正事實描述與更改判讀是兩件事：前者讓 M1 稽核看見真實資訊狀態，
+後者才會動到標籤序列。本檔仍為 `affectsTerminationStatistic: false`。
+
 只寫 AHIG_PRIVATE_ROOT；.scratch 僅留腳本與計數。
 """
-import json, os
+import json, os, re
 
 ROOT = r'C:/Users/User/Desktop/claude/ahig-private'
 RUN = ROOT + '/search-runs/b11-exogenous-cho-endurance/b11-full-run'
@@ -49,6 +56,39 @@ if os.path.exists(rs):
 pv = json.load(open(RUN + '/abstract-enrichment/provenance.json',
                     encoding='utf-8'))['records']
 
+# ---- n+56（二）：同標題副本查找 ----
+# 標題正規化後建索引；副本之「有全文」包含池內原生摘要與補摘要所得。
+ab = {}
+_abp = RUN + '/abstract-enrichment/abstracts.json'
+if os.path.exists(_abp):
+    ab = json.load(open(_abp, encoding='utf-8'))
+
+
+def _norm(t):
+    return re.sub(r'[^a-z0-9 ]', '', (t or '').lower()).strip()
+
+
+_by_title = {}
+for _it in w['items']:
+    _by_title.setdefault(_norm(_it.get('title')), []).append(_it)
+
+
+def find_dup_with_text(it):
+    """回傳同標題且有全文之副本 candidateId（無則 None）。
+
+    ⚠️ 空標題不比對——正規化後為空字串者會全部撞在一起。
+    """
+    key = _norm(it.get('title'))
+    if not key:
+        return None
+    for tw in _by_title.get(key, []):
+        if tw['candidateId'] == it['candidateId']:
+            continue
+        if (tw.get('abstract') or '').strip() or ab.get(tw['candidateId']):
+            return tw['candidateId']
+    return None
+
+
 entries = []
 for it in w['items']:
     cid = it['candidateId']
@@ -59,7 +99,7 @@ for it in w['items']:
     st = (pv.get(cid) or {}).get('status')
     if st not in UNFIXABLE:
         continue
-    entries.append({
+    rec = {
         'candidateId': cid,
         'seq': it['seq'],
         'page': it['page'],
@@ -67,13 +107,27 @@ for it in w['items']:
         'screeningDecision': op[cid],
         'enrichmentStatus': st,
         'tag': 'title-only-judged',
-    })
+    }
+    # n+56（二）：事實欄，不動 screeningDecision
+    dup = find_dup_with_text(it)
+    if dup:
+        rec['hasSameTitleDuplicate'] = True
+        rec['sameTitleDuplicateId'] = dup
+        rec['duplicateScreeningDecision'] = op.get(dup)
+        rec['informationNote'] = (
+            'Information condition is BETTER than this roster\'s general '
+            'premise: a same-title duplicate carrying full text exists in '
+            'the pool. Recorded per n+56 (二) as a factual correction only '
+            '— screeningDecision is unchanged and was NOT re-judged, per '
+            'n+56 (一) applying n+49 position-blind.')
+    entries.append(rec)
 
 doc = {
     'schemaVersion': 1,
     'documentType': 'title-only-judged-roster',
     'source': 'standard-full-screen-pass-1',
-    'ruling': 'n+52 (二), scope widened per n+53 (一)(二)',
+    'ruling': ('n+52 (二), scope widened per n+53 (一)(二), '
+               'factual fields corrected per n+56 (二)'),
     'producedBy': 'claude-opus-5[1m] executor-session',
     'semantics': (
         'Records judged from TITLE ONLY: no abstract in the pool and none '
@@ -83,7 +137,16 @@ doc = {
         'effective label, not an override. Every entry is to be acquired in '
         'full text and re-checked during extraction regardless of its '
         'screening decision; corrections, if any, go through n+43 class (甲) '
-        'factual-error correction, not through this file.'),
+        'factual-error correction, not through this file. '
+        'EXCEPTION TO THE PREMISE (n+56 (二)): entries carrying '
+        'hasSameTitleDuplicate=true DO have further information obtainable — '
+        'a same-title duplicate with full text sits in the same pool. For '
+        'those the "none obtainable upstream" premise above is false, which '
+        'is why the field is recorded. Their screeningDecision was NOT '
+        're-judged: n+56 (一) applied n+49 (information is not retroactive '
+        'either) position-blind, and the defect direction is harmless — it '
+        'produced only excess unclear, all of which goes to full text, so no '
+        'recall was lost.'),
     'affectsTerminationStatistic': False,
     'segment': (
         'ALL judged pages. Originally page < 212 under n+52 (二); widened '
@@ -101,5 +164,10 @@ from collections import Counter
 print('roster entries:', len(entries))
 print('by enrichmentStatus:', dict(Counter(e['enrichmentStatus'] for e in entries)))
 print('by screeningDecision:', dict(Counter(e['screeningDecision'] for e in entries)))
+dups = [e for e in entries if e.get('hasSameTitleDuplicate')]
+print('with same-title duplicate:', len(dups),
+      '| decision differs from duplicate:',
+      sum(1 for e in dups
+          if e['screeningDecision'] != e.get('duplicateScreeningDecision')))
 print('year range:', min(e['publicationYear'] or 9999 for e in entries),
       '-', max(e['publicationYear'] or 0 for e in entries))
