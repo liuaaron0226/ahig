@@ -59961,3 +59961,104 @@ W4b 輸入檔：**498 條、737 個 candidateId、20 類、全數可回溯**。
 （二）覆核六步證據鏈；（三）決定是否呈擁有者；
 （四）**新增：RPE 是否屬契約六項 inScopeOutcomes**（E-24 之 HBCD 記錄判定所需）。
 **仍待擁有者**：`AHIG_CONTACT_EMAIL` 未設定，206 筆之 OA 查驗第三來源未跑。
+
+---
+
+## 🧭 協調者裁定 n+82：凍結產物裡有一個**錯標的來源欄位**，會讓未來稽核者誤判證據鏈斷裂（第 392 輪）
+
+### 〇、先套用 n+81 的新常規到本輪自己身上
+
+**n+80 三項待補本輪仍全部未動。而本輪同樣不記為未落實**：
+
+```
+執行室最新 commit 2842760   2026-08-19 03:24:36 +0800
+我的 n+81 推上主幹          2026-08-19 03:27:49 +0800   （晚 3 分鐘）
+git merge-base --is-ancestor 8f47443 origin/claude/safety-pass-2  -> NO
+git merge-base --is-ancestor 00d0ec9 origin/claude/safety-pass-2  -> NO
+```
+
+**⚠️ 即裁定確實已上主幹（我已驗證送達），但執行室最後一次抓取早於我推送三分鐘。**
+**🚨 n+81 立的規矩是「未送達不歸責」；本輪是「已送達但尚未經過一次抓取」，同理不歸責。**
+**下一輪若仍未動，才是第一次真正可計的未落實。**
+
+### 一、🚨 我本輪自己查到的：`.scratch/n68_tail_sample.json` 的 `anchor.source` 是錯的
+
+**第一次抽驗之凍結產物（已入版控）寫著**：
+```
+anchor.value  : sha256:4eb2dc606b4b12db2ea9142e98df74bf6dfaedc7039122c7d53e7b45f38430da
+anchor.source : "worksheet.json 之 SHA-256"        ← 🚨 這句是錯的
+```
+
+**證明（全部來自已入版控之程式碼，非採信自陳）**：
+`.scratch/n78_step3_draw.py:40-43`
+```python
+anchor = content_hash(w)
+assert anchor == prev['anchor']['value'], '錨定值與上次不同——工作單已變，須先查明原因'
+```
+**即該值等於 `content_hash(w)`。** 而 `ahig/ahig/contracts/freeze.py:42-48` 明確區分兩個函式：
+```python
+def content_hash(obj): return "sha256:" + sha256(canonical_bytes(obj)).hexdigest()   # 正規化 JSON
+def file_hash(data):   return "sha256:" + sha256(data).hexdigest()                    # 裸位元組
+```
+**⚠️ 兩者是不同的值，且同一個模組刻意分成兩個函式。**
+**故 `anchor.source` 所稱之「worksheet.json 之 SHA-256」與該值的真實來源不符。**
+
+**🚨 為什麼這件事重要，而不只是措辭瑕疵**：
+**未來稽核者拿到這份凍結產物，照著 `source` 欄位去算 `sha256 worksheet.json`，
+會得到一個對不上的數字，並合理地推論「證據鏈斷了」。**
+**⚠️ 一個講明來源的欄位講錯來源，比沒有這個欄位更糟——它把可重現性變成假的。**
+
+**執行室須改**：`.scratch/n68_tail_sample.json` 之 `anchor.source` 改為
+`content_hash(worksheet.json)`，並加註「**非該檔之裸 SHA-256，兩者不同值**」。
+**⚠️ 只改標籤，不得改 `anchor.value`**——值是對的，錯的是對值的描述。
+
+### 二、同一個錯標活在第二次的 print 裡（低嚴重度，但同源）
+
+`.scratch/n78_step1_freeze.py:226-227`
+```python
+print('未篩（標準線）%d 筆；worksheet SHA-256 %s' % (len(not_screened), worksheet_sha[:32]))
+```
+**`worksheet_sha` 是 `content_hash`，標籤卻寫 `SHA-256`**——**與第一節同一個錯法。**
+**⚠️ 第一次的錯標就是這樣進到凍結產物裡的**，故一併改掉。
+
+### 三、✅ 但要記清楚：第二次的**凍結產物本身是對的**，而且是執行室自己抓到的
+
+`.scratch/n78_step1_freeze.py:90-94, 197-198`
+```python
+# 🚨 種子錨定須用 content_hash(worksheet)，與第一次抽樣所用者相同。
+# 本檔第一版寫的是 hashlib.sha256(檔案位元組)，那是另一個值——
+worksheet_sha      = content_hash(w)
+worksheet_file_sha = hashlib.sha256(w_raw.encode('utf-8')).hexdigest()
+...
+'seedAnchorValue':      worksheet_sha,        # 用於種子者
+'worksheetFileSha256':  worksheet_file_sha,   # 檔案裸雜湊，另立欄位
+```
+**🚨 兩個值各自入欄、各自正名，這是正確處置**——**而且是執行室自己發現第一版寫錯並修的。**
+**⚠️ 故第一節之要求是「回頭補正第一次的舊產物」，不是「第二次做錯了」。**
+
+### 四、已入版控之腳本讓我稽核到的抽樣程序（以及稽核不到的）
+
+**我已查證（來源：`.scratch/n78_step3_draw.py`，已入版控）**：
+
+| 性質 | 依據 |
+|---|---|
+| 母體＝`sorted(ws_ids - judged)`，且以第 1 步凍結證據之 `count` **斷言** | line 32, 36-38 |
+| 錨定值以 **assert 綁定第一次**——工作單若變過，腳本會當場擋下 | line 40-43 |
+| 抽樣呼叫**生產程式** `draw_tail_spot_check`，非手挑 | line 45 |
+| 與第一次之重疊**自行實測** | line 47-49 |
+
+**🚨 且值得單獨記一句**：該檔 docstring 明寫
+**「n+78 稱『與第一次零重疊已實測』，本檔自行重測，不引用該說法」**
+——**⚠️ 它拒絕把我的裁定文字當資料用。這正是第九型缺陷的反面，應予記錄。**
+
+**⚠️ 我稽核不到的（① 仍未解）**：那 1,460 筆母體的實際內容、以及抽出的 200 筆本身。
+**程序是對的不等於這次的產物是對的**——**終止仍不成案。**
+
+### 五、進度（協調者）
+
+合併 `origin/claude/safety-pass-2`（2842760）→ COORDINATION.md 一處衝突，三個標記行逐行 assert 後移除。
+n+54 三道錨定 grep → **三道皆空**；議題檔 **11**；**測試 743/743 實跑**；`ahig/` **零改動**；
+內容制掃描 **53 檔／118 處，與基線相同**；`.scratch/n78_tail_sample.json` 追蹤數 **0（① 未補）**。
+
+**🚨 待執行室**：n+80 三項（下輪起可計）＋ n+82 第一、二節之錯標補正。
+**🚨 待擁有者**：終止裁決（我建議等 ① 補齊）、`AHIG_CONTACT_EMAIL`、資料衛生是否重寫歷史。
