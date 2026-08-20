@@ -554,6 +554,568 @@ body.modal-open{overflow:hidden}
 .tk-hint{font-size:.74rem;color:var(--ink-dim);margin-top:10px}
 .empty{font-size:.82rem;color:var(--ink-dim)}
 
+/* ============ 材質背景：程序化生成，不用外部圖檔 ============
+   免費圖庫的風景照放大後質感會塌，改用緩慢流動的漸層層＋膠片顆粒，
+   模擬陽極氧化金屬與釉面瓷器的表面反光。全本機、離線可用、零版權問題。 */
+/* 材質背景：結構（清晰的格線）壓在柔光上才有質感，純模糊光斑會顯得廉價。
+   取材自這個 app 自己的材料世界：工程方格紙、藍曬圖、黑板、描圖紙。 */
+.mat{display:none;position:absolute;inset:0;pointer-events:none;overflow:hidden}
+body.mat-on .mat{display:block}
+body.mat-on .scene{background:var(--mat-base)}
+body.mat-on .photo,body.mat-on .stars,body.mat-on .aurora,
+body.mat-on .meteor,body.mat-on .mist{opacity:0}
+.mat span{position:absolute;inset:0;display:block}
+
+/* ① 結構層：方格／等角線／織紋，每個主題自己定義 */
+.m-grid{background-image:var(--grid);background-size:var(--grid-size);opacity:var(--grid-op,1);
+  animation:gridfloat 120s linear infinite}
+@keyframes gridfloat{to{background-position:var(--grid-size)}}
+
+/* ② 光池：大範圍、低對比，只負責讓畫面不平，不當主角 */
+.m-glow{background:var(--glow);opacity:var(--glow-op,.9)}
+
+/* ③ 掃光：一道慢慢橫越的反射帶 */
+.m-sweep{background:linear-gradient(100deg,transparent 38%,var(--sweep,rgba(255,255,255,.07)) 50%,transparent 62%);
+  background-size:300% 100%;animation:matsweep 34s linear infinite;
+  mix-blend-mode:var(--sweep-mode,overlay)}
+@keyframes matsweep{to{background-position:300% 0}}
+
+/* ④ 紙纖維／粉筆灰顆粒 */
+.m-grain{opacity:var(--grain,.28);mix-blend-mode:var(--grain-mode,overlay);
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+/* ---- 亮色系 ---- */
+/* 工程方格紙：5mm 細格＋25mm 粗線，暖白紙色 */
+body[data-theme="graph"]{--mat-base:#F7F4EC;
+  --grid:linear-gradient(rgba(60,110,120,.13) 1px,transparent 1px),
+         linear-gradient(90deg,rgba(60,110,120,.13) 1px,transparent 1px),
+         linear-gradient(rgba(60,110,120,.3) 1.4px,transparent 1.4px),
+         linear-gradient(90deg,rgba(60,110,120,.3) 1.4px,transparent 1.4px);
+  --grid-size:26px 26px,26px 26px,130px 130px,130px 130px;
+  --glow:radial-gradient(90% 70% at 18% 8%,rgba(255,236,190,.75),transparent 62%),
+         radial-gradient(80% 60% at 88% 96%,rgba(180,220,225,.6),transparent 66%);
+  --sweep:rgba(255,255,255,.5);--grain:.2;--grain-mode:multiply}
+/* 描圖紙：半透明紙纖維＋一道暖金 */
+body[data-theme="vellum"]{--mat-base:#F2EDE2;
+  --grid:repeating-linear-gradient(96deg,rgba(150,130,100,.07) 0 2px,transparent 2px 7px);
+  --grid-size:auto;
+  --glow:radial-gradient(85% 65% at 78% 12%,rgba(245,210,150,.65),transparent 64%),
+         radial-gradient(75% 60% at 10% 92%,rgba(205,195,225,.5),transparent 66%);
+  --sweep:rgba(255,255,255,.55);--grain:.26;--grain-mode:multiply}
+/* 水磨石：淺石灰底，碎石斑點 */
+body[data-theme="terrazzo"]{--mat-base:#EFEFEA;
+  --grid:radial-gradient(circle at 20% 30%,rgba(230,120,110,.5) 0 3px,transparent 4px),
+         radial-gradient(circle at 70% 60%,rgba(90,160,175,.45) 0 4px,transparent 5px),
+         radial-gradient(circle at 45% 85%,rgba(240,190,90,.5) 0 3px,transparent 4px),
+         radial-gradient(circle at 88% 18%,rgba(120,140,110,.4) 0 3px,transparent 4px);
+  --grid-size:190px 190px,240px 240px,160px 160px,210px 210px;
+  --glow:radial-gradient(90% 70% at 12% 10%,rgba(255,255,255,.85),transparent 60%);
+  --sweep:rgba(255,255,255,.45);--grain:.22;--grain-mode:multiply}
+
+/* ---- 暗色系 ---- */
+/* 藍曬圖：深靛藍＋白色製圖格線 */
+body[data-theme="blueprint"]{--mat-base:#0C2036;
+  --grid:linear-gradient(rgba(150,205,255,.1) 1px,transparent 1px),
+         linear-gradient(90deg,rgba(150,205,255,.1) 1px,transparent 1px),
+         linear-gradient(rgba(150,205,255,.22) 1.4px,transparent 1.4px),
+         linear-gradient(90deg,rgba(150,205,255,.22) 1.4px,transparent 1.4px);
+  --grid-size:24px 24px,24px 24px,120px 120px,120px 120px;
+  --glow:radial-gradient(85% 65% at 82% 6%,rgba(70,150,220,.5),transparent 62%),
+         radial-gradient(90% 70% at 8% 94%,rgba(30,70,130,.6),transparent 66%);
+  --sweep:rgba(190,225,255,.1);--grain:.3}
+/* 黑板：墨綠板面＋粉筆灰與擦拭痕 */
+body[data-theme="chalk"]{--mat-base:#16241F;
+  --grid:repeating-linear-gradient(84deg,rgba(255,255,255,.035) 0 90px,transparent 90px 240px);
+  --grid-size:auto;
+  --glow:radial-gradient(80% 60% at 25% 12%,rgba(120,170,140,.35),transparent 64%),
+         radial-gradient(90% 70% at 85% 88%,rgba(40,70,60,.7),transparent 62%);
+  --sweep:rgba(220,240,230,.07);--grain:.42}
+/* 曜黑：近黑＋細斜織紋，最安靜的一款 */
+body[data-theme="onyx"]{--mat-base:#0A0C10;
+  --grid:repeating-linear-gradient(45deg,rgba(255,255,255,.028) 0 1px,transparent 1px 6px),
+         repeating-linear-gradient(-45deg,rgba(255,255,255,.02) 0 1px,transparent 1px 6px);
+  --grid-size:auto;
+  --glow:radial-gradient(75% 60% at 88% 10%,rgba(95,120,175,.3),transparent 62%),
+         radial-gradient(85% 65% at 10% 92%,rgba(150,110,80,.22),transparent 64%);
+  --sweep:rgba(255,255,255,.06);--grain:.26}
+@media(prefers-reduced-motion:reduce){.m-grid,.m-sweep{animation:none}}
+
+/* ---- 亮色主題要把文字與玻璃整組翻過來，否則白字看不見 ---- */
+body.lt{--ink:#171B21;--ink-dim:rgba(23,27,33,.6);--dawn:#8A5A18;
+  --glass:rgba(255,255,255,.62);--glass-line:rgba(23,27,33,.13);--night:#F2EFE8}
+body.lt{--s-elec:#B26A18;--s-elec-soft:rgba(178,106,24,.14);
+  --s-math:#0E7C77;--s-math-soft:rgba(14,124,119,.14);
+  --s-ctrl:#5B45C4;--s-ctrl-soft:rgba(91,69,196,.14);
+  --s-toeic:#2E7D4F;--s-toeic-soft:rgba(46,125,79,.14);--sc:#8A5A18}
+body.lt .scene::before{background:rgba(255,255,255,.3)!important}
+body.lt .glass{box-shadow:0 10px 30px rgba(30,35,45,.1)}
+body.lt .lq{color:var(--ink)}
+body.lt header.top{background:rgba(255,255,255,.66);border-color:var(--glass-line)}
+body.lt .vbtn,body.lt .vsel{background:rgba(23,27,33,.06);color:var(--ink)}
+body.lt .vsel option{background:#fff;color:#171B21}
+body.lt .tk-bar{background:rgba(23,27,33,.12)}
+body.lt .modal-back{background:rgba(240,238,232,.72)}
+/* 亮底需要更強的對比，否則整片糊成一團白 */
+body.lt .glass{background:rgba(255,255,255,.74);border-color:rgba(23,27,33,.12)}
+body.lt .yr i{background:rgba(23,27,33,.13)}
+body.lt .yr i.h1{background:color-mix(in srgb,var(--sc) 40%,transparent)}
+body.lt .yr i.h2{background:color-mix(in srgb,var(--sc) 70%,transparent)}
+body.lt .yr i.h3{background:var(--sc);box-shadow:none}
+body.lt .wm-wk{background:rgba(23,27,33,.07);color:rgba(23,27,33,.66)}
+body.lt .wm-wk:hover{background:rgba(23,27,33,.13);color:var(--ink)}
+body.lt .wm-wk.on{background:color-mix(in srgb,var(--sc) 20%,transparent);color:#000;
+  border-color:color-mix(in srgb,var(--sc) 42%,transparent);font-weight:500}
+body.lt .wm-vw{color:rgba(23,27,33,.6)}
+body.lt .wm-vw.on{background:rgba(23,27,33,.13);color:#000}
+body.lt .wm-row:hover{background:rgba(23,27,33,.05)}
+body.lt .wm-row.on{background:color-mix(in srgb,var(--sc) 13%,transparent)}
+body.lt button.sp-ep:hover{background:rgba(23,27,33,.06)}
+body.lt .sp-sch a{background:rgba(23,27,33,.07);color:var(--ink)}
+body.lt .sp-sch a:hover{background:rgba(23,27,33,.2)}
+body.lt .wm-dh .tag{background:rgba(23,27,33,.08)}
+body.lt .wm-cols,body.lt .wm-sec{color:rgba(23,27,33,.55)}
+body.lt .m-sweep{--sweep-mode:soft-light}
+
+/* ============ 學科色系：讓顏色承載資訊，不是裝飾 ============
+   同一份清單裡混著四科，單一金色會讓人分不出哪列是哪科。
+   取材：電子＝銅箔琥珀、工數＝藍圖青瓷、控制＝頻譜靛紫、多益＝苔綠。 */
+:root{
+  --s-elec:#E8A75C;  --s-elec-soft:rgba(232,167,92,.15);
+  --s-math:#57C7C0;  --s-math-soft:rgba(87,199,192,.15);
+  --s-la:#6FA8E8;    --s-la-soft:rgba(111,168,232,.15);
+  --s-ctrl:#9D8DF1;  --s-ctrl-soft:rgba(157,141,241,.15);
+  --s-toeic:#86CF9E; --s-toeic-soft:rgba(134,207,158,.15);
+}
+[data-subj=elec] {--sc:var(--s-elec); --sc-soft:var(--s-elec-soft)}
+[data-subj=math] {--sc:var(--s-math); --sc-soft:var(--s-math-soft)}
+[data-subj=la]   {--sc:var(--s-la);   --sc-soft:var(--s-la-soft)}
+[data-subj=ctrl] {--sc:var(--s-ctrl); --sc-soft:var(--s-ctrl-soft)}
+[data-subj=toeic]{--sc:var(--s-toeic);--sc-soft:var(--s-toeic-soft)}
+:root{--sc:#F0C98A; --sc-soft:rgba(240,201,138,.15)}
+
+/* ============ 按鈕系統：全站統一三種型態、兩種尺寸 ============
+   ui-ghost   幽靈：預設，透明底細框（次要動作）
+   ui-solid   實心：目前狀態／主要動作
+   ui-seg     分段：一整條膠囊裡切開的多選一（週次、視圖）
+   加 .sm 變小。所有按鈕共用同一組圓角、字級與過場，避免各處各自為政。 */
+.ui-ghost,.ui-solid,.ui-seg>button{
+  font-family:var(--sans);font-size:.92rem;line-height:1;padding:10px 18px;
+  border-radius:999px;cursor:pointer;white-space:nowrap;
+  border:1px solid var(--glass-line);background:rgba(255,255,255,.06);color:var(--ink-dim);
+  transition:background .16s ease,color .16s ease,border-color .16s ease}
+.ui-ghost:hover,.ui-seg>button:hover{background:rgba(255,255,255,.14);color:var(--ink)}
+.ui-ghost.sm,.ui-solid.sm{font-size:.84rem;padding:8px 14px}
+.ui-solid{background:color-mix(in srgb,var(--sc) 22%,transparent);color:var(--ink);
+  border-color:color-mix(in srgb,var(--sc) 42%,transparent);font-weight:500}
+.ui-solid:hover{background:color-mix(in srgb,var(--sc) 32%,transparent)}
+.ui-seg{display:inline-flex;border:1px solid var(--glass-line);border-radius:999px;overflow:hidden}
+.ui-seg>button{border:0;border-radius:0;background:none;font-family:var(--mono);font-size:.86rem;padding:9px 16px}
+.ui-seg>button+button{box-shadow:inset 1px 0 0 var(--glass-line)}
+.ui-seg>button.on{background:color-mix(in srgb,var(--sc) 24%,rgba(255,255,255,.1));color:#fff;font-weight:500}
+body.lt .ui-ghost,body.lt .ui-seg>button{background:rgba(23,27,33,.05);color:rgba(23,27,33,.62)}
+body.lt .ui-ghost:hover,body.lt .ui-seg>button:hover{background:rgba(23,27,33,.11);color:var(--ink)}
+body.lt .ui-seg>button.on{color:#000}
+
+/* ============ 讀書模式：主從式版面 ============ */
+.wm{margin-top:20px}
+.wm-bar{display:flex;align-items:center;gap:18px 24px;flex-wrap:wrap;padding:16px 22px;margin-bottom:16px}
+.wm-cd{display:flex;align-items:baseline;gap:9px;font-family:var(--mono)}
+.wm-cd b{font-size:2rem;color:var(--dawn);font-weight:500;line-height:1}
+.wm-cd i{font-style:normal;font-size:.82rem;color:var(--ink-dim);letter-spacing:.06em}
+.wm-prog{display:flex;align-items:center;gap:11px;flex:1;min-width:160px;max-width:320px}
+.wm-prog .tk-bar{flex:1;height:11px}
+.wm-prog span{font-family:var(--mono);font-size:.85rem;color:var(--ink-dim);white-space:nowrap}
+.ui-seg>button.now::after{content:'·今';font-size:.72rem;opacity:.75;margin-left:3px}
+.wm-right{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-left:auto}
+.wm-body{display:grid;grid-template-columns:minmax(340px,1fr) minmax(360px,1.15fr);gap:16px;align-items:start}
+@media(max-width:900px){.wm-body{grid-template-columns:1fr}}
+.wm-list,.wm-detail{padding:10px 0;min-height:240px}
+/* 右欄玻璃跟著所選學科染色：頂端一層該科色溫，邊框也帶一點 */
+.wm-detail{padding:24px 26px;position:relative;overflow:hidden;
+  border-color:color-mix(in srgb,var(--sc) 22%,var(--glass-line))}
+.wm-detail::before{content:'';position:absolute;inset:0 0 auto;height:180px;pointer-events:none;
+  background:radial-gradient(120% 100% at 12% 0%,var(--sc-soft),transparent 70%)}
+.wm-detail>*{position:relative}
+.wm-row .dot{width:7px;height:7px;border-radius:50%;flex:none;background:var(--sc);opacity:.85}
+.wm-dh .tag:first-of-type{background:var(--sc-soft);color:var(--sc)}
+.wm-dsub b{color:var(--sc)}
+.wm-blk h4 em{color:var(--sc)}
+.sp-ep b{color:var(--sc)}
+button.sp-ep .pl{color:var(--sc)}
+.wm-cd b{color:var(--dawn)}
+/* 分區標題：字重與字距拉開，讓它像標題而不是另一列資料 */
+.wm-sec{font-family:var(--serif);font-size:.9rem;color:var(--ink);letter-spacing:.14em;
+  padding:20px 22px 2px;font-weight:600;opacity:.9}
+.wm-sec:first-child{padding-top:12px}
+/* 欄位標頭：讓「那排格子是什麼」不必猜 */
+.wm-cols{display:flex;align-items:center;gap:12px;padding:6px 22px 9px;
+  font-size:.7rem;color:var(--ink-dim);letter-spacing:.1em;
+  border-bottom:1px solid var(--glass-line);margin-bottom:6px}
+.wm-cols .c1{flex:1;padding-left:36px}
+.wm-cols .c2{flex:none;width:70px;text-align:center}
+.wm-cols .c3{flex:none;width:2.6em;text-align:right}
+.wm-cols .c4{flex:none;width:2.8em;text-align:center}
+/* 弱點捷徑：錯最多的三章，點了直接跳過去 */
+.wm-weak{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:12px 22px 8px;
+  font-size:.78rem;color:var(--ink-dim)}
+.wm-weak button{font-family:var(--sans);font-size:.8rem;padding:5px 12px;border-radius:999px;
+  cursor:pointer;background:rgba(194,94,46,.14);border:1px solid rgba(194,94,46,.3);
+  color:var(--ink);display:inline-flex;gap:7px;align-items:baseline}
+.wm-weak button:hover{background:rgba(194,94,46,.28)}
+.wm-weak button b{font-family:var(--mono);color:var(--ember);font-weight:500}
+body.lt .wm-weak button{background:rgba(168,67,28,.12);border-color:rgba(168,67,28,.3)}
+body.lt .wm-weak button b{color:#A8431C}
+/* 章節／系列列 */
+.wm-row{display:flex;align-items:center;gap:12px;width:100%;padding:11px 22px;cursor:pointer;
+  background:none;border:0;border-left:3px solid transparent;text-align:left;
+  font-family:var(--sans);font-size:1rem;color:var(--ink);
+  transition:background .16s ease,border-color .16s ease}
+.wm-row:hover{background:rgba(255,255,255,.07)}
+.wm-row:hover{border-left-color:color-mix(in srgb,var(--sc) 45%,transparent)}
+.wm-row.on{background:var(--sc-soft);border-left-color:var(--sc)}
+.wm-row input{accent-color:var(--ember);width:17px;height:17px;flex:none;cursor:pointer}
+.wm-row .nm{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+  position:relative;padding-bottom:5px}
+/* 影片觀看進度：藏在章節名底下的一條細線，不佔欄位 */
+.wm-row .nm .seen{position:absolute;left:0;bottom:0;height:2px;border-radius:2px;
+  width:calc(var(--w)*100%);max-width:100%;background:var(--sc);opacity:.55;display:block}
+.wm-row.done .nm{color:var(--ink-dim);text-decoration:line-through}
+.wm-row .hrs{font-family:var(--mono);font-size:.85rem;color:var(--ink-dim);flex:none;
+  width:2.6em;text-align:right}
+/* 錯題計數：平常只是一個淡叉，記過就亮起來 */
+.miss{font-family:var(--mono);font-size:.78rem;flex:none;width:2.8em;text-align:center;
+  color:rgba(255,255,255,.22);padding:3px 0;border-radius:6px;cursor:pointer;
+  transition:background .16s ease,color .16s ease}
+.miss:hover{background:rgba(194,94,46,.22);color:var(--ember)}
+.miss.has{color:var(--ember);background:rgba(194,94,46,.14)}
+body.lt .miss{color:rgba(23,27,33,.22)}
+body.lt .miss.has{color:#A8431C;background:rgba(168,67,28,.13)}
+/* 十年考點條：106–115 每年一格，該年考過就亮，越常考越亮；顏色跟著學科走 */
+.yr{display:flex;gap:2px;flex:none;width:70px;justify-content:center}
+.yr i{width:5px;height:17px;border-radius:2px;background:rgba(255,255,255,.09);display:block}
+.yr i.h1{background:color-mix(in srgb,var(--sc) 45%,transparent)}
+.yr i.h2{background:color-mix(in srgb,var(--sc) 75%,transparent)}
+.yr i.h3{background:var(--sc);box-shadow:0 0 7px color-mix(in srgb,var(--sc) 45%,transparent)}
+/* 右欄 */
+.wm-dh{display:flex;align-items:baseline;gap:11px;flex-wrap:wrap;margin-bottom:6px}
+.wm-dh h3{font-family:var(--serif);font-size:1.45rem;color:var(--ink);letter-spacing:.03em;margin:0}
+.wm-dh .tag{font-family:var(--mono);font-size:.75rem;padding:3px 9px;border-radius:7px;
+  background:rgba(255,255,255,.1);color:var(--ink-dim)}
+.wm-dsub{font-size:.9rem;color:var(--ink-dim);margin:4px 0 20px;line-height:1.7}
+.wm-dsub b{color:var(--dawn);font-weight:500}
+.wm-blk{margin-top:20px}
+.wm-blk h4{font-family:var(--mono);font-size:.8rem;color:var(--ink-dim);letter-spacing:.1em;
+  margin:0 0 9px;display:flex;gap:9px;align-items:baseline}
+.wm-blk h4 em{font-style:normal;color:var(--dawn)}
+.wm-empty{font-size:.92rem;color:var(--ink-dim);padding:36px 0;text-align:center}
+/* 左欄自己捲，右欄不跟著跑 */
+@media(min-width:901px){
+  .wm-list{max-height:calc(100vh - 190px);overflow-y:auto;scrollbar-width:thin}
+  .wm-list::-webkit-scrollbar{width:8px}
+  .wm-list::-webkit-scrollbar-thumb{background:rgba(255,255,255,.16);border-radius:4px}
+}
+/* 目標校系 */
+.wm-tgt{font-size:.86rem;padding:8px 16px;color:var(--ink)}
+.tgt-panel{max-width:min(760px,94vw)}
+.tgt-panel h3{font-family:var(--serif);font-size:1.35rem;color:var(--ink);margin:0 0 8px;padding-right:44px}
+.tgt-note{font-size:.85rem;color:var(--ink-dim);line-height:1.7;margin-bottom:18px}
+.tgt-note b{color:var(--dawn);font-weight:500}
+.tgt-grp{margin-bottom:16px}
+.tgt-grp h4{font-family:var(--mono);font-size:.78rem;color:var(--dawn);letter-spacing:.1em;
+  margin:0 0 6px;padding-bottom:5px;border-bottom:1px solid var(--glass-line)}
+.tgt-row{display:flex;align-items:center;gap:11px;padding:9px 10px;border-radius:9px;cursor:pointer;
+  font-size:.92rem;color:var(--ink);transition:background .16s ease}
+.tgt-row:hover{background:rgba(255,255,255,.07)}
+.tgt-row.on{background:rgba(240,201,138,.13)}
+.tgt-row input{accent-color:var(--ember);width:17px;height:17px;flex:none;cursor:pointer}
+.tgt-row .t1{flex:1;min-width:0}
+.tgt-row .t2{font-family:var(--mono);font-size:.76rem;color:var(--ink-dim);text-align:right;
+  max-width:46%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tgt-foot{display:flex;gap:9px;margin-top:18px;flex-wrap:wrap}
+.tgt-foot button{font-size:.86rem;padding:8px 20px;color:var(--ink)}
+/* 考卷年份：預設只顯示最近 5 年，其餘收起來 */
+.sp-sch a.old{display:none}
+.sp-sch.all a.old{display:inline-block}
+.ex-more{font-size:.8rem;color:var(--dawn);background:none;border:0;cursor:pointer;
+  font-family:var(--sans);padding:4px 0;margin-top:6px;text-decoration:underline;text-underline-offset:3px}
+
+/* ============ 衝刺看板（28 天章節熱區） ============ */
+.sprint{padding:22px 24px}
+.sp-head{display:flex;flex-wrap:wrap;gap:12px 24px;align-items:center}
+.sp-head .sp-pb{flex:1;min-width:150px}
+.sp-head.behind .tk-stat.hi b{color:var(--ember)}
+.sp-note{font-size:.76rem;color:var(--ink-dim);margin:12px 0 2px;line-height:1.6}
+.sp-note b{color:var(--dawn);font-weight:500}
+.sp-week{margin-top:14px;border-top:1px solid var(--glass-line);padding-top:10px}
+.sp-wh{display:flex;align-items:baseline;gap:10px;font-family:var(--mono);font-size:.7rem;
+  color:var(--ink-dim);letter-spacing:.08em;margin-bottom:4px}
+.sp-wh b{color:var(--ink);font-size:.8rem;font-family:var(--serif);letter-spacing:.1em}
+.sp-week.now .sp-wh b{color:var(--dawn)}
+.sp-week.now .sp-wh::after{content:'← 本週';color:var(--dawn);font-size:.66rem}
+.sp-ch{padding:7px 0;border-top:1px solid rgba(255,255,255,.05)}
+.sp-row{display:flex;align-items:center;gap:9px;cursor:pointer}
+.sp-row input{accent-color:var(--ember);width:15px;height:15px;flex:none;cursor:pointer}
+.sp-tag{flex:none;font-family:var(--mono);font-size:.62rem;padding:2px 7px;border-radius:6px;letter-spacing:.05em}
+.sp-tag.elec{background:rgba(240,190,110,.16);color:#EFC98A}
+.sp-tag.math{background:rgba(140,190,220,.15);color:#9FD0E8}
+.sp-tag.ctrl{background:rgba(194,94,46,.2);color:#E8A47C}
+.sp-nm{color:var(--ink);font-size:.84rem}
+.sp-ch.done .sp-nm{color:var(--ink-dim);text-decoration:line-through}
+.sp-hrs{font-family:var(--mono);font-size:.68rem;color:var(--ink-dim);margin-left:auto;white-space:nowrap}
+.sp-ex{margin:3px 0 0 24px}
+.sp-ex summary{font-size:.68rem;color:var(--ink-dim);cursor:pointer;list-style:none;display:inline-block;user-select:none}
+.sp-ex summary::-webkit-details-marker{display:none}
+.sp-ex summary::before{content:'▸ '}
+.sp-ex[open] summary::before{content:'▾ '}
+.sp-sch{display:flex;flex-wrap:wrap;gap:5px;align-items:baseline;margin:7px 0 0;font-size:.82rem}
+.sp-sch b{color:var(--ink-dim);font-weight:500;white-space:nowrap;min-width:4.4em}
+.sp-sch a{font-family:var(--mono);color:var(--ink);text-decoration:none;
+  background:rgba(255,255,255,.08);border-radius:6px;padding:3px 8px}
+.sp-sch a:hover{background:rgba(255,255,255,.28)}
+.sp-open{font-size:.82rem;padding:5px 13px}
+/* 有標到題號的年份格：放寬、標出「第幾題」，一眼看得出哪幾份已定位 */
+.sp-sch a.hasq{background:color-mix(in srgb,var(--sc) 18%,transparent);
+  border:1px solid color-mix(in srgb,var(--sc) 32%,transparent);display:inline-flex;gap:6px;align-items:baseline}
+.sp-sch a.hasq em{font-style:normal;font-size:.72rem;color:var(--sc);font-family:var(--sans)}
+.q-note{font-size:.78rem;color:var(--ink-dim);margin-top:10px;line-height:1.6}
+.q-note b{font-family:var(--mono);color:var(--sc);font-weight:500}
+.sp-vid{display:flex;align-items:baseline;gap:8px;font-size:.74rem;color:var(--ink);text-decoration:none;
+  padding:4px 0;border-top:1px solid rgba(255,255,255,.05)}
+.sp-vid:first-of-type{border-top:0;margin-top:5px}
+.sp-vid b{font-family:var(--mono);font-weight:500;color:var(--dawn);white-space:nowrap}
+.sp-vid i{font-style:normal;font-family:var(--mono);font-size:.66rem;color:var(--ink-dim);margin-left:auto;white-space:nowrap}
+.sp-vid:hover{color:#fff}
+.sp-ex.istudy summary{color:#EFC98A}
+.sp-ep{display:flex;gap:10px;align-items:baseline;font-size:.92rem;color:var(--ink);padding:7px 0;
+  border-top:1px solid rgba(255,255,255,.05);width:100%;text-align:left;background:none;border-left:0;border-right:0;border-bottom:0}
+.sp-ep:first-of-type{border-top:0;margin-top:5px}
+.sp-ep b{font-family:var(--mono);font-weight:500;color:#EFC98A;white-space:nowrap}
+.sp-ep i{font-style:normal;font-family:var(--mono);font-size:.8rem;color:var(--ink-dim);margin-left:auto;white-space:nowrap}
+button.sp-ep{cursor:pointer;border-radius:8px;padding:8px 10px;transition:background .18s ease}
+button.sp-ep:hover{background:rgba(255,255,255,.1)}
+button.sp-ep .pl{color:var(--dawn);font-size:.85rem;flex:none}
+.sp-ep:not(.have) i{opacity:.55}
+/* 離線播放器 */
+.vid-panel{max-width:min(1100px,94vw)}
+.vid-panel h3{font-family:var(--serif);font-size:.95rem;color:var(--dawn);margin:0 0 12px;padding-right:40px;letter-spacing:.04em}
+.vid-panel video{width:100%;max-height:70vh;border-radius:12px;background:#000;display:block}
+#vidFrame{width:100%;aspect-ratio:16/9;max-height:70vh;border:0;border-radius:12px;
+  background:#000;display:block}
+/* display:block 蓋掉 UA 的 [hidden]{display:none}；隱藏規則的權重必須大於等於上面那條，
+   所以 iframe 這條要用 id 選擇器寫（先前用 .vid-panel iframe[hidden] 權重不夠而失效）。 */
+.vid-panel video[hidden]{display:none}
+#vidFrame[hidden]{display:none}
+/* YouTube 內嵌時用它自己的控制項，隱藏我們這排（class 掛在 #vidModal 上） */
+#vidModal.yt .vid-bar{display:none}
+#vidModal.yt .yt-hint{display:block}
+.yt-hint{display:none;font-size:.82rem;color:var(--ink-dim);margin-top:14px}
+.yt-hint b{color:var(--sc);font-family:var(--mono);font-weight:500}
+/* 全螢幕時 max-height:70vh 會把畫面切掉，必須解除並改用 contain 完整顯示 */
+.vid-panel video:fullscreen,.vid-panel video:-webkit-full-screen{
+  max-height:none;width:100%;height:100%;border-radius:0;object-fit:contain;background:#000}
+.vid-resume{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:10px;
+  font-size:.84rem;color:var(--ink-dim)}
+.vid-resume b{color:var(--dawn);font-family:var(--mono);font-weight:500}
+.vid-resume button{font-size:.78rem;padding:5px 13px;color:var(--ink)}
+.vid-bar{display:flex;gap:7px;align-items:center;margin-top:12px;flex-wrap:wrap;
+  font-size:.72rem;color:var(--ink-dim);font-family:var(--mono)}
+.vid-bar .rate{font-size:.72rem;padding:4px 12px;color:var(--ink);font-family:var(--mono)}
+.vid-bar .rate.on{background:rgba(240,201,138,.28);color:#fff}
+/* 控制列：整排併成一條膠囊，內部用細分隔線切開，不再是五顆各自為政的按鈕 */
+.vid-bar{display:flex;align-items:center;gap:14px;margin-top:16px;flex-wrap:wrap}
+.vgrp{display:flex;align-items:center;background:rgba(255,255,255,.06);
+  border:1px solid var(--glass-line);border-radius:999px;overflow:hidden}
+.vbtn{font-family:var(--mono);font-size:.82rem;padding:9px 15px;cursor:pointer;
+  background:none;border:0;color:var(--ink-dim);letter-spacing:.02em;
+  transition:background .16s ease,color .16s ease}
+.vbtn+.vbtn{box-shadow:inset 1px 0 0 var(--glass-line)}
+.vbtn:hover{background:rgba(255,255,255,.12);color:var(--ink)}
+.vbtn.big{font-size:.95rem;padding:8px 19px;color:var(--ink)}
+.vsel{font-family:var(--mono);font-size:.82rem;padding:9px 12px 9px 14px;cursor:pointer;
+  background:rgba(255,255,255,.06);border:1px solid var(--glass-line);border-radius:999px;
+  color:var(--ink);appearance:none;
+  background-image:linear-gradient(45deg,transparent 50%,currentColor 50%),
+                   linear-gradient(135deg,currentColor 50%,transparent 50%);
+  background-position:calc(100% - 15px) 52%,calc(100% - 11px) 52%;
+  background-size:4px 4px,4px 4px;background-repeat:no-repeat;padding-right:30px}
+.vsel option{background:#12151A;color:#fff}
+.vid-left{font-family:var(--mono);font-size:.82rem;color:var(--sc);margin-left:auto;white-space:nowrap}
+.vid-resume{font-size:.78rem;color:var(--ink-dim);white-space:nowrap;display:flex;align-items:center;gap:8px}
+.vid-resume b{color:var(--sc);font-family:var(--mono);font-weight:500}
+.vid-resume button{font-family:var(--sans);font-size:.74rem;padding:5px 12px;border-radius:999px;
+  background:none;border:1px solid var(--glass-line);color:var(--ink-dim);cursor:pointer;
+  transition:background .16s ease,color .16s ease}
+.vid-resume button:hover{background:rgba(255,255,255,.12);color:var(--ink)}
+/* 字幕開關與字幕外觀 */
+#vidSubs .vbtn{border:1px solid var(--glass-line);border-radius:999px;
+  background:color-mix(in srgb,var(--sc) 20%,transparent);color:var(--ink)}
+#vidSubs .vbtn.off{background:rgba(255,255,255,.06);color:var(--ink-dim)}
+/* 字級用 vh：視窗放大字幕才會跟著放大，全螢幕不會變成一行小字 */
+.vid-panel video::cue{background:rgba(0,0,0,.7);color:#fff;
+  font-family:var(--sans);font-size:2.6vh;line-height:1.45}
+.vid-panel video:fullscreen::cue,.vid-panel video:-webkit-full-screen::cue{font-size:3.1vh}
+/* 重點時段的字幕上色（.vtt 內 <c.key> 標記，make_notes.py 產生） */
+.vid-panel video::cue(.key){color:#FFD98A;background:rgba(46,34,6,.78)}
+/* 章節軌：時間軸、目前章節、章節列表三件事收進同一個玻璃容器。
+   重點時段原本是浮在下緣的白色短棒，看起來像散落的碎片；改成從底緣升起的暖光帶，
+   讀起來是「這一段是熱區」而不是「這裡多了一根棒子」。 */
+#vidChap{margin-top:14px}
+.chap-rail{border:1px solid var(--glass-line);border-radius:14px;overflow:hidden;
+  background:rgba(255,255,255,.045)}
+.chap-strip{position:relative;height:34px;cursor:pointer}
+.chap-strip .seg{position:absolute;top:0;bottom:0;
+  box-shadow:inset -1px 0 0 rgba(255,255,255,.08);transition:background .16s ease}
+.chap-strip .seg:last-of-type{box-shadow:none}
+.chap-strip .seg:hover{background:rgba(255,255,255,.12)}
+/* 三種角色要一眼分得開，所以各自用固定語彙、不跟著主題色漂：
+   目前章節＝中性提亮、重點時段＝金色暖光、播放頭＝白線。
+   （原本重點用 --dawn，但它在 onyx 主題是純白、在亮色是深棕，
+     兩邊都跟旁邊的色塊糊在一起，看不出哪個是重點。） */
+.chap-strip{--keyc:#E8B45C}
+.chap-strip .seg.cur{background:rgba(255,255,255,.17)}
+.chap-strip .hot{position:absolute;top:0;bottom:0;pointer-events:none;
+  background:linear-gradient(to top,color-mix(in srgb,var(--keyc) 62%,transparent),transparent 68%)}
+.chap-strip .ph{position:absolute;top:0;bottom:0;width:2px;background:#fff;
+  box-shadow:0 0 8px rgba(255,255,255,.8);pointer-events:none}
+.chap-strip .ph::before{content:'';position:absolute;top:0;left:50%;translate:-50% 0;
+  border:4px solid transparent;border-top-color:#fff}
+/* 目前章節＝容器底列，整條可點就是展開列表，不必再放一顆獨立按鈕 */
+.chap-head{display:flex;align-items:center;gap:11px;width:100%;padding:9px 14px;
+  background:none;border:0;border-top:1px solid var(--glass-line);
+  font-family:var(--sans);font-size:.86rem;color:var(--ink-dim);text-align:left;
+  cursor:pointer;transition:background .16s ease}
+.chap-head:hover{background:rgba(255,255,255,.06)}
+.chap-head b{color:var(--sc);font-weight:500;white-space:nowrap}
+.chap-head .why{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+  font-size:.79rem;color:var(--dawn)}
+.chap-head .caret{font-size:.8rem;opacity:.85;margin-left:auto;transition:rotate .2s ease}
+.chap-rail.open .caret{rotate:180deg}
+.chap-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(206px,1fr));gap:6px;
+  padding:10px 12px;border-top:1px solid var(--glass-line);background:rgba(0,0,0,.16)}
+.chap-list[hidden]{display:none}   /* display:grid 會蓋掉 UA 的 [hidden]，同坑第三次，必須明寫 */
+.chap-list button{display:flex;gap:9px;align-items:baseline;text-align:left;font-size:.82rem;
+  color:var(--ink);background:rgba(255,255,255,.05);border:1px solid transparent;
+  border-radius:8px;padding:7px 11px;cursor:pointer;transition:background .16s ease}
+.chap-list button:hover{background:rgba(255,255,255,.14)}
+.chap-list button.cur{background:color-mix(in srgb,var(--sc) 15%,transparent);
+  border-color:color-mix(in srgb,var(--sc) 42%,transparent)}
+.chap-list b{font-family:var(--mono);font-weight:500;color:var(--dawn);white-space:nowrap}
+/* 亮色主題：白色播放頭在淺底上完全看不見，而 --dawn 在亮色是深棕(#8A5A18)，
+   同樣的 46% 熱區會變成一塊塊厚重的褐色磚。整組壓深、降透明度重配。 */
+body.lt .chap-rail{background:rgba(23,27,33,.035)}
+body.lt .chap-strip .seg{box-shadow:inset -1px 0 0 rgba(23,27,33,.12)}
+body.lt .chap-strip{--keyc:#C2860F}
+body.lt .chap-strip .seg:hover{background:rgba(23,27,33,.07)}
+body.lt .chap-strip .seg.cur{background:rgba(23,27,33,.13)}
+body.lt .chap-strip .ph{background:var(--ink);box-shadow:0 0 6px rgba(23,27,33,.35)}
+body.lt .chap-strip .ph::before{border-top-color:var(--ink)}
+body.lt .chap-head:hover{background:rgba(23,27,33,.05)}
+body.lt .chap-list{background:rgba(23,27,33,.04)}
+body.lt .chap-list button{background:rgba(23,27,33,.045)}
+body.lt .chap-list button:hover{background:rgba(23,27,33,.1)}
+/* 思考地圖面板 */
+#vidMapBtn{border:1px solid var(--glass-line);border-radius:999px;background:rgba(255,255,255,.06)}
+#vidMap{margin-top:20px;border-top:1px solid var(--glass-line);padding-top:16px}
+/* 夠寬就左右分欄：左邊上課、右邊讀筆記，兩欄各自捲動互不影響。
+   窄螢幕自動退回上下堆疊（媒體查詢不成立，two-col 這條就不生效）。 */
+@media (min-width:1200px){
+  /* width 要一起寫：.modal-panel 的 width:min(920px,100%) 會壓過單純的 max-width */
+  .vid-panel.two-col{width:min(1680px,96vw);max-width:min(1680px,96vw);display:grid;
+    grid-template-columns:minmax(0,1.46fr) minmax(372px,.92fr);
+    column-gap:26px;align-items:start;max-height:92vh;overflow:hidden}
+  .vid-panel.two-col>h3{grid-column:1/-1}
+  .vid-panel.two-col .vid-main{min-width:0;max-height:calc(92vh - 92px);
+    overflow-y:auto;overscroll-behavior:contain;padding-right:4px}
+  .vid-panel.two-col #vidMap{margin-top:0;border-top:0;padding-top:2px;
+    border-left:1px solid var(--glass-line);padding-left:24px;
+    max-height:calc(92vh - 92px);overflow-y:auto;overscroll-behavior:contain}
+}
+.map-head{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin:0 0 4px}
+.map-head h4{font-family:var(--serif);font-size:1.05rem;color:var(--dawn);margin:0;letter-spacing:.06em}
+.map-head span{font-size:.76rem;color:var(--ink-dim)}
+.map-sec{font-family:var(--serif);font-size:.92rem;color:var(--sc);letter-spacing:.12em;
+  margin:20px 0 10px;display:flex;align-items:center;gap:10px}
+.map-sec::after{content:'';flex:1;height:1px;background:var(--glass-line)}
+.map-tldr{margin:0;padding-left:1.3em;font-size:.95rem;line-height:1.9}
+.map-card{background:rgba(255,255,255,.05);border:1px solid var(--glass-line);
+  border-radius:13px;padding:14px 18px;margin-top:10px}
+.map-card summary{font-size:1rem;font-weight:600;color:var(--ink);cursor:pointer;user-select:none}
+.map-md{font-size:.93rem;line-height:1.95;color:var(--ink)}
+.map-md p{margin:.5em 0}
+.map-md ul,.map-md ol{padding-left:1.4em;margin:.4em 0}
+.map-md code{font-family:var(--mono);font-size:.85em;background:rgba(255,255,255,.09);
+  border-radius:5px;padding:1px 6px}
+.map-md .katex{font-size:1.02em}
+.map-md .katex-display{overflow-x:auto;padding:4px 0}
+.mermaid{display:flex;justify-content:center;margin:10px 0;overflow-x:auto}
+.mermaid svg{max-width:100%}
+.map-svg{display:flex;justify-content:center;margin:10px 0;color:var(--ink)}
+.map-svg svg{max-width:100%;height:auto}
+.t-jump{font-family:var(--mono);font-size:.8rem;color:var(--sc);cursor:pointer;white-space:nowrap;
+  background:color-mix(in srgb,var(--sc) 16%,transparent);
+  border:1px solid color-mix(in srgb,var(--sc) 30%,transparent);
+  border-radius:999px;padding:4px 13px;transition:background .16s ease}
+.t-jump:hover{background:color-mix(in srgb,var(--sc) 30%,transparent)}
+.map-ex-h{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.map-tag{font-size:.76rem;color:var(--ink);background:rgba(255,255,255,.09);
+  border-radius:999px;padding:4px 12px}
+.map-trap{font-size:.86rem;color:#E8A47C;margin-top:8px;line-height:1.7}
+.map-snap{margin:10px 0 0}
+.map-snap img{max-width:100%;border-radius:10px;border:1px solid var(--glass-line);display:block}
+.map-snap figcaption{font-size:.76rem;color:var(--ink-dim);margin-top:5px;
+  display:flex;gap:8px;align-items:center}
+.snap-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;margin-top:10px}
+/* 逐字稿全文搜尋 */
+.wm-srch{position:relative;flex:1;min-width:200px;max-width:380px}
+.wm-srch input{width:100%;font-family:var(--sans);font-size:.92rem;padding:10px 18px;
+  border-radius:999px;border:1px solid var(--glass-line);
+  background:rgba(255,255,255,.06);color:var(--ink);outline:none}
+.wm-srch input:focus{border-color:color-mix(in srgb,var(--sc) 55%,transparent)}
+.wm-srch input::placeholder{color:var(--ink-dim)}
+.srch-pop{position:absolute;top:calc(100% + 10px);left:0;width:min(560px,calc(94vw - 40px));
+  z-index:80;max-height:56vh;overflow:auto;border-radius:16px;padding:10px}
+.srch-hd{font-size:.74rem;color:var(--ink-dim);padding:4px 10px 8px}
+.srch-row{display:flex;gap:10px;align-items:baseline;width:100%;text-align:left;font-size:.86rem;
+  color:var(--ink);background:none;border:0;border-top:1px solid rgba(255,255,255,.06);
+  padding:9px 10px;cursor:pointer;border-radius:8px}
+.srch-row:hover{background:rgba(255,255,255,.1)}
+.srch-row b{font-family:var(--mono);font-weight:500;color:var(--dawn);white-space:nowrap;font-size:.78rem}
+.srch-row i{font-style:normal;font-family:var(--mono);color:var(--sc);white-space:nowrap;font-size:.78rem}
+.srch-row span{color:var(--ink-dim);line-height:1.6}
+.srch-row mark{background:none;color:var(--sc);font-weight:600}
+/* 影片庫 */
+.lib{padding:22px 24px}
+.lib-grp{margin-top:18px}
+.lib-gh{font-family:var(--serif);font-weight:600;font-size:.95rem;color:var(--dawn);letter-spacing:.1em;
+  margin:0 0 10px;padding-bottom:6px;border-bottom:1px solid var(--glass-line);
+  display:flex;align-items:baseline;gap:10px}
+.lib-gh span{font-family:var(--mono);font-size:.68rem;color:var(--ink-dim);letter-spacing:0;margin-left:auto}
+.lib-ser{border-top:1px solid rgba(255,255,255,.06)}
+.lib-ser:first-of-type{border-top:0}
+.lib-head{display:flex;align-items:center;gap:12px;padding:9px 0;cursor:pointer;user-select:none;font-size:.8rem}
+.lib-head b{font-weight:500;color:var(--ink);white-space:nowrap}
+.lib-head .lib-meta{font-family:var(--mono);font-size:.68rem;color:var(--ink-dim);white-space:nowrap}
+.lib-head .tk-bar{flex:1;min-width:60px;max-width:240px}
+.lib-head .lib-val{font-family:var(--mono);font-size:.68rem;color:var(--ink-dim);white-space:nowrap}
+.lib-ser.open .tk-caret{transform:rotate(90deg)}
+.lib-body{display:grid;grid-template-rows:0fr;transition:grid-template-rows .4s cubic-bezier(.2,.7,.2,1)}
+.lib-ser.open .lib-body{grid-template-rows:1fr}
+.lib-inner{overflow:hidden;min-height:0}
+.lib-inner .sp-ep{padding-left:6px}
+a.sp-ep{text-decoration:none}
+.sp-open{display:inline-block;margin-top:7px;font-size:.7rem;font-family:var(--mono);color:var(--ink);
+  text-decoration:none;background:rgba(240,201,138,.16);border-radius:6px;padding:3px 10px}
+.sp-open:hover{background:rgba(240,201,138,.32)}
+.sp-p2{margin-top:16px;border-top:1px solid var(--glass-line);padding-top:10px}
+.sp-p2>summary{font-size:.78rem;color:var(--ink-dim);cursor:pointer;list-style:none;user-select:none}
+.sp-p2>summary::-webkit-details-marker{display:none}
+.sp-p2>summary::before{content:'▸ ';font-size:.7rem}
+.sp-p2[open]>summary::before{content:'▾ '}
+.sp-p2>summary b{color:var(--ink);font-weight:500}
+.sp-final{margin-top:12px;font-size:.76rem;color:var(--dawn)}
+.sp-final a{color:var(--dawn);text-decoration:underline;text-underline-offset:3px}
+.sp-def{margin-top:10px;font-size:.68rem;color:var(--ink-dim);line-height:1.6}
+
 /* 科目分析（學校卡內展開） */
 .ana{margin-top:10px;padding:16px 18px;border-radius:14px;
   background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1)}
@@ -664,15 +1226,48 @@ body[data-skin=boring] #study .lq.gold{background:var(--bo-ink);color:#fff!impor
   box-shadow:none;backdrop-filter:none;font-family:var(--bo-mono);text-transform:uppercase;letter-spacing:.06em}
 body[data-skin=boring] #study .lq.gold:hover{background:var(--bo-red)}
 body[data-skin=boring] .tk-hint,body[data-skin=boring] .empty,body[data-skin=boring] .tk-file{color:var(--bo-dim)}
+/* 衝刺看板 boring 皮膚 */
+body[data-skin=boring] .sp-note,body[data-skin=boring] .sp-wh,body[data-skin=boring] .sp-hrs,
+body[data-skin=boring] .sp-def,body[data-skin=boring] .sp-ex summary,body[data-skin=boring] .sp-p2>summary,
+body[data-skin=boring] .sp-sch b{color:var(--bo-dim)}
+body[data-skin=boring] .sp-nm,body[data-skin=boring] .sp-note b,body[data-skin=boring] .sp-wh b,
+body[data-skin=boring] .sp-p2>summary b{color:var(--bo-ink)}
+body[data-skin=boring] .sp-week,body[data-skin=boring] .sp-p2{border-top-color:var(--bo-line)}
+body[data-skin=boring] .sp-ch{border-top-color:#f0f0f0}
+body[data-skin=boring] .sp-week.now .sp-wh b,body[data-skin=boring] .sp-week.now .sp-wh::after,
+body[data-skin=boring] .sp-final,body[data-skin=boring] .sp-final a{color:var(--bo-red)}
+body[data-skin=boring] .sp-row input{accent-color:var(--bo-red)}
+body[data-skin=boring] .sp-ch.done .sp-nm{color:#bbb}
+body[data-skin=boring] .sp-tag{background:#f2f2f2;color:var(--bo-ink);font-family:var(--bo-mono)}
+body[data-skin=boring] .sp-vid{color:var(--bo-ink);border-top-color:#f0f0f0}
+body[data-skin=boring] .sp-vid b{color:var(--bo-red)}
+body[data-skin=boring] .sp-vid i{color:var(--bo-dim)}
+body[data-skin=boring] .sp-vid:hover{color:var(--bo-red)}
+body[data-skin=boring] .sp-ex.istudy summary,body[data-skin=boring] .sp-ep b{color:#b8791f}
+body[data-skin=boring] .sp-ep{color:var(--bo-ink);border-top-color:#f0f0f0}
+body[data-skin=boring] .sp-open{background:#f2f2f2;color:var(--bo-ink)}
+body[data-skin=boring] .sp-open:hover{background:var(--bo-ink);color:#fff}
+body[data-skin=boring] .lib-gh{color:var(--bo-ink);border-bottom:2px solid var(--bo-ink)}
+body[data-skin=boring] .lib-gh span,body[data-skin=boring] .lib-head .lib-meta,
+body[data-skin=boring] .lib-head .lib-val{color:var(--bo-dim)}
+body[data-skin=boring] .lib-head b{color:var(--bo-ink)}
+body[data-skin=boring] .lib-ser{border-top-color:var(--bo-line)}
+body[data-skin=boring] button.sp-ep:hover{background:#f2f2f2}
+body[data-skin=boring] .sp-sch a{background:#f2f2f2;color:var(--bo-ink)}
+body[data-skin=boring] .sp-sch a:hover{background:var(--bo-ink);color:#fff}
 </style>
 </head>
-<body data-mode="home" data-theme="portiva" data-wx="clear">
+<body data-mode="home" data-theme="graph" data-wx="clear">
 
 <div class="scene" aria-hidden="true">
   <div class="sky"></div>
   <video class="bgvid" loop muted playsinline preload="auto"></video>
   <div class="cbg"></div>
   <div class="photo"></div><div class="stars"></div>
+  <div class="mat" aria-hidden="true">
+    <span class="m-grid"></span><span class="m-glow"></span>
+    <span class="m-sweep"></span><span class="m-grain"></span>
+  </div>
   <div class="sun2"></div><div class="moon"></div>
   <div class="aurora"><i></i><i></i><i></i></div>
   <div class="meteor m1"></div><div class="meteor m2"></div><div class="meteor m3"></div>
@@ -768,32 +1363,17 @@ body[data-skin=boring] .tk-hint,body[data-skin=boring] .empty,body[data-skin=bor
   <!-- ============ 讀書模式：進度追蹤器 ============ -->
   <section id="study">
     <div class="tk-head">
-      <h2>進度追蹤器</h2>
+      <h2>讀書模式</h2>
       <button class="skin-toggle lq mist2" id="skinToggle" type="button" title="切換版面風格：深色氛圍 ⇄ !Boring 白"></button>
     </div>
-    <p class="sec-note">把要看完的線上課程逐堂列出，看完一堂就打勾。綁衝刺日，系統即時算出<b>今天各科該看幾堂</b>、還剩多少、有沒有落後。改衝刺日全部重算。</p>
+    <p class="sec-note">左邊選章節，右邊出材料——該看的集數、該寫的考卷，一次到位。章節旁的十格條是<b>十年出題分佈</b>，亮得越多代表越常考。切到<b>影片庫</b>可以看所有課程。</p>
 
-    <div class="tk-top glass" id="tkTop"></div>
-
-    <div class="panel glass tk-week">
-      <h3>本週各科配額<span class="tk-sub">平均分攤 · 週一～週日</span></h3>
-      <div id="tkWeekBody"></div>
-    </div>
-
-    <div id="tkGroups"></div>
-
-    <div class="panel glass tk-add">
-      <h3>新增課程</h3>
-      <div class="tk-form">
-        <select id="tkSubj"></select>
-        <input id="tkName" placeholder="課程名稱，例：112暑訊號(張)">
-        <label class="tk-file">逐堂標題（每行一堂，可留空）
-          <textarea id="tkList" rows="3" placeholder="每行一堂標題；留空則只用下方總堂數自動編號"></textarea>
-        </label>
-        <input id="tkCount" type="number" min="1" placeholder="或只填總堂數">
-        <button class="lq gold" id="tkAdd">新增</button>
+    <div class="wm" id="wm" hidden>
+      <div class="wm-bar glass" id="wmBar"></div>
+      <div class="wm-body">
+        <div class="wm-list glass" id="wmList"></div>
+        <div class="wm-detail glass" id="wmDetail"></div>
       </div>
-      <p class="tk-hint">貼上逐堂標題（每行一堂）；或留空、只填總堂數，自動編「第N講」。</p>
     </div>
   </section>
 
@@ -852,7 +1432,7 @@ body[data-skin=boring] .tk-hint,body[data-skin=boring] .empty,body[data-skin=bor
 <script>
 const YEARS = [106,107,108,109,110,111,112,113,114,115];
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-let DATA=null, INDEX=null;
+let DATA=null, INDEX=null, SPRINT_PLAN=null, VIDEOS=null, LOCAL={};
 const state = { subjects:new Set(), chapters:new Set() };
 
 /* ============ 模式切換（液態轉場） ============ */
@@ -915,11 +1495,15 @@ document.addEventListener('click',e=>{
 /* ============ 風景風格＋即時天氣（Open-Meteo，免金鑰） ============ */
 const PHOTO_THEMES=['peaks','village','valley','lake'];
 const PORTIVA_MP4='https://cdn.sceneai.art/Hero%20section%20video%20file%20(2)/13c2a27f-30ac-44f1-866d-94fca9c614d7.mp4';
-const BUILTIN_BG=[['portiva','影片'],['mountain','山稜'],['ocean','海岸'],['forest','森林'],
-  ['peaks','雲海'],['village','小鎮'],['valley','綠谷'],['lake','湖畔']];
+/* 2026-08-17：照片／影片背景全數移除（免費圖庫照片放大後質感會塌），
+   只留程序化材質——飽和度提高、流動更明顯，走青春活潑路線。 */
+const BUILTIN_BG=[['graph','方格紙'],['vellum','描圖紙'],['terrazzo','水磨石'],
+  ['blueprint','藍曬圖'],['chalk','黑板'],['onyx','曜黑']];
+const MAT_BG=new Set(BUILTIN_BG.map(b=>b[0]));
+const LIGHT_BG=new Set(['graph','vellum','terrazzo']);   // 這幾款要翻成深色文字
 const readJSON=(k,d)=>{try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}};
 const customBgs=()=>readJSON('feb-bg',[]);
-const curBg=()=>localStorage.getItem('feb-theme')||'portiva';
+const curBg=()=>localStorage.getItem('feb-theme')||'graph';
 /* 副檔名判型；認不出來就當圖片 */
 const bgTypeOf=u=>/\.(mp4|webm|ogv|mov|m4v)(\?|#|$)/i.test(u)?'video':'image';
 /* 只收得進 <video src> 或 CSS url() 的來源：站內相對路徑、http(s)、data:image */
@@ -930,6 +1514,8 @@ function applyTheme(t){
   const isVid=t==='portiva'||(bg&&bg.type==='video');
   const isImg=!!(bg&&bg.type==='image');
   document.body.dataset.theme=bg?'custom':t;
+  document.body.classList.toggle('mat-on',MAT_BG.has(t));
+  document.body.classList.toggle('lt',LIGHT_BG.has(t));
   document.body.classList.toggle('swiss',PHOTO_THEMES.includes(t));
   document.body.classList.toggle('media',isVid||isImg);
   document.body.classList.toggle('vid-on',isVid);
@@ -1135,10 +1721,15 @@ tickClock(); setInterval(tickClock,1000);
 /* ============ 資料載入 ============ */
 async function load(){
   try{
-    [DATA, INDEX] = await Promise.all([
+    [DATA, INDEX, SPRINT_PLAN, VIDEOS] = await Promise.all([
       fetch('../data/schools.json').then(r=>r.json()),
-      fetch('../data/exam-index.json').then(r=>r.json())
+      fetch('../data/exam-index.json').then(r=>r.json()),
+      // 這兩份會隨進度更新，不能吃快取，否則改了資料畫面不會變
+      fetch('../data/sprint.json',{cache:'no-store'}).then(r=>r.ok?r.json():null).catch(()=>null),
+      fetch('../data/videos.json',{cache:'no-store'}).then(r=>r.ok?r.json():null).catch(()=>null)
     ]);
+    await loadLocal();
+    await loadManifest();
     await loadAna();
     renderStats(); renderOverview(); renderAgg();
     renderFinderControls(); renderVerdicts();
@@ -1363,7 +1954,24 @@ function closeSchool(){
   document.body.classList.remove('modal-open');
 }
 addEventListener('keydown',e=>{
-  if(e.key==='Escape'&&!document.getElementById('schoolModal').hidden) closeSchool();
+  const vm=document.getElementById('vidModal');
+  const playing=vm&&!vm.hidden;
+  if(playing&&!/^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName)){
+    const v=vidEl();
+    const jump=e.shiftKey?60:10;
+    if(e.key==='ArrowLeft'){ e.preventDefault(); return vidSeek(-jump); }
+    if(e.key==='ArrowRight'){ e.preventDefault(); return vidSeek(jump); }
+    if(e.key===' '){ e.preventDefault(); return vidToggle(); }
+    if(e.key==='ArrowUp'||e.key==='ArrowDown'){
+      e.preventDefault();
+      const i=RATES.indexOf(v?.playbackRate);
+      const j=Math.min(RATES.length-1,Math.max(0,(i<0?4:i)+(e.key==='ArrowUp'?1:-1)));
+      return vidRate(RATES[j]);
+    }
+  }
+  if(e.key!=='Escape') return;
+  if(playing) return closePlayer();
+  if(!document.getElementById('schoolModal').hidden) closeSchool();
 });
 
 /* ---------- 反向選校 ---------- */
@@ -1438,148 +2046,12 @@ function renderVerdicts(){
 }
 
 /* ============ 讀書模式：進度追蹤器 ============ */
-const TK_LS='feb-tracker-v1';
-const SPRINT_DEFAULT='2026-09-01';
+/* 舊進度追蹤器（feb-tracker-v1）已於 2026-08-16 移除：
+   逐堂打勾的單位不對（該問的是「這章會不會寫題」），且其課程清單與 iStudy 實際集數不符。
+   取而代之＝衝刺看板（章節×考古題）＋影片庫（依學科分類的全部影片）。 */
 const SUBJECT_ORDER=['多益','工數','線性代數','自動控制','電子學'];
 
 /* 種子課程：截圖擷取＝待看；被切掉者＝已看、不列入。base=起始堂號 */
-const _C=[
- {id:'duo',subject:'多益',name:'115春多益（揚洋）',base:2,titles:[
-  'P.8~P.12、P.221~P.222、P.266~P.268 高頻詞彙文法、聽力Part3、4',
-  'P38~48 聽力(第二回試題)',
-  'P.74~P.84、P.268~P.270 第三回Part1~Part5+多益96式',
-  'P107~122 part1~4、part5~6(部分)',
-  'P.143-153~P.154-159 TEST5:Listening全 Reading5、6',
-  'P.177~P.188 第六回題目:聽力(全)',
-  'P.2-12+P.271~P.274、P.43-46 多益96式+聽力',
-  '第八回聽力與閱讀解析',
-  '第八回聽力與閱讀解析',
-  '新聽力1~2',
-  '新聽力題庫2、3']},
- {id:'complex',subject:'工數',name:'複變向量矩陣（喻·113暑）',base:1,titles:[
-  '(下)P.687~697 CH13複變分析',
-  '(下)P.697~700 函數/極限與連續/複變函數的微分',
-  '(下)P.700~719 例25 可解析定義',
-  '(下)P.719~728 複變函數的積分、柯西積分公式',
-  '(下)P.733~771 Rouche定理、Taylor級數&Laurent級數',
-  '(下)p.771~780 殘值~殘值定理',
-  '(下)P783~794 殘值定理',
-  '(下)P.799~819 實變函數的定積分~傅立葉積分',
-  '(下)P819~853 特殊型式的積分',
-  '(下)P.501~512 向量函數的微分',
-  '(下)P521~533 12.4 與del有關的運算',
-  '(下)P538~552 空間曲面的法向量~12.5線積分及其應用',
-  '(下)P.552~575 保守場、座標變換',
-  '(下)P.575~588 Jacobian行列式',
-  '(下)P.590~614 坐標的變換、面積分',
-  '(下)P.614~634 12.7面積分~12.8積分定理',
-  '(下)12.8.2~12.8.3 散度定理、Stokes定理']},
- {id:'micro',subject:'工數',name:'微方（喻·115春）',base:6,titles:[
-  'P.171~204 2.5~3.1',
-  'P203~207 高階ODE',
-  'P.208~236 待定係數',
-  'P236~371 常係數線性ODE',
-  'P.268~284 常係數線性ODE',
-  'P.285~337 高階ODE及應用',
-  'P.330~345',
-  'P335~397 CH3-4自變數變換法',
-  'p.395~437']},
- {id:'linalg',subject:'線性代數',name:'線代（喻·114暑）',base:1,titles:[
-  '講義P1~課本P.215 常見的數學符號',
-  'p215~218 常見的向量空間',
-  'P.219~239 生成空間(簡化空間集合)',
-  'P.218~256 Rank',
-  'P252~280 基底變換',
-  'P252~280 基底變換',
-  'P.290~310 線性變換',
-  'P.292~320 線性變換',
-  'p331~359 線性變換矩陣表示法',
-  'P336~380 座標轉換、基底變換',
-  'P.354~392 特徵值系統與仰角化',
-  'P.409~453 Householder矩陣',
-  'p.453~470 正交集合、QR分解',
-  'P.478~509 正交投影、最小二乘方',
-  'P.509~565 伴隨運算',
-  'P.565~575 正交運算']},
- {id:'matrix',subject:'線性代數',name:'矩陣（喻·115春）',base:1,titles:[
-  '(下)P.247~300 矩陣代數運算',
-  '(下)P.397~299 聯立方程式的解',
-  '(下)p.319~324 特徵值與特徵向量',
-  '(下)P329~343 特徵值與特徵向量',
-  '(下)P.353~366 相似轉換',
-  'P125~128 解方陣函數',
-  'p.374~407 常係數齊次聯立',
-  'P.420~432 定理與最小多項式',
-  'P.433~445 二次式其及應用',
-  'P.436~452 實數二次式']},
- {id:'control',subject:'自動控制',name:'自動控制（T Video）',base:1,titles:[
-  '26-02 倒單擺系統 p558',
-  '26-01 ex13-2 p543',
-  '25-02 狀態迴授與觀察 p534',
-  '25-01 觀察器設計 p528',
-  '24-02 性質四 p495',
-  '24-01 控制性與觀察性 p482',
-  '23-02 控制性與觀察性 p471',
-  '23-01 動態方程式之解 p455',
-  '22-02 並聯分解法 p451',
-  '22-01 轉移函數之分解',
-  '21-02 動態方程式 p432',
-  '21-01 相位領先的時域補償 p391',
-  '19-02 相位領先補償器 p356',
-  '19-01 PID控制器 p344',
-  '18-02 控制系統的設計+補償 p340',
-  '18-01 時間延遲元件的波德圖 p318',
-  '17-02 ex7-23 p315',
-  '17-01 增益邊限 p306',
-  '15-02 奈氏穩定準則 p272',
-  '15-01 p252',
-  '14-02 全通系統與極小相應系統 p252',
-  '14-01 波德圖 p245',
-  '13-02 標準二階系統的頻率響應分析 p231',
-  '13-01 CH5-5 p217',
-  '12-02 加入極點對根軌跡影響 P211',
-  '12-01 ex5-11 例題解析 P190',
-  '10-02 穩態誤差 P162',
-  '10-01 穩態響應 P148',
-  '09-02 穩態響應 P141',
-  '09-01 響應分析 P132',
-  '08-02 系統極點與暫態性能關係 p127',
-  '08-01 尖峰時間 p118']},
- {id:'elec',subject:'電子學',name:'114暑電子（劉明彰）',base:2,titles:[
-  'P.4~8 戴維寧等效電路解析',
-  'P.11~18 O-3模型近似解、二極體-電阻電路',
-  'P.18~23 開路跨壓檢測',
-  '(補01)P35~37 倍壓器、半導體',
-  '(補01)P35~37 倍壓器、半導體',
-  'P37~43 接面空乏區',
-  '(補01)P.40~45 (I-V)特性',
-  '(補01)P.48~50 集極回授偏壓法',
-  '(補01)P48~54 多顆偏壓~主動區的限制',
-  '(補01)P.60~61 IV特性圖',
-  '(補01)p.65~67 Amplifier(放大器)',
-  '(補01)P.73~79 BJT的小訊號模型',
-  '(補01)p.40~88 BJT直流偏壓、重要阻抗',
-  '(補01)P.87~89、P.150~163',
-  '(補01)p.163~193 多級放大器的分析',
-  'P.90~106 電流',
-  'P.105~109 高階鏡',
-  '(補01)P.108~122 實擺幅高階鏡',
-  '(補01)P.122~130 差動放大器',
-  '(補01)P130~134 頻率響應',
-  '(補01)P.132~144 波德圖、CE(CS)的低頻',
-  '補充P145、課本P323 CC(CD)高頻、CASCODE',
-  'P58~59 非完美OD、OP波德圖',
-  '(補01)P.160~173 非線性OD、回授',
-  '(補01)P.170~180 回授響應、尼奎斯特穩定準則',
-  '(補01)P.180~182 頻率補償、米勒補償',
-  '(補01)P.183~195 IC-CG、IC-CD',
-  '(補01)p.195~211 反向器(Inverter)',
-  '(補01)P.211~217 輸出級、推拉式B類、交叉失真',
-  '(補01)P217~225 二極體偏壓AB類、濾波器',
-  '(補01)P227~228 萬用阻抗轉換器、穩壓器、齊納穩壓器']},
-];
-const SEED=_C.map(c=>({id:c.id,subject:c.subject,name:c.name,
-  sessions:c.titles.map((t,i)=>({n:c.base+i,title:t}))}));
 
 /* ---------- 日期工具（本地時區） ---------- */
 function todayStr(d=new Date()){return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;}
@@ -1589,43 +2061,33 @@ function weekRange(s){const d=parseD(s),wd=(d.getDay()+6)%7;const mon=new Date(d
   const sun=new Date(mon);sun.setDate(mon.getDate()+6);return{mon:todayStr(mon),sun:todayStr(sun),idx:wd+1};}
 
 /* ---------- 狀態 ---------- */
-let TK=loadTK();
-const tkOpen=new Set();
-function loadTK(){
-  const raw=JSON.parse(localStorage.getItem(TK_LS)||'null');
-  if(raw&&raw.courses) return raw;
-  const total=SEED.reduce((a,c)=>a+c.sessions.length,0);
-  const start=todayStr();
-  const totalDays=Math.max(1,dayDiff(SPRINT_DEFAULT,start));
-  const t={courses:SEED,done:{},sprint:SPRINT_DEFAULT,startDate:start,pace0:Math.ceil(total/totalDays)};
-  localStorage.setItem(TK_LS,JSON.stringify(t));return t;
-}
-const saveTK=()=>localStorage.setItem(TK_LS,JSON.stringify(TK));
-function idSubjIndex(){const m={};for(const c of TK.courses)for(const s of c.sessions)m[c.id+'-'+s.n]=c.subject;return m;}
-
-/* ---------- 指標計算 ---------- */
-function metrics(){
-  const today=todayStr();
-  const D=Math.max(1,dayDiff(TK.sprint,today));
-  const subjRem={};let X=0;
-  for(const c of TK.courses)for(const s of c.sessions){
-    if(!TK.done[c.id+'-'+s.n]){subjRem[c.subject]=(subjRem[c.subject]||0)+1;X++;}
+/* ---------- 本機離線影片：F:\istudy-backup 經 media/ 連結對外供應 ---------- */
+const spNorm = c => (c || '').replace(/\([^)]*\)/g, '').trim();
+// 媒體來源優先序：8795 媒體伺服器（支援 Range，可拖曳快轉）→ 退回 media/ 連結（不能跳轉）
+const MEDIA_SRV = 'http://localhost:8795/';
+let MEDIA_BASE = '../media/', MEDIA_SEEKABLE = false;
+async function loadLocal(){
+  let st = null;
+  try{
+    st = await fetch(MEDIA_SRV + 'state.json', {cache:'no-store'}).then(r=>{if(!r.ok)throw 0;return r.json();});
+    MEDIA_BASE = MEDIA_SRV; MEDIA_SEEKABLE = true;
+  }catch(e){
+    try{
+      st = await fetch('../media/state.json', {cache:'no-store'}).then(r=>{if(!r.ok)throw 0;return r.json();});
+      MEDIA_BASE = '../media/'; MEDIA_SEEKABLE = false;
+    }catch(e2){ LOCAL = {}; return; }
   }
-  const perDay={},perWeek={};let todayQuota=0;
-  for(const sub in subjRem){const rem=subjRem[sub];if(rem<=0)continue;
-    perDay[sub]=Math.ceil(rem/D);perWeek[sub]=Math.min(rem,perDay[sub]*7);todayQuota+=perDay[sub];}
-  const wr=weekRange(today),idSub=idSubjIndex();
-  let doneToday=0;const weekDone={};
-  for(const id in TK.done){const dt=TK.done[id];
-    if(dt===today)doneToday++;
-    if(dt>=wr.mon&&dt<=wr.sun){const s=idSub[id];if(s)weekDone[s]=(weekDone[s]||0)+1;}}
-  return{today,D,X,subjRem,perDay,perWeek,todayQuota,doneToday,
-    todayLeft:Math.max(0,todayQuota-doneToday),weekDone,weekIdx:wr.idx,
-    behind:X>0&&todayQuota>TK.pace0};
+  const map = {};
+  for(const v of Object.values(st)){
+    if(v.status !== 'done' || !v.path) continue;
+    const rel = v.path.replace(/^[A-Za-z]:\\istudy-backup\\/, '').replace(/\\/g, '/');
+    map[spNorm(v.code)] = {url: MEDIA_BASE + rel.split('/').map(encodeURIComponent).join('/'),
+                           min: Math.round((v.sec||0)/60), gb: (v.bytes||0)/2**30};
+  }
+  LOCAL = map;
 }
 
-/* ---------- 進入點 ---------- */
-/* ---------- 版面風格：深色氛圍 ⇄ !Boring 白，可切換 ---------- */
+/* ---------- 版面風格：深色氛圍 ⇄ !Boring 白 ---------- */
 const SKIN_LS='feb-skin';
 function applySkin(s){
   document.body.dataset.skin=s;
@@ -1639,103 +2101,879 @@ applySkin(localStorage.getItem(SKIN_LS)||'ambient');
 function initStudy(){
   _febSelfCheck();
   const st=document.getElementById('skinToggle');
-  st.onclick=()=>applySkin(document.body.dataset.skin==='boring'?'ambient':'boring');
-  document.getElementById('tkSubj').innerHTML=SUBJECT_ORDER.map(s=>`<option>${esc(s)}</option>`).join('');
-  document.getElementById('tkAdd').onclick=addCourse;
-  renderTracker();
+  if(st) st.onclick=()=>applySkin(document.body.dataset.skin==='boring'?'ambient':'boring');
+  renderStudy();
 }
-function renderTracker(){renderTop();renderWeek();renderGroups();}
 
-function renderTop(){
-  const m=metrics(),el=document.getElementById('tkTop');
-  el.classList.toggle('behind',m.behind);
-  el.innerHTML=`
-    <label class="tk-stat tk-date">衝刺日<input type="date" id="sprintDate" value="${TK.sprint}"></label>
-    <div class="tk-stat"><i>離衝刺</i><b>${m.X>0?m.D+' 天':'—'}</b></div>
-    <div class="tk-stat"><i>全部剩</i><b>${m.X} 堂</b></div>
-    <div class="tk-stat hi"><i>今天該看</i><b>${m.todayQuota} 堂</b></div>
-    <div class="tk-stat"><i>已登記</i><b>${m.doneToday}</b></div>
-    <div class="tk-stat"><i>還差</i><b>${m.todayLeft}</b></div>
-    ${m.X===0?'<div class="tk-done-all">全部看完 🎉</div>':''}`;
-  document.getElementById('sprintDate').onchange=e=>{
-    if(!e.target.value)return;TK.sprint=e.target.value;saveTK();renderTracker();};
+/* ---------- 讀書模式：主從式（左選、右看），取代原本層層展開的長列 ---------- */
+const SP_LS='feb-sprint-v1';
+const WM_LS='feb-wm-v1';
+const SP_WEEKS=['地基','最大板塊','衝刺主峰','收攏第一輪'];
+const SP_STAT={elec:'MOSFET 31%，前 6 章 ≈ 80%',math:'線代 39%＋ODE 38%＋拉氏傅立葉 10% ≈ 87%',
+  ctrl:'7 大章均勻分佈，一章不可跳'};
+const SUBJ_TAG={elec:'電子',math:'工數',la:'線代',ctrl:'控制'};
+let SP=readJSON(SP_LS,{done:{}});
+SP.miss=SP.miss||{};          // 章節 → 累計錯題數（只記數字，不要求打字）
+const spSave=()=>localStorage.setItem(SP_LS,JSON.stringify(SP));
+const WM=Object.assign({view:'sprint',week:0,sel:null,libSel:null},readJSON(WM_LS,{}));
+const wmSave=()=>localStorage.setItem(WM_LS,JSON.stringify({view:WM.view,sel:WM.sel,libSel:WM.libSel}));
+
+/* ---------- 目標校系：只把想考的學校算進熱區 ---------- */
+const TGT_LS='feb-target-v1';
+/* 系所組 → 該組筆試會用到的分析卷。成大電機乙組(ncku-*)與工科甲組(nckues-*)是不同考卷，
+   不能只用學校 id 對應，所以逐組列明。無筆試的組別不貢獻任何考卷。 */
+const PROG_ANA={
+  'ntu|甲組':['ntu-math','ntu-control'],
+  'ust|乙A組':['ust-control','ust-math'],
+  'ust|清大丙組':['ust-elec'],
+  'ncu|智慧系統組':['ncu-math','ncu-elec'],
+  'nthu-pme|乙組':['nthupme-control'],
+  'nsysu|乙組':['nsysu-math','nsysu-control'],
+  'ntust|自控所':['ntust-math'],
+  'ncku|電機乙組':['ncku-math','ncku-control'],
+  'ncku|工科甲組':['nckues-math','nckues-la','nckues-control','nckues-sig','nckues-circ'],
+  'ntut|丙組':['ntut-math','ntut-control'],
+};
+const PROG_LABEL={
+  'ntu|甲組':'台大 電機所 甲組（自動控制）',
+  'ust|乙A組':'陽交 電控所 乙A組（筆試入學）',
+  'ust|清大丙組':'清大 電機 丙組（電子學）',
+  'ncu|智慧系統組':'中央 電機 智慧系統組',
+  'nthu-pme|乙組':'清大 動機 乙組（電機控制）',
+  'nsysu|乙組':'中山 電機 乙組（控制組）',
+  'ntust|自控所':'台科 自動化及控制所',
+  'ncku|電機乙組':'成大 電機 乙組（系統控制）',
+  'ncku|工科甲組':'成大 工科 甲組（控制與通訊）',
+  'ntut|丙組':'北科 電機 丙組（控制工程）',
+};
+let TGT=new Set(readJSON(TGT_LS,[]));
+const tgtSave=()=>localStorage.setItem(TGT_LS,JSON.stringify([...TGT]));
+/* 目前生效的分析卷；沒選目標＝全部 8 校都算 */
+function activeAnaKeys(){
+  if(!TGT.size) return null;
+  const s=new Set();
+  for(const p of TGT) (PROG_ANA[p]||[]).forEach(k=>s.add(k));
+  return s;
 }
-function renderWeek(){
-  const m=metrics();
-  const rows=SUBJECT_ORDER.filter(s=>(m.subjRem[s]||0)>0).map(s=>{
-    const per=m.perWeek[s]||0,day=m.perDay[s]||0,wd=m.weekDone[s]||0;
-    const frac=per?Math.min(1,wd/per):1;
-    const behind=wd<day*m.weekIdx;
-    return `<div class="tk-wrow ${behind?'behind':''}">
-      <span class="nm">${esc(s)}</span>
-      <span class="q">本週 <b>${per}</b> 堂 · 每天約 ${day}</span>
-      <span class="tk-bar"><i style="transform:scaleX(${frac})"></i></span>
-      <span class="wd">${wd}/${per}</span></div>`;
-  });
-  document.getElementById('tkWeekBody').innerHTML=rows.length?rows.join(''):'<div class="empty">沒有待看課程了 🎉</div>';
+
+/* 該章在十年裡的出題分佈：回傳 {year:count} 與可開的考卷連結 */
+function spExamData(subj,ch){
+  const years={}, bySch={}, seen=new Set();
+  if(!INDEX||!DATA) return {years,bySch,n:0};
+  const allow=activeAnaKeys();
+  for(const key of (subj.anaKeys||[]).filter(k=>!allow||allow.has(k))){
+    const d=ANA[key], map=ANA_MAP[key];
+    if(!d||!map) continue;
+    const [sid,subName]=map;
+    const row=examRows(sid).get(subName);
+    for(const c of (d.chapters||[])){
+      if(!ch.match.some(t=>c.name.includes(t))) continue;
+      for(const y in (c.years||{})){
+        const v=+c.years[y]||0;
+        if(!v) continue;
+        years[y]=(years[y]||0)+v;
+        const e=row?.years[y];
+        if(!e||e.status!=='downloaded'||seen.has(e.path)) continue;
+        seen.add(e.path);
+        const sn=(chanById(sid)?.shortName||sid)+(subName.startsWith('工科')?'工科':'');
+        // qs：該年屬於這章的大題題號（NotebookLM 分析產出，沒有就留空）
+        const qs=(c.qs?.[y]||[]).filter(n=>+n>0);
+        (bySch[sn]??=[]).push([+y,e.path,qs]);
+      }
+    }
+  }
+  return {years,bySch,n:seen.size};
 }
-function renderGroups(){
-  const done=TK.done;
-  const html=SUBJECT_ORDER.map(sub=>{
-    const courses=TK.courses.filter(c=>c.subject===sub);
-    if(!courses.length)return '';
-    const cards=courses.map(c=>{
-      const total=c.sessions.length;
-      const doneN=c.sessions.filter(s=>done[c.id+'-'+s.n]).length;
-      const rem=total-doneN,frac=total?doneN/total:0,open=tkOpen.has(c.id);
-      const sess=c.sessions.map(s=>{const id=c.id+'-'+s.n,dn=!!done[id];
-        return `<label class="tk-sess ${dn?'done':''}"><input type="checkbox" data-id="${id}" ${dn?'checked':''}>
-          <span class="sn">${esc(s.n)}</span><span class="st">${esc(s.title||'')}</span></label>`;}).join('');
-      return `<div class="tk-card glass ${open?'open':''}" data-cid="${esc(c.id)}">
-        <div class="tk-chead">
-          <div class="tk-cn"><b>${esc(c.name)}</b>${rem===0?'<span class="ok">✓ 已完成</span>':''}</div>
-          <div class="tk-cmeta"><span class="tk-bar"><i style="transform:scaleX(${frac})"></i></span>
-            <span class="val">${doneN}/${total}${rem?` · 剩 ${rem}`:''}</span>
-            <button class="tk-x" data-del="${esc(c.id)}" title="刪除課程">✕</button>
-            <span class="tk-caret">▸</span></div>
-        </div>
-        <div class="tk-sessions"><div class="tk-sinner"><div class="tk-spad">${sess}</div></div></div></div>`;
-    }).join('');
-    return `<div class="tk-grp"><h3 class="tk-gh">${esc(sub)}</h3><div class="tk-courses">${cards}</div></div>`;
+/* 該章影片看了多少：從播放器存的位置回推。
+   進度條算的是「章節打勾」，看影片不會讓它動——這裡補上真正的觀看進度。 */
+function watchOf(ch){
+  const eps=VIDEOS?.istudy?.byChapter?.[ch.id]||[];
+  if(!eps.length) return null;
+  const pos=readJSON(PL_LS,{});
+  let seen=0, total=0, started=0;
+  for(const e of eps){
+    const f=LOCAL[spNorm(e.code)];
+    if(!f) continue;
+    total++;
+    const rec=pos[f.url];
+    const pct=typeof rec==='number'?0:(rec?.pct||0);
+    if(pct>=90) seen++;
+    else if(pct>2){ seen+=pct/100; started++; }
+  }
+  if(!total) return null;
+  return {frac:Math.min(1,seen/total), total, started};
+}
+
+function yrStrip(years){
+  return `<span class="yr" title="十年出題分佈（亮＝該年有考）">${YEARS.map(y=>{
+    const v=years[y]||0;
+    return `<i class="${v>=3?'h3':v===2?'h2':v?'h1':''}"></i>`;}).join('')}</span>`;
+}
+
+/* 目前所在的週次（1–4，超出範圍就夾住） */
+function wmCurWeek(){
+  if(!SPRINT_PLAN) return 1;
+  const d=Math.max(0,dayDiff(todayStr(),SPRINT_PLAN.start));
+  return Math.min(4,Math.max(1,Math.floor(d/7)+1));
+}
+function wmChapters(){
+  const out=[];
+  for(const s of (SPRINT_PLAN?.subjects||[]))
+    for(const c of s.chapters) out.push({subj:s,ch:c,phase2:!!s.phase2});
+  return out;
+}
+function wmHours(week){
+  let tot=0,done=0;
+  for(const {ch,phase2} of wmChapters()){
+    if(phase2||(week&&ch.week!==week)) continue;
+    tot+=ch.hours; if(SP.done[ch.id]) done+=ch.hours;
+  }
+  return {tot,done};
+}
+
+function renderWmBar(){
+  const bar=document.getElementById('wmBar');
+  if(!SPRINT_PLAN){bar.innerHTML='';return;}
+  const now=wmCurWeek();
+  if(!WM.week) WM.week=now;
+  const left=Math.max(0,dayDiff(SPRINT_PLAN.deadline,todayStr()));
+  const all=wmHours(0), frac=all.tot?all.done/all.tot:0;
+  const fmt=d=>`${d.getMonth()+1}/${d.getDate()}`;
+  const weeks=[1,2,3,4].map(w=>{
+    const a=parseD(SPRINT_PLAN.start); a.setDate(a.getDate()+(w-1)*7);
+    let b=new Date(a); b.setDate(a.getDate()+6);
+    const dl=parseD(SPRINT_PLAN.deadline); if(b>dl)b=dl;
+    const h=wmHours(w);
+    return `<button class="${w===WM.week?'on':''} ${w===now?'now':''}" data-wk="${w}"
+      title="${esc(SP_WEEKS[w-1])}・${fmt(a)}–${fmt(b)}・${h.done}/${h.tot}h">W${w}</button>`;
   }).join('');
-  const host=document.getElementById('tkGroups');
+  bar.innerHTML=`
+    <div class="wm-cd"><b>${left}</b><i>天到 9/12</i></div>
+    <div class="wm-prog"><span class="tk-bar"><i style="transform:scaleX(${frac})"></i></span>
+      <span>${all.done}/${all.tot}h</span></div>
+    <button class="${TGT.size?'ui-solid':'ui-ghost'} sm" id="wmTgt" type="button">${
+      TGT.size?`目標 ${TGT.size} 校系`:'目標校系：全部'}</button>
+    <div class="wm-srch">
+      <input id="wmQ" type="search" placeholder="搜尋所有影片逐字稿…" autocomplete="off">
+      <div class="srch-pop glass" id="wmQPop" hidden></div>
+    </div>
+    <div class="wm-right">
+      <div class="ui-seg">${weeks}</div>
+      <div class="ui-seg">
+        <button class="${WM.view==='sprint'?'on':''}" data-view="sprint">衝刺</button>
+        <button class="${WM.view==='lib'?'on':''}" data-view="lib">影片庫</button>
+      </div>
+    </div>`;
+  bar.querySelectorAll('[data-wk]').forEach(b=>b.onclick=()=>{
+    WM.week=+b.dataset.wk; WM.view='sprint'; WM.sel=null; renderStudy();});
+  bar.querySelectorAll('[data-view]').forEach(b=>b.onclick=()=>{
+    WM.view=b.dataset.view; wmSave(); renderStudy();});
+  const tb=document.getElementById('wmTgt');
+  if(tb) tb.onclick=openTarget;
+  bindSearch();
+}
+
+/* 目標校系挑選：勾了哪幾組，十年考點就只算那幾組的考卷 */
+function openTarget(){
+  let m=document.getElementById('tgtModal');
+  if(!m){
+    m=document.createElement('div'); m.id='tgtModal'; m.className='modal';
+    m.innerHTML=`<div class="modal-back" data-tclose></div>
+      <div class="modal-panel glass tgt-panel">
+        <button class="modal-x lq" type="button" data-tclose aria-label="關閉">✕</button>
+        <h3>目標校系</h3>
+        <p class="tgt-note">勾選你要報考的組別，章節旁的<b>十年考點</b>與右欄考卷就只算這些組的考題。
+          全部不勾＝八校都算。無筆試的組別（陽交甲組、台科電機丙組、成大機械戊組）不影響考點統計，故未列出。</p>
+        <div class="tgt-list" id="tgtList"></div>
+        <div class="tgt-foot">
+          <button class="lq mist2" type="button" data-tall>全選</button>
+          <button class="lq mist2" type="button" data-tnone>全部取消</button>
+          <button class="lq gold" type="button" data-tclose>完成</button>
+        </div>
+      </div>`;
+    document.body.appendChild(m);
+    m.addEventListener('click',ev=>{
+      if(ev.target.closest('[data-tclose]')){ m.hidden=true;
+        document.body.classList.remove('modal-open'); renderStudy(); return; }
+      if(ev.target.closest('[data-tall]')){ TGT=new Set(Object.keys(PROG_ANA)); tgtSave(); fillTarget(); return; }
+      if(ev.target.closest('[data-tnone]')){ TGT.clear(); tgtSave(); fillTarget(); }
+    });
+  }
+  fillTarget();
+  m.hidden=false; document.body.classList.add('modal-open');
+}
+function fillTarget(){
+  const host=document.getElementById('tgtList');
+  if(!host||!DATA) return;
+  const bySchool={};
+  for(const k of Object.keys(PROG_ANA)) (bySchool[k.split('|')[0]] ??= []).push(k);
+  host.innerHTML=SCHOOL_ORDER.filter(sid=>bySchool[sid]).map(sid=>{
+    const c=chanById(sid);
+    return `<div class="tgt-grp"><h4>${esc(c?.shortName||sid)}</h4>${
+      bySchool[sid].map(k=>{
+        const subs=(PROG_ANA[k]||[]).map(a=>ANA_MAP[a]?.[1]).filter(Boolean);
+        return `<label class="tgt-row ${TGT.has(k)?'on':''}">
+          <input type="checkbox" data-prog="${esc(k)}" ${TGT.has(k)?'checked':''}>
+          <span class="t1">${esc(PROG_LABEL[k].replace(/^\S+\s/,''))}</span>
+          <span class="t2">${esc([...new Set(subs)].join('・')||'—')}</span></label>`;
+      }).join('')}</div>`;
+  }).join('');
+  host.querySelectorAll('input[data-prog]').forEach(cb=>cb.onchange=()=>{
+    cb.checked?TGT.add(cb.dataset.prog):TGT.delete(cb.dataset.prog);
+    tgtSave(); fillTarget();
+  });
+}
+
+function renderWmList(){
+  const host=document.getElementById('wmList');
+  if(WM.view==='lib') return renderLibList(host);
+  const rows=wmChapters().filter(x=>!x.phase2&&x.ch.week===WM.week);
+  const ctrl=wmChapters().filter(x=>x.phase2);
+  // 選取合法性要連控制章節一起看，否則點控制的章節會被彈回當週第一項
+  if(!WM.sel||![...rows,...ctrl].some(r=>r.ch.id===WM.sel)) WM.sel=rows[0]?.ch.id||ctrl[0]?.ch.id||null;
+  const line=({subj,ch})=>{
+    const dn=!!SP.done[ch.id], ex=spExamData(subj,ch);
+    const w=watchOf(ch);
+    return `<button class="wm-row ${dn?'done':''} ${ch.id===WM.sel?'on':''}"
+      data-ch="${esc(ch.id)}" data-subj="${esc(subj.id)}">
+      <input type="checkbox" data-sp="${esc(ch.id)}" ${dn?'checked':''} onclick="event.stopPropagation()">
+      <span class="dot"></span>
+      <span class="nm">${esc(ch.name.replace(/^(電子學|線代)：/,''))}${
+        w&&w.frac>0.01?`<i class="seen" title="影片已看約 ${Math.round(w.frac*100)}%"
+          style="--w:${w.frac}"></i>`:''}</span>
+      ${yrStrip(ex.years)}
+      <span class="miss ${SP.miss[ch.id]?'has':''}" data-miss="${esc(ch.id)}"
+        title="寫考古題錯幾題就點幾下（右鍵減一）">${SP.miss[ch.id]?'✕'+SP.miss[ch.id]:'✕'}</span>
+      <span class="hrs">${ch.hours}h</span></button>`;
+  };
+  const cols=`<div class="wm-cols"><span class="c1">章節</span>
+    <span class="c2" title="106–115 每年一格，該年考過就亮">十年考點</span>
+    <span class="c4" title="寫考古題錯幾題就點幾下">錯題</span>
+    <span class="c3">時數</span></div>`;
+  // 錯最多的三章：這才是計數的目的——知道哪裡要回頭補
+  const weak=Object.entries(SP.miss||{}).sort((a,b)=>b[1]-a[1]).slice(0,3);
+  const all=wmChapters();
+  const weakBar=weak.length?`<div class="wm-weak">弱點：${weak.map(([id,n])=>{
+      const c=all.find(x=>x.ch.id===id);
+      return `<button data-ch="${esc(id)}" data-subj="${esc(c?.subj.id||'')}">${
+        esc((c?.ch.name||id).replace(/^(電子學|線代)：/,''))}<b>✕${n}</b></button>`;
+    }).join('')}</div>`:'';
+  host.innerHTML=`${weakBar}<div class="wm-sec">W${WM.week}・${esc(SP_WEEKS[WM.week-1])}</div>${cols}
+    ${rows.map(line).join('')||'<div class="wm-empty">這週沒有排章節</div>'}
+    <div class="wm-sec">控制系統・9/13 起</div>${cols}${ctrl.map(line).join('')}`;
+  host.querySelectorAll('[data-ch]').forEach(b=>b.onclick=()=>{
+    const id=b.dataset.ch;
+    const hit=wmChapters().find(x=>x.ch.id===id);
+    if(hit&&!hit.phase2&&hit.ch.week!==WM.week) WM.week=hit.ch.week;  // 弱點捷徑會跨週
+    WM.sel=id; wmSave(); renderStudy();});
+  host.querySelectorAll('input[data-sp]').forEach(cb=>cb.onchange=()=>{
+    const id=cb.dataset.sp;
+    if(cb.checked)SP.done[id]=todayStr(); else delete SP.done[id];
+    spSave(); renderStudy();});
+  // 錯題計數：左鍵 +1、右鍵 −1，不打字所以不會被放棄
+  host.querySelectorAll('[data-miss]').forEach(el=>{
+    const bump=(d,ev)=>{
+      ev.preventDefault(); ev.stopPropagation();
+      const id=el.dataset.miss;
+      SP.miss[id]=Math.max(0,(SP.miss[id]||0)+d);
+      if(!SP.miss[id]) delete SP.miss[id];
+      spSave(); renderStudy();
+    };
+    el.onclick=e=>bump(1,e);
+    el.oncontextmenu=e=>bump(-1,e);
+    // 觸控：右滑 +1、左滑 −1（平板上沒有右鍵可按）
+    let x0=null;
+    el.addEventListener('touchstart',e=>{x0=e.touches[0].clientX;},{passive:true});
+    el.addEventListener('touchend',e=>{
+      if(x0===null) return;
+      const dx=e.changedTouches[0].clientX-x0; x0=null;
+      if(Math.abs(dx)<24) return;          // 太短當作點擊，交給 onclick
+      bump(dx>0?1:-1,e);
+    });
+  });
+}
+
+function renderWmDetail(){
+  const host=document.getElementById('wmDetail');
+  if(WM.view==='lib') return renderLibDetail(host);
+  const hit=wmChapters().find(x=>x.ch.id===WM.sel);
+  if(!hit){host.innerHTML='<div class="wm-empty">左邊選一個章節</div>';return;}
+  const {subj,ch}=hit, ex=spExamData(subj,ch);
+  host.dataset.subj=subj.id;   // 讓右欄玻璃染上該科色溫
+  const eps=VIDEOS?.istudy?.byChapter?.[ch.id]||[];
+  const yt=VIDEOS?.byChapter?.[ch.id]||[];
+  const ce=VIDEOS?.istudy?.courseCE?.[ch.id];
+  const got=eps.filter(e=>LOCAL[spNorm(e.code)]).length;
+
+  const epRows=eps.map(e=>{
+    const f=LOCAL[spNorm(e.code)];
+    return f?`<button class="sp-ep have" type="button" data-play="${esc(f.url)}" data-name="${esc(e.code+' '+e.title)}">
+        <span class="pl">▶</span><b>${esc(e.code)}</b> ${esc(e.title)}<i>${f.min} 分</i></button>`
+      :`<span class="sp-ep"><b>${esc(e.code)}</b> ${esc(e.title)}<i>未下載</i></span>`;
+  }).join('');
+  const ytRows=yt.map(v=>`<button class="sp-ep have" type="button" data-yt="${esc(v.id)}"
+    data-name="${esc(v.lec+' '+v.title)}">
+    <span class="pl">▶</span><b>${esc(v.lec)}</b> ${esc(v.title)}<i>${v.min} 分</i></button>`).join('');
+  // 年份多的時候只先給最近 5 年，其餘收在「顯示全部」後面
+  let hidden=0, withQ=0;
+  const exRows=Object.entries(ex.bySch).map(([sn,arr])=>{
+    arr.sort((a,b)=>b[0]-a[0]);
+    return `<span class="sp-sch"><b>${esc(sn)}</b>${arr.map(([y,p,qs],i)=>{
+      if(i>=5) hidden++;
+      if(qs?.length) withQ++;
+      // 有題號就標出來，點開考卷直接翻那幾題，不必整份掃
+      const label=qs?.length?`${y}<em>第 ${qs.join('、')} 題</em>`:`${y}`;
+      return `<a class="${i>=5?'old':''} ${qs?.length?'hasq':''}" href="../data/exams/${esc(p)}"
+        target="_blank" rel="noopener"
+        title="${qs?.length?`這份考卷的第 ${qs.join('、')} 大題屬於本章`:'尚未標出題號'}">${label}</a>`;
+      }).join('')}</span>`;
+  }).join('');
+  const hot=Object.values(ex.years).reduce((a,b)=>a+b,0);
+  const yrsHit=Object.keys(ex.years).length;
+
+  host.innerHTML=`
+    <div class="wm-dh"><h3>${esc(ch.name)}</h3>
+      <span class="tag">${esc(SUBJ_TAG[subj.id]||subj.id)}</span>
+      <span class="tag">${ch.hours}h</span>
+      ${SP.done[ch.id]?'<span class="tag">已完成</span>':''}</div>
+    <p class="wm-dsub">${TGT.size?`依你勾的 <b>${TGT.size} 個目標校系</b>：`:'八校合計：'}十年裡
+      <b>${yrsHit} 個年份</b>考過、共 <b>${hot}</b> 大題。${esc(SP_STAT[subj.id]||'')}。
+      <br>勾完成的標準是<b>該章考古題能動筆</b>，不是影片看完。</p>
+    ${eps.length?`<div class="wm-blk"><h4>iStudy 集數 <em>${got}/${eps.length} 已離線</em></h4>${epRows}
+      ${ce?`<a class="sp-open" href="https://istudy.way-to-win.com/cloud/video_main.php?ce=${encodeURIComponent(ce)}"
+        target="_blank" rel="noopener">→ 開 iStudy 課程列表</a>`:''}</div>`:''}
+    ${yt.length?`<div class="wm-blk"><h4>YouTube <em>${yt.length} 支</em></h4>${ytRows}</div>`:''}
+    ${ex.n?`<div class="wm-blk"><h4>考古題 <em>${ex.n} 份</em><span style="margin-left:auto;font-size:.72rem">${
+        withQ?`${withQ} 份已標題號`:'近年在前'}</span></h4>${exRows}
+      ${withQ?'':'<p class="q-note">年份旁還沒有題號——跑一次 <b>run_redo.bat</b> 讓 NotebookLM 補上「這章是第幾題」，之後點開考卷就能直接翻到那幾題。</p>'}
+      ${hidden?`<button class="ex-more" type="button" data-exmore>顯示較早的 ${hidden} 份</button>`:''}</div>`
+      :`<div class="wm-blk"><h4>考古題</h4><span class="wm-dsub">${
+        TGT.size?'你勾的目標校系裡，這章沒有已收的考卷':'這章沒有對應的已收考卷'}</span></div>`}`;
+  host.querySelectorAll('[data-play]').forEach(b=>b.onclick=()=>openPlayer(b.dataset.play,b.dataset.name));
+  host.querySelectorAll('[data-yt]').forEach(b=>b.onclick=()=>openYT(b.dataset.yt,b.dataset.name));
+  const more=host.querySelector('[data-exmore]');
+  if(more) more.onclick=()=>{
+    host.querySelectorAll('.sp-sch').forEach(s=>s.classList.add('all'));
+    more.remove();
+  };
+}
+
+/* ---------- 影片庫（同一套主從版面） ---------- */
+const LIB_SUBJ=[
+  {id:'elec', name:'電子學',   pre:'電子學/'},
+  {id:'math', name:'工程數學', pre:'工數/'},
+  {id:'la',   name:'線性代數', pre:'線代/'},
+  {id:'toeic',name:'多益',     pre:'多益/'},
+];
+// 使用者 2026-08-17 指定不在側欄列出的系列（檔案照抓，只是不顯示）
+const LIB_HIDE=new Set(['電子學/114暑電子']);
+let MANIFEST=null;
+async function loadManifest(){
+  for(const base of [MEDIA_BASE,'../media/']){
+    try{
+      const m=await fetch(base+'manifest.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw 0;return r.json();});
+      MANIFEST=m.episodes||[]; return;
+    }catch(e){}
+  }
+  MANIFEST=[];
+}
+function libGroups(){
+  const out=[];
+  for(const s of LIB_SUBJ){
+    const eps=(MANIFEST||[]).filter(e=>e.series.startsWith(s.pre));
+    if(!eps.length) continue;
+    const bySer={};
+    for(const e of eps)(bySer[e.series]??=[]).push(e);
+    for(const [ser,list] of Object.entries(bySer)){
+      if(LIB_HIDE.has(ser)) continue;
+      list.sort((a,b)=>a.code.localeCompare(b.code,'zh-Hant',{numeric:true}));
+      out.push({key:ser,subj:s.name,label:ser.split('/')[1],eps:list,
+        got:list.filter(e=>LOCAL[spNorm(e.code)]).length});
+    }
+  }
+  const yt=VIDEOS?.byChapter;
+  if(yt){
+    const seen=new Set(),list=[];
+    for(const arr of Object.values(yt))for(const v of arr)
+      if(!seen.has(v.id)){seen.add(v.id);list.push(v);}
+    list.sort((a,b)=>a.lec.localeCompare(b.lec,'en',{numeric:true}));
+    out.push({key:'yt-ctrl',subj:'自動控制',label:'T Video（YouTube）',yt:list,got:0,eps:list});
+  }
+  return out;
+}
+function renderLibList(host){
+  const gs=libGroups();
+  if(!gs.length){host.innerHTML='<div class="wm-empty">還沒有影片資料</div>';return;}
+  if(!WM.libSel||!gs.some(g=>g.key===WM.libSel)) WM.libSel=gs[0].key;
+  let html='',cur='';
+  for(const g of gs){
+    if(g.subj!==cur){cur=g.subj;html+=`<div class="wm-sec">${esc(cur)}</div>`;}
+    html+=`<button class="wm-row ${g.key===WM.libSel?'on':''}" data-lib="${esc(g.key)}">
+      <span class="nm">${esc(g.label)}</span>
+      <span class="hrs">${g.yt?`${g.eps.length} 支`:`${g.got}/${g.eps.length} 離線`}</span></button>`;
+  }
   host.innerHTML=html;
-  host.querySelectorAll('.tk-chead').forEach(h=>h.onclick=e=>{
-    if(e.target.closest('[data-del]'))return;
-    const card=h.closest('.tk-card'),cid=card.dataset.cid;
-    if(tkOpen.has(cid))tkOpen.delete(cid);else tkOpen.add(cid);
-    card.classList.toggle('open');});
-  host.querySelectorAll('input[type=checkbox][data-id]').forEach(cb=>cb.onchange=()=>{
-    const id=cb.dataset.id;
-    if(cb.checked)TK.done[id]=todayStr();else delete TK.done[id];
-    saveTK();renderTracker();});
-  host.querySelectorAll('[data-del]').forEach(b=>b.onclick=()=>{
-    const cid=b.dataset.del;
-    if(!confirm('刪除這門課程及其打勾紀錄？'))return;
-    TK.courses=TK.courses.filter(c=>c.id!==cid);
-    for(const k in TK.done)if(k.startsWith(cid+'-'))delete TK.done[k];
-    tkOpen.delete(cid);saveTK();renderTracker();});
+  host.querySelectorAll('[data-lib]').forEach(b=>b.onclick=()=>{
+    WM.libSel=b.dataset.lib; wmSave(); renderStudy();});
 }
-function addCourse(){
-  const sub=document.getElementById('tkSubj').value;
-  const name=document.getElementById('tkName').value.trim();
-  if(!name){alert('請填課程名稱');return;}
-  const listRaw=document.getElementById('tkList').value.trim();
-  const count=parseInt(document.getElementById('tkCount').value,10);
-  let sessions=[];
-  if(listRaw)sessions=listRaw.split('\n').map(x=>x.trim()).filter(Boolean).map((title,i)=>({n:i+1,title}));
-  else if(count>0)sessions=Array.from({length:count},(_,i)=>({n:i+1,title:'第'+(i+1)+'講'}));
-  if(!sessions.length){alert('請貼逐堂標題或填總堂數');return;}
-  const id='u'+Date.now().toString(36);
-  TK.courses.push({id,subject:sub,name,sessions});saveTK();
-  document.getElementById('tkName').value='';document.getElementById('tkList').value='';document.getElementById('tkCount').value='';
-  tkOpen.add(id);renderTracker();
+function renderLibDetail(host){
+  const g=libGroups().find(x=>x.key===WM.libSel);
+  if(!g){host.innerHTML='<div class="wm-empty">左邊選一個課程</div>';return;}
+  const mins=g.yt?g.eps.reduce((s,v)=>s+(v.min||0),0)
+                 :g.eps.reduce((s,e)=>s+(LOCAL[spNorm(e.code)]?.min||0),0);
+  const rows=g.yt
+    ? g.eps.map(v=>`<button class="sp-ep have" type="button" data-yt="${esc(v.id)}"
+        data-name="${esc(v.lec+' '+v.title)}">
+        <span class="pl">▶</span><b>${esc(v.lec)}</b> ${esc(v.title)}<i>${v.min} 分</i></button>`).join('')
+    : g.eps.map(e=>{
+        const f=LOCAL[spNorm(e.code)];
+        return f?`<button class="sp-ep have" type="button" data-play="${esc(f.url)}" data-name="${esc(e.code+' '+e.title)}">
+            <span class="pl">▶</span><b>${esc(e.code)}</b> ${esc(e.title)}<i>${f.min} 分</i></button>`
+          :`<span class="sp-ep"><b>${esc(e.code)}</b> ${esc(e.title)}<i>未下載</i></span>`;
+      }).join('');
+  host.dataset.subj=g.yt?'ctrl':({'電子學':'elec','工程數學':'math','線性代數':'math','多益':'toeic'}[g.subj]||'');
+  host.innerHTML=`
+    <div class="wm-dh"><h3>${esc(g.label)}</h3><span class="tag">${esc(g.subj)}</span>
+      <span class="tag">${g.eps.length} 集</span></div>
+    <p class="wm-dsub">${g.yt?`線上觀看，約 ${Math.round(mins/60)} 小時。`
+      :`<b>${g.got}/${g.eps.length}</b> 已離線${mins?`（約 ${Math.round(mins/60)} 小時）`:''}。
+        ${MEDIA_SEEKABLE?'離線檔預設 2 倍速、可拖曳快轉。':'<b>媒體伺服器未啟動</b>，離線檔無法拖曳。'}`}</p>
+    <div class="wm-blk">${rows}</div>`;
+  host.querySelectorAll('[data-play]').forEach(b=>b.onclick=()=>openPlayer(b.dataset.play,b.dataset.name));
 }
+
+function renderStudy(){
+  const wm=document.getElementById('wm');
+  if(!wm) return;
+  wm.hidden=!SPRINT_PLAN&&!MANIFEST;
+  renderWmBar(); renderWmList(); renderWmDetail();
+}
+
+/* 離線影片播放器：預設 2 倍速、記住上次播放位置 */
+const PL_LS='feb-playpos-v1';
+function openPlayer(url,name){
+  let m=document.getElementById('vidModal');
+  if(!m){
+    m=document.createElement('div'); m.id='vidModal'; m.className='modal';
+    m.innerHTML=`<div class="modal-back" data-vclose></div>
+      <div class="modal-panel glass vid-panel">
+        <button class="modal-x lq" type="button" data-vclose aria-label="關閉">✕</button>
+        <h3 id="vidName"></h3>
+        <div class="vid-main">
+        <video id="vidEl" controls preload="metadata" crossorigin="anonymous"></video>
+        <iframe id="vidFrame" hidden allow="autoplay; encrypted-media; fullscreen"
+          allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
+        <div id="vidChap" hidden></div>
+        <div class="vid-bar" title="鍵盤：← → 退進 10 秒　Shift+← → 60 秒　空白鍵 播放暫停　↑ ↓ 調速　Esc 關閉">
+          <span class="vgrp">
+            <button type="button" class="vbtn" data-seek="-60" title="倒轉 60 秒">−60</button>
+            <button type="button" class="vbtn" data-seek="-10" title="倒轉 10 秒">−10</button>
+            <button type="button" class="vbtn big" data-toggle title="播放／暫停">⏸</button>
+            <button type="button" class="vbtn" data-seek="10" title="快轉 10 秒">+10</button>
+            <button type="button" class="vbtn" data-seek="60" title="快轉 60 秒">+60</button>
+          </span>
+          <select class="vsel" id="vidRateSel" title="播放速度">
+            ${[1,1.25,1.5,1.75,2,2.5,3].map(r=>`<option value="${r}"${r===2?' selected':''}>${r}×</option>`).join('')}
+          </select>
+          <span id="vidSubs"></span>
+          <button type="button" class="vbtn" id="vidMapBtn" data-map hidden>🧠 思考地圖</button>
+          <span class="vid-left" id="vidLeft"></span>
+          <span class="vid-resume" id="vidResume"></span>
+        </div>
+        <p class="yt-hint">YouTube 播放器控制：<b>k</b> 播放暫停　<b>j</b>／<b>l</b> 退進 10 秒　<b>&lt;</b>／<b>&gt;</b> 調速</p>
+        </div>
+        <div id="vidMap" hidden></div>
+      </div>`;
+    document.body.appendChild(m);
+    m.addEventListener('click',ev=>{
+      if(ev.target.closest('[data-vclose]')) return closePlayer();
+      const v=document.getElementById('vidEl');
+      const s=ev.target.closest('[data-seek]');
+      if(s){ vidSeek(+s.dataset.seek); return; }
+      const sb=ev.target.closest('[data-subs]');
+      if(sb){ vidSubs(sb); return; }
+      if(ev.target.closest('[data-toggle]')) return vidToggle();
+      const tj=ev.target.closest('[data-t]');
+      if(tj){ vidSeekTo(+tj.dataset.t); return; }
+      if(ev.target.closest('[data-map]')){
+        const p=document.getElementById('vidMap');
+        if(p&&p.innerHTML){ p.hidden=!p.hidden; syncTwoCol();
+          if(!p.hidden&&!m.querySelector('.vid-panel.two-col'))
+            p.scrollIntoView({behavior:'smooth',block:'nearest'}); }
+        return;
+      }
+      if(ev.target.closest('[data-chlist]')){
+        const l=m.querySelector('.chap-list');
+        if(l){ l.hidden=!l.hidden; m.querySelector('.chap-rail')?.classList.toggle('open',!l.hidden); }
+        return;
+      }
+    });
+  }
+  const v=m.querySelector('#vidEl');
+  const fr=m.querySelector('#vidFrame');
+  m.querySelector('#vidName').textContent=name;
+  // 本機檔：用原生 video，帶自訂快轉／記憶進度
+  m.classList.remove('yt');
+  fr.removeAttribute('src'); fr.hidden=true; v.hidden=false;
+  PL_CUR=url;
+  notesReset();
+  v.src=url;
+  const rsel=m.querySelector('#vidRateSel');
+  if(rsel) rsel.onchange=()=>vidRate(+rsel.value);
+  attachSubs(v,url);
+  loadNotes(url);
+  const saved=readJSON(PL_LS,{})[url];
+  const pos=typeof saved==='number'?saved:(saved?.t||0);
+  v.onloadedmetadata=()=>{
+    vidRate(2);
+    if(PENDING_SEEK!=null){ v.currentTime=PENDING_SEEK; PENDING_SEEK=null; v.play(); }
+    else if(pos>1&&pos<v.duration-2) v.currentTime=pos;   // 記到秒，不再因為門檻寬鬆而漏掉
+    vidLeft(); vidResumeBar(pos); renderChapters();
+  };
+  let tick=0;
+  v.ontimeupdate=()=>{ chapTick(v); if(++tick%4===0) plSave(v); if(tick%8===0) vidLeft(); };
+  v.onpause=v.onseeked=v.onended=()=>plSave(v);      // 暫停／跳轉／播完都立刻落地
+  v.onplay=v.onpause=()=>{ const b=m.querySelector('[data-toggle]');
+    if(b) b.textContent=v.paused?'▶ 播放':'⏸ 暫停'; };
+  m.hidden=false; document.body.classList.add('modal-open');
+}
+const RATES=[1,1.25,1.5,1.75,2,2.5,3];
+let PL_CUR=null;
+/* 字幕：make_subs.py 產生的 .vtt 就放在 mp4 旁邊，同一台媒體伺服器供應。
+   先探測檔案在不在，有才掛字幕軌，避免播放器出現空的字幕選項。 */
+async function attachSubs(v,url){
+  v.querySelectorAll('track').forEach(t=>t.remove());
+  const vtt=url.replace(/\.mp4($|\?)/i,'.vtt$1');
+  if(vtt===url) return;
+  try{
+    const r=await fetch(vtt,{method:'HEAD'});
+    if(!r.ok) return;
+  }catch(e){ return; }
+  const tr=document.createElement('track');
+  tr.kind='subtitles'; tr.label='中文'; tr.srclang='zh-TW'; tr.src=vtt; tr.default=true;
+  v.appendChild(tr);
+  v.textTracks[0] && (v.textTracks[0].mode='showing');
+  const box=document.getElementById('vidSubs');
+  if(box) box.innerHTML='<button type="button" class="vbtn" data-subs>字幕 開</button>';
+}
+function vidEl(){ return document.getElementById('vidEl'); }
+const hms=s=>{s=Math.max(0,Math.round(s));
+  const h=Math.floor(s/3600),m=Math.floor(s%3600/60),x=s%60;
+  return (h?h+':':'')+String(m).padStart(h?2:1,'0')+':'+String(x).padStart(2,'0');};
+/* 存進度：記時間點、片長、看到幾成與更新時間，換裝置或重開都還原得回來 */
+function plSave(v){
+  if(!PL_CUR||!v||!isFinite(v.duration)) return;
+  const s=readJSON(PL_LS,{});
+  s[PL_CUR]={t:v.currentTime,dur:v.duration,
+             pct:Math.round(v.currentTime/v.duration*100),at:todayStr()};
+  localStorage.setItem(PL_LS,JSON.stringify(s));
+}
+function vidResumeBar(pos){
+  const box=document.getElementById('vidResume');
+  if(!box) return;
+  if(pos>30){
+    box.innerHTML=`已從上次的 <b>${hms(pos)}</b> 繼續
+      <button class="lq" type="button" data-restart>從頭播放</button>`;
+    box.querySelector('[data-restart]').onclick=()=>{
+      const v=vidEl(); v.currentTime=0; plSave(v); box.innerHTML='已回到開頭'; };
+  }else box.innerHTML='';
+}
+function vidSeek(sec){
+  const v=vidEl(); if(!v||!isFinite(v.duration)) return;
+  v.currentTime=Math.min(v.duration-1,Math.max(0,v.currentTime+sec));
+  vidLeft();
+}
+function vidRate(r){
+  const v=vidEl(); if(!v) return;
+  v.playbackRate=r;
+  const sel=document.getElementById('vidRateSel');
+  if(sel) sel.value=String(r);
+  vidLeft();
+}
+function vidSubs(btn){
+  const v=vidEl(); if(!v||!v.textTracks.length) return;
+  const t=v.textTracks[0];
+  const on=t.mode!=='showing';
+  t.mode=on?'showing':'hidden';
+  btn.textContent=on?'字幕 開':'字幕 關';
+  btn.classList.toggle('off',!on);
+}
+function vidToggle(){
+  const v=vidEl(); if(!v) return;
+  v.paused?v.play():v.pause();
+  const b=document.querySelector('#vidModal [data-toggle]');
+  if(b) b.textContent=v.paused?'▶ 播放':'⏸ 暫停';
+}
+/* 以目前倍速估還要坐多久——排讀書時段時比「片長」有用 */
+function vidLeft(){
+  const v=vidEl(), el=document.getElementById('vidLeft');
+  if(!v||!el||!isFinite(v.duration)) return;
+  const wall=(v.duration-v.currentTime)/(v.playbackRate||1);
+  el.textContent=`剩 ${Math.round(wall/60)} 分（${v.playbackRate}x）`;
+}
+/* ---------- 思考地圖：影片旁的 .notes.json（make_notes.py 產生） ----------
+   章節時間軸＋重點時段＋邏輯重構筆記＋板書快照，時間戳一律可點跳轉。 */
+let NOTES=null,NOTES_URL='',NOTES_TOK=0,PENDING_SEEK=null,LIBS_P=null;
+function ensureLibs(){
+  if(LIBS_P) return LIBS_P;
+  const css=document.createElement('link');
+  css.rel='stylesheet'; css.href='vendor/katex.min.css';
+  document.head.appendChild(css);
+  const load=src=>new Promise((res,rej)=>{
+    const s=document.createElement('script');
+    s.src=src; s.onload=res; s.onerror=()=>rej(new Error(src));
+    document.head.appendChild(s);});
+  LIBS_P=load('vendor/marked.min.js')
+    .then(()=>load('vendor/katex.min.js'))
+    .then(()=>load('vendor/auto-render.min.js'))
+    .then(()=>load('vendor/mermaid.min.js'));
+  return LIBS_P;
+}
+/* marked 的輸出再過一道：拔掉 script 類節點與 on* 屬性才上 DOM */
+function sanitize(html){
+  const t=document.createElement('template'); t.innerHTML=html;
+  t.content.querySelectorAll('script,iframe,object,embed,link,style').forEach(n=>n.remove());
+  t.content.querySelectorAll('*').forEach(el=>{
+    [...el.attributes].forEach(a=>{
+      if(/^on/i.test(a.name)||(/^(href|src|xlink:href)$/i.test(a.name)&&/^\s*javascript:/i.test(a.value)))
+        el.removeAttribute(a.name);
+    });
+  });
+  return t.innerHTML;
+}
+/* 分欄與否只看「地圖現在有沒有在顯示」；實際要不要並排交給媒體查詢決定 */
+function syncTwoCol(){
+  const panel=document.querySelector('#vidModal .vid-panel');
+  const map=document.getElementById('vidMap');
+  if(panel) panel.classList.toggle('two-col',!!map&&!map.hidden&&!!map.innerHTML);
+}
+function notesReset(){
+  NOTES=null; NOTES_URL='';
+  for(const id of ['vidChap','vidMap']){
+    const el=document.getElementById(id);
+    if(el){ el.hidden=true; el.innerHTML=''; }
+  }
+  const b=document.getElementById('vidMapBtn'); if(b) b.hidden=true;
+  syncTwoCol();
+}
+async function loadNotes(url){
+  const tok=++NOTES_TOK;
+  const nu=url&&url.replace(/\.mp4($|\?)/i,'.notes.json$1');
+  if(!nu||nu===url) return;
+  let d=null;
+  try{
+    const r=await fetch(nu,{cache:'no-store'});
+    if(r.ok) d=await r.json();
+  }catch(e){ /* 沒筆記就維持原樣 */ }
+  if(!d||tok!==NOTES_TOK) return;
+  NOTES=d; NOTES_URL=url;
+  renderChapters(); renderMap();
+}
+const snapUrl=(url,t)=>url.replace(/\.mp4($|\?)/i,`.snap_${t}.jpg$1`);
+function vidSeekTo(t){
+  const v=vidEl(); if(!v||!isFinite(v.duration)) return;
+  v.currentTime=Math.max(0,Math.min(v.duration-1,t));
+  if(v.paused) v.play();
+  vidLeft();
+}
+function renderChapters(){
+  const box=document.getElementById('vidChap'), v=vidEl();
+  if(!box||!NOTES) return;
+  const dur=NOTES.dur||((v&&isFinite(v.duration))?v.duration:0);
+  const ch=NOTES.chapters||[];
+  if(!dur||ch.length<2) return;
+  const pct=t=>(t/dur*100).toFixed(2)+'%';
+  const segs=ch.map((c,i)=>{
+    const end=i+1<ch.length?ch[i+1].t:dur;
+    return `<div class="seg" style="left:${pct(c.t)};width:${pct(end-c.t)}"
+      title="${esc(hms(c.t)+'　'+c.title)}"></div>`;}).join('');
+  const hots=(NOTES.keys||[]).map(k=>
+    `<div class="hot" style="left:${pct(k.a)};width:${pct(k.b-k.a)}" title="${esc(k.why||'')}"></div>`).join('');
+  box.innerHTML=`
+    <div class="chap-rail">
+      <div class="chap-strip">${segs}${hots}<div class="ph" style="left:0"></div></div>
+      <button class="chap-head" type="button" data-chlist>
+        <b id="chapCur"></b><span class="why" id="chapWhy"></span>
+        <span class="caret">▾</span></button>
+      <div class="chap-list" hidden>${ch.map(c=>
+        `<button type="button" data-t="${c.t}"><b>${hms(c.t)}</b>${esc(c.title)}</button>`).join('')}</div>
+    </div>`;
+  box.hidden=false;
+  box.querySelector('.chap-strip').onclick=ev=>{
+    const r=ev.currentTarget.getBoundingClientRect();
+    vidSeekTo((ev.clientX-r.left)/r.width*dur);
+  };
+  chapTick(v);
+}
+function chapTick(v){
+  if(!NOTES||!v||!isFinite(v.duration)) return;
+  const box=document.getElementById('vidChap');
+  if(!box||box.hidden) return;
+  const dur=NOTES.dur||v.duration, t=v.currentTime;
+  const ph=box.querySelector('.ph');
+  if(ph) ph.style.left=(t/dur*100).toFixed(2)+'%';
+  const ch=NOTES.chapters||[];
+  let cur=0;
+  for(let i=0;i<ch.length;i++) if(t>=ch[i].t) cur=i;
+  box.querySelectorAll('.seg').forEach((s,i)=>s.classList.toggle('cur',i===cur));
+  box.querySelectorAll('.chap-list button').forEach((b,i)=>b.classList.toggle('cur',i===cur));
+  const lb=document.getElementById('chapCur');
+  if(lb) lb.textContent=ch[cur]?.title||'';
+  const hot=(NOTES.keys||[]).find(k=>t>=k.a&&t<=k.b);
+  const why=document.getElementById('chapWhy');
+  if(why) why.textContent=hot?`★ ${hot.why||'重點時段'}`:'';
+}
+async function renderMap(){
+  const box=document.getElementById('vidMap'); if(!box) return;
+  const n=NOTES, m=n?.map;
+  if(!m||!((m.tldr||[]).length||(m.concepts||[]).length||(m.examples||[]).length)) return;
+  try{ await ensureLibs(); }catch(e){ console.warn('思考地圖函式庫載入失敗',e); return; }
+  if(NOTES!==n) return;                       // 載入期間換了片就丟棄這次結果
+  const md=s=>sanitize(marked.parse(String(s||'')));
+  const mm=s=>s?`<pre class="mermaid">${esc(s)}</pre>`:'';
+  const parts=[`<div class="map-head"><h4>🧠 思考地圖</h4>
+    <span>AI 讀逐字稿重構的觀念筆記——時間戳都能點，直接跳回影片</span></div>`];
+  if((m.tldr||[]).length) parts.push(`<div class="map-sec">本集速覽</div>
+    <ul class="map-tldr">${m.tldr.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`);
+  if(m.flow) parts.push(`<div class="map-sec">概念脈絡</div>${mm(m.flow)}`);
+  if((m.concepts||[]).length) parts.push(`<div class="map-sec">觀念重構</div>`+
+    m.concepts.map(c=>`<details class="map-card" open><summary>${esc(c.name)}</summary>
+      <div class="map-md">${md(c.md)}</div>${mm(c.mermaid)}
+      ${c.svg?`<div class="map-svg">${sanitize(c.svg)}</div>`:''}</details>`).join(''));
+  if((m.examples||[]).length) parts.push(`<div class="map-sec">例題消化</div>`+
+    m.examples.map(e=>{
+      const img=e.snap?`<figure class="map-snap">
+          <img loading="lazy" src="${snapUrl(NOTES_URL,e.snap)}" alt="板書快照"
+            onerror="this.parentNode.hidden=true">
+          <figcaption>板書快照</figcaption></figure>`:'';
+      return `<div class="map-card"><div class="map-ex-h">
+          <button type="button" class="t-jump" data-t="${e.t}">▶ ${hms(e.t)}</button>
+          ${e.tag?`<span class="map-tag">${esc(e.tag)}</span>`:''}</div>
+        <div class="map-md">${md(e.md)}</div>
+        ${e.trap?`<div class="map-trap">⚠ ${esc(e.trap)}</div>`:''}${img}</div>`;}).join(''));
+  const extra=(n.snaps||[]).filter(s=>!(m.examples||[]).some(e=>e.snap===s.t));
+  if(extra.length) parts.push(`<div class="map-sec">板書快照</div><div class="snap-grid">`+
+    extra.map(s=>`<figure class="map-snap">
+      <img loading="lazy" src="${snapUrl(NOTES_URL,s.t)}" alt="" onerror="this.parentNode.hidden=true">
+      <figcaption><button type="button" class="t-jump" data-t="${s.t}">▶ ${hms(s.t)}</button>
+        ${esc(s.cap||'')}</figcaption></figure>`).join('')+`</div>`);
+  if((m.pitfalls||[]).length) parts.push(`<div class="map-sec">老師提醒的坑</div>
+    <ul class="map-tldr">${m.pitfalls.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`);
+  box.innerHTML=parts.join('');
+  try{
+    renderMathInElement(box,{delimiters:[
+      {left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}],
+      throwOnError:false});
+  }catch(e){ console.warn('KaTeX',e); }
+  box.hidden=false;                 // 必須先顯示：mermaid 在 hidden 容器裡量字寬全是 0，會畫出空圖
+  syncTwoCol();                     // 先切成分欄再畫圖，讓 mermaid 量到的是分欄後的實際寬度
+  try{
+    mermaid.initialize({startOnLoad:false,securityLevel:'strict',
+      theme:document.body.classList.contains('lt')?'neutral':'dark'});
+    await mermaid.run({nodes:box.querySelectorAll('.mermaid')});
+  }catch(e){ console.warn('Mermaid',e); }
+  const b=document.getElementById('vidMapBtn'); if(b) b.hidden=false;
+}
+
+/* ---------- 逐字稿全文搜尋：search_index.json（make_notes.py 產生） ---------- */
+let SIDX=null,SIDX_P=null,SRCH_T=0;
+function loadSIdx(){
+  if(SIDX_P) return SIDX_P;
+  SIDX_P=fetch(MEDIA_SRV+'search_index.json',{cache:'no-store'})
+    .then(r=>{ if(!r.ok) throw 0; return r.json(); })
+    .then(j=>SIDX=j)
+    .catch(()=>{ SIDX_P=null; return null; });
+  return SIDX_P;
+}
+function bindSearch(){
+  const q=document.getElementById('wmQ'), pop=document.getElementById('wmQPop');
+  if(!q||!pop) return;
+  q.onfocus=()=>loadSIdx();
+  q.oninput=()=>{ clearTimeout(SRCH_T); SRCH_T=setTimeout(doSearch,240); };
+  q.onkeydown=ev=>{ if(ev.key==='Escape'){ pop.hidden=true; q.blur(); } };
+  if(!document.body.dataset.srchDoc){
+    document.body.dataset.srchDoc='1';
+    document.addEventListener('click',ev=>{
+      const p=document.getElementById('wmQPop');
+      if(p&&!ev.target.closest('.wm-srch')) p.hidden=true;
+    });
+  }
+}
+async function doSearch(){
+  const q=document.getElementById('wmQ'), pop=document.getElementById('wmQPop');
+  if(!q||!pop) return;
+  const term=q.value.trim();
+  if(term.length<2){ pop.hidden=true; return; }
+  await loadSIdx();
+  if(!SIDX){
+    pop.innerHTML='<div class="srch-hd">搜尋索引還沒建立——跑一次「補字幕與筆記.bat」就有了</div>';
+    pop.hidden=false; return;
+  }
+  const lo=term.toLowerCase(), hits=[];
+  outer:
+  for(const vd of SIDX.videos){
+    for(const c of vd.cues){
+      const i=c[1].toLowerCase().indexOf(lo);
+      if(i>=0){ hits.push([vd,c[0],c[1],i]); if(hits.length>=80) break outer; }
+    }
+  }
+  if(!hits.length){
+    pop.innerHTML=`<div class="srch-hd">找不到「${esc(term)}」</div>`;
+    pop.hidden=false; return;
+  }
+  const rows=hits.map(([vd,t,txt,i],n)=>{
+    const a=Math.max(0,i-14);
+    return `<button type="button" class="srch-row" data-srch="${n}">
+      <b>${esc(spNorm(vd.code))}</b><i>${hms(t)}</i>
+      <span>${a>0?'…':''}${esc(txt.slice(a,i))}<mark>${esc(txt.substr(i,term.length))}</mark>${
+        esc(txt.slice(i+term.length,i+term.length+38))}</span></button>`;
+  }).join('');
+  pop.innerHTML=`<div class="srch-hd">${hits.length>=80?'80+':hits.length} 個片段（點了直接跳播）</div>`+rows;
+  pop.hidden=false;
+  pop.querySelectorAll('[data-srch]').forEach(b=>b.onclick=()=>{
+    const [vd,t]=hits[+b.dataset.srch];
+    const u=MEDIA_BASE+vd.rel.split('/').map(encodeURIComponent).join('/');
+    pop.hidden=true;
+    PENDING_SEEK=Math.max(0,t-3);        // 回退 3 秒讓句子有頭
+    openPlayer(u, spNorm(vd.code)+'｜'+(vd.title||''));
+  });
+}
+
+/* 控制系統走 YouTube：內嵌在同一個播放視窗，不另開分頁。
+   倍速與快轉交給 YouTube 自己的播放器（它的鍵盤快捷鍵也能用）。 */
+function openYT(id,name){
+  openPlayer('',name);
+  const m=document.getElementById('vidModal');
+  const v=m.querySelector('#vidEl'), fr=m.querySelector('#vidFrame');
+  PL_CUR=null;
+  v.pause(); v.removeAttribute('src'); v.load(); v.hidden=true;
+  fr.hidden=false;
+  fr.src=`https://www.youtube-nocookie.com/embed/${encodeURIComponent(id)}`
+        +`?autoplay=1&rel=0&modestbranding=1&cc_load_policy=0`;
+  m.classList.add('yt');
+  const box=document.getElementById('vidResume');
+  if(box) box.innerHTML='';
+}
+
+function closePlayer(){
+  const m=document.getElementById('vidModal'); if(!m) return;
+  const v=m.querySelector('#vidEl'), fr=m.querySelector('#vidFrame');
+  plSave(v);                       // 關閉前先落地，否則最後幾秒會遺失
+  v.pause(); v.removeAttribute('src'); v.load();
+  if(fr){ fr.removeAttribute('src'); fr.hidden=true; }  // 移掉 iframe 才會真的停止播放
+  v.hidden=false; m.classList.remove('yt');
+  PL_CUR=null;
+  m.hidden=true; document.body.classList.remove('modal-open');
+  renderStudy();                   // 讓清單上的「看到幾成」立刻更新
+}
+// 關分頁、切到別的視窗、電腦睡著都可能來不及存，這裡補一道
+addEventListener('pagehide',()=>plSave(vidEl()));
+addEventListener('visibilitychange',()=>{ if(document.hidden) plSave(vidEl()); });
+
 function _febSelfCheck(){
   console.assert(dayDiff('2026-09-01','2026-07-24')===39,'dayDiff 39');
-  console.assert(Math.ceil(126/39)===4,'quota 4');
   console.assert(dayDiff('2026-09-01','2026-09-01')===0,'same day 0');
-  console.assert(SEED.reduce((a,c)=>a+c.sessions.length,0)===126,'seed 126');
+  console.assert(spNorm('115春矩陣(喻)01')==='115春矩陣01','spNorm 去講師標記');
   console.assert(bgTypeOf('assets/a.mp4')==='video'&&bgTypeOf('https://x/y.MP4?t=1')==='video','bgType video');
   console.assert(bgTypeOf('assets/a.jpg')==='image'&&bgTypeOf('https://x/pic')==='image','bgType image');
   console.assert(bgUrlOk('assets/a.mp4')&&bgUrlOk('https://x/y.jpg')&&bgUrlOk('data:image/png;base64,AA'),'url ok');

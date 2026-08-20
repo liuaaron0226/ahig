@@ -34,8 +34,14 @@ UsersUser.claudesettings.json
 /*.jpeg
 _bc_shots/
 
-# 編輯前備份檔
+# 編輯前備份檔（兩種命名都擋：xxx.bak.20260817 與 xxx.bak-0817-2204）
 *.bak.*
+*.bak-*
+
+# grad-exam-hub/media 是指向 F:\istudy-backup 的 NTFS junction（約 100GB 課程影片、
+# 字幕與板書快照，且影片含個資浮水印）。git 會直接穿透 junction 看到 193 個項目，
+# 一次 `git add -A` 就會把整個影片庫吸進來——絕不入庫。
+grad-exam-hub/media/
 
 # Trading desk 每日抓取的原始資料快取（可重跑 scripts/fetch_daily.sh 重建）
 trading-desk/data/
