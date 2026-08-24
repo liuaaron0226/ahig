@@ -1,0 +1,100 @@
+{
+ "schemaVersion": 1,
+ "documentType": "anchor-source-label-errata",
+ "ruling": "協調者 n+82（一）（二）",
+ "producedAt": "第 403 輪（執行室斷線復原後首輪）",
+ "producedBy": "B.11 執行室",
+
+ "why_this_file_exists_instead_of_an_in_place_edit": {
+  "裁定要求": "就地改 `.scratch/n68_tail_sample.json` 之 `anchor.source` 為 `content_hash(worksheet.json)`，只改標籤不改 value。",
+  "為何未照字面執行": "🚨 該產物之 `sampleHash` 是對**整份文件**（去掉 sampleHash 欄位本身）算的 content_hash，涵蓋 `anchor.source`。就地改標籤會使該檔自我雜湊驗不過——為了修一個會讓稽核者誤判斷鏈的標籤，反而製造一次真實的斷鏈。",
+  "依據": "`.scratch/n68_step3_draw.py:61` → `out['sampleHash'] = content_hash(out)`（對比 `.scratch/n78_step3_draw.py:84` → `doc['sampleHash'] = content_hash(sample)`，第二次只涵蓋 sample 子物件，故第二次若有同類需求可就地改）。",
+  "實測": "見 `measurements`，以 `.scratch/n82_errata_probe.py` 現算，可重跑。",
+  "處置": "凍結產物一律不動；錯標以本檔補正，並在看板回報請協調者裁示是否改採其他做法。"
+ },
+
+ "measurements": {
+  "probe": ".scratch/n82_errata_probe.py",
+  "worksheet_的兩個值_皆為實算": {
+   "content_hash(worksheet.json)": "sha256:4eb2dc606b4b12db2ea9142e98df74bf6dfaedc7039122c7d53e7b45f38430da",
+   "worksheet.json_裸位元組_sha256": "sha256:e228e94c312afa3acd9af62667c3ea5947b941a728d7277e2671ceb49a0b2554",
+   "註": "⚠️ 兩者是不同的值。`ahig/ahig/contracts/freeze.py` 之 `content_hash`（先做 JSON 正規化）與 `file_hash`（裸位元組）是刻意分開的兩個函式。"
+  },
+  "就地改是否斷鏈": [
+   {
+    "檔案": ".scratch/n68_tail_sample.json",
+    "自我雜湊欄位": "sampleHash",
+    "記錄值": "sha256:f407495009760090038dfd27084f82851275bc7eb955189201e9e64e4a69b817",
+    "原檔重算": "sha256:f407495009760090038dfd27084f82851275bc7eb955189201e9e64e4a69b817",
+    "原檔是否自我驗證通過": true,
+    "改標籤後重算": "sha256:dbafbb82df87e00…（值視改成什麼而定；重點是與記錄值不符）",
+    "判定": "BREAKS — 不得就地改"
+   },
+   {
+    "檔案": ".scratch/n68_termination_evidence.json",
+    "自我雜湊欄位": "terminationEvidenceHash",
+    "記錄值": "sha256:ee4ed745e28f0c3c70fc4258b037bef2f3b74a7dfb99b7c94578334dabc1ddc1",
+    "原檔重算": "sha256:ee4ed745e28f0c3c70fc4258b037bef2f3b74a7dfb99b7c94578334dabc1ddc1",
+    "原檔是否自我驗證通過": true,
+    "改標籤後重算": "sha256:e882561047bb229…",
+    "判定": "BREAKS — 不得就地改",
+    "連鎖": "🚨 此值又被 `n68_tail_sample.json` 之 `readsStep1.terminationEvidenceHash` 引用；改它會同時打斷第二層。"
+   }
+  ]
+ },
+
+ "錯標的完整範圍_共四層_裁定點名兩層": [
+  {
+   "層": 1,
+   "位置": ".scratch/n68_step1_freeze.py:99 → 欄位名 `anchors.worksheetSha256`",
+   "事實": "值來自同檔 line 75 `worksheet_hash = content_hash(w)`，即 content_hash，非裸 SHA-256。",
+   "性質": "🚨 這是源頭——**欄位名本身**就是錯的名字，下游所有『worksheet.json 之 SHA-256』的說法都是從這個欄位名長出來的。",
+   "協調者是否點名": false
+  },
+  {
+   "層": 2,
+   "位置": ".scratch/n68_step1_freeze.py:103 → 欄位名 `anchors.judgementsSha256`",
+   "事實": "值為 `content_hash(d)`，同一個錯法，只是對象換成 judgements。",
+   "性質": "⚠️ 與第 1 層同源同型，裁定未及。凡引用該欄位者同樣會被誤導。",
+   "協調者是否點名": false
+  },
+  {
+   "層": 3,
+   "位置": ".scratch/n68_tail_sample.json → `anchor.source` = 「worksheet.json 之 SHA-256」",
+   "事實": "值為 content_hash。",
+   "性質": "裁定 n+82（一）所指者。**不得就地改**（見 measurements），以本檔補正。",
+   "協調者是否點名": true
+  },
+  {
+   "層": 4,
+   "位置": ".scratch/n78_step1_freeze.py:226 → print 之字面標籤",
+   "事實": "`worksheet_sha` 為 content_hash。",
+   "性質": "裁定 n+82（二）所指者。**已就地改**——print 只寫螢幕、不寫入任何產物，改它零風險；已於第 403 輪改為 `worksheet content_hash` 並加註理由。",
+   "協調者是否點名": true,
+   "已補正": true
+  }
+ ],
+
+ "反向發現_n49_的標籤其實是對的": {
+  "檔案": ".scratch/n49_sample.json",
+  "anchor": "sha256:e228e94c312afa3acd9af62667c3ea5947b941a728d7277e2671ceb49a0b2554",
+  "anchorNote": "worksheet.json SHA-256; used in place of queueHash, which this lane does not have",
+  "判定": "✅ 標籤正確——該值經實算確為 worksheet.json 之**裸位元組** SHA-256。",
+  "🚨 但這帶出一個裁定未涵蓋的問題": "**同一個 lane 的兩次抽樣用了兩個不同的錨定值**：n49 用裸 SHA-256（e228e94c…），n68／n78 用 content_hash（4eb2dc60…），而兩者的來源描述文字幾乎一樣。",
+  "為何要記": "⚠️ 稽核者若併讀 n49 與 n68 兩份產物，會看到『相同的來源描述、不同的值』，並合理懷疑其中一份被竄改過。實情是兩次抽樣的錨定方式本來就不同，只是沒有任何一份產物講明這件事。",
+  "本執行室不越過證據": "🚨 我只斷言『兩次用了不同的錨定值、且描述文字未區分』——這是我實算到的。**我不斷言哪一次的選擇比較恰當**，也不斷言這是否影響 n49 抽樣之效力；那需要協調者比對 n+51 核准之等效替代究竟核准了哪一種，屬裁定層級。"
+ },
+
+ "給未來稽核者的操作指引": {
+  "若要驗證 n68／n78 之種子錨定": "跑 `content_hash(json.load(worksheet.json))`，**不要跑 `sha256sum worksheet.json`**——後者會給你 e228e94c…，那是另一個值，不代表證據鏈斷裂。",
+  "若要驗證 n49 之種子錨定": "反過來：跑裸 `sha256sum worksheet.json`。",
+  "重現本檔全部數字": "`python .scratch/n82_errata_probe.py`（需 `ahig/` 在同一 repo 內，不需私有根以外的資料）。",
+  "此值一律不得稱為 queueHash": "n+57 第 3 步。本 lane 無 queueHash；上述皆為其等效替代（n+51 核准）。"
+ },
+
+ "待協調者裁示": [
+  "（一）🚨 n+82（一）之就地改指示無法執行（會斷鏈）。本檔之 errata 做法是否照准？若不准，請指定替代處置。",
+  "（二）第 1、2 層（`worksheetSha256`／`judgementsSha256` 兩個欄位名）為錯標源頭，且皆已寫入凍結產物、同樣不得就地改。是否一併以本檔補正？",
+  "（三）n49 與 n68 兩次抽樣錨定值不同一事，請比對 n+51 究竟核准了哪一種，並裁示是否需在兩份產物之外另立說明。"
+ ]
+}

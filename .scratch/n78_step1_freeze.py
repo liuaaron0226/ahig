@@ -223,5 +223,8 @@ print('  第三態版（僅標準線入序列）window %d  pScore %.6f  allowedT
 print('  terminationEvidenceHash %s'
       % std_eval['terminationEvidenceHash'][:32])
 print()
-print('未篩（標準線）%d 筆；worksheet SHA-256 %s'
+# ⚠️ 標籤寫 content_hash 而非「SHA-256」（n+82（二））：`worksheet_sha` 是
+# content_hash(w)，與該檔之裸位元組 SHA-256 是不同的值。第一次凍結產物的錯標
+# 就是從這種 print 傳下去的，故連印出來的字都不能含糊。
+print('未篩（標準線）%d 筆；worksheet content_hash %s'
       % (len(not_screened), worksheet_sha[:32]))
