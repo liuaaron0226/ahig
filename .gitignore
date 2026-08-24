@@ -75,3 +75,26 @@ trading-desk/data/
 # 逐檔列名，不擴張上方樣式（同第 333 輪之做法）。
 .scratch/_tail.txt
 .scratch/_tail2.txt
+# n+57 第 5 步判讀分塊之 JSON 冗餘輸出（第 402 輪斷線復原時查出，八檔中五檔
+# 含〈…〉內之逐字英文標題——即 n+80 第三節所記之同型缺陷）。
+# 判讀之權威版本是同名 `.py`（已入版控、含完整判讀理由、零標題），
+# 協調者 n+80 亦是以該 `.py` 清點命中數，故 `.json` 為冗餘，不入版控無損。
+# 逐檔列名，不用 `n78_tail_dec_*.json`——寬鬆樣式正是本檔第 56 行所戒者。
+.scratch/n78_tail_dec_000.json
+.scratch/n78_tail_dec_025.json
+.scratch/n78_tail_dec_050.json
+.scratch/n78_tail_dec_075.json
+.scratch/n78_tail_dec_100.json
+.scratch/n78_tail_dec_125.json
+.scratch/n78_tail_dec_150.json
+.scratch/n78_tail_dec_175.json
+# 工作備份副本，皆已核對過正式版位置（第 402 輪復原時逐檔查證，不採信檔名）：
+#   `_bak_exclusions.json`   → 私有根 `standard-full-screen-pass-1/
+#                              p-score-sequence-exclusions.json`
+#   `_bak_overlay_n78.json`  → 私有根 同目錄 `post-ruling-reclassification.json`
+#                              （`ruling` 欄逐字相同；正式版較新）
+#   `_st_backup.py`          → `ahig/ahig/search/statistical_termination.py`
+# 備份入版控會製造第二個事實來源；且 `_bak_overlay_n78.json` 含逐字英文標題。
+.scratch/_bak_exclusions.json
+.scratch/_bak_overlay_n78.json
+.scratch/_st_backup.py

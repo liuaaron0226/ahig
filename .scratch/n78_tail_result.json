@@ -1,0 +1,72 @@
+{
+ "schemaVersion": 1,
+ "documentType": "termination-tail-spot-check-result",
+ "occurrence": 2,
+ "step": "n+57 section 2 step 6 (evaluate and report, do NOT declare)",
+ "readsStep3": {
+  "sampleHash": "sha256:5e12c2e5d2796b4e7fbbde6df6bf361490437688537cae50fdbda919bfcd84b9",
+  "seed": 2559117538934593219,
+  "anchorValue": "sha256:4eb2dc606b4b12db2ea9142e98df74bf6dfaedc7039122c7d53e7b45f38430da",
+  "overlapWithOccurrence1": 0
+ },
+ "readsStep4": {
+  "informationConditionHash": "sha256:b807c85649764b889adb63f815ee3a11b143b0565ae76aebb5f5ec85876c6471",
+  "enrichAttempted": 195,
+  "withAbstract": 192,
+  "informationGapCount": 0
+ },
+ "chunks": [
+  {
+   "offset": 0,
+   "count": 25,
+   "hits": 0
+  },
+  {
+   "offset": 25,
+   "count": 25,
+   "hits": 0
+  },
+  {
+   "offset": 50,
+   "count": 25,
+   "hits": 0
+  },
+  {
+   "offset": 75,
+   "count": 25,
+   "hits": 0
+  },
+  {
+   "offset": 100,
+   "count": 25,
+   "hits": 0
+  },
+  {
+   "offset": 125,
+   "count": 25,
+   "hits": 0
+  },
+  {
+   "offset": 150,
+   "count": 25,
+   "hits": 0
+  },
+  {
+   "offset": 175,
+   "count": 25,
+   "hits": 0
+  }
+ ],
+ "result": {
+  "documentType": "tail-spot-check-result",
+  "adr": "ADR-0008",
+  "screeningQueueHash": "sha256:4eb2dc606b4b12db2ea9142e98df74bf6dfaedc7039122c7d53e7b45f38430da",
+  "sampleSize": 200,
+  "relevantOrUnclearFound": [],
+  "resumeScreening": false,
+  "verdict": "尾端抽驗通過：終止維持，not-screened 保留可抽查",
+  "evaluatedAt": "2026-08-18T17:29:08+00:00"
+ },
+ "executorDeclaration": "None. Per n+57 step 6 the executor reports the evaluator output and does not declare termination; that decision is the coordinator’s and must go to the owner first.",
+ "resultHash": "sha256:42f5f667e66be817fbef49b87a362b7450fb326e9389e2b68ea1bea14e85dac5"
+}

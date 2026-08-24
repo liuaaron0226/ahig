@@ -1,0 +1,78 @@
+{
+ "documentType": "termination-evidence-freeze",
+ "schemaVersion": "1.0",
+ "adr": "ADR-0008",
+ "lane": "b11-exogenous-cho-endurance / standard-full-screen-pass-1",
+ "occurrence": 2,
+ "previousOccurrence": {
+  "atPage": 279,
+  "pScore": 0.046023,
+  "windowSize": 177,
+  "outcome": "termination-void (tail spot check returned 2 hits)",
+  "ruling": "n+72"
+ },
+ "triggerCause": {
+  "kind": "reclassification",
+  "candidateId": "ahig:candidate:publication:0d8bef6da4a6498b3d617443",
+  "change": "unclear -> exclude",
+  "ruling": "n+77 (五) criterion; n+78 (二) authorisation",
+  "reason": "The record sat at p294 with 86 excludes after it, i.e. it was the last hit in the sequence; excluding it merges the window from 115 to 201.",
+  "before": {
+   "pScore": 0.076292,
+   "windowSize": 115,
+   "relevantFound": 719
+  },
+  "after": {
+   "pScore": 0.012405,
+   "windowSize": 201,
+   "relevantFound": 718
+  },
+  "note": "Criterion preceded measurement and is checkable: n+77 ruled the publication-type exclusion a round before the sequence position was known. Executor measured only after the ruling, then halted per n+62 for explicit authorisation, which n+78 granted after independently recomputing both figures."
+ },
+ "standardLaneSequence": {
+  "note": "The authoritative construction used throughout this lane: standard-screening worksheet order only, n_total = worksheet itemCount. Verified against the first trigger: reproducing pScore 0.046023 at window 177 requires n_total 9091, not 15425.",
+  "nTotal": 9091,
+  "contiguousPagesJudged": 299,
+  "pScore": 0.012404888703091584,
+  "relevantFound": 718,
+  "screenedCount": 7431,
+  "poolSize": 9091,
+  "targetRecall": 0.95,
+  "h0MinTotalRelevant": 756,
+  "windowSize": 201,
+  "pScoreExcludedCount": 0,
+  "outOfSequenceCount": 200,
+  "crossesAlpha": true
+ },
+ "allLaneSequenceForComparison": {
+  "note": "term2.py construction: every lane concatenated into one label stream, n_total = len(queue). Recorded for the coordinator, NOT used as the trigger determination. Its windowSize collapses to 1 because unclear records sit near the end of the appended non-standard judgements -- the semantic breakage n+70 (二) already identified.",
+  "nTotal": 15425,
+  "pScore": 0.9929830874415257,
+  "windowSize": 1,
+  "allowedToStop": false
+ },
+ "evaluateTerminationStandardBasis": {
+  "note": "evaluate_termination with non-standard lanes placed in the third state (screened, permanently out of sequence) so the label stream is the standard lane alone. n_total is still len(queue) = 15425 by construction, which is why its pScore differs from the standard-lane figure above. Both are recorded rather than one being chosen here.",
+  "pScore": 0.38836261559017693,
+  "windowSize": 201,
+  "relevantFound": 718,
+  "screenedCount": 7431,
+  "poolSize": 15425,
+  "notScreenedCount": 5357,
+  "mandatoryLanesFullyScreened": true,
+  "pScoreExcludedCount": 0,
+  "outOfSequenceCount": 2637,
+  "allowedToStop": false,
+  "terminationEvidenceHash": "sha256:b9748df4768f391921881bac7c3604315fbf5aec156047cf1402a5e3add9493a"
+ },
+ "openQuestionForCoordinator": "Which n_total does ADR-0008 intend for this lane -- the standard screening worksheet (9091) or the full queue across all lanes (15425)? Every figure reported in this lane to date, including the first trigger the coordinator verified digit by digit, used 9091. The executor does not select between them here (n+57 step 6: report, do not declare).",
+ "tailSpotCheckPopulation": {
+  "count": 1460,
+  "definition": "standard-full-screen-pass-1 worksheet items not yet judged",
+  "note": "A first draft of this script used queue lane == standard-screening instead, giving 1629. The extra 169 are the ADR-0007 blinded shadow-pass sample: they sit in screening-shadow-pass-a and -b worksheets and are judged in both, so their absence from the main worksheet is by design rather than a screening gap. Sampling from 1629 would have drawn records outside the not-screened tail of this lane."
+ },
+ "seedAnchorValue": "sha256:4eb2dc606b4b12db2ea9142e98df74bf6dfaedc7039122c7d53e7b45f38430da",
+ "worksheetFileSha256": "e228e94c312afa3acd9af62667c3ea5947b941a728d7277e2671ceb49a0b2554",
+ "seedAnchorNote": "Tail spot check seed anchors on seedAnchorValue above; this lane has no queueHash (n+51 approved equivalent). Do not call it queueHash.",
+ "judgementsEntryCount": 7631
+}
