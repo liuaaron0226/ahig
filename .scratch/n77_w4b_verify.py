@@ -77,6 +77,24 @@ assert int(m2.group(1)) == cite_done, (
 m3 = re.search(r'\*\*甲式：頁段制\*\* \| \*\*(\d+)\*\* \| \*\*(\d+)\*\*', t)
 assert m3, '🚨 檔頭之甲式（頁段制）進度列不見了'
 band_done = int(m3.group(1))
+# 🚨 甲式之數字必須等於進度表中各 ✅ 列之加總。
+# ⚠️ 第 408 輪教訓：本檢查此前只驗「兩式差值等於相減」，**不驗甲式本身的來源**，
+# 於是甲式被手寫成 808（＝甲層總數）而各 ✅ 列實際只有 793 時，驗證器全綠通過。
+# 🚨 差額 15 筆是進度表最後一列，其狀態欄寫的是進行式描述「隨頁面推進即時寫入」
+# ——**既不算完成也不算待回填，就這樣懸著，且實測引用數為 0。**
+# ⚠️ 故本檢查同時要求：狀態欄只能是 ✅ 或「待回填」，不得再用進行式描述。
+band_rows = re.findall(r'^\| (p[0-9–+]+) \| (\d+) \| (.+?) \|$', t, re.M)
+assert band_rows, '🚨 進度表之頁段列不見了——甲式數字將無從查核'
+band_sum = sum(int(n) for _, n, st in band_rows if '✅' in st)
+vague = [name for name, _, st in band_rows
+         if '✅' not in st and '待回填' not in st]
+assert not vague, (
+    '🚨 進度表有狀態曖昧的頁段列：%s——'
+    '狀態欄只能是 ✅ 或「待回填」，進行式描述會使該列既不算完成也不算缺口' % vague)
+assert band_sum == band_done, (
+    '🚨 檔頭自述甲式已完成 %d 筆，惟進度表各 ✅ 列加總為 %d'
+    % (band_done, band_sum))
+
 m4 = re.search(r'兩式之差 (\d+) 筆', t)
 assert m4, '🚨 檔頭之兩式差值說明不見了——沒有它，兩個數字並列反而更誤導'
 assert int(m4.group(1)) == band_done - cite_done, (
