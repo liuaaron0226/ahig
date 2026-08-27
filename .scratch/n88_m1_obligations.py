@@ -48,7 +48,35 @@ SECTIONS = [
 ]
 
 
+# 🚨 n+89 人工歸類（依 n+88 巡檢指示「不得由程式推定」）。
+#    讀過戊類全部條目後逐條指定，以「原文中之特徵片語」為鍵——
+#    ⚠️ 不以行號為鍵，因行號隨看板增長而位移。
+#    🚨 讀完才發現：最大一群不是分類器缺關鍵詞，是**我缺一個類別**——
+#    它們全在規定「同一件事在報告裡該怎麼寫」，而非規定報告要寫什麼。
+MANUAL = [
+    # (特徵片語, 歸屬類別)
+    ('方向不一致', '庚 · 措辭與計數規則'),
+    ('皆為陰性', '庚 · 措辭與計數規則'),
+    ('正式表述定為', '庚 · 措辭與計數規則'),
+    ('表述須再次更新', '庚 · 措辭與計數規則'),
+    ('逐筆分流', '庚 · 措辭與計數規則'),
+    ('作為族群大小', '庚 · 措辭與計數規則'),
+    ('覆蓋率驗證', '甲 · 檢索與涵蓋完整性'),
+    ('方法學品質', '乙 · 判讀方法與其限制'),
+    ('性別代表性', '乙 · 判讀方法與其限制'),
+    ('從未單獨作為排除理由', '乙 · 判讀方法與其限制'),
+    ('不可回溯', '乙 · 判讀方法與其限制'),
+    ('數值門檻', '乙 · 判讀方法與其限制'),
+]
+
+MANUAL_ORDER = ['庚 · 措辭與計數規則']
+
+
 def classify(text):
+    # 人工歸類優先於關鍵詞
+    for phrase, name in MANUAL:
+        if phrase in text:
+            return name
     for name, keys in SECTIONS:
         if any(k in text for k in keys):
             return name
@@ -103,7 +131,9 @@ def main():
         '勾稽狀態須於 M1 撰寫時逐條標註，不得由本檔推定。',
         '',
     ]
-    for name, _ in SECTIONS + [('戊 · 未分類（須人工歸類）', ())]:
+    ordered = SECTIONS + [(n, ()) for n in MANUAL_ORDER] + \
+        [('戊 · 未分類（須人工歸類）', ())]
+    for name, _ in ordered:
         items = buckets.get(name)
         if not items:
             continue
@@ -125,7 +155,7 @@ def main():
     print('✅ 已產生 %s' % OUT)
     print('   報告義務 %d 條、素材線索 %d 條、衛生過濾略過 %d 條'
           % (len(rows), len(material), skipped))
-    for name, _ in SECTIONS + [('戊 · 未分類（須人工歸類）', ())]:
+    for name, _ in ordered:
         if buckets.get(name):
             print('   %-24s %d 條' % (name, len(buckets[name])))
 
