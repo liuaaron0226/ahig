@@ -1,0 +1,3925 @@
+{
+ "schemaVersion": 1,
+ "documentType": "shadow-vs-official-lane-reconcile",
+ "ruling": "n+94(3); original question at board line 22769",
+ "question": "Are there records in the shadow worksheet, without the critical-harms-signal flag, that also fall outside the official layer? If so, dispatch has a systematic gap.",
+ "worksheets": {
+  "critical-harms-sweep": 116,
+  "critical-harms-sweep-orphans": 5,
+  "safety-full-screen-pass-1": 2316,
+  "safety-full-screen-pass-2": 2316,
+  "screening-pilot": 154,
+  "screening-shadow-pass-a": 300,
+  "screening-shadow-pass-b": 300,
+  "standard-full-screen-pass-1": 9091
+ },
+ "laneToSheet": {
+  "standard-screening": [
+   "standard-full-screen-pass-1"
+  ],
+  "safety-review": [
+   "safety-full-screen-pass-1",
+   "safety-full-screen-pass-2"
+  ],
+  "animal-signal-review": [],
+  "review-source-review": [],
+  "registry-review": [],
+  "identity-review": []
+ },
+ "laneToSheetNote": "Mapping is recorded because it is itself under test: the known gap mechanism is that lane-based dispatch and flag-based rescue leave a hole at their intersection.",
+ "criticalHarmsSheetPresent": true,
+ "shadowSize": 300,
+ "laneDistribution": {
+  "standard-screening": 169,
+  "review-source-review": 19,
+  "safety-review": 52,
+  "animal-signal-review": 47,
+  "identity-review": 3,
+  "registry-review": 10
+ },
+ "classificationCounts": {
+  "explained-shadow-sample": 169,
+  "no-official-sheet-by-design": 79,
+  "covered": 52
+ },
+ "classificationNote": "Four classes, not two. The first version of this file compared only in-sheet versus not-in-sheet, which counted lanes that build no human worksheet by design, and the 169 shadow records n+86 already explained, as gaps -- producing a 242-record figure that looked alarming and meant nothing. Only UNEXPLAINED-GAP answers line 22769.",
+ "unexplainedGaps": [],
+ "unexplainedGapsWithoutFlag": [],
+ "records": [
+  {
+   "candidateId": "ahig:candidate:publication:014ec861d160d8e124401ac3",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:029d9ca72e3c86a77949e0ea",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:043a8a3802c087087557f1a8",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:04d0ae98a26a64cf85b286e8",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:06b6e44d1b81966f0a88dcae",
+   "lane": "review-source-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "no-official-sheet-by-design",
+   "covered": false,
+   "sheetsChecked": [
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:06cbd37db9e72bb6fb97c806",
+   "lane": "safety-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": true,
+   "inCriticalHarmsSheet": false,
+   "classification": "covered",
+   "covered": true,
+   "sheetsChecked": [
+    "safety-full-screen-pass-1",
+    "safety-full-screen-pass-2",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:06ce68e3f7ceef8bd3dc609b",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:0730e47870164acab51ff594",
+   "lane": "animal-signal-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "no-official-sheet-by-design",
+   "covered": false,
+   "sheetsChecked": [
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:0800aa2a588ab80314797994",
+   "lane": "animal-signal-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "no-official-sheet-by-design",
+   "covered": false,
+   "sheetsChecked": [
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:082542170ceadf68e3f6ec95",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:08ce0077a9d7c10dca0d19d9",
+   "lane": "safety-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": true,
+   "inCriticalHarmsSheet": false,
+   "classification": "covered",
+   "covered": true,
+   "sheetsChecked": [
+    "safety-full-screen-pass-1",
+    "safety-full-screen-pass-2",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:098f2321182bf3a02191dcbf",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:09e601a27ff1c3736e6264a6",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:0a1e3ff187f48ea0e43a1ed6",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:0b5b283bbce9694c76c34974",
+   "lane": "review-source-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "no-official-sheet-by-design",
+   "covered": false,
+   "sheetsChecked": [
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:0c1fa509f7bb56c4bcc9f7f3",
+   "lane": "safety-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": true,
+   "inCriticalHarmsSheet": false,
+   "classification": "covered",
+   "covered": true,
+   "sheetsChecked": [
+    "safety-full-screen-pass-1",
+    "safety-full-screen-pass-2",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:0d5276642beb137a1e8c8599",
+   "lane": "animal-signal-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "no-official-sheet-by-design",
+   "covered": false,
+   "sheetsChecked": [
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:0e4f3c3463c24f2deffef8dd",
+   "lane": "review-source-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "no-official-sheet-by-design",
+   "covered": false,
+   "sheetsChecked": [
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:0ec5dc0526e804a7fe4173a3",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:0efcccd8fa64b36c0a7bb49f",
+   "lane": "animal-signal-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "no-official-sheet-by-design",
+   "covered": false,
+   "sheetsChecked": [
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:10c93f6d683d710d37e55deb",
+   "lane": "review-source-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "no-official-sheet-by-design",
+   "covered": false,
+   "sheetsChecked": [
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:141dfa30c8e011b49133ee26",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:15e4e8e6526177ef2f019932",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:16b51d57f23fff33bd126a36",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": true,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:16f20471f835071e1a00260a",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:173306f7ddca8ca93234168b",
+   "lane": "animal-signal-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "no-official-sheet-by-design",
+   "covered": false,
+   "sheetsChecked": [
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:195524b416de2e79f1742a24",
+   "lane": "safety-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": true,
+   "inCriticalHarmsSheet": false,
+   "classification": "covered",
+   "covered": true,
+   "sheetsChecked": [
+    "safety-full-screen-pass-1",
+    "safety-full-screen-pass-2",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:19dc8f3080e242b37d2b8836",
+   "lane": "safety-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": true,
+   "inCriticalHarmsSheet": false,
+   "classification": "covered",
+   "covered": true,
+   "sheetsChecked": [
+    "safety-full-screen-pass-1",
+    "safety-full-screen-pass-2",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:1aa4b769c2198c7421df3bb2",
+   "lane": "animal-signal-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "no-official-sheet-by-design",
+   "covered": false,
+   "sheetsChecked": [
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:1d1397a3bdfbf1b8c70e152a",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": true,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:1e918e4cb8cd7576e527d645",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:20f1327009fd90b9a989e44a",
+   "lane": "animal-signal-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "no-official-sheet-by-design",
+   "covered": false,
+   "sheetsChecked": [
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:20f9982aa9546dca44f289a8",
+   "lane": "animal-signal-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "no-official-sheet-by-design",
+   "covered": false,
+   "sheetsChecked": [
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:2214b8ed61109206af4654fe",
+   "lane": "safety-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": true,
+   "inCriticalHarmsSheet": false,
+   "classification": "covered",
+   "covered": true,
+   "sheetsChecked": [
+    "safety-full-screen-pass-1",
+    "safety-full-screen-pass-2",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:24d28c974ff68dae25aa2f8e",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:2515d17c498a6a91d4f29a07",
+   "lane": "animal-signal-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "no-official-sheet-by-design",
+   "covered": false,
+   "sheetsChecked": [
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:253aafc0c0b61622ea09d446",
+   "lane": "safety-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": true,
+   "inCriticalHarmsSheet": false,
+   "classification": "covered",
+   "covered": true,
+   "sheetsChecked": [
+    "safety-full-screen-pass-1",
+    "safety-full-screen-pass-2",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:260586d20d03987d121fb95e",
+   "lane": "safety-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": true,
+   "inCriticalHarmsSheet": false,
+   "classification": "covered",
+   "covered": true,
+   "sheetsChecked": [
+    "safety-full-screen-pass-1",
+    "safety-full-screen-pass-2",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:26954c253a2a559160776291",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:26c652754e1f8a1d86ac0bd9",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:27f7f6f5ee0c909eb6610f43",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:28f3b77e7f1edca3d8e5796a",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:2a8a10bd921219af88c36e06",
+   "lane": "safety-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": true,
+   "inCriticalHarmsSheet": false,
+   "classification": "covered",
+   "covered": true,
+   "sheetsChecked": [
+    "safety-full-screen-pass-1",
+    "safety-full-screen-pass-2",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:2af3c4911be4128643ca3f3f",
+   "lane": "safety-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": true,
+   "inCriticalHarmsSheet": false,
+   "classification": "covered",
+   "covered": true,
+   "sheetsChecked": [
+    "safety-full-screen-pass-1",
+    "safety-full-screen-pass-2",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:2b73e0f978b4e6e77ba7de64",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:2c9592a934d6179849e0177b",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:2f81592de0ea8b507fd1aea9",
+   "lane": "animal-signal-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "no-official-sheet-by-design",
+   "covered": false,
+   "sheetsChecked": [
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:2f8db48f368132de9a8d2c6a",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:328cd791e59a53898c176b72",
+   "lane": "safety-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": true,
+   "inCriticalHarmsSheet": false,
+   "classification": "covered",
+   "covered": true,
+   "sheetsChecked": [
+    "safety-full-screen-pass-1",
+    "safety-full-screen-pass-2",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:3305747ddc484ec2b2102160",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:36c91101a37abf7504fbc309",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:36e5ef5063e8cf8529633d86",
+   "lane": "animal-signal-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "no-official-sheet-by-design",
+   "covered": false,
+   "sheetsChecked": [
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:3d08b0a2ee47244c0c3e0450",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:3e2bd386297d0de91261e9ba",
+   "lane": "safety-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": true,
+   "inCriticalHarmsSheet": false,
+   "classification": "covered",
+   "covered": true,
+   "sheetsChecked": [
+    "safety-full-screen-pass-1",
+    "safety-full-screen-pass-2",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:3e2e06eff6d71cb20d97893d",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:3f7841eed7fa2fd9566c078b",
+   "lane": "review-source-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "no-official-sheet-by-design",
+   "covered": false,
+   "sheetsChecked": [
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:40212cd68336db3f44bae437",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:419336cfe7a85d490c1e2d0f",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:4205f94bb335cb613bf8adf1",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:42135e5df55cc4f4ee72bf29",
+   "lane": "review-source-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "no-official-sheet-by-design",
+   "covered": false,
+   "sheetsChecked": [
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:4264c17e7d483f15ecc1bae3",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:430ae4063e216df975359ec9",
+   "lane": "safety-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": true,
+   "inCriticalHarmsSheet": false,
+   "classification": "covered",
+   "covered": true,
+   "sheetsChecked": [
+    "safety-full-screen-pass-1",
+    "safety-full-screen-pass-2",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:44a1998050d7538fa7d1f9eb",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:479f3224c44142dd49510c7b",
+   "lane": "animal-signal-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "no-official-sheet-by-design",
+   "covered": false,
+   "sheetsChecked": [
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:47c7c8f6e3851de3c49c51ec",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:47df962f35f413c03e7b4822",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:48397ad94218ab86fb299478",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:4902459c528287a1987aa074",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:4977a5ca758ad4664aa4ad70",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:4d354fe34420f1b98360bb7b",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:4d3e17e3f34265f9b4eb2553",
+   "lane": "animal-signal-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "no-official-sheet-by-design",
+   "covered": false,
+   "sheetsChecked": [
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:4e73075a10da095e7b9a3fd5",
+   "lane": "animal-signal-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "no-official-sheet-by-design",
+   "covered": false,
+   "sheetsChecked": [
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:4f3d7be691f32dfe8cbccee1",
+   "lane": "safety-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": true,
+   "inCriticalHarmsSheet": false,
+   "classification": "covered",
+   "covered": true,
+   "sheetsChecked": [
+    "safety-full-screen-pass-1",
+    "safety-full-screen-pass-2",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:4f7b7f38ceb6c8a21a89ddff",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:50c781fe20ea9b20872a0f69",
+   "lane": "review-source-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "no-official-sheet-by-design",
+   "covered": false,
+   "sheetsChecked": [
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:51c14b12ae249533a22cada9",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:5207f9077635a0ed5d90c353",
+   "lane": "animal-signal-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "no-official-sheet-by-design",
+   "covered": false,
+   "sheetsChecked": [
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:521b7e0c851139fda5b3273b",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:544bb2b35e6c85ce03e37254",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:54e4d8014a92c39bf32ece52",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:55224ad353aa24f183fe792a",
+   "lane": "animal-signal-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "no-official-sheet-by-design",
+   "covered": false,
+   "sheetsChecked": [
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:5703fdf8b06077d004eae0a9",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:583e59647d67b907323c169f",
+   "lane": "safety-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": true,
+   "inCriticalHarmsSheet": false,
+   "classification": "covered",
+   "covered": true,
+   "sheetsChecked": [
+    "safety-full-screen-pass-1",
+    "safety-full-screen-pass-2",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:58ae1aa1f5928b770143cacd",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:58f219b89e51f5db61d4c7b4",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:594a62bc8eea38e424d1b51e",
+   "lane": "animal-signal-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "no-official-sheet-by-design",
+   "covered": false,
+   "sheetsChecked": [
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:5c40aa8aa771dc918ef3f672",
+   "lane": "safety-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": true,
+   "inCriticalHarmsSheet": false,
+   "classification": "covered",
+   "covered": true,
+   "sheetsChecked": [
+    "safety-full-screen-pass-1",
+    "safety-full-screen-pass-2",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:5d0960b4a26f2c5fddaa00cd",
+   "lane": "animal-signal-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "no-official-sheet-by-design",
+   "covered": false,
+   "sheetsChecked": [
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:5d26e6266a1fcef80b1c8745",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:5d79d606ef14dbe944978971",
+   "lane": "safety-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": true,
+   "inCriticalHarmsSheet": false,
+   "classification": "covered",
+   "covered": true,
+   "sheetsChecked": [
+    "safety-full-screen-pass-1",
+    "safety-full-screen-pass-2",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:5d93dcb994853d852cd1c62d",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:5f2d293caf18dc651ead589f",
+   "lane": "safety-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": true,
+   "inCriticalHarmsSheet": false,
+   "classification": "covered",
+   "covered": true,
+   "sheetsChecked": [
+    "safety-full-screen-pass-1",
+    "safety-full-screen-pass-2",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:605f522ed024c9800a2a8729",
+   "lane": "review-source-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "no-official-sheet-by-design",
+   "covered": false,
+   "sheetsChecked": [
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:614819cb3ea0dbbfb9e06d83",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:6174e50d3073d639d79958fb",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:6180b9e33f0e008da55cd3f5",
+   "lane": "safety-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": true,
+   "inCriticalHarmsSheet": false,
+   "classification": "covered",
+   "covered": true,
+   "sheetsChecked": [
+    "safety-full-screen-pass-1",
+    "safety-full-screen-pass-2",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:626057270b595a7028ff4eab",
+   "lane": "safety-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": true,
+   "inCriticalHarmsSheet": false,
+   "classification": "covered",
+   "covered": true,
+   "sheetsChecked": [
+    "safety-full-screen-pass-1",
+    "safety-full-screen-pass-2",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:6342e5b740c140908a246776",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:636e7e00c7118abb6644a64c",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:64e490e6cc719b2e935ee8a9",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:668e568ce2fba505fa3a04e6",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:67351737434fe3fb031d4c04",
+   "lane": "safety-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": true,
+   "inCriticalHarmsSheet": false,
+   "classification": "covered",
+   "covered": true,
+   "sheetsChecked": [
+    "safety-full-screen-pass-1",
+    "safety-full-screen-pass-2",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:6900a456f72b5f5186b7a8b5",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:6a37840ce13b8d349e78b39c",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:6ace71b79adf6a78c4a87217",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:6bc894519196d7d8df537b3b",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:6da706b7c1d253d6bf7c331f",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:6deb95e87283c487d5f784c1",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:6f666d35c7770401e9359195",
+   "lane": "animal-signal-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "no-official-sheet-by-design",
+   "covered": false,
+   "sheetsChecked": [
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:703887070eca8b3238e31a39",
+   "lane": "safety-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": true,
+   "inCriticalHarmsSheet": false,
+   "classification": "covered",
+   "covered": true,
+   "sheetsChecked": [
+    "safety-full-screen-pass-1",
+    "safety-full-screen-pass-2",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:7106f246cc95b812d6cb7319",
+   "lane": "safety-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": true,
+   "inCriticalHarmsSheet": false,
+   "classification": "covered",
+   "covered": true,
+   "sheetsChecked": [
+    "safety-full-screen-pass-1",
+    "safety-full-screen-pass-2",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:71298ad7875ce8db148ecd5e",
+   "lane": "review-source-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "no-official-sheet-by-design",
+   "covered": false,
+   "sheetsChecked": [
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:74031f25bb5f09721d24fbf6",
+   "lane": "animal-signal-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "no-official-sheet-by-design",
+   "covered": false,
+   "sheetsChecked": [
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:745dd27276cc5f3729ef5123",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:759a1b72ad8a906ebbdc9db4",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:77e97abdcbb871dd8912c11e",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:784fa078ff5e61c34643f68a",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:797a8ee10deb82659e270c8c",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:79cb69bd68d4ec69976154bb",
+   "lane": "animal-signal-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "no-official-sheet-by-design",
+   "covered": false,
+   "sheetsChecked": [
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:7a10a28a4369688bc40e915d",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:7b4f2813fcba04a53a9dacf9",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:7b87331c70dde996d1c9816a",
+   "lane": "safety-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": true,
+   "inCriticalHarmsSheet": false,
+   "classification": "covered",
+   "covered": true,
+   "sheetsChecked": [
+    "safety-full-screen-pass-1",
+    "safety-full-screen-pass-2",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:7dc0be05fb3eae0f9039fe5b",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:808786600493c885b392ad3e",
+   "lane": "animal-signal-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "no-official-sheet-by-design",
+   "covered": false,
+   "sheetsChecked": [
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:80cfe93de1d6fb04afc29f35",
+   "lane": "animal-signal-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "no-official-sheet-by-design",
+   "covered": false,
+   "sheetsChecked": [
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:81495123253637a2adb6ae53",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:828af95636747aaab3b4f66e",
+   "lane": "animal-signal-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "no-official-sheet-by-design",
+   "covered": false,
+   "sheetsChecked": [
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:82c98e24df44cb72d60bcead",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:82de6245de749efdaeacb057",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:836b929844fb69e1f7ef0da7",
+   "lane": "animal-signal-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "no-official-sheet-by-design",
+   "covered": false,
+   "sheetsChecked": [
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:8472618e0f06190820634dc3",
+   "lane": "safety-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": true,
+   "inCriticalHarmsSheet": false,
+   "classification": "covered",
+   "covered": true,
+   "sheetsChecked": [
+    "safety-full-screen-pass-1",
+    "safety-full-screen-pass-2",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:8571c866e39c195457a187db",
+   "lane": "safety-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": true,
+   "inCriticalHarmsSheet": false,
+   "classification": "covered",
+   "covered": true,
+   "sheetsChecked": [
+    "safety-full-screen-pass-1",
+    "safety-full-screen-pass-2",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:85aa8c688a898ed83ce2a354",
+   "lane": "safety-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": true,
+   "inCriticalHarmsSheet": false,
+   "classification": "covered",
+   "covered": true,
+   "sheetsChecked": [
+    "safety-full-screen-pass-1",
+    "safety-full-screen-pass-2",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:85e3d5d231aa31d022239a12",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:85f28c3193754b534f680666",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:86291b85a9e03706cdf57624",
+   "lane": "review-source-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "no-official-sheet-by-design",
+   "covered": false,
+   "sheetsChecked": [
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:878dfc9d2d8e4b09f2d99f5c",
+   "lane": "animal-signal-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "no-official-sheet-by-design",
+   "covered": false,
+   "sheetsChecked": [
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:87b57db71e596abfc3596e04",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:87d831ac739a8cfb4a95496e",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:87d9948fe20a5887f27319f1",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:885e9b2c4cb11e9cee8a7381",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:887a7cbd6ce4b5a7a731447f",
+   "lane": "safety-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": true,
+   "inCriticalHarmsSheet": false,
+   "classification": "covered",
+   "covered": true,
+   "sheetsChecked": [
+    "safety-full-screen-pass-1",
+    "safety-full-screen-pass-2",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:8a9d21ae03bd879869db3dc6",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:8ace4876777f1a0448f96da9",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:8bacadd7d543eda944ff1e74",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:8c8e9fab273874bf6f17c6e9",
+   "lane": "review-source-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "no-official-sheet-by-design",
+   "covered": false,
+   "sheetsChecked": [
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:8c91bcc7f1622a252b441b67",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:8cbcb126664863ba46b687dc",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:8d0023465b6761108e33bfd1",
+   "lane": "animal-signal-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "no-official-sheet-by-design",
+   "covered": false,
+   "sheetsChecked": [
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:919ae193d46095185907aa48",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:91aa430170133b10e9a60b16",
+   "lane": "safety-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": true,
+   "inCriticalHarmsSheet": false,
+   "classification": "covered",
+   "covered": true,
+   "sheetsChecked": [
+    "safety-full-screen-pass-1",
+    "safety-full-screen-pass-2",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:91e7650ca0f1f1425607f966",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:9249511ee80528500c84fda1",
+   "lane": "safety-review",
+   "criticalHarmsSignal": true,
+   "inLaneSheet": true,
+   "inCriticalHarmsSheet": false,
+   "classification": "covered",
+   "covered": true,
+   "sheetsChecked": [
+    "safety-full-screen-pass-1",
+    "safety-full-screen-pass-2",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:93288ee8dc9ab456ffc2a9d2",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": true,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:950e5a5e24131caa34ea741d",
+   "lane": "animal-signal-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "no-official-sheet-by-design",
+   "covered": false,
+   "sheetsChecked": [
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:95a7b0456ae03b33a328785b",
+   "lane": "safety-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": true,
+   "inCriticalHarmsSheet": false,
+   "classification": "covered",
+   "covered": true,
+   "sheetsChecked": [
+    "safety-full-screen-pass-1",
+    "safety-full-screen-pass-2",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:95ea62490b5e306d36dad398",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:966950d621d41bbe9b76afe5",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:96c51b565f669c33f94c163e",
+   "lane": "safety-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": true,
+   "inCriticalHarmsSheet": false,
+   "classification": "covered",
+   "covered": true,
+   "sheetsChecked": [
+    "safety-full-screen-pass-1",
+    "safety-full-screen-pass-2",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:9716cb15602db7316f0ba836",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:9914fb7fa6d9cebe61ed41e1",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:9a1c699bc67fb0f29c48a040",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:9bad06d62a3584d07f9786dc",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:9c8623f637d9ffccb8bbe19d",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:9cd3d31507fd573012a857e7",
+   "lane": "safety-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": true,
+   "inCriticalHarmsSheet": false,
+   "classification": "covered",
+   "covered": true,
+   "sheetsChecked": [
+    "safety-full-screen-pass-1",
+    "safety-full-screen-pass-2",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:9cd73905097de0e1a79a460c",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:9d633f1a2d04df0392188b08",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:9f081917d15c508ab95d22ad",
+   "lane": "identity-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "no-official-sheet-by-design",
+   "covered": false,
+   "sheetsChecked": [
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:9fdcd593938b34952402380b",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:9fddf69a6f9469a949a90229",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:a0ab1a41f817ace81a444d7b",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:a10d9069b2fadf47eb2a6422",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:a10e1dd1c9d72947a5538628",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:a1655c2c3f6c0a8e843592ce",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": true,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:a17efbbef1e52c12e1c6633d",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:a2acdcf79d2927dbd0e49d7e",
+   "lane": "animal-signal-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "no-official-sheet-by-design",
+   "covered": false,
+   "sheetsChecked": [
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:a4fa479e4aa40f48cde1ed57",
+   "lane": "safety-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": true,
+   "inCriticalHarmsSheet": false,
+   "classification": "covered",
+   "covered": true,
+   "sheetsChecked": [
+    "safety-full-screen-pass-1",
+    "safety-full-screen-pass-2",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:a6b42b6c0a5a609a85aa3fdf",
+   "lane": "safety-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": true,
+   "inCriticalHarmsSheet": false,
+   "classification": "covered",
+   "covered": true,
+   "sheetsChecked": [
+    "safety-full-screen-pass-1",
+    "safety-full-screen-pass-2",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:a729cdfcd29cbd689e952e7f",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:a9533149e78dc89a545234fc",
+   "lane": "safety-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": true,
+   "inCriticalHarmsSheet": false,
+   "classification": "covered",
+   "covered": true,
+   "sheetsChecked": [
+    "safety-full-screen-pass-1",
+    "safety-full-screen-pass-2",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:aa5636eae9286c59cfb2401b",
+   "lane": "animal-signal-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "no-official-sheet-by-design",
+   "covered": false,
+   "sheetsChecked": [
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:aaa11604f8e2e5d0bb2d3122",
+   "lane": "animal-signal-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "no-official-sheet-by-design",
+   "covered": false,
+   "sheetsChecked": [
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:ab9677c968e4212eeff09ecf",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:aba41a2d4ad4670f437cf483",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:abc15e0844a94637919ddc1d",
+   "lane": "safety-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": true,
+   "inCriticalHarmsSheet": false,
+   "classification": "covered",
+   "covered": true,
+   "sheetsChecked": [
+    "safety-full-screen-pass-1",
+    "safety-full-screen-pass-2",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:aca7deb035cbc2f9d0686985",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:ad321768d8c99484165687b7",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:ad92553bd828d6ebe119d070",
+   "lane": "animal-signal-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "no-official-sheet-by-design",
+   "covered": false,
+   "sheetsChecked": [
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:ade0f215786d0f81bf6baa77",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:ade4392a2967a4cb7fbf5db6",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:ae8afb93b6340feb75c304b8",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:aed633fd32c707da4180e9ce",
+   "lane": "safety-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": true,
+   "inCriticalHarmsSheet": false,
+   "classification": "covered",
+   "covered": true,
+   "sheetsChecked": [
+    "safety-full-screen-pass-1",
+    "safety-full-screen-pass-2",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:af9f2dbc4a31f91ae2624609",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:b15b8ffcebd0e52bc30dd35f",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:b1d3f60e0cb4ea74434c8294",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:b2338d64d534da0cc816ce31",
+   "lane": "animal-signal-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "no-official-sheet-by-design",
+   "covered": false,
+   "sheetsChecked": [
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:b4597767530047cebcac3922",
+   "lane": "review-source-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "no-official-sheet-by-design",
+   "covered": false,
+   "sheetsChecked": [
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:b459ee57ace1b70324352652",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:b49d89370fe53f4869459d40",
+   "lane": "safety-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": true,
+   "inCriticalHarmsSheet": false,
+   "classification": "covered",
+   "covered": true,
+   "sheetsChecked": [
+    "safety-full-screen-pass-1",
+    "safety-full-screen-pass-2",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:b69927aa3bb7748bd1fbeb1b",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:b6cb0e34360a0107db742da7",
+   "lane": "animal-signal-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "no-official-sheet-by-design",
+   "covered": false,
+   "sheetsChecked": [
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:b7078081468a4a42eb027b4c",
+   "lane": "safety-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": true,
+   "inCriticalHarmsSheet": false,
+   "classification": "covered",
+   "covered": true,
+   "sheetsChecked": [
+    "safety-full-screen-pass-1",
+    "safety-full-screen-pass-2",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:bd575722a079602cdfee42ec",
+   "lane": "animal-signal-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "no-official-sheet-by-design",
+   "covered": false,
+   "sheetsChecked": [
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:bdbc5d43bb09a29d769e22c6",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:be3d628579e61a5927d24edf",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:beb7ff019f6e8040d3a7f9f6",
+   "lane": "animal-signal-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "no-official-sheet-by-design",
+   "covered": false,
+   "sheetsChecked": [
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:bf0f280065ef94a8c1b7c383",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:bf168a309ffdba41dce77695",
+   "lane": "animal-signal-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "no-official-sheet-by-design",
+   "covered": false,
+   "sheetsChecked": [
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:bf3f726ad04a9de99433aa49",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:c0883a9694f8e41a653cde22",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:c1ca8f995179c2ad16248952",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:c20c18dde717aadc729534b1",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:c293386c393606255dd89913",
+   "lane": "safety-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": true,
+   "inCriticalHarmsSheet": false,
+   "classification": "covered",
+   "covered": true,
+   "sheetsChecked": [
+    "safety-full-screen-pass-1",
+    "safety-full-screen-pass-2",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:c2cdad8177f8ee69a3ad5470",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:c328ddc02d4afa7e151df09f",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:c3c6e0d4ea912e19b9479d4a",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:c4113d8270b2d75ab39c9166",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:c41c2367c0a3231552edbafc",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:c653d2ec4eccd00e50abd968",
+   "lane": "safety-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": true,
+   "inCriticalHarmsSheet": false,
+   "classification": "covered",
+   "covered": true,
+   "sheetsChecked": [
+    "safety-full-screen-pass-1",
+    "safety-full-screen-pass-2",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:c6813156a06c48a38bde0814",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:c7470eb375e0928eb4713afa",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:c796474bb2150d13d5572213",
+   "lane": "animal-signal-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "no-official-sheet-by-design",
+   "covered": false,
+   "sheetsChecked": [
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:c7ed076f89fa136b81242dcc",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:c8f8609b3c1e7a966936c073",
+   "lane": "review-source-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "no-official-sheet-by-design",
+   "covered": false,
+   "sheetsChecked": [
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:c9107b6d94e1652dfa00bf69",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:cd28829a6a33bb4c0265535c",
+   "lane": "review-source-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "no-official-sheet-by-design",
+   "covered": false,
+   "sheetsChecked": [
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:ce6ba73359c7b3e93220eee0",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:d0eb018a49e160acedbb9823",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:d2284d53a3e7e4f0aa5f0ec1",
+   "lane": "animal-signal-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "no-official-sheet-by-design",
+   "covered": false,
+   "sheetsChecked": [
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:d2884ed27a2ac9f447fdd027",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": true,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:d5fcf7b5d53e28ed92bc2ba2",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:d648f68ed9b9f1f119d8c60c",
+   "lane": "safety-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": true,
+   "inCriticalHarmsSheet": false,
+   "classification": "covered",
+   "covered": true,
+   "sheetsChecked": [
+    "safety-full-screen-pass-1",
+    "safety-full-screen-pass-2",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:d7f457b1693f3a6a890efa3c",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:d81a4f4707fc9c38f04f8953",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:d84c0a5bec6fa9b4aef36710",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:d8a0471f0137c1341beb55c2",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:d9d11764ff4a3874662a0f1a",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:da014481a4106e82e3e7deb7",
+   "lane": "review-source-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "no-official-sheet-by-design",
+   "covered": false,
+   "sheetsChecked": [
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:da103d6df00b70e1be3ed2fe",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:db98d640931a4c1f058bf5d4",
+   "lane": "safety-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": true,
+   "inCriticalHarmsSheet": false,
+   "classification": "covered",
+   "covered": true,
+   "sheetsChecked": [
+    "safety-full-screen-pass-1",
+    "safety-full-screen-pass-2",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:dc5ac8c4d0bb0e291a50a6cf",
+   "lane": "animal-signal-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "no-official-sheet-by-design",
+   "covered": false,
+   "sheetsChecked": [
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:dd565097163db760288f1dad",
+   "lane": "review-source-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "no-official-sheet-by-design",
+   "covered": false,
+   "sheetsChecked": [
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:dda2c347351d6efb6d143615",
+   "lane": "animal-signal-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "no-official-sheet-by-design",
+   "covered": false,
+   "sheetsChecked": [
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:ddd87590f5cd5e3c8ebbb693",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:e092e914c4bc4643fdaef949",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:e0c01f7dd13c8491c8c3cb96",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:e1e6ddfab786f98da80ac99b",
+   "lane": "animal-signal-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "no-official-sheet-by-design",
+   "covered": false,
+   "sheetsChecked": [
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:e2a63098b1eee09dd2fd31b9",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:e30c60df8c922d60335dd902",
+   "lane": "safety-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": true,
+   "inCriticalHarmsSheet": false,
+   "classification": "covered",
+   "covered": true,
+   "sheetsChecked": [
+    "safety-full-screen-pass-1",
+    "safety-full-screen-pass-2",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:e4a740aae616f3732b27dabd",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:e50244de8f6a3c21b6aa8bd1",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:e54b9c43bdd03da321489a4f",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:e5830491432b9d3d5a9df137",
+   "lane": "animal-signal-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "no-official-sheet-by-design",
+   "covered": false,
+   "sheetsChecked": [
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:e8d941fc2771732e691b4102",
+   "lane": "review-source-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "no-official-sheet-by-design",
+   "covered": false,
+   "sheetsChecked": [
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:e9984ed035002abd0b2ef6b9",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:e9ff3743a5cd5c4e8df4ff67",
+   "lane": "animal-signal-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "no-official-sheet-by-design",
+   "covered": false,
+   "sheetsChecked": [
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:ea8f763223ed886a03a98645",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:eb15b5b8df552fdcd6c87cc3",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:eb3d95d940085647bd737ef7",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:eb4a312ac01b66ea97c2aafd",
+   "lane": "safety-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": true,
+   "inCriticalHarmsSheet": false,
+   "classification": "covered",
+   "covered": true,
+   "sheetsChecked": [
+    "safety-full-screen-pass-1",
+    "safety-full-screen-pass-2",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:eb53782726d662d51f772867",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:eb71778bc8837e07240bb81b",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:ec11e2ccd5711db29c4667c7",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:ec608555885da7ae554e906f",
+   "lane": "safety-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": true,
+   "inCriticalHarmsSheet": false,
+   "classification": "covered",
+   "covered": true,
+   "sheetsChecked": [
+    "safety-full-screen-pass-1",
+    "safety-full-screen-pass-2",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:ed315f62fc6679dde4b5bd53",
+   "lane": "safety-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": true,
+   "inCriticalHarmsSheet": false,
+   "classification": "covered",
+   "covered": true,
+   "sheetsChecked": [
+    "safety-full-screen-pass-1",
+    "safety-full-screen-pass-2",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:edc36e52cfe8f582ab04c47d",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:ee7519050da013af999aaa55",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:eff80a9ec7f79644008b09f0",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:f06072cca2f0d7a52aea7448",
+   "lane": "identity-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "no-official-sheet-by-design",
+   "covered": false,
+   "sheetsChecked": [
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:f0809c6270b5654b4680eff3",
+   "lane": "safety-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": true,
+   "inCriticalHarmsSheet": false,
+   "classification": "covered",
+   "covered": true,
+   "sheetsChecked": [
+    "safety-full-screen-pass-1",
+    "safety-full-screen-pass-2",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:f198f364aa25daab35e90356",
+   "lane": "animal-signal-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "no-official-sheet-by-design",
+   "covered": false,
+   "sheetsChecked": [
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:f248491bb5bdadf871ac47fb",
+   "lane": "animal-signal-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "no-official-sheet-by-design",
+   "covered": false,
+   "sheetsChecked": [
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:f2ab92f811738bbf842a7755",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:f37d9c3e1a2c0f9cabdbc0ca",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:f445dee981625a37fbc0a656",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:f4e1a8461eb8d9d309234fc2",
+   "lane": "safety-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": true,
+   "inCriticalHarmsSheet": false,
+   "classification": "covered",
+   "covered": true,
+   "sheetsChecked": [
+    "safety-full-screen-pass-1",
+    "safety-full-screen-pass-2",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:f50e3031fae6f3e812c491fb",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:f5dc9dfb4cbacf41105d7075",
+   "lane": "animal-signal-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "no-official-sheet-by-design",
+   "covered": false,
+   "sheetsChecked": [
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:f7f38b5b8312335341db41ab",
+   "lane": "safety-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": true,
+   "inCriticalHarmsSheet": false,
+   "classification": "covered",
+   "covered": true,
+   "sheetsChecked": [
+    "safety-full-screen-pass-1",
+    "safety-full-screen-pass-2",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:f842e58280e7d831b0561fec",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:fb8badff761e8d1998eb4bdc",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:fbcdcf89774409403cec794d",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:fc269ce962eb45ba64a23c1f",
+   "lane": "review-source-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "no-official-sheet-by-design",
+   "covered": false,
+   "sheetsChecked": [
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:fd539896c84537d688124eee",
+   "lane": "identity-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "no-official-sheet-by-design",
+   "covered": false,
+   "sheetsChecked": [
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:fda649f024ceba291e942a02",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:fdf29030554ac53f2911ccd3",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:fe098a60c7e4c2cf32a368e7",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:fed990e641bafb9baed2396a",
+   "lane": "review-source-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "no-official-sheet-by-design",
+   "covered": false,
+   "sheetsChecked": [
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:ff872478540aacf9561a6ce8",
+   "lane": "standard-screening",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "explained-shadow-sample",
+   "covered": false,
+   "sheetsChecked": [
+    "standard-full-screen-pass-1",
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:registry-record:26dc232d5ab98785c36d1456",
+   "lane": "registry-review",
+   "criticalHarmsSignal": true,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": true,
+   "classification": "no-official-sheet-by-design",
+   "covered": false,
+   "sheetsChecked": [
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:registry-record:33786ac9ddabac0f060d97f3",
+   "lane": "registry-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "no-official-sheet-by-design",
+   "covered": false,
+   "sheetsChecked": [
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:registry-record:3501908b6345dbd28bc6613d",
+   "lane": "registry-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "no-official-sheet-by-design",
+   "covered": false,
+   "sheetsChecked": [
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:registry-record:3f07202f286bdf408adee53d",
+   "lane": "registry-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "no-official-sheet-by-design",
+   "covered": false,
+   "sheetsChecked": [
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:registry-record:50ecced617b2e3800368d1b7",
+   "lane": "registry-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "no-official-sheet-by-design",
+   "covered": false,
+   "sheetsChecked": [
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:registry-record:689d73ac07752f5e5952ef4f",
+   "lane": "registry-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "no-official-sheet-by-design",
+   "covered": false,
+   "sheetsChecked": [
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:registry-record:6aee213b64da0d2ceb398aa9",
+   "lane": "registry-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "no-official-sheet-by-design",
+   "covered": false,
+   "sheetsChecked": [
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:registry-record:7e5e93616e46ee3e9996f9f6",
+   "lane": "registry-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "no-official-sheet-by-design",
+   "covered": false,
+   "sheetsChecked": [
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:registry-record:7f0cabc7c6590df409867bda",
+   "lane": "registry-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "no-official-sheet-by-design",
+   "covered": false,
+   "sheetsChecked": [
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:registry-record:865c6b46359102e7e74ce46b",
+   "lane": "registry-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": false,
+   "inCriticalHarmsSheet": false,
+   "classification": "no-official-sheet-by-design",
+   "covered": false,
+   "sheetsChecked": [
+    "critical-harms-sweep"
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:registry-record:f82725141c5052e9f22a584e",
+   "lane": "safety-review",
+   "criticalHarmsSignal": false,
+   "inLaneSheet": true,
+   "inCriticalHarmsSheet": false,
+   "classification": "covered",
+   "covered": true,
+   "sheetsChecked": [
+    "safety-full-screen-pass-1",
+    "safety-full-screen-pass-2",
+    "critical-harms-sweep"
+   ]
+  }
+ ],
+ "contentNote": "Opaque ids, lanes and coverage booleans only.",
+ "reconcileHash": "sha256:b9d62995a4a59469e67a4c884192d1474c9c012d633f2065e4cb4ee7e0ea99f5"
+}
