@@ -1,0 +1,32 @@
+{
+ "schemaVersion": 1,
+ "documentType": "calibration-fulltext-route-analysis",
+ "purpose": "Splits the 45 obtainable records by what it would actually take to get text out of them, because the owner decision was framed as PDF-route-or-shrink and neither reaches all 45.",
+ "population": "The 60-record calibration set after the n+103 backfill, restricted to records whose status is in obtainableDefinition.",
+ "countingUnit": "publication",
+ "criterion": "status in ['acquired', 'available-landing-page', 'available-pdf']",
+ "obtainableTotal": 45,
+ "byRoute": {
+  "available-landing-page": 16,
+  "available-pdf": 17,
+  "acquired": 12
+ },
+ "routeMeaning": {
+  "acquired": "JATS full text already downloaded from Europe PMC.",
+  "available-pdf": "OA location is a PDF; extraction needs a PDF parser (GROBID/Docling), which n+8 bars from unilateral installation.",
+  "available-landing-page": "OA location is a publisher landing page; extraction needs an HTML full-text parser, which this repo does not have at all (only parse_jats and parse_tei exist)."
+ },
+ "europePmcExhausted": {
+  "miss": 33
+ },
+ "europePmcNote": "Every non-acquired record was attempted at Europe PMC and every one came back a miss, so those works have no PMCID. Re-querying gains nothing; that route is done. This refutes the hypothesis that the earlier lookup was too narrow.",
+ "decisionImpact": {
+  "optionA_shrinkTo45": "33 of 45 still have no text",
+  "optionB_enablePdf": "reaches 29 of 45; the 16 landing-page records remain out of reach",
+  "uncoveredByBothOptions": 16,
+  "note": "The landing-page records need HTML parsing, a different capability from PDF parsing. The two-way choice as put to the owner does not cover them."
+ },
+ "coverageStatement": "Whether a given landing page actually serves parseable full text is not checked here -- that needs fetching, which is a new capability this room does not enable on its own. So 16 is an upper bound on what an HTML route could reach, not a promise.",
+ "contentNote": "Counts and status labels only. No literature content.",
+ "analysisHash": "sha256:f3fcb6a00b2fdd37a7998db60d2b3a91df46878e7c6b65d82dd22268764c803e"
+}
