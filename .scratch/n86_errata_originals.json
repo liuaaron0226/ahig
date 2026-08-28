@@ -1,0 +1,126 @@
+{
+ "schemaVersion": 1,
+ "documentType": "errata-originals-check",
+ "ruling": "n+86(9), performed after n+97(3) roster",
+ "rosterHash": "sha256:2d5ddaa51d8f6258986ea77979dcb22412053e2b801aad21c59823e44ee7fb21",
+ "method": "Strip Corrigendum/Correction/Erratum prefix, normalise case and punctuation, match against all worksheet titles excluding the errata themselves. Exact match first; containment only for titles of 25+ normalised characters, and the method used is recorded per record because containment can produce false positives.",
+ "verificationNote": "All eight recomputed, including the four whose originals the judgements already named. Those four are the control: if this file cannot reproduce them, the method is wrong, not the judgement.",
+ "checked": [
+  {
+   "erratum": "ahig:candidate:publication:aba8f4d23c882adf5d55778e",
+   "errataPage": 100,
+   "erratumJudged": true,
+   "matchMethod": "exact",
+   "originals": [
+    {
+     "candidateId": "ahig:candidate:publication:6af1d1578fa5551e332599e4",
+     "page": 76,
+     "opinion": "exclude"
+    }
+   ],
+   "inPool": true
+  },
+  {
+   "erratum": "ahig:candidate:publication:1f42a4d81435a53510fc45e7",
+   "errataPage": 146,
+   "erratumJudged": true,
+   "matchMethod": "exact",
+   "originals": [
+    {
+     "candidateId": "ahig:candidate:publication:b055ee0790fea782fe2fd7f0",
+     "page": 64,
+     "opinion": "unclear"
+    }
+   ],
+   "inPool": true
+  },
+  {
+   "erratum": "ahig:candidate:publication:56c625da7a4d5572f3136999",
+   "errataPage": 161,
+   "erratumJudged": true,
+   "matchMethod": "exact",
+   "originals": [
+    {
+     "candidateId": "ahig:candidate:publication:6afcdcc5638f9e788be6c5b3",
+     "page": 105,
+     "opinion": "exclude"
+    }
+   ],
+   "inPool": true
+  },
+  {
+   "erratum": "ahig:candidate:publication:d0f051cd2079629a7f1f5cdd",
+   "errataPage": 166,
+   "erratumJudged": true,
+   "matchMethod": "exact",
+   "originals": [
+    {
+     "candidateId": "ahig:candidate:publication:486239657ec2b2b8e7a8c6fe",
+     "page": 63,
+     "opinion": "unclear"
+    }
+   ],
+   "inPool": true
+  },
+  {
+   "erratum": "ahig:candidate:publication:b12ca48456248a1d76b1ea85",
+   "errataPage": 170,
+   "erratumJudged": true,
+   "matchMethod": "exact",
+   "originals": [
+    {
+     "candidateId": "ahig:candidate:publication:92c4b29c4236cf4a169beca0",
+     "page": 105,
+     "opinion": "exclude"
+    }
+   ],
+   "inPool": true
+  },
+  {
+   "erratum": "ahig:candidate:publication:82fa86699ebe00461c7ff15b",
+   "errataPage": 193,
+   "erratumJudged": true,
+   "matchMethod": "exact",
+   "originals": [
+    {
+     "candidateId": "ahig:candidate:publication:769c71fae4871d50d0001e66",
+     "page": 10,
+     "opinion": "advance"
+    }
+   ],
+   "inPool": true
+  },
+  {
+   "erratum": "ahig:candidate:publication:bc15ab60f35178534fa0585e",
+   "errataPage": 204,
+   "erratumJudged": true,
+   "matchMethod": "exact",
+   "originals": [
+    {
+     "candidateId": "ahig:candidate:publication:3a3f7efc885c0ad55140849c",
+     "page": 206,
+     "opinion": "exclude"
+    }
+   ],
+   "inPool": true
+  },
+  {
+   "erratum": "ahig:candidate:publication:8a4fb9cb0b81a0dd9b05b6d0",
+   "errataPage": 304,
+   "erratumJudged": false,
+   "matchMethod": "containment",
+   "originals": [
+    {
+     "candidateId": "ahig:candidate:publication:33c6a7ec4cf117b13f6f08ae",
+     "page": 280,
+     "opinion": "unclear"
+    }
+   ],
+   "inPool": true
+  }
+ ],
+ "inPool": 8,
+ "total": 8,
+ "contentNote": "Ids, pages, opinions and match method only. No titles.",
+ "checkHash": "sha256:da8674f6a942198e6c9556766ab0513b36377af1a1a8b6390df2b2832ee322b9"
+}
