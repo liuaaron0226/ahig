@@ -1,0 +1,56 @@
+{
+ "schemaVersion": 1,
+ "documentType": "board-sourced-placeholder-audit",
+ "ruling": "self-initiated; extends the round-440 check to the board-sourced six",
+ "population": "the six placeholders whose 來源型態 is 看板 in docs/m1-e-delivery-checklist.md",
+ "countingUnit": "placeholder",
+ "criterion": "whether an executable producing path exists, and whether the cited source measures the quantity the skeleton defines",
+ "debtHaveProducer": {
+  "DEBT_CUMULATIVE": {
+   "board": 22,
+   "artefact": 22,
+   "match": true
+  },
+  "DEBT_OUTSTANDING": {
+   "board": 16,
+   "artefact": 16,
+   "match": true
+  },
+  "DEBT_SETTLED": {
+   "board": 6,
+   "artefact": 6,
+   "match": true
+  },
+  "DEBT_B4": {
+   "board": 11,
+   "artefact": 11,
+   "match": true
+  }
+ },
+ "debtProducer": ".scratch/n92_audit_debt_union.py",
+ "debtArtefactHash": "sha256:f36681b36ca17aa43a160ed6d7aa3ac90096166114754bb35912399206351618",
+ "debtReclassify": "看板 → 產物",
+ "orphanN": {
+  "value": 5,
+  "source": "critical-harms-sweep-orphans/worksheet.json",
+  "fileHash": "sha256:e2e29c41bf582848f99442dd42efcf55e43c16eb2b1dad1c13ffe01e87d14f0c",
+  "reclassify": "看板 → 不可及（executor-measured, hashed）"
+ },
+ "sexRepresentation": {
+  "skeletonDefinition": "male-proportion range (m1-b skeleton line 90)",
+  "citedSource": "board 49702",
+  "citedSourceMeasures": "per-sex supplementation planning rates in one study (91-93% vs 67-72%)",
+  "citedSourceVerdict": "MEASURES A DIFFERENT QUANTITY, not a coarser version of the same one",
+  "betterCandidate": "board 46666",
+  "betterCandidateMeasures": "281-study audit: 3,735 participants, ~16% female, so ~84% male; 217 male-only cohorts",
+  "betterCandidateVerdict": "right quantity, WRONG POPULATION -- chronic carbohydrate strategy research, which board 46676 itself marks as outside this contract's acute during-exercise scope, and where only the conclusion is said to extrapolate, not the figures",
+  "conclusion": "No source exists today for the male-proportion range of this review's included studies. It has to come from full-text extraction, which is M1 step 4, not started.",
+  "severity": "The checklist marks this placeholder 凍結, i.e. already settled and not to be recomputed at delivery. A figure that does not exist yet is labelled as final."
+ },
+ "searchRangeDeclared": [
+  "COORDINATION.md in full",
+  "tracked docs/ and .scratch/"
+ ],
+ "contentNote": "Counts, hashes and board line numbers only.",
+ "auditHash": "sha256:c7f488c8c18deab60ade9ba02b5f5310754d63f3f73b0729145cb5034cdefdfe"
+}
