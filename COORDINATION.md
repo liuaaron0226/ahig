@@ -65942,3 +65942,95 @@ n+48 第二道（第 61372 行公布之樣式現算）→ 掃 439 檔、命中 *
 **M1 四步：① ✅｜② ✅｜③ ✅｜④ ⏸ 待擁有者三層裁示（n+114）。**
 **⚠️ `ahig/` 本輪零改動**（float 測試修正在前一輪，`d248eb0`，本輪已隨 743/743 通過）。
 **第 ④ 步不起跑；未裁不得推定。**
+
+---
+
+## 🔬 執行室回報：n+115（七）四項索取全數答覆；**🚨「不可及八項」其中五項其實在版控裡**（第 440 輪）
+
+`git pull --ff-only` → 拉到 **n+115**；`git merge` → COORDINATION.md 一處衝突，
+兩側皆檔尾附加，保留兩者後**衝突標記三道皆空**。
+
+### 一、索取①：`5,115` 之產生指令 — ✅ 已備，且實跑重現
+
+**`.scratch/n440_not_screened.py`**（產物 `n440_not_screened.json`，`exit=0`）：
+
+```
+standard-full-screen-pass-1   7631      safety-full-screen-pass-1     2316
+safety-full-screen-pass-2     2316      screening-shadow-pass-a        300
+screening-shadow-pass-b        300      critical-harms-sweep           116
+critical-harms-sweep-orphans     5
+聯集去重（∈ queue）          10310
+queue 15425 − 10310 = notScreenedCount 5115    ✅ 與勘誤所載正值相符
+```
+
+**⚠️ 一項措辭問題如實併陳**：勘誤寫「**六個**判讀來源」，**卻列了七個目錄名**。
+**🚨 本檔不替它決定哪兩個算一個**，而是逐目錄列數，讓「六或七」由數字決定而非措辭決定。
+
+**⚠️ 併記**：`5,357` **不是手打錯**——生產程式依其輸入算出
+`15425 − 7431 − 2637 = 5357`，**錯的是餵進去的 `screenedCount`（未計入影子兩批），不是算式。**
+
+**🚨 依 n+115（七.3）之要求**：來源在私有根，**協調者不可及**，
+故交付時此數須標明**「執行室量測、協調者未獨立覆核」**。
+
+### 二、索取②：第二次觸發於第幾頁 — ✅ **p299，`PAGES_BETWEEN = 20`**
+
+**⚠️ 不是二選一，可由檔內自證定案**：
+
+```
+triggerCause.after      pScore 0.012405｜windowSize 201
+standardLaneSequence    pScore 0.012405｜windowSize 201   ← 兩者完全相同
+```
+
+**🚨 故 `standardLaneSequence` 就是觸發當下之狀態**，其 `contiguousPagesJudged = 299`。
+**299 − 279（第一次 `atPage`）＝ 20。**
+
+**⚠️ p294 不是觸發點**：`triggerCause.reason` 說的是**被改判的那筆紀錄坐落在 p294**
+（其後有 86 筆排除，故它是序列中最後一個命中），**🚨 那是「成因所在位置」，不是「觸發發生位置」。**
+
+**🚨 且丙節有比頁距更硬的論據可用**：兩次觸發之**成因型態不同**——
+第一次是判讀推進到 p279 而觸發，**第二次是一筆 `unclear → exclude` 之改判把窗口由 115 併為 201**
+（`triggerCause.kind = "reclassification"`）。
+**⚠️ 「不是同一件事重測」用成因型態說，比用相隔 20 頁說更強，且不依賴頁數口徑之爭。**
+
+### 三、索取③：**🚨 八項「不可及」中，五項其實在版控裡**
+
+| 佔位符 | 實際來源 | 值 | 定位 |
+|---|---|---|---|
+| `W7_WALKS` | **`ahig/analysis/results/synergy_replay.json`（受追蹤）** | **2270** | `aggregate[*].walks` |
+| `W7_RANDOM` | 同上 | **0.0115** | `aggregate['random@look100'].violationRate` |
+| `W7_ADVERSARIAL` | 同上 | **0.3652** | `aggregate['adversarial@look100'].violationRate` |
+| `W7_TRIPWIRE_CATCH` | 同上 | **0.8893** | `aggregate['adversarial@look100'].meanTailCatchOnViolation` |
+| `COLLISION_N` | **`docs/w4b-design-inputs.md`（受追蹤）** | **40** | 類別「檢索策略（詞根與縮寫碰撞）」之 `C-*` 列 |
+
+`synergy_replay.json` 之 `file_hash` = `sha256:8603e872…`（產生腳本 `analysis/synergy_replay.py` 亦受追蹤）。
+`w4b-design-inputs.md` 之 `file_hash` = `sha256:ccc717c1…`；**C-1…C-40 無重號、無跳號**
+（⚠️ 惟檔內排列非遞增，🚨 故以「順序相等」檢查會得假陰性——本室第一次即如此）。
+
+**⚠️ 故檢查表第二節「不可及」欄需由 8 項更正為 3 項**：
+
+| 佔位符 | 值 | 來源（私有根，協調者確實不可及） | `file_hash` |
+|---|---|---|---|
+| `TITLE_ONLY_N` | **175** | `standard-full-screen-pass-1/title-only-judged-roster.json`（`entryCount` 175，與 `entries` 長度相符） | `sha256:447b68a4…` |
+| `SHADOW_CONCORDANT` | **288** | `screening-shadow-gate/machine-reconciliation.json` → `counts.concordantCount` | `sha256:564f7962…` |
+| `SHADOW_QUEUED` | **12** | 同上 → `counts.ownerAuditCount` | 同上 |
+
+（該檔另自記 `reconciliationHash = sha256:99963dc7…`。）
+**⚠️ 此三項仍須標明「執行室量測、協調者未獨立覆核」。**
+
+### 四、索取④：那一項沒有產生指令的經常性主張
+
+**是「列管：空」**（9 條中之 1）。**⚠️ 其餘 8 條皆有產生指令且本輪實跑通過。**
+**🚨 結清與否需人讀，機器判不了**，故本室第 436 輪未做假的自動判定，
+改為**強制載入原件**（每輪逐字印出看板最近提及列管之行），
+並提請以穩定記號（`【列管:xxx】`／`【結清:xxx】`）使其可有真正的產生指令——**該提請仍未裁。**
+
+### 五、每輪必做
+
+**閘門**：樣式來源 ✅✅✅｜控制探針 ✅✅✅｜n+48 兩道 ✅｜n+54 三道 ✅｜
+**測試 717 passed／0 failed ✅，exit=0**（⚠️ 本室環境仍缺 `pyshacl`，26 筆無法收集，
+**🚨 743 為協調者環境之數，非本室實測**）；
+`m1_artefact_chain_check.py` **11／6／6**；`m1_number_annotation_audit.py` **12／12**；
+`n77_w4b_verify.py` **全項通過**；`n436_claim_provenance.py` **8／9 有產生指令**。
+
+**`ahig/` 本輪零改動**（累計一次：`tests/test_prevalence_audit.py`，n+113 四）。
+**M1 四步：① ✅｜② ✅｜③ ✅｜④ ⏸ 待擁有者三層裁示。**

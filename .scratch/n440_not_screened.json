@@ -1,0 +1,56 @@
+{
+ "schemaVersion": 1,
+ "documentType": "not-screened-count-derivation",
+ "ruling": "n+115(7.1): produce the command behind the corrected 5,115",
+ "population": "screening-queue/queue.json of run b11-full-run",
+ "countingUnit": "candidate (publication)",
+ "criterion": "queue size minus the deduplicated union of candidateIds judged in the seven listed source directories, counting only ids that are themselves in the queue",
+ "queueSize": 15425,
+ "perSource": {
+  "standard-full-screen-pass-1": {
+   "judged": 7631,
+   "inQueue": 7631,
+   "shape": "dict.entries／7631 筆"
+  },
+  "safety-full-screen-pass-1": {
+   "judged": 2316,
+   "inQueue": 2316,
+   "shape": "dict.entries／2316 筆"
+  },
+  "safety-full-screen-pass-2": {
+   "judged": 2316,
+   "inQueue": 2316,
+   "shape": "dict.entries／2316 筆"
+  },
+  "screening-shadow-pass-a": {
+   "judged": 300,
+   "inQueue": 300,
+   "shape": "dict.entries／300 筆"
+  },
+  "screening-shadow-pass-b": {
+   "judged": 300,
+   "inQueue": 300,
+   "shape": "dict.entries／300 筆"
+  },
+  "critical-harms-sweep": {
+   "judged": 116,
+   "inQueue": 116,
+   "shape": "dict.entries／116 筆"
+  },
+  "critical-harms-sweep-orphans": {
+   "judged": 5,
+   "inQueue": 5,
+   "shape": "dict.entries／5 筆"
+  }
+ },
+ "unionSize": 10310,
+ "notScreenedCount": 5115,
+ "errataValue": 5115,
+ "matches": true,
+ "sixOrSevenNote": "The errata says \"six sources\" but names seven directories. This file does not decide which two are one; it lists each separately so the question is settled by numbers rather than by wording.",
+ "wrongValueNote": "5,357 was not a typo. evaluate_termination() computed poolSize 15425 - screenedCount 7431 - outOfSequenceCount 2637 from its inputs. The input screenedCount omitted the shadow passes; the formula was right.",
+ "verificationNote": "Sources live in the private root and the coordinator cannot reach them. Per n+115(7.3) this figure must be delivered marked as measured by the executor and not independently checked.",
+ "queueFileHash": "sha256:99c7bbc8117d2cb925455f4d51cc19107438113ffeb88f0f6a19542a52f52902",
+ "contentNote": "Counts and directory names only. No literature content.",
+ "derivationHash": "sha256:254e3865d59faa0ee63de349a5f9b50634b7b3aea3f42f7000443741694a6e19"
+}
