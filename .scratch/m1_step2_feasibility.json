@@ -1,0 +1,83 @@
+{
+ "schemaVersion": 1,
+ "documentType": "m1-step2-strata-feasibility",
+ "purpose": "Measures whether the frozen strata quotas can be filled from the advance population. Feasibility only -- NOT an assignment.",
+ "populationHash": "sha256:84cde8904e86b72830d4aeed70ca1e593205f9c97d34d7cc14e186d4cc4993eb",
+ "advanceCount": 314,
+ "doseReadable": 203,
+ "doseReadableRate": 0.6465,
+ "comparisonNote": "prevalence audit measured 3/50 (6%) exact-value dose readability on a whole-pool sample; advance records are higher, consistent with how they qualified.",
+ "strata": [
+  {
+   "stratumId": "S1-tt-moderate-dose",
+   "quota": 12,
+   "sharesPoolWith": [
+    "S2-tt-high-and-very-high-dose"
+   ],
+   "groupQuotaSum": 22,
+   "groupCandidatesWithDose": 50,
+   "groupQuotaFillable": true
+  },
+  {
+   "stratumId": "S2-tt-high-and-very-high-dose",
+   "quota": 10,
+   "sharesPoolWith": [
+    "S1-tt-moderate-dose"
+   ],
+   "groupQuotaSum": 22,
+   "groupCandidatesWithDose": 50,
+   "groupQuotaFillable": true
+  },
+  {
+   "stratumId": "S3-tte",
+   "quota": 8,
+   "sharesPoolWith": [],
+   "groupQuotaSum": 8,
+   "groupCandidatesWithDose": 25,
+   "groupQuotaFillable": true
+  },
+  {
+   "stratumId": "S4-exogenous-oxidation",
+   "quota": 10,
+   "sharesPoolWith": [],
+   "groupQuotaSum": 10,
+   "groupCandidatesWithDose": 75,
+   "groupQuotaFillable": true
+  },
+  {
+   "stratumId": "S5-gi-harms-primary",
+   "quota": 8,
+   "sharesPoolWith": [
+    "S6-gi-harms-secondary-only"
+   ],
+   "groupQuotaSum": 15,
+   "groupCandidatesWithDose": 24,
+   "groupQuotaFillable": true
+  },
+  {
+   "stratumId": "S6-gi-harms-secondary-only",
+   "quota": 7,
+   "sharesPoolWith": [
+    "S5-gi-harms-primary"
+   ],
+   "groupQuotaSum": 15,
+   "groupCandidatesWithDose": 24,
+   "groupQuotaFillable": true
+  },
+  {
+   "stratumId": "S7-glycogen",
+   "quota": 5,
+   "sharesPoolWith": [],
+   "groupQuotaSum": 5,
+   "groupCandidatesWithDose": 32,
+   "groupQuotaFillable": true
+  }
+ ],
+ "unresolved": [
+  "S1 vs S2 split is a dose band; this file only detects that a dose is stated, not which band it falls in.",
+  "S5 vs S6 split is primary vs secondary-only GI reporting; not distinguishable by these patterns.",
+  "Multiple membership unhandled: one record can hit several strata. Whether quotas are mutually exclusive needs a ruling."
+ ],
+ "contentNote": "Counts only. No literature content.",
+ "reportHash": "sha256:0739d01ba9b6b8e3cfc7cdf6bd515aa342dd413a1cc10a29c84d15f80bdbd3f0"
+}
