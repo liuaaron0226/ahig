@@ -1,0 +1,173 @@
+{
+ "schemaVersion": 1,
+ "documentType": "errata-roster",
+ "ruling": "n+97(3) build the list before checking; n+86(9) the check itself",
+ "authoritativeSource": "worksheet.json items[].publicationTypes",
+ "authoritativeSourceNote": "Publication type metadata, not judgement wording. The round-412 count of 4 was matched against how judges phrased things, which measures something else entirely.",
+ "pattern": "errat|correction|corrigend",
+ "count": 8,
+ "typeLiterals": {
+  "Published Erratum": 7,
+  "correction": 2,
+  "erratum": 1
+ },
+ "reconciliation": {
+  "n+86(9) ruling": {
+   "value": 7,
+   "kind": "narrative",
+   "note": "coordinator self-corrected in n+97: restated the executor phrasing, never verified"
+  },
+  "round 401 executor": {
+   "value": 8,
+   "kind": "narrative",
+   "note": "no list attached; counting method not reconstructible from the board"
+  },
+  "round 412 wording scan": {
+   "value": 4,
+   "kind": "pattern-hit",
+   "note": "measures judge phrasing, not type"
+  },
+  "judgements mentioning errata": {
+   "value": 18,
+   "kind": "pattern-hit",
+   "note": "includes records that merely mention another record is an erratum"
+  },
+  "this file (metadata)": {
+   "value": 8,
+   "kind": "authoritative"
+  }
+ },
+ "sevenVsEightResolved": {
+  "judged": 7,
+  "unjudged": [
+   {
+    "candidateId": "ahig:candidate:publication:8a4fb9cb0b81a0dd9b05b6d0",
+    "page": 304
+   }
+  ],
+  "explanation": "Both figures are correct over different populations. n+86 said seven, which is the judged errata; round 401 said eight, which includes one at p304 -- past the n+57 step-0 hold line at p299, so never judged. Nobody stated which population they were counting, which is the whole of the discrepancy."
+ },
+ "roster": [
+  {
+   "candidateId": "ahig:candidate:publication:aba8f4d23c882adf5d55778e",
+   "page": 100,
+   "seq": 2477,
+   "publicationTypes": [
+    "Published Erratum",
+    "correction"
+   ],
+   "matchedTypes": [
+    "Published Erratum",
+    "correction"
+   ],
+   "judged": true,
+   "opinion": "exclude",
+   "hasAbstract": false
+  },
+  {
+   "candidateId": "ahig:candidate:publication:1f42a4d81435a53510fc45e7",
+   "page": 146,
+   "seq": 3637,
+   "publicationTypes": [
+    "Published Erratum"
+   ],
+   "matchedTypes": [
+    "Published Erratum"
+   ],
+   "judged": true,
+   "opinion": "exclude",
+   "hasAbstract": false
+  },
+  {
+   "candidateId": "ahig:candidate:publication:56c625da7a4d5572f3136999",
+   "page": 161,
+   "seq": 4009,
+   "publicationTypes": [
+    "Journal Article",
+    "Published Erratum"
+   ],
+   "matchedTypes": [
+    "Published Erratum"
+   ],
+   "judged": true,
+   "opinion": "exclude",
+   "hasAbstract": false
+  },
+  {
+   "candidateId": "ahig:candidate:publication:d0f051cd2079629a7f1f5cdd",
+   "page": 166,
+   "seq": 4146,
+   "publicationTypes": [
+    "Journal Article",
+    "Published Erratum",
+    "correction"
+   ],
+   "matchedTypes": [
+    "Published Erratum",
+    "correction"
+   ],
+   "judged": true,
+   "opinion": "exclude",
+   "hasAbstract": true
+  },
+  {
+   "candidateId": "ahig:candidate:publication:b12ca48456248a1d76b1ea85",
+   "page": 170,
+   "seq": 4248,
+   "publicationTypes": [
+    "Journal Article",
+    "Published Erratum"
+   ],
+   "matchedTypes": [
+    "Published Erratum"
+   ],
+   "judged": true,
+   "opinion": "exclude",
+   "hasAbstract": false
+  },
+  {
+   "candidateId": "ahig:candidate:publication:82fa86699ebe00461c7ff15b",
+   "page": 193,
+   "seq": 4803,
+   "publicationTypes": [
+    "Published Erratum"
+   ],
+   "matchedTypes": [
+    "Published Erratum"
+   ],
+   "judged": true,
+   "opinion": "exclude",
+   "hasAbstract": false
+  },
+  {
+   "candidateId": "ahig:candidate:publication:bc15ab60f35178534fa0585e",
+   "page": 204,
+   "seq": 5079,
+   "publicationTypes": [
+    "Published Erratum"
+   ],
+   "matchedTypes": [
+    "Published Erratum"
+   ],
+   "judged": true,
+   "opinion": "exclude",
+   "hasAbstract": false
+  },
+  {
+   "candidateId": "ahig:candidate:publication:8a4fb9cb0b81a0dd9b05b6d0",
+   "page": 304,
+   "seq": 7584,
+   "publicationTypes": [
+    "erratum"
+   ],
+   "matchedTypes": [
+    "erratum"
+   ],
+   "judged": false,
+   "opinion": null,
+   "hasAbstract": false
+  }
+ ],
+ "contentNote": "Ids, pages, types and opinions only. No titles or abstracts.",
+ "rosterHash": "sha256:2d5ddaa51d8f6258986ea77979dcb22412053e2b801aad21c59823e44ee7fb21"
+}
