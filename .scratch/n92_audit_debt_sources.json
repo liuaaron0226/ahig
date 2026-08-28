@@ -1,0 +1,69 @@
+{
+ "schemaVersion": 1,
+ "documentType": "audit-debt-source-location",
+ "ruling": "n+92（二）：逐筆取三份 candidateId 清單求聯集，報去重後之數",
+ "status": "in-progress",
+ "statusNote": "🚨 本檔記錄的是『清單定位到哪裡』，不是聯集結果。⚠️ 三份清單中有兩份尚未定位到可機讀之產物，在未取得清單前不得計算聯集——那正是 n+92 要修的毛病（數字相加而無清單）。",
+
+ "sources": [
+  {
+   "label": "影子歧異筆",
+   "boardValue": 11,
+   "listLocated": true,
+   "listLocation": "私有根 screening-shadow-gate/gate-report.json",
+   "fields": {
+    "ownerAuditQueue": 12,
+    "disagreementCandidateIds": 12,
+    "opposedCandidateIds": 1,
+    "unresolvedOpposedCandidateIds": 0,
+    "machine-reconciliation.unresolvedOwnerAuditCandidateIds": 11
+   },
+   "🚨 發現": "看板記 11，而 ownerAuditQueue 實為 12。11 ＝ unresolvedOwnerAuditCandidateIds（未解決者），12 ＝ 全部歧異（11 未解決 ＋ 1 opposed）。⚠️ 兩個數字都對，量的是不同母體——本輪這已是第三例（另兩例：45 可得 vs 12 在手、勘誤 7 vs 8）。",
+   "⚠️ 待裁": "抽查債應計 11（未解決者）或 12（全部歧異）？本室不自行選擇——該選擇會改變交付給擁有者的抽查筆數。"
+  },
+  {
+   "label": "W2 補抽",
+   "boardValue": 5,
+   "listLocated": false,
+   "searchedIn": [
+    "私有根 prevalence-audit/0030677e77bf/audit.json（records 50 筆、exclusionAudit 0 筆，無 5 筆抽查子集）",
+    "私有根 prevalence-audit/0030677e77bf/estimate.json（無 owner/spot-check 欄位）"
+   ],
+   "boardPointer": "看板第 840 行帳本表註『清單見 W2 報告末節』——⚠️ 該末節尚未定位到具體行號。",
+   "🚨 意涵": "若該清單只存在看板敘述而未落盤，則它與 n+77 所指之第九型缺陷同源：交付物之依據是敘述而非可回溯之產物。"
+  },
+  {
+   "label": "pilot lane 分布衍生",
+   "boardValue": 1,
+   "listLocated": false,
+   "searchedIn": [
+    "私有根 screening-pilot/prevalence-estimate.json（無抽查欄位）",
+    "私有根 screening-pilot/sample.json（154 筆試點樣本，非抽查子集）"
+   ],
+   "🚨 意涵": "同上。⚠️ 且單筆之清單尤其容易只以敘述存在。"
+  }
+ ],
+
+ "ledgerTableVsFormula": {
+  "🚨 n+92（三）之觀察經本室確認屬實": true,
+  "ledgerTable": {
+   "location": "看板第 840 行",
+   "rows": [
+    {"batch": "22f634d2325d（主框 50+12）", "sample": 6, "state": "✅ 已清（6/6 通過）",
+     "listLocation": "看板第 307 行附近，六筆逐一列出"},
+    {"batch": "0030677e77bf（W2 補抽 50）", "sample": 5, "state": "⏳ 記帳"}
+   ],
+   "note": "⚠️ 表中無 pilot 與影子兩項"
+  },
+  "formula": "看板第 3128 行：5（W2）＋1（pilot）＋11（影子）＝ 17",
+  "🚨 兩者之差異不只是漏列": "帳本表含『已清償』之主框 6 筆，算式則只計未清者。⚠️ 故『17』是尚欠數，而累計曾發生之債為 6＋5＋1＋11 ＝ 23（若三來源互斥）。**n+92（三）要求兩者並陳，正是因為只報『尚欠 17』會讓讀者以為總共只抽查過 17 筆。**"
+ },
+
+ "nextSteps": [
+  "定位 W2 之 5 筆清單（看板『W2 報告末節』），若僅存敘述則如實標記為不可回溯。",
+  "定位 pilot 之 1 筆清單，同上。",
+  "三份清單齊備後方可求聯集並報去重後之數；🚫 在此之前不得計算聯集。",
+  "併請協調者裁示影子項應計 11 或 12。"
+ ],
+ "contentNote": "只有計數、欄位名與位置指標，無任何文獻內容。"
+}
