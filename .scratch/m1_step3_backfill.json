@@ -1,0 +1,457 @@
+{
+ "schemaVersion": 1,
+ "documentType": "m1-step3-backfill",
+ "ruling": "n+103(4); ineligibleReplacement per strata.json",
+ "obtainableDefinition": [
+  "acquired",
+  "available-landing-page",
+  "available-pdf"
+ ],
+ "obtainableDefinitionNote": "Matches n+103's per-pool figures exactly across all six pools (S1=5, S2=4, S3=1, S4=6, S5+S6=4, S7=1); derived by reconciling against that table rather than assumed.",
+ "replacementRule": "Same seed, same permutation: indices 0..quota-1 are the frozen draw, quota onward are replacements in order. Verified per pool that sample(pool, quota) equals the first quota of sample(pool, len(pool)). Not a re-draw.",
+ "calibrationSetHash": "sha256:f3f1b6b22fff2df3d96f7cff0f3fb91429a4003d64b6244230560047050e6f64",
+ "pools": [
+  {
+   "poolId": "S1-tt-moderate-dose",
+   "quota": 12,
+   "seed": 15806539371960117084,
+   "drawnObtainable": 5,
+   "needed": 7,
+   "reserveSize": 50,
+   "backfilled": [
+    {
+     "candidateId": "ahig:candidate:publication:45b54e0f521c5d3359712b22",
+     "drawIndex": 12,
+     "status": "available-pdf",
+     "accepted": true,
+     "reasonCode": null
+    },
+    {
+     "candidateId": "ahig:candidate:publication:452b85ab51d661941207ddb7",
+     "drawIndex": 13,
+     "status": "no-oa-fulltext",
+     "accepted": false,
+     "reasonCode": "no-oa-fulltext"
+    },
+    {
+     "candidateId": "ahig:candidate:publication:c8fea0895d84a17e2c347de7",
+     "drawIndex": 14,
+     "status": "available-pdf",
+     "accepted": true,
+     "reasonCode": null
+    },
+    {
+     "candidateId": "ahig:candidate:publication:57ef311258a83414e18036b3",
+     "drawIndex": 15,
+     "status": "available-pdf",
+     "accepted": true,
+     "reasonCode": null
+    },
+    {
+     "candidateId": "ahig:candidate:publication:aa37e3fafbc5d49b9afadfe2",
+     "drawIndex": 16,
+     "status": "no-oa-fulltext",
+     "accepted": false,
+     "reasonCode": "no-oa-fulltext"
+    },
+    {
+     "candidateId": "ahig:candidate:publication:a61c9cbdef03a60bfe36a497",
+     "drawIndex": 17,
+     "status": "no-oa-fulltext",
+     "accepted": false,
+     "reasonCode": "no-oa-fulltext"
+    },
+    {
+     "candidateId": "ahig:candidate:publication:f6a2becc97c2233f7e60c801",
+     "drawIndex": 18,
+     "status": "acquired",
+     "accepted": true,
+     "reasonCode": null
+    },
+    {
+     "candidateId": "ahig:candidate:publication:bd9995f482cbc04b68c38e79",
+     "drawIndex": 19,
+     "status": "available-pdf",
+     "accepted": true,
+     "reasonCode": null
+    },
+    {
+     "candidateId": "ahig:candidate:publication:7dec3f4066e16f089f1522d1",
+     "drawIndex": 20,
+     "status": "acquired",
+     "accepted": true,
+     "reasonCode": null
+    },
+    {
+     "candidateId": "ahig:candidate:publication:66301d8995ecaf046cf877be",
+     "drawIndex": 21,
+     "status": "no-oa-fulltext",
+     "accepted": false,
+     "reasonCode": "no-oa-fulltext"
+    },
+    {
+     "candidateId": "ahig:candidate:publication:ce06bb6d2b2eae07f04e7c85",
+     "drawIndex": 22,
+     "status": "no-oa-fulltext",
+     "accepted": false,
+     "reasonCode": "no-oa-fulltext"
+    },
+    {
+     "candidateId": "ahig:candidate:publication:2bcf407b20de6fd9c68fa968",
+     "drawIndex": 23,
+     "status": "available-landing-page",
+     "accepted": true,
+     "reasonCode": null
+    }
+   ],
+   "exhausted": false,
+   "acceptedCount": 7,
+   "finalObtainable": 12,
+   "shortfall": 0
+  },
+  {
+   "poolId": "S2-tt-high-and-very-high-dose",
+   "quota": 10,
+   "seed": 14216426716295199814,
+   "drawnObtainable": 4,
+   "needed": 6,
+   "reserveSize": 2,
+   "backfilled": [
+    {
+     "candidateId": "ahig:candidate:publication:861b4a2965d459b9129da800",
+     "drawIndex": 10,
+     "status": "acquired",
+     "accepted": true,
+     "reasonCode": null
+    },
+    {
+     "candidateId": "ahig:candidate:publication:27b4d05135560379f899703a",
+     "drawIndex": 11,
+     "status": "no-oa-fulltext",
+     "accepted": false,
+     "reasonCode": "no-oa-fulltext"
+    }
+   ],
+   "exhausted": true,
+   "acceptedCount": 1,
+   "finalObtainable": 5,
+   "shortfall": 5
+  },
+  {
+   "poolId": "S3-tte",
+   "quota": 8,
+   "seed": 745501110764546292,
+   "drawnObtainable": 1,
+   "needed": 7,
+   "reserveSize": 16,
+   "backfilled": [
+    {
+     "candidateId": "ahig:candidate:publication:640de9dbd90d571c7cbc7e32",
+     "drawIndex": 8,
+     "status": "no-oa-fulltext",
+     "accepted": false,
+     "reasonCode": "no-oa-fulltext"
+    },
+    {
+     "candidateId": "ahig:candidate:publication:2a20a5f4e21633241b68c93e",
+     "drawIndex": 9,
+     "status": "available-landing-page",
+     "accepted": true,
+     "reasonCode": null
+    },
+    {
+     "candidateId": "ahig:candidate:publication:978923d41b9ad91a3450d43e",
+     "drawIndex": 10,
+     "status": "no-oa-fulltext",
+     "accepted": false,
+     "reasonCode": "no-oa-fulltext"
+    },
+    {
+     "candidateId": "ahig:candidate:publication:8a8d5efcf6a82302d7fe9adf",
+     "drawIndex": 11,
+     "status": "acquired",
+     "accepted": true,
+     "reasonCode": null
+    },
+    {
+     "candidateId": "ahig:candidate:publication:6d107d8f43f537b1305a0cb1",
+     "drawIndex": 12,
+     "status": "no-oa-fulltext",
+     "accepted": false,
+     "reasonCode": "no-oa-fulltext"
+    },
+    {
+     "candidateId": "ahig:candidate:publication:957dfdbf335a7235c50335bc",
+     "drawIndex": 13,
+     "status": "no-oa-fulltext",
+     "accepted": false,
+     "reasonCode": "no-oa-fulltext"
+    },
+    {
+     "candidateId": "ahig:candidate:publication:c4cb0c1318962505b23ce4a4",
+     "drawIndex": 14,
+     "status": "no-oa-fulltext",
+     "accepted": false,
+     "reasonCode": "no-oa-fulltext"
+    },
+    {
+     "candidateId": "ahig:candidate:publication:ad4b0994a103783d5231cfec",
+     "drawIndex": 15,
+     "status": "available-landing-page",
+     "accepted": true,
+     "reasonCode": null
+    },
+    {
+     "candidateId": "ahig:candidate:publication:eac6aff9f98c855ca35e4def",
+     "drawIndex": 16,
+     "status": "available-landing-page",
+     "accepted": true,
+     "reasonCode": null
+    },
+    {
+     "candidateId": "ahig:candidate:publication:6182d516d5d8facc2fecdbd2",
+     "drawIndex": 17,
+     "status": "no-oa-fulltext",
+     "accepted": false,
+     "reasonCode": "no-oa-fulltext"
+    },
+    {
+     "candidateId": "ahig:candidate:publication:d02d294c1de0f49f59fecb8b",
+     "drawIndex": 18,
+     "status": "available-landing-page",
+     "accepted": true,
+     "reasonCode": null
+    },
+    {
+     "candidateId": "ahig:candidate:publication:da880e11c1124b79fd4d3c27",
+     "drawIndex": 19,
+     "status": "no-oa-fulltext",
+     "accepted": false,
+     "reasonCode": "no-oa-fulltext"
+    },
+    {
+     "candidateId": "ahig:candidate:publication:eff05402c0f943f6aead605a",
+     "drawIndex": 20,
+     "status": "no-oa-fulltext",
+     "accepted": false,
+     "reasonCode": "no-oa-fulltext"
+    },
+    {
+     "candidateId": "ahig:candidate:publication:438c64ce77621b70399b246f",
+     "drawIndex": 21,
+     "status": "available-landing-page",
+     "accepted": true,
+     "reasonCode": null
+    },
+    {
+     "candidateId": "ahig:candidate:publication:59dbacf798e3db71adc4f096",
+     "drawIndex": 22,
+     "status": "no-oa-fulltext",
+     "accepted": false,
+     "reasonCode": "no-oa-fulltext"
+    },
+    {
+     "candidateId": "ahig:candidate:publication:424b7c76977b36b981e72b2c",
+     "drawIndex": 23,
+     "status": "no-oa-fulltext",
+     "accepted": false,
+     "reasonCode": "no-oa-fulltext"
+    }
+   ],
+   "exhausted": true,
+   "acceptedCount": 6,
+   "finalObtainable": 7,
+   "shortfall": 1
+  },
+  {
+   "poolId": "S4-exogenous-oxidation",
+   "quota": 10,
+   "seed": 10204163260170645439,
+   "drawnObtainable": 6,
+   "needed": 4,
+   "reserveSize": 22,
+   "backfilled": [
+    {
+     "candidateId": "ahig:candidate:publication:5c45a5ccb7aa00da860e4a55",
+     "drawIndex": 10,
+     "status": "no-oa-fulltext",
+     "accepted": false,
+     "reasonCode": "no-oa-fulltext"
+    },
+    {
+     "candidateId": "ahig:candidate:publication:d9552aa9f6cafc4cb2cafdc6",
+     "drawIndex": 11,
+     "status": "no-oa-fulltext",
+     "accepted": false,
+     "reasonCode": "no-oa-fulltext"
+    },
+    {
+     "candidateId": "ahig:candidate:publication:8dd0f644a9012191142e7e02",
+     "drawIndex": 12,
+     "status": "available-landing-page",
+     "accepted": true,
+     "reasonCode": null
+    },
+    {
+     "candidateId": "ahig:candidate:publication:c9858f3ce755ffb4135ac458",
+     "drawIndex": 13,
+     "status": "no-oa-fulltext",
+     "accepted": false,
+     "reasonCode": "no-oa-fulltext"
+    },
+    {
+     "candidateId": "ahig:candidate:publication:f09fd22168b1b2f9ce594d6c",
+     "drawIndex": 14,
+     "status": "available-landing-page",
+     "accepted": true,
+     "reasonCode": null
+    },
+    {
+     "candidateId": "ahig:candidate:publication:211950e67902e3ec54370729",
+     "drawIndex": 15,
+     "status": "available-landing-page",
+     "accepted": true,
+     "reasonCode": null
+    },
+    {
+     "candidateId": "ahig:candidate:publication:de939065eac2b5fd6bb06843",
+     "drawIndex": 16,
+     "status": "available-pdf",
+     "accepted": true,
+     "reasonCode": null
+    }
+   ],
+   "exhausted": false,
+   "acceptedCount": 4,
+   "finalObtainable": 10,
+   "shortfall": 0
+  },
+  {
+   "poolId": "S5+S6-gi-merged",
+   "quota": 15,
+   "seed": 9208804679799223948,
+   "drawnObtainable": 4,
+   "needed": 11,
+   "reserveSize": 12,
+   "backfilled": [
+    {
+     "candidateId": "ahig:candidate:publication:6f9c5aec79503020d89e7ccf",
+     "drawIndex": 15,
+     "status": "available-pdf",
+     "accepted": true,
+     "reasonCode": null
+    },
+    {
+     "candidateId": "ahig:candidate:publication:a4bbe8aa65dd82a89b2c5340",
+     "drawIndex": 16,
+     "status": "available-landing-page",
+     "accepted": true,
+     "reasonCode": null
+    },
+    {
+     "candidateId": "ahig:candidate:publication:de853f5fd05e9fcac467bd5a",
+     "drawIndex": 17,
+     "status": "no-oa-fulltext",
+     "accepted": false,
+     "reasonCode": "no-oa-fulltext"
+    },
+    {
+     "candidateId": "ahig:candidate:publication:353799d79f75ef3270a464d6",
+     "drawIndex": 18,
+     "status": "no-oa-fulltext",
+     "accepted": false,
+     "reasonCode": "no-oa-fulltext"
+    },
+    {
+     "candidateId": "ahig:candidate:publication:750b90e1c1c9c679130844dd",
+     "drawIndex": 19,
+     "status": "no-oa-fulltext",
+     "accepted": false,
+     "reasonCode": "no-oa-fulltext"
+    },
+    {
+     "candidateId": "ahig:candidate:publication:7aae7734e5f7b617427ba7bd",
+     "drawIndex": 20,
+     "status": "no-oa-fulltext",
+     "accepted": false,
+     "reasonCode": "no-oa-fulltext"
+    },
+    {
+     "candidateId": "ahig:candidate:publication:9454731aad7c0004c386f31c",
+     "drawIndex": 21,
+     "status": "available-pdf",
+     "accepted": true,
+     "reasonCode": null
+    },
+    {
+     "candidateId": "ahig:candidate:publication:5a88148a8ea774c9c1161c23",
+     "drawIndex": 22,
+     "status": "no-oa-fulltext",
+     "accepted": false,
+     "reasonCode": "no-oa-fulltext"
+    },
+    {
+     "candidateId": "ahig:candidate:publication:17478ab3c823dde5d0f88654",
+     "drawIndex": 23,
+     "status": "no-oa-fulltext",
+     "accepted": false,
+     "reasonCode": "no-oa-fulltext"
+    },
+    {
+     "candidateId": "ahig:candidate:publication:a32397909a3b03b4fb24cf65",
+     "drawIndex": 24,
+     "status": "acquired",
+     "accepted": true,
+     "reasonCode": null
+    },
+    {
+     "candidateId": "ahig:candidate:publication:ffcf73c2593a936c17ba9f26",
+     "drawIndex": 25,
+     "status": "no-oa-fulltext",
+     "accepted": false,
+     "reasonCode": "no-oa-fulltext"
+    },
+    {
+     "candidateId": "ahig:candidate:publication:7c5800be8a62d501f88c7d04",
+     "drawIndex": 26,
+     "status": "acquired",
+     "accepted": true,
+     "reasonCode": null
+    }
+   ],
+   "exhausted": true,
+   "acceptedCount": 5,
+   "finalObtainable": 9,
+   "shortfall": 6
+  },
+  {
+   "poolId": "S7-glycogen",
+   "quota": 5,
+   "seed": 13807998647755444008,
+   "drawnObtainable": 1,
+   "needed": 4,
+   "reserveSize": 1,
+   "backfilled": [
+    {
+     "candidateId": "ahig:candidate:publication:c380c744307c0dd5b141caed",
+     "drawIndex": 5,
+     "status": "available-pdf",
+     "accepted": true,
+     "reasonCode": null
+    }
+   ],
+   "exhausted": true,
+   "acceptedCount": 1,
+   "finalObtainable": 2,
+   "shortfall": 3
+  }
+ ],
+ "totals": {
+  "quota": 60,
+  "obtainable": 45,
+  "shortfall": 15
+ },
+ "requests": 41,
+ "contentNote": "Opaque ids, statuses and draw indices only.",
+ "backfillHash": "sha256:ea84c54d59bd459e755403eef347df470cfc446e87881073c02e9bc3179cf1f2"
+}
