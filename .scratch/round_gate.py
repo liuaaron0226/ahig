@@ -239,10 +239,59 @@ for pat, name in CONFLICT:
     p3_hits += hit
 p3_ok = not p3_hits
 
+# ── 測試：🚨 數字必須來自實跑，不得沿用上一輪 ────────────────────
+# ⚠️ 第 435 輪之由來：本室每輪回報「測試 743/743」，實為抄寫。
+# 🚨 本機 `python` 根本沒有 pytest（只有 `python3` 有），即使有也收集不全
+#    （缺已宣告依賴 pyshacl>=0.30，pyproject 第 15 行），故該數字不可能是本室跑出來的。
+# ⚠️ 基線之用途與 53/118 相同：**已知且已載明者為綠，偏離者為紅**；
+#    🚨 若把已知失敗一律判紅，閘門會恆紅而被忽略，那等於沒有閘門。
+PYTEST_DIR = 'ahig'
+PYTEST_IGNORE = 'tests/test_shacl_gates.py'
+BASE_PASSED, BASE_FAILED = 716, 1
+KNOWN_FAIL = 'test_clopper_pearson_matches_closed_forms'
+UNCOLLECTABLE = '%s（缺 pyshacl，pyproject 第 15 行已宣告）' % PYTEST_IGNORE
+
+
+def run_tests():
+    """回傳 (passed, failed, 直譯器, 原始摘要行)；找不到可用直譯器則回 None。"""
+    for exe in ('python3', 'python'):
+        probe = subprocess.run([exe, '-c', 'import pytest'], capture_output=True)
+        if probe.returncode != 0:
+            continue
+        r = subprocess.run([exe, '-X', 'utf8', '-m', 'pytest', '-q',
+                            '--ignore=' + PYTEST_IGNORE],
+                           cwd=PYTEST_DIR, capture_output=True, text=True,
+                           encoding='utf-8', errors='ignore')
+        txt = re.sub(r'\x1b\[[0-9;]*m', '', r.stdout or '')
+        tail = [l for l in txt.strip().split('\n') if 'passed' in l or 'failed' in l]
+        line = tail[-1] if tail else ''
+        gp = re.search(r'(\d+) passed', line)
+        gf = re.search(r'(\d+) failed', line)
+        return (int(gp.group(1)) if gp else 0,
+                int(gf.group(1)) if gf else 0, exe, line.strip())
+    return None
+
+
+print()
+print('=== 測試（🚨 數字須來自實跑）===')
+tr = run_tests()
+if tr is None:
+    print('   🚨 找不到裝有 pytest 的直譯器，🚫 本輪不得回報任何測試數字。')
+    t_ok = False
+else:
+    passed, failed, exe, line = tr
+    t_ok = (passed == BASE_PASSED and failed == BASE_FAILED)
+    print('   直譯器 %s｜%s' % (exe, line))
+    print('   基線 %d passed／%d failed（已知失敗：%s，1 ULP，見第 435 輪）  %s'
+          % (BASE_PASSED, BASE_FAILED, KNOWN_FAIL, '✅ 相同' if t_ok else '🚨 偏離'))
+    print('   ⚠️ 未收集：%s' % UNCOLLECTABLE)
+    print('   🚨 故本閘門不得聲稱「743/743」——⚠️ 743 是協調者環境之數，非此處實測。')
+
 print()
 print('=' * 62)
-ok = p1_ok and p2_ok and p3_ok
-print('n+48 第一道 %s｜第二道 %s｜n+54 三道 %s'
-      % ('✅' if p1_ok else '🚨', '✅' if p2_ok else '🚨', '✅' if p3_ok else '🚨'))
+ok = p1_ok and p2_ok and p3_ok and t_ok
+print('n+48 第一道 %s｜第二道 %s｜n+54 三道 %s｜測試 %s'
+      % ('✅' if p1_ok else '🚨', '✅' if p2_ok else '🚨',
+         '✅' if p3_ok else '🚨', '✅' if t_ok else '🚨'))
 print('⚠️ 本檔通過只代表三組已知樣式無新增；🚨 未加標記之英文題名不在涵蓋範圍內。')
 sys.exit(0 if ok else 1)

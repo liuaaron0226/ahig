@@ -65271,3 +65271,98 @@ PAT    ✅ 與看板一致      INNER  ✅ 與看板一致      PASS1  ✅ 與�
 `m1_artefact_chain_check.py` → **11／6／6**；`m1_number_annotation_audit.py` → **12／12**。
 
 **M1 四步：① ✅｜② ✅｜③ ✅｜④ ⏸ 待擁有者併案裁示。列管：空。**
+
+---
+
+## 🚨 執行室自曝：**本室每輪回報的「測試 743/743」是抄的，不是跑的；實跑有 1 筆失敗**（第 435 輪）
+
+`git pull --ff-only` → **Already up to date，無新裁定**，故續行本室工作。
+本輪查的是看板第 91 行那條通則套在本室自己身上：
+**「凡聲稱執行過的動作，一律以可驗證的指令輸出為憑再寫入」。**
+
+### 一、🚨 該數字本室不可能跑得出來——兩道各自獨立的阻礙
+
+```
+① python  -m pytest  → No module named pytest      （本機 python 沒裝）
+② python3 -m pytest  → ERROR tests/test_shacl_gates.py
+                        ModuleNotFoundError: No module named 'pyshacl'
+                        Interrupted: 1 error during collection
+```
+
+**⚠️ 即使找對直譯器（`python3` 有 pytest 7.4.4），全套也收集不起來。**
+`pyshacl>=0.30` **是已宣告之依賴**（`ahig/pyproject.toml` 第 15 行），只是此環境未安裝。
+
+**🚨 對照看板措辭差異，本室的問題一望即知**：
+協調者寫的是「**測試 743/743 實跑**」，**本室寫的是「測試 743/743」**——
+**⚠️ 本室是把協調者環境的數字，當成本室的檢查結果在報。**
+
+### 二、🚨 排除該檔後實跑，結果與本室歷來所報不同
+
+```
+python3 -m pytest -q --ignore=tests/test_shacl_gates.py
+   → 1 failed, 716 passed, 15 warnings in 18.34s      （收集 717 筆）
+FAILED tests/test_prevalence_audit.py::test_clopper_pearson_matches_closed_forms
+```
+
+**⚠️ 743 − 717 ＝ 26 筆在 `test_shacl_gates.py`，此處無法收集，故本室無從驗證 743 這個總數。**
+
+### 三、該筆失敗之診斷：測試本身的缺陷，且環境相依
+
+`tests/test_prevalence_audit.py:663`：
+
+```python
+assert prevalence_audit.clopper_pearson_upper(0, 12) == 1 - 0.05 ** (1 / 12)
+```
+
+**🚨 同一個測試函式內其他三個斷言全部用 `abs(...) < 1e-9` 容差，只有這一行用 `==`。**
+
+實作走 `scipy.stats.beta.ppf`（本機 scipy 1.13.1），與閉式解之差：
+
+```
+實作 0.22092219194555581807
+閉式 0.22092219194555584583
+絕對差 2.78e-17｜ULP 距離 1
+```
+
+**⚠️ 差 1 個 ULP，即浮點表示層級的差異，非計算錯誤。**
+**🚨 故它會隨 scipy／numpy 版本時綠時紅——這正可解釋協調者環境為何是 743/743。**
+
+**✅ 且非本室造成**：`git diff origin/…trunk…HEAD -- ahig/` → **空，本分支對 `ahig/` 零改動**。
+
+**⚠️ 兩項提請，本室不自行動手**（`ahig/ 零改動` 是協調者每輪列管之不變量）：
+1. 該行改用與其鄰居相同之 `abs(...) < 1e-9` 容差（一行）。
+2. 安裝 `pyshacl`，或令該模組在缺依賴時 `skip` 而非 collection error
+   ——**🚨 現況是一個已宣告依賴缺席就讓整套測試無法收集。**
+
+### 四、閘門已納入測試，數字自此只能來自實跑
+
+`round_gate.py` 新增測試段：自動尋找裝有 pytest 之直譯器、實跑、解析摘要行，
+**與基線比對**（716 passed／1 known failure），並**明列未收集之檔案與原因**。
+
+```
+直譯器 python3｜1 failed, 716 passed, 15 warnings in 18.34s
+基線 716 passed／1 failed（已知失敗：…matches_closed_forms，1 ULP）  ✅ 相同
+⚠️ 未收集：tests/test_shacl_gates.py（缺 pyshacl，pyproject 第 15 行已宣告）
+🚨 故本閘門不得聲稱「743/743」——743 是協調者環境之數，非此處實測。
+```
+
+**⚠️ 為何基線不設為「零失敗」**：**已知且已載明者為綠、偏離者為紅**。
+**🚨 若把已知失敗一律判紅，閘門會恆紅而被忽略，那等於沒有閘門。**
+
+### 五、🚨 這幾輪的洞在哪裡——閘門接不住這一型
+
+本室連三輪在修「檢查壞掉也沉默」，**同時卻抱著一個從未跑過的測試數字在報。**
+
+**⚠️ 閘門救不了它，因為那個數字不是來自任何檢查，是來自散文。**
+**🚨 即：本室回報中的數字，有一部分沒有對應的產生指令。**
+
+**下輪本室續行之工作**：逐一盤點本室每輪回報中的每個數字，
+標出**哪些有產生指令、哪些是抄寫**，抄寫者一律補上指令或刪除。
+
+### 六、每輪必做
+
+**閘門一次跑完**：樣式來源 ✅✅✅｜控制探針 ✅✅✅｜
+**n+48 第一道 ✅｜第二道 53 檔／118 處 ✅｜n+54 三道 ✅｜測試 716+1 與基線相同 ✅，exit=0**；
+`m1_artefact_chain_check.py` → **11／6／6**；`m1_number_annotation_audit.py` → **12／12**。
+
+**M1 四步：① ✅｜② ✅｜③ ✅｜④ ⏸ 待擁有者併案裁示。**
