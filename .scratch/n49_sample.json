@@ -3,6 +3,22 @@
  "anchor": "sha256:e228e94c312afa3acd9af62667c3ea5947b941a728d7277e2671ceb49a0b2554",
  "anchorNote": "worksheet.json SHA-256; used in place of queueHash, which this lane does not have",
  "anchorAlgorithmNote": "⚠️ 本檔之 anchor 係以「檔案裸位元組」之 SHA-256 計算（.scratch/n49_sample.py:18 → hashlib.sha256(raw).hexdigest()），**不是 content_hash（先做 JSON 正規化者）**。🚨 稽核者若以 content_hash 重算 worksheet.json，會得到 sha256:4eb2dc60…，那是另一個值，不代表本檔之證據鏈斷裂。⚠️ 依協調者 n+100（七）：n+51 核准的是「以 worksheet 雜湊作等效替代」這個概念，不是特定函式，故本檔與 n68／n78 皆未違反 n+51；惟今後一律以 content_hash 為準（裸位元組雜湊對重排與空白敏感）。🚨 本檔之抽樣不因此失效（n+43 不溯及既往）——它用了一個當時有效的錨定值，且前後一致。加註者：第 420 輪。",
+ "anchorHashFunction": {
+  "semantics": "file_hash",
+  "semanticsNote": "⚠️ 依協調者 n+111（四）：兩份產物皆須載明所用之雜湊函式名稱，不得只寫「worksheet 之雜湊」。🚨 本檔之值在語義上等同 ahig/ahig/contracts/freeze.py 之 file_hash（裸位元組 SHA-256），與 content_hash（先做 JSON 正規化）不同。",
+  "actualImplementation": ".scratch/n49_sample.py:18 → hashlib.sha256(raw).hexdigest()——🚨 直接呼叫 hashlib，**未經由 freeze.file_hash**。⚠️ 故精確說法是「等同 file_hash 之語義」，不是「呼叫了 file_hash」；兩者同值但不是同一件事，稽核者若以「有無呼叫該函式」比對會落空。",
+  "verifiedEqual": {
+   "artefactAnchor": "sha256:e228e94c…",
+   "freeze.file_hash(raw)": "sha256:e228e94c…",
+   "hashlib.sha256(raw)": "sha256:e228e94c…",
+   "note": "✅ 三者於第 431 輪實算，逐位相同。"
+  },
+  "contrast": {
+   "n68/n78 之錨定值": "sha256:4eb2dc60…",
+   "producedBy": "freeze.content_hash（正規化 JSON）",
+   "note": "⚠️ 兩份產物之來源描述文字相近而值不同，成因即在此——🚨 故兩份皆須載明函式，否則稽核者併讀會懷疑竄改。"
+  }
+ },
  "seedDerivation": "int(anchor_hex[:16], 16)",
  "populationDefinition": "judged records whose worksheet abstract is empty",
  "populationSize": 245,
