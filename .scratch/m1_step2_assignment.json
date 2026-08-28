@@ -1,83 +1,282 @@
 {
  "schemaVersion": 1,
  "documentType": "m1-step2-strata-assignment",
- "ruling": "n+98",
+ "ruling": "n+98; pools adjusted per n+100(2)(3)",
  "doseRuleVersion": "b11-screening/1.5.0",
  "doseRuleNote": "Loaded from queue doseSignals produced by W3 _dose_signals; no conversion rewritten here (n+44).",
  "populationHash": "sha256:84cde8904e86b72830d4aeed70ca1e593205f9c97d34d7cc14e186d4cc4993eb",
  "scopeContractHash": "sha256:1bd206e5c4741e2d0339a81ffa53a717330d539fa4f1d2a19fa31c3401ef8696",
- "conservativeInference": "Records with an undetermined dose band are admitted only to strata whose doseBands cover all four bands (S3, S6). n+98 names S1/S2 explicitly; this extends the same logic to S4/S5/S7, which exclude \"low\" and therefore cannot admit a record not shown to be non-low. Executor inference, flagged for coordinator confirmation.",
- "strata": [
+ "mutualExclusivity": {
+  "verifiedInThisScript": true,
+  "assigned": 163,
+  "distinct": 163,
+  "note": "Each advance record appears in at most one pool. candidateIds are filed per pool so this is independently checkable (n+100 section 1)."
+ },
+ "conservativeInference": "Records with an undetermined dose band are admitted only to pools that accept them (S1 and S3 and the merged GI pool). Pools whose doseBands exclude \"low\" cannot admit a record not shown to be non-low. Approved by n+100 section 4, with the cost to be stated in M1: a small candidate pool here reflects missing information, not the distribution of the literature.",
+ "pools": [
   {
-   "stratumId": "S1-tt-moderate-dose",
+   "poolId": "S1-tt-moderate-dose",
    "quota": 12,
-   "assigned": 9,
-   "sufficient": false
+   "available": 62,
+   "sufficient": true,
+   "strata": [
+    "S1-tt-moderate-dose"
+   ],
+   "candidateIds": [
+    "ahig:candidate:publication:02624dd04aa207fc249b30c5",
+    "ahig:candidate:publication:0345e9816db603c5afbb588f",
+    "ahig:candidate:publication:04560479006892e4e1c95054",
+    "ahig:candidate:publication:05b28f39d7196f8318e1b0e0",
+    "ahig:candidate:publication:0d3a13055eb0d03194d43db6",
+    "ahig:candidate:publication:110be4fea7e9915671d9d9e5",
+    "ahig:candidate:publication:1223a7626956c2f78dde392d",
+    "ahig:candidate:publication:19b50c9679cf053894e8ad39",
+    "ahig:candidate:publication:2bcf407b20de6fd9c68fa968",
+    "ahig:candidate:publication:365f2f57fa784ba2a13129aa",
+    "ahig:candidate:publication:38c6412fc97d2ed84b0d1057",
+    "ahig:candidate:publication:3b974be85936ca0453efb7b8",
+    "ahig:candidate:publication:41cbd922f57d2a70bd3bddd9",
+    "ahig:candidate:publication:445242f0c07bd201975af339",
+    "ahig:candidate:publication:452b85ab51d661941207ddb7",
+    "ahig:candidate:publication:45b54e0f521c5d3359712b22",
+    "ahig:candidate:publication:48f192923447a0d8df7421c7",
+    "ahig:candidate:publication:49becb255b99d4ffea29dff2",
+    "ahig:candidate:publication:49d833cf97b49b1c001accc3",
+    "ahig:candidate:publication:4eccbfc6dd5b52374d47acda",
+    "ahig:candidate:publication:5138c93e07fb03ac90367aca",
+    "ahig:candidate:publication:57ef311258a83414e18036b3",
+    "ahig:candidate:publication:5dd654ba90d88b18dea03bc9",
+    "ahig:candidate:publication:5e897aa1f78e0ec764418026",
+    "ahig:candidate:publication:613eea94ef94ee7ef23b3a3f",
+    "ahig:candidate:publication:66301d8995ecaf046cf877be",
+    "ahig:candidate:publication:711b1ba24275c5f995f62a63",
+    "ahig:candidate:publication:720b0a1d71573e5f10823166",
+    "ahig:candidate:publication:7bff228d8dec3e50e8e6242d",
+    "ahig:candidate:publication:7c6ebf3a04c530fffd02ac0d",
+    "ahig:candidate:publication:7dec3f4066e16f089f1522d1",
+    "ahig:candidate:publication:838e0b41d10d4d014e78f4eb",
+    "ahig:candidate:publication:88747fa53f34fc92d4f4b70d",
+    "ahig:candidate:publication:8b77ead32ff2d40f63a6a127",
+    "ahig:candidate:publication:8c146fdd91c6e0592f223ed5",
+    "ahig:candidate:publication:8d9e152de8d48c04f919dbb0",
+    "ahig:candidate:publication:9469dd213ab18fc6714e7292",
+    "ahig:candidate:publication:98fe85bec4128a6f6dd2c0b5",
+    "ahig:candidate:publication:9def90542daf6d9830443341",
+    "ahig:candidate:publication:a09411659cfa9f83105006f0",
+    "ahig:candidate:publication:a0f3c7808f8bb26029e58808",
+    "ahig:candidate:publication:a61c9cbdef03a60bfe36a497",
+    "ahig:candidate:publication:aa37e3fafbc5d49b9afadfe2",
+    "ahig:candidate:publication:ad67d6262dbf381de74ce581",
+    "ahig:candidate:publication:b1eeb9c554d4200c1c5e2b64",
+    "ahig:candidate:publication:b49bb63695e347169a7bf549",
+    "ahig:candidate:publication:b7e2fe0c7344bfba566d44d2",
+    "ahig:candidate:publication:bd9995f482cbc04b68c38e79",
+    "ahig:candidate:publication:bfc01fa20cfceb6c8a86f78b",
+    "ahig:candidate:publication:c593dfc3427338e1b53c6bcb",
+    "ahig:candidate:publication:c8fea0895d84a17e2c347de7",
+    "ahig:candidate:publication:cd1e43154103c4b52bbf21e6",
+    "ahig:candidate:publication:ce06bb6d2b2eae07f04e7c85",
+    "ahig:candidate:publication:d3f34096046e005a22ae0b5d",
+    "ahig:candidate:publication:d6526ee4f411933a644b7875",
+    "ahig:candidate:publication:d9f8c03e09c665a709499ba1",
+    "ahig:candidate:publication:dd325ced374adcbba84e9e78",
+    "ahig:candidate:publication:e08aadd6bffa2a7a961e502b",
+    "ahig:candidate:publication:eabc9f6a516fa63f4113602a",
+    "ahig:candidate:publication:f0e35ec54bc6f774861638b1",
+    "ahig:candidate:publication:f6a2becc97c2233f7e60c801",
+    "ahig:candidate:publication:fc272e8b063aaec052d68100"
+   ],
+   "candidateIdsHash": "sha256:31612bdc4da6c2a0fc5f7d350314f1861df47e9c647a8ac5aa7852aa7d007afa",
+   "coverage": "all advance records assigned to this pool under the n+98/n+100 rules; mutually exclusive across pools"
   },
   {
-   "stratumId": "S2-tt-high-and-very-high-dose",
+   "poolId": "S2-tt-high-and-very-high-dose",
    "quota": 10,
-   "assigned": 12,
-   "sufficient": true
+   "available": 12,
+   "sufficient": true,
+   "strata": [
+    "S2-tt-high-and-very-high-dose"
+   ],
+   "candidateIds": [
+    "ahig:candidate:publication:2067281cfa3308377ab280a0",
+    "ahig:candidate:publication:27b4d05135560379f899703a",
+    "ahig:candidate:publication:3ecdcbd448da8a7f2f35af1f",
+    "ahig:candidate:publication:5bb344ac70ef2dd551bfc98b",
+    "ahig:candidate:publication:71b998e89f2a28453e4e6f10",
+    "ahig:candidate:publication:75ee458a413a6865b0501886",
+    "ahig:candidate:publication:7bc2c46bd4251685a43792ff",
+    "ahig:candidate:publication:85855b5e7a97713bf254fa26",
+    "ahig:candidate:publication:861b4a2965d459b9129da800",
+    "ahig:candidate:publication:bedf50a7ceb34bf62d25537a",
+    "ahig:candidate:publication:bf4f8f5a1105537918c174c9",
+    "ahig:candidate:publication:fc849c9b0b20710630ae2b46"
+   ],
+   "candidateIdsHash": "sha256:b1b58e26d7cca915e9b3562b2e84da09491be79ed0f74d1a18c381d03c48288b",
+   "coverage": "all advance records assigned to this pool under the n+98/n+100 rules; mutually exclusive across pools"
   },
   {
-   "stratumId": "S3-tte",
+   "poolId": "S3-tte",
    "quota": 8,
-   "assigned": 26,
-   "sufficient": true
+   "available": 24,
+   "sufficient": true,
+   "strata": [
+    "S3-tte"
+   ],
+   "candidateIds": [
+    "ahig:candidate:publication:17ea08e478e8f6ea3ab46061",
+    "ahig:candidate:publication:1aab6249ce652a18fa457b46",
+    "ahig:candidate:publication:22f65bbd0005e44c6fc33b45",
+    "ahig:candidate:publication:2a20a5f4e21633241b68c93e",
+    "ahig:candidate:publication:3a1f2e85fe552f712dd6ca09",
+    "ahig:candidate:publication:424b7c76977b36b981e72b2c",
+    "ahig:candidate:publication:438c64ce77621b70399b246f",
+    "ahig:candidate:publication:59dbacf798e3db71adc4f096",
+    "ahig:candidate:publication:608b0b6031daa098b403a574",
+    "ahig:candidate:publication:6182d516d5d8facc2fecdbd2",
+    "ahig:candidate:publication:640de9dbd90d571c7cbc7e32",
+    "ahig:candidate:publication:671d46c4a5668d2f1380ab4f",
+    "ahig:candidate:publication:6d107d8f43f537b1305a0cb1",
+    "ahig:candidate:publication:8807b7b00fa3f5deaf8a5ca8",
+    "ahig:candidate:publication:8a8d5efcf6a82302d7fe9adf",
+    "ahig:candidate:publication:957dfdbf335a7235c50335bc",
+    "ahig:candidate:publication:978923d41b9ad91a3450d43e",
+    "ahig:candidate:publication:ad4b0994a103783d5231cfec",
+    "ahig:candidate:publication:c4cb0c1318962505b23ce4a4",
+    "ahig:candidate:publication:cdd86fba0b49e84dbf5de69f",
+    "ahig:candidate:publication:d02d294c1de0f49f59fecb8b",
+    "ahig:candidate:publication:da880e11c1124b79fd4d3c27",
+    "ahig:candidate:publication:eac6aff9f98c855ca35e4def",
+    "ahig:candidate:publication:eff05402c0f943f6aead605a"
+   ],
+   "candidateIdsHash": "sha256:b58803e942e67efcdf37a96966d59192bc23ab771005eecdc2b3e5f0b711df3f",
+   "coverage": "all advance records assigned to this pool under the n+98/n+100 rules; mutually exclusive across pools"
   },
   {
-   "stratumId": "S4-exogenous-oxidation",
+   "poolId": "S4-exogenous-oxidation",
    "quota": 10,
-   "assigned": 32,
-   "sufficient": true
+   "available": 32,
+   "sufficient": true,
+   "strata": [
+    "S4-exogenous-oxidation"
+   ],
+   "candidateIds": [
+    "ahig:candidate:publication:012d9a3486e6a580108fd94b",
+    "ahig:candidate:publication:0b68902a081d147cd92dee14",
+    "ahig:candidate:publication:0d85b70688df78dbb9790b1b",
+    "ahig:candidate:publication:0dcaf3b472cc9b950b96aad5",
+    "ahig:candidate:publication:211950e67902e3ec54370729",
+    "ahig:candidate:publication:2a851c855cd3783c6b93feda",
+    "ahig:candidate:publication:2c2f076bf4202cc81c3fe025",
+    "ahig:candidate:publication:41784b2255ffe7305f4aafa0",
+    "ahig:candidate:publication:53802b86de62406c34fb8361",
+    "ahig:candidate:publication:5c45a5ccb7aa00da860e4a55",
+    "ahig:candidate:publication:604810c57e406176f0532a8a",
+    "ahig:candidate:publication:66b408b0f85932c09316c4d0",
+    "ahig:candidate:publication:69e040d16b7320d74cdda857",
+    "ahig:candidate:publication:76df6297501bb474ac4704fa",
+    "ahig:candidate:publication:7ae8b51b7cea2ddde528e8e2",
+    "ahig:candidate:publication:7d2f0e2a39079e90850b4f2b",
+    "ahig:candidate:publication:8dd0f644a9012191142e7e02",
+    "ahig:candidate:publication:91d12321521944972abac1b9",
+    "ahig:candidate:publication:aaddd513672be5aba9285718",
+    "ahig:candidate:publication:c27d87477e4b40dce1bcba6f",
+    "ahig:candidate:publication:c4be3c441d3ad63cf6b27ae9",
+    "ahig:candidate:publication:c9858f3ce755ffb4135ac458",
+    "ahig:candidate:publication:ca993048f2365409b2a23eae",
+    "ahig:candidate:publication:ce3d721f3f1d30149ced9a42",
+    "ahig:candidate:publication:d15b06c7840f3be752a530dc",
+    "ahig:candidate:publication:d9552aa9f6cafc4cb2cafdc6",
+    "ahig:candidate:publication:de939065eac2b5fd6bb06843",
+    "ahig:candidate:publication:e0a55131bc2c076e36f87d8d",
+    "ahig:candidate:publication:e101491c29727d5d148e27fc",
+    "ahig:candidate:publication:f09fd22168b1b2f9ce594d6c",
+    "ahig:candidate:publication:f23cf4dc95fc681cd4956e9b",
+    "ahig:candidate:publication:f8392067834de4d822dfb3cd"
+   ],
+   "candidateIdsHash": "sha256:6f0dafc5ee9ea5e9c81c9745506ef7a0fcf32652efaf804ee52456e0532c3cb8",
+   "coverage": "all advance records assigned to this pool under the n+98/n+100 rules; mutually exclusive across pools"
   },
   {
-   "stratumId": "S5-gi-harms-primary",
-   "quota": 8,
-   "assigned": 0,
-   "sufficient": false
+   "poolId": "S5+S6-gi-merged",
+   "quota": 15,
+   "available": 27,
+   "sufficient": true,
+   "strata": [
+    "S5-gi-harms-primary",
+    "S6-gi-harms-secondary-only"
+   ],
+   "candidateIds": [
+    "ahig:candidate:publication:030a2747dafa82f16ef0f3eb",
+    "ahig:candidate:publication:17478ab3c823dde5d0f88654",
+    "ahig:candidate:publication:2cc49e0ddbdb6ea55c9667c3",
+    "ahig:candidate:publication:353799d79f75ef3270a464d6",
+    "ahig:candidate:publication:5a88148a8ea774c9c1161c23",
+    "ahig:candidate:publication:5b3debae03246969232967c9",
+    "ahig:candidate:publication:617d961ef4829617cd6efcd1",
+    "ahig:candidate:publication:63a6d1c092183b4870ab6c46",
+    "ahig:candidate:publication:6f9c5aec79503020d89e7ccf",
+    "ahig:candidate:publication:750b90e1c1c9c679130844dd",
+    "ahig:candidate:publication:7aae7734e5f7b617427ba7bd",
+    "ahig:candidate:publication:7c5800be8a62d501f88c7d04",
+    "ahig:candidate:publication:82b25034704141c6238031e0",
+    "ahig:candidate:publication:89e1a723c3028a8a7b1ae2a1",
+    "ahig:candidate:publication:9454731aad7c0004c386f31c",
+    "ahig:candidate:publication:9976d8d82c0bfe3d30f2f36d",
+    "ahig:candidate:publication:a32397909a3b03b4fb24cf65",
+    "ahig:candidate:publication:a3c9967c6231036b66dbb223",
+    "ahig:candidate:publication:a4bbe8aa65dd82a89b2c5340",
+    "ahig:candidate:publication:bf4d973f47b07cb97de854ae",
+    "ahig:candidate:publication:c633affd58dcefd94ae3425f",
+    "ahig:candidate:publication:cfda28d0b340b1cc17697f20",
+    "ahig:candidate:publication:d2b885ef5a3d35d177366c70",
+    "ahig:candidate:publication:de853f5fd05e9fcac467bd5a",
+    "ahig:candidate:publication:ee3ae5b3796d8901f0864812",
+    "ahig:candidate:publication:fc75f1d5298c326024d22835",
+    "ahig:candidate:publication:ffcf73c2593a936c17ba9f26"
+   ],
+   "candidateIdsHash": "sha256:c7e600b73e67bd7f7284aabfd3a0c3188b5f1b2ac11f17624b0bda528b10a75c",
+   "coverage": "all advance records assigned to this pool under the n+98/n+100 rules; mutually exclusive across pools"
   },
   {
-   "stratumId": "S6-gi-harms-secondary-only",
-   "quota": 7,
-   "assigned": 31,
-   "sufficient": true
-  },
-  {
-   "stratumId": "S7-glycogen",
+   "poolId": "S7-glycogen",
    "quota": 5,
-   "assigned": 6,
-   "sufficient": true
+   "available": 6,
+   "sufficient": true,
+   "strata": [
+    "S7-glycogen"
+   ],
+   "candidateIds": [
+    "ahig:candidate:publication:0ba83d3d6c6eee294c9eeb8f",
+    "ahig:candidate:publication:5758a3d4c382c8b652f2065b",
+    "ahig:candidate:publication:670fdc6579c3e76d40219b9c",
+    "ahig:candidate:publication:7eef56b17a6ac1559c740fd6",
+    "ahig:candidate:publication:ab1a35304393752f2d7f8f25",
+    "ahig:candidate:publication:c380c744307c0dd5b141caed"
+   ],
+   "candidateIdsHash": "sha256:066a057ebe9802a8c9953b2445fbb8581f558f1b2fc64c1d93b8c097ad5e1b27",
+   "coverage": "all advance records assigned to this pool under the n+98/n+100 rules; mutually exclusive across pools"
   }
  ],
- "assignedCount": 116,
- "unassignedCount": 198,
- "shortfalls": [
-  {
-   "stratumId": "S1-tt-moderate-dose",
-   "quota": 12,
-   "assigned": 9,
-   "missing": 3
-  },
-  {
-   "stratumId": "S5-gi-harms-primary",
-   "quota": 8,
-   "assigned": 0,
-   "missing": 8
-  }
- ],
+ "assignedCount": 163,
+ "unassignedCount": 151,
+ "shortfalls": [],
  "assignment": {
   "ahig:candidate:publication:012d9a3486e6a580108fd94b": "S4-exogenous-oxidation",
-  "ahig:candidate:publication:030a2747dafa82f16ef0f3eb": "S6-gi-harms-secondary-only",
+  "ahig:candidate:publication:02624dd04aa207fc249b30c5": "S1-tt-moderate-dose",
+  "ahig:candidate:publication:030a2747dafa82f16ef0f3eb": "S5+S6-gi-merged",
   "ahig:candidate:publication:0345e9816db603c5afbb588f": "S1-tt-moderate-dose",
-  "ahig:candidate:publication:05b28f39d7196f8318e1b0e0": "S6-gi-harms-secondary-only",
+  "ahig:candidate:publication:04560479006892e4e1c95054": "S1-tt-moderate-dose",
+  "ahig:candidate:publication:05b28f39d7196f8318e1b0e0": "S1-tt-moderate-dose",
   "ahig:candidate:publication:0b68902a081d147cd92dee14": "S4-exogenous-oxidation",
   "ahig:candidate:publication:0ba83d3d6c6eee294c9eeb8f": "S7-glycogen",
+  "ahig:candidate:publication:0d3a13055eb0d03194d43db6": "S1-tt-moderate-dose",
   "ahig:candidate:publication:0d85b70688df78dbb9790b1b": "S4-exogenous-oxidation",
   "ahig:candidate:publication:0dcaf3b472cc9b950b96aad5": "S4-exogenous-oxidation",
-  "ahig:candidate:publication:17478ab3c823dde5d0f88654": "S6-gi-harms-secondary-only",
+  "ahig:candidate:publication:110be4fea7e9915671d9d9e5": "S1-tt-moderate-dose",
+  "ahig:candidate:publication:1223a7626956c2f78dde392d": "S1-tt-moderate-dose",
+  "ahig:candidate:publication:17478ab3c823dde5d0f88654": "S5+S6-gi-merged",
   "ahig:candidate:publication:17ea08e478e8f6ea3ab46061": "S3-tte",
+  "ahig:candidate:publication:19b50c9679cf053894e8ad39": "S1-tt-moderate-dose",
   "ahig:candidate:publication:1aab6249ce652a18fa457b46": "S3-tte",
   "ahig:candidate:publication:2067281cfa3308377ab280a0": "S2-tt-high-and-very-high-dose",
   "ahig:candidate:publication:211950e67902e3ec54370729": "S4-exogenous-oxidation",
@@ -87,103 +286,144 @@
   "ahig:candidate:publication:2a851c855cd3783c6b93feda": "S4-exogenous-oxidation",
   "ahig:candidate:publication:2bcf407b20de6fd9c68fa968": "S1-tt-moderate-dose",
   "ahig:candidate:publication:2c2f076bf4202cc81c3fe025": "S4-exogenous-oxidation",
-  "ahig:candidate:publication:2cc49e0ddbdb6ea55c9667c3": "S6-gi-harms-secondary-only",
-  "ahig:candidate:publication:353799d79f75ef3270a464d6": "S6-gi-harms-secondary-only",
+  "ahig:candidate:publication:2cc49e0ddbdb6ea55c9667c3": "S5+S6-gi-merged",
+  "ahig:candidate:publication:353799d79f75ef3270a464d6": "S5+S6-gi-merged",
+  "ahig:candidate:publication:365f2f57fa784ba2a13129aa": "S1-tt-moderate-dose",
+  "ahig:candidate:publication:38c6412fc97d2ed84b0d1057": "S1-tt-moderate-dose",
   "ahig:candidate:publication:3a1f2e85fe552f712dd6ca09": "S3-tte",
+  "ahig:candidate:publication:3b974be85936ca0453efb7b8": "S1-tt-moderate-dose",
   "ahig:candidate:publication:3ecdcbd448da8a7f2f35af1f": "S2-tt-high-and-very-high-dose",
   "ahig:candidate:publication:41784b2255ffe7305f4aafa0": "S4-exogenous-oxidation",
   "ahig:candidate:publication:41cbd922f57d2a70bd3bddd9": "S1-tt-moderate-dose",
   "ahig:candidate:publication:424b7c76977b36b981e72b2c": "S3-tte",
   "ahig:candidate:publication:438c64ce77621b70399b246f": "S3-tte",
   "ahig:candidate:publication:445242f0c07bd201975af339": "S1-tt-moderate-dose",
-  "ahig:candidate:publication:45b54e0f521c5d3359712b22": "S6-gi-harms-secondary-only",
+  "ahig:candidate:publication:452b85ab51d661941207ddb7": "S1-tt-moderate-dose",
+  "ahig:candidate:publication:45b54e0f521c5d3359712b22": "S1-tt-moderate-dose",
+  "ahig:candidate:publication:48f192923447a0d8df7421c7": "S1-tt-moderate-dose",
+  "ahig:candidate:publication:49becb255b99d4ffea29dff2": "S1-tt-moderate-dose",
+  "ahig:candidate:publication:49d833cf97b49b1c001accc3": "S1-tt-moderate-dose",
+  "ahig:candidate:publication:4eccbfc6dd5b52374d47acda": "S1-tt-moderate-dose",
+  "ahig:candidate:publication:5138c93e07fb03ac90367aca": "S1-tt-moderate-dose",
   "ahig:candidate:publication:53802b86de62406c34fb8361": "S4-exogenous-oxidation",
   "ahig:candidate:publication:5758a3d4c382c8b652f2065b": "S7-glycogen",
+  "ahig:candidate:publication:57ef311258a83414e18036b3": "S1-tt-moderate-dose",
   "ahig:candidate:publication:59dbacf798e3db71adc4f096": "S3-tte",
-  "ahig:candidate:publication:5a88148a8ea774c9c1161c23": "S6-gi-harms-secondary-only",
-  "ahig:candidate:publication:5b3debae03246969232967c9": "S6-gi-harms-secondary-only",
+  "ahig:candidate:publication:5a88148a8ea774c9c1161c23": "S5+S6-gi-merged",
+  "ahig:candidate:publication:5b3debae03246969232967c9": "S5+S6-gi-merged",
   "ahig:candidate:publication:5bb344ac70ef2dd551bfc98b": "S2-tt-high-and-very-high-dose",
   "ahig:candidate:publication:5c45a5ccb7aa00da860e4a55": "S4-exogenous-oxidation",
+  "ahig:candidate:publication:5dd654ba90d88b18dea03bc9": "S1-tt-moderate-dose",
+  "ahig:candidate:publication:5e897aa1f78e0ec764418026": "S1-tt-moderate-dose",
   "ahig:candidate:publication:604810c57e406176f0532a8a": "S4-exogenous-oxidation",
   "ahig:candidate:publication:608b0b6031daa098b403a574": "S3-tte",
-  "ahig:candidate:publication:617d961ef4829617cd6efcd1": "S6-gi-harms-secondary-only",
+  "ahig:candidate:publication:613eea94ef94ee7ef23b3a3f": "S1-tt-moderate-dose",
+  "ahig:candidate:publication:617d961ef4829617cd6efcd1": "S5+S6-gi-merged",
   "ahig:candidate:publication:6182d516d5d8facc2fecdbd2": "S3-tte",
-  "ahig:candidate:publication:63a6d1c092183b4870ab6c46": "S6-gi-harms-secondary-only",
+  "ahig:candidate:publication:63a6d1c092183b4870ab6c46": "S5+S6-gi-merged",
   "ahig:candidate:publication:640de9dbd90d571c7cbc7e32": "S3-tte",
+  "ahig:candidate:publication:66301d8995ecaf046cf877be": "S1-tt-moderate-dose",
   "ahig:candidate:publication:66b408b0f85932c09316c4d0": "S4-exogenous-oxidation",
   "ahig:candidate:publication:670fdc6579c3e76d40219b9c": "S7-glycogen",
   "ahig:candidate:publication:671d46c4a5668d2f1380ab4f": "S3-tte",
   "ahig:candidate:publication:69e040d16b7320d74cdda857": "S4-exogenous-oxidation",
   "ahig:candidate:publication:6d107d8f43f537b1305a0cb1": "S3-tte",
-  "ahig:candidate:publication:6f9c5aec79503020d89e7ccf": "S6-gi-harms-secondary-only",
+  "ahig:candidate:publication:6f9c5aec79503020d89e7ccf": "S5+S6-gi-merged",
+  "ahig:candidate:publication:711b1ba24275c5f995f62a63": "S1-tt-moderate-dose",
   "ahig:candidate:publication:71b998e89f2a28453e4e6f10": "S2-tt-high-and-very-high-dose",
-  "ahig:candidate:publication:750b90e1c1c9c679130844dd": "S6-gi-harms-secondary-only",
+  "ahig:candidate:publication:720b0a1d71573e5f10823166": "S1-tt-moderate-dose",
+  "ahig:candidate:publication:750b90e1c1c9c679130844dd": "S5+S6-gi-merged",
   "ahig:candidate:publication:75ee458a413a6865b0501886": "S2-tt-high-and-very-high-dose",
   "ahig:candidate:publication:76df6297501bb474ac4704fa": "S4-exogenous-oxidation",
-  "ahig:candidate:publication:7aae7734e5f7b617427ba7bd": "S6-gi-harms-secondary-only",
+  "ahig:candidate:publication:7aae7734e5f7b617427ba7bd": "S5+S6-gi-merged",
   "ahig:candidate:publication:7ae8b51b7cea2ddde528e8e2": "S4-exogenous-oxidation",
   "ahig:candidate:publication:7bc2c46bd4251685a43792ff": "S2-tt-high-and-very-high-dose",
-  "ahig:candidate:publication:7c5800be8a62d501f88c7d04": "S6-gi-harms-secondary-only",
+  "ahig:candidate:publication:7bff228d8dec3e50e8e6242d": "S1-tt-moderate-dose",
+  "ahig:candidate:publication:7c5800be8a62d501f88c7d04": "S5+S6-gi-merged",
+  "ahig:candidate:publication:7c6ebf3a04c530fffd02ac0d": "S1-tt-moderate-dose",
   "ahig:candidate:publication:7d2f0e2a39079e90850b4f2b": "S4-exogenous-oxidation",
+  "ahig:candidate:publication:7dec3f4066e16f089f1522d1": "S1-tt-moderate-dose",
   "ahig:candidate:publication:7eef56b17a6ac1559c740fd6": "S7-glycogen",
-  "ahig:candidate:publication:82b25034704141c6238031e0": "S6-gi-harms-secondary-only",
+  "ahig:candidate:publication:82b25034704141c6238031e0": "S5+S6-gi-merged",
+  "ahig:candidate:publication:838e0b41d10d4d014e78f4eb": "S1-tt-moderate-dose",
   "ahig:candidate:publication:85855b5e7a97713bf254fa26": "S2-tt-high-and-very-high-dose",
   "ahig:candidate:publication:861b4a2965d459b9129da800": "S2-tt-high-and-very-high-dose",
   "ahig:candidate:publication:8807b7b00fa3f5deaf8a5ca8": "S3-tte",
   "ahig:candidate:publication:88747fa53f34fc92d4f4b70d": "S1-tt-moderate-dose",
-  "ahig:candidate:publication:89e1a723c3028a8a7b1ae2a1": "S6-gi-harms-secondary-only",
+  "ahig:candidate:publication:89e1a723c3028a8a7b1ae2a1": "S5+S6-gi-merged",
   "ahig:candidate:publication:8a8d5efcf6a82302d7fe9adf": "S3-tte",
-  "ahig:candidate:publication:8b77ead32ff2d40f63a6a127": "S6-gi-harms-secondary-only",
-  "ahig:candidate:publication:8d9e152de8d48c04f919dbb0": "S3-tte",
+  "ahig:candidate:publication:8b77ead32ff2d40f63a6a127": "S1-tt-moderate-dose",
+  "ahig:candidate:publication:8c146fdd91c6e0592f223ed5": "S1-tt-moderate-dose",
+  "ahig:candidate:publication:8d9e152de8d48c04f919dbb0": "S1-tt-moderate-dose",
   "ahig:candidate:publication:8dd0f644a9012191142e7e02": "S4-exogenous-oxidation",
   "ahig:candidate:publication:91d12321521944972abac1b9": "S4-exogenous-oxidation",
-  "ahig:candidate:publication:9454731aad7c0004c386f31c": "S6-gi-harms-secondary-only",
-  "ahig:candidate:publication:9469dd213ab18fc6714e7292": "S6-gi-harms-secondary-only",
+  "ahig:candidate:publication:9454731aad7c0004c386f31c": "S5+S6-gi-merged",
+  "ahig:candidate:publication:9469dd213ab18fc6714e7292": "S1-tt-moderate-dose",
   "ahig:candidate:publication:957dfdbf335a7235c50335bc": "S3-tte",
   "ahig:candidate:publication:978923d41b9ad91a3450d43e": "S3-tte",
-  "ahig:candidate:publication:9976d8d82c0bfe3d30f2f36d": "S6-gi-harms-secondary-only",
+  "ahig:candidate:publication:98fe85bec4128a6f6dd2c0b5": "S1-tt-moderate-dose",
+  "ahig:candidate:publication:9976d8d82c0bfe3d30f2f36d": "S5+S6-gi-merged",
+  "ahig:candidate:publication:9def90542daf6d9830443341": "S1-tt-moderate-dose",
   "ahig:candidate:publication:a09411659cfa9f83105006f0": "S1-tt-moderate-dose",
-  "ahig:candidate:publication:a32397909a3b03b4fb24cf65": "S6-gi-harms-secondary-only",
-  "ahig:candidate:publication:a3c9967c6231036b66dbb223": "S6-gi-harms-secondary-only",
-  "ahig:candidate:publication:a4bbe8aa65dd82a89b2c5340": "S6-gi-harms-secondary-only",
+  "ahig:candidate:publication:a0f3c7808f8bb26029e58808": "S1-tt-moderate-dose",
+  "ahig:candidate:publication:a32397909a3b03b4fb24cf65": "S5+S6-gi-merged",
+  "ahig:candidate:publication:a3c9967c6231036b66dbb223": "S5+S6-gi-merged",
+  "ahig:candidate:publication:a4bbe8aa65dd82a89b2c5340": "S5+S6-gi-merged",
+  "ahig:candidate:publication:a61c9cbdef03a60bfe36a497": "S1-tt-moderate-dose",
+  "ahig:candidate:publication:aa37e3fafbc5d49b9afadfe2": "S1-tt-moderate-dose",
   "ahig:candidate:publication:aaddd513672be5aba9285718": "S4-exogenous-oxidation",
   "ahig:candidate:publication:ab1a35304393752f2d7f8f25": "S7-glycogen",
   "ahig:candidate:publication:ad4b0994a103783d5231cfec": "S3-tte",
+  "ahig:candidate:publication:ad67d6262dbf381de74ce581": "S1-tt-moderate-dose",
+  "ahig:candidate:publication:b1eeb9c554d4200c1c5e2b64": "S1-tt-moderate-dose",
+  "ahig:candidate:publication:b49bb63695e347169a7bf549": "S1-tt-moderate-dose",
+  "ahig:candidate:publication:b7e2fe0c7344bfba566d44d2": "S1-tt-moderate-dose",
+  "ahig:candidate:publication:bd9995f482cbc04b68c38e79": "S1-tt-moderate-dose",
   "ahig:candidate:publication:bedf50a7ceb34bf62d25537a": "S2-tt-high-and-very-high-dose",
-  "ahig:candidate:publication:bf4d973f47b07cb97de854ae": "S6-gi-harms-secondary-only",
+  "ahig:candidate:publication:bf4d973f47b07cb97de854ae": "S5+S6-gi-merged",
   "ahig:candidate:publication:bf4f8f5a1105537918c174c9": "S2-tt-high-and-very-high-dose",
+  "ahig:candidate:publication:bfc01fa20cfceb6c8a86f78b": "S1-tt-moderate-dose",
   "ahig:candidate:publication:c27d87477e4b40dce1bcba6f": "S4-exogenous-oxidation",
   "ahig:candidate:publication:c380c744307c0dd5b141caed": "S7-glycogen",
   "ahig:candidate:publication:c4be3c441d3ad63cf6b27ae9": "S4-exogenous-oxidation",
   "ahig:candidate:publication:c4cb0c1318962505b23ce4a4": "S3-tte",
-  "ahig:candidate:publication:c633affd58dcefd94ae3425f": "S6-gi-harms-secondary-only",
+  "ahig:candidate:publication:c593dfc3427338e1b53c6bcb": "S1-tt-moderate-dose",
+  "ahig:candidate:publication:c633affd58dcefd94ae3425f": "S5+S6-gi-merged",
+  "ahig:candidate:publication:c8fea0895d84a17e2c347de7": "S1-tt-moderate-dose",
   "ahig:candidate:publication:c9858f3ce755ffb4135ac458": "S4-exogenous-oxidation",
   "ahig:candidate:publication:ca993048f2365409b2a23eae": "S4-exogenous-oxidation",
+  "ahig:candidate:publication:cd1e43154103c4b52bbf21e6": "S1-tt-moderate-dose",
   "ahig:candidate:publication:cdd86fba0b49e84dbf5de69f": "S3-tte",
+  "ahig:candidate:publication:ce06bb6d2b2eae07f04e7c85": "S1-tt-moderate-dose",
   "ahig:candidate:publication:ce3d721f3f1d30149ced9a42": "S4-exogenous-oxidation",
-  "ahig:candidate:publication:cfda28d0b340b1cc17697f20": "S6-gi-harms-secondary-only",
+  "ahig:candidate:publication:cfda28d0b340b1cc17697f20": "S5+S6-gi-merged",
   "ahig:candidate:publication:d02d294c1de0f49f59fecb8b": "S3-tte",
   "ahig:candidate:publication:d15b06c7840f3be752a530dc": "S4-exogenous-oxidation",
-  "ahig:candidate:publication:d2b885ef5a3d35d177366c70": "S6-gi-harms-secondary-only",
+  "ahig:candidate:publication:d2b885ef5a3d35d177366c70": "S5+S6-gi-merged",
   "ahig:candidate:publication:d3f34096046e005a22ae0b5d": "S1-tt-moderate-dose",
+  "ahig:candidate:publication:d6526ee4f411933a644b7875": "S1-tt-moderate-dose",
   "ahig:candidate:publication:d9552aa9f6cafc4cb2cafdc6": "S4-exogenous-oxidation",
+  "ahig:candidate:publication:d9f8c03e09c665a709499ba1": "S1-tt-moderate-dose",
   "ahig:candidate:publication:da880e11c1124b79fd4d3c27": "S3-tte",
-  "ahig:candidate:publication:de853f5fd05e9fcac467bd5a": "S6-gi-harms-secondary-only",
+  "ahig:candidate:publication:dd325ced374adcbba84e9e78": "S1-tt-moderate-dose",
+  "ahig:candidate:publication:de853f5fd05e9fcac467bd5a": "S5+S6-gi-merged",
   "ahig:candidate:publication:de939065eac2b5fd6bb06843": "S4-exogenous-oxidation",
   "ahig:candidate:publication:e08aadd6bffa2a7a961e502b": "S1-tt-moderate-dose",
   "ahig:candidate:publication:e0a55131bc2c076e36f87d8d": "S4-exogenous-oxidation",
   "ahig:candidate:publication:e101491c29727d5d148e27fc": "S4-exogenous-oxidation",
+  "ahig:candidate:publication:eabc9f6a516fa63f4113602a": "S1-tt-moderate-dose",
   "ahig:candidate:publication:eac6aff9f98c855ca35e4def": "S3-tte",
-  "ahig:candidate:publication:ee3ae5b3796d8901f0864812": "S6-gi-harms-secondary-only",
+  "ahig:candidate:publication:ee3ae5b3796d8901f0864812": "S5+S6-gi-merged",
   "ahig:candidate:publication:eff05402c0f943f6aead605a": "S3-tte",
   "ahig:candidate:publication:f09fd22168b1b2f9ce594d6c": "S4-exogenous-oxidation",
+  "ahig:candidate:publication:f0e35ec54bc6f774861638b1": "S1-tt-moderate-dose",
   "ahig:candidate:publication:f23cf4dc95fc681cd4956e9b": "S4-exogenous-oxidation",
   "ahig:candidate:publication:f6a2becc97c2233f7e60c801": "S1-tt-moderate-dose",
   "ahig:candidate:publication:f8392067834de4d822dfb3cd": "S4-exogenous-oxidation",
-  "ahig:candidate:publication:fc272e8b063aaec052d68100": "S3-tte",
-  "ahig:candidate:publication:fc75f1d5298c326024d22835": "S6-gi-harms-secondary-only",
+  "ahig:candidate:publication:fc272e8b063aaec052d68100": "S1-tt-moderate-dose",
+  "ahig:candidate:publication:fc75f1d5298c326024d22835": "S5+S6-gi-merged",
   "ahig:candidate:publication:fc849c9b0b20710630ae2b46": "S2-tt-high-and-very-high-dose",
-  "ahig:candidate:publication:ffcf73c2593a936c17ba9f26": "S6-gi-harms-secondary-only"
+  "ahig:candidate:publication:ffcf73c2593a936c17ba9f26": "S5+S6-gi-merged"
  },
  "rationale": {
   "ahig:candidate:publication:012d9a3486e6a580108fd94b": {
@@ -197,9 +437,18 @@
    ],
    "rule": "single-match"
   },
+  "ahig:candidate:publication:02624dd04aa207fc249b30c5": {
+   "eligible": [
+    "S1-tt-moderate-dose"
+   ],
+   "bands": [
+    "未定"
+   ],
+   "rule": "single-match"
+  },
   "ahig:candidate:publication:030a2747dafa82f16ef0f3eb": {
    "eligible": [
-    "S6-gi-harms-secondary-only"
+    "S5+S6-gi-merged"
    ],
    "bands": [
     "未定"
@@ -220,14 +469,24 @@
    ],
    "rule": "contract-stratum-order"
   },
-  "ahig:candidate:publication:05b28f39d7196f8318e1b0e0": {
+  "ahig:candidate:publication:04560479006892e4e1c95054": {
    "eligible": [
-    "S6-gi-harms-secondary-only"
+    "S1-tt-moderate-dose"
    ],
    "bands": [
     "未定"
    ],
    "rule": "single-match"
+  },
+  "ahig:candidate:publication:05b28f39d7196f8318e1b0e0": {
+   "eligible": [
+    "S1-tt-moderate-dose",
+    "S5+S6-gi-merged"
+   ],
+   "bands": [
+    "未定"
+   ],
+   "rule": "contract-stratum-order"
   },
   "ahig:candidate:publication:0b68902a081d147cd92dee14": {
    "eligible": [
@@ -245,6 +504,15 @@
    ],
    "bands": [
     "moderate"
+   ],
+   "rule": "single-match"
+  },
+  "ahig:candidate:publication:0d3a13055eb0d03194d43db6": {
+   "eligible": [
+    "S1-tt-moderate-dose"
+   ],
+   "bands": [
+    "未定"
    ],
    "rule": "single-match"
   },
@@ -269,9 +537,27 @@
    ],
    "rule": "single-match"
   },
+  "ahig:candidate:publication:110be4fea7e9915671d9d9e5": {
+   "eligible": [
+    "S1-tt-moderate-dose"
+   ],
+   "bands": [
+    "未定"
+   ],
+   "rule": "single-match"
+  },
+  "ahig:candidate:publication:1223a7626956c2f78dde392d": {
+   "eligible": [
+    "S1-tt-moderate-dose"
+   ],
+   "bands": [
+    "未定"
+   ],
+   "rule": "single-match"
+  },
   "ahig:candidate:publication:17478ab3c823dde5d0f88654": {
    "eligible": [
-    "S6-gi-harms-secondary-only"
+    "S5+S6-gi-merged"
    ],
    "bands": [
     "未定"
@@ -281,6 +567,15 @@
   "ahig:candidate:publication:17ea08e478e8f6ea3ab46061": {
    "eligible": [
     "S3-tte"
+   ],
+   "bands": [
+    "未定"
+   ],
+   "rule": "single-match"
+  },
+  "ahig:candidate:publication:19b50c9679cf053894e8ad39": {
+   "eligible": [
+    "S1-tt-moderate-dose"
    ],
    "bands": [
     "未定"
@@ -299,7 +594,7 @@
   "ahig:candidate:publication:2067281cfa3308377ab280a0": {
    "eligible": [
     "S2-tt-high-and-very-high-dose",
-    "S6-gi-harms-secondary-only"
+    "S5+S6-gi-merged"
    ],
    "bands": [
     "high"
@@ -378,7 +673,7 @@
   },
   "ahig:candidate:publication:2cc49e0ddbdb6ea55c9667c3": {
    "eligible": [
-    "S6-gi-harms-secondary-only"
+    "S5+S6-gi-merged"
    ],
    "bands": [
     "moderate"
@@ -387,7 +682,25 @@
   },
   "ahig:candidate:publication:353799d79f75ef3270a464d6": {
    "eligible": [
-    "S6-gi-harms-secondary-only"
+    "S5+S6-gi-merged"
+   ],
+   "bands": [
+    "未定"
+   ],
+   "rule": "single-match"
+  },
+  "ahig:candidate:publication:365f2f57fa784ba2a13129aa": {
+   "eligible": [
+    "S1-tt-moderate-dose"
+   ],
+   "bands": [
+    "未定"
+   ],
+   "rule": "single-match"
+  },
+  "ahig:candidate:publication:38c6412fc97d2ed84b0d1057": {
+   "eligible": [
+    "S1-tt-moderate-dose"
    ],
    "bands": [
     "未定"
@@ -397,18 +710,27 @@
   "ahig:candidate:publication:3a1f2e85fe552f712dd6ca09": {
    "eligible": [
     "S3-tte",
-    "S6-gi-harms-secondary-only"
+    "S5+S6-gi-merged"
    ],
    "bands": [
     "未定"
    ],
    "rule": "contract-stratum-order"
   },
+  "ahig:candidate:publication:3b974be85936ca0453efb7b8": {
+   "eligible": [
+    "S1-tt-moderate-dose"
+   ],
+   "bands": [
+    "未定"
+   ],
+   "rule": "single-match"
+  },
   "ahig:candidate:publication:3ecdcbd448da8a7f2f35af1f": {
    "eligible": [
     "S2-tt-high-and-very-high-dose",
     "S4-exogenous-oxidation",
-    "S6-gi-harms-secondary-only"
+    "S5+S6-gi-merged"
    ],
    "bands": [
     "very-high"
@@ -468,9 +790,64 @@
    ],
    "rule": "contract-stratum-order"
   },
+  "ahig:candidate:publication:452b85ab51d661941207ddb7": {
+   "eligible": [
+    "S1-tt-moderate-dose"
+   ],
+   "bands": [
+    "未定"
+   ],
+   "rule": "single-match"
+  },
   "ahig:candidate:publication:45b54e0f521c5d3359712b22": {
    "eligible": [
-    "S6-gi-harms-secondary-only"
+    "S1-tt-moderate-dose",
+    "S5+S6-gi-merged"
+   ],
+   "bands": [
+    "未定"
+   ],
+   "rule": "contract-stratum-order"
+  },
+  "ahig:candidate:publication:48f192923447a0d8df7421c7": {
+   "eligible": [
+    "S1-tt-moderate-dose"
+   ],
+   "bands": [
+    "未定"
+   ],
+   "rule": "single-match"
+  },
+  "ahig:candidate:publication:49becb255b99d4ffea29dff2": {
+   "eligible": [
+    "S1-tt-moderate-dose"
+   ],
+   "bands": [
+    "未定"
+   ],
+   "rule": "single-match"
+  },
+  "ahig:candidate:publication:49d833cf97b49b1c001accc3": {
+   "eligible": [
+    "S1-tt-moderate-dose"
+   ],
+   "bands": [
+    "未定"
+   ],
+   "rule": "single-match"
+  },
+  "ahig:candidate:publication:4eccbfc6dd5b52374d47acda": {
+   "eligible": [
+    "S1-tt-moderate-dose"
+   ],
+   "bands": [
+    "未定"
+   ],
+   "rule": "single-match"
+  },
+  "ahig:candidate:publication:5138c93e07fb03ac90367aca": {
+   "eligible": [
+    "S1-tt-moderate-dose"
    ],
    "bands": [
     "未定"
@@ -495,6 +872,15 @@
    ],
    "rule": "single-match"
   },
+  "ahig:candidate:publication:57ef311258a83414e18036b3": {
+   "eligible": [
+    "S1-tt-moderate-dose"
+   ],
+   "bands": [
+    "未定"
+   ],
+   "rule": "single-match"
+  },
   "ahig:candidate:publication:59dbacf798e3db71adc4f096": {
    "eligible": [
     "S3-tte"
@@ -506,7 +892,7 @@
   },
   "ahig:candidate:publication:5a88148a8ea774c9c1161c23": {
    "eligible": [
-    "S6-gi-harms-secondary-only"
+    "S5+S6-gi-merged"
    ],
    "bands": [
     "未定"
@@ -515,7 +901,7 @@
   },
   "ahig:candidate:publication:5b3debae03246969232967c9": {
    "eligible": [
-    "S6-gi-harms-secondary-only"
+    "S5+S6-gi-merged"
    ],
    "bands": [
     "未定"
@@ -525,7 +911,7 @@
   "ahig:candidate:publication:5bb344ac70ef2dd551bfc98b": {
    "eligible": [
     "S2-tt-high-and-very-high-dose",
-    "S6-gi-harms-secondary-only"
+    "S5+S6-gi-merged"
    ],
    "bands": [
     "high"
@@ -535,7 +921,7 @@
   "ahig:candidate:publication:5c45a5ccb7aa00da860e4a55": {
    "eligible": [
     "S4-exogenous-oxidation",
-    "S6-gi-harms-secondary-only"
+    "S5+S6-gi-merged"
    ],
    "bands": [
     "high",
@@ -543,10 +929,28 @@
    ],
    "rule": "contract-stratum-order"
   },
+  "ahig:candidate:publication:5dd654ba90d88b18dea03bc9": {
+   "eligible": [
+    "S1-tt-moderate-dose"
+   ],
+   "bands": [
+    "未定"
+   ],
+   "rule": "single-match"
+  },
+  "ahig:candidate:publication:5e897aa1f78e0ec764418026": {
+   "eligible": [
+    "S1-tt-moderate-dose"
+   ],
+   "bands": [
+    "未定"
+   ],
+   "rule": "single-match"
+  },
   "ahig:candidate:publication:604810c57e406176f0532a8a": {
    "eligible": [
     "S4-exogenous-oxidation",
-    "S6-gi-harms-secondary-only"
+    "S5+S6-gi-merged"
    ],
    "bands": [
     "high",
@@ -563,9 +967,18 @@
    ],
    "rule": "single-match"
   },
+  "ahig:candidate:publication:613eea94ef94ee7ef23b3a3f": {
+   "eligible": [
+    "S1-tt-moderate-dose"
+   ],
+   "bands": [
+    "未定"
+   ],
+   "rule": "single-match"
+  },
   "ahig:candidate:publication:617d961ef4829617cd6efcd1": {
    "eligible": [
-    "S6-gi-harms-secondary-only"
+    "S5+S6-gi-merged"
    ],
    "bands": [
     "未定"
@@ -583,7 +996,7 @@
   },
   "ahig:candidate:publication:63a6d1c092183b4870ab6c46": {
    "eligible": [
-    "S6-gi-harms-secondary-only"
+    "S5+S6-gi-merged"
    ],
    "bands": [
     "未定"
@@ -593,6 +1006,15 @@
   "ahig:candidate:publication:640de9dbd90d571c7cbc7e32": {
    "eligible": [
     "S3-tte"
+   ],
+   "bands": [
+    "未定"
+   ],
+   "rule": "single-match"
+  },
+  "ahig:candidate:publication:66301d8995ecaf046cf877be": {
+   "eligible": [
+    "S1-tt-moderate-dose"
    ],
    "bands": [
     "未定"
@@ -632,7 +1054,7 @@
   "ahig:candidate:publication:69e040d16b7320d74cdda857": {
    "eligible": [
     "S4-exogenous-oxidation",
-    "S6-gi-harms-secondary-only"
+    "S5+S6-gi-merged"
    ],
    "bands": [
     "very-high"
@@ -650,7 +1072,7 @@
   },
   "ahig:candidate:publication:6f9c5aec79503020d89e7ccf": {
    "eligible": [
-    "S6-gi-harms-secondary-only"
+    "S5+S6-gi-merged"
    ],
    "bands": [
     "high",
@@ -659,19 +1081,37 @@
    ],
    "rule": "single-match"
   },
+  "ahig:candidate:publication:711b1ba24275c5f995f62a63": {
+   "eligible": [
+    "S1-tt-moderate-dose"
+   ],
+   "bands": [
+    "未定"
+   ],
+   "rule": "single-match"
+  },
   "ahig:candidate:publication:71b998e89f2a28453e4e6f10": {
    "eligible": [
     "S2-tt-high-and-very-high-dose",
-    "S6-gi-harms-secondary-only"
+    "S5+S6-gi-merged"
    ],
    "bands": [
     "high"
    ],
    "rule": "contract-stratum-order"
   },
+  "ahig:candidate:publication:720b0a1d71573e5f10823166": {
+   "eligible": [
+    "S1-tt-moderate-dose"
+   ],
+   "bands": [
+    "未定"
+   ],
+   "rule": "single-match"
+  },
   "ahig:candidate:publication:750b90e1c1c9c679130844dd": {
    "eligible": [
-    "S6-gi-harms-secondary-only"
+    "S5+S6-gi-merged"
    ],
    "bands": [
     "未定"
@@ -702,7 +1142,7 @@
   },
   "ahig:candidate:publication:7aae7734e5f7b617427ba7bd": {
    "eligible": [
-    "S6-gi-harms-secondary-only"
+    "S5+S6-gi-merged"
    ],
    "bands": [
     "未定"
@@ -732,12 +1172,30 @@
    ],
    "rule": "contract-stratum-order"
   },
+  "ahig:candidate:publication:7bff228d8dec3e50e8e6242d": {
+   "eligible": [
+    "S1-tt-moderate-dose"
+   ],
+   "bands": [
+    "未定"
+   ],
+   "rule": "single-match"
+  },
   "ahig:candidate:publication:7c5800be8a62d501f88c7d04": {
    "eligible": [
-    "S6-gi-harms-secondary-only"
+    "S5+S6-gi-merged"
    ],
    "bands": [
     "low"
+   ],
+   "rule": "single-match"
+  },
+  "ahig:candidate:publication:7c6ebf3a04c530fffd02ac0d": {
+   "eligible": [
+    "S1-tt-moderate-dose"
+   ],
+   "bands": [
+    "未定"
    ],
    "rule": "single-match"
   },
@@ -747,6 +1205,15 @@
    ],
    "bands": [
     "high"
+   ],
+   "rule": "single-match"
+  },
+  "ahig:candidate:publication:7dec3f4066e16f089f1522d1": {
+   "eligible": [
+    "S1-tt-moderate-dose"
+   ],
+   "bands": [
+    "未定"
    ],
    "rule": "single-match"
   },
@@ -762,7 +1229,16 @@
   },
   "ahig:candidate:publication:82b25034704141c6238031e0": {
    "eligible": [
-    "S6-gi-harms-secondary-only"
+    "S5+S6-gi-merged"
+   ],
+   "bands": [
+    "未定"
+   ],
+   "rule": "single-match"
+  },
+  "ahig:candidate:publication:838e0b41d10d4d014e78f4eb": {
+   "eligible": [
+    "S1-tt-moderate-dose"
    ],
    "bands": [
     "未定"
@@ -773,7 +1249,7 @@
    "eligible": [
     "S2-tt-high-and-very-high-dose",
     "S3-tte",
-    "S6-gi-harms-secondary-only"
+    "S5+S6-gi-merged"
    ],
    "bands": [
     "high"
@@ -816,7 +1292,7 @@
   },
   "ahig:candidate:publication:89e1a723c3028a8a7b1ae2a1": {
    "eligible": [
-    "S6-gi-harms-secondary-only"
+    "S5+S6-gi-merged"
    ],
    "bands": [
     "未定"
@@ -826,7 +1302,7 @@
   "ahig:candidate:publication:8a8d5efcf6a82302d7fe9adf": {
    "eligible": [
     "S3-tte",
-    "S6-gi-harms-secondary-only"
+    "S5+S6-gi-merged"
    ],
    "bands": [
     "未定"
@@ -835,7 +1311,17 @@
   },
   "ahig:candidate:publication:8b77ead32ff2d40f63a6a127": {
    "eligible": [
-    "S6-gi-harms-secondary-only"
+    "S1-tt-moderate-dose",
+    "S5+S6-gi-merged"
+   ],
+   "bands": [
+    "未定"
+   ],
+   "rule": "contract-stratum-order"
+  },
+  "ahig:candidate:publication:8c146fdd91c6e0592f223ed5": {
+   "eligible": [
+    "S1-tt-moderate-dose"
    ],
    "bands": [
     "未定"
@@ -844,17 +1330,18 @@
   },
   "ahig:candidate:publication:8d9e152de8d48c04f919dbb0": {
    "eligible": [
+    "S1-tt-moderate-dose",
     "S3-tte"
    ],
    "bands": [
     "未定"
    ],
-   "rule": "single-match"
+   "rule": "contract-stratum-order"
   },
   "ahig:candidate:publication:8dd0f644a9012191142e7e02": {
    "eligible": [
     "S4-exogenous-oxidation",
-    "S6-gi-harms-secondary-only"
+    "S5+S6-gi-merged"
    ],
    "bands": [
     "very-high"
@@ -864,7 +1351,7 @@
   "ahig:candidate:publication:91d12321521944972abac1b9": {
    "eligible": [
     "S4-exogenous-oxidation",
-    "S6-gi-harms-secondary-only"
+    "S5+S6-gi-merged"
    ],
    "bands": [
     "low",
@@ -875,7 +1362,7 @@
   },
   "ahig:candidate:publication:9454731aad7c0004c386f31c": {
    "eligible": [
-    "S6-gi-harms-secondary-only"
+    "S5+S6-gi-merged"
    ],
    "bands": [
     "未定"
@@ -884,12 +1371,13 @@
   },
   "ahig:candidate:publication:9469dd213ab18fc6714e7292": {
    "eligible": [
-    "S6-gi-harms-secondary-only"
+    "S1-tt-moderate-dose",
+    "S5+S6-gi-merged"
    ],
    "bands": [
     "未定"
    ],
-   "rule": "single-match"
+   "rule": "contract-stratum-order"
   },
   "ahig:candidate:publication:957dfdbf335a7235c50335bc": {
    "eligible": [
@@ -910,9 +1398,27 @@
    ],
    "rule": "contract-stratum-order"
   },
+  "ahig:candidate:publication:98fe85bec4128a6f6dd2c0b5": {
+   "eligible": [
+    "S1-tt-moderate-dose"
+   ],
+   "bands": [
+    "未定"
+   ],
+   "rule": "single-match"
+  },
   "ahig:candidate:publication:9976d8d82c0bfe3d30f2f36d": {
    "eligible": [
-    "S6-gi-harms-secondary-only"
+    "S5+S6-gi-merged"
+   ],
+   "bands": [
+    "未定"
+   ],
+   "rule": "single-match"
+  },
+  "ahig:candidate:publication:9def90542daf6d9830443341": {
+   "eligible": [
+    "S1-tt-moderate-dose"
    ],
    "bands": [
     "未定"
@@ -930,9 +1436,18 @@
    ],
    "rule": "contract-stratum-order"
   },
+  "ahig:candidate:publication:a0f3c7808f8bb26029e58808": {
+   "eligible": [
+    "S1-tt-moderate-dose"
+   ],
+   "bands": [
+    "未定"
+   ],
+   "rule": "single-match"
+  },
   "ahig:candidate:publication:a32397909a3b03b4fb24cf65": {
    "eligible": [
-    "S6-gi-harms-secondary-only"
+    "S5+S6-gi-merged"
    ],
    "bands": [
     "low"
@@ -941,7 +1456,7 @@
   },
   "ahig:candidate:publication:a3c9967c6231036b66dbb223": {
    "eligible": [
-    "S6-gi-harms-secondary-only"
+    "S5+S6-gi-merged"
    ],
    "bands": [
     "未定"
@@ -950,11 +1465,29 @@
   },
   "ahig:candidate:publication:a4bbe8aa65dd82a89b2c5340": {
    "eligible": [
-    "S6-gi-harms-secondary-only"
+    "S5+S6-gi-merged"
    ],
    "bands": [
     "high",
     "moderate"
+   ],
+   "rule": "single-match"
+  },
+  "ahig:candidate:publication:a61c9cbdef03a60bfe36a497": {
+   "eligible": [
+    "S1-tt-moderate-dose"
+   ],
+   "bands": [
+    "未定"
+   ],
+   "rule": "single-match"
+  },
+  "ahig:candidate:publication:aa37e3fafbc5d49b9afadfe2": {
+   "eligible": [
+    "S1-tt-moderate-dose"
+   ],
+   "bands": [
+    "未定"
    ],
    "rule": "single-match"
   },
@@ -986,10 +1519,55 @@
    ],
    "rule": "single-match"
   },
+  "ahig:candidate:publication:ad67d6262dbf381de74ce581": {
+   "eligible": [
+    "S1-tt-moderate-dose"
+   ],
+   "bands": [
+    "未定"
+   ],
+   "rule": "single-match"
+  },
+  "ahig:candidate:publication:b1eeb9c554d4200c1c5e2b64": {
+   "eligible": [
+    "S1-tt-moderate-dose"
+   ],
+   "bands": [
+    "未定"
+   ],
+   "rule": "single-match"
+  },
+  "ahig:candidate:publication:b49bb63695e347169a7bf549": {
+   "eligible": [
+    "S1-tt-moderate-dose"
+   ],
+   "bands": [
+    "未定"
+   ],
+   "rule": "single-match"
+  },
+  "ahig:candidate:publication:b7e2fe0c7344bfba566d44d2": {
+   "eligible": [
+    "S1-tt-moderate-dose"
+   ],
+   "bands": [
+    "未定"
+   ],
+   "rule": "single-match"
+  },
+  "ahig:candidate:publication:bd9995f482cbc04b68c38e79": {
+   "eligible": [
+    "S1-tt-moderate-dose"
+   ],
+   "bands": [
+    "未定"
+   ],
+   "rule": "single-match"
+  },
   "ahig:candidate:publication:bedf50a7ceb34bf62d25537a": {
    "eligible": [
     "S2-tt-high-and-very-high-dose",
-    "S6-gi-harms-secondary-only"
+    "S5+S6-gi-merged"
    ],
    "bands": [
     "high"
@@ -998,7 +1576,7 @@
   },
   "ahig:candidate:publication:bf4d973f47b07cb97de854ae": {
    "eligible": [
-    "S6-gi-harms-secondary-only"
+    "S5+S6-gi-merged"
    ],
    "bands": [
     "未定"
@@ -1008,12 +1586,21 @@
   "ahig:candidate:publication:bf4f8f5a1105537918c174c9": {
    "eligible": [
     "S2-tt-high-and-very-high-dose",
-    "S6-gi-harms-secondary-only"
+    "S5+S6-gi-merged"
    ],
    "bands": [
     "high"
    ],
    "rule": "contract-stratum-order"
+  },
+  "ahig:candidate:publication:bfc01fa20cfceb6c8a86f78b": {
+   "eligible": [
+    "S1-tt-moderate-dose"
+   ],
+   "bands": [
+    "未定"
+   ],
+   "rule": "single-match"
   },
   "ahig:candidate:publication:c27d87477e4b40dce1bcba6f": {
    "eligible": [
@@ -1052,9 +1639,27 @@
    ],
    "rule": "single-match"
   },
+  "ahig:candidate:publication:c593dfc3427338e1b53c6bcb": {
+   "eligible": [
+    "S1-tt-moderate-dose"
+   ],
+   "bands": [
+    "未定"
+   ],
+   "rule": "single-match"
+  },
   "ahig:candidate:publication:c633affd58dcefd94ae3425f": {
    "eligible": [
-    "S6-gi-harms-secondary-only"
+    "S5+S6-gi-merged"
+   ],
+   "bands": [
+    "未定"
+   ],
+   "rule": "single-match"
+  },
+  "ahig:candidate:publication:c8fea0895d84a17e2c347de7": {
+   "eligible": [
+    "S1-tt-moderate-dose"
    ],
    "bands": [
     "未定"
@@ -1076,12 +1681,21 @@
   "ahig:candidate:publication:ca993048f2365409b2a23eae": {
    "eligible": [
     "S4-exogenous-oxidation",
-    "S6-gi-harms-secondary-only"
+    "S5+S6-gi-merged"
    ],
    "bands": [
     "moderate"
    ],
    "rule": "contract-stratum-order"
+  },
+  "ahig:candidate:publication:cd1e43154103c4b52bbf21e6": {
+   "eligible": [
+    "S1-tt-moderate-dose"
+   ],
+   "bands": [
+    "未定"
+   ],
+   "rule": "single-match"
   },
   "ahig:candidate:publication:cdd86fba0b49e84dbf5de69f": {
    "eligible": [
@@ -1092,10 +1706,19 @@
    ],
    "rule": "single-match"
   },
+  "ahig:candidate:publication:ce06bb6d2b2eae07f04e7c85": {
+   "eligible": [
+    "S1-tt-moderate-dose"
+   ],
+   "bands": [
+    "未定"
+   ],
+   "rule": "single-match"
+  },
   "ahig:candidate:publication:ce3d721f3f1d30149ced9a42": {
    "eligible": [
     "S4-exogenous-oxidation",
-    "S6-gi-harms-secondary-only"
+    "S5+S6-gi-merged"
    ],
    "bands": [
     "very-high"
@@ -1104,7 +1727,7 @@
   },
   "ahig:candidate:publication:cfda28d0b340b1cc17697f20": {
    "eligible": [
-    "S6-gi-harms-secondary-only"
+    "S5+S6-gi-merged"
    ],
    "bands": [
     "未定"
@@ -1123,7 +1746,7 @@
   "ahig:candidate:publication:d15b06c7840f3be752a530dc": {
    "eligible": [
     "S4-exogenous-oxidation",
-    "S6-gi-harms-secondary-only",
+    "S5+S6-gi-merged",
     "S7-glycogen"
    ],
    "bands": [
@@ -1133,7 +1756,7 @@
   },
   "ahig:candidate:publication:d2b885ef5a3d35d177366c70": {
    "eligible": [
-    "S6-gi-harms-secondary-only"
+    "S5+S6-gi-merged"
    ],
    "bands": [
     "未定"
@@ -1150,6 +1773,15 @@
    ],
    "rule": "single-match"
   },
+  "ahig:candidate:publication:d6526ee4f411933a644b7875": {
+   "eligible": [
+    "S1-tt-moderate-dose"
+   ],
+   "bands": [
+    "未定"
+   ],
+   "rule": "single-match"
+  },
   "ahig:candidate:publication:d9552aa9f6cafc4cb2cafdc6": {
    "eligible": [
     "S4-exogenous-oxidation"
@@ -1158,6 +1790,15 @@
     "low",
     "moderate",
     "very-high"
+   ],
+   "rule": "single-match"
+  },
+  "ahig:candidate:publication:d9f8c03e09c665a709499ba1": {
+   "eligible": [
+    "S1-tt-moderate-dose"
+   ],
+   "bands": [
+    "未定"
    ],
    "rule": "single-match"
   },
@@ -1170,9 +1811,18 @@
    ],
    "rule": "single-match"
   },
+  "ahig:candidate:publication:dd325ced374adcbba84e9e78": {
+   "eligible": [
+    "S1-tt-moderate-dose"
+   ],
+   "bands": [
+    "未定"
+   ],
+   "rule": "single-match"
+  },
   "ahig:candidate:publication:de853f5fd05e9fcac467bd5a": {
    "eligible": [
-    "S6-gi-harms-secondary-only"
+    "S5+S6-gi-merged"
    ],
    "bands": [
     "未定"
@@ -1223,6 +1873,15 @@
    ],
    "rule": "single-match"
   },
+  "ahig:candidate:publication:eabc9f6a516fa63f4113602a": {
+   "eligible": [
+    "S1-tt-moderate-dose"
+   ],
+   "bands": [
+    "未定"
+   ],
+   "rule": "single-match"
+  },
   "ahig:candidate:publication:eac6aff9f98c855ca35e4def": {
    "eligible": [
     "S3-tte"
@@ -1234,7 +1893,7 @@
   },
   "ahig:candidate:publication:ee3ae5b3796d8901f0864812": {
    "eligible": [
-    "S6-gi-harms-secondary-only"
+    "S5+S6-gi-merged"
    ],
    "bands": [
     "未定"
@@ -1253,13 +1912,22 @@
   "ahig:candidate:publication:f09fd22168b1b2f9ce594d6c": {
    "eligible": [
     "S4-exogenous-oxidation",
-    "S6-gi-harms-secondary-only"
+    "S5+S6-gi-merged"
    ],
    "bands": [
     "high",
     "very-high"
    ],
    "rule": "contract-stratum-order"
+  },
+  "ahig:candidate:publication:f0e35ec54bc6f774861638b1": {
+   "eligible": [
+    "S1-tt-moderate-dose"
+   ],
+   "bands": [
+    "未定"
+   ],
+   "rule": "single-match"
   },
   "ahig:candidate:publication:f23cf4dc95fc681cd4956e9b": {
    "eligible": [
@@ -1296,16 +1964,17 @@
   },
   "ahig:candidate:publication:fc272e8b063aaec052d68100": {
    "eligible": [
+    "S1-tt-moderate-dose",
     "S3-tte"
    ],
    "bands": [
     "未定"
    ],
-   "rule": "single-match"
+   "rule": "contract-stratum-order"
   },
   "ahig:candidate:publication:fc75f1d5298c326024d22835": {
    "eligible": [
-    "S6-gi-harms-secondary-only"
+    "S5+S6-gi-merged"
    ],
    "bands": [
     "未定"
@@ -1325,7 +1994,7 @@
   },
   "ahig:candidate:publication:ffcf73c2593a936c17ba9f26": {
    "eligible": [
-    "S6-gi-harms-secondary-only"
+    "S5+S6-gi-merged"
    ],
    "bands": [
     "未定"
@@ -1333,6 +2002,6 @@
    "rule": "single-match"
   }
  },
- "contentNote": "Opaque candidateIds and stratum ids only. No literature content.",
- "assignmentHash": "sha256:05206f9ba451238f57bde47ed9d2d613cd2b6932ce3a2a266750203ab6acac49"
+ "contentNote": "Opaque candidateIds and pool ids only. No literature content.",
+ "assignmentHash": "sha256:55c7620419c62e3d6f7833806f92cfb5d3495f2430a5ca28f8c8037b0a8183c6"
 }

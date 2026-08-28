@@ -19,7 +19,23 @@
   (2) 其餘依自身主要結果歸層；
   (3) 仍無法分辨 → **以契約既有之層序 S1→S7 決勝**。
 
-## ⚠️ 一項本檔自行採取的保守推論，須協調者確認
+## n+100 之調整（本版）
+
+1. **S5／S6 合併為一個抽樣池，配額 15（＝8＋7）**——n+100（二）採（丙）：
+   **⚠️ S5 的 8 個名額不是缺額，是分派時機錯了。**
+   契約 `ineligibleReplacement` 禁的是「跨層挪用配額」，
+   **🚨 沒有禁「同一筆記錄在資訊足夠後歸到正確的層」**；
+   全文取得後依 GI 之主要性再分為 S5／S6。
+   **🚫 不得為了填滿 8 篇而放寬主要性判準**——若全文期發現 GI 為主要者不足 8 篇，
+   **那不是失敗，那正是 S5 被設計出來要量到的事實。**
+2. **S1 之候選池擴大為「已定 moderate ∪ 劑量帶未定之 TT」**——n+100（三）：
+   其不足屬「資訊未解析」而非「欄位不存在」，**全文期解析劑量帶後確認歸屬**。
+   **🚫 若解析後 moderate 不足 12，如實記載，不得自 S2 挪用。**
+3. **各池落盤 `candidateIds` 清單**——n+100（一）：
+   **🚨 前一版只存筆數，協調者因此驗不到互斥性。**
+   ⚠️ 與尾端抽樣當初同型：產物記錄了結果，卻不足以讓別人重驗結果。
+
+## ⚠️ 一項本檔自行採取的保守推論（n+100 四已照准）
 
 n+98 明文只說「換算不出者**不得歸入 S1／S2**」。
 **🚨 但同樣的道理及於任何 `doseBands` 不涵蓋全部四帶的層**：
@@ -57,8 +73,40 @@ assert RULE == 'b11-screening/1.5.0', (
 print('✅ queue 之 screeningRuleVersion = %s（n+98 指定者）' % RULE)
 
 ALL_BANDS = {'low', 'moderate', 'high', 'very-high'}
-STRATA = strata['strata']          # 契約既有順序即 S1→S7，決勝順序照用
+BY_ID = {s['stratumId']: s for s in strata['strata']}
 adv = sorted(c for c, o in pop['decisions'].items() if o == 'advance')
+
+# 抽樣池：順序即契約層序 S1→S7（合併池置於 S5 之位），決勝順序照用。
+# `undetermined` 表示該池是否收「劑量帶未定」者。
+POOLS = [
+    {'poolId': 'S1-tt-moderate-dose', 'quota': 12,
+     'outcomes': {'tt-completion-time'}, 'bands': {'moderate'},
+     'undetermined': True,          # n+100(三)
+     'strata': ['S1-tt-moderate-dose']},
+    {'poolId': 'S2-tt-high-and-very-high-dose', 'quota': 10,
+     'outcomes': {'tt-completion-time'}, 'bands': {'high', 'very-high'},
+     'undetermined': False,
+     'strata': ['S2-tt-high-and-very-high-dose']},
+    {'poolId': 'S3-tte', 'quota': 8,
+     'outcomes': {'time-to-exhaustion'}, 'bands': set(ALL_BANDS),
+     'undetermined': True,
+     'strata': ['S3-tte']},
+    {'poolId': 'S4-exogenous-oxidation', 'quota': 10,
+     'outcomes': {'exogenous-cho-oxidation-peak'},
+     'bands': {'moderate', 'high', 'very-high'}, 'undetermined': False,
+     'strata': ['S4-exogenous-oxidation']},
+    {'poolId': 'S5+S6-gi-merged', 'quota': 15,
+     'outcomes': {'gi-symptom-incidence', 'gi-symptom-severity'},
+     'bands': set(ALL_BANDS), 'undetermined': True,
+     'strata': ['S5-gi-harms-primary', 'S6-gi-harms-secondary-only'],
+     'splitNote': ('Merged per n+100(2). Split into S5/S6 after full text, '
+                   'by whether GI is a primary/co-primary outcome. '
+                   'Quotas 8+7 unchanged; no cross-stratum borrowing.')},
+    {'poolId': 'S7-glycogen', 'quota': 5,
+     'outcomes': {'muscle-glycogen-post-exercise'},
+     'bands': {'moderate', 'high'}, 'undetermined': False,
+     'strata': ['S7-glycogen']},
+]
 
 
 def bands_of(cid):
@@ -67,22 +115,19 @@ def bands_of(cid):
 
 
 def eligible(cid):
-    """回傳該筆可歸入之層（未套互斥前）。"""
+    """回傳該筆可歸入之池（未套互斥前），順序即契約層序。"""
     outs = set(q[cid].get('outcomeHints') or [])
     bands = bands_of(cid)
     out = []
-    for s in STRATA:
-        if not (outs & set(s['primaryOutcomes'])):
+    for p in POOLS:
+        if not (outs & p['outcomes']):
             continue
-        sb = set(s['doseBands'])
         if bands:
-            if not (bands & sb):
+            if not (bands & p['bands']):
                 continue
-        else:
-            # 劑量帶未定：僅允許涵蓋全四帶之層（見檔頭之保守推論）
-            if sb != ALL_BANDS:
-                continue
-        out.append(s['stratumId'])
+        elif not p['undetermined']:
+            continue          # 劑量帶未定，而本池不收未定者
+        out.append(p['poolId'])
     return out
 
 
@@ -101,70 +146,100 @@ def gi_primary_evidence(cid):
 assign, why, unassigned = {}, {}, []
 for cid in adv:
     el = eligible(cid)
-    # 🚨 n+98(二)：S5 需要正面證據，沒有證據不等於證據支持。
-    # ⚠️ 本檔第一版漏了這條——它讓層序決勝（S5 排在 S6 前）把 3 筆 GI 記錄
-    #    分進了 S5，等於用「排序位置」冒充「主要性證據」。
-    #    n+98 明文要求未明確者一律暫歸 S6，故此處先剔除 S5 再決勝。
-    if not gi_primary_evidence(cid):
-        el = [s for s in el if s != 'S5-gi-harms-primary']
+    # 🚨 n+98(二) 之 S5 問題，於本版已由 n+100(二) 之合併池吸收：
+    #    S5 與 S6 併為一池，主要性之判定整個移到全文期。
+    # ⚠️ 保留 gi_primary_evidence() 不刪，是為了讓全文期複核有明確接點——
+    #    屆時它會回傳真值，而合併池即依其結果拆分。
     if not el:
         unassigned.append(cid)
         continue
-    assign[cid] = el[0]            # (3) 契約層序 S1→S7 決勝
+    assign[cid] = el[0]            # 契約層序決勝（合併池置於 S5 之位）
     why[cid] = {'eligible': el, 'bands': sorted(bands_of(cid)) or ['未定'],
                 'rule': 'contract-stratum-order' if len(el) > 1 else 'single-match'}
 
-counts = Counter(assign.values())
+members = defaultdict(list)
+for cid, pid in assign.items():
+    members[pid].append(cid)
+for pid in members:
+    members[pid].sort()
+
+# 🚨 互斥性：本檔自證一次，不要協調者代勞發現問題。
+seen = set()
+dupes = []
+for pid, ids in members.items():
+    for cid in ids:
+        if cid in seen:
+            dupes.append(cid)
+        seen.add(cid)
+assert not dupes, '🚨 同一筆出現在多個池：%s' % dupes[:5]
+print('✅ 互斥性自證：%d 筆分派、%d 筆相異，無重複' % (len(assign), len(seen)))
+
 print()
-print('%-34s %6s %10s %s' % ('層', '配額', '已分派', '狀態'))
-print('-' * 66)
+print('%-34s %6s %10s %s' % ('抽樣池', '配額', '可用', '狀態'))
+print('-' * 68)
 rows = []
-for s in STRATA:
-    n = counts.get(s['stratumId'], 0)
-    ok = n >= s['quota']
-    rows.append({'stratumId': s['stratumId'], 'quota': s['quota'],
-                 'assigned': n, 'sufficient': ok})
+for pmeta in POOLS:
+    pid = pmeta['poolId']
+    ids = members.get(pid, [])
+    ok = len(ids) >= pmeta['quota']
+    rows.append({
+        'poolId': pid, 'quota': pmeta['quota'], 'available': len(ids),
+        'sufficient': ok, 'strata': pmeta['strata'],
+        'candidateIds': ids,
+        'candidateIdsHash': content_hash(ids),
+        'coverage': ('all advance records assigned to this pool under the '
+                     'n+98/n+100 rules; mutually exclusive across pools'),
+    })
     print('%-34s %6d %10d %s'
-          % (s['stratumId'], s['quota'], n, '✅' if ok else '🚨 不足 %d' % (s['quota'] - n)))
-print('-' * 66)
-print('%-34s %6d %10d' % ('合計', sum(s['quota'] for s in STRATA), sum(counts.values())))
+          % (pid, pmeta['quota'], len(ids),
+             '✅' if ok else '🚨 不足 %d' % (pmeta['quota'] - len(ids))))
+print('-' * 68)
+print('%-34s %6d %10d' % ('合計', sum(p['quota'] for p in POOLS), len(assign)))
 print()
-print('未能分派（無契約結局提示，或劑量帶未定而其層不涵蓋全帶）：%d 筆' % len(unassigned))
+print('未能分派：%d 筆（無契約結局提示，或劑量帶未定而其池不收未定者）' % len(unassigned))
 
 short = [r for r in rows if not r['sufficient']]
 doc = {
     'schemaVersion': 1,
     'documentType': 'm1-step2-strata-assignment',
-    'ruling': 'n+98',
+    'ruling': 'n+98; pools adjusted per n+100(2)(3)',
     'doseRuleVersion': RULE,
     'doseRuleNote': ('Loaded from queue doseSignals produced by W3 _dose_signals; '
                      'no conversion rewritten here (n+44).'),
     'populationHash': pop['populationHash'],
     'scopeContractHash': strata.get('scopeContractHash'),
+    'mutualExclusivity': {
+        'verifiedInThisScript': True,
+        'assigned': len(assign), 'distinct': len(seen),
+        'note': ('Each advance record appears in at most one pool. '
+                 'candidateIds are filed per pool so this is independently '
+                 'checkable (n+100 section 1).'),
+    },
     'conservativeInference': (
-        'Records with an undetermined dose band are admitted only to strata '
-        'whose doseBands cover all four bands (S3, S6). n+98 names S1/S2 '
-        'explicitly; this extends the same logic to S4/S5/S7, which exclude '
-        '"low" and therefore cannot admit a record not shown to be non-low. '
-        'Executor inference, flagged for coordinator confirmation.'),
-    'strata': rows,
-    'assignedCount': sum(counts.values()),
+        'Records with an undetermined dose band are admitted only to pools '
+        'that accept them (S1 and S3 and the merged GI pool). Pools whose '
+        'doseBands exclude "low" cannot admit a record not shown to be '
+        'non-low. Approved by n+100 section 4, with the cost to be stated in '
+        'M1: a small candidate pool here reflects missing information, not '
+        'the distribution of the literature.'),
+    'pools': rows,
+    'assignedCount': len(assign),
     'unassignedCount': len(unassigned),
-    'shortfalls': [{'stratumId': r['stratumId'], 'quota': r['quota'],
-                    'assigned': r['assigned'],
-                    'missing': r['quota'] - r['assigned']} for r in short],
+    'shortfalls': [{'poolId': r['poolId'], 'quota': r['quota'],
+                    'available': r['available'],
+                    'missing': r['quota'] - r['available']} for r in short],
     'assignment': assign,
     'rationale': why,
-    'contentNote': 'Opaque candidateIds and stratum ids only. No literature content.',
+    'contentNote': 'Opaque candidateIds and pool ids only. No literature content.',
 }
 doc['assignmentHash'] = content_hash(doc['assignment'])
 io.open(DEST, 'w', encoding='utf-8').write(
     json.dumps(doc, ensure_ascii=False, indent=1))
 print()
 if short:
-    print('🚨 配額不足之層：')
+    print('🚨 配額不足之池：')
     for r in short:
-        print('   %-34s 缺 %d' % (r['stratumId'], r['quota'] - r['assigned']))
-    print('⚠️ 依契約 ineligibleReplacement：同層遞補、記錄理由碼、**不得跨層挪用配額**')
-    print('   ——故不足者無法以他層補足，須回報而非自行調整。')
+        print('   %-34s 缺 %d' % (r['poolId'], r['quota'] - r['available']))
+else:
+    print('✅ 六個抽樣池全部足額，可執行抽樣。')
 print('✅ 已落盤 → %s' % DEST)

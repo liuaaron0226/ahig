@@ -1,0 +1,158 @@
+{
+ "schemaVersion": 1,
+ "documentType": "m1-calibration-set",
+ "ruling": "ADR-0010 M1 step 2; rules n+98, pools n+100(2)(3), seed n+98(4)",
+ "samplingFrameId": "ahig:calibration:b11-carbohydrate:strata",
+ "scopeContractHash": "sha256:1bd206e5c4741e2d0339a81ffa53a717330d539fa4f1d2a19fa31c3401ef8696",
+ "anchorHash": "sha256:84cde8904e86b72830d4aeed70ca1e593205f9c97d34d7cc14e186d4cc4993eb",
+ "anchorCoverage": "populationHash of m1_step2_population.json decisions (final judgement state for all 7,631 judged records after the three overlays)",
+ "seedDerivation": "int.from_bytes(sha256(\"m1-calibration-draw:<poolId>\" + anchorHash).digest()[:8], \"big\") -- one seed per pool, so a single pool can be redrawn without disturbing others",
+ "samplingMethod": {
+  "design": "stratified-quota",
+  "withinStratumSelection": "random-without-replacement-from-eligible-pool",
+  "seedPolicy": "抽樣種子在文獻池建立當下記錄於批次紀錄，不預先寫入本檔，避免『先看池子再挑種子』。",
+  "ineligibleReplacement": "同層內以下一個隨機序位遞補，並記錄被剔除者的理由碼；不得跨層挪用配額。"
+ },
+ "totalSampleSize": 60,
+ "draws": {
+  "S1-tt-moderate-dose": {
+   "quota": 12,
+   "poolSize": 62,
+   "seed": 15806539371960117084,
+   "seedMaterial": "m1-calibration-draw:S1-tt-moderate-dose + populationHash",
+   "strata": [
+    "S1-tt-moderate-dose"
+   ],
+   "candidateIds": [
+    "ahig:candidate:publication:0345e9816db603c5afbb588f",
+    "ahig:candidate:publication:19b50c9679cf053894e8ad39",
+    "ahig:candidate:publication:4eccbfc6dd5b52374d47acda",
+    "ahig:candidate:publication:5138c93e07fb03ac90367aca",
+    "ahig:candidate:publication:613eea94ef94ee7ef23b3a3f",
+    "ahig:candidate:publication:838e0b41d10d4d014e78f4eb",
+    "ahig:candidate:publication:88747fa53f34fc92d4f4b70d",
+    "ahig:candidate:publication:9469dd213ab18fc6714e7292",
+    "ahig:candidate:publication:98fe85bec4128a6f6dd2c0b5",
+    "ahig:candidate:publication:a09411659cfa9f83105006f0",
+    "ahig:candidate:publication:d9f8c03e09c665a709499ba1",
+    "ahig:candidate:publication:eabc9f6a516fa63f4113602a"
+   ],
+   "drawHash": "sha256:c2d0427611a7b49bef51823678bd668b4a9d94bd9802b8cd9b2af749c5eb4426"
+  },
+  "S2-tt-high-and-very-high-dose": {
+   "quota": 10,
+   "poolSize": 12,
+   "seed": 14216426716295199814,
+   "seedMaterial": "m1-calibration-draw:S2-tt-high-and-very-high-dose + populationHash",
+   "strata": [
+    "S2-tt-high-and-very-high-dose"
+   ],
+   "candidateIds": [
+    "ahig:candidate:publication:2067281cfa3308377ab280a0",
+    "ahig:candidate:publication:3ecdcbd448da8a7f2f35af1f",
+    "ahig:candidate:publication:5bb344ac70ef2dd551bfc98b",
+    "ahig:candidate:publication:71b998e89f2a28453e4e6f10",
+    "ahig:candidate:publication:75ee458a413a6865b0501886",
+    "ahig:candidate:publication:7bc2c46bd4251685a43792ff",
+    "ahig:candidate:publication:85855b5e7a97713bf254fa26",
+    "ahig:candidate:publication:bedf50a7ceb34bf62d25537a",
+    "ahig:candidate:publication:bf4f8f5a1105537918c174c9",
+    "ahig:candidate:publication:fc849c9b0b20710630ae2b46"
+   ],
+   "drawHash": "sha256:c94517929cc8cd2f6428a7d492d1740a22cf41b99017bde2750225ab3192eb07"
+  },
+  "S3-tte": {
+   "quota": 8,
+   "poolSize": 24,
+   "seed": 745501110764546292,
+   "seedMaterial": "m1-calibration-draw:S3-tte + populationHash",
+   "strata": [
+    "S3-tte"
+   ],
+   "candidateIds": [
+    "ahig:candidate:publication:17ea08e478e8f6ea3ab46061",
+    "ahig:candidate:publication:1aab6249ce652a18fa457b46",
+    "ahig:candidate:publication:22f65bbd0005e44c6fc33b45",
+    "ahig:candidate:publication:3a1f2e85fe552f712dd6ca09",
+    "ahig:candidate:publication:608b0b6031daa098b403a574",
+    "ahig:candidate:publication:671d46c4a5668d2f1380ab4f",
+    "ahig:candidate:publication:8807b7b00fa3f5deaf8a5ca8",
+    "ahig:candidate:publication:cdd86fba0b49e84dbf5de69f"
+   ],
+   "drawHash": "sha256:05045c97d37b8c27ca2f889a5e773c934ff6dfa6ccba5abcaa918552fabe7de8"
+  },
+  "S4-exogenous-oxidation": {
+   "quota": 10,
+   "poolSize": 32,
+   "seed": 10204163260170645439,
+   "seedMaterial": "m1-calibration-draw:S4-exogenous-oxidation + populationHash",
+   "strata": [
+    "S4-exogenous-oxidation"
+   ],
+   "candidateIds": [
+    "ahig:candidate:publication:012d9a3486e6a580108fd94b",
+    "ahig:candidate:publication:0d85b70688df78dbb9790b1b",
+    "ahig:candidate:publication:41784b2255ffe7305f4aafa0",
+    "ahig:candidate:publication:604810c57e406176f0532a8a",
+    "ahig:candidate:publication:66b408b0f85932c09316c4d0",
+    "ahig:candidate:publication:69e040d16b7320d74cdda857",
+    "ahig:candidate:publication:76df6297501bb474ac4704fa",
+    "ahig:candidate:publication:7d2f0e2a39079e90850b4f2b",
+    "ahig:candidate:publication:f23cf4dc95fc681cd4956e9b",
+    "ahig:candidate:publication:f8392067834de4d822dfb3cd"
+   ],
+   "drawHash": "sha256:09c835917aa4871d9ccb777bceee6aa2e9416d109b778ed27237a782f42603a6"
+  },
+  "S5+S6-gi-merged": {
+   "quota": 15,
+   "poolSize": 27,
+   "seed": 9208804679799223948,
+   "seedMaterial": "m1-calibration-draw:S5+S6-gi-merged + populationHash",
+   "strata": [
+    "S5-gi-harms-primary",
+    "S6-gi-harms-secondary-only"
+   ],
+   "candidateIds": [
+    "ahig:candidate:publication:030a2747dafa82f16ef0f3eb",
+    "ahig:candidate:publication:2cc49e0ddbdb6ea55c9667c3",
+    "ahig:candidate:publication:5b3debae03246969232967c9",
+    "ahig:candidate:publication:617d961ef4829617cd6efcd1",
+    "ahig:candidate:publication:63a6d1c092183b4870ab6c46",
+    "ahig:candidate:publication:82b25034704141c6238031e0",
+    "ahig:candidate:publication:89e1a723c3028a8a7b1ae2a1",
+    "ahig:candidate:publication:9976d8d82c0bfe3d30f2f36d",
+    "ahig:candidate:publication:a3c9967c6231036b66dbb223",
+    "ahig:candidate:publication:bf4d973f47b07cb97de854ae",
+    "ahig:candidate:publication:c633affd58dcefd94ae3425f",
+    "ahig:candidate:publication:cfda28d0b340b1cc17697f20",
+    "ahig:candidate:publication:d2b885ef5a3d35d177366c70",
+    "ahig:candidate:publication:ee3ae5b3796d8901f0864812",
+    "ahig:candidate:publication:fc75f1d5298c326024d22835"
+   ],
+   "drawHash": "sha256:7c3f4ee6b8b3220e32ca88a0509f1bb09bcb4e3350c8cf89a77051a5a8033a84"
+  },
+  "S7-glycogen": {
+   "quota": 5,
+   "poolSize": 6,
+   "seed": 13807998647755444008,
+   "seedMaterial": "m1-calibration-draw:S7-glycogen + populationHash",
+   "strata": [
+    "S7-glycogen"
+   ],
+   "candidateIds": [
+    "ahig:candidate:publication:0ba83d3d6c6eee294c9eeb8f",
+    "ahig:candidate:publication:5758a3d4c382c8b652f2065b",
+    "ahig:candidate:publication:670fdc6579c3e76d40219b9c",
+    "ahig:candidate:publication:7eef56b17a6ac1559c740fd6",
+    "ahig:candidate:publication:ab1a35304393752f2d7f8f25"
+   ],
+   "drawHash": "sha256:4ca3d49bef74c9594d094e7a3306a3e731f97489750ac10831099340fbd3984f"
+  }
+ },
+ "pendingFullText": [
+  "S5/S6 split by GI primacy (n+100 section 2). Quotas 8+7 unchanged; if fewer than 8 turn out to have GI as a primary outcome, that is a finding, not a failure -- record it, do not loosen the criterion.",
+  "S1 dose bands: the pool mixes confirmed-moderate with undetermined-band records (n+100 section 3). Confirm after full text; if moderate falls short of 12, record it, do not borrow S2."
+ ],
+ "contentNote": "Opaque candidateIds only. No literature content.",
+ "calibrationSetHash": "sha256:f3f1b6b22fff2df3d96f7cff0f3fb91429a4003d64b6244230560047050e6f64"
+}
