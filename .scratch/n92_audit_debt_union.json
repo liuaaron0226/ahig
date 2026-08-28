@@ -1,0 +1,176 @@
+{
+ "schemaVersion": 1,
+ "documentType": "audit-debt-union",
+ "ruling": "n+92(2); lists located per n+106(2); union gated by n+106(3.4)",
+ "batches": [
+  {
+   "batchId": "22f634d2325d",
+   "label": "主框（已清償）",
+   "positions": [
+    1,
+    11,
+    21,
+    31,
+    41,
+    51
+   ],
+   "boardLine": 302,
+   "settled": true,
+   "populationSize": 62,
+   "composition": {
+    "records": 50,
+    "exclusionAudit": 12
+   },
+   "sizeMatchesBoard": true,
+   "rebuilt": [
+    "ahig:candidate:publication:0019b8c7e15d229892629eca",
+    "ahig:candidate:publication:30ed6fc2196462437c5357f9",
+    "ahig:candidate:publication:5a123a6e56ccea5eefe9fb52",
+    "ahig:candidate:publication:87b57db71e596abfc3596e04",
+    "ahig:candidate:publication:a2893d5ebbd78ef99b40c626",
+    "ahig:candidate:publication:e82dddd9347866b3c26468ca"
+   ],
+   "rebuiltPrefixes": [
+    "0019b8c7",
+    "30ed6fc2",
+    "5a123a6e",
+    "87b57db7",
+    "a2893d5e",
+    "e82dddd9"
+   ],
+   "boardPrefixes": [
+    "0019b8c7",
+    "30ed6fc2",
+    "5a123a6e",
+    "87b57db7",
+    "a2893d5e",
+    "e82dddd9"
+   ],
+   "prefixesMatch": true
+  },
+  {
+   "batchId": "0030677e77bf",
+   "label": "W2 補抽（記帳中）",
+   "positions": [
+    1,
+    11,
+    21,
+    31,
+    41
+   ],
+   "boardLine": 763,
+   "settled": false,
+   "populationSize": 50,
+   "composition": {
+    "records": 50,
+    "exclusionAudit": 0
+   },
+   "sizeMatchesBoard": true,
+   "rebuilt": [
+    "ahig:candidate:publication:02b6099a7226ca8891a98268",
+    "ahig:candidate:publication:372762b469c64c5e96dffed4",
+    "ahig:candidate:publication:73a70c0a16cc557e28e52467",
+    "ahig:candidate:publication:90748de708239fd39aea37c4",
+    "ahig:candidate:publication:c7f99205f2cc0e7ce4035137"
+   ],
+   "rebuiltPrefixes": [
+    "02b6099a",
+    "372762b4",
+    "73a70c0a",
+    "90748de7",
+    "c7f99205"
+   ],
+   "boardPrefixes": [
+    "02b6099a",
+    "372762b4",
+    "73a70c0a",
+    "90748de7",
+    "c7f99205"
+   ],
+   "prefixesMatch": true
+  }
+ ],
+ "pilotSearch": {
+  "privateRootFiles": [
+   "judgements.json",
+   "prevalence-estimate.json",
+   "sample.json",
+   "worksheet.json"
+  ],
+  "privateRootAuditFields": {},
+  "boardMatches": 3,
+  "branchesChecked": true,
+  "branchMatches": 0,
+  "verdict": "unretrievable -- all three ranges per n+106(3.3) searched (private root screening-pilot/, full board, branches) and no list exists; only the figure 1 in the formula"
+ },
+ "unionComputed": "partial",
+ "unionGate": "n+106(3.4) gates the full union on all three lists. Pilot has no list after searching all three ranges, so the union below EXCLUDES it and says so. Reporting a partial union with its exclusion named is not the defect n+92 targets -- that defect was adding counts without lists.",
+ "union": {
+  "w2": [
+   "ahig:candidate:publication:02b6099a7226ca8891a98268",
+   "ahig:candidate:publication:372762b469c64c5e96dffed4",
+   "ahig:candidate:publication:73a70c0a16cc557e28e52467",
+   "ahig:candidate:publication:90748de708239fd39aea37c4",
+   "ahig:candidate:publication:c7f99205f2cc0e7ce4035137"
+  ],
+  "shadowCumulative": [
+   "ahig:candidate:publication:06ce68e3f7ceef8bd3dc609b",
+   "ahig:candidate:publication:0a1e3ff187f48ea0e43a1ed6",
+   "ahig:candidate:publication:419336cfe7a85d490c1e2d0f",
+   "ahig:candidate:publication:64e490e6cc719b2e935ee8a9",
+   "ahig:candidate:publication:759a1b72ad8a906ebbdc9db4",
+   "ahig:candidate:publication:81495123253637a2adb6ae53",
+   "ahig:candidate:publication:82c98e24df44cb72d60bcead",
+   "ahig:candidate:publication:87b57db71e596abfc3596e04",
+   "ahig:candidate:publication:93288ee8dc9ab456ffc2a9d2",
+   "ahig:candidate:publication:a1655c2c3f6c0a8e843592ce",
+   "ahig:candidate:publication:bdbc5d43bb09a29d769e22c6",
+   "ahig:candidate:registry-record:26dc232d5ab98785c36d1456"
+  ],
+  "shadowOutstanding": [
+   "ahig:candidate:publication:06ce68e3f7ceef8bd3dc609b",
+   "ahig:candidate:publication:0a1e3ff187f48ea0e43a1ed6",
+   "ahig:candidate:publication:419336cfe7a85d490c1e2d0f",
+   "ahig:candidate:publication:64e490e6cc719b2e935ee8a9",
+   "ahig:candidate:publication:759a1b72ad8a906ebbdc9db4",
+   "ahig:candidate:publication:82c98e24df44cb72d60bcead",
+   "ahig:candidate:publication:87b57db71e596abfc3596e04",
+   "ahig:candidate:publication:93288ee8dc9ab456ffc2a9d2",
+   "ahig:candidate:publication:a1655c2c3f6c0a8e843592ce",
+   "ahig:candidate:publication:bdbc5d43bb09a29d769e22c6",
+   "ahig:candidate:registry-record:26dc232d5ab98785c36d1456"
+  ],
+  "mainFrameSettled": [
+   "ahig:candidate:publication:0019b8c7e15d229892629eca",
+   "ahig:candidate:publication:30ed6fc2196462437c5357f9",
+   "ahig:candidate:publication:5a123a6e56ccea5eefe9fb52",
+   "ahig:candidate:publication:87b57db71e596abfc3596e04",
+   "ahig:candidate:publication:a2893d5ebbd78ef99b40c626",
+   "ahig:candidate:publication:e82dddd9347866b3c26468ca"
+  ],
+  "overlaps": {
+   "w2_x_shadow": [],
+   "w2_x_main": [],
+   "shadow_x_main": [
+    "ahig:candidate:publication:87b57db71e596abfc3596e04"
+   ]
+  },
+  "mutuallyExclusiveVerified": false,
+  "outstandingUnion": 16,
+  "outstandingSum": 16,
+  "cumulativeUnion": 22,
+  "cumulativeSum": 23,
+  "excludes": "pilot lane item (1), no list found in any of three ranges"
+ },
+ "threeColumnFormat": {
+  "note": "n+106(1) format: cumulative / settled / outstanding",
+  "shadow": {
+   "cumulative": 12,
+   "settled": 1,
+   "outstanding": 11
+  }
+ },
+ "pilotNature": "Board wording is \"pilot lane distribution derived\", which reads as an issue rather than a record. If it was never a candidateId it should not be counted in a candidateId union at all, but listed separately as an outstanding item. Referred, not reclassified here.",
+ "contentNote": "Ids, positions and counts only. No literature content.",
+ "rebuildHash": "sha256:f36681b36ca17aa43a160ed6d7aa3ac90096166114754bb35912399206351618"
+}
