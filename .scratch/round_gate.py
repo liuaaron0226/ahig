@@ -69,6 +69,9 @@ grep: -P supports only unibyte and UTF-8 locales     ← exit=2
 
 - ✅ 抓得到：三組已公布樣式所涵蓋者（n+48 兩道、n+54 三道），
   且**工具失效或語料讀不到時會以非零狀態碼中止，而非回報 PASS**。
+- ⚠️ 樣式來源比對只涵蓋 `PAT`／`INNER`／第一道四樣式**三者**；
+  **🚨 n+54 三式無法比對**——看板第 43069 行只公告了三式中的一式（`^<<<<<<< `），
+  另兩式以「等三式」帶過。**⚠️ 故那三式在本檔仍是重打，未經原件驗證。**
 - 🚨 抓不到：**不加任何標記、直接寫在中文判讀理由裡的英文題名**
   ——n+80 已載明沒有可靠樣式能把它與本室自己寫的英文說明分開。
   **⚠️ 故本檔通過代表「兩道已知樣式無新增」，不代表「無文獻內容」。**
@@ -119,6 +122,47 @@ def tracked(prefix='.scratch/'):
         sys.exit('🚨 git ls-files 失敗，本檔不得回報 PASS：%s' % out.stderr[:200])
     return [f for f in out.stdout.split('\n') if f.strip()]
 
+
+def board_provenance():
+    """🚨 n+112（四）／n+44：本檔之樣式是**重打**進原始碼的，不是載入原件。
+
+    ⚠️ 協調者抄列管、本室抄樣式，同一條規矩兩個房間各犯一次。
+    🚨 重打之副作用不是當下寫錯（當下會比對），是**原件日後修訂而副本不動**，
+    且副本仍每輪回報 PASS——即一種會隨時間長出來的偽 PASS。
+
+    故本函式從看板抽出公告之樣式原件，與本檔硬寫者比對；
+    🚫 不一致即中止：那時候的 PASS 沒有意義。
+    """
+    try:
+        b = io.open('COORDINATION.md', encoding='utf-8').read()
+    except OSError as e:
+        sys.exit('🚨 讀不到看板，無從驗證樣式來源：%s' % e)
+    out = []
+    for name, mine in (('PAT', PAT.pattern), ('INNER', INNER.pattern)):
+        got = sorted(set(re.findall(name + r'\s*=\s*re\.compile\(r"([^"]+)"\)', b)))
+        if len(got) != 1:
+            sys.exit('🚨 看板上 %s 之公告有 %d 種相異寫法，🚫 無從認定原件。' % (name, len(got)))
+        out.append((name, got[0] == mine, got[0], mine))
+    # 第一道：取看板上含 \| 之完整四樣式字串
+    cand = sorted({s for s in re.findall(r"xargs grep -l '([^']+)'", b) if r'\|' in s})
+    if len(cand) != 1:
+        sys.exit('🚨 看板上第一道之公告有 %d 種相異寫法，🚫 無從認定原件。' % len(cand))
+    board_list = cand[0].split(r'\|')
+    mine_list = [p for p, _ in PASS1]
+    out.append(('PASS1', board_list == mine_list, board_list, mine_list))
+    return out
+
+
+print('樣式來源比對（🚨 與看板公告之原件不符即中止）')
+prov = board_provenance()
+for name, ok, board, mine in prov:
+    print('   %-6s %s' % (name, '✅ 與看板一致' if ok else '🚨 不一致'))
+    if not ok:
+        print('      看板：%r' % (board,))
+        print('      本檔：%r' % (mine,))
+if not all(ok for _, ok, _, _ in prov):
+    sys.exit('🚨 本檔樣式已與看板公告分歧，🚫 拒絕回報 PASS——請先對齊。')
+print()
 
 files = tracked()
 if not files:
