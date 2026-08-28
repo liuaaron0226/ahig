@@ -2,9 +2,8 @@
  "schemaVersion": 1,
  "documentType": "audit-debt-source-location",
  "ruling": "n+92（二）：逐筆取三份 candidateId 清單求聯集，報去重後之數",
- "status": "in-progress",
- "statusNote": "🚨 本檔記錄的是『清單定位到哪裡』，不是聯集結果。⚠️ 三份清單中有兩份尚未定位到可機讀之產物，在未取得清單前不得計算聯集——那正是 n+92 要修的毛病（數字相加而無清單）。",
-
+ "status": "superseded",
+ "statusNote": "⚠️ 原為 in-progress。🚨 第 432 輪依 n+111（乙）現查後改記——三項待辦皆已辦結，見 supersededBy。原 statusNote 移至 originalStatusNote。",
  "sources": [
   {
    "label": "影子歧異筆",
@@ -43,27 +42,46 @@
    "🚨 意涵": "同上。⚠️ 且單筆之清單尤其容易只以敘述存在。"
   }
  ],
-
  "ledgerTableVsFormula": {
   "🚨 n+92（三）之觀察經本室確認屬實": true,
   "ledgerTable": {
    "location": "看板第 840 行",
    "rows": [
-    {"batch": "22f634d2325d（主框 50+12）", "sample": 6, "state": "✅ 已清（6/6 通過）",
-     "listLocation": "看板第 307 行附近，六筆逐一列出"},
-    {"batch": "0030677e77bf（W2 補抽 50）", "sample": 5, "state": "⏳ 記帳"}
+    {
+     "batch": "22f634d2325d（主框 50+12）",
+     "sample": 6,
+     "state": "✅ 已清（6/6 通過）",
+     "listLocation": "看板第 307 行附近，六筆逐一列出"
+    },
+    {
+     "batch": "0030677e77bf（W2 補抽 50）",
+     "sample": 5,
+     "state": "⏳ 記帳"
+    }
    ],
    "note": "⚠️ 表中無 pilot 與影子兩項"
   },
   "formula": "看板第 3128 行：5（W2）＋1（pilot）＋11（影子）＝ 17",
   "🚨 兩者之差異不只是漏列": "帳本表含『已清償』之主框 6 筆，算式則只計未清者。⚠️ 故『17』是尚欠數，而累計曾發生之債為 6＋5＋1＋11 ＝ 23（若三來源互斥）。**n+92（三）要求兩者並陳，正是因為只報『尚欠 17』會讓讀者以為總共只抽查過 17 筆。**"
  },
-
  "nextSteps": [
   "定位 W2 之 5 筆清單（看板『W2 報告末節』），若僅存敘述則如實標記為不可回溯。",
   "定位 pilot 之 1 筆清單，同上。",
   "三份清單齊備後方可求聯集並報去重後之數；🚫 在此之前不得計算聯集。",
   "併請協調者裁示影子項應計 11 或 12。"
  ],
- "contentNote": "只有計數、欄位名與位置指標，無任何文獻內容。"
+ "contentNote": "只有計數、欄位名與位置指標，無任何文獻內容。",
+ "supersededBy": {
+  "file": ".scratch/n92_audit_debt_union.json",
+  "ruling": "n+111(2) applied to this room",
+  "note": "🚨 本檔各 listLocated:false 與 nextSteps 皆為**定位完成前**之狀態，已於後繼產物全數辦結：W2 清單定位於看板第 763 行並逐筆對驗相符；pilot 依 n+106（三.3）三處搜遍後判為不可回溯；聯集已計算（明載排除 pilot）。",
+  "whyNotRewritten": "⚠️ 既有欄位一字未改。本檔記錄的是「當時所知」，改寫會湮滅「先誤判 W2 不可回溯、後於看板尋獲」這段可稽核之歷程；🚨 而該歷程正是 n+106（二）通則之由來。",
+  "readingOrder": "🚫 不得單讀本檔而下「抽查債尚未定位」之結論——須併讀後繼產物。",
+  "resolved": {
+   "w2ListLocated": true,
+   "pilotAdjudicated": true,
+   "unionComputed": true
+  }
+ },
+ "originalStatusNote": "🚨 本檔記錄的是『清單定位到哪裡』，不是聯集結果。⚠️ 三份清單中有兩份尚未定位到可機讀之產物，在未取得清單前不得計算聯集。"
 }
