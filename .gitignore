@@ -102,3 +102,7 @@ trading-desk/data/
 # （只有啟動三行、無結果）；**完整且權威的結果在 .scratch/m1_step3_inventory.json**。
 # 🚨 入版控會讓讀者以為那是本次執行的完整紀錄，而它不是。
 .scratch/m1_step3_acquire.log
+
+# 編譯產物：第 432 輪誤以 git add -A 帶入，撤除後擋住
+__pycache__/
+*.pyc
