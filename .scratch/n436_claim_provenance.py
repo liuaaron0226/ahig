@@ -95,7 +95,7 @@ CLAIMS = [
      'python .scratch/round_gate.py', 'exit'),
     ('n+54 三道錨定皆空',
      'python .scratch/round_gate.py', 'exit'),
-    ('測試（前為「743/743」，現為 716+1 對基線）',
+    ('測試（原「743/743」係抄寫；現 717 passed／0 failed 對基線）',
      'python .scratch/round_gate.py', 'exit'),
     ('產物鏈結 11／6／6',
      'python .scratch/m1_artefact_chain_check.py', 'exit'),
@@ -107,9 +107,11 @@ CLAIMS = [
      'python .scratch/n436_claim_provenance.py', 'self'),
     ('列管：空',
      None, None),
-    ('`ahig/` 零改動',
-     'git diff --stat origin/feature/istudy-private-backup-workflow...HEAD -- ahig/',
-     'empty'),
+    # 🚨 n+113（五）：`ahig/` 自第 437 輪起有一次正當改動，
+    #    ⚠️ 「零改動」不再適用，🚫 不得因習慣續寫——改為列出改動檔案。
+    ('`ahig/` 本輪改動清單（🚫 不再寫「零改動」）',
+     'git diff --name-only origin/feature/istudy-private-backup-workflow -- ahig/',
+     'list'),
 ]
 
 print()
@@ -128,9 +130,11 @@ for claim, cmd, how in CLAIMS:
         continue
     if how == 'self':
         res = '✅' if m1_ok else '🚨'
-    elif how == 'empty':
+    elif how == 'list':
         out = subprocess.run(cmd, shell=True, capture_output=True, text=True)
-        res = '✅ 空' if not out.stdout.strip() else '🚨 有差異'
+        fs = [x for x in out.stdout.strip().split('\n') if x.strip()]
+        res = ('（本輪無改動）' if not fs
+               else '⚠️ %d 檔：%s' % (len(fs), '、'.join(fs)))
     else:
         exe = 'python3' if 'round_gate' in cmd else 'python'
         out = subprocess.run([exe, '-X', 'utf8'] + cmd.split()[1:],

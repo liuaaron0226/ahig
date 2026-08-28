@@ -660,7 +660,10 @@ def test_clopper_pearson_matches_closed_forms():
     assert hi == 1.0
     assert abs(lo - 0.025 ** (1 / n)) < 1e-9
     assert prevalence_audit.clopper_pearson(0, 0) == (0.0, 1.0)
-    assert prevalence_audit.clopper_pearson_upper(0, 12) == 1 - 0.05 ** (1 / 12)
+    # 依 n+113（四）：與上面三行一致改用容差。該值由數值函式庫算出，
+    # 與閉式解有 ULP 級差異（實測 2.78e-17），精確相等會隨 scipy 版本時綠時紅。
+    assert abs(prevalence_audit.clopper_pearson_upper(0, 12)
+               - (1 - 0.05 ** (1 / 12))) < 1e-9
 
 
 def _scripted(inputs):

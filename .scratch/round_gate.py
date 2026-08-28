@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""每輪必做檢查之閘門：n+48 兩道資料衛生 ＋ n+54 三道錨定——以狀態碼回報，壞掉會大聲。
+"""每輪必做檢查之閘門：n+48 兩道資料衛生 ＋ n+54 三道錨定 ＋ 測試套件——以狀態碼回報，壞掉會大聲。
 
 ## 🚨 第 433 輪改名之由來
 
@@ -247,8 +247,10 @@ p3_ok = not p3_hits
 #    🚨 若把已知失敗一律判紅，閘門會恆紅而被忽略，那等於沒有閘門。
 PYTEST_DIR = 'ahig'
 PYTEST_IGNORE = 'tests/test_shacl_gates.py'
-BASE_PASSED, BASE_FAILED = 716, 1
-KNOWN_FAIL = 'test_clopper_pearson_matches_closed_forms'
+# ✅ 第 437 輪依 n+113（四）修好該筆後，基線由 716+1 改為 717+0。
+# ⚠️ 基線是「已知且已載明之狀態」，🚨 修好了就得跟著改，否則閘門會把正確狀態判紅。
+BASE_PASSED, BASE_FAILED = 717, 0
+KNOWN_FAIL = '無（原 test_clopper_pearson_matches_closed_forms 已於第 437 輪依 n+113 四修正）'
 UNCOLLECTABLE = '%s（缺 pyshacl，pyproject 第 15 行已宣告）' % PYTEST_IGNORE
 
 
@@ -282,8 +284,9 @@ else:
     passed, failed, exe, line = tr
     t_ok = (passed == BASE_PASSED and failed == BASE_FAILED)
     print('   直譯器 %s｜%s' % (exe, line))
-    print('   基線 %d passed／%d failed（已知失敗：%s，1 ULP，見第 435 輪）  %s'
-          % (BASE_PASSED, BASE_FAILED, KNOWN_FAIL, '✅ 相同' if t_ok else '🚨 偏離'))
+    print('   基線 %d passed／%d failed  %s' % (BASE_PASSED, BASE_FAILED,
+                                             '✅ 相同' if t_ok else '🚨 偏離'))
+    print('   已知失敗：%s' % KNOWN_FAIL)
     print('   ⚠️ 未收集：%s' % UNCOLLECTABLE)
     print('   🚨 故本閘門不得聲稱「743/743」——⚠️ 743 是協調者環境之數，非此處實測。')
 
