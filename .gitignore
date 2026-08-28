@@ -98,3 +98,7 @@ trading-desk/data/
 .scratch/_bak_exclusions.json
 .scratch/_bak_overlay_n78.json
 .scratch/_st_backup.py
+# M1 第 ③ 步取得腳本之終端機紀錄。⚠️ 現存者為背景執行遭中斷那一次的殘缺輸出
+# （只有啟動三行、無結果）；**完整且權威的結果在 .scratch/m1_step3_inventory.json**。
+# 🚨 入版控會讓讀者以為那是本次執行的完整紀錄，而它不是。
+.scratch/m1_step3_acquire.log

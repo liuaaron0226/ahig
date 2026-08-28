@@ -60,7 +60,31 @@ def manifest_of(cid):
     return best
 
 
+def unresolved_sources(m):
+    """逐筆列出每個來源之嘗試結論——**「為什麼還沒取得」必須可查。**
+
+    🚨 n+102（二）：前一版之 `records` 只有 status，**產物說不出任何一筆為什麼
+    incomplete**，故「38 筆卡在缺信箱」協調者無法自版控驗證，只能採信自陳。
+    ⚠️ 這與契約 `ineligibleReplacement` 要求「記錄被剔除者的理由碼」是同一紀律。
+
+    ⚠️ 欄位名在不同來源之 manifest 中不一致（conclusion／outcome／status／reason），
+    故逐一嘗試；**🚨 取不到就記 `<未載>`，不猜。**
+    """
+    out = []
+    for a in ((m or {}).get('attempts') or []):
+        concl = (a.get('conclusion') or a.get('outcome')
+                 or a.get('status') or '<未載>')
+        out.append({
+            'sourceId': a.get('sourceId'),
+            'conclusion': concl,
+            'reason': a.get('reason'),
+            'httpStatus': a.get('httpStatus'),
+        })
+    return out
+
+
 LICENCE_SHAPES = Counter()
+BLOCK_REASONS = Counter()
 
 
 def _licence_text(m):
@@ -96,7 +120,12 @@ for pid, ids in by_pool.items():
             # ⚠️ `licence` 的型別不一致：有些 manifest 存 dict（含 href/text），
             #    有些直接存字串。**這本身是一項發現，記在產物的 licenceShapes。**
             'licenceText': bool(_licence_text(m)),
+            # 🚨 n+102（二）所要求之逐筆理由碼
+            'unresolvedSources': unresolved_sources(m),
         })
+        for s in rows[-1]['unresolvedSources']:
+            if s['reason']:
+                BLOCK_REASONS['%s / %s' % (s['sourceId'], s['reason'])] += 1
 
 print('校準集 60 篇之全文取得現況（讀既有 manifest，未發任何請求）')
 print()
@@ -121,6 +150,12 @@ print('-' * 62)
 acq = status_c.get('acquired', 0)
 print('%-34s %6d %8d %7.0f%%' % ('合計', len(all_ids), acq, 100 * acq / len(all_ids)))
 
+print()
+print('=== 🚨 逐筆理由碼彙總（n+102 二）——使「為什麼還沒取得」可自版控驗證 ===')
+for k, v in BLOCK_REASONS.most_common():
+    print('   %-46s %3d' % (k, v))
+if not BLOCK_REASONS:
+    print('   （無任何帶 reason 之嘗試）')
 print()
 if missing:
     print('🚨 未取得者 %d 筆：' % len(missing))
@@ -155,6 +190,16 @@ doc = {
     'acquiredWithoutSections': [r['candidateId'] for r in no_sec],
     'acquiredWithoutLicenceText': [r['candidateId'] for r in no_lic],
     'licenceShapes': dict(LICENCE_SHAPES),
+    'blockReasons': dict(BLOCK_REASONS),
+    'wordingConstraint': (
+        'Post-query state (all 60 queried). n+102(3) barred calling 6/60 an '
+        'acquisition rate while 39 were still unqueried; that condition is '
+        'now cleared -- every record has a settled answer. Correct wording: '
+        '"6 full texts acquired; 38 confirmed to have no OA full text; 15 '
+        'located but not retrieved (9 PDF, 6 landing page) because those sit '
+        'off the JATS path; 1 incomplete." Still do NOT write "54 '
+        'unobtainable" -- the 15 located ones are not known to be '
+        'unobtainable, only not yet retrieved by the current path.'),
     'records': rows,
     'contentNote': 'Status and opaque ids only. No literature content.',
 }

@@ -7,15 +7,15 @@
   "total": 60,
   "acquired": 6,
   "byStatus": {
-   "incomplete": 39,
-   "available-landing-page": 7,
-   "available-pdf": 7,
-   "acquired": 6,
-   "no-manifest": 1
+   "no-oa-fulltext": 38,
+   "available-landing-page": 6,
+   "incomplete": 1,
+   "available-pdf": 9,
+   "acquired": 6
   },
   "bySourceType": {
    "<未載>": 39,
-   "openalex-oa": 14,
+   "openalex-oa": 15,
    "europe-pmc-jats": 6
   }
  },
@@ -55,12 +55,12 @@
   {
    "poolId": "S1-tt-moderate-dose",
    "candidateId": "ahig:candidate:publication:0345e9816db603c5afbb588f",
-   "status": "incomplete"
+   "status": "no-oa-fulltext"
   },
   {
    "poolId": "S1-tt-moderate-dose",
    "candidateId": "ahig:candidate:publication:19b50c9679cf053894e8ad39",
-   "status": "incomplete"
+   "status": "no-oa-fulltext"
   },
   {
    "poolId": "S1-tt-moderate-dose",
@@ -75,12 +75,12 @@
   {
    "poolId": "S1-tt-moderate-dose",
    "candidateId": "ahig:candidate:publication:613eea94ef94ee7ef23b3a3f",
-   "status": "incomplete"
+   "status": "no-oa-fulltext"
   },
   {
    "poolId": "S1-tt-moderate-dose",
    "candidateId": "ahig:candidate:publication:838e0b41d10d4d014e78f4eb",
-   "status": "incomplete"
+   "status": "no-oa-fulltext"
   },
   {
    "poolId": "S1-tt-moderate-dose",
@@ -100,7 +100,7 @@
   {
    "poolId": "S1-tt-moderate-dose",
    "candidateId": "ahig:candidate:publication:a09411659cfa9f83105006f0",
-   "status": "incomplete"
+   "status": "no-oa-fulltext"
   },
   {
    "poolId": "S1-tt-moderate-dose",
@@ -110,12 +110,12 @@
   {
    "poolId": "S1-tt-moderate-dose",
    "candidateId": "ahig:candidate:publication:eabc9f6a516fa63f4113602a",
-   "status": "incomplete"
+   "status": "no-oa-fulltext"
   },
   {
    "poolId": "S2-tt-high-and-very-high-dose",
    "candidateId": "ahig:candidate:publication:2067281cfa3308377ab280a0",
-   "status": "incomplete"
+   "status": "no-oa-fulltext"
   },
   {
    "poolId": "S2-tt-high-and-very-high-dose",
@@ -125,22 +125,22 @@
   {
    "poolId": "S2-tt-high-and-very-high-dose",
    "candidateId": "ahig:candidate:publication:5bb344ac70ef2dd551bfc98b",
-   "status": "incomplete"
+   "status": "no-oa-fulltext"
   },
   {
    "poolId": "S2-tt-high-and-very-high-dose",
    "candidateId": "ahig:candidate:publication:71b998e89f2a28453e4e6f10",
-   "status": "incomplete"
+   "status": "no-oa-fulltext"
   },
   {
    "poolId": "S2-tt-high-and-very-high-dose",
    "candidateId": "ahig:candidate:publication:75ee458a413a6865b0501886",
-   "status": "incomplete"
+   "status": "no-oa-fulltext"
   },
   {
    "poolId": "S2-tt-high-and-very-high-dose",
    "candidateId": "ahig:candidate:publication:bedf50a7ceb34bf62d25537a",
-   "status": "incomplete"
+   "status": "no-oa-fulltext"
   },
   {
    "poolId": "S2-tt-high-and-very-high-dose",
@@ -150,27 +150,27 @@
   {
    "poolId": "S2-tt-high-and-very-high-dose",
    "candidateId": "ahig:candidate:publication:fc849c9b0b20710630ae2b46",
-   "status": "incomplete"
+   "status": "no-oa-fulltext"
   },
   {
    "poolId": "S3-tte",
    "candidateId": "ahig:candidate:publication:17ea08e478e8f6ea3ab46061",
-   "status": "incomplete"
+   "status": "no-oa-fulltext"
   },
   {
    "poolId": "S3-tte",
    "candidateId": "ahig:candidate:publication:1aab6249ce652a18fa457b46",
-   "status": "incomplete"
+   "status": "no-oa-fulltext"
   },
   {
    "poolId": "S3-tte",
    "candidateId": "ahig:candidate:publication:22f65bbd0005e44c6fc33b45",
-   "status": "incomplete"
+   "status": "no-oa-fulltext"
   },
   {
    "poolId": "S3-tte",
    "candidateId": "ahig:candidate:publication:3a1f2e85fe552f712dd6ca09",
-   "status": "incomplete"
+   "status": "no-oa-fulltext"
   },
   {
    "poolId": "S3-tte",
@@ -180,32 +180,32 @@
   {
    "poolId": "S3-tte",
    "candidateId": "ahig:candidate:publication:671d46c4a5668d2f1380ab4f",
-   "status": "incomplete"
+   "status": "no-oa-fulltext"
   },
   {
    "poolId": "S3-tte",
    "candidateId": "ahig:candidate:publication:8807b7b00fa3f5deaf8a5ca8",
-   "status": "incomplete"
+   "status": "no-oa-fulltext"
   },
   {
    "poolId": "S3-tte",
    "candidateId": "ahig:candidate:publication:cdd86fba0b49e84dbf5de69f",
-   "status": "incomplete"
+   "status": "no-oa-fulltext"
   },
   {
    "poolId": "S4-exogenous-oxidation",
    "candidateId": "ahig:candidate:publication:0d85b70688df78dbb9790b1b",
-   "status": "incomplete"
+   "status": "no-oa-fulltext"
   },
   {
    "poolId": "S4-exogenous-oxidation",
    "candidateId": "ahig:candidate:publication:41784b2255ffe7305f4aafa0",
-   "status": "incomplete"
+   "status": "no-oa-fulltext"
   },
   {
    "poolId": "S4-exogenous-oxidation",
    "candidateId": "ahig:candidate:publication:604810c57e406176f0532a8a",
-   "status": "incomplete"
+   "status": "no-oa-fulltext"
   },
   {
    "poolId": "S4-exogenous-oxidation",
@@ -215,7 +215,7 @@
   {
    "poolId": "S4-exogenous-oxidation",
    "candidateId": "ahig:candidate:publication:69e040d16b7320d74cdda857",
-   "status": "available-landing-page"
+   "status": "available-pdf"
   },
   {
    "poolId": "S4-exogenous-oxidation",
@@ -225,22 +225,22 @@
   {
    "poolId": "S4-exogenous-oxidation",
    "candidateId": "ahig:candidate:publication:f23cf4dc95fc681cd4956e9b",
-   "status": "incomplete"
+   "status": "no-oa-fulltext"
   },
   {
    "poolId": "S5+S6-gi-merged",
    "candidateId": "ahig:candidate:publication:030a2747dafa82f16ef0f3eb",
-   "status": "incomplete"
+   "status": "no-oa-fulltext"
   },
   {
    "poolId": "S5+S6-gi-merged",
    "candidateId": "ahig:candidate:publication:5b3debae03246969232967c9",
-   "status": "incomplete"
+   "status": "no-oa-fulltext"
   },
   {
    "poolId": "S5+S6-gi-merged",
    "candidateId": "ahig:candidate:publication:617d961ef4829617cd6efcd1",
-   "status": "incomplete"
+   "status": "no-oa-fulltext"
   },
   {
    "poolId": "S5+S6-gi-merged",
@@ -250,7 +250,7 @@
   {
    "poolId": "S5+S6-gi-merged",
    "candidateId": "ahig:candidate:publication:82b25034704141c6238031e0",
-   "status": "incomplete"
+   "status": "no-oa-fulltext"
   },
   {
    "poolId": "S5+S6-gi-merged",
@@ -260,57 +260,57 @@
   {
    "poolId": "S5+S6-gi-merged",
    "candidateId": "ahig:candidate:publication:9976d8d82c0bfe3d30f2f36d",
-   "status": "incomplete"
+   "status": "no-oa-fulltext"
   },
   {
    "poolId": "S5+S6-gi-merged",
    "candidateId": "ahig:candidate:publication:a3c9967c6231036b66dbb223",
-   "status": "incomplete"
+   "status": "no-oa-fulltext"
   },
   {
    "poolId": "S5+S6-gi-merged",
    "candidateId": "ahig:candidate:publication:bf4d973f47b07cb97de854ae",
-   "status": "incomplete"
+   "status": "no-oa-fulltext"
   },
   {
    "poolId": "S5+S6-gi-merged",
    "candidateId": "ahig:candidate:publication:c633affd58dcefd94ae3425f",
-   "status": "incomplete"
+   "status": "no-oa-fulltext"
   },
   {
    "poolId": "S5+S6-gi-merged",
    "candidateId": "ahig:candidate:publication:cfda28d0b340b1cc17697f20",
-   "status": "incomplete"
+   "status": "no-oa-fulltext"
   },
   {
    "poolId": "S5+S6-gi-merged",
    "candidateId": "ahig:candidate:publication:d2b885ef5a3d35d177366c70",
-   "status": "incomplete"
+   "status": "no-oa-fulltext"
   },
   {
    "poolId": "S5+S6-gi-merged",
    "candidateId": "ahig:candidate:publication:ee3ae5b3796d8901f0864812",
-   "status": "incomplete"
+   "status": "no-oa-fulltext"
   },
   {
    "poolId": "S5+S6-gi-merged",
    "candidateId": "ahig:candidate:publication:fc75f1d5298c326024d22835",
-   "status": "no-manifest"
+   "status": "available-pdf"
   },
   {
    "poolId": "S7-glycogen",
    "candidateId": "ahig:candidate:publication:0ba83d3d6c6eee294c9eeb8f",
-   "status": "incomplete"
+   "status": "no-oa-fulltext"
   },
   {
    "poolId": "S7-glycogen",
    "candidateId": "ahig:candidate:publication:5758a3d4c382c8b652f2065b",
-   "status": "incomplete"
+   "status": "no-oa-fulltext"
   },
   {
    "poolId": "S7-glycogen",
    "candidateId": "ahig:candidate:publication:670fdc6579c3e76d40219b9c",
-   "status": "incomplete"
+   "status": "no-oa-fulltext"
   },
   {
    "poolId": "S7-glycogen",
@@ -320,32 +320,74 @@
   {
    "poolId": "S7-glycogen",
    "candidateId": "ahig:candidate:publication:ab1a35304393752f2d7f8f25",
-   "status": "incomplete"
+   "status": "no-oa-fulltext"
   }
  ],
  "acquiredWithoutSections": [],
  "acquiredWithoutLicenceText": [],
  "licenceShapes": {
-  "NoneType": 46,
-  "str": 8,
+  "NoneType": 45,
+  "str": 9,
   "dict": 6
  },
+ "blockReasons": {},
+ "wordingConstraint": "Post-query state (all 60 queried). n+102(3) barred calling 6/60 an acquisition rate while 39 were still unqueried; that condition is now cleared -- every record has a settled answer. Correct wording: \"6 full texts acquired; 38 confirmed to have no OA full text; 15 located but not retrieved (9 PDF, 6 landing page) because those sit off the JATS path; 1 incomplete.\" Still do NOT write \"54 unobtainable\" -- the 15 located ones are not known to be unobtainable, only not yet retrieved by the current path.",
  "records": [
   {
    "poolId": "S1-tt-moderate-dose",
    "candidateId": "ahig:candidate:publication:0345e9816db603c5afbb588f",
-   "status": "incomplete",
+   "status": "no-oa-fulltext",
    "sourceType": null,
    "hasSections": false,
-   "licenceText": false
+   "licenceText": false,
+   "unresolvedSources": [
+    {
+     "sourceId": "europe-pmc",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    },
+    {
+     "sourceId": "openalex",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    },
+    {
+     "sourceId": "unpaywall",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    }
+   ]
   },
   {
    "poolId": "S1-tt-moderate-dose",
    "candidateId": "ahig:candidate:publication:19b50c9679cf053894e8ad39",
-   "status": "incomplete",
+   "status": "no-oa-fulltext",
    "sourceType": null,
    "hasSections": false,
-   "licenceText": false
+   "licenceText": false,
+   "unresolvedSources": [
+    {
+     "sourceId": "europe-pmc",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    },
+    {
+     "sourceId": "openalex",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    },
+    {
+     "sourceId": "unpaywall",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    }
+   ]
   },
   {
    "poolId": "S1-tt-moderate-dose",
@@ -353,7 +395,21 @@
    "status": "available-landing-page",
    "sourceType": "openalex-oa",
    "hasSections": false,
-   "licenceText": true
+   "licenceText": true,
+   "unresolvedSources": [
+    {
+     "sourceId": "europe-pmc",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    },
+    {
+     "sourceId": "openalex",
+     "conclusion": "available-landing-page",
+     "reason": null,
+     "httpStatus": 200
+    }
+   ]
   },
   {
    "poolId": "S1-tt-moderate-dose",
@@ -361,23 +417,77 @@
    "status": "available-landing-page",
    "sourceType": "openalex-oa",
    "hasSections": false,
-   "licenceText": true
+   "licenceText": true,
+   "unresolvedSources": [
+    {
+     "sourceId": "europe-pmc",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    },
+    {
+     "sourceId": "openalex",
+     "conclusion": "available-landing-page",
+     "reason": null,
+     "httpStatus": 200
+    }
+   ]
   },
   {
    "poolId": "S1-tt-moderate-dose",
    "candidateId": "ahig:candidate:publication:613eea94ef94ee7ef23b3a3f",
-   "status": "incomplete",
+   "status": "no-oa-fulltext",
    "sourceType": null,
    "hasSections": false,
-   "licenceText": false
+   "licenceText": false,
+   "unresolvedSources": [
+    {
+     "sourceId": "europe-pmc",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    },
+    {
+     "sourceId": "openalex",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    },
+    {
+     "sourceId": "unpaywall",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    }
+   ]
   },
   {
    "poolId": "S1-tt-moderate-dose",
    "candidateId": "ahig:candidate:publication:838e0b41d10d4d014e78f4eb",
-   "status": "incomplete",
+   "status": "no-oa-fulltext",
    "sourceType": null,
    "hasSections": false,
-   "licenceText": false
+   "licenceText": false,
+   "unresolvedSources": [
+    {
+     "sourceId": "europe-pmc",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    },
+    {
+     "sourceId": "openalex",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    },
+    {
+     "sourceId": "unpaywall",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    }
+   ]
   },
   {
    "poolId": "S1-tt-moderate-dose",
@@ -385,7 +495,21 @@
    "status": "available-landing-page",
    "sourceType": "openalex-oa",
    "hasSections": false,
-   "licenceText": true
+   "licenceText": true,
+   "unresolvedSources": [
+    {
+     "sourceId": "europe-pmc",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    },
+    {
+     "sourceId": "openalex",
+     "conclusion": "available-landing-page",
+     "reason": null,
+     "httpStatus": 200
+    }
+   ]
   },
   {
    "poolId": "S1-tt-moderate-dose",
@@ -393,7 +517,27 @@
    "status": "incomplete",
    "sourceType": null,
    "hasSections": false,
-   "licenceText": false
+   "licenceText": false,
+   "unresolvedSources": [
+    {
+     "sourceId": "europe-pmc",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 404
+    },
+    {
+     "sourceId": "openalex",
+     "conclusion": "not-applicable",
+     "reason": null,
+     "httpStatus": null
+    },
+    {
+     "sourceId": "unpaywall",
+     "conclusion": "not-applicable",
+     "reason": null,
+     "httpStatus": null
+    }
+   ]
   },
   {
    "poolId": "S1-tt-moderate-dose",
@@ -401,15 +545,49 @@
    "status": "available-pdf",
    "sourceType": "openalex-oa",
    "hasSections": false,
-   "licenceText": false
+   "licenceText": false,
+   "unresolvedSources": [
+    {
+     "sourceId": "europe-pmc",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    },
+    {
+     "sourceId": "openalex",
+     "conclusion": "available-pdf",
+     "reason": null,
+     "httpStatus": 200
+    }
+   ]
   },
   {
    "poolId": "S1-tt-moderate-dose",
    "candidateId": "ahig:candidate:publication:a09411659cfa9f83105006f0",
-   "status": "incomplete",
+   "status": "no-oa-fulltext",
    "sourceType": null,
    "hasSections": false,
-   "licenceText": false
+   "licenceText": false,
+   "unresolvedSources": [
+    {
+     "sourceId": "europe-pmc",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    },
+    {
+     "sourceId": "openalex",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    },
+    {
+     "sourceId": "unpaywall",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    }
+   ]
   },
   {
    "poolId": "S1-tt-moderate-dose",
@@ -417,23 +595,77 @@
    "status": "available-pdf",
    "sourceType": "openalex-oa",
    "hasSections": false,
-   "licenceText": false
+   "licenceText": false,
+   "unresolvedSources": [
+    {
+     "sourceId": "europe-pmc",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    },
+    {
+     "sourceId": "openalex",
+     "conclusion": "available-pdf",
+     "reason": null,
+     "httpStatus": 200
+    }
+   ]
   },
   {
    "poolId": "S1-tt-moderate-dose",
    "candidateId": "ahig:candidate:publication:eabc9f6a516fa63f4113602a",
-   "status": "incomplete",
+   "status": "no-oa-fulltext",
    "sourceType": null,
    "hasSections": false,
-   "licenceText": false
+   "licenceText": false,
+   "unresolvedSources": [
+    {
+     "sourceId": "europe-pmc",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    },
+    {
+     "sourceId": "openalex",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    },
+    {
+     "sourceId": "unpaywall",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    }
+   ]
   },
   {
    "poolId": "S2-tt-high-and-very-high-dose",
    "candidateId": "ahig:candidate:publication:2067281cfa3308377ab280a0",
-   "status": "incomplete",
+   "status": "no-oa-fulltext",
    "sourceType": null,
    "hasSections": false,
-   "licenceText": false
+   "licenceText": false,
+   "unresolvedSources": [
+    {
+     "sourceId": "europe-pmc",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    },
+    {
+     "sourceId": "openalex",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    },
+    {
+     "sourceId": "unpaywall",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    }
+   ]
   },
   {
    "poolId": "S2-tt-high-and-very-high-dose",
@@ -441,31 +673,105 @@
    "status": "available-pdf",
    "sourceType": "openalex-oa",
    "hasSections": false,
-   "licenceText": true
+   "licenceText": true,
+   "unresolvedSources": [
+    {
+     "sourceId": "europe-pmc",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    },
+    {
+     "sourceId": "openalex",
+     "conclusion": "available-pdf",
+     "reason": null,
+     "httpStatus": 200
+    }
+   ]
   },
   {
    "poolId": "S2-tt-high-and-very-high-dose",
    "candidateId": "ahig:candidate:publication:5bb344ac70ef2dd551bfc98b",
-   "status": "incomplete",
+   "status": "no-oa-fulltext",
    "sourceType": null,
    "hasSections": false,
-   "licenceText": false
+   "licenceText": false,
+   "unresolvedSources": [
+    {
+     "sourceId": "europe-pmc",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    },
+    {
+     "sourceId": "openalex",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    },
+    {
+     "sourceId": "unpaywall",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    }
+   ]
   },
   {
    "poolId": "S2-tt-high-and-very-high-dose",
    "candidateId": "ahig:candidate:publication:71b998e89f2a28453e4e6f10",
-   "status": "incomplete",
+   "status": "no-oa-fulltext",
    "sourceType": null,
    "hasSections": false,
-   "licenceText": false
+   "licenceText": false,
+   "unresolvedSources": [
+    {
+     "sourceId": "europe-pmc",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    },
+    {
+     "sourceId": "openalex",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    },
+    {
+     "sourceId": "unpaywall",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    }
+   ]
   },
   {
    "poolId": "S2-tt-high-and-very-high-dose",
    "candidateId": "ahig:candidate:publication:75ee458a413a6865b0501886",
-   "status": "incomplete",
+   "status": "no-oa-fulltext",
    "sourceType": null,
    "hasSections": false,
-   "licenceText": false
+   "licenceText": false,
+   "unresolvedSources": [
+    {
+     "sourceId": "europe-pmc",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    },
+    {
+     "sourceId": "openalex",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    },
+    {
+     "sourceId": "unpaywall",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    }
+   ]
   },
   {
    "poolId": "S2-tt-high-and-very-high-dose",
@@ -473,7 +779,15 @@
    "status": "acquired",
    "sourceType": "europe-pmc-jats",
    "hasSections": true,
-   "licenceText": true
+   "licenceText": true,
+   "unresolvedSources": [
+    {
+     "sourceId": "europe-pmc",
+     "conclusion": "acquired-jats",
+     "reason": null,
+     "httpStatus": 200
+    }
+   ]
   },
   {
    "poolId": "S2-tt-high-and-very-high-dose",
@@ -481,15 +795,43 @@
    "status": "acquired",
    "sourceType": "europe-pmc-jats",
    "hasSections": true,
-   "licenceText": true
+   "licenceText": true,
+   "unresolvedSources": [
+    {
+     "sourceId": "europe-pmc",
+     "conclusion": "acquired-jats",
+     "reason": null,
+     "httpStatus": 200
+    }
+   ]
   },
   {
    "poolId": "S2-tt-high-and-very-high-dose",
    "candidateId": "ahig:candidate:publication:bedf50a7ceb34bf62d25537a",
-   "status": "incomplete",
+   "status": "no-oa-fulltext",
    "sourceType": null,
    "hasSections": false,
-   "licenceText": false
+   "licenceText": false,
+   "unresolvedSources": [
+    {
+     "sourceId": "europe-pmc",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    },
+    {
+     "sourceId": "openalex",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    },
+    {
+     "sourceId": "unpaywall",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    }
+   ]
   },
   {
    "poolId": "S2-tt-high-and-very-high-dose",
@@ -497,47 +839,161 @@
    "status": "available-pdf",
    "sourceType": "openalex-oa",
    "hasSections": false,
-   "licenceText": false
+   "licenceText": false,
+   "unresolvedSources": [
+    {
+     "sourceId": "europe-pmc",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    },
+    {
+     "sourceId": "openalex",
+     "conclusion": "available-pdf",
+     "reason": null,
+     "httpStatus": 200
+    }
+   ]
   },
   {
    "poolId": "S2-tt-high-and-very-high-dose",
    "candidateId": "ahig:candidate:publication:fc849c9b0b20710630ae2b46",
-   "status": "incomplete",
+   "status": "no-oa-fulltext",
    "sourceType": null,
    "hasSections": false,
-   "licenceText": false
+   "licenceText": false,
+   "unresolvedSources": [
+    {
+     "sourceId": "europe-pmc",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    },
+    {
+     "sourceId": "openalex",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    },
+    {
+     "sourceId": "unpaywall",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    }
+   ]
   },
   {
    "poolId": "S3-tte",
    "candidateId": "ahig:candidate:publication:17ea08e478e8f6ea3ab46061",
-   "status": "incomplete",
+   "status": "no-oa-fulltext",
    "sourceType": null,
    "hasSections": false,
-   "licenceText": false
+   "licenceText": false,
+   "unresolvedSources": [
+    {
+     "sourceId": "europe-pmc",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    },
+    {
+     "sourceId": "openalex",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    },
+    {
+     "sourceId": "unpaywall",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    }
+   ]
   },
   {
    "poolId": "S3-tte",
    "candidateId": "ahig:candidate:publication:1aab6249ce652a18fa457b46",
-   "status": "incomplete",
+   "status": "no-oa-fulltext",
    "sourceType": null,
    "hasSections": false,
-   "licenceText": false
+   "licenceText": false,
+   "unresolvedSources": [
+    {
+     "sourceId": "europe-pmc",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    },
+    {
+     "sourceId": "openalex",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    },
+    {
+     "sourceId": "unpaywall",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    }
+   ]
   },
   {
    "poolId": "S3-tte",
    "candidateId": "ahig:candidate:publication:22f65bbd0005e44c6fc33b45",
-   "status": "incomplete",
+   "status": "no-oa-fulltext",
    "sourceType": null,
    "hasSections": false,
-   "licenceText": false
+   "licenceText": false,
+   "unresolvedSources": [
+    {
+     "sourceId": "europe-pmc",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    },
+    {
+     "sourceId": "openalex",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    },
+    {
+     "sourceId": "unpaywall",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    }
+   ]
   },
   {
    "poolId": "S3-tte",
    "candidateId": "ahig:candidate:publication:3a1f2e85fe552f712dd6ca09",
-   "status": "incomplete",
+   "status": "no-oa-fulltext",
    "sourceType": null,
    "hasSections": false,
-   "licenceText": false
+   "licenceText": false,
+   "unresolvedSources": [
+    {
+     "sourceId": "europe-pmc",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    },
+    {
+     "sourceId": "openalex",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    },
+    {
+     "sourceId": "unpaywall",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    }
+   ]
   },
   {
    "poolId": "S3-tte",
@@ -545,31 +1001,105 @@
    "status": "available-landing-page",
    "sourceType": "openalex-oa",
    "hasSections": false,
-   "licenceText": false
+   "licenceText": false,
+   "unresolvedSources": [
+    {
+     "sourceId": "europe-pmc",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 404
+    },
+    {
+     "sourceId": "openalex",
+     "conclusion": "available-landing-page",
+     "reason": null,
+     "httpStatus": 200
+    }
+   ]
   },
   {
    "poolId": "S3-tte",
    "candidateId": "ahig:candidate:publication:671d46c4a5668d2f1380ab4f",
-   "status": "incomplete",
+   "status": "no-oa-fulltext",
    "sourceType": null,
    "hasSections": false,
-   "licenceText": false
+   "licenceText": false,
+   "unresolvedSources": [
+    {
+     "sourceId": "europe-pmc",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    },
+    {
+     "sourceId": "openalex",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    },
+    {
+     "sourceId": "unpaywall",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    }
+   ]
   },
   {
    "poolId": "S3-tte",
    "candidateId": "ahig:candidate:publication:8807b7b00fa3f5deaf8a5ca8",
-   "status": "incomplete",
+   "status": "no-oa-fulltext",
    "sourceType": null,
    "hasSections": false,
-   "licenceText": false
+   "licenceText": false,
+   "unresolvedSources": [
+    {
+     "sourceId": "europe-pmc",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    },
+    {
+     "sourceId": "openalex",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    },
+    {
+     "sourceId": "unpaywall",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    }
+   ]
   },
   {
    "poolId": "S3-tte",
    "candidateId": "ahig:candidate:publication:cdd86fba0b49e84dbf5de69f",
-   "status": "incomplete",
+   "status": "no-oa-fulltext",
    "sourceType": null,
    "hasSections": false,
-   "licenceText": false
+   "licenceText": false,
+   "unresolvedSources": [
+    {
+     "sourceId": "europe-pmc",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    },
+    {
+     "sourceId": "openalex",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    },
+    {
+     "sourceId": "unpaywall",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    }
+   ]
   },
   {
    "poolId": "S4-exogenous-oxidation",
@@ -577,31 +1107,99 @@
    "status": "acquired",
    "sourceType": "europe-pmc-jats",
    "hasSections": true,
-   "licenceText": true
+   "licenceText": true,
+   "unresolvedSources": [
+    {
+     "sourceId": "europe-pmc",
+     "conclusion": "acquired-jats",
+     "reason": null,
+     "httpStatus": 200
+    }
+   ]
   },
   {
    "poolId": "S4-exogenous-oxidation",
    "candidateId": "ahig:candidate:publication:0d85b70688df78dbb9790b1b",
-   "status": "incomplete",
+   "status": "no-oa-fulltext",
    "sourceType": null,
    "hasSections": false,
-   "licenceText": false
+   "licenceText": false,
+   "unresolvedSources": [
+    {
+     "sourceId": "europe-pmc",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    },
+    {
+     "sourceId": "openalex",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    },
+    {
+     "sourceId": "unpaywall",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    }
+   ]
   },
   {
    "poolId": "S4-exogenous-oxidation",
    "candidateId": "ahig:candidate:publication:41784b2255ffe7305f4aafa0",
-   "status": "incomplete",
+   "status": "no-oa-fulltext",
    "sourceType": null,
    "hasSections": false,
-   "licenceText": false
+   "licenceText": false,
+   "unresolvedSources": [
+    {
+     "sourceId": "europe-pmc",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    },
+    {
+     "sourceId": "openalex",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    },
+    {
+     "sourceId": "unpaywall",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    }
+   ]
   },
   {
    "poolId": "S4-exogenous-oxidation",
    "candidateId": "ahig:candidate:publication:604810c57e406176f0532a8a",
-   "status": "incomplete",
+   "status": "no-oa-fulltext",
    "sourceType": null,
    "hasSections": false,
-   "licenceText": false
+   "licenceText": false,
+   "unresolvedSources": [
+    {
+     "sourceId": "europe-pmc",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    },
+    {
+     "sourceId": "openalex",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    },
+    {
+     "sourceId": "unpaywall",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    }
+   ]
   },
   {
    "poolId": "S4-exogenous-oxidation",
@@ -609,15 +1207,43 @@
    "status": "available-landing-page",
    "sourceType": "openalex-oa",
    "hasSections": false,
-   "licenceText": true
+   "licenceText": true,
+   "unresolvedSources": [
+    {
+     "sourceId": "europe-pmc",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    },
+    {
+     "sourceId": "openalex",
+     "conclusion": "available-landing-page",
+     "reason": null,
+     "httpStatus": 200
+    }
+   ]
   },
   {
    "poolId": "S4-exogenous-oxidation",
    "candidateId": "ahig:candidate:publication:69e040d16b7320d74cdda857",
-   "status": "available-landing-page",
+   "status": "available-pdf",
    "sourceType": "openalex-oa",
    "hasSections": false,
-   "licenceText": true
+   "licenceText": true,
+   "unresolvedSources": [
+    {
+     "sourceId": "europe-pmc",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    },
+    {
+     "sourceId": "openalex",
+     "conclusion": "available-pdf",
+     "reason": null,
+     "httpStatus": 200
+    }
+   ]
   },
   {
    "poolId": "S4-exogenous-oxidation",
@@ -625,7 +1251,15 @@
    "status": "acquired",
    "sourceType": "europe-pmc-jats",
    "hasSections": true,
-   "licenceText": true
+   "licenceText": true,
+   "unresolvedSources": [
+    {
+     "sourceId": "europe-pmc",
+     "conclusion": "acquired-jats",
+     "reason": null,
+     "httpStatus": 200
+    }
+   ]
   },
   {
    "poolId": "S4-exogenous-oxidation",
@@ -633,15 +1267,49 @@
    "status": "available-pdf",
    "sourceType": "openalex-oa",
    "hasSections": false,
-   "licenceText": false
+   "licenceText": false,
+   "unresolvedSources": [
+    {
+     "sourceId": "europe-pmc",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    },
+    {
+     "sourceId": "openalex",
+     "conclusion": "available-pdf",
+     "reason": null,
+     "httpStatus": 200
+    }
+   ]
   },
   {
    "poolId": "S4-exogenous-oxidation",
    "candidateId": "ahig:candidate:publication:f23cf4dc95fc681cd4956e9b",
-   "status": "incomplete",
+   "status": "no-oa-fulltext",
    "sourceType": null,
    "hasSections": false,
-   "licenceText": false
+   "licenceText": false,
+   "unresolvedSources": [
+    {
+     "sourceId": "europe-pmc",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    },
+    {
+     "sourceId": "openalex",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    },
+    {
+     "sourceId": "unpaywall",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    }
+   ]
   },
   {
    "poolId": "S4-exogenous-oxidation",
@@ -649,15 +1317,43 @@
    "status": "acquired",
    "sourceType": "europe-pmc-jats",
    "hasSections": true,
-   "licenceText": true
+   "licenceText": true,
+   "unresolvedSources": [
+    {
+     "sourceId": "europe-pmc",
+     "conclusion": "acquired-jats",
+     "reason": null,
+     "httpStatus": 200
+    }
+   ]
   },
   {
    "poolId": "S5+S6-gi-merged",
    "candidateId": "ahig:candidate:publication:030a2747dafa82f16ef0f3eb",
-   "status": "incomplete",
+   "status": "no-oa-fulltext",
    "sourceType": null,
    "hasSections": false,
-   "licenceText": false
+   "licenceText": false,
+   "unresolvedSources": [
+    {
+     "sourceId": "europe-pmc",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    },
+    {
+     "sourceId": "openalex",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    },
+    {
+     "sourceId": "unpaywall",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    }
+   ]
   },
   {
    "poolId": "S5+S6-gi-merged",
@@ -665,23 +1361,71 @@
    "status": "acquired",
    "sourceType": "europe-pmc-jats",
    "hasSections": true,
-   "licenceText": true
+   "licenceText": true,
+   "unresolvedSources": [
+    {
+     "sourceId": "europe-pmc",
+     "conclusion": "acquired-jats",
+     "reason": null,
+     "httpStatus": 200
+    }
+   ]
   },
   {
    "poolId": "S5+S6-gi-merged",
    "candidateId": "ahig:candidate:publication:5b3debae03246969232967c9",
-   "status": "incomplete",
+   "status": "no-oa-fulltext",
    "sourceType": null,
    "hasSections": false,
-   "licenceText": false
+   "licenceText": false,
+   "unresolvedSources": [
+    {
+     "sourceId": "europe-pmc",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    },
+    {
+     "sourceId": "openalex",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    },
+    {
+     "sourceId": "unpaywall",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    }
+   ]
   },
   {
    "poolId": "S5+S6-gi-merged",
    "candidateId": "ahig:candidate:publication:617d961ef4829617cd6efcd1",
-   "status": "incomplete",
+   "status": "no-oa-fulltext",
    "sourceType": null,
    "hasSections": false,
-   "licenceText": false
+   "licenceText": false,
+   "unresolvedSources": [
+    {
+     "sourceId": "europe-pmc",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    },
+    {
+     "sourceId": "openalex",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    },
+    {
+     "sourceId": "unpaywall",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    }
+   ]
   },
   {
    "poolId": "S5+S6-gi-merged",
@@ -689,15 +1433,49 @@
    "status": "available-landing-page",
    "sourceType": "openalex-oa",
    "hasSections": false,
-   "licenceText": true
+   "licenceText": true,
+   "unresolvedSources": [
+    {
+     "sourceId": "europe-pmc",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    },
+    {
+     "sourceId": "openalex",
+     "conclusion": "available-landing-page",
+     "reason": null,
+     "httpStatus": 200
+    }
+   ]
   },
   {
    "poolId": "S5+S6-gi-merged",
    "candidateId": "ahig:candidate:publication:82b25034704141c6238031e0",
-   "status": "incomplete",
+   "status": "no-oa-fulltext",
    "sourceType": null,
    "hasSections": false,
-   "licenceText": false
+   "licenceText": false,
+   "unresolvedSources": [
+    {
+     "sourceId": "europe-pmc",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    },
+    {
+     "sourceId": "openalex",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    },
+    {
+     "sourceId": "unpaywall",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    }
+   ]
   },
   {
    "poolId": "S5+S6-gi-merged",
@@ -705,95 +1483,323 @@
    "status": "available-pdf",
    "sourceType": "openalex-oa",
    "hasSections": false,
-   "licenceText": false
+   "licenceText": false,
+   "unresolvedSources": [
+    {
+     "sourceId": "europe-pmc",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    },
+    {
+     "sourceId": "openalex",
+     "conclusion": "available-pdf",
+     "reason": null,
+     "httpStatus": 200
+    }
+   ]
   },
   {
    "poolId": "S5+S6-gi-merged",
    "candidateId": "ahig:candidate:publication:9976d8d82c0bfe3d30f2f36d",
-   "status": "incomplete",
+   "status": "no-oa-fulltext",
    "sourceType": null,
    "hasSections": false,
-   "licenceText": false
+   "licenceText": false,
+   "unresolvedSources": [
+    {
+     "sourceId": "europe-pmc",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    },
+    {
+     "sourceId": "openalex",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    },
+    {
+     "sourceId": "unpaywall",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    }
+   ]
   },
   {
    "poolId": "S5+S6-gi-merged",
    "candidateId": "ahig:candidate:publication:a3c9967c6231036b66dbb223",
-   "status": "incomplete",
+   "status": "no-oa-fulltext",
    "sourceType": null,
    "hasSections": false,
-   "licenceText": false
+   "licenceText": false,
+   "unresolvedSources": [
+    {
+     "sourceId": "europe-pmc",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    },
+    {
+     "sourceId": "openalex",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    },
+    {
+     "sourceId": "unpaywall",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    }
+   ]
   },
   {
    "poolId": "S5+S6-gi-merged",
    "candidateId": "ahig:candidate:publication:bf4d973f47b07cb97de854ae",
-   "status": "incomplete",
+   "status": "no-oa-fulltext",
    "sourceType": null,
    "hasSections": false,
-   "licenceText": false
+   "licenceText": false,
+   "unresolvedSources": [
+    {
+     "sourceId": "europe-pmc",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    },
+    {
+     "sourceId": "openalex",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    },
+    {
+     "sourceId": "unpaywall",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    }
+   ]
   },
   {
    "poolId": "S5+S6-gi-merged",
    "candidateId": "ahig:candidate:publication:c633affd58dcefd94ae3425f",
-   "status": "incomplete",
+   "status": "no-oa-fulltext",
    "sourceType": null,
    "hasSections": false,
-   "licenceText": false
+   "licenceText": false,
+   "unresolvedSources": [
+    {
+     "sourceId": "europe-pmc",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    },
+    {
+     "sourceId": "openalex",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    },
+    {
+     "sourceId": "unpaywall",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    }
+   ]
   },
   {
    "poolId": "S5+S6-gi-merged",
    "candidateId": "ahig:candidate:publication:cfda28d0b340b1cc17697f20",
-   "status": "incomplete",
+   "status": "no-oa-fulltext",
    "sourceType": null,
    "hasSections": false,
-   "licenceText": false
+   "licenceText": false,
+   "unresolvedSources": [
+    {
+     "sourceId": "europe-pmc",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    },
+    {
+     "sourceId": "openalex",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    },
+    {
+     "sourceId": "unpaywall",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    }
+   ]
   },
   {
    "poolId": "S5+S6-gi-merged",
    "candidateId": "ahig:candidate:publication:d2b885ef5a3d35d177366c70",
-   "status": "incomplete",
+   "status": "no-oa-fulltext",
    "sourceType": null,
    "hasSections": false,
-   "licenceText": false
+   "licenceText": false,
+   "unresolvedSources": [
+    {
+     "sourceId": "europe-pmc",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    },
+    {
+     "sourceId": "openalex",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    },
+    {
+     "sourceId": "unpaywall",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    }
+   ]
   },
   {
    "poolId": "S5+S6-gi-merged",
    "candidateId": "ahig:candidate:publication:ee3ae5b3796d8901f0864812",
-   "status": "incomplete",
+   "status": "no-oa-fulltext",
    "sourceType": null,
    "hasSections": false,
-   "licenceText": false
+   "licenceText": false,
+   "unresolvedSources": [
+    {
+     "sourceId": "europe-pmc",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    },
+    {
+     "sourceId": "openalex",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    },
+    {
+     "sourceId": "unpaywall",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    }
+   ]
   },
   {
    "poolId": "S5+S6-gi-merged",
    "candidateId": "ahig:candidate:publication:fc75f1d5298c326024d22835",
-   "status": "no-manifest",
-   "sourceType": null,
+   "status": "available-pdf",
+   "sourceType": "openalex-oa",
    "hasSections": false,
-   "licenceText": false
+   "licenceText": true,
+   "unresolvedSources": [
+    {
+     "sourceId": "europe-pmc",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    },
+    {
+     "sourceId": "openalex",
+     "conclusion": "available-pdf",
+     "reason": null,
+     "httpStatus": 200
+    }
+   ]
   },
   {
    "poolId": "S7-glycogen",
    "candidateId": "ahig:candidate:publication:0ba83d3d6c6eee294c9eeb8f",
-   "status": "incomplete",
+   "status": "no-oa-fulltext",
    "sourceType": null,
    "hasSections": false,
-   "licenceText": false
+   "licenceText": false,
+   "unresolvedSources": [
+    {
+     "sourceId": "europe-pmc",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    },
+    {
+     "sourceId": "openalex",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    },
+    {
+     "sourceId": "unpaywall",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    }
+   ]
   },
   {
    "poolId": "S7-glycogen",
    "candidateId": "ahig:candidate:publication:5758a3d4c382c8b652f2065b",
-   "status": "incomplete",
+   "status": "no-oa-fulltext",
    "sourceType": null,
    "hasSections": false,
-   "licenceText": false
+   "licenceText": false,
+   "unresolvedSources": [
+    {
+     "sourceId": "europe-pmc",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    },
+    {
+     "sourceId": "openalex",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    },
+    {
+     "sourceId": "unpaywall",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    }
+   ]
   },
   {
    "poolId": "S7-glycogen",
    "candidateId": "ahig:candidate:publication:670fdc6579c3e76d40219b9c",
-   "status": "incomplete",
+   "status": "no-oa-fulltext",
    "sourceType": null,
    "hasSections": false,
-   "licenceText": false
+   "licenceText": false,
+   "unresolvedSources": [
+    {
+     "sourceId": "europe-pmc",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    },
+    {
+     "sourceId": "openalex",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    },
+    {
+     "sourceId": "unpaywall",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    }
+   ]
   },
   {
    "poolId": "S7-glycogen",
@@ -801,17 +1807,51 @@
    "status": "available-pdf",
    "sourceType": "openalex-oa",
    "hasSections": false,
-   "licenceText": true
+   "licenceText": true,
+   "unresolvedSources": [
+    {
+     "sourceId": "europe-pmc",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    },
+    {
+     "sourceId": "openalex",
+     "conclusion": "available-pdf",
+     "reason": null,
+     "httpStatus": 200
+    }
+   ]
   },
   {
    "poolId": "S7-glycogen",
    "candidateId": "ahig:candidate:publication:ab1a35304393752f2d7f8f25",
-   "status": "incomplete",
+   "status": "no-oa-fulltext",
    "sourceType": null,
    "hasSections": false,
-   "licenceText": false
+   "licenceText": false,
+   "unresolvedSources": [
+    {
+     "sourceId": "europe-pmc",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    },
+    {
+     "sourceId": "openalex",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    },
+    {
+     "sourceId": "unpaywall",
+     "conclusion": "miss",
+     "reason": null,
+     "httpStatus": 200
+    }
+   ]
   }
  ],
  "contentNote": "Status and opaque ids only. No literature content.",
- "inventoryHash": "sha256:7f4a9956b6b9e72e2926a42410fcbf19d7764af6fde7c78a9a763b7bd27f085f"
+ "inventoryHash": "sha256:2708baa8775cfa6b15e41fe64f28e72dda8b2d178873ee57d20ae6cd8cad98d4"
 }
