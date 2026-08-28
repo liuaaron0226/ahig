@@ -1,0 +1,50 @@
+{
+ "schemaVersion": 1,
+ "documentType": "fulltext-route-cost-analysis",
+ "extends": ".scratch/n438_fulltext_route.json",
+ "purpose": "Corrects the cost column n+114(3) puts in front of the owner, and measures what the two routes would actually face.",
+ "population": "The 33 non-acquired records among the 45 obtainable.",
+ "countingUnit": "publication",
+ "criterion": "Landing domain of manifest.availableUrl, classified by an explicit per-domain table rather than a pattern.",
+ "pdfRouteWiring": {
+  "parserExists": true,
+  "parserWired": false,
+  "evidence": [
+   "parse_tei is called only from tests/test_fulltext.py",
+   "parse_jats is wired at fulltext.py:681",
+   "the available-pdf branch at fulltext.py:1001 records the URL and stops; manifest artifacts is []",
+   "fulltext.py:360 still carries pdfLocatorReady: False"
+  ],
+  "missing": [
+   "fetch the PDF bytes",
+   "invoke GROBID",
+   "wire TEI into the manifest/artifact writer"
+  ],
+  "correction": "n+114(3) says the PDF route is \"install a tool, no code needed\". The parser is indeed already written and tested -- the hard part -- but acquisition and wiring are not. Both routes require code; the gap between them is smaller than install-versus-develop."
+ },
+ "landingKinds": {
+  "available-landing-page|出版社": 1,
+  "available-landing-page|機構典藏庫": 6,
+  "available-landing-page|🚨 未解析之 DOI（真正的落點未知）": 4,
+  "available-pdf|機構典藏庫": 9,
+  "available-pdf|出版社": 8,
+  "available-landing-page|NCBI PMC（掃描件，不在 OA 全文子集）": 1,
+  "available-landing-page|資料典藏（有 API）": 4
+ },
+ "landingKindsAggregate": {
+  "出版社": 9,
+  "機構典藏庫": 15,
+  "🚨 未解析之 DOI（真正的落點未知）": 4,
+  "NCBI PMC（掃描件，不在 OA 全文子集）": 1,
+  "資料典藏（有 API）": 4
+ },
+ "landingKindsNote": "An HTML route sounds like 16 bespoke publisher layouts. Most of these are institutional repositories (DSpace/Pure/Eprints) with standard interfaces, plus figshare which has an API. That is a different cost shape from per-publisher scraping.",
+ "europePmcMissCauses": {
+  "甲：查不到 PMCID（走 search 端點）": 32,
+  "乙：已知 PMCID，fullTextXML 回 404": 1
+ },
+ "europePmcMissNote": "Round 438 reported all 33 as miss and called the route exhausted. That conclusion stands, but miss conflates two causes: 32 have no PMCID at all, while 1 has a known PMCID whose fullTextXML returns 404 -- a 1995 article held in PMC as scans but outside the OA full-text subset. The remedies differ.",
+ "coverageStatement": "Whether any of these repositories actually serves parseable full text is not tested here; that needs fetching, a capability this room does not enable on its own. The classification informs a cost estimate; it is not a promise of availability.",
+ "contentNote": "Domains, counts and code locations only. No literature content.",
+ "costHash": "sha256:22b214e372c689d55a9ba9d6a01c1249be19420fc2bf3a4706c4eff55a5385e4"
+}
