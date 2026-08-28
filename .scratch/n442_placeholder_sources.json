@@ -1,0 +1,139 @@
+{
+ "schemaVersion": 1,
+ "documentType": "placeholder-source-resolution",
+ "ruling": "self-initiated; completes the sweep begun in rounds 440-441",
+ "population": "the 18 placeholders classed 產物 (15) or 原始碼 (3) in docs/m1-e-delivery-checklist.md",
+ "countingUnit": "placeholder",
+ "criterion": "the named file exists and is tracked, and the named field path resolves to a value",
+ "resolved": {
+  "NOT_SCREENED_STD": {
+   "file": "n78_termination_evidence.json",
+   "spec": "tailSpotCheckPopulation.count",
+   "value": 1460,
+   "how": "value",
+   "tracked": true
+  },
+  "N_TOTAL_STD": {
+   "file": "n78_termination_evidence.json",
+   "spec": "standardLaneSequence.nTotal",
+   "value": 9091,
+   "how": "value",
+   "tracked": true
+  },
+  "OCC1_HITS": {
+   "file": "n68_tail_result.json",
+   "spec": null,
+   "value": "（清單未指明確切欄位）",
+   "how": "unspecified",
+   "tracked": true
+  },
+  "OCC1_P": {
+   "file": "n78_termination_evidence.json",
+   "spec": "previousOccurrence.pScore",
+   "value": 0.046023,
+   "how": "value",
+   "tracked": true
+  },
+  "OCC1_PAGE": {
+   "file": "n78_termination_evidence.json",
+   "spec": "previousOccurrence.atPage",
+   "value": 279,
+   "how": "value",
+   "tracked": true
+  },
+  "OCC1_POP": {
+   "file": "n68_termination_evidence.json",
+   "spec": null,
+   "value": "（清單未指明確切欄位）",
+   "how": "unspecified",
+   "tracked": true
+  },
+  "OCC1_W": {
+   "file": "n78_termination_evidence.json",
+   "spec": "previousOccurrence.windowSize",
+   "value": 177,
+   "how": "value",
+   "tracked": true
+  },
+  "OCC2_HITS": {
+   "file": "n78_tail_result.json",
+   "spec": "len:result.relevantOrUnclearFound",
+   "value": 0,
+   "how": "len",
+   "tracked": true
+  },
+  "OCC2_P": {
+   "file": "n78_termination_evidence.json",
+   "spec": "standardLaneSequence.pScore",
+   "value": 0.012404888703091584,
+   "how": "value",
+   "tracked": true
+  },
+  "OCC2_POP": {
+   "file": "n78_termination_evidence.json",
+   "spec": "tailSpotCheckPopulation.count",
+   "value": 1460,
+   "how": "value",
+   "tracked": true
+  },
+  "OCC2_W": {
+   "file": "n78_termination_evidence.json",
+   "spec": "standardLaneSequence.windowSize",
+   "value": 201,
+   "how": "value",
+   "tracked": true
+  },
+  "OUT_OF_SEQ": {
+   "file": "n78_termination_evidence.json",
+   "spec": "standardLaneSequence.outOfSequenceCount",
+   "value": 200,
+   "how": "value",
+   "tracked": true
+  },
+  "P_ALLQUEUE": {
+   "file": "n78_termination_evidence.json",
+   "spec": "evaluateTerminationStandardBasis.pScore",
+   "value": 0.38836261559017693,
+   "how": "value",
+   "tracked": true
+  },
+  "SEQ_LEN": {
+   "file": "n78_termination_evidence.json",
+   "spec": "standardLaneSequence.screenedCount",
+   "value": 7431,
+   "how": "value",
+   "tracked": true
+  },
+  "TRIGGER_CAUSE_ID": {
+   "file": "n78_termination_evidence.json",
+   "spec": "triggerCause.candidateId",
+   "value": "ahig:candidate:publication:0d8bef6da4a6498b3d617443",
+   "how": "value",
+   "tracked": true
+  },
+  "ALPHA": {
+   "file": "ahig/ahig/search/statistical_termination.py",
+   "spec": "DEFAULT_ALPHA",
+   "value": 0.05,
+   "how": "source-constant",
+   "tracked": true
+  },
+  "SPOT_N": {
+   "file": "ahig/ahig/search/statistical_termination.py",
+   "spec": "DEFAULT_TAIL_SPOT_CHECK_N",
+   "value": 200.0,
+   "how": "source-constant",
+   "tracked": true
+  },
+  "TARGET_RECALL": {
+   "file": "ahig/ahig/search/statistical_termination.py",
+   "spec": "DEFAULT_TARGET_RECALL",
+   "value": 0.95,
+   "how": "source-constant",
+   "tracked": true
+  }
+ },
+ "failures": [],
+ "coverageStatement": "Checks that a path yields a value, not that the value is the right quantity. Round 441 found a placeholder whose source resolved fine and measured the wrong thing; this file cannot catch that class.",
+ "contentNote": "Field paths and numeric values only."
+}
