@@ -58,7 +58,7 @@
 
 | 狀態 | 篇數 | 要做什麼 |
 |---|---|---|
-| `acquired`（JATS 已在手） | `{{ACQUIRED_N}}` | 可直接萃取 |
+| `acquired`（JATS 已在手） | `{{ACQ_IN_OBTAINABLE}}` | 可直接萃取 |
 | `available-pdf` | `{{PDF_ROUTE_N}}` | 抓 PDF ＋ 呼叫解析工具 ＋ **接線 TEI** |
 | `available-landing-page` | `{{LANDING_ROUTE_N}}` | 抓頁面 ＋ **新寫解析器** |
 
@@ -111,7 +111,7 @@ TEI 登錄後（n+137），**同一個字 `acquired` 在四個母體上是四個
 > 其全文（若有）**以 PDF 形式掛在頁上**。
 
 **⚠️ 故「再寫一套 HTML 解析器」對這批之產出接近零**，
-**🚨 從 `{{ACQUIRED_N}}` 往上走的實際路徑幾乎整條落在 PDF 路。**
+**🚨 從 `{{ACQ_IN_OBTAINABLE}}` 往上走的實際路徑幾乎整條落在 PDF 路。**
 
 **✅ 並須照抄執行室之自我設限**（否則本段會被讀得比證據強）：
 > **「0 筆值得寫解析器」是就已量到的 `{{LANDING_REACHED}}` 筆而言，不是就 33 筆而言。**
@@ -439,7 +439,7 @@ TEI 登錄後（n+137），**同一個字 `acquired` 在四個母體上是四個
 | `S7_POOL_N` | 凍結 | S7 全池大小（發現當下之清點） |
 | `PMC_MISS_NO_ID`／`PMC_MISS_404` | 凍結 | Europe PMC 窮盡檢查當下之清點 |
 | `OBTAINABLE_N`／`SHORTFALL_N`／`SHORTFALL_S7`／`SHORTFALL_HARMS` | **漂移** | 取得結果，**交付時現算**（`SHORTFALL_HARMS` 與庚節同一來源，🚨 兩節須同時更新） |
-| `ACQUIRED_N`／`PDF_ROUTE_N`／`LANDING_ROUTE_N` | **漂移** | `.scratch/m1_step3_inventory.json` 等，**交付時現算**（兩條路建起後會變動） |
+| `ACQ_IN_OBTAINABLE`／`PDF_ROUTE_N`／`LANDING_ROUTE_N` | **漂移** | 三者同母體（45 筆可得），**三格相加須等於 45**；🚨 `ACQUIRED_N` 已於 n+155 作廢——⚠️ 一個裸名不可能同時是四個母體之一 |
 | `LANDING_REACHED`／`LANDING_FULLTEXT_MARKER`／`LANDING_WORTH_PARSER` | 凍結 | `.scratch/n450_landing_survey.json`（我已逐項覆核） |
 | `LANDING_WORDS_MIN`／`LANDING_WORDS_MED`／`LANDING_WORDS_MAX` | 凍結 | 同上 |
 | `BLOCKED_N` | 凍結 | 同上，`survey == blocked-or-error`（403 十筆＋逾時一筆） |

@@ -78,7 +78,14 @@ SCOPE = ["甲", "乙", "丙", "丁", "己", "庚", "辛", "壬", "檢", "審"]
 
 # 🚨 每輪自查：DOCS 是否涵蓋 docs/m1-*.md 之全部骨架與規則文件。
 # ⚠️ 這一段存在的理由就是上面那則註解——🚫 不得移除。
-_KNOWN_OUT = {"docs/m1-obligations.md"}   # 義務清冊：由 n116 勾稽，不在本檔範圍
+_KNOWN_OUT = {
+    "docs/m1-obligations.md",       # 義務清冊：由 n116 勾稽，不在本檔範圍
+    # 🚨 擁有者簡報：**它的數字本來就該是字面值**——他讀的是數字，不是佔位符。
+    # ⚠️ 而這個豁免成立的唯一理由是「它由 `n155` 產生，🚫 不是手寫」：
+    # 值由 n154 之解析器現算，故字面即現算值。
+    # **🚨 若有人手改該檔，本豁免當場不成立**——n155 每跑一次都會印出它變了沒有。
+    "docs/m1-owner-briefing.md",
+}
 _seen = set(DOCS.values()) | _KNOWN_OUT
 _stray = sorted(p.as_posix() for p in Path("docs").glob("m1-*.md")
                 if p.as_posix() not in _seen)

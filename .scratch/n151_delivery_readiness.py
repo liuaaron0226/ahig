@@ -76,6 +76,22 @@ def gate(cmd):
     return r.returncode
 
 
+def _n154_cov():
+    """（已解, 可及, 已登記為不可解）——🚨 現數，🚫 不得寫死。"""
+    import importlib.util
+    spec = importlib.util.spec_from_file_location(
+        "n154", str(Path(".scratch/n154_cell_producer.py")))
+    m = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(m)
+    rows = m.parse_rows()
+    reach = [r for r in rows if r["srctype"] in ("產物", "原始碼", "推導")]
+    # 🚨 以**相異佔位符**為單位，🚫 不用列數——同一格可出現在數節，
+    # ⚠️ 而「88 列」與「82 個佔位符」相減會得到一個不指任何東西的數（n+155 二）。
+    names = {r["name"] for r in reach}
+    done = len(names & set(m.RESOLVERS))
+    return done, len(names), len(m.UNRESOLVABLE)
+
+
 # ── 盤點表 ────────────────────────────────────────────────────────
 # 欄位：項目／誰做／依據／**完成判準**／機器可驗？
 ITEMS = []
@@ -87,9 +103,11 @@ ITEMS.append((
     "n+115／清冊 48897",
     f"{n_ph} 格全部填入現算值，其中「不可及」{inaccessible} 格須執行室代跑；"
     "🚨 每格皆為交付當日現算，🚫 不得沿用任何一輪之值",
-    "⚠️ **半可驗**（`n154_cell_producer.py`）：協調者可及之 88 格中 79 格已可由"
-    "權威來源現算，且逐格與定位欄自報值比對；"
-    "🚫 其餘 4 格之定位欄**不足以決定值**（母體、產物或判準未載），⚠️ 待裁；"
+    # 🚨 覆蓋率**現數，🚫 不寫死**：上一輪把 79／88 打進這句，
+    # ⚠️ 一輪後就成了 82／88，而那正是本檔在替別人抓的第 12 型。
+    f"⚠️ **半可驗**（`n154_cell_producer.py`）：協調者可及之 {_n154_cov()[1]} 格中"
+    f" {_n154_cov()[0]} 格已可由權威來源現算，且逐格與定位欄自報值比對；"
+    f"🚫 其餘 {_n154_cov()[2]} 格已登記為「定位欄不足以決定值」，⚠️ 待裁；"
     "🚫 填值完成本身仍須以 n115 殘留 {{…}}＝0 認定"))
 
 pend = owner_pending()
@@ -97,8 +115,11 @@ ITEMS.append((
     "壬節待決呈報", "協調者 → 擁有者",
     "n+133／n+142／n+144",
     f"{len(pend)} 項逐項附選項、建議與理由，且擁有者逐項答覆並記錄歸屬；"
-    "🚨 未答覆者不得推定為同意任一選項",
-    "🚫 **不可驗**——擁有者是否真的看過、是否真的理解，程式判不了"))
+    "🚨 未答覆者不得推定為同意任一選項。"
+    "⚠️ **三個階段須分開看**：①產出（`docs/m1-owner-briefing.md`，n+155 已產）"
+    "／②送出（🚫 尚未）／③逐項答覆（🚫 尚未）",
+    "🚫 **不可驗**——⚠️ 產出有了，而**產出不是送出，送出不是看懂**；"
+    "🚨 擁有者是否真的理解，程式判不了"))
 
 ITEMS.append((
     "萃取階段三項遞延檢查", "萃取階段",
@@ -133,9 +154,9 @@ ITEMS.append((
 
 ITEMS.append((
     "既有機檢全綠", "協調者",
-    "n+136／n+141／n+131／n+116／n+153／n+154",
-    "閘門、佔位符表、交叉一致性、義務勾稽、字面數字、檢查表矩陣、格值現算"
-    "**七項**於交付當日皆 exit 0",
+    "n+136／n+141／n+131／n+116／n+153／n+154／n+155",
+    "閘門、佔位符表、交叉一致性、義務勾稽、字面數字、檢查表矩陣、格值現算、"
+    "擁有者簡報**八項**於交付當日皆 exit 0",
     "✅ 可驗（本檔即現跑）"))
 
 print("=== M1 交付盤點｜🚨 骨架完稿 ≠ 可交付 ===")
@@ -151,7 +172,8 @@ print()
 
 gates = {"n115_delivery_checklist": None, "n116_obligation_crosscheck": None,
          "n131_cross_consistency": None, "n141_literal_numbers": None,
-         "n153_wording_audit_check": None, "n154_cell_producer": None}
+         "n153_wording_audit_check": None, "n154_cell_producer": None,
+         "n155_owner_briefing": None}
 for g in gates:
     gates[g] = gate(f".scratch/{g}.py")
 bad = [g for g, rc in gates.items() if rc != 0]

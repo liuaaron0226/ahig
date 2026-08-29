@@ -78,6 +78,7 @@ N439 = ".scratch/n439_route_cost.json"
 N486 = ".scratch/n486_licence_gap.json"
 N487 = ".scratch/n487_version_and_licence.json"
 N488 = ".scratch/n488_pmcid_to_doi.json"
+BACKFILL = ".scratch/m1_step3_backfill.json"
 
 
 def _stratum(sid, key="quota"):
@@ -223,7 +224,44 @@ RESOLVERS = {
 
     # 乙：判準檔雜湊（n+44 版控；⚠️ CRLF→LF 正規化後取 SHA-256）
     "NARR_CRITERIA_HASH": lambda: _text_sha256(".scratch/n60_tags.py"),
+
+    # 庚：計數器最終讀數。⚠️ 看板型，而該值另有落盤產物可據——取產物。
+    "HARMS_COUNTER_LAST": lambda: J(N482)["lastRunningTotal"]["value"],
+
+    # 辛：n+155 更正之四格
+    "OBTAINABLE_N":      lambda: J(BACKFILL)["totals"]["obtainable"],
+    # ⚠️ 45 筆可得之中 JATS 已在手者。🚨 兩個項皆取自產物，🚫 不是手算的差。
+    "ACQ_IN_OBTAINABLE": lambda: (J(BACKFILL)["totals"]["obtainable"]
+                                  - len(J(N450)["records"])),
+    "EXTRACTABLE_N":     lambda: J(N492)["totals"]["withBackfill"],
+
+    # 丁：抽查債三欄（🚨 看板凍結值，見下方 BOARD_CITED 之說明）
+    "DEBT_CUMULATIVE":  lambda: _board_cited("DEBT_CUMULATIVE"),
+    "DEBT_SETTLED":     lambda: _board_cited("DEBT_SETTLED"),
+    "DEBT_OUTSTANDING": lambda: _board_cited("DEBT_OUTSTANDING"),
 }
+
+# ── 🚨 看板凍結值：**驗證引用，🚫 不重算** ──────────────────────
+# ⚠️ 這幾格的權威來源是一則裁定，而裁定是凍結的——**重算會毀掉稽核鏈**。
+# 🚨 但「凍結」不等於「不必查」：⚠️ 值可能被抄錯，或該段可能已被改寫。
+# ✅ 故各自綁一段**看板原文**：原文還在，引用即成立；原文不在，本檔當場失敗。
+#
+# ⚠️ 錨定的是**一整句帶脈絡的原文**，🚫 不是那個裸數字——
+# 🚨 「累計 22 筆」在看板另有數處，皆與抽查債無關（動物雜訊、McArdle 系列、預印本）。
+# **⚠️ 若以裸數字錨定，改到別段也會「通過」。**
+BOARD_CITED = {
+    "DEBT_CUMULATIVE":  (22, "**22**（相加為 23，重疊 1）"),
+    "DEBT_SETTLED":     (6,  "| 已清償 | （未曾正確報過） | **6** |"),
+    "DEBT_OUTSTANDING": (16, "**16**（w2 5 ∪ 影子尚欠 11）"),
+}
+
+
+def _board_cited(name):
+    value, anchor = BOARD_CITED[name]
+    board = Path("COORDINATION.md").read_text(encoding="utf-8")
+    if anchor not in board:
+        raise ValueError(f"{name}：看板已無該段原文——🚨 引用失效，🚫 不得續用該值")
+    return value
 
 # ── 🚨 定位欄**不足以決定值**之格 ────────────────────────────────
 # ⚠️ 這一組不是「還沒寫解析器」，是**寫不出來**：
@@ -231,21 +269,13 @@ RESOLVERS = {
 # **⚠️ 而它們在交付當日仍然要被填**——🚫 由人手填，等於由人手猜。
 # ✅ 故逐格記其缺什麼，並列為待裁事項。🚫 未登記之未解格視為漏掉。
 UNRESOLVABLE = {
-    "ACQUIRED_N":
-        "🚨 **未指明母體**。定位欄只寫「`m1_step3_inventory.json` 之 acquired」，"
-        "而該檔之 `counts.acquired`＝14（校準 60），`n496` 之 `acquired`＝41（私有根）。"
-        "⚠️ 辛節明訂 acquired 有四個母體，🚫 定位欄卻只寫一個字。",
-    "EXTRACTABLE_N":
-        "🚨 **未指名產物**。定位欄直接寫「12 JATS ＋ 15 TEI＝27」，"
-        "⚠️ 而 `n496` 之 sourceTypes 為 JATS 26／TEI 15。"
-        "🚫 那個 12 不知取自何處，且無任何檔案可據以重算。",
-    "OBTAINABLE_N":
-        "⚠️ **未指明組成**。定位欄寫「inventory ＋ backfill」而未說如何合"
-        "（聯集？相加？去重？），🚫 兩檔母體是否互斥亦未載。",
+    # 🚨 n+155：本簿原有四格，三格已解，⚠️ 第四格是**我把規則套錯了**。
     "LANDING_WORTH_PARSER":
-        "🚨 **判準未落盤**。值為 0（達門檻者），⚠️ 而 `n450` 自己寫著"
-        "「門檻只用來排序，不用來決定」且**未存門檻值**。"
-        "🚫 故 0 無法由該產物重算——⚠️ 這一格現在只能照抄，而照抄正是 n+115 禁的事。",
+        "🚨 **n+155 更正：本格不是缺陷。**⚠️ 它是**凍結值**，"
+        "而凍結值本來就該照引，🚫 重算才會毀掉稽核鏈——"
+        "**我上一輪拿漂移值的規則去套它。**"
+        "⚠️ 真正仍待補的是**判準**：`n450` 自載「門檻只用來排序，不用來決定」"
+        "且未存門檻值，**故引用該 0 時必須同時寫出這句**，🚫 不得只寫一個 0。",
 }
 
 
@@ -316,6 +346,11 @@ COINCIDENCE = {
     ("OUT_OF_SEQ", "SPOT_N"):
         "200＝標準線序列之亂序筆數；200＝尾端抽驗之樣本數常數。"
         "⚠️ 兩者同在丙節且皆與篩選序列有關，🚨 相鄰書寫極易被讀成同一個 200。",
+    ("ACQ_IN_OBTAINABLE", "UNPROBED_N"):
+        "⚠️ **兩者都在講取得，故須特別分清**："
+        "12＝45 筆可得之中 JATS 已在手者；"
+        "12＝從未被試過替代位址者（校準 60＋補集中 status 為 available-* 者）。"
+        "🚨 前者是**已經有了**，後者是**還沒試過**——🚫 相鄰書寫會讀成同一批 12 筆。",
     ("PAGES_BETWEEN", "UNTITLED_SECTIONS"):
         "20＝兩次終止之間的頁數（299−279）；20＝無標題章節數。🚫 毫無關係。",
 }
@@ -331,6 +366,15 @@ def closure_checks(resolved):
         if total != acquired:
             out.append(f"🚨 版本四桶合計 {total} ≠ `n496` 之 acquired {acquired}"
                        "——⚠️ 兩份產物對不上，其一已過期")
+
+    # 🚨 n+155：辛節第 442 行寫著「三格相加須等於 45」。
+    # ⚠️ 而一條寫在文件裡的規則不會自己執行（n+132）——故在此執行它。
+    route = {"ACQ_IN_OBTAINABLE", "PDF_ROUTE_N", "LANDING_ROUTE_N"}
+    if route <= set(resolved) and "OBTAINABLE_N" in resolved:
+        s, ob = sum(resolved[k] for k in route), resolved["OBTAINABLE_N"]
+        if s != ob:
+            out.append(f"🚨 三條取文路徑合計 {s} ≠ 可得 {ob}"
+                       "——⚠️ 三格並非同一母體，或其一已過期")
     return out
 
 
@@ -390,9 +434,17 @@ def run(rows, label):
                 "——⚠️ 須判定是同一個量還是同值異義，並寫進 COINCIDENCE")
     problems += closure_checks(resolved)
 
+    # 🚨 n+155 修正本檔自己的計數單位錯：原印
+    #     「可及格 88｜已解 82｜未解 6」
+    # ⚠️ 而 88 是**列數**（同一佔位符可出現在數節），82 是**相異名稱數**——
+    # 🚨 兩個單位相減，得到一個不指任何東西的 6。
+    # **⚠️ 這正是本檔在替別人抓的那一族，發生在本檔身上。**
+    unres = [r["name"] for r in reachable if r["name"] not in RESOLVERS]
     print(f"=== {label} ===")
-    print(f"  可及格 {len(reachable)}｜**已解 {len(resolved)}**｜"
-          f"未解 {len(reachable) - len(resolved)}")
+    print(f"  可及**列** {len(reachable)}｜其中有解析器 {len(reachable) - len(unres)}"
+          f"｜無解析器 {len(unres)}")
+    print(f"  （相異**佔位符** {len({r['name'] for r in reachable})} 個，"
+          f"**已解 {len(resolved)}** 個｜未解 {len(set(unres))} 個）")
     for n in notices:
         print(f"  {n}")
     for p in problems:
@@ -428,26 +480,52 @@ def same_value(claimed, got):
     return round(g, dp) == round(c, dp)
 
 
-rows = parse_rows()
-real, resolved, reachable = run(rows, "實際文件")
+def value(name):
+    """給別的產生器用：取單一格之現算值。
 
-# ── 🚨 反向對照：把一格的自報值改掉，本檔須抓到 ──────────────────
-# ⚠️ 依 n+131 三：注入物落在本檢查有能力判定的範圍內（有解析器、有自報值）。
-victim = next(r for r in rows
-              if r["name"] in RESOLVERS and SELF_VALUE.search(r["locator"]))
-bad = dict(victim)
-bad["locator"] = SELF_VALUE.sub("＝**99999**", victim["locator"], count=1)
-ctrl, _, _ = run([bad], "反向對照（注入：定位欄自報值改為 99999）")
-caught = any("99999" in p for p in ctrl)
+    🚨 **🚫 找不到解析器時丟例外，不回 None**——
+    ⚠️ 回 None 會讓呼叫端把「沒量到」印成一個空格，而空格看起來像零。
+    """
+    if name not in RESOLVERS:
+        raise KeyError(f"{name}：無解析器"
+                       f"{'（已登記為定位欄不足以決定值）' if name in UNRESOLVABLE else ''}")
+    return RESOLVERS[name]()
 
-print()
-print(f"反向對照：{'✅ 抓到過期的自報值' if caught else '🚨 沒抓到——本檢查有盲區'}")
-inacc = sum(1 for r in rows if r["srctype"] == "不可及")
-print(f"⚠️ 另有 {inacc} 格為「不可及」，屬執行室 `n500` 之範圍，🚫 本檔不碰。")
 
-print()
-print("🚨 **定位欄不足以決定值之格**（⚠️ 交付當日只能由人手填，而那正是猜）：")
-for name, why in UNRESOLVABLE.items():
-    print(f"  · {name}：{why}")
-print(f"🚫 **上列 {len(UNRESOLVABLE)} 格不是通過，是待裁。**")
-sys.exit(1 if (real or not caught) else 0)
+def main():
+    rows = parse_rows()
+    real, resolved, reachable = run(rows, "實際文件")
+
+    # ── 🚨 反向對照：把一格的自報值改掉，本檔須抓到 ──────────────────
+    # ⚠️ 依 n+131 三：注入物落在本檢查有能力判定的範圍內（有解析器、有自報值）。
+    victim = next(r for r in rows
+                  if r["name"] in RESOLVERS and SELF_VALUE.search(r["locator"]))
+    bad = dict(victim)
+    bad["locator"] = SELF_VALUE.sub("＝**99999**", victim["locator"], count=1)
+    ctrl, _, _ = run([bad], "反向對照（注入：定位欄自報值改為 99999）")
+    caught = any("99999" in p for p in ctrl)
+
+    print()
+    print(f"反向對照：{'✅ 抓到過期的自報值' if caught else '🚨 沒抓到——本檢查有盲區'}")
+    inacc = sum(1 for r in rows if r["srctype"] == "不可及")
+    print(f"⚠️ 另有 {inacc} 格為「不可及」，屬執行室 `n500` 之範圍，🚫 本檔不碰。")
+
+    # 🚨 看板型之格**不在 reachable 之內**，⚠️ 而它們一樣要被填。
+    # 🚫 不得因為它們不在覆蓋率的分母裡，就當成不存在。
+    board = {r["name"] for r in rows if r["srctype"] == "看板"}
+    board_done = sorted(board & set(RESOLVERS))
+    print(f"⚠️ 另有看板型 {len(board)} 格**不在上列分母內**："
+          f"已綁原文查核 {len(board_done)} 格（{'、'.join(board_done)}），"
+          f"🚨 其餘 {len(board) - len(board_done)} 格**無任何查核**——"
+          "⚠️ 它們一樣要被填，🚫 不得因不在分母裡就當成不存在。")
+
+    print()
+    print("🚨 **定位欄不足以決定值之格**（⚠️ 交付當日只能由人手填，而那正是猜）：")
+    for name, why in UNRESOLVABLE.items():
+        print(f"  · {name}：{why}")
+    print(f"🚫 **上列 {len(UNRESOLVABLE)} 格不是通過，是待裁。**")
+    return 1 if (real or not caught) else 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

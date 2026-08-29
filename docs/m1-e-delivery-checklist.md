@@ -93,9 +93,9 @@
 | 庚 | `S56_ACQ` | 漂移 | 產物 | 同上依層別：`S5+S6-gi-merged` 之 acquired＝**3** |
 | 庚 | `S56_NONPUB` | 漂移 | 產物 | 同上：其中非刊出版＝**2**；🚨 即本契約最在意之結局，其在手全文有三分之二是作者稿 |
 | 庚 | `SHORTFALL_HARMS` | 漂移 | 看板 | 同上（S5+S6） |
-| 辛 | `ACQUIRED_N` | 漂移 | 產物 | `.scratch/m1_step3_inventory.json` 之 `acquired` |
 | 辛 | `ACQ_ALL` | 漂移 | 不可及 | 私有根 fulltext 目錄之全部 acquired manifest＝**41**（執行室量測）；⚠️ 含本工作線以外之舊工作線 |
 | 辛 | `ACQ_CALIB` | 漂移 | 產物 | `.scratch/m1_step3_inventory.json` → `counts.acquired`＝**14**（我已自檔覆核） |
+| 辛 | `ACQ_IN_OBTAINABLE` | 漂移 | 產物 | 🚨 n+155 取代已作廢之 `ACQUIRED_N`：**45 筆可得之中 JATS 已在手者**＝`totals.obtainable` − `n450` 之記錄數（45−33）＝**12**；⚠️ 與 `ACQ_ALL`／`ACQ_SCOPED`／`ACQ_CALIB` 皆非同一母體 |
 | 辛 | `ACQ_SCOPED` | 漂移 | 不可及 | 校準 60 ＋ n+103 補集之 acquired＝**27**；🚨 n+138 曾誤標為「全體 manifest」 |
 | 辛 | `ALT_HAS` | 漂移 | 產物 | `.scratch/n477_alt_oa_locations.json`：有替代位址者＝**8**（我已自算） |
 | 辛 | `ALT_LANDING_ONLY` | 漂移 | 產物 | 同上：可達但僅取回書目頁＝**4**；⚠️ 是否另有可取全文未追 |
@@ -108,7 +108,7 @@
 | 辛 | `CALIB_VER_ACC` | 漂移 | 產物 | 同上：`acceptedVersion`＝**5**；🚨 每一個取自此類之數值須逐筆標記 |
 | 辛 | `CALIB_VER_PUB` | 漂移 | 產物 | `.scratch/n489_calibration_versions.json`（**受追蹤**，我已自檔交叉核對）→ 校準集 acquired 中之 `publishedVersion`＝**8** |
 | 辛 | `CALIB_VER_SUB` | 漂移 | 產物 | 同上：`submittedVersion`＝**1**；🚫 不得作為數值來源 |
-| 辛 | `EXTRACTABLE_N` | 漂移 | 產物 | 12 JATS ＋ 15 TEI＝**27**；⚠️ 與 `ACQ_SCOPED` 數值相同而母體不同，🚫 不得互相代替 |
+| 辛 | `EXTRACTABLE_N` | 漂移 | 產物 | `.scratch/n492_stratum_table.json` → `totals.withBackfill`＝**27**（12 JATS ＋ 15 TEI）；🚨 n+155 更正：原註「與 `ACQ_SCOPED` 數值相同而**母體不同**」**是錯的**——⚠️ 兩者同母體，其相等是因為 `n498` 之節次一致性 41／41 全過，**🚫 無一筆被排除**；⚠️ 若日後有一筆不一致，兩數即分開 |
 | 辛 | `LANDING_FIGSHARE` | 漂移 | 產物 | 同上（figshare，有 API） |
 | 辛 | `LANDING_FULLTEXT_MARKER` | 凍結 | 產物 | 同上：其中有 HTML 全文標記者＝**1** |
 | 辛 | `LANDING_PMC_SCAN` | 漂移 | 產物 | 同上（PMC 掃描件） |
@@ -119,10 +119,10 @@
 | 辛 | `LANDING_WORDS_MAX` | 凍結 | 產物 | 同上：最大 **22,761** |
 | 辛 | `LANDING_WORDS_MED` | 凍結 | 產物 | 同上：中位 **3,807** |
 | 辛 | `LANDING_WORDS_MIN` | 凍結 | 產物 | 同上：去標籤字數最小 **160** |
-| 辛 | `LANDING_WORTH_PARSER` | 凍結 | 產物 | 同上：達門檻者＝**0**（⚠️ 就已量到的 16 筆而言，非 33 筆） |
+| 辛 | `LANDING_WORTH_PARSER` | 凍結 | 產物 | 同上：達門檻者＝**0**（⚠️ 就已量到的 16 筆而言，非 33 筆）；🚨 **凍結值，照引即可**，⚠️ 而 `n450` 自載「門檻只用來排序，不用來決定」且未存門檻值——**故引用時須同時寫出這句，🚫 不得只寫 0** |
 | 辛 | `LEGACY_DIRS` | 漂移 | 產物 | `.scratch/n496_corpus_verify.json` → `legacySchemeDirectories` 之長度＝**4**（我已自檔覆核）；🚨 不刪，僅排除並列名 |
 | 辛 | `LIC_FILLED` | 漂移 | 不可及 | 私有根 manifest 之 `licence` 欄，執行室依 n+138 填入並附來源與查取日期＝**5**；⚠️ 母體為首批 8 筆，🚫 不得外推 |
-| 辛 | `OBTAINABLE_N` | 漂移 | 產物 | `.scratch/m1_step3_inventory.json`＋`m1_step3_backfill.json`；⚠️ **上界非保證** |
+| 辛 | `OBTAINABLE_N` | 漂移 | 產物 | `.scratch/m1_step3_backfill.json` → `totals.obtainable`＝**45**（🚨 單一欄位；n+155 更正：原寫「inventory ＋ backfill」而未載合併規則，⚠️ 實則不需合併）；⚠️ **上界非保證** |
 | 辛 | `PDF_IN_HAND` | 漂移 | 產物 | `.scratch/n456_pdf_textlayer.json`：**11** 檔（我已自算） |
 | 辛 | `PDF_ROUTE_N` | 漂移 | 產物 | 同上 `available-pdf` |
 | 辛 | `PDF_SCANNED` | 漂移 | 產物 | 同上：純掃描 **0** |
