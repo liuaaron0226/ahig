@@ -7,7 +7,7 @@
  "criterion": "parse_tei accepts the TEI, sections non-empty, offsets monotonic and non-overlapping",
  "runtime": "2m35s for all 11 under WSL",
  "counts": {
-  "pass": 14
+  "pass": 15
  },
  "files": [
   {
@@ -17,7 +17,6 @@
    "chars": 54178,
    "teiHashLF": "sha256:9e6cf871ba5b91853fbc87eefe6be76cd1d50c6d08c0a9ec7efe6156bc19b258",
    "grobidVersion": "0.9.1",
-   "new": true,
    "untitled": 0
   },
   {
@@ -27,7 +26,6 @@
    "chars": 38178,
    "teiHashLF": "sha256:4143b29da32fc09830dce86619cf31a3ec6cd9804706ba203663a2b9a9b28b4d",
    "grobidVersion": "0.9.1",
-   "new": false,
    "untitled": 0
   },
   {
@@ -37,7 +35,6 @@
    "chars": 39447,
    "teiHashLF": "sha256:9926e0a7963c9028c7bc0f649ac240e56d30b4b8632906390ff514de136aba76",
    "grobidVersion": "0.9.1",
-   "new": false,
    "untitled": 0
   },
   {
@@ -47,7 +44,6 @@
    "chars": 63742,
    "teiHashLF": "sha256:3fbefa73e944a90ce48168a6fc7ebc7f39e864c2c860a83f8e2ae13fa3c19d21",
    "grobidVersion": "0.9.1",
-   "new": true,
    "untitled": 0
   },
   {
@@ -57,7 +53,6 @@
    "chars": 42517,
    "teiHashLF": "sha256:dd6fc00a5e563b99946e1bb53cbd33f0417f44cbaf3ef7892472fc05fbcd22e5",
    "grobidVersion": "0.9.1",
-   "new": true,
    "untitled": 1
   },
   {
@@ -67,7 +62,6 @@
    "chars": 36213,
    "teiHashLF": "sha256:11a985e878faa63304fe25d4cbd122c7c2c548e7157e9c557159d68901633fb4",
    "grobidVersion": "0.9.1",
-   "new": false,
    "untitled": 0
   },
   {
@@ -77,7 +71,15 @@
    "chars": 25190,
    "teiHashLF": "sha256:9e3764501d7134072bc55ce4e31ddcad56f226664dbc7093c95e6e2f9b8fc08c",
    "grobidVersion": "0.9.1",
-   "new": false,
+   "untitled": 0
+  },
+  {
+   "file": "9454731aad7c0004",
+   "verdict": "pass",
+   "sections": 19,
+   "chars": 28143,
+   "teiHashLF": "sha256:2d18a3f983ac98c9dfbd3214ea3aa7dc467f56559b4960d25ade9151ee596e2f",
+   "grobidVersion": "0.9.1",
    "untitled": 0
   },
   {
@@ -87,7 +89,6 @@
    "chars": 37960,
    "teiHashLF": "sha256:9c306fbe152bbcb10247115d0771c93862f1a0d9791334505abfd68e60cc24e0",
    "grobidVersion": "0.9.1",
-   "new": false,
    "untitled": 1
   },
   {
@@ -97,7 +98,6 @@
    "chars": 30094,
    "teiHashLF": "sha256:788b22216b6e182fed3ac99fb2712dd148b9e0b258c775cf7f513b6ed494e3a5",
    "grobidVersion": "0.9.1",
-   "new": false,
    "untitled": 0
   },
   {
@@ -107,7 +107,6 @@
    "chars": 26473,
    "teiHashLF": "sha256:66017ade4f65a68038af3df92cec7bba7b53d88b92683df41eab664bee3ecf18",
    "grobidVersion": "0.9.1",
-   "new": false,
    "untitled": 1
   },
   {
@@ -117,7 +116,6 @@
    "chars": 12526,
    "teiHashLF": "sha256:e3b3ba09edbf243435e35581b2816ebcc20c1df28b951e6e8097347f9f9a9588",
    "grobidVersion": "0.9.1",
-   "new": false,
    "untitled": 1
   },
   {
@@ -127,7 +125,6 @@
    "chars": 348621,
    "teiHashLF": "sha256:15fa5595d7aba839fd1dc9a92e47cdeafc8ed875f89f043c24883da42150efcc",
    "grobidVersion": "0.9.1",
-   "new": false,
    "untitled": 0
   },
   {
@@ -137,7 +134,6 @@
    "chars": 32350,
    "teiHashLF": "sha256:7e1573697f4cf754aaaf3ea1e30cee9c4d47c2dc69c7a73df1cd9b536491ecb6",
    "grobidVersion": "0.9.1",
-   "new": false,
    "untitled": 1
   },
   {
@@ -147,13 +143,13 @@
    "chars": 33466,
    "teiHashLF": "sha256:60492278a2953094221317168b22645e850cbefbb0362a3a6ac6ab99f68519b7",
    "grobidVersion": "0.9.1",
-   "new": false,
    "untitled": 0
   }
  ],
  "teiHashNote": "TEI hashes are computed after normalising line endings to LF, per n+122(3) and n+123(5); PDF hashes stay raw-byte.",
  "coverageStatement": "Passing means sectioned with usable offsets. It does not mean the section names are right or the text complete.",
  "contentNote": "Counts, sizes, hashes and verdicts only. No literature text.",
- "acceptanceHash": "sha256:df57ba5187d1577c306400e1547b63f0be62e0a560d723068d6bf0e859732893",
- "round478Note": "Three records recovered via alternative OA locations (n+124) added; all 14 re-judged together under the round-459 criteria."
+ "acceptanceHash": "sha256:1ead00e1003e607f665a1d5244cf5596d08c18735cb12a5d584bbfcd7b269390",
+ "round478Note": "Three records recovered via alternative OA locations (n+124) added; all 14 re-judged together under the round-459 criteria.",
+ "round481Note": "One further record recovered from a figshare landing page via the API (n+129); all re-judged together under the round-459 criteria."
 }
