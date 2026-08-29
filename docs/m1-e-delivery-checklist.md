@@ -20,7 +20,7 @@
 
 <!-- BEGIN GENERATED n115 -->
 
-共 **124** 個佔位符。凍結 **53**、漂移 **71**；其中 **17** 個之權威來源**協調者無法自行核對**（見下文第二節）。
+共 **125** 個佔位符。凍結 **54**、漂移 **71**；其中 **17** 個之權威來源**協調者無法自行核對**（見下文第二節）。
 
 | 節 | 佔位符 | 類別 | 來源型態 | 定位 |
 |---|---|---|---|---|
@@ -144,6 +144,7 @@
 | 壬 | `DEBT_SETTLED` | 漂移 | 看板 | n+108：**6** |
 | 壬 | `HARMS_ATTRIBUTABLE` | 漂移 | 產物 | `.scratch/n482_harms_adjacent_roster.json`（**受追蹤**，我已自跑覆核）→ `included` 之相異 `idPrefix`＝**3** |
 | 壬 | `HARMS_COMBINED` | 凍結 | 產物 | 同上：8＋7＝**15**；✅ 與 `m1_step2_assignment.json` 之 `S5+S6-gi-merged` 配額交叉核對相符 |
+| 壬 | `S3_QUOTA` | 凍結 | 產物 | `ahig/calibration/b11-carbohydrate/strata.json` → `S3-tte` 配額＝**8**（我已自檔覆核） |
 | 壬 | `S56_ACQ` | 漂移 | 產物 | 同上依層別：`S5+S6-gi-merged` 之 acquired＝**3** |
 | 壬 | `S56_NONPUB` | 漂移 | 產物 | 同上：其中非刊出版＝**2**；🚨 即本契約最在意之結局，其在手全文有三分之二是作者稿 |
 | 壬 | `TAG_ROSTER_COUNT` | 漂移 | 不可及 | `.scratch/n60_tags.py` 現跑之掛牌名單份數（讀私有根）；⚠️ 份數本身會隨新掛牌而變 |
