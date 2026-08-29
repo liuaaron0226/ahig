@@ -68632,3 +68632,79 @@ grobid-home/build/libs/grobid-home-0.9.1.jar
 **預警段 5／32 ✅**｜**測試 717 passed／0 failed ✅，exit=0**。**`ahig/` 本輪零改動。**
 
 **M1 四步：① ✅｜② ✅｜③ ✅｜④ ⏳ jar 已建成，批次模式單檔驗證中。**
+
+---
+
+## 🚨🚨 執行室回報：**GROBID 在 Windows 撞到補不了的牆——pdfalto 無 Windows 版**（第 469 輪）
+
+### 一、🚨 真正的例外訊息（全量留檔後才讀到）
+
+```
+Cannot run program "…\grobid-home\pdfalto\win-64\pdfalto\pdfalto":
+    CreateProcess error=2, 系統找不到指定的檔案
+org.grobid.core.exceptions.GrobidException: [TIMEOUT] PDF to XML conversion timed out
+```
+
+**實查目錄**：
+
+```
+grobid-home/pdfalto/lin-64/       pdfalto、pdfalto_server、xpdfrc   ✅
+grobid-home/pdfalto/lin_arm-64/   ✅
+grobid-home/pdfalto/win-64/       🚨 空的
+```
+
+**⚠️ pdfalto 是 GROBID 把 PDF 轉成 XML 的必要前置**——**🚨 沒有它，任何 PDF 都處理不了。**
+
+### 二、🚨 且上游根本不出 Windows 版——已查發行頁
+
+`kermitt2/pdfalto` 近三個發行版之資產：
+
+```
+v0.6.2 / v0.6.1 / v0.6.0
+   linux-64、linux-arm64、mac-64、mac-arm64      ← ⚠️ 僅此四種
+   🚨 無任何 Windows 資產
+```
+
+**⚠️ 故本室先前兩處 `build.gradle` 補丁雖有效，但補不到這一層**：
+**🚨 平台分支可以補、JDK 可以裝，一個不存在的執行檔補不出來。**
+**⚠️ 這正是第 463 輪所預告之「過了第 30 行仍可能撞到別處」。**
+
+### 三、✅ 而查 WSL 時發現一個**便宜得多的解**
+
+第 463 輪本室報「WSL 已註冊但不可用（磁碟在缺席之 `E:`）」。本輪續查：
+
+```
+現有磁碟機：C（461 GB）、D（469 GB）、F（931 GB）   ← 🚨 無 E:
+WSL 註冊之 BasePath：E:\WSL\Ubuntu
+實際檔案：           D:\WSL\Ubuntu\ext4.vhdx        ← ✅ 存在
+```
+
+**🚨 即該 Ubuntu 沒有遺失，是磁碟代號由 E: 變成 D: 而 WSL 之註冊值沒跟著改。**
+**⚠️ 修法是改一個註冊值**（`BasePath`：`E:\WSL\Ubuntu` → `D:\WSL\Ubuntu`）。
+
+**🚫 本室不自行修改**：⚠️ 那是擁有者之 WSL 安裝與其中資料，
+**🚨 且改註冊表屬須先確認之動作（CLAUDE.md 明定）。已向擁有者陳明具體修法。**
+
+### 四、🧭 四案併陳，成本已實查，請裁示
+
+| | 做什麼 | 成本 | 風險 |
+|---|---|---|---|
+| **甲** | **修 WSL 之 `BasePath`（E:→D:）** | **一個註冊值** | ⚠️ 動到既有 WSL 設定，惟可還原 |
+| 乙 | 裝 Docker Desktop | 大型安裝（含虛擬化） | ⚠️ 系統層變動較大 |
+| 丙 | 自行以 C++ 工具鏈建 pdfalto | 需 MSVC／MinGW ＋ xpdf 相依 | 🚨 上游不支援，成功率低 |
+| 丁 | 改走 Docling | pip 可裝 | 🚨 須另寫解析器，**且 n+123 二明定 n+8 僅對 GROBID 解除，須擁有者另行同意** |
+
+**⚠️ 本室建議甲**：**🚨 GROBID 官方支援 Linux，WSL 即為 Linux**，
+且該 Ubuntu 之磁碟檔實際存在，**⚠️ 成本是四案中最低者。**
+
+### 五、⚠️ 一項不變的事實
+
+**🚨 無論走哪一案，本環境對 11 筆之 403／逾時仍不會改變**（n+123 四已載明）。
+**⚠️ 在手仍為 23 篇，解析器只決定其中幾篇能變成可萃取之文字。**
+
+### 六、每輪必做
+
+**閘門**：樣式來源 ✅✅✅｜控制探針 ✅✅✅｜n+48 兩道 ✅｜n+54 三道 ✅｜
+**預警段 5／32 ✅**｜**測試 717 passed／0 failed ✅，exit=0**。**`ahig/` 本輪零改動。**
+
+**M1 四步：① ✅｜② ✅｜③ ✅｜④ 🚨 GROBID 於 Windows 不可行，四案待裁示。**
