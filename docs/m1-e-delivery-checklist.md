@@ -20,7 +20,7 @@
 
 <!-- BEGIN GENERATED n115 -->
 
-共 **103** 個佔位符。凍結 **51**、漂移 **52**；其中 **14** 個之權威來源**協調者無法自行核對**（見下文第二節）。
+共 **112** 個佔位符。凍結 **51**、漂移 **61**；其中 **17** 個之權威來源**協調者無法自行核對**（見下文第二節）。
 
 | 節 | 佔位符 | 類別 | 來源型態 | 定位 |
 |---|---|---|---|---|
@@ -91,6 +91,9 @@
 | 庚 | `HARMS_UNATTRIBUTABLE` | 漂移 | 推導 | 讀數 − 可指認者（**10 − 3 = 7**）；⚠️ 成因為五次計數器移動中兩次無 id、兩次 +2 而僅 1 個 id |
 | 庚 | `SHORTFALL_HARMS` | 漂移 | 看板 | 同上（S5+S6） |
 | 辛 | `ACQUIRED_N` | 漂移 | 產物 | `.scratch/m1_step3_inventory.json` 之 `acquired` |
+| 辛 | `ACQ_ALL` | 漂移 | 不可及 | 私有根 fulltext 目錄之全部 acquired manifest＝**41**（執行室量測）；⚠️ 含本工作線以外之舊工作線 |
+| 辛 | `ACQ_CALIB` | 漂移 | 產物 | `.scratch/m1_step3_inventory.json` → `counts.acquired`＝**14**（我已自檔覆核） |
+| 辛 | `ACQ_SCOPED` | 漂移 | 不可及 | 校準 60 ＋ n+103 補集之 acquired＝**27**；🚨 n+138 曾誤標為「全體 manifest」 |
 | 辛 | `ALT_HAS` | 漂移 | 產物 | `.scratch/n477_alt_oa_locations.json`：有替代位址者＝**8**（我已自算） |
 | 辛 | `ALT_LANDING_ONLY` | 漂移 | 產物 | 同上：可達但僅取回書目頁＝**4**；⚠️ 是否另有可取全文未追 |
 | 辛 | `ALT_NONE` | 漂移 | 產物 | 同上：查無替代位址＝**3**（🚫 非窮盡，不等於不存在） |
@@ -98,6 +101,7 @@
 | 辛 | `ALT_REACHABLE` | 漂移 | 產物 | 同上：其中可達＝**8**（全數） |
 | 辛 | `BLOCKED_N` | 凍結 | 產物 | 同上：`survey == blocked-or-error` ＝ **11**（403 十筆＋逾時一筆） |
 | 辛 | `CALIBRATION_TARGET` | 凍結 | 產物 | `ahig/calibration/b11-carbohydrate/strata.json`（**受追蹤**，我已自算覆核）→ `totalSampleSize`＝**60**；✅ 七層配額總和亦為 60 |
+| 辛 | `EXTRACTABLE_N` | 漂移 | 產物 | 12 JATS ＋ 15 TEI＝**27**；⚠️ 與 `ACQ_SCOPED` 數值相同而母體不同，🚫 不得互相代替 |
 | 辛 | `LANDING_FIGSHARE` | 漂移 | 產物 | 同上（figshare，有 API） |
 | 辛 | `LANDING_FULLTEXT_MARKER` | 凍結 | 產物 | 同上：其中有 HTML 全文標記者＝**1** |
 | 辛 | `LANDING_PMC_SCAN` | 漂移 | 產物 | 同上（PMC 掃描件） |
@@ -109,6 +113,7 @@
 | 辛 | `LANDING_WORDS_MED` | 凍結 | 產物 | 同上：中位 **3,807** |
 | 辛 | `LANDING_WORDS_MIN` | 凍結 | 產物 | 同上：去標籤字數最小 **160** |
 | 辛 | `LANDING_WORTH_PARSER` | 凍結 | 產物 | 同上：達門檻者＝**0**（⚠️ 就已量到的 16 筆而言，非 33 筆） |
+| 辛 | `LIC_FILLED` | 漂移 | 不可及 | 私有根 manifest 之 `licence` 欄，執行室依 n+138 填入並附來源與查取日期＝**5**；⚠️ 母體為首批 8 筆，🚫 不得外推 |
 | 辛 | `OBTAINABLE_N` | 漂移 | 產物 | `.scratch/m1_step3_inventory.json`＋`m1_step3_backfill.json`；⚠️ **上界非保證** |
 | 辛 | `PDF_IN_HAND` | 漂移 | 產物 | `.scratch/n456_pdf_textlayer.json`：**11** 檔（我已自算） |
 | 辛 | `PDF_ROUTE_N` | 漂移 | 產物 | 同上 `available-pdf` |
@@ -121,6 +126,10 @@
 | 辛 | `SHORTFALL_HARMS` | 漂移 | 看板 | 同上（S5+S6） |
 | 辛 | `SHORTFALL_N` | 漂移 | 看板 | 校準集設計數 − 可得數，交付時現算 |
 | 辛 | `SHORTFALL_S7` | 漂移 | 看板 | 看板 63655 三之缺口分布 |
+| 辛 | `VER_ACCEPTED` | 漂移 | 產物 | 同上 |
+| 辛 | `VER_PUBLISHED` | 漂移 | 產物 | `n486`＋`n487` 合計；⚠️ 兩批母體互斥 |
+| 辛 | `VER_SUBMITTED` | 漂移 | 產物 | 同上；🚫 依 n+138 不得作為數值萃取來源 |
+| 辛 | `VER_UNKNOWN` | 漂移 | 產物 | 同上；🚨 **多數落在此格**——意為我方查詢紀錄中無 DOI 可用，🚫 不是「該篇無 DOI」 |
 | 壬 | `DEBT_CUMULATIVE` | 漂移 | 看板 | n+108：**22**（相加 23、重疊 1，已去重） |
 | 壬 | `DEBT_OUTSTANDING` | 漂移 | 看板 | n+108：**16**（W2 之 5 ∪ 影子 11）——⚠️ 單位＝**抽查項目**，非文獻 |
 | 壬 | `DEBT_SETTLED` | 漂移 | 看板 | n+108：**6** |
