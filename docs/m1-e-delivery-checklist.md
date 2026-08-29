@@ -20,7 +20,7 @@
 
 <!-- BEGIN GENERATED n115 -->
 
-共 **112** 個佔位符。凍結 **51**、漂移 **61**；其中 **17** 個之權威來源**協調者無法自行核對**（見下文第二節）。
+共 **118** 個佔位符。凍結 **51**、漂移 **67**；其中 **17** 個之權威來源**協調者無法自行核對**（見下文第二節）。
 
 | 節 | 佔位符 | 類別 | 來源型態 | 定位 |
 |---|---|---|---|---|
@@ -89,6 +89,8 @@
 | 庚 | `HARMS_S5_QUOTA` | 凍結 | 產物 | `ahig/calibration/b11-carbohydrate/strata.json`（**受追蹤**，我已自算覆核）→ `strata[S5-gi-harms-primary].quota`＝**8** |
 | 庚 | `HARMS_S6_QUOTA` | 凍結 | 產物 | `ahig/calibration/b11-carbohydrate/strata.json`（**受追蹤**，我已自算覆核）→ `strata[S6-gi-harms-secondary-only].quota`＝**7** |
 | 庚 | `HARMS_UNATTRIBUTABLE` | 漂移 | 推導 | 讀數 − 可指認者（**10 − 3 = 7**）；⚠️ 成因為五次計數器移動中兩次無 id、兩次 +2 而僅 1 個 id |
+| 庚 | `S56_ACQ` | 漂移 | 產物 | 同上依層別：`S5+S6-gi-merged` 之 acquired＝**3** |
+| 庚 | `S56_NONPUB` | 漂移 | 產物 | 同上：其中非刊出版＝**2**；🚨 即本契約最在意之結局，其在手全文有三分之二是作者稿 |
 | 庚 | `SHORTFALL_HARMS` | 漂移 | 看板 | 同上（S5+S6） |
 | 辛 | `ACQUIRED_N` | 漂移 | 產物 | `.scratch/m1_step3_inventory.json` 之 `acquired` |
 | 辛 | `ACQ_ALL` | 漂移 | 不可及 | 私有根 fulltext 目錄之全部 acquired manifest＝**41**（執行室量測）；⚠️ 含本工作線以外之舊工作線 |
@@ -101,6 +103,10 @@
 | 辛 | `ALT_REACHABLE` | 漂移 | 產物 | 同上：其中可達＝**8**（全數） |
 | 辛 | `BLOCKED_N` | 凍結 | 產物 | 同上：`survey == blocked-or-error` ＝ **11**（403 十筆＋逾時一筆） |
 | 辛 | `CALIBRATION_TARGET` | 凍結 | 產物 | `ahig/calibration/b11-carbohydrate/strata.json`（**受追蹤**，我已自算覆核）→ `totalSampleSize`＝**60**；✅ 七層配額總和亦為 60 |
+| 辛 | `CALIB_NONPUB` | 漂移 | 推導 | 5＋1＝**6**（校準集 14 筆中）；⚠️ 🚫 不得與 41 筆之 10 互換，兩者母體不同 |
+| 辛 | `CALIB_VER_ACC` | 漂移 | 產物 | 同上：`acceptedVersion`＝**5**；🚨 每一個取自此類之數值須逐筆標記 |
+| 辛 | `CALIB_VER_PUB` | 漂移 | 產物 | `.scratch/n489_calibration_versions.json`（**受追蹤**，我已自檔交叉核對）→ 校準集 acquired 中之 `publishedVersion`＝**8** |
+| 辛 | `CALIB_VER_SUB` | 漂移 | 產物 | 同上：`submittedVersion`＝**1**；🚫 不得作為數值來源 |
 | 辛 | `EXTRACTABLE_N` | 漂移 | 產物 | 12 JATS ＋ 15 TEI＝**27**；⚠️ 與 `ACQ_SCOPED` 數值相同而母體不同，🚫 不得互相代替 |
 | 辛 | `LANDING_FIGSHARE` | 漂移 | 產物 | 同上（figshare，有 API） |
 | 辛 | `LANDING_FULLTEXT_MARKER` | 凍結 | 產物 | 同上：其中有 HTML 全文標記者＝**1** |
@@ -127,9 +133,9 @@
 | 辛 | `SHORTFALL_N` | 漂移 | 看板 | 校準集設計數 − 可得數，交付時現算 |
 | 辛 | `SHORTFALL_S7` | 漂移 | 看板 | 看板 63655 三之缺口分布 |
 | 辛 | `VER_ACCEPTED` | 漂移 | 產物 | 同上 |
-| 辛 | `VER_PUBLISHED` | 漂移 | 產物 | `n486`＋`n487` 合計；⚠️ 兩批母體互斥 |
+| 辛 | `VER_PUBLISHED` | 漂移 | 產物 | `n486`＋`n487`＋`n488` 合計；⚠️ 三批母體互斥 |
 | 辛 | `VER_SUBMITTED` | 漂移 | 產物 | 同上；🚫 依 n+138 不得作為數值萃取來源 |
-| 辛 | `VER_UNKNOWN` | 漂移 | 產物 | 同上；🚨 **多數落在此格**——意為我方查詢紀錄中無 DOI 可用，🚫 不是「該篇無 DOI」 |
+| 辛 | `VER_UNKNOWN` | 漂移 | 產物 | 同上＋`n488_pmcid_to_doi.json`；⚠️ 補查後**由 26 降為 1**，🚨 該 26 是量測缺口且集中於單一取得路徑，🚫 不得反過來當成「多半是作者稿」之證據（n+141） |
 | 壬 | `DEBT_CUMULATIVE` | 漂移 | 看板 | n+108：**22**（相加 23、重疊 1，已去重） |
 | 壬 | `DEBT_OUTSTANDING` | 漂移 | 看板 | n+108：**16**（W2 之 5 ∪ 影子 11）——⚠️ 單位＝**抽查項目**，非文獻 |
 | 壬 | `DEBT_SETTLED` | 漂移 | 看板 | n+108：**6** |
