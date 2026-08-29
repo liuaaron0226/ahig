@@ -1,0 +1,128 @@
+15:40:24.422 [main] INFO  o.grobid.core.main.GrobidHomeFinder - No Grobid property was provided. Attempting to find Grobid home in the current directory...
+15:40:24.424 [main] INFO  o.grobid.core.main.GrobidHomeFinder - *** USING GROBID HOME: C:\Users\User\Desktop\grobid\grobid-0.9.1\grobid-home
+15:40:24.427 [main] INFO  o.grobid.core.main.GrobidHomeFinder - No Grobid property was provided. Attempting to find Grobid home in the current directory...
+15:40:24.427 [main] INFO  o.grobid.core.main.GrobidHomeFinder - *** USING GROBID HOME: C:\Users\User\Desktop\grobid\grobid-0.9.1\grobid-home
+15:40:24.427 [main] INFO  o.grobid.core.main.GrobidHomeFinder - Grobid config file location was not explicitly set via 'org.grobid.config' system variable, defaulting to: C:\Users\User\Desktop\grobid\grobid-0.9.1\grobid-home\config\grobid.yaml
+15:40:24.607 [main] INFO  o.grobid.core.engines.ProcessEngine - Processing: C:\Users\User\.claude\jobs\ad82b59e\tmp\onepdf\de939065eac2b5fd.pdf
+15:40:24.610 [main] INFO  org.grobid.core.main.LibraryLoader - Loading external native sequence labelling library
+15:40:24.616 [main] INFO  org.grobid.core.main.LibraryLoader - Loading Wapiti native library...
+15:40:24.616 [main] INFO  org.grobid.core.main.LibraryLoader - Native library for sequence labelling loaded
+15:40:31.082 [pdfalto[C:\Users\User\.claude\jobs\ad82b59e\tmp\onepdf\de939065eac2b5fd.pdf]] ERROR o.grobid.core.process.ProcessRunner - IOException while launching the command [C:\Users\User\Desktop\grobid\grobid-0.9.1\grobid-home\pdfalto\win-64\pdfalto\pdfalto, -fullFontName, -noLineNumbers, -annotation, -filesLimit, 2000, C:\Users\User\.claude\jobs\ad82b59e\tmp\onepdf\de939065eac2b5fd.pdf, C:\Users\User\Desktop\grobid\grobid-0.9.1\grobid-home\tmp\DsdCAevzEy.lxml] : Cannot run program "C:\Users\User\Desktop\grobid\grobid-0.9.1\grobid-home\pdfalto\win-64\pdfalto\pdfalto": CreateProcess error=2, 系統找不到指定的檔案。
+15:40:31.086 [main] ERROR o.grobid.core.engines.ProcessEngine - An error occurred while processing the file C:\Users\User\.claude\jobs\ad82b59e\tmp\onepdf\de939065eac2b5fd.pdf. Continuing the process for the other files
+org.grobid.core.exceptions.GrobidException: [TIMEOUT] PDF to XML conversion timed out
+	at org.grobid.core.document.DocumentSource.processPdfaltoThreadMode(DocumentSource.java:293)
+	at org.grobid.core.document.DocumentSource.pdfalto(DocumentSource.java:209)
+	at org.grobid.core.document.DocumentSource.fromPdf(DocumentSource.java:99)
+	at org.grobid.core.engines.FullTextParser.processing(FullTextParser.java:101)
+	at org.grobid.core.engines.Engine.fullTextToTEIDoc(Engine.java:642)
+	at org.grobid.core.engines.Engine.fullTextToTEI(Engine.java:604)
+	at org.grobid.core.engines.ProcessEngine.processFullTextDirectory(ProcessEngine.java:233)
+	at org.grobid.core.engines.ProcessEngine.processFullText(ProcessEngine.java:182)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.grobid.core.utilities.Utilities.launchMethod(Utilities.java:356)
+	at org.grobid.core.main.batch.GrobidMain.main(GrobidMain.java:229)
+15:40:31.098 [main] INFO  o.g.c.u.crossref.CrossrefClient - CrossRef API tier: Public (no mailto, no token) - concurrency: 1, rate: 5 req/sec
+15:40:46.176 [main] INFO  o.grobid.core.main.GrobidHomeFinder - No Grobid property was provided. Attempting to find Grobid home in the current directory...
+15:40:46.176 [main] INFO  o.grobid.core.main.GrobidHomeFinder - *** USING GROBID HOME: C:\Users\User\Desktop\grobid\grobid-0.9.1\grobid-home
+15:40:46.179 [main] INFO  o.grobid.core.main.GrobidHomeFinder - No Grobid property was provided. Attempting to find Grobid home in the current directory...
+15:40:46.179 [main] INFO  o.grobid.core.main.GrobidHomeFinder - *** USING GROBID HOME: C:\Users\User\Desktop\grobid\grobid-0.9.1\grobid-home
+15:40:46.179 [main] INFO  o.grobid.core.main.GrobidHomeFinder - Grobid config file location was not explicitly set via 'org.grobid.config' system variable, defaulting to: C:\Users\User\Desktop\grobid\grobid-0.9.1\grobid-home\config\grobid.yaml
+15:40:46.354 [main] INFO  o.grobid.core.engines.ProcessEngine - Processing: C:\Users\User\.claude\jobs\ad82b59e\tmp\onepdf\de939065eac2b5fd.pdf
+15:40:46.357 [main] INFO  org.grobid.core.main.LibraryLoader - Loading external native sequence labelling library
+15:40:46.361 [main] INFO  org.grobid.core.main.LibraryLoader - Loading Wapiti native library...
+15:40:46.363 [main] INFO  org.grobid.core.main.LibraryLoader - Native library for sequence labelling loaded
+15:40:51.609 [pdfalto[C:\Users\User\.claude\jobs\ad82b59e\tmp\onepdf\de939065eac2b5fd.pdf]] ERROR o.grobid.core.process.ProcessRunner - IOException while launching the command [C:\Users\User\Desktop\grobid\grobid-0.9.1\grobid-home\pdfalto\win-64\pdfalto\pdfalto, -fullFontName, -noLineNumbers, -annotation, -filesLimit, 2000, C:\Users\User\.claude\jobs\ad82b59e\tmp\onepdf\de939065eac2b5fd.pdf, C:\Users\User\Desktop\grobid\grobid-0.9.1\grobid-home\tmp\ERmjTcxGxw.lxml] : Cannot run program "C:\Users\User\Desktop\grobid\grobid-0.9.1\grobid-home\pdfalto\win-64\pdfalto\pdfalto": CreateProcess error=2, 系統找不到指定的檔案。
+15:40:51.613 [main] ERROR o.grobid.core.engines.ProcessEngine - An error occurred while processing the file C:\Users\User\.claude\jobs\ad82b59e\tmp\onepdf\de939065eac2b5fd.pdf. Continuing the process for the other files
+org.grobid.core.exceptions.GrobidException: [TIMEOUT] PDF to XML conversion timed out
+	at org.grobid.core.document.DocumentSource.processPdfaltoThreadMode(DocumentSource.java:293)
+	at org.grobid.core.document.DocumentSource.pdfalto(DocumentSource.java:209)
+	at org.grobid.core.document.DocumentSource.fromPdf(DocumentSource.java:99)
+	at org.grobid.core.engines.FullTextParser.processing(FullTextParser.java:101)
+	at org.grobid.core.engines.Engine.fullTextToTEIDoc(Engine.java:642)
+	at org.grobid.core.engines.Engine.fullTextToTEI(Engine.java:604)
+	at org.grobid.core.engines.ProcessEngine.processFullTextDirectory(ProcessEngine.java:233)
+	at org.grobid.core.engines.ProcessEngine.processFullText(ProcessEngine.java:182)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.grobid.core.utilities.Utilities.launchMethod(Utilities.java:356)
+	at org.grobid.core.main.batch.GrobidMain.main(GrobidMain.java:229)
+15:40:51.618 [main] INFO  o.g.c.u.crossref.CrossrefClient - CrossRef API tier: Public (no mailto, no token) - concurrency: 1, rate: 5 req/sec
+16:07:37.221 [main] INFO  o.grobid.core.main.GrobidHomeFinder - No Grobid property was provided. Attempting to find Grobid home in the current directory...
+16:07:37.224 [main] INFO  o.grobid.core.main.GrobidHomeFinder - *** USING GROBID HOME: /mnt/c/Users/User/Desktop/grobid/grobid-0.9.1/grobid-home
+16:07:37.232 [main] INFO  o.grobid.core.main.GrobidHomeFinder - No Grobid property was provided. Attempting to find Grobid home in the current directory...
+16:07:37.235 [main] INFO  o.grobid.core.main.GrobidHomeFinder - *** USING GROBID HOME: /mnt/c/Users/User/Desktop/grobid/grobid-0.9.1/grobid-home
+16:07:37.239 [main] INFO  o.grobid.core.main.GrobidHomeFinder - Grobid config file location was not explicitly set via 'org.grobid.config' system variable, defaulting to: /mnt/c/Users/User/Desktop/grobid/grobid-0.9.1/grobid-home/config/grobid.yaml
+16:07:37.924 [main] INFO  o.grobid.core.engines.ProcessEngine - Processing: /tmp/onepdf/de939065eac2b5fd.pdf
+16:07:37.930 [main] INFO  org.grobid.core.main.LibraryLoader - Loading external native sequence labelling library
+16:07:37.950 [main] INFO  org.grobid.core.main.LibraryLoader - Loading Wapiti native library...
+16:07:38.002 [main] INFO  org.grobid.core.main.LibraryLoader - Native library for sequence labelling loaded
+16:08:48.626 [main] INFO  o.g.c.u.crossref.CrossrefClient - CrossRef API tier: Public (no mailto, no token) - concurrency: 1, rate: 5 req/sec
+16:09:39.119 [main] INFO  o.grobid.core.main.GrobidHomeFinder - No Grobid property was provided. Attempting to find Grobid home in the current directory...
+16:09:39.125 [main] INFO  o.grobid.core.main.GrobidHomeFinder - *** USING GROBID HOME: /mnt/c/Users/User/Desktop/grobid/grobid-0.9.1/grobid-home
+16:09:39.137 [main] INFO  o.grobid.core.main.GrobidHomeFinder - No Grobid property was provided. Attempting to find Grobid home in the current directory...
+16:09:39.140 [main] INFO  o.grobid.core.main.GrobidHomeFinder - *** USING GROBID HOME: /mnt/c/Users/User/Desktop/grobid/grobid-0.9.1/grobid-home
+16:09:39.146 [main] INFO  o.grobid.core.main.GrobidHomeFinder - Grobid config file location was not explicitly set via 'org.grobid.config' system variable, defaulting to: /mnt/c/Users/User/Desktop/grobid/grobid-0.9.1/grobid-home/config/grobid.yaml
+16:09:39.779 [main] INFO  o.grobid.core.engines.ProcessEngine - Processing: /tmp/onepdf/de939065eac2b5fd.pdf
+16:09:39.785 [main] INFO  org.grobid.core.main.LibraryLoader - Loading external native sequence labelling library
+16:09:39.808 [main] INFO  org.grobid.core.main.LibraryLoader - Loading Wapiti native library...
+16:09:39.829 [main] INFO  org.grobid.core.main.LibraryLoader - Native library for sequence labelling loaded
+16:10:40.536 [main] INFO  o.g.c.u.crossref.CrossrefClient - CrossRef API tier: Public (no mailto, no token) - concurrency: 1, rate: 5 req/sec
+16:11:26.365 [main] INFO  o.grobid.core.main.GrobidHomeFinder - No Grobid property was provided. Attempting to find Grobid home in the current directory...
+16:11:26.370 [main] INFO  o.grobid.core.main.GrobidHomeFinder - *** USING GROBID HOME: /mnt/c/Users/User/Desktop/grobid/grobid-0.9.1/grobid-home
+16:11:26.382 [main] INFO  o.grobid.core.main.GrobidHomeFinder - No Grobid property was provided. Attempting to find Grobid home in the current directory...
+16:11:26.386 [main] INFO  o.grobid.core.main.GrobidHomeFinder - *** USING GROBID HOME: /mnt/c/Users/User/Desktop/grobid/grobid-0.9.1/grobid-home
+16:11:26.393 [main] INFO  o.grobid.core.main.GrobidHomeFinder - Grobid config file location was not explicitly set via 'org.grobid.config' system variable, defaulting to: /mnt/c/Users/User/Desktop/grobid/grobid-0.9.1/grobid-home/config/grobid.yaml
+16:11:27.083 [main] INFO  o.grobid.core.engines.ProcessEngine - Processing: /tmp/allpdf/3ecdcbd448da8a7f.pdf
+16:11:27.089 [main] INFO  org.grobid.core.main.LibraryLoader - Loading external native sequence labelling library
+16:11:27.116 [main] INFO  org.grobid.core.main.LibraryLoader - Loading Wapiti native library...
+16:11:27.153 [main] INFO  org.grobid.core.main.LibraryLoader - Native library for sequence labelling loaded
+16:12:27.497 [main] INFO  o.grobid.core.engines.FullTextParser - Number of tables badly formatted or incomplete we identified in Annex: 1
+16:12:32.518 [main] INFO  o.grobid.core.engines.ProcessEngine - Processing: /tmp/allpdf/c380c744307c0dd5.pdf
+16:13:10.685 [main] INFO  o.grobid.core.engines.FullTextParser - Number of figures badly formatted or incomplete we identified: 4
+16:13:11.806 [main] INFO  o.grobid.core.engines.FullTextParser - Number of tables badly formatted or incomplete we identified: 33
+16:13:12.655 [main] INFO  o.grobid.core.engines.FullTextParser - Number of tables badly formatted or incomplete we identified in Annex: 1
+16:13:14.198 [main] INFO  o.grobid.core.engines.ProcessEngine - Processing: /tmp/allpdf/a4bbe8aa65dd82a8.pdf
+16:13:17.196 [main] INFO  o.grobid.core.engines.FullTextParser - Number of figures badly formatted or incomplete we identified: 1
+16:13:17.265 [main] INFO  o.grobid.core.engines.FullTextParser - Number of tables badly formatted or incomplete we identified: 1
+16:13:17.317 [main] INFO  o.grobid.core.engines.FullTextParser - Number of tables badly formatted or incomplete we identified in Annex: 1
+16:13:17.441 [main] INFO  o.grobid.core.engines.ProcessEngine - Processing: /tmp/allpdf/de939065eac2b5fd.pdf
+16:13:19.822 [main] INFO  o.grobid.core.engines.ProcessEngine - Processing: /tmp/allpdf/fc75f1d5298c3260.pdf
+16:13:22.002 [main] INFO  o.grobid.core.engines.FullTextParser - Number of tables badly formatted or incomplete we identified: 2
+16:13:22.141 [main] INFO  o.grobid.core.engines.ProcessEngine - Processing: /tmp/allpdf/bd9995f482cbc04b.pdf
+16:13:24.939 [main] INFO  o.grobid.core.engines.ProcessEngine - Processing: /tmp/allpdf/bf4f8f5a11055379.pdf
+16:13:26.305 [main] INFO  o.grobid.core.engines.FullTextParser - Number of tables badly formatted or incomplete we identified: 2
+16:13:26.381 [main] INFO  o.grobid.core.engines.ProcessEngine - Processing: /tmp/allpdf/69e040d16b7320d7.pdf
+16:13:36.824 [main] INFO  o.grobid.core.engines.FullTextParser - Number of tables badly formatted or incomplete we identified: 1
+16:13:36.935 [main] INFO  o.grobid.core.engines.FullTextParser - Number of tables badly formatted or incomplete we identified in Annex: 1
+16:13:37.102 [main] INFO  o.grobid.core.engines.ProcessEngine - Processing: /tmp/allpdf/98fe85bec4128a6f.pdf
+16:13:40.104 [main] INFO  o.grobid.core.engines.FullTextParser - Number of tables badly formatted or incomplete we identified: 1
+16:13:40.406 [main] INFO  o.grobid.core.engines.ProcessEngine - Processing: /tmp/allpdf/8dd0f644a9012191.pdf
+16:13:50.842 [main] INFO  o.grobid.core.engines.ProcessEngine - Processing: /tmp/allpdf/89e1a723c3028a8a.pdf
+16:13:56.616 [main] INFO  o.grobid.core.engines.FullTextParser - Number of tables badly formatted or incomplete we identified: 1
+16:13:56.874 [main] INFO  o.g.c.u.crossref.CrossrefClient - CrossRef API tier: Public (no mailto, no token) - concurrency: 1, rate: 5 req/sec
+17:09:04.190 [main] INFO  o.grobid.core.main.GrobidHomeFinder - No Grobid property was provided. Attempting to find Grobid home in the current directory...
+17:09:04.194 [main] INFO  o.grobid.core.main.GrobidHomeFinder - *** USING GROBID HOME: /mnt/c/Users/User/Desktop/grobid/grobid-0.9.1/grobid-home
+17:09:04.202 [main] INFO  o.grobid.core.main.GrobidHomeFinder - No Grobid property was provided. Attempting to find Grobid home in the current directory...
+17:09:04.204 [main] INFO  o.grobid.core.main.GrobidHomeFinder - *** USING GROBID HOME: /mnt/c/Users/User/Desktop/grobid/grobid-0.9.1/grobid-home
+17:09:04.207 [main] INFO  o.grobid.core.main.GrobidHomeFinder - Grobid config file location was not explicitly set via 'org.grobid.config' system variable, defaulting to: /mnt/c/Users/User/Desktop/grobid/grobid-0.9.1/grobid-home/config/grobid.yaml
+17:09:04.686 [main] INFO  o.grobid.core.engines.ProcessEngine - Processing: /tmp/new3/88747fa53f34fc92.pdf
+17:09:04.690 [main] INFO  org.grobid.core.main.LibraryLoader - Loading external native sequence labelling library
+17:09:04.704 [main] INFO  org.grobid.core.main.LibraryLoader - Loading Wapiti native library...
+17:09:04.717 [main] INFO  org.grobid.core.main.LibraryLoader - Native library for sequence labelling loaded
+17:09:51.299 [main] INFO  o.grobid.core.engines.FullTextParser - Number of tables badly formatted or incomplete we identified: 1
+17:09:55.473 [main] INFO  o.grobid.core.engines.ProcessEngine - Processing: /tmp/new3/7eef56b17a6ac155.pdf
+17:10:04.015 [main] INFO  o.grobid.core.engines.ProcessEngine - Processing: /tmp/new3/211950e67902e3ec.pdf
+17:10:10.281 [main] INFO  o.g.c.u.crossref.CrossrefClient - CrossRef API tier: Public (no mailto, no token) - concurrency: 1, rate: 5 req/sec
+20:59:31.382 [main] INFO  o.grobid.core.main.GrobidHomeFinder - No Grobid property was provided. Attempting to find Grobid home in the current directory...
+20:59:31.388 [main] INFO  o.grobid.core.main.GrobidHomeFinder - *** USING GROBID HOME: /mnt/c/Users/User/Desktop/grobid/grobid-0.9.1/grobid-home
+20:59:31.399 [main] INFO  o.grobid.core.main.GrobidHomeFinder - No Grobid property was provided. Attempting to find Grobid home in the current directory...
+20:59:31.403 [main] INFO  o.grobid.core.main.GrobidHomeFinder - *** USING GROBID HOME: /mnt/c/Users/User/Desktop/grobid/grobid-0.9.1/grobid-home
+20:59:31.408 [main] INFO  o.grobid.core.main.GrobidHomeFinder - Grobid config file location was not explicitly set via 'org.grobid.config' system variable, defaulting to: /mnt/c/Users/User/Desktop/grobid/grobid-0.9.1/grobid-home/config/grobid.yaml
+20:59:31.994 [main] INFO  o.grobid.core.engines.ProcessEngine - Processing: /tmp/new1/9454731aad7c0004.pdf
+20:59:32.001 [main] INFO  org.grobid.core.main.LibraryLoader - Loading external native sequence labelling library
+20:59:32.029 [main] INFO  org.grobid.core.main.LibraryLoader - Loading Wapiti native library...
+20:59:32.045 [main] INFO  org.grobid.core.main.LibraryLoader - Native library for sequence labelling loaded
+21:00:23.762 [main] INFO  o.grobid.core.engines.FullTextParser - Number of tables badly formatted or incomplete we identified: 1
+21:00:23.859 [main] INFO  o.grobid.core.engines.FullTextParser - Number of tables badly formatted or incomplete we identified in Annex: 1
+21:00:28.258 [main] INFO  o.g.c.u.crossref.CrossrefClient - CrossRef API tier: Public (no mailto, no token) - concurrency: 1, rate: 5 req/sec
