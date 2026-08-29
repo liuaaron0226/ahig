@@ -20,13 +20,24 @@
 
 <!-- BEGIN GENERATED n115 -->
 
-共 **54** 個佔位符。凍結 **32**、漂移 **22**；其中 **8** 個之權威來源**協調者無法自行核對**（見下文第二節）。
+共 **65** 個佔位符。凍結 **42**、漂移 **23**；其中 **9** 個之權威來源**協調者無法自行核對**（見下文第二節）。
 
 | 節 | 佔位符 | 類別 | 來源型態 | 定位 |
 |---|---|---|---|---|
 | 甲 | `COLLISION_N` | 漂移 | 產物 | `docs/w4b-design-inputs.md`（**受追蹤**）之 `C-*` 相異編號＝**40**（⚠️ 檔內排列非遞增，🚫 不得以「順序遞增」查完備） |
 | 甲 | `ORPHAN_N` | 凍結 | 看板 | 看板 23514–23515；⚠️ 私有根之 `critical-harms-sweep-orphans` 工作單協調者不可及 |
-| 乙 | `SEX_REPRESENTATION` | 凍結 | 看板 | 看板 49702 之量測（無產物、無雜湊） |
+| 乙 | `ADVANCE_EXPECTED` | 凍結 | 看板 | 同上：advance 側兩段合計期望 16.9 筆 |
+| 乙 | `ADVANCE_OBSERVED` | 凍結 | 看板 | 同上：實測 1 筆 |
+| 乙 | `FISHER_P` | 凍結 | 看板 | 同上：Fisher p=0.0011 |
+| 乙 | `PLANNING_RATE_F` | 凍結 | 看板 | 同上，女性 67–72% |
+| 乙 | `PLANNING_RATE_M` | 凍結 | 看板 | 同上，男性 91–93% |
+| 乙 | `PLANNING_RATE_OVERALL` | 凍結 | 看板 | 看板 49702：菁英層級補給規劃率（⚠️ **規劃率，非佔比**） |
+| 乙 | `SEX_SAMPLE_COMPOSITION` | 漂移 | 不可及 | 證據體之性別組成，私有根名冊；🚨 與規劃率是兩個量 |
+| 乙 | `SIGNAL_DENSITY_RATIO` | 凍結 | 看板 | 同上：標題碳水訊號密度相差 26.57 倍 |
+| 乙 | `THRESHOLD3_GAP` | 凍結 | 看板 | 同上：差 0.02 倍而未放寬 |
+| 乙 | `THRESHOLD3_STRATA` | 凍結 | 看板 | 看板 47448–47460：三分層之門檻 3 實測 **1.52** |
+| 乙 | `THRESHOLD3_SUBGROUP` | 凍結 | 看板 | 同上：「補得到」子群體之門檻 3 實測 **1.76**（🚨 與 1.52 是兩個檢定） |
+| 乙 | `THRESHOLD3_VALUE` | 凍結 | 看板 | 同上：事前門檻 1.5 |
 | 乙 | `TITLE_ONLY_N` | 漂移 | 不可及 | 私有根 `title-only-judged-roster.json` → `entryCount`＝**175**（執行室量測）；🚨 不得以判讀理由文字代算 |
 | 丙 | `ALPHA` | 凍結 | 原始碼 | `statistical_termination.py` `DEFAULT_ALPHA` = 0.05 |
 | 丙 | `NOT_SCREENED_STD` | 漂移 | 產物 | `.scratch/n78_termination_evidence.json` → `tailSpotCheckPopulation.count`（**閉合式之第三項**） |
