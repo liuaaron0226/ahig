@@ -1,0 +1,159 @@
+{
+ "schemaVersion": 1,
+ "documentType": "inaccessible-placeholder-producer",
+ "ruling": "n+151(1): the 不可及 cells are the executor room to run. This makes them one command instead of a hand rebuild on delivery day.",
+ "population": "cells whose kind is 不可及 in n115_delivery_checklist.py's DETAIL, read by ast rather than copied",
+ "countingUnit": "placeholder cell",
+ "cellsFound": 17,
+ "cellsWithNonLiteralKind": [],
+ "cellsPerN151": 17,
+ "listDrift": false,
+ "producible": [
+  "ACQ_ALL",
+  "ACQ_SCOPED",
+  "LIC_FILLED",
+  "NARR_COMPARATOR_ADV",
+  "NARR_COMPARATOR_N",
+  "NARR_INSTRUMENT_N",
+  "NARR_RETRACT_TEXT_N",
+  "RETRACT_FIELD_N",
+  "SHADOW_CONCORDANT",
+  "SHADOW_QUEUED",
+  "TAG_ROSTER_COUNT",
+  "TAG_ROSTER_TOTAL",
+  "TITLE_ONLY_N"
+ ],
+ "notProducible": [
+  "HARMS_S5_ACTUAL",
+  "POP_WORDING_UNCLEAR_N",
+  "SEX_SAMPLE_COMPOSITION",
+  "TITLE_ONLY_EXPECTED_GAP"
+ ],
+ "notCovered": [],
+ "cells": {
+  "TITLE_ONLY_N": {
+   "producible": true,
+   "value": 175,
+   "population": "standard-full-screen-pass-1 之 title-only-judged 名冊檔",
+   "note": "✅ 控制：entryCount 與 entries 長度相符"
+  },
+  "SHADOW_CONCORDANT": {
+   "producible": true,
+   "value": 288,
+   "population": "screening-shadow-gate 之 machine-reconciliation（candidateCount 300）",
+   "note": ""
+  },
+  "SHADOW_QUEUED": {
+   "producible": true,
+   "value": 12,
+   "population": "同上——⚠️ 與 concordant 同母體，🚫 不得與其他影子批次相加",
+   "note": ""
+  },
+  "RETRACT_FIELD_N": {
+   "producible": true,
+   "value": 10,
+   "population": "八份 worksheet 之聯集，逐筆去重（candidateId）",
+   "note": "🚨 逐份為 {'critical-harms-sweep': 0, 'critical-harms-sweep-orphans': 0, 'safety-full-screen-pass-1': 3, 'safety-full-screen-pass-2': 3, 'screening-pilot': 0, 'screening-shadow-pass-a': 0, 'screening-shadow-pass-b': 0, 'standard-full-screen-pass-1': 7}——⚠️ 各份互有重疊，故「哪一份」與「聯集」是不同的量；🚫 交付時須點名母體，並依 n+86（十）逐筆確認主題涵蓋。"
+  },
+  "ACQ_ALL": {
+   "producible": true,
+   "value": 41,
+   "population": "私有根 fulltext/ 全體之 acquired manifest（⚠️ 含本工作線以外之舊工作線）",
+   "note": "🚨 依 n+151（三）：走目錄之計數須列出被排除者——舊命名目錄 4 個（ahig_candidate_publication_21e2911、ahig_candidate_publication_465dca4、ahig_candidate_publication_c3c6e0d、ahig_candidate_publication_c7470eb）、非 artifact 目錄 3 個（pdf-cache、tei-cache、tei-test）。"
+  },
+  "ACQ_SCOPED": {
+   "producible": true,
+   "value": 27,
+   "population": "校準集抽出 60 ＋ n+103 接受之遞補 24 ＝ 84 筆之中的 acquired",
+   "note": "🚨 n+138 曾把此數誤標為「全體 manifest」——⚠️ 分母是 84，🚫 不是 60，亦🚫 不是 ACQ_ALL 之母體。"
+  },
+  "LIC_FILLED": {
+   "producible": true,
+   "value": 5,
+   "population": "acquired manifest 之 artifact.licence 為純字串者（🚨 JATS 自動擷取者為 `{href, text}` 物件，共 24 筆）",
+   "note": "⚠️ 兩者以**形狀**區分，🚫 沒有明確的「由誰填」欄位——🚨 故此判準脆弱：若日後自動擷取也寫成字串，這格會靜靜地變大。"
+  },
+  "NARR_COMPARATOR_N": {
+   "producible": true,
+   "value": 127,
+   "population": "standard-full-screen-pass-1 之判讀理由文字中 comparator 缺口字樣",
+   "note": "🚨 這是**已掛牌者**之數，🚫 不是該類母體——⚠️ 未掛牌者本檔看不到。"
+  },
+  "NARR_COMPARATOR_ADV": {
+   "producible": true,
+   "value": 91,
+   "population": "同上之 advance 筆數",
+   "note": "⚠️ 這一格存在的理由就是「總數會被讀成排除數」（n+115）。"
+  },
+  "NARR_INSTRUMENT_N": {
+   "producible": true,
+   "value": 31,
+   "population": "同上，儀器效度敘述式",
+   "note": ""
+  },
+  "NARR_RETRACT_TEXT_N": {
+   "producible": true,
+   "value": 10,
+   "population": "同上，理由文字之撤稿字樣",
+   "note": "🚨 🚫 不得與 `RETRACT_FIELD_N` 混用或相加——⚠️ 一個來自理由文字、一個來自 `publicationTypes` 欄位，母體與認定方式都不同。"
+  },
+  "TAG_ROSTER_TOTAL": {
+   "producible": true,
+   "value": 1650,
+   "population": "所有掛牌名單去重後之合計（同一筆可掛多牌）",
+   "note": ""
+  },
+  "TAG_ROSTER_COUNT": {
+   "producible": true,
+   "value": 14,
+   "population": "n60_tags 現跑之掛牌名單份數",
+   "note": "⚠️ 份數本身會隨新掛牌而變；🚨 已解析之列名：[outcome-adjacent]、[intermittent-team-sport]、[age]、[route]、…"
+  },
+  "TITLE_ONLY_EXPECTED_GAP": {
+   "producible": false,
+   "blocker": "須由「僅憑題名判讀」之**率**推導，而 n+121 已裁定舊率（14.7%）取自特定段落不得直接套用；🚨 該用哪個率是裁定，🚫 不是檢索——待協調者裁定。",
+   "blockerKind": "needs-ruling"
+  },
+  "SEX_SAMPLE_COMPOSITION": {
+   "producible": false,
+   "blocker": "證據體之性別組成須讀全文之受試者段落；🚨 萃取階段尚未開始，⚠️ 且它與「規劃率」是兩個量，🚫 不得互代。",
+   "blockerKind": "needs-extraction"
+  },
+  "POP_WORDING_UNCLEAR_N": {
+   "producible": false,
+   "blocker": "「僅卡族群措辭」是對判讀理由的**判讀**，🚫 不是檢索；⚠️ `[population]` 掛牌數（n60_tags 現跑）是**已掛牌者**，🚨 不等於該類母體，故不得頂替。",
+   "blockerKind": "needs-judgement"
+  },
+  "HARMS_S5_ACTUAL": {
+   "producible": false,
+   "blocker": "🚨 全文取得後、萃取判讀完成才存在；⚠️ 且 n+147 已明訂：GI 是否為主要結局之判斷正是 S5 要量的東西，🚫 不得由取得端順手做掉。",
+   "blockerKind": "needs-extraction"
+  }
+ },
+ "retractionPerWorksheet": {
+  "critical-harms-sweep": 0,
+  "critical-harms-sweep-orphans": 0,
+  "safety-full-screen-pass-1": 3,
+  "safety-full-screen-pass-2": 3,
+  "screening-pilot": 0,
+  "screening-shadow-pass-a": 0,
+  "screening-shadow-pass-b": 0,
+  "standard-full-screen-pass-1": 7
+ },
+ "legacyDirectoriesExcluded": [
+  "ahig_candidate_publication_21e29112ef4d15d8fe4d9796",
+  "ahig_candidate_publication_465dca4abe3d419a0c094731",
+  "ahig_candidate_publication_c3c6e0d4ea912e19b9479d4a",
+  "ahig_candidate_publication_c7470eb375e0928eb4713afa"
+ ],
+ "nonArtifactDirectoriesExcluded": [
+  "pdf-cache",
+  "tei-cache",
+  "tei-test"
+ ],
+ "mustRecomputeOnDeliveryDay": true,
+ "valuesAreNotAnswers": "Every value here is evidence that the cell can be produced, not the value to paste. n+151(1) requires each cell to be computed on the day of delivery.",
+ "coverageStatement": "Produces what can be counted from private-root files or existing read-only scripts. Cells needing a judgement, a ruling, or an extraction that has not happened are reported as not producible with the specific blocker, never filled with an approximation. Values parsed out of n60_tags.py's printed table are anchored; a missing anchor yields parse-failed rather than a number.",
+ "contentNote": "Counts, cell names and population statements only.",
+ "producerHash": "sha256:b61f5579e29d504df5b9ee4af78acce5da15744aed157f87e0868521570bb01c"
+}
