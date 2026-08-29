@@ -67796,3 +67796,78 @@ GitHub 最新為 **0.9.1（2026-08-04）**，其資產僅三個 jar，
 **預警段 5／32 ✅**｜**測試 717 passed／0 failed ✅，exit=0**。**`ahig/` 本輪零改動。**
 
 **M1 四步：① ✅｜② ✅｜③ ✅｜④ 🏁 工具已定；PDF 在手 11 筆，⏳ GROBID 建置中。**
+
+---
+
+## 🔬 執行室回報：**TEI 接線之規格已釐清（讀出來的，不是猜的）；並浮出一個須裁示的設計問題**（第 458 輪）
+
+`git pull --ff-only` → 無新提交。GROBID 原始碼背景下載中（已逾 100 MB，仍在進行）。
+**⚠️ 趁此段做不需等 GROBID 之準備：把「接線要改什麼」讀清楚，使工單能寫得精確。**
+
+### 一、✅ `parse_tei` 與 `parse_jats` **輸出同一個契約**
+
+以 repo 內既有 fixture `tests/fixtures/fulltext/sample-tei.xml` 實跑 `parse_tei`：
+
+```
+documentType     fulltext-sections          （與 JATS 同）
+sourceType       grobid-tei                 （JATS 為 europe-pmc-jats）
+parserVersion    ahig-fulltext/1.0.0        （同）
+sourceSha256／contentSha256                  （同）
+sections[]       path／title／text／startOffset／endOffset   （✅ 完全相同之欄位）
+producer         {"ident": "GROBID", "version": "0.9.1"}   ← ⚠️ 正是本室要裝之版本
+pdfLocatorReady  false｜locatorMode  section-character-offset-only
+```
+
+**✅ 即節切分與字元偏移契約已經成立，接線不必重做契約層。**
+
+### 二、🚨 接線缺的兩塊，第一塊是具體的程式碼問題
+
+**`_artifact_files`（`fulltext.py:435`）把副檔名寫死**：
+
+```python
+raw_file = f"source-{source_token}.jats.xml"
+```
+
+**🚨 故 TEI 路徑若沿用此函式，產出之原始檔會被命名為 `.jats.xml`**
+——**⚠️ 而它其實是 PDF 或 TEI。名實不符，且本 run 已因此吃過虧（n+111 四）。**
+**須加一個來源型別參數。⚠️ 這是小改，但不改就會在產物層留下錯標。**
+
+### 三、🚨 第二塊是設計問題，本室不自行決定
+
+JATS 路徑之 `source_sha256` 指的是**取回之 JATS 原文**——**一個來源、一份原始檔。**
+**⚠️ 而 PDF 路徑有兩份**：
+
+```
+① 抓回來的 PDF        ← 真正的原始來源（已在手 11 檔）
+② GROBID 產出之 TEI   ← 衍生之中間物，parse_tei 之實際輸入
+```
+
+**🚨 現行結構只容得下一個 `source_sha256`。** 三種可能，各有代價：
+
+| | 記什麼 | 代價 |
+|---|---|---|
+| 甲 | 只記 PDF | ⚠️ 無法重現 TEI；GROBID 版本一換，節切分即不可複核 |
+| 乙 | 只記 TEI | 🚨 失去與「實際抓到的檔案」之連結，取得層之證據鏈斷在此 |
+| 丙 | **兩者都記** | ⚠️ 須擴充 artefact 結構（多一個雜湊與一份檔案） |
+
+**⚠️ 本室傾向丙**——🚨 因為本案評審一路要求「可獨立重跑」，
+而甲、乙各斷一半；**🚫 惟這改動 artefact 契約，屬協調者職權，本室不自行動手。**
+
+### 四、⚠️ 本輪之界線
+
+**🚫 本室未改任何 `ahig/` 程式碼**——⚠️ 上述為規格釐清，非實作。
+**✅ 但工單現在可以寫得精確**：不再是「把 TEI 接進去」，而是
+**「①`_artifact_files` 加來源型別參數 ②裁示 PDF／TEI 之雜湊記法 ③依裁示接線」。**
+
+### 五、⏳ GROBID 現況
+
+原始碼 zip 下載中（>100 MB）。**⚠️ 真正的驗收點不是建置成功，
+🚨 而是「GROBID 對本室這 11 個真實 PDF 之輸出能否通過 `parse_tei`」**
+——⚠️ fixture 通過只證明契約實作正確，**🚫 不證明真實輸出符合該契約。**
+
+### 六、每輪必做
+
+**閘門**：樣式來源 ✅✅✅｜控制探針 ✅✅✅｜n+48 兩道 ✅｜n+54 三道 ✅｜
+**預警段 5／32 ✅**｜**測試 717 passed／0 failed ✅，exit=0**。**`ahig/` 本輪零改動。**
+
+**M1 四步：① ✅｜② ✅｜③ ✅｜④ 🏁 工具已定，接線規格已釐清，⏳ GROBID 下載中。**
