@@ -1,0 +1,122 @@
+{
+ "schemaVersion": 1,
+ "documentType": "tei-registration-dry-run",
+ "ruling": "executor question raised in round 483; not yet answered",
+ "population": "the 15 TEI produced by GROBID",
+ "countingUnit": "manifest",
+ "criterion": "what _publish_tei would change if run; nothing was written",
+ "wouldAffect": [
+  {
+   "idFrag": "211950e67902e3ec",
+   "from": "available-landing-page",
+   "to": "acquired",
+   "pdfPresent": true,
+   "existingArtifacts": 0
+  },
+  {
+   "idFrag": "3ecdcbd448da8a7f",
+   "from": "available-pdf",
+   "to": "acquired",
+   "pdfPresent": true,
+   "existingArtifacts": 0
+  },
+  {
+   "idFrag": "69e040d16b7320d7",
+   "from": "available-pdf",
+   "to": "acquired",
+   "pdfPresent": true,
+   "existingArtifacts": 0
+  },
+  {
+   "idFrag": "7eef56b17a6ac155",
+   "from": "available-pdf",
+   "to": "acquired",
+   "pdfPresent": true,
+   "existingArtifacts": 0
+  },
+  {
+   "idFrag": "88747fa53f34fc92",
+   "from": "available-landing-page",
+   "to": "acquired",
+   "pdfPresent": true,
+   "existingArtifacts": 0
+  },
+  {
+   "idFrag": "89e1a723c3028a8a",
+   "from": "available-pdf",
+   "to": "acquired",
+   "pdfPresent": true,
+   "existingArtifacts": 0
+  },
+  {
+   "idFrag": "8dd0f644a9012191",
+   "from": "available-landing-page",
+   "to": "acquired",
+   "pdfPresent": true,
+   "existingArtifacts": 0
+  },
+  {
+   "idFrag": "9454731aad7c0004",
+   "from": "available-pdf",
+   "to": "acquired",
+   "pdfPresent": true,
+   "existingArtifacts": 0
+  },
+  {
+   "idFrag": "98fe85bec4128a6f",
+   "from": "available-pdf",
+   "to": "acquired",
+   "pdfPresent": true,
+   "existingArtifacts": 0
+  },
+  {
+   "idFrag": "a4bbe8aa65dd82a8",
+   "from": "available-landing-page",
+   "to": "acquired",
+   "pdfPresent": true,
+   "existingArtifacts": 0
+  },
+  {
+   "idFrag": "bd9995f482cbc04b",
+   "from": "available-pdf",
+   "to": "acquired",
+   "pdfPresent": true,
+   "existingArtifacts": 0
+  },
+  {
+   "idFrag": "bf4f8f5a11055379",
+   "from": "available-pdf",
+   "to": "acquired",
+   "pdfPresent": true,
+   "existingArtifacts": 0
+  },
+  {
+   "idFrag": "c380c744307c0dd5",
+   "from": "available-pdf",
+   "to": "acquired",
+   "pdfPresent": true,
+   "existingArtifacts": 0
+  },
+  {
+   "idFrag": "de939065eac2b5fd",
+   "from": "available-pdf",
+   "to": "acquired",
+   "pdfPresent": true,
+   "existingArtifacts": 0
+  },
+  {
+   "idFrag": "fc75f1d5298c3260",
+   "from": "available-pdf",
+   "to": "acquired",
+   "pdfPresent": true,
+   "existingArtifacts": 0
+  }
+ ],
+ "statusBefore": {
+  "available-landing-page": 4,
+  "available-pdf": 11
+ },
+ "natureOfChange": "status flips from available-* to acquired and one artifact is appended per record, with three files landing in each candidate directory",
+ "notExecuted": true,
+ "contentNote": "Id fragments and statuses only."
+}
