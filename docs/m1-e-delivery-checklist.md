@@ -20,7 +20,7 @@
 
 <!-- BEGIN GENERATED n115 -->
 
-共 **129** 個佔位符。凍結 **55**、漂移 **74**；其中 **17** 個之權威來源**協調者無法自行核對**（見下文第二節）。
+共 **133** 個佔位符。凍結 **55**、漂移 **78**；其中 **17** 個之權威來源**協調者無法自行核對**（見下文第二節）。
 
 | 節 | 佔位符 | 類別 | 來源型態 | 定位 |
 |---|---|---|---|---|
@@ -119,6 +119,7 @@
 | 辛 | `LANDING_WORDS_MED` | 凍結 | 產物 | 同上：中位 **3,807** |
 | 辛 | `LANDING_WORDS_MIN` | 凍結 | 產物 | 同上：去標籤字數最小 **160** |
 | 辛 | `LANDING_WORTH_PARSER` | 凍結 | 產物 | 同上：達門檻者＝**0**（⚠️ 就已量到的 16 筆而言，非 33 筆） |
+| 辛 | `LEGACY_DIRS` | 漂移 | 產物 | `.scratch/n496_corpus_verify.json` → `legacySchemeDirectories` 之長度＝**4**（我已自檔覆核）；🚨 不刪，僅排除並列名 |
 | 辛 | `LIC_FILLED` | 漂移 | 不可及 | 私有根 manifest 之 `licence` 欄，執行室依 n+138 填入並附來源與查取日期＝**5**；⚠️ 母體為首批 8 筆，🚫 不得外推 |
 | 辛 | `OBTAINABLE_N` | 漂移 | 產物 | `.scratch/m1_step3_inventory.json`＋`m1_step3_backfill.json`；⚠️ **上界非保證** |
 | 辛 | `PDF_IN_HAND` | 漂移 | 產物 | `.scratch/n456_pdf_textlayer.json`：**11** 檔（我已自算） |
@@ -132,12 +133,15 @@
 | 辛 | `S3_ACQ_CALIB` | 漂移 | 產物 | `.scratch/n492_stratum_table.json`（**受追蹤**，我已自檔覆核）→ `S3-tte` 之 `acquiredCalibration60`＝**0**；🚨 全空，且曾被合計數藏住 |
 | 辛 | `S3_QUOTA` | 凍結 | 產物 | `ahig/calibration/b11-carbohydrate/strata.json` → `S3-tte` 配額＝**8**（我已自檔覆核） |
 | 辛 | `S7_POOL_N` | 凍結 | 看板 | 看板 63655 一帶之清點（S7 全池） |
+| 辛 | `SECTIONS_OK` | 漂移 | 產物 | `.scratch/n498_sections_integrity.json` → `counts.consistent`＝**41**（我已自檔覆核） |
 | 辛 | `SHORTFALL_HARMS` | 漂移 | 看板 | 同上（S5+S6） |
 | 辛 | `SHORTFALL_N` | 漂移 | 看板 | 校準集設計數 − 可得數，交付時現算 |
 | 辛 | `SHORTFALL_S7` | 漂移 | 看板 | 看板 63655 三之缺口分布 |
 | 辛 | `UNPROBED_ALT` | 漂移 | 產物 | `.scratch/n494_alt_oa_round2.json` → 有其他位址者＝**3**（其餘 9 筆無） |
 | 辛 | `UNPROBED_N` | 漂移 | 產物 | `.scratch/n493_unprobed_available.json` → `count`＝**12**（我已自檔覆核）；⚠️ 母體＝校準 60＋補集中從未試過者 |
 | 辛 | `UNPROBED_PDF` | 漂移 | 產物 | 同上 → `obtainable`＝**0**；🚨 🚫 不得由此推論「替代位址法無效」——該法之前提對本批不成立 |
+| 辛 | `UNTITLED_LEADING` | 漂移 | 產物 | 同上 → `totals.filesWhoseLeadingSectionIsUntitled`＝**5**；🚨 首節無標題者，摘要／前言最常在此 |
+| 辛 | `UNTITLED_SECTIONS` | 漂移 | 產物 | 同上 → `totals.untitledSections`＝**20**；⚠️ 判準為空字串**或**字面 `Untitled` |
 | 辛 | `VER_ACCEPTED` | 漂移 | 產物 | 同上 |
 | 辛 | `VER_PUBLISHED` | 漂移 | 產物 | `n486`＋`n487`＋`n488` 合計；⚠️ 三批母體互斥 |
 | 辛 | `VER_SUBMITTED` | 漂移 | 產物 | 同上；🚫 依 n+138 不得作為數值萃取來源 |
