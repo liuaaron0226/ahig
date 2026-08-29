@@ -31,6 +31,7 @@ ROW = re.compile(r"^\|\s*(`[^|]+`)\s*\|\s*([^|]+?)\s*\|\s*(.+?)\s*\|\s*$")
 CODE = re.compile(r"`([A-Z0-9_*]+)`")
 
 EV = "`.scratch/n78_termination_evidence.json`"
+SR = "`ahig/analysis/results/synergy_replay.json`（**受追蹤**）→ `aggregate"
 
 # 來源型態:
 #   產物   一個可從本 repo 開啟的檔案（可重現、部分帶雜湊）
@@ -42,10 +43,10 @@ DETAIL = {
     "ALPHA":            ("原始碼", "`statistical_termination.py` `DEFAULT_ALPHA` = 0.05"),
     "TARGET_RECALL":    ("原始碼", "同檔 `DEFAULT_TARGET_RECALL` = 0.95"),
     "SPOT_N":           ("原始碼", "同檔 `DEFAULT_TAIL_SPOT_CHECK_N` = 200"),
-    "W7_WALKS":         ("不可及", "🚨 W7 重放報告未入版控，協調者無法核對"),
-    "W7_RANDOM":        ("不可及", "🚨 同上"),
-    "W7_ADVERSARIAL":   ("不可及", "🚨 同上"),
-    "W7_TRIPWIRE_CATCH": ("不可及", "🚨 同上"),
+    "W7_WALKS":         ("產物", SR + '[*].walks`＝2270（六組皆同）'),
+    "W7_RANDOM":        ("產物", SR + "['random@look100'].violationRate`＝0.0115"),
+    "W7_ADVERSARIAL":   ("產物", SR + "['adversarial@look100'].violationRate`＝0.3652"),
+    "W7_TRIPWIRE_CATCH": ("產物", SR + "['adversarial@look100'].meanTailCatchOnViolation`＝0.8893"),
     "N_TOTAL_STD":      ("產物", EV + " → `standardLaneSequence.nTotal`"),
     "SEQ_LEN":          ("產物", EV + " → `standardLaneSequence.screenedCount`"),
     "OUT_OF_SEQ":       ("產物", EV + " → `standardLaneSequence.outOfSequenceCount`"),
@@ -61,13 +62,13 @@ DETAIL = {
     "OCC2_HITS":        ("產物", "`.scratch/n78_tail_result.json` → `result.relevantOrUnclearFound` **之長度**（非欄位值）"),
     "TRIGGER_CAUSE_ID": ("產物", EV + " → `triggerCause.candidateId`"),
     "P_ALLQUEUE":       ("產物", EV + " → `evaluateTerminationStandardBasis.pScore`（⚠️ 僅用於呈示禁句）"),
-    "PAGES_BETWEEN":    ("推導", "🚨 **兩種讀法，尚未裁定**——見下文第四節（四）"),
+    "PAGES_BETWEEN":    ("推導", "**已定案＝20**（299 − 279）；依據見第四節（四）"),
     "ORPHAN_N":         ("看板", "看板 23514–23515；⚠️ 私有根之 `critical-harms-sweep-orphans` 工作單協調者不可及"),
-    "COLLISION_N":      ("不可及", "🚨 碰撞清單檔未入版控"),
-    "TITLE_ONLY_N":     ("不可及", "名冊檔在私有根；🚨 不得以判讀理由文字代算"),
+    "COLLISION_N":      ("產物", "`docs/w4b-design-inputs.md`（**受追蹤**）之 `C-*` 相異編號＝**40**（⚠️ 檔內排列非遞增，🚫 不得以「順序遞增」查完備）"),
+    "TITLE_ONLY_N":     ("不可及", "私有根 `title-only-judged-roster.json` → `entryCount`＝**175**（執行室量測）；🚨 不得以判讀理由文字代算"),
     "SEX_REPRESENTATION": ("看板", "看板 49702 之量測（無產物、無雜湊）"),
-    "SHADOW_CONCORDANT": ("不可及", "`machine-reconciliation.json` 未入版控"),
-    "SHADOW_QUEUED":    ("不可及", "同上"),
+    "SHADOW_CONCORDANT": ("不可及", "私有根 `machine-reconciliation.json` → `counts.concordantCount`＝**288**（執行室量測）"),
+    "SHADOW_QUEUED":    ("不可及", "同上 → `counts.ownerAuditCount`＝**12**（執行室量測）"),
     "DEBT_B4":          ("看板", "影子歧異之尚欠項 11（未解決者，n+106 裁定；單位＝抽查項目）"),
     "DEBT_CUMULATIVE":  ("看板", "n+108：**22**（相加 23、重疊 1，已去重）"),
     "DEBT_SETTLED":     ("看板", "n+108：**6**"),

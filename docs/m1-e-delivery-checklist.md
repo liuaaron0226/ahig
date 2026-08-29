@@ -20,14 +20,14 @@
 
 <!-- BEGIN GENERATED n115 -->
 
-共 **33** 個佔位符。凍結 **25**、漂移 **8**；其中 **8** 個之權威來源**協調者無法自行核對**（見下文第二節）。
+共 **33** 個佔位符。凍結 **25**、漂移 **8**；其中 **3** 個之權威來源**協調者無法自行核對**（見下文第二節）。
 
 | 節 | 佔位符 | 類別 | 來源型態 | 定位 |
 |---|---|---|---|---|
-| 甲 | `COLLISION_N` | 漂移 | 不可及 | 🚨 碰撞清單檔未入版控 |
+| 甲 | `COLLISION_N` | 漂移 | 產物 | `docs/w4b-design-inputs.md`（**受追蹤**）之 `C-*` 相異編號＝**40**（⚠️ 檔內排列非遞增，🚫 不得以「順序遞增」查完備） |
 | 甲 | `ORPHAN_N` | 凍結 | 看板 | 看板 23514–23515；⚠️ 私有根之 `critical-harms-sweep-orphans` 工作單協調者不可及 |
 | 乙 | `SEX_REPRESENTATION` | 凍結 | 看板 | 看板 49702 之量測（無產物、無雜湊） |
-| 乙 | `TITLE_ONLY_N` | 漂移 | 不可及 | 名冊檔在私有根；🚨 不得以判讀理由文字代算 |
+| 乙 | `TITLE_ONLY_N` | 漂移 | 不可及 | 私有根 `title-only-judged-roster.json` → `entryCount`＝**175**（執行室量測）；🚨 不得以判讀理由文字代算 |
 | 丙 | `ALPHA` | 凍結 | 原始碼 | `statistical_termination.py` `DEFAULT_ALPHA` = 0.05 |
 | 丙 | `NOT_SCREENED_STD` | 漂移 | 產物 | `.scratch/n78_termination_evidence.json` → `tailSpotCheckPopulation.count`（**閉合式之第三項**） |
 | 丙 | `N_TOTAL_STD` | 凍結 | 產物 | `.scratch/n78_termination_evidence.json` → `standardLaneSequence.nTotal` |
@@ -41,22 +41,22 @@
 | 丙 | `OCC2_POP` | 漂移 | 產物 | `.scratch/n78_termination_evidence.json` → `tailSpotCheckPopulation.count` |
 | 丙 | `OCC2_W` | 凍結 | 產物 | `.scratch/n78_termination_evidence.json` → `standardLaneSequence.windowSize` |
 | 丙 | `OUT_OF_SEQ` | 凍結 | 產物 | `.scratch/n78_termination_evidence.json` → `standardLaneSequence.outOfSequenceCount` |
-| 丙 | `PAGES_BETWEEN` | 凍結 | 推導 | 🚨 **兩種讀法，尚未裁定**——見下文第四節（四） |
+| 丙 | `PAGES_BETWEEN` | 凍結 | 推導 | **已定案＝20**（299 − 279）；依據見第四節（四） |
 | 丙 | `P_ALLQUEUE` | 凍結 | 產物 | `.scratch/n78_termination_evidence.json` → `evaluateTerminationStandardBasis.pScore`（⚠️ 僅用於呈示禁句） |
 | 丙 | `SEQ_LEN` | 凍結 | 產物 | `.scratch/n78_termination_evidence.json` → `standardLaneSequence.screenedCount` |
 | 丙 | `SPOT_N` | 凍結 | 原始碼 | 同檔 `DEFAULT_TAIL_SPOT_CHECK_N` = 200 |
 | 丙 | `TARGET_RECALL` | 凍結 | 原始碼 | 同檔 `DEFAULT_TARGET_RECALL` = 0.95 |
 | 丙 | `TRIGGER_CAUSE_ID` | 凍結 | 產物 | `.scratch/n78_termination_evidence.json` → `triggerCause.candidateId` |
-| 丙 | `W7_ADVERSARIAL` | 凍結 | 不可及 | 🚨 同上 |
-| 丙 | `W7_RANDOM` | 凍結 | 不可及 | 🚨 同上 |
-| 丙 | `W7_TRIPWIRE_CATCH` | 凍結 | 不可及 | 🚨 同上 |
-| 丙 | `W7_WALKS` | 凍結 | 不可及 | 🚨 W7 重放報告未入版控，協調者無法核對 |
+| 丙 | `W7_ADVERSARIAL` | 凍結 | 產物 | `ahig/analysis/results/synergy_replay.json`（**受追蹤**）→ `aggregate['adversarial@look100'].violationRate`＝0.3652 |
+| 丙 | `W7_RANDOM` | 凍結 | 產物 | `ahig/analysis/results/synergy_replay.json`（**受追蹤**）→ `aggregate['random@look100'].violationRate`＝0.0115 |
+| 丙 | `W7_TRIPWIRE_CATCH` | 凍結 | 產物 | `ahig/analysis/results/synergy_replay.json`（**受追蹤**）→ `aggregate['adversarial@look100'].meanTailCatchOnViolation`＝0.8893 |
+| 丙 | `W7_WALKS` | 凍結 | 產物 | `ahig/analysis/results/synergy_replay.json`（**受追蹤**）→ `aggregate[*].walks`＝2270（六組皆同） |
 | 丁 | `DEBT_B4` | 漂移 | 看板 | 影子歧異之尚欠項 11（未解決者，n+106 裁定；單位＝抽查項目） |
 | 丁 | `DEBT_CUMULATIVE` | 漂移 | 看板 | n+108：**22**（相加 23、重疊 1，已去重） |
 | 丁 | `DEBT_OUTSTANDING` | 漂移 | 看板 | n+108：**16**（W2 之 5 ∪ 影子 11）——⚠️ 單位＝**抽查項目**，非文獻 |
 | 丁 | `DEBT_SETTLED` | 漂移 | 看板 | n+108：**6** |
-| 丁 | `SHADOW_CONCORDANT` | 凍結 | 不可及 | `machine-reconciliation.json` 未入版控 |
-| 丁 | `SHADOW_QUEUED` | 凍結 | 不可及 | 同上 |
+| 丁 | `SHADOW_CONCORDANT` | 凍結 | 不可及 | 私有根 `machine-reconciliation.json` → `counts.concordantCount`＝**288**（執行室量測） |
+| 丁 | `SHADOW_QUEUED` | 凍結 | 不可及 | 同上 → `counts.ownerAuditCount`＝**12**（執行室量測） |
 
 <!-- END GENERATED n115 -->
 
@@ -79,13 +79,38 @@
 | 產物雜湊 | 該量測所依據之檔案雜湊，**並註明雜湊涵蓋什麼範圍** |
 | 覆核狀態 | 明寫「**執行室量測、協調者未獨立覆核**」 |
 
-**🚨 交付前須向執行室索取者**（依上表「不可及」欄，共 8 項）：
-W7 重放報告之四項數字、碰撞清單筆數、`[title-only-judged]` 名冊筆數、
-影子對帳之 `machine-reconciliation.json` 兩項。
+**🚨 現行「不可及」僅 3 項**，皆已由執行室提供值與 `file_hash`：
+`TITLE_ONLY_N` **175**、`SHADOW_CONCORDANT` **288**、`SHADOW_QUEUED` **12**。
+**⚠️ 三者交付時仍須標明「執行室量測、協調者未獨立覆核」。**
+
+### 🚨 更正：本檔初版把 **8** 項列為不可及，其中 **5** 項其實在版控裡
+
+執行室第 440 輪指出，**我自己就打得開**其中五項。**我已逐項自算覆核**：
+
+| 佔位符 | 我實算所得 | 出處（受追蹤） |
+|---|---|---|
+| `W7_WALKS` | **2270**（六組皆同） | `ahig/analysis/results/synergy_replay.json` → `aggregate[*].walks` |
+| `W7_RANDOM` | **0.0115** | 同上 → `['random@look100'].violationRate` |
+| `W7_ADVERSARIAL` | **0.3652** | 同上 → `['adversarial@look100'].violationRate` |
+| `W7_TRIPWIRE_CATCH` | **0.8893** | 同上 → `['adversarial@look100'].meanTailCatchOnViolation` |
+| `COLLISION_N` | **40**（相異 `C-*` 編號） | `docs/w4b-design-inputs.md` |
+
+**⚠️ 成因（要寫出來，因為它會再犯）**：我以**我以為它該有的檔名**去搜——
+搜 `w7` 搜不到 `synergy_replay.json`，搜 `碰撞|collision` 搜不到 `w4b-design-inputs.md`
+（而後者其實出現在我另一次 `git ls-files` 的輸出裡，**我看到了卻沒接上**）。
+**🚨 搜不到就宣告不存在，正是檢查表第一條所禁的形狀**——
+**「我沒看到」寫成「沒有」**，而本檔正是收攏這些規則的那一份。
+
+**⚠️ 立為規則**：**凡標「不可及」，須先跑 `git ls-files` 全表確認，不得以檔名猜測代替。**
+
+**⚠️ 併記一項執行室之提醒**：`C-1…C-40` **無重號無跳號，但檔內排列非遞增**，
+**🚫 故不得以「順序遞增」查完備**（執行室自陳第一次即如此得到假陰性）。
 
 ### ⚠️ 另須分清：「凍結」是交付規則，不是「有雜湊背書」
 
 上表 25 個凍結值中，**真正落在某個雜湊原像內的是少數**（見下節之實測）。
+**⚠️ 而「可自版控核對」與「有雜湊」又是第三件事**——
+`W7_*` 與 `COLLISION_N` 我可自行打開重算，但那兩個檔並非證據鏈之雜湊產物。
 **🚨 兩者不可混為一談**：
 「凍結」的意思是**交付時原樣引用、不重算**；
 「有雜湊」的意思是**稽核者可比對一個字串**。
@@ -133,7 +158,7 @@ W7 重放報告之四項數字、碰撞清單筆數、`[title-only-judged]` 名�
 
 ---
 
-## 四、🚨 交付前必須先解決的四件事（本輪查出）
+## 四、交付前必須先解決的事項（🚨 二項未決、✅ 二項已結）
 
 ### （一）凍結證據之**唯一一個雜湊**，掛在「不是決策」的那個區塊上
 
@@ -184,8 +209,18 @@ W7 重放報告之四項數字、碰撞清單筆數、`[title-only-judged]` 名�
 
 **處置（依 n+82 之既定原則）**：**🚫 不得就地改該檔**——凍結產物一律不就地編輯。
 以**勘誤**形式併呈：原值、更正值、成因、以及「終止判斷不受影響」之上述兩條依據。
-**⚠️ 更正值 5,115 之產生指令協調者尚未取得，須向執行室索取後才可寫入報告**
-（本檔第二節之規則同樣適用於它）。
+**✅ 更正值 5,115 之產生指令已於第 440 輪備妥**（`.scratch/n440_not_screened.py`）：
+七個判讀目錄逐一計數、取聯集去重得 **10,310**，`15,425 − 10,310 = 5,115`。
+**⚠️ 其輸入在私有根，協調者不可及**，故該數交付時仍標「執行室量測、協調者未獨立覆核」。
+
+**🚨 並更正本檔前述之成因措辭**：我寫「六個判讀來源只計入四個」，
+**而執行室逐目錄列出的是七個目錄名。**
+**⚠️ 我不替它決定哪兩個算一個**——交付時以逐目錄之數為準，**不以「六」或「七」這個形容詞為準**。
+
+**⚠️ 另一項須併記**：`5,357` **不是手打錯**。生產程式依其輸入算出
+`15,425 − 7,431 − 2,637 = 5,357`；**錯的是餵進去的 `screenedCount`（未計入影子兩批），不是算式。**
+**🚨 這個區別會改變讀者對流程的判斷**——算式錯代表程式有 bug，
+輸入漏代表**組裝輸入時漏了來源**，後者正是檢查表第四條所講的那件事。
 
 ### （三）🚨 兩次觸發之雜湊原像**欄位數不同**，而版本號**相同**
 
@@ -212,19 +247,33 @@ W7 重放報告之四項數字、碰撞清單筆數、`[title-only-judged]` 名�
 **⚠️ 並須註明第二次那份未存 `alpha` 與 `targetRecall`**
 （重算時須自版控之預設值補入 0.05／0.95，**補的是版控內的值，不是猜的**）。
 
-### （四）`PAGES_BETWEEN` 有兩種讀法，尚未裁定
+### （四）✅ `PAGES_BETWEEN` 已定案為 **20**——而它不再是主要論據
 
-第一次觸發於 `previousOccurrence.atPage` = **279**。第二次無對應欄位，可讀為：
+我原列兩種讀法（299→20 或 p294→15）並要求執行室裁決。
+**執行室指出這不是二選一，檔內可自證**，**我已重算覆核**：
 
-| 讀法 | 值 | 疑慮 |
-|---|---|---|
-| `standardLaneSequence.contiguousPagesJudged` 299 | 20 | 那是「已判頁數」，未必等於觸發頁 |
-| `triggerCause.reason` 所述之 p294 | 15 | 那是**被改判紀錄所在頁**，不是觸發頁 |
+```
+triggerCause.after      windowSize 201｜relevantFound 718
+standardLaneSequence    windowSize 201｜relevantFound 718   ← 逐欄相同
+pScore                  0.012405（after，記至 6 位）
+                        0.012404888703091584（標準線，全精度）
+                        ⚠️ round(全精度, 6) == 0.012405 → 兩者同值，只是記載精度不同
+```
 
-**🚨 兩種讀法都不明顯正確，故不得任選一個寫進去。**
-**⚠️ 這個數字在丙節被用來支撐「兩次不是同一件事重測」**，
-**故它不是可有可無的修辭**——寫錯會削弱一個實質論點。
-**交付前須由執行室以其判讀序列回答「第二次觸發於第幾頁」。**
+**🚨 故 `standardLaneSequence` 就是觸發當下之狀態**，其 `contiguousPagesJudged` = 299，
+**299 − 279 = 20**。**p294 是被改判那筆紀錄坐落的頁**（其後 86 筆排除，故為序列最後一個命中），
+**是「成因所在位置」，不是「觸發發生位置」。**
+
+**⚠️ 一項對執行室措辭之更正**：它寫兩者「**完全相同**」。
+`windowSize` 與 `relevantFound` 確實完全相同，**但 `pScore` 是四捨五入後的副本**——
+**🚨 稽核者若用 `==` 比對浮點數會得到 False，而據此以為此論據不成立。**
+**故交付時須寫「相同至記載精度」，不得寫「完全相同」。**
+
+**🚨 且丙節應改用更硬的論據**（執行室之建議，我採納）：
+兩次觸發之**成因型態不同**——第一次是判讀推進到 p279 而觸發；
+第二次是一筆 `unclear → exclude` 之改判**把窗口由 115 併為 201**
+（`triggerCause.kind = "reclassification"`）。
+**⚠️ 「不是同一件事重測」用成因型態說，比用相隔 20 頁說更強，且不依賴頁數口徑之爭。**
 
 ---
 
@@ -267,7 +316,10 @@ judgementsEntryCount 7,631 ＝ 7,431 ＋ 200 ✅
 - [ ] **`[title-only-judged]` 以名冊檔計**，🚫 不得以判讀理由文字統計。
 - [ ] **抽查債以三欄呈現**：累計 22／已清 6／尚欠 16（n+108），**並註明單位為抽查項目**。
 - [ ] **敘述式估計不得以單一數字呈現**（清冊 49308）。
-- [ ] **第二節「不可及」八項**，皆已取得產生指令與雜湊，且已標示未經協調者覆核。
-- [ ] **第四節四件事**皆已處置（勘誤已併呈、雜湊範圍與原像欄位已寫明、觸發頁已裁定）。
+- [ ] **第二節「不可及」三項**（175／288／12），已標示「執行室量測、協調者未獨立覆核」。
+- [ ] **凡標「不可及」前，先跑 `git ls-files` 全表確認**，🚫 不得以檔名猜測代替（本檔曾誤標 5 項）。
+- [ ] **第四節（一）（三）兩項未決**已處置（雜湊涵蓋範圍與兩次原像欄位清單皆已寫明）。
+- [ ] **第四節（二）之勘誤已併呈**，且以**逐目錄之數**呈現，不寫「六個來源」這種形容詞。
+- [ ] **丙節「兩次不是重測」改以成因型態論述**，頁距 20 僅作佐證。
 - [ ] **全文逐條過 `docs/m1-wording-checklist.md`（十一條）。**
 - [ ] **42 條義務清冊逐條標註狀態**（`docs/m1-obligations.md`，⚠️ 該檔只保證不漏，不保證已辦）。
