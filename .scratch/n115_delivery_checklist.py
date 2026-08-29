@@ -119,7 +119,11 @@ DETAIL = {
     "HARMS_S6_QUOTA":   ("產物", "`ahig/calibration/b11-carbohydrate/strata.json`（**受追蹤**，我已自算覆核）→ `strata[S6-gi-harms-secondary-only].quota`＝**7**"),
     "HARMS_COMBINED":   ("產物", "同上：8＋7＝**15**；✅ 與 `m1_step2_assignment.json` 之 `S5+S6-gi-merged` 配額交叉核對相符"),
     "HARMS_S5_ACTUAL":  ("不可及", "🚨 **全文取得後才存在**；不得為填滿配額而放寬判準"),
-    "HARMS_ADJACENT_N": ("看板", "**判準已裁（n+129 四）**：收錄＝有 `candidateId` ＋ 明確納入動作 ＋ **累計數因它前進**；候補與形容另欄。⚠️ 累計數自看板 21985 行（增至 10）後停止維護，其後各筆一律歸候補待逐筆裁定——**🚫 名冊三欄產出前仍不得給合計數**"),
+    # 🚫 `HARMS_ADJACENT_N` 作廢（n+135）：把「沒有名單的計數器讀數」標成素材清點。
+    "HARMS_COUNTER_LAST": ("看板", "看板 21985 行「增至 10 筆」——**計數器之最終讀數**，其後停止維護；🚨 這是讀數，🚫 不是名單"),
+    "HARMS_ATTRIBUTABLE": ("產物", "`.scratch/n482_harms_adjacent_roster.json`（**受追蹤**，我已自跑覆核）→ `included` 之相異 `idPrefix`＝**3**"),
+    "HARMS_UNATTRIBUTABLE": ("推導", "讀數 − 可指認者（**10 − 3 = 7**）；⚠️ 成因為五次計數器移動中兩次無 id、兩次 +2 而僅 1 個 id"),
+    "HARMS_RESERVE_MENTIONS": ("產物", "同上 → `reserve` 之長度＝**21**；**⚠️ 單位＝提及**，🚨 實測三個 id 同時落在兩欄，🚫 三欄不得相加"),
     "CALIBRATION_TARGET": ("產物", "`ahig/calibration/b11-carbohydrate/strata.json`（**受追蹤**，我已自算覆核）→ `totalSampleSize`＝**60**；✅ 七層配額總和亦為 60"),
     "S7_POOL_N":        ("看板", "看板 63655 一帶之清點（S7 全池）"),
     "PMC_MISS_NO_ID":   ("產物", "`.scratch/n439_route_cost.json` → `europePmcMissCauses`（無 PMCID）"),

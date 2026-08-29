@@ -399,6 +399,24 @@
    "boardLine": 70142,
    "excerpt": "⏸ harms 相鄰名冊（三欄）       判準已由 n+129 裁定（收錄／候補／形容）",
    "why": "no candidateId in context"
+  },
+  {
+   "idPrefix": null,
+   "boardLine": 70154,
+   "excerpt": "## 🚨 執行室回報：**harms 相鄰三欄名冊已落盤；惟收錄欄只認得出 3 筆，而累計數曾到 10**（第 482 輪）",
+   "why": "no candidateId in context"
+  },
+  {
+   "idPrefix": null,
+   "boardLine": 70160,
+   "excerpt": "**⚠️ 首版把「增至」設為選用**，於是把**複述**（「harms 相鄰素材 10 筆」）也算成移動，",
+   "why": "no candidateId in context"
+  },
+  {
+   "idPrefix": null,
+   "boardLine": 70198,
+   "excerpt": "- 🚨 查不到：**某筆是否實質上屬 harms 相鄰**——⚠️ 那是判讀不是檢索。",
+   "why": "no candidateId in context"
   }
  ],
  "noTotalNote": "n+129(4) forbids any total until the coordinator rules on the reserve column record by record. The three column lengths must not be added together and presented as a count of harms-adjacent material.",
