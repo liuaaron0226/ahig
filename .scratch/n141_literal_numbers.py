@@ -67,10 +67,21 @@ DOCS = {
     "辛": "docs/m1-g-acquisition-skeleton.md",
     "壬": "docs/m1-h-owner-decisions-skeleton.md",
     "檢": "docs/m1-wording-checklist.md",
+    # 🚨 n+153 新增。⚠️ 而它是「新文件長出來而清查範圍沒跟著長」的實例：
+    # 本檔上一輪跑過、全綠，🚫 而當時第十份文件才剛被寫出來，根本不在 DOCS 裡。
+    # **⚠️ 全綠的輸出，與「有一份沒在看」的輸出，長得一模一樣。**
+    "審": "docs/m1-wording-audit.md",
 }
 
 # 本輪清查範圍。⚠️ 🚫 不得因「其餘尚未清」而宣稱已清查完畢。
-SCOPE = ["甲", "乙", "丙", "丁", "己", "庚", "辛", "壬", "檢"]
+SCOPE = ["甲", "乙", "丙", "丁", "己", "庚", "辛", "壬", "檢", "審"]
+
+# 🚨 每輪自查：DOCS 是否涵蓋 docs/m1-*.md 之全部骨架與規則文件。
+# ⚠️ 這一段存在的理由就是上面那則註解——🚫 不得移除。
+_KNOWN_OUT = {"docs/m1-obligations.md"}   # 義務清冊：由 n116 勾稽，不在本檔範圍
+_seen = set(DOCS.values()) | _KNOWN_OUT
+_stray = sorted(p.as_posix() for p in Path("docs").glob("m1-*.md")
+                if p.as_posix() not in _seen)
 
 # ── 先剔除的東西（🚨 剔除規則本身就是判準，故逐條寫明理由）──────────
 STRIP = [
@@ -293,6 +304,16 @@ caught = any(v == "9987" for _s, v, _l, _c in control)
 print()
 print(f"反向對照：{'✅ 抓到注入之 9987' if caught else '🚨 沒抓到——本檢查有盲區'}")
 print(f"本輪範圍：{'／'.join(SCOPE)}；"
-      + ("**✅ 九份全清。**" if len(SCOPE) == len(DOCS)
+      + (f"**✅ {len(DOCS)} 份全清。**" if len(SCOPE) == len(DOCS)
          else "**🚫 其餘尚未清查，不得宣稱已清查完畢。**"))
-sys.exit(0 if caught else 1)
+
+# 🚨 n+153：DOCS 未涵蓋之 m1 文件——「新文件長出來而清查範圍沒跟著長」。
+if _stray:
+    print(f"🚨 **docs/ 下有本檔沒在看的 m1 文件**：{_stray}")
+    print("   ⚠️ 須明示納入 DOCS 或列入 _KNOWN_OUT 並寫明理由，🚫 不得默默略過。")
+
+# 🚨 n+153 修正一個本檔自己的洞：原本 `real` 只印不判——
+# **⚠️ 未登記之字面數字會噴 🚨 而結束碼仍為 0**，
+# 於是每輪「全綠」的回報，與「有未登記數字」的輸出完全相容。
+# 🚫 這正是型錄第 13 型（護欄失敗而被護的動作照跑），且發生在護欄自己身上。
+sys.exit(1 if (real or _stray or not caught) else 0)

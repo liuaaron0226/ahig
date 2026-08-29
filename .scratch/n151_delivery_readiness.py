@@ -20,10 +20,19 @@
 ## 🚨 本檔最重要的一欄，是「有沒有機器檢查」
 
 有些項目可以由程式判定（佔位符填了沒、義務涵蓋了沒）；
-**⚠️ 有些不能**（檢查表十二條有沒有真的逐節套過、擁有者有沒有真的看過）。
+**⚠️ 有些不能**（擁有者有沒有真的看過、有沒有真的理解）。
 
 > **🚫 本檔不得假裝後者也被驗證了。**
 > **🚨 一份把「無法驗證」寫成「已驗證」的盤點，比沒有盤點更危險。**
+
+## ⚠️ 第三種狀態：半可驗（n+153 新增）
+
+**🚨 「有機器檢查」與「機器檢查涵蓋這一項的全部」是兩件事。**
+檢查表逐節套用即屬此類：機器能證明 108 格都寫了字，
+**🚫 證明不了那些字是對的。**
+
+> **⚠️ 若把半可驗併入「可驗」，本檔就成了自己在防的那種盤點。**
+> 故三態分列：可驗／**半可驗**／不可驗。
 
 Run:  python3 .scratch/n151_delivery_readiness.py
 """
@@ -98,10 +107,12 @@ ITEMS.append((
 
 ITEMS.append((
     "檢查表十二條逐節套用", "協調者",
-    "檢查表附「交付前必做」",
-    "九份文件各自逐條套過一次並留下紀錄；"
+    "檢查表附「交付前必做」／n+153",
+    "九份文件各自逐條套過一次並留下紀錄（產物：`docs/m1-wording-audit.md`，9×12＝108 格）；"
     "🚨 **套過一次不等於通過**——每一條須寫出該節的具體處置或「本節不適用及其理由」",
-    "🚫 **不可驗**——目前沒有任何產物證明它被套過"))
+    "⚠️ **半可驗**（`n153_wording_audit_check.py`）：機器只證明 108 格齊備、"
+    "無空格、無僅打勾、條數與檢查表同步；"
+    "🚫 **格子裡寫的是不是真的，機器判不了**——一格寫「不適用」而其實適用，照樣放行"))
 
 ITEMS.append((
     "撤稿狀態交付時重查", "執行室",
@@ -119,8 +130,9 @@ ITEMS.append((
 
 ITEMS.append((
     "既有機檢全綠", "協調者",
-    "n+136／n+141／n+131／n+116",
-    "閘門、佔位符表、交叉一致性、義務勾稽、字面數字五項於交付當日皆 exit 0",
+    "n+136／n+141／n+131／n+116／n+153",
+    "閘門、佔位符表、交叉一致性、義務勾稽、字面數字、檢查表矩陣**六項**"
+    "於交付當日皆 exit 0",
     "✅ 可驗（本檔即現跑）"))
 
 print("=== M1 交付盤點｜🚨 骨架完稿 ≠ 可交付 ===")
@@ -135,14 +147,21 @@ for i, (name, who, basis, done, verifiable) in enumerate(ITEMS, 1):
 print()
 
 gates = {"n115_delivery_checklist": None, "n116_obligation_crosscheck": None,
-         "n131_cross_consistency": None, "n141_literal_numbers": None}
+         "n131_cross_consistency": None, "n141_literal_numbers": None,
+         "n153_wording_audit_check": None}
 for g in gates:
     gates[g] = gate(f".scratch/{g}.py")
 bad = [g for g, rc in gates.items() if rc != 0]
 print("現跑既有機檢：" + "｜".join(f"{g.split('_')[0]}={rc}" for g, rc in gates.items()))
 
 unverifiable = sum(1 for it in ITEMS if it[4].startswith("🚫"))
+half = sum(1 for it in ITEMS if it[4].startswith("⚠️"))
+full = len(ITEMS) - unverifiable - half
 print()
-print(f"🚨 **{len(ITEMS)} 項之中，{unverifiable} 項沒有機器檢查**——"
-      "⚠️ 那幾項只能靠人做、靠人記錄，🚫 不得因為其餘全綠就當成整體就緒。")
+print(f"🚨 **{len(ITEMS)} 項之中，可驗 {full} 項／半可驗 {half} 項／"
+      f"沒有機器檢查 {unverifiable} 項**——"
+      "⚠️ 後兩類只能靠人做、靠人記錄，🚫 不得因為其餘全綠就當成整體就緒。")
+if half:
+    print("⚠️ **半可驗者尤須當心**：它有一支會過的腳本，"
+          "🚨 而那正是最容易被讀成「已驗證」的形狀。")
 sys.exit(1 if bad else 0)
