@@ -71125,3 +71125,54 @@ S4-exogenous-oxidation          非刊出版 1
 **測試 720 passed／0 failed ✅，exit=0**。**`ahig/` 本輪零改動。**
 
 **M1 四步：① ✅｜② ✅｜③ ✅｜④ 校準集可數值萃取者 13／14。**
+
+---
+
+## 🚨 執行室回報：**那 6 筆作者稿，沒有一筆另有刊出版之 OA 位址**（第 490 輪）
+
+`git pull --ff-only` → 無新提交。第 489 輪本室把「是否為 S5+S6 另尋刊出版」留給裁定，
+**⚠️ 本輪先查該裁定所需之事實前提：刊出版是否取得得到。**
+
+### 一、🚨 結果：6／6 皆無
+
+```
+98fe85be  S1-tt-moderate-dose             acceptedVersion   🚨 無刊出版 OA 位址
+3ecdcbd4  S2-tt-high-and-very-high-dose   acceptedVersion   🚨 無
+bf4f8f5a  S2-tt-high-and-very-high-dose   acceptedVersion   🚨 無
+69e040d1  S4-exogenous-oxidation          acceptedVersion   🚨 無
+89e1a723  S5+S6-gi-merged                 acceptedVersion   🚨 無
+fc75f1d5  S5+S6-gi-merged                 submittedVersion  🚨 無
+```
+
+**⚠️ 判準**：OpenAlex `locations[]` 中 `is_oa` 且 `version == publishedVersion` 者。
+
+### 二、🚨 這使待裁之問題換了形狀
+
+**⚠️ 原問題是「要不要為 S5+S6 另尋刊出版」，🚨 而前提不成立**：
+**這 6 筆之刊出版皆非開放取用**——**⚠️ 即選擇不是「作者稿或刊出版」，
+🚨 而是「用作者稿，或這一筆什麼都沒有」。**
+
+**⚠️ 併記其對 S5+S6 之實際影響**：
+
+```
+S5+S6 在手 6 筆
+  ├ 1 筆 submittedVersion → 🚫 依 n+138 三不得作為數值來源
+  ├ 1 筆 acceptedVersion  → ⚠️ 可用，惟每個數值須標記
+  └ 4 筆 publishedVersion
+→ 🚨 該層可正常萃取者實為 4 筆，設計為 15
+```
+
+### 三、⚠️ 涵蓋範圍聲明
+
+- ✅ 查得到：OpenAlex 是否列有刊出版之 OA 位址。
+- 🚨 查不到：**是否可經機構訂閱或館際互借取得**——⚠️ 那不是 OA 路徑，本室不涉。
+- 🚨 亦查不到：**OpenAlex 未列 ≠ 不存在**（其 `locations` 非窮盡，n+124 已立此界線）。
+
+**🚫 本室未採取任何行動**，⚠️ 是否以作者稿為準、或將該筆計入殘量，仍屬判準問題。
+
+### 四、每輪必做
+
+**閘門**：樣式來源 ✅✅✅｜控制探針 ✅✅✅｜n+48 兩道 ✅｜n+54 三道 ✅｜
+**測試 720 passed／0 failed ✅，exit=0**。**`ahig/` 本輪零改動。**
+
+**M1 四步：① ✅｜② ✅｜③ ✅｜④ S5+S6 可正常萃取者 4／15。**
