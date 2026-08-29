@@ -133,6 +133,10 @@ DETAIL = {
     "S3_QUOTA":        ("產物", "`ahig/calibration/b11-carbohydrate/strata.json` → `S3-tte` 配額＝**8**（我已自檔覆核）"),
     "S3_ACQ_CALIB":    ("產物", "`.scratch/n492_stratum_table.json`（**受追蹤**，我已自檔覆核）→ `S3-tte` 之 `acquiredCalibration60`＝**0**；🚨 全空，且曾被合計數藏住"),
     "S3_ACQ_BACKFILL": ("產物", "同上 → `acquiredWithBackfill`＝**1**；⚠️ 與上一格母體不同"),
+    # ── n+145：替代位址第二輪（🚨 結果為零，且零解釋了前一次為何成功）──
+    "UNPROBED_N":   ("產物", "`.scratch/n493_unprobed_available.json` → `count`＝**12**（我已自檔覆核）；⚠️ 母體＝校準 60＋補集中從未試過者"),
+    "UNPROBED_ALT": ("產物", "`.scratch/n494_alt_oa_round2.json` → 有其他位址者＝**3**（其餘 9 筆無）"),
+    "UNPROBED_PDF": ("產物", "同上 → `obtainable`＝**0**；🚨 🚫 不得由此推論「替代位址法無效」——該法之前提對本批不成立"),
     "SHADOW_CONCORDANT": ("不可及", "私有根 `machine-reconciliation.json` → `counts.concordantCount`＝**288**（執行室量測）"),
     "SHADOW_QUEUED":    ("不可及", "同上 → `counts.ownerAuditCount`＝**12**（執行室量測）"),
     "DEBT_B4":          ("看板", "影子歧異之尚欠項 11（未解決者，n+106 裁定；單位＝抽查項目）"),
