@@ -552,13 +552,15 @@ def _merge_binding(manifest: dict | None, binding: dict | None) -> list[dict]:
 
 
 def _manifest_references(manifest: dict) -> set[str]:
+    # teiFile 於 n+123（五）之 PDF 路徑加入。漏掉它，孤兒清掃會把
+    # GROBID 產出的 TEI 當成沒人引用的殘留檔刪掉。
     references: set[str] = set()
     for artifact in manifest.get("artifacts") or []:
-        for key in ("rawFile", "sectionsFile"):
+        for key in ("rawFile", "teiFile", "sectionsFile"):
             value = artifact.get(key)
             if isinstance(value, str):
                 references.add(value)
-    for key in ("rawFile", "sectionsFile"):
+    for key in ("rawFile", "teiFile", "sectionsFile"):
         value = manifest.get(key)
         if isinstance(value, str):
             references.add(value)
@@ -583,11 +585,21 @@ def _validate_latest_manifest(artifact_dir: Path, manifest: dict) -> None:
         artifacts = manifest.get("artifacts")
         if not isinstance(artifacts, list) or not artifacts:
             raise FulltextError("acquired manifest 缺 artifacts")
+        # pmcid 只有 Europe PMC 那條路徑才有；GROBID TEI 之來源是本地 PDF，
+        # 沒有 PMCID 可填。把它列為全體必填，會讓 TEI manifest 被判無效而
+        # 遭隔離，連帶使掃除誤刪其 sections（n+123 五之路徑）。
         required = {"rawFile", "sectionsFile", "sourceSha256",
-                    "sectionsSha256", "parserVersion", "pmcid", "sourceUrl"}
-        if any(not required <= set(item) for item in artifacts
-               if isinstance(item, dict)):
-            raise FulltextError("artifact 必填欄位不完整")
+                    "sectionsSha256", "parserVersion", "sourceUrl"}
+        for item in artifacts:
+            if not isinstance(item, dict):
+                continue
+            needed = set(required)
+            if item.get("sourceType") == "europe-pmc-jats" or "pmcid" in item:
+                needed.add("pmcid")
+            if item.get("sourceType") == "grobid-tei":
+                needed |= {"teiFile", "teiSha256", "grobidVersion"}
+            if not needed <= set(item):
+                raise FulltextError("artifact 必填欄位不完整")
         if any(not isinstance(item, dict) for item in artifacts):
             raise FulltextError("artifact 必須是物件")
     # 這裡刻意只做結構驗證，不驗 artifact 內容 hash。掃除是回復工具，
@@ -629,7 +641,9 @@ def _sweep_orphans_locked(artifact_dir: Path) -> list[str]:
             references = _manifest_references(manifest)
     removed: list[str] = []
     # 鎖檔與隔離目錄不是 artifact，掃除不得動它們。
-    for pattern in ("source-*.jats.xml", "sections-v*.json"):
+    # TEI 路徑另有兩種來源檔；不列入樣式，其孤兒永遠不會被清掉。
+    for pattern in ("source-*.jats.xml", "source-*.tei.xml", "source-*.pdf",
+                    "sections-v*.json"):
         for path in sorted(artifact_dir.glob(pattern)):
             if path.name not in references:
                 path.unlink()
@@ -651,6 +665,14 @@ def _verify_committed_artifacts(artifact_dir: Path, manifest: dict) -> None:
             raise FulltextError("已提交 artifact 的 raw sha256 不符")
         if _sha256(sections_path.read_bytes()) != artifact.get("sectionsSha256"):
             raise FulltextError("已提交 artifact 的 sectionsSha256 不符")
+        # TEI 路徑另有一份來源檔；其雜湊以 LF 正規化計算（n+123 五）。
+        tei_name = artifact.get("teiFile")
+        if tei_name:
+            tei_path = artifact_dir / tei_name
+            if not tei_path.exists():
+                raise FulltextError("已提交 artifact 缺 TEI")
+            if _text_sha256(tei_path.read_bytes()) != artifact.get("teiSha256"):
+                raise FulltextError("已提交 artifact 的 teiSha256 不符")
 
 
 def _publish_jats(candidate: dict, *, raw: bytes, exchange: dict,
@@ -959,6 +981,116 @@ def _write_chain_manifest_locked(candidate: dict, *, status: str,
     _write_committed_manifest(artifact_dir, manifest)
     return manifest
 
+
+
+def _publish_tei(candidate: dict, *, pdf: bytes, tei: bytes,
+                 grobid_version: str, source_url: str,
+                 attempts: list[dict] | None = None,
+                 binding: dict | None = None) -> dict:
+    """把「抓回的 PDF ＋ GROBID 產出的 TEI」寫成 artefact 與 manifest。
+
+    n+123（五）裁定 PDF 路徑須同時記下兩份來源，而現行結構只容得下一個
+    ``sourceSha256``。故此處：
+
+    - ``sourceSha256``：**抓回的 PDF**，以原始位元組計算——語意與 JATS 路徑一致，
+      都是「我們實際取得的那份東西」。
+    - ``teiSha256``：GROBID 產出的 TEI，**以行尾正規化為 LF 後計算**。
+      TEI 是文字，裸位元組雜湊跨平台不可攜（n+122 三）。
+    - ``grobidVersion``：只記 TEI 雜湊仍不足以重現——同一份 PDF 經不同版本的
+      GROBID 會得到不同 TEI。
+
+    兩個雜湊刻意用不同算法，因為一個是二進位、一個是文字，不是其中一個寫錯了。
+
+    ⚠️ 本函式不做 JATS 路徑那套「既有 acquired 之 reuse 比對」：那套是為
+    「同一 PMCID 可能被重複抓取」而設，而 TEI 來自本地既有之 PDF，
+    重跑時輸入不變則輸出同名（內容定址），已足以避免覆寫歧義。
+    """
+    candidate_id = candidate["candidateId"]
+    artifact_dir = _artifact_dir(candidate_id)
+    with _candidate_lock(artifact_dir):
+        return _publish_tei_locked(
+            candidate, pdf=pdf, tei=tei, grobid_version=grobid_version,
+            source_url=source_url, attempts=attempts, binding=binding)
+
+
+def _publish_tei_locked(candidate: dict, *, pdf: bytes, tei: bytes,
+                        grobid_version: str, source_url: str,
+                        attempts: list[dict] | None = None,
+                        binding: dict | None = None) -> dict:
+    candidate_id = candidate["candidateId"]
+    artifact_dir = _artifact_dir(candidate_id)
+    manifest_path = artifact_dir / "manifest.json"
+    existing: dict | None = None
+    if manifest_path.exists():
+        try:
+            existing = json.loads(manifest_path.read_text(encoding="utf-8"))
+        except json.JSONDecodeError as exc:
+            raise FulltextError(f"既有 manifest 無法解析：{candidate_id}") from exc
+        if existing.get("candidateId") != candidate_id:
+            raise FulltextError("既有 manifest candidateId 與請求不符")
+        _verify_committed_artifacts(artifact_dir, existing)
+    _sweep_orphans_locked(artifact_dir)
+
+    sections = parse_tei(tei)
+    sections_raw = _json_bytes(sections)
+    sections_sha256 = _sha256(sections_raw)
+    pdf_sha256 = _sha256(pdf)
+    tei_sha256 = _text_sha256(tei)
+
+    pdf_file, sections_file = _artifact_files(
+        pdf_sha256, PARSER_VERSION, sections_sha256, source_kind="pdf")
+    tei_file, _ = _artifact_files(
+        tei_sha256, PARSER_VERSION, sections_sha256, source_kind="tei")
+
+    for path, payload in ((artifact_dir / pdf_file, pdf),
+                          (artifact_dir / tei_file, tei),
+                          (artifact_dir / sections_file, sections_raw)):
+        if path.exists() and path.read_bytes() != payload:
+            raise FulltextError(f"content-addressed 檔內容不符：{path.name}")
+        if not path.exists():
+            atomic_write_bytes(path, payload)
+
+    artifact = {
+        "sourceType": "grobid-tei",
+        "sourceUrl": source_url,
+        "sourceSha256": pdf_sha256,
+        "teiSha256": tei_sha256,
+        "grobidVersion": grobid_version,
+        "sectionsSha256": sections_sha256,
+        "contentLength": len(pdf),
+        "parserVersion": PARSER_VERSION,
+        "rawFile": pdf_file,
+        "teiFile": tei_file,
+        "sectionsFile": sections_file,
+        "hashNote": ("sourceSha256 is the PDF over raw bytes; teiSha256 is the "
+                     "TEI after normalising line endings to LF. The two differ "
+                     "on purpose -- one is binary, one is text (n+122(3), "
+                     "n+123(5))."),
+    }
+    artifacts = list((existing or {}).get("artifacts") or [])
+    artifacts.append(artifact)
+    manifest = {
+        "documentType": "fulltext-acquisition-manifest",
+        "candidateId": candidate_id,
+        "status": "acquired",
+        "sourceType": artifact["sourceType"],
+        "sourceUrl": source_url,
+        "sha256": pdf_sha256,
+        "teiSha256": tei_sha256,
+        "grobidVersion": grobid_version,
+        "sectionsSha256": sections_sha256,
+        "contentLength": len(pdf),
+        "parserVersion": PARSER_VERSION,
+        "rawFile": pdf_file,
+        "teiFile": tei_file,
+        "sectionsFile": sections_file,
+        "artifacts": artifacts,
+        "attempts": (list(attempts) if attempts is not None
+                     else list((existing or {}).get("attempts") or [])),
+        "bindings": _merge_binding(existing, binding),
+    }
+    _write_committed_manifest(artifact_dir, manifest)
+    return manifest
 
 def acquire_fulltext(candidate: dict, *, transport: BinaryTransport,
                      contact_email: str | None = None,
