@@ -20,7 +20,7 @@
 
 <!-- BEGIN GENERATED n115 -->
 
-共 **78** 個佔位符。凍結 **50**、漂移 **28**；其中 **6** 個之權威來源**協調者無法自行核對**（見下文第二節）。
+共 **83** 個佔位符。凍結 **50**、漂移 **33**；其中 **6** 個之權威來源**協調者無法自行核對**（見下文第二節）。
 
 | 節 | 佔位符 | 類別 | 來源型態 | 定位 |
 |---|---|---|---|---|
@@ -70,13 +70,18 @@
 | 丁 | `DEBT_SETTLED` | 漂移 | 看板 | n+108：**6** |
 | 丁 | `SHADOW_CONCORDANT` | 凍結 | 不可及 | 私有根 `machine-reconciliation.json` → `counts.concordantCount`＝**288**（執行室量測） |
 | 丁 | `SHADOW_QUEUED` | 凍結 | 不可及 | 同上 → `counts.ownerAuditCount`＝**12**（執行室量測） |
-| 庚 | `HARMS_ADJACENT_N` | 漂移 | 看板 | 🚨 **無名冊檔，只有看板散文**；累計數自看板 22276 行後停止維護（當時 10），其後另有相異 id 使下界 ≥22——**⚠️ 收錄判準未裁定前不得給單一數字**（n+122） |
+| 庚 | `HARMS_ADJACENT_N` | 漂移 | 看板 | **判準已裁（n+129 四）**：收錄＝有 `candidateId` ＋ 明確納入動作 ＋ **累計數因它前進**；候補與形容另欄。⚠️ 累計數自看板 21985 行（增至 10）後停止維護，其後各筆一律歸候補待逐筆裁定——**🚫 名冊三欄產出前仍不得給合計數** |
 | 庚 | `HARMS_COMBINED` | 凍結 | 產物 | 同上：8＋7＝**15**；✅ 與 `m1_step2_assignment.json` 之 `S5+S6-gi-merged` 配額交叉核對相符 |
 | 庚 | `HARMS_S5_ACTUAL` | 漂移 | 不可及 | 🚨 **全文取得後才存在**；不得為填滿配額而放寬判準 |
 | 庚 | `HARMS_S5_QUOTA` | 凍結 | 產物 | `ahig/calibration/b11-carbohydrate/strata.json`（**受追蹤**，我已自算覆核）→ `strata[S5-gi-harms-primary].quota`＝**8** |
 | 庚 | `HARMS_S6_QUOTA` | 凍結 | 產物 | `ahig/calibration/b11-carbohydrate/strata.json`（**受追蹤**，我已自算覆核）→ `strata[S6-gi-harms-secondary-only].quota`＝**7** |
 | 庚 | `SHORTFALL_HARMS` | 漂移 | 看板 | 同上（S5+S6） |
 | 辛 | `ACQUIRED_N` | 漂移 | 產物 | `.scratch/m1_step3_inventory.json` 之 `acquired` |
+| 辛 | `ALT_HAS` | 漂移 | 產物 | `.scratch/n477_alt_oa_locations.json`：有替代位址者＝**8**（我已自算） |
+| 辛 | `ALT_LANDING_ONLY` | 漂移 | 產物 | 同上：可達但僅取回書目頁＝**4**；⚠️ 是否另有可取全文未追 |
+| 辛 | `ALT_NONE` | 漂移 | 產物 | 同上：查無替代位址＝**3**（🚫 非窮盡，不等於不存在） |
+| 辛 | `ALT_PDF` | 漂移 | 產物 | 同上：可取得 PDF＝**4**，四筆短碼皆已見於驗收產物 ✅ |
+| 辛 | `ALT_REACHABLE` | 漂移 | 產物 | 同上：其中可達＝**8**（全數） |
 | 辛 | `BLOCKED_N` | 凍結 | 產物 | 同上：`survey == blocked-or-error` ＝ **11**（403 十筆＋逾時一筆） |
 | 辛 | `CALIBRATION_TARGET` | 凍結 | 產物 | `ahig/calibration/b11-carbohydrate/strata.json`（**受追蹤**，我已自算覆核）→ `totalSampleSize`＝**60**；✅ 七層配額總和亦為 60 |
 | 辛 | `LANDING_FIGSHARE` | 漂移 | 產物 | 同上（figshare，有 API） |

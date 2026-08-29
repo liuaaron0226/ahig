@@ -119,10 +119,30 @@
 3. **本節一律寫「本環境連不到」，🚫 不得寫「文獻取不到」**——
    **⚠️ 兩者對讀者是完全不同的結論。**
 
-**⏳ 待查（n+124 派工）**：現行程式**每篇只取一個位址**，
-而 OpenAlex／Unpaywall 通常對同一篇列有多個 OA 位址。
-**🚨 故這批很可能另有未試過、且不擋機器人的位址**（典藏庫尤然）。
-**⚠️ 在該調查出來之前，本節不得給任何補救工期估計。**
+### ✅ 調查已完成（n+129，我自產物重算）：**多數另有位址，而且從沒被試過**
+
+現行程式**每篇只取一個位址**，而 OpenAlex 對同一篇通常列有多個 OA 位址。
+**實查該 `{{BLOCKED_N}}` 筆之完整 `locations` 陣列**：
+
+| 分流 | 筆數 |
+|---|---|
+| **有替代位址** | `{{ALT_HAS}}` |
+| 其中**可達** | `{{ALT_REACHABLE}}`（全數） |
+| 其中**已取得 PDF 並進可萃取集** | `{{ALT_PDF}}` |
+| **查無替代位址** | `{{ALT_NONE}}` |
+
+**✅ 替代主機全部是大學典藏庫或資料典藏**——
+**🚨 與預測相符：典藏庫一般不做自動化阻擋。**
+
+> **⚠️ 故本節之正確結論是：不是拿不到，是沒去拿。**
+> **🚨 那些位址從未被試過——因為程式只讀第一個。**
+
+**⚠️ 三項界線，缺一則本段會被讀得比證據強**：
+1. **🚫 查無替代位址 ≠ 不存在**——**OpenAlex `locations` 非窮盡**（照抄執行室之聲明）。
+2. **⚠️ 另有 `{{ALT_LANDING_ONLY}}` 筆可達但只取回書目頁**，是否另有可取全文**未追**。
+3. **🚨 「本輪新處理之檔數」與「經此路救回之紀錄數」是兩個量**——
+   **⚠️ `{{ALT_PDF}}` 筆全部已在可萃取集內，其中一筆之 PDF 早在取得階段即已在手**，
+   **即「書目頁被擋」不蘊含「PDF 也拿不到」。**
 
 ## 四、落點分類——**「16 家出版社版面」是錯的圖像**
 
@@ -187,5 +207,6 @@
 | `LANDING_REACHED`／`LANDING_FULLTEXT_MARKER`／`LANDING_WORTH_PARSER` | 凍結 | `.scratch/n450_landing_survey.json`（我已逐項覆核） |
 | `LANDING_WORDS_MIN`／`LANDING_WORDS_MED`／`LANDING_WORDS_MAX` | 凍結 | 同上 |
 | `BLOCKED_N` | 凍結 | 同上，`survey == blocked-or-error`（403 十筆＋逾時一筆） |
+| `ALT_HAS`／`ALT_REACHABLE`／`ALT_PDF`／`ALT_NONE`／`ALT_LANDING_ONLY` | **漂移** | `.scratch/n477_alt_oa_locations.json`（我已自算覆核）；⚠️ 追完 landing-only 者會變動 |
 | `PDF_IN_HAND`／`PDF_TEXTLAYER`／`PDF_UNCERTAIN`／`PDF_SCANNED` | **漂移** | `.scratch/n456_pdf_textlayer.json`（我已覆核）；⚠️ 取得進行中會變 |
 | `LANDING_REPO`／`LANDING_PUBLISHER`／`LANDING_FIGSHARE`／`LANDING_PMC_SCAN` | **漂移** | `.scratch/n439_route_cost.json` 之 `landingKindsAggregate`，交付時現算 |

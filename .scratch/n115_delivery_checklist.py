@@ -94,7 +94,7 @@ DETAIL = {
     "HARMS_S6_QUOTA":   ("產物", "`ahig/calibration/b11-carbohydrate/strata.json`（**受追蹤**，我已自算覆核）→ `strata[S6-gi-harms-secondary-only].quota`＝**7**"),
     "HARMS_COMBINED":   ("產物", "同上：8＋7＝**15**；✅ 與 `m1_step2_assignment.json` 之 `S5+S6-gi-merged` 配額交叉核對相符"),
     "HARMS_S5_ACTUAL":  ("不可及", "🚨 **全文取得後才存在**；不得為填滿配額而放寬判準"),
-    "HARMS_ADJACENT_N": ("看板", "🚨 **無名冊檔，只有看板散文**；累計數自看板 22276 行後停止維護（當時 10），其後另有相異 id 使下界 ≥22——**⚠️ 收錄判準未裁定前不得給單一數字**（n+122）"),
+    "HARMS_ADJACENT_N": ("看板", "**判準已裁（n+129 四）**：收錄＝有 `candidateId` ＋ 明確納入動作 ＋ **累計數因它前進**；候補與形容另欄。⚠️ 累計數自看板 21985 行（增至 10）後停止維護，其後各筆一律歸候補待逐筆裁定——**🚫 名冊三欄產出前仍不得給合計數**"),
     "CALIBRATION_TARGET": ("產物", "`ahig/calibration/b11-carbohydrate/strata.json`（**受追蹤**，我已自算覆核）→ `totalSampleSize`＝**60**；✅ 七層配額總和亦為 60"),
     "S7_POOL_N":        ("看板", "看板 63655 一帶之清點（S7 全池）"),
     "PMC_MISS_NO_ID":   ("產物", "`.scratch/n439_route_cost.json` → `europePmcMissCauses`（無 PMCID）"),
@@ -122,6 +122,12 @@ DETAIL = {
     "PDF_TEXTLAYER":    ("產物", "同上：文字層 **9**"),
     "PDF_UNCERTAIN":    ("產物", "同上：不確定 **2**"),
     "PDF_SCANNED":      ("產物", "同上：純掃描 **0**"),
+    # ── n+129：替代 OA 位址調查 ──
+    "ALT_HAS":          ("產物", "`.scratch/n477_alt_oa_locations.json`：有替代位址者＝**8**（我已自算）"),
+    "ALT_REACHABLE":    ("產物", "同上：其中可達＝**8**（全數）"),
+    "ALT_PDF":          ("產物", "同上：可取得 PDF＝**4**，四筆短碼皆已見於驗收產物 ✅"),
+    "ALT_NONE":         ("產物", "同上：查無替代位址＝**3**（🚫 非窮盡，不等於不存在）"),
+    "ALT_LANDING_ONLY": ("產物", "同上：可達但僅取回書目頁＝**4**；⚠️ 是否另有可取全文未追"),
 }
 
 
