@@ -20,7 +20,7 @@
 
 <!-- BEGIN GENERATED n115 -->
 
-共 **100** 個佔位符。凍結 **51**、漂移 **49**；其中 **14** 個之權威來源**協調者無法自行核對**（見下文第二節）。
+共 **103** 個佔位符。凍結 **51**、漂移 **52**；其中 **14** 個之權威來源**協調者無法自行核對**（見下文第二節）。
 
 | 節 | 佔位符 | 類別 | 來源型態 | 定位 |
 |---|---|---|---|---|
@@ -76,6 +76,9 @@
 | 丁 | `DEBT_CUMULATIVE` | 漂移 | 看板 | n+108：**22**（相加 23、重疊 1，已去重） |
 | 丁 | `DEBT_OUTSTANDING` | 漂移 | 看板 | n+108：**16**（W2 之 5 ∪ 影子 11）——⚠️ 單位＝**抽查項目**，非文獻 |
 | 丁 | `DEBT_SETTLED` | 漂移 | 看板 | n+108：**6** |
+| 丁 | `OBLIGATION_DISTINCT` | 漂移 | 推導 | 條目數 − 重述數；🚨 「N／N 涵蓋」之 N 是條目數，不得讀成相異義務數 |
+| 丁 | `OBLIGATION_RESTATED` | 漂移 | 產物 | 同上：標為「重述／同上」之條數 |
+| 丁 | `OBLIGATION_ROWS` | 漂移 | 產物 | `.scratch/n116_obligation_crosscheck.py` 之 `len(ANCHORS)`（條目數） |
 | 丁 | `SHADOW_CONCORDANT` | 凍結 | 不可及 | 私有根 `machine-reconciliation.json` → `counts.concordantCount`＝**288**（執行室量測） |
 | 丁 | `SHADOW_QUEUED` | 凍結 | 不可及 | 同上 → `counts.ownerAuditCount`＝**12**（執行室量測） |
 | 庚 | `HARMS_ATTRIBUTABLE` | 漂移 | 產物 | `.scratch/n482_harms_adjacent_roster.json`（**受追蹤**，我已自跑覆核）→ `included` 之相異 `idPrefix`＝**3** |

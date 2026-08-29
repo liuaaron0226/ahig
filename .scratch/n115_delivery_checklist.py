@@ -108,6 +108,10 @@ DETAIL = {
     # ── n+133：壬節（需要擁有者決定的事），n+133 二查出此節從未起草 ──
     "TAG_ROSTER_COUNT": ("不可及", "`.scratch/n60_tags.py` 現跑之掛牌名單份數（讀私有根）；⚠️ 份數本身會隨新掛牌而變"),
     "TAG_ROSTER_TOTAL": ("不可及", "同上，去重後合計筆數（同一筆可掛多牌）；🚨 須併報各牌之排除／納入（檢查表第十條）"),
+    # ── n+136：清冊條數之三個數，🚫 不得再寫死在文字裡 ──
+    "OBLIGATION_ROWS": ("產物", "`.scratch/n116_obligation_crosscheck.py` 之 `len(ANCHORS)`（條目數）"),
+    "OBLIGATION_RESTATED": ("產物", "同上：標為「重述／同上」之條數"),
+    "OBLIGATION_DISTINCT": ("推導", "條目數 − 重述數；🚨 「N／N 涵蓋」之 N 是條目數，不得讀成相異義務數"),
     "SHADOW_CONCORDANT": ("不可及", "私有根 `machine-reconciliation.json` → `counts.concordantCount`＝**288**（執行室量測）"),
     "SHADOW_QUEUED":    ("不可及", "同上 → `counts.ownerAuditCount`＝**12**（執行室量測）"),
     "DEBT_B4":          ("看板", "影子歧異之尚欠項 11（未解決者，n+106 裁定；單位＝抽查項目）"),

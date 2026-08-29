@@ -28,6 +28,34 @@ NOT_OBLIGATION = re.compile(r'建議(值|量|攝取|範圍)')
 # （二）素材線索：某筆記錄可供 M1 某章節引用——不是義務，但不可遺失
 MATERIAL = re.compile(r'(可支持|可供|供|對)\s*M1|M1\s*(之|的)?\s*(討論|敘事|實務落地|契約審)')
 
+
+# ── n+136：兩個新樣式 ──────────────────────────────────────────────
+# 🚨（一）回聲過濾。清冊重跑於第 446 輪查出一件事：**看板現在大量談論清冊本身**，
+#    於是擷取器把「引用某條義務」的行當成新義務收進來——第 446 輪重跑之 8 條「新義務」
+#    **全部都是回聲**，沒有一條是真的新義務。
+#    ⚠️ 濾的是「清冊自身的形狀」（索引行、清冊表格列、談論清冊之語句），
+#    🚫 不是憑「看起來像引用」猜——那會誤傷真義務（實測會多砍 3 條）。
+ECHO = re.compile(
+    r'^[甲乙丙丁戊己庚辛壬檢待]\s+\d{4,5}\s'      # 清冊索引之回聲
+    r'|^\|\s*\d{4,5}(?:／\d{4,5})*\s*\|'        # 清冊表格列之回聲
+    r'|義務清冊|本義務')                             # 談論清冊本身
+
+# 🚨（二）明示標記。同一輪查出更嚴重的事：**擷取器逐行比對，
+#    而協調者裁定把「M1」與義務動詞寫在不同行**（換行是為了可讀），
+#    於是近 4,400 行裡單行即符合樣式者僅 8 條，且全是回聲。
+# ⚠️ **🚫 不放寬樣式**——本 run 已因放寬吃過兩次虧（建議值／應）。
+# ✅ 改為：裁定若創設 M1 報告義務，須自帶標記；擷取器只認這個標記，不猜。
+MARKER = '📌 M1 義務'
+# ⚠️ 標記須在行首（去除 markdown 記號後），🚫 不得只是句中提到它——
+# 🚨 否則「說明標記怎麼用」的那句話會被當成一條義務（實測真的發生了）。
+# ✅ 自 n+136 之裁定起，猜測式樣式不再新增義務：**該裁定以後的看板只認標記。**
+# 🚨 理由是第 446 輪查到的複利效應：看板談論清冊，清冊就擷取自己的倒影。
+CUTOFF_HEADING = '## 🧭 協調者裁定 n+136'
+
+
+def _marked(line):
+    return line.lstrip('*>#- 　').startswith(MARKER)
+
 # 內容制衛生：疑似逐字標題（同 n+85 公布之樣式）
 TITLE = re.compile(r'〈([^〉]{25,300})〉')
 TITLE_INNER = re.compile(r'[A-Za-z]{4,}\s+[A-Za-z]{4,}')
@@ -97,6 +125,9 @@ def classify(text):
 def main():
     lines = io.open(BOARD, encoding='utf-8').read().split('\n')
     rows, material, skipped = [], [], 0
+    echoes = []
+    cutoff = next((i + 1 for i, l in enumerate(lines)
+                   if l.startswith(CUTOFF_HEADING)), len(lines) + 1)
     for n, raw in enumerate(lines, 1):
         line = raw.strip()
         if 'M1' not in line:
@@ -107,10 +138,18 @@ def main():
             continue
         # 🚨 素材優先：「可支持 M1 討論劑量帶**應**以絕對量」句中之「應」
         #    屬被討論內容，不是報告義務。先判素材，可避免此類誤收。
-        if MATERIAL.search(line):
-            material.append((n, line))
+        # ⚠️ 順序要緊：ECHO 只用來**壓下已被判為候選者**，
+        # 🚫 不得放在最前面當總濾網——那會連「從未被收」的行也算進回聲數，
+        # 🚨 且會安靜吃掉一條剛好含「本義務」字樣的真義務。
+        if _marked(line):
+            rows.append((n, line))          # ✅ 明示標記，🚫 不再猜
+        elif n >= cutoff:
+            # 🚨 n+136 之後不再以樣式新增義務——只認標記。
+            continue
+        elif MATERIAL.search(line):
+            (echoes if ECHO.search(line) else material).append((n, line))
         elif OBLIGATION.search(line) and not NOT_OBLIGATION.search(line):
-            rows.append((n, line))
+            (echoes if ECHO.search(line) else rows).append((n, line))
 
     buckets = {}
     for n, line in rows:
@@ -129,6 +168,8 @@ def main():
         f'- **素材線索 {len(material)} 條**（某筆記錄可供某章節引用，不是義務）',
         f'- 因疑似含逐字文獻標題而略過 **{skipped}** 條'
         '（內容制衛生，n+48／n+85 樣式）',
+        f'- 🚨 **濾除清冊自身之回聲 {len(echoes)} 條**（n+136）——'
+        '看板現在大量談論清冊本身，引用某條義務的行會被誤收為新義務。',
         '',
         '🚨 **兩類必須分開，且分錯過兩次**：第一版把「可支持 M1 討論**建議值**'
         '之歷史演變」收成義務——「建議」在該處是劑量術語的一部分；第二版又把'
@@ -137,6 +178,14 @@ def main():
         '',
         '⚠️ **行號會隨看板增長而位移**；每條同時保留原文，'
         '行號失效時以原文 grep 回溯。',
+        '',
+        '✅ **勾稽已改以原文指紋為鍵（n+136）**：`n116_obligation_crosscheck.py` '
+        '不再以行號配對，故本檔重跑後**不會使全部義務同時失聯**；'
+        '其自我稽核丙每輪模擬一次行號位移以證明此事。',
+        '',
+        '⚠️ **兩個非章節類別不佔天干（n+134）**：措辭與計數規則是檢查表'
+        '（須逐條套用於每一節，🚫 不是獨立成節）、未分類是暫存區，'
+        '故代號為「檢」與「待」。**舊名為「庚」「戊」，看板早期引用以舊名為準。**',
         '',
         '⚠️ **本清冊只負責「不漏」，不負責「已辦」**——'
         '勾稽狀態須於 M1 撰寫時逐條標註，不得由本檔推定。',
@@ -166,6 +215,7 @@ def main():
     print('✅ 已產生 %s' % OUT)
     print('   報告義務 %d 條、素材線索 %d 條、衛生過濾略過 %d 條'
           % (len(rows), len(material), skipped))
+    print('   🚨 濾除回聲 %d 條（n+136）' % len(echoes))
     for name, _ in ordered:
         if buckets.get(name):
             print('   %-24s %d 條' % (name, len(buckets[name])))
