@@ -1,0 +1,138 @@
+{
+ "schemaVersion": 1,
+ "documentType": "pdf-text-layer-check",
+ "ruling": "pre-installation diligence; owner consented to a parser but the tool choice is still open",
+ "population": "the PDFs downloaded in round 455 to the private pdf-cache",
+ "countingUnit": "file",
+ "criterion": "fonts and text-showing operators present -> text-layer; images without fonts -> scanned-likely; otherwise uncertain. Compressed streams are inflated with zlib before looking.",
+ "counts": {
+  "text-layer": 9,
+  "uncertain": 2
+ },
+ "files": [
+  {
+   "file": "12046290",
+   "bytes": 5202250,
+   "fileHash": "sha256:a985982e49a130bdac61b9d0e05dec7db423090572d5748e6bacc27e0154cd28",
+   "fonts": 64,
+   "images": 238,
+   "pages": 29,
+   "textOps": 138,
+   "streamsInflated": 6,
+   "verdict": "text-layer"
+  },
+  {
+   "file": "32548500",
+   "bytes": 490055,
+   "fileHash": "sha256:652f985ca92a150482d79546822b783cda9e5518bcadaf1cc3ce6b52500ff4b9",
+   "fonts": 29,
+   "images": 3,
+   "pages": 29,
+   "textOps": 137,
+   "streamsInflated": 10,
+   "verdict": "text-layer"
+  },
+  {
+   "file": "3ecdcbd448da8a7f",
+   "bytes": 1075894,
+   "fileHash": "sha256:b50775a848214d0c68b696dfa9023bebca8d6570f9cb9f4b9f8349749ceb7cf3",
+   "fonts": 169,
+   "images": 30,
+   "pages": 39,
+   "textOps": 164,
+   "streamsInflated": 1,
+   "verdict": "text-layer"
+  },
+  {
+   "file": "69e040d16b7320d7",
+   "bytes": 6973181,
+   "fileHash": "sha256:a451d59d016a6fa5045b03be891a43d4e502987f3aeb8d01e8bf2093aacf0d2a",
+   "fonts": 178,
+   "images": 36,
+   "pages": 40,
+   "textOps": 55,
+   "streamsInflated": 4,
+   "verdict": "text-layer"
+  },
+  {
+   "file": "89e1a723c3028a8a",
+   "bytes": 1448108,
+   "fileHash": "sha256:0832b459a22d1e5f1c1ea4228e555b35e04b89999e9cd2287b2ecbcafc88b2d9",
+   "fonts": 217,
+   "images": 177,
+   "pages": 42,
+   "textOps": 0,
+   "streamsInflated": 168,
+   "verdict": "uncertain"
+  },
+  {
+   "file": "98fe85bec4128a6f",
+   "bytes": 471486,
+   "fileHash": "sha256:efdfe3c7e39252182e8f9e201cb7cd63c88727d0dfa3977c4c8da48b060e99d3",
+   "fonts": 100,
+   "images": 120,
+   "pages": 39,
+   "textOps": 0,
+   "streamsInflated": 156,
+   "verdict": "uncertain"
+  },
+  {
+   "file": "bd9995f482cbc04b",
+   "bytes": 1197756,
+   "fileHash": "sha256:9759d1643bed357e41c10227b93bf827e2dc9180f43ae602350162caa84c6324",
+   "fonts": 151,
+   "images": 9,
+   "pages": 36,
+   "textOps": 65,
+   "streamsInflated": 8,
+   "verdict": "text-layer"
+  },
+  {
+   "file": "bf4f8f5a11055379",
+   "bytes": 311754,
+   "fileHash": "sha256:fcb8d1fe305fcd92a9a3e6a188f440ba09c63e2eef8e79263537cf00adcf5e32",
+   "fonts": 116,
+   "images": 8,
+   "pages": 18,
+   "textOps": 64,
+   "streamsInflated": 20,
+   "verdict": "text-layer"
+  },
+  {
+   "file": "c380c744307c0dd5",
+   "bytes": 10898391,
+   "fileHash": "sha256:147a4dd32495d2c0ef05d4cea4b7334404feed73b1a262b4f8e61e3bbe634c69",
+   "fonts": 440,
+   "images": 1283,
+   "pages": 314,
+   "textOps": 63,
+   "streamsInflated": 1,
+   "verdict": "text-layer"
+  },
+  {
+   "file": "de939065eac2b5fd",
+   "bytes": 192684,
+   "fileHash": "sha256:df73f8fd92fac75d9d439c1d45c4e30ab2f95fea66f8c29987568080f0b5a92b",
+   "fonts": 112,
+   "images": 9,
+   "pages": 8,
+   "textOps": 58,
+   "streamsInflated": 5,
+   "verdict": "text-layer"
+  },
+  {
+   "file": "fc75f1d5298c3260",
+   "bytes": 664468,
+   "fileHash": "sha256:2bdf70d822b0623c64557adc6aa79354e4b9ca2fc1d76c76b18bca6940d05119",
+   "fonts": 115,
+   "images": 90,
+   "pages": 29,
+   "textOps": 123,
+   "streamsInflated": 2,
+   "verdict": "text-layer"
+  }
+ ],
+ "coverageStatement": "Says a parser will find something to read. It does not say the text is complete, of usable quality, or sectionable under the offset contract. PDFs using object streams or encryption may be undercounted, so uncertain means this method could not tell, not that there is no text.",
+ "contentNote": "Counts, sizes and hashes only. No text is extracted, printed or stored.",
+ "checkHash": "sha256:f19401b008afa08e48ac6d4ac10db77615fc2e2fcb2c0238c76e031029edee8c"
+}
