@@ -1,0 +1,779 @@
+{
+ "schemaVersion": 1,
+ "documentType": "sections-internal-consistency",
+ "ruling": "self-initiated: nothing has ever checked that a section offset indexes the text the section claims. Extraction can read a section either way, and the two disagree silently.",
+ "population": "every artifact of every acquired manifest under the private root fulltext/",
+ "populationNote": "The private-root population, not the calibration 60 and not the calibration-plus-backfill set.",
+ "countingUnit": "sections file (one per artifact)",
+ "criterion": "the six invariants read off _with_offsets and the two contentSha256 call sites, listed in the module docstring",
+ "separatorChars": 2,
+ "controlProbes": [
+  {
+   "probe": "正向：合成之正確 sections",
+   "expectFail": false,
+   "failed": false,
+   "findings": [],
+   "asExpected": true
+  },
+  {
+   "probe": "反向甲：endOffset 少 1",
+   "expectFail": true,
+   "failed": true,
+   "findings": [
+    "不變式 1：1 節之 content[start:end] ≠ text",
+    "不變式 3：1 處相鄰節之間隔 ≠ 2"
+   ],
+   "asExpected": true
+  },
+  {
+   "probe": "反向乙：間隔改為 1",
+   "expectFail": true,
+   "failed": true,
+   "findings": [
+    "不變式 1：1 節之 content[start:end] ≠ text",
+    "不變式 3：2 處相鄰節之間隔 ≠ 2"
+   ],
+   "asExpected": true
+  },
+  {
+   "probe": "反向丙：contentSha256 改一字元",
+   "expectFail": true,
+   "failed": true,
+   "findings": [
+    "不變式 5：contentSha256 與 content 不符"
+   ],
+   "asExpected": true
+  },
+  {
+   "probe": "反向丁：text 改一字、偏移不動",
+   "expectFail": true,
+   "failed": true,
+   "findings": [
+    "不變式 1：1 節之 content[start:end] ≠ text"
+   ],
+   "asExpected": true
+  },
+  {
+   "probe": "反向戊：sourceSha256 與來源檔不符",
+   "expectFail": true,
+   "failed": true,
+   "findings": [
+    "不變式 6：sections 之 sourceSha256 與其來源檔不符"
+   ],
+   "asExpected": true
+  },
+  {
+   "probe": "反向己：來源檔配錯路徑",
+   "expectFail": true,
+   "failed": true,
+   "findings": [
+    "不變式 6：sections 之 sourceSha256 與其來源檔不符"
+   ],
+   "asExpected": true
+  }
+ ],
+ "controlNote": "Both directions. Without the positive control an always-failing implementation would look like a corpus-wide defect; without the negative ones a no-op would look clean.",
+ "counts": {
+  "consistent": 41
+ },
+ "sourceTypes": {
+  "europe-pmc-jats": 26,
+  "grobid-tei": 15
+ },
+ "totals": {
+  "sections": 968,
+  "chars": 1981436,
+  "untitledSections": 20,
+  "filesWithUntitled": 18,
+  "filesWhoseLeadingSectionIsUntitled": 5
+ },
+ "untitledCriterion": "title is empty or the literal placeholder \"Untitled\" that parse_jats and parse_tei write when no heading is found (fulltext.py lines 240 and 346). A first version of this script tested only for an empty string and reported zero, which was a false all-clear.",
+ "records": [
+  {
+   "dir": "012d9a3486e6a580",
+   "sourceType": "europe-pmc-jats",
+   "verdict": "consistent",
+   "findings": [],
+   "stats": {
+    "sections": 29,
+    "chars": 62121,
+    "untitled": 1,
+    "untitledLeading": 0,
+    "kinds": {
+     "section": 25,
+     "table": 4
+    }
+   },
+   "note": ""
+  },
+  {
+   "dir": "0b68902a081d147c",
+   "sourceType": "europe-pmc-jats",
+   "verdict": "consistent",
+   "findings": [],
+   "stats": {
+    "sections": 20,
+    "chars": 33626,
+    "untitled": 0,
+    "untitledLeading": 0,
+    "kinds": {
+     "section": 17,
+     "table": 3
+    }
+   },
+   "note": ""
+  },
+  {
+   "dir": "11f2906259b4558a",
+   "sourceType": "europe-pmc-jats",
+   "verdict": "consistent",
+   "findings": [],
+   "stats": {
+    "sections": 26,
+    "chars": 57200,
+    "untitled": 1,
+    "untitledLeading": 0,
+    "kinds": {
+     "section": 25,
+     "table": 1
+    }
+   },
+   "note": ""
+  },
+  {
+   "dir": "211950e67902e3ec",
+   "sourceType": "grobid-tei",
+   "verdict": "consistent",
+   "findings": [],
+   "stats": {
+    "sections": 28,
+    "chars": 54178,
+    "untitled": 0,
+    "untitledLeading": 0,
+    "kinds": {
+     "?": 28
+    }
+   },
+   "note": ""
+  },
+  {
+   "dir": "2cc49e0ddbdb6ea5",
+   "sourceType": "europe-pmc-jats",
+   "verdict": "consistent",
+   "findings": [],
+   "stats": {
+    "sections": 16,
+    "chars": 35511,
+    "untitled": 0,
+    "untitledLeading": 0,
+    "kinds": {
+     "section": 16
+    }
+   },
+   "note": ""
+  },
+  {
+   "dir": "38c6412fc97d2ed8",
+   "sourceType": "europe-pmc-jats",
+   "verdict": "consistent",
+   "findings": [],
+   "stats": {
+    "sections": 17,
+    "chars": 28914,
+    "untitled": 0,
+    "untitledLeading": 0,
+    "kinds": {
+     "section": 15,
+     "table": 2
+    }
+   },
+   "note": ""
+  },
+  {
+   "dir": "38d538c00eea079e",
+   "sourceType": "europe-pmc-jats",
+   "verdict": "consistent",
+   "findings": [],
+   "stats": {
+    "sections": 20,
+    "chars": 41822,
+    "untitled": 1,
+    "untitledLeading": 0,
+    "kinds": {
+     "section": 19,
+     "table": 1
+    }
+   },
+   "note": ""
+  },
+  {
+   "dir": "3ecdcbd448da8a7f",
+   "sourceType": "grobid-tei",
+   "verdict": "consistent",
+   "findings": [],
+   "stats": {
+    "sections": 18,
+    "chars": 38178,
+    "untitled": 0,
+    "untitledLeading": 0,
+    "kinds": {
+     "?": 18
+    }
+   },
+   "note": ""
+  },
+  {
+   "dir": "44ebb4f2358bbf2c",
+   "sourceType": "europe-pmc-jats",
+   "verdict": "consistent",
+   "findings": [],
+   "stats": {
+    "sections": 16,
+    "chars": 28301,
+    "untitled": 0,
+    "untitledLeading": 0,
+    "kinds": {
+     "section": 16
+    }
+   },
+   "note": ""
+  },
+  {
+   "dir": "69e040d16b7320d7",
+   "sourceType": "grobid-tei",
+   "verdict": "consistent",
+   "findings": [],
+   "stats": {
+    "sections": 21,
+    "chars": 39447,
+    "untitled": 0,
+    "untitledLeading": 0,
+    "kinds": {
+     "?": 21
+    }
+   },
+   "note": ""
+  },
+  {
+   "dir": "742f1c1d44243ac6",
+   "sourceType": "europe-pmc-jats",
+   "verdict": "consistent",
+   "findings": [],
+   "stats": {
+    "sections": 21,
+    "chars": 41394,
+    "untitled": 1,
+    "untitledLeading": 0,
+    "kinds": {
+     "section": 18,
+     "table": 3
+    }
+   },
+   "note": ""
+  },
+  {
+   "dir": "769c71fae4871d50",
+   "sourceType": "europe-pmc-jats",
+   "verdict": "consistent",
+   "findings": [],
+   "stats": {
+    "sections": 33,
+    "chars": 60852,
+    "untitled": 1,
+    "untitledLeading": 0,
+    "kinds": {
+     "section": 31,
+     "table": 2
+    }
+   },
+   "note": ""
+  },
+  {
+   "dir": "76df6297501bb474",
+   "sourceType": "europe-pmc-jats",
+   "verdict": "consistent",
+   "findings": [],
+   "stats": {
+    "sections": 20,
+    "chars": 44062,
+    "untitled": 0,
+    "untitledLeading": 0,
+    "kinds": {
+     "section": 17,
+     "table": 3
+    }
+   },
+   "note": ""
+  },
+  {
+   "dir": "7bc2c46bd4251685",
+   "sourceType": "europe-pmc-jats",
+   "verdict": "consistent",
+   "findings": [],
+   "stats": {
+    "sections": 25,
+    "chars": 55806,
+    "untitled": 1,
+    "untitledLeading": 0,
+    "kinds": {
+     "section": 23,
+     "table": 2
+    }
+   },
+   "note": ""
+  },
+  {
+   "dir": "7c5800be8a62d501",
+   "sourceType": "europe-pmc-jats",
+   "verdict": "consistent",
+   "findings": [],
+   "stats": {
+    "sections": 24,
+    "chars": 43903,
+    "untitled": 0,
+    "untitledLeading": 0,
+    "kinds": {
+     "section": 22,
+     "table": 2
+    }
+   },
+   "note": ""
+  },
+  {
+   "dir": "7dec3f4066e16f08",
+   "sourceType": "europe-pmc-jats",
+   "verdict": "consistent",
+   "findings": [],
+   "stats": {
+    "sections": 21,
+    "chars": 37924,
+    "untitled": 0,
+    "untitledLeading": 0,
+    "kinds": {
+     "section": 20,
+     "table": 1
+    }
+   },
+   "note": ""
+  },
+  {
+   "dir": "7eef56b17a6ac155",
+   "sourceType": "grobid-tei",
+   "verdict": "consistent",
+   "findings": [],
+   "stats": {
+    "sections": 24,
+    "chars": 63742,
+    "untitled": 0,
+    "untitledLeading": 0,
+    "kinds": {
+     "?": 24
+    }
+   },
+   "note": ""
+  },
+  {
+   "dir": "85855b5e7a97713b",
+   "sourceType": "europe-pmc-jats",
+   "verdict": "consistent",
+   "findings": [],
+   "stats": {
+    "sections": 24,
+    "chars": 54077,
+    "untitled": 1,
+    "untitledLeading": 0,
+    "kinds": {
+     "section": 22,
+     "table": 2
+    }
+   },
+   "note": ""
+  },
+  {
+   "dir": "85e0e186b9ab2f27",
+   "sourceType": "europe-pmc-jats",
+   "verdict": "consistent",
+   "findings": [],
+   "stats": {
+    "sections": 28,
+    "chars": 50978,
+    "untitled": 1,
+    "untitledLeading": 0,
+    "kinds": {
+     "section": 26,
+     "table": 2
+    }
+   },
+   "note": ""
+  },
+  {
+   "dir": "861b4a2965d459b9",
+   "sourceType": "europe-pmc-jats",
+   "verdict": "consistent",
+   "findings": [],
+   "stats": {
+    "sections": 24,
+    "chars": 69408,
+    "untitled": 3,
+    "untitledLeading": 0,
+    "kinds": {
+     "section": 21,
+     "table": 3
+    }
+   },
+   "note": ""
+  },
+  {
+   "dir": "88747fa53f34fc92",
+   "sourceType": "grobid-tei",
+   "verdict": "consistent",
+   "findings": [],
+   "stats": {
+    "sections": 18,
+    "chars": 42517,
+    "untitled": 1,
+    "untitledLeading": 1,
+    "kinds": {
+     "?": 18
+    }
+   },
+   "note": ""
+  },
+  {
+   "dir": "89e1a723c3028a8a",
+   "sourceType": "grobid-tei",
+   "verdict": "consistent",
+   "findings": [],
+   "stats": {
+    "sections": 21,
+    "chars": 36213,
+    "untitled": 0,
+    "untitledLeading": 0,
+    "kinds": {
+     "?": 21
+    }
+   },
+   "note": ""
+  },
+  {
+   "dir": "8a8d5efcf6a82302",
+   "sourceType": "europe-pmc-jats",
+   "verdict": "consistent",
+   "findings": [],
+   "stats": {
+    "sections": 29,
+    "chars": 57330,
+    "untitled": 1,
+    "untitledLeading": 0,
+    "kinds": {
+     "section": 28,
+     "table": 1
+    }
+   },
+   "note": ""
+  },
+  {
+   "dir": "8d9e152de8d48c04",
+   "sourceType": "europe-pmc-jats",
+   "verdict": "consistent",
+   "findings": [],
+   "stats": {
+    "sections": 27,
+    "chars": 55616,
+    "untitled": 1,
+    "untitledLeading": 0,
+    "kinds": {
+     "section": 27
+    }
+   },
+   "note": ""
+  },
+  {
+   "dir": "8dd0f644a9012191",
+   "sourceType": "grobid-tei",
+   "verdict": "consistent",
+   "findings": [],
+   "stats": {
+    "sections": 11,
+    "chars": 25190,
+    "untitled": 0,
+    "untitledLeading": 0,
+    "kinds": {
+     "?": 11
+    }
+   },
+   "note": ""
+  },
+  {
+   "dir": "9454731aad7c0004",
+   "sourceType": "grobid-tei",
+   "verdict": "consistent",
+   "findings": [],
+   "stats": {
+    "sections": 19,
+    "chars": 28143,
+    "untitled": 0,
+    "untitledLeading": 0,
+    "kinds": {
+     "?": 19
+    }
+   },
+   "note": ""
+  },
+  {
+   "dir": "98fe85bec4128a6f",
+   "sourceType": "grobid-tei",
+   "verdict": "consistent",
+   "findings": [],
+   "stats": {
+    "sections": 12,
+    "chars": 37960,
+    "untitled": 1,
+    "untitledLeading": 1,
+    "kinds": {
+     "?": 12
+    }
+   },
+   "note": ""
+  },
+  {
+   "dir": "a32397909a3b03b4",
+   "sourceType": "europe-pmc-jats",
+   "verdict": "consistent",
+   "findings": [],
+   "stats": {
+    "sections": 31,
+    "chars": 56771,
+    "untitled": 1,
+    "untitledLeading": 0,
+    "kinds": {
+     "section": 28,
+     "table": 3
+    }
+   },
+   "note": ""
+  },
+  {
+   "dir": "a4bbe8aa65dd82a8",
+   "sourceType": "grobid-tei",
+   "verdict": "consistent",
+   "findings": [],
+   "stats": {
+    "sections": 14,
+    "chars": 30094,
+    "untitled": 0,
+    "untitledLeading": 0,
+    "kinds": {
+     "?": 14
+    }
+   },
+   "note": ""
+  },
+  {
+   "dir": "b1eeb9c554d4200c",
+   "sourceType": "europe-pmc-jats",
+   "verdict": "consistent",
+   "findings": [],
+   "stats": {
+    "sections": 10,
+    "chars": 18737,
+    "untitled": 0,
+    "untitledLeading": 0,
+    "kinds": {
+     "section": 10
+    }
+   },
+   "note": ""
+  },
+  {
+   "dir": "bd9995f482cbc04b",
+   "sourceType": "grobid-tei",
+   "verdict": "consistent",
+   "findings": [],
+   "stats": {
+    "sections": 15,
+    "chars": 26473,
+    "untitled": 1,
+    "untitledLeading": 1,
+    "kinds": {
+     "?": 15
+    }
+   },
+   "note": ""
+  },
+  {
+   "dir": "bf4f8f5a11055379",
+   "sourceType": "grobid-tei",
+   "verdict": "consistent",
+   "findings": [],
+   "stats": {
+    "sections": 5,
+    "chars": 12526,
+    "untitled": 1,
+    "untitledLeading": 1,
+    "kinds": {
+     "?": 5
+    }
+   },
+   "note": ""
+  },
+  {
+   "dir": "bfc01fa20cfceb6c",
+   "sourceType": "europe-pmc-jats",
+   "verdict": "consistent",
+   "findings": [],
+   "stats": {
+    "sections": 8,
+    "chars": 14331,
+    "untitled": 0,
+    "untitledLeading": 0,
+    "kinds": {
+     "section": 7,
+     "table": 1
+    }
+   },
+   "note": ""
+  },
+  {
+   "dir": "c380c744307c0dd5",
+   "sourceType": "grobid-tei",
+   "verdict": "consistent",
+   "findings": [],
+   "stats": {
+    "sections": 160,
+    "chars": 348621,
+    "untitled": 0,
+    "untitledLeading": 0,
+    "kinds": {
+     "?": 160
+    }
+   },
+   "note": ""
+  },
+  {
+   "dir": "c512422dd4149a8b",
+   "sourceType": "europe-pmc-jats",
+   "verdict": "consistent",
+   "findings": [],
+   "stats": {
+    "sections": 16,
+    "chars": 38886,
+    "untitled": 0,
+    "untitledLeading": 0,
+    "kinds": {
+     "section": 15,
+     "table": 1
+    }
+   },
+   "note": ""
+  },
+  {
+   "dir": "cd1e43154103c4b5",
+   "sourceType": "europe-pmc-jats",
+   "verdict": "consistent",
+   "findings": [],
+   "stats": {
+    "sections": 15,
+    "chars": 29272,
+    "untitled": 0,
+    "untitledLeading": 0,
+    "kinds": {
+     "section": 15
+    }
+   },
+   "note": ""
+  },
+  {
+   "dir": "de939065eac2b5fd",
+   "sourceType": "grobid-tei",
+   "verdict": "consistent",
+   "findings": [],
+   "stats": {
+    "sections": 15,
+    "chars": 32350,
+    "untitled": 1,
+    "untitledLeading": 1,
+    "kinds": {
+     "?": 15
+    }
+   },
+   "note": ""
+  },
+  {
+   "dir": "f6a2becc97c2233f",
+   "sourceType": "europe-pmc-jats",
+   "verdict": "consistent",
+   "findings": [],
+   "stats": {
+    "sections": 30,
+    "chars": 51332,
+    "untitled": 0,
+    "untitledLeading": 0,
+    "kinds": {
+     "section": 30
+    }
+   },
+   "note": ""
+  },
+  {
+   "dir": "f8392067834de4d8",
+   "sourceType": "europe-pmc-jats",
+   "verdict": "consistent",
+   "findings": [],
+   "stats": {
+    "sections": 20,
+    "chars": 39095,
+    "untitled": 1,
+    "untitledLeading": 0,
+    "kinds": {
+     "section": 19,
+     "table": 1
+    }
+   },
+   "note": ""
+  },
+  {
+   "dir": "fc75f1d5298c3260",
+   "sourceType": "grobid-tei",
+   "verdict": "consistent",
+   "findings": [],
+   "stats": {
+    "sections": 21,
+    "chars": 33466,
+    "untitled": 0,
+    "untitledLeading": 0,
+    "kinds": {
+     "?": 21
+    }
+   },
+   "note": ""
+  },
+  {
+   "dir": "ff8c5c2ca6ce9c92",
+   "sourceType": "europe-pmc-jats",
+   "verdict": "consistent",
+   "findings": [],
+   "stats": {
+    "sections": 16,
+    "chars": 25069,
+    "untitled": 0,
+    "untitledLeading": 0,
+    "kinds": {
+     "section": 14,
+     "table": 2
+    }
+   },
+   "note": ""
+  }
+ ],
+ "teiHashAsymmetry": {
+  "sectionsRule": "_sha256 over raw bytes (parse_tei)",
+  "manifestRule": "_text_sha256, LF-normalised (n+123(5))",
+  "materialisedRecords": [],
+  "why": "n+122(3) and n+123(5) changed the manifest side only. The two agree today because no TEI in the corpus contains CRLF, so this is dormant rather than absent. Not repaired here: changing the hash rule in parse_tei is a contract change and needs a ruling."
+ },
+ "forExtraction": "Untitled sections cannot be located by heading, and the largest documents may be multi-study; both are judgements for the extraction stage, not for acquisition.",
+ "coverageStatement": "Checks that offsets and text agree with each other and with the concatenation contract. Says nothing about whether the sectioning is right, whether titles are right, or whether content is faithful to the source XML -- the last would mean re-running the parser, which is checking an implementation with itself.",
+ "contentNote": "Directory prefixes, counts and verdicts. No section titles and no text.",
+ "auditHash": "sha256:c6bf0135b3477538840c027b23e5fc9ada36795e03367ffb2c60ab177241a695"
+}
