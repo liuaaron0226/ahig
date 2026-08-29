@@ -14,7 +14,7 @@
 那一節整節消失了四十餘輪，而義務勾稽每輪都回報 55／55 全數涵蓋**
 ——**🚨 因為它查的是「該說的話」，從來沒有查過「該有的章節」。**
 
-🚨 並附反向對照：故意注入四種不一致，確認本檢查抓得到。
+🚨 並附反向對照：故意注入五種不一致，確認本檢查抓得到。
 沒有反向對照的檢查，全數通過時無法分辨「真的一致」與「根本沒在看」。
 
 Run:  python3 .scratch/n131_cross_consistency.py
@@ -101,28 +101,41 @@ def binding_text(texts, rel):
     return re.sub(r"[\s>*]+", "", seg)
 
 
-# ── ④ 節次代號之雙軌宣告（n+133）────────────────────────────────────
+# ── ④ 節次代號之雙軌宣告（n+133；n+134 改為「衝突由比對推得」）──────
 # ⚠️ 🚫 不做模糊比對——**明列此刻兩套體系各自的抬頭**，任何一邊改動即失敗。
-# 🚨 `collision=True` 者為**已知且尚未解決**之同代號異義，須在輸出中大聲印出。
+# 🚨 n+133 版把「已知衝突」寫成一個 collision 旗標，**那是可以直接改掉讓它閉嘴的**。
+# ✅ 改為：衝突**由兩表比對推得**（同代號而異名即為衝突，直接計為 problem）。
+#    要消除它只能真的改名，🚫 改宣告沒有用。
 REGISTER_DOC = "docs/m1-obligations.md"
-LETTERS = {
-    "甲": ("檢索與涵蓋完整性", "檢索與涵蓋完整性", False),
-    "乙": ("判讀方法與其限制", "判讀方法與其限制", False),
-    "丙": ("統計終止與抽驗", "統計終止與尾端抽驗", False),
-    "丁": ("稽核債與流程品質", "稽核債與流程品質", False),
-    "己": ("呈現與交付通則（跨章節）", "交付檢查清單（跨章節）", False),
-    # 🚨 同一個「庚」在兩套體系指不同的東西，且兩者現皆在用。
-    "庚": ("措辭與計數規則", "harms（腸胃道不適）之層別與其意義", True),
-    "戊": ("未分類（須人工歸類）", None, False),   # 清冊有、文件集無
-    "辛": (None, "全文取得之可行性與其限制", False),
-    "壬": (None, "需要擁有者決定的事", False),
+# 天干代號＝M1 報告之章節。🚨 非章節者一律不得佔天干（n+134）。
+REG_CATEGORIES = {
+    "甲": "檢索與涵蓋完整性",
+    "乙": "判讀方法與其限制",
+    "丙": "統計終止與抽驗",
+    "丁": "稽核債與流程品質",
+    "己": "呈現與交付通則（跨章節）",
+    "檢": "措辭與計數規則",          # ⚠️ 檢查表，🚫 不是章節（n+81 61919）
+    "待": "未分類（須人工歸類）",     # ⚠️ 暫存區，🚫 不是章節
 }
+DOC_SECTIONS = {
+    "甲": "檢索與涵蓋完整性",
+    "乙": "判讀方法與其限制",
+    "丙": "統計終止與尾端抽驗",
+    "丁": "稽核債與流程品質",
+    "己": "交付檢查清單（跨章節）",
+    "庚": "harms（腸胃道不適）之層別與其意義",
+    "辛": "全文取得之可行性與其限制",
+    "壬": "需要擁有者決定的事",
+}
+# ⚠️ 兩表同代號而異名者即為衝突。丙／己雖措辭略異但指同一件事，故明列為容許。
+ALLOWED_DIFF = {"丙", "己"}
 
 
 def letter_headings(texts):
     """回傳 (清冊代號 -> 抬頭, 文件集代號 -> 抬頭)。"""
-    reg = dict(re.findall(r"^## ([甲乙丙丁戊己庚辛壬癸]) · (.+)$",
+    reg = dict(re.findall(r"^## (\S+) · (.+)$",
                           read(texts, REGISTER_DOC), re.M))
+    reg.pop("附錄", None)
     doc = {}
     for sec, rel in SECTIONS.items():
         first = read(texts, rel).split("\n", 1)[0]
@@ -165,19 +178,20 @@ def run(texts, label):
         problems.append(f"檢查表條數引用為 {next(iter(counts))}，"
                         f"而實際條數為 {actual}")
 
-    # ④ 節次代號雙軌宣告
+    # ④ 節次代號：先驗宣告與實際相符，再由兩表比對推出衝突
     reg_h, doc_h = letter_headings(texts)
-    for letter, (want_reg, want_doc, _known) in LETTERS.items():
-        got_reg, got_doc = reg_h.get(letter), doc_h.get(letter)
-        if want_reg != got_reg:
-            problems.append(f"代號宣告不符：清冊之「{letter}」宣告為"
-                            f"「{want_reg}」，實際為「{got_reg}」")
-        if want_doc != got_doc:
-            problems.append(f"代號宣告不符：文件集之「{letter}」宣告為"
-                            f"「{want_doc}」，實際為「{got_doc}」")
-    for letter in sorted(set(reg_h) | set(doc_h)):
-        if letter not in LETTERS:
-            problems.append(f"代號未宣告：「{letter}」出現於實際檔案而不在 LETTERS")
+    for name, want, got in (("清冊", REG_CATEGORIES, reg_h),
+                            ("文件集", DOC_SECTIONS, doc_h)):
+        for k in sorted(set(want) | set(got)):
+            if want.get(k) != got.get(k):
+                problems.append(f"代號宣告不符：{name}之「{k}」宣告為"
+                                f"「{want.get(k)}」，實際為「{got.get(k)}」")
+    for k in sorted(set(reg_h) & set(doc_h)):
+        if k in ALLOWED_DIFF:
+            continue
+        if reg_h[k] != doc_h[k]:
+            problems.append(f"同代號異義：「{k}」在清冊＝{reg_h[k]}；"
+                            f"在文件集＝{doc_h[k]}")
 
     print(f"=== {label} ===")
     if problems:
@@ -187,10 +201,6 @@ def run(texts, label):
         print("  ✅ 四項皆一致")
     print(f"  （拘束措辭出現於 {sum(len(v) for v in variants.values())} 節；"
           f"檢查表實際 {actual} 條）")
-    known = [(l, r, d) for l, (r, d, c) in LETTERS.items() if c]
-    for l, r, d in known:
-        print(f"  🚨 **已知同代號異義（尚未解決）**：「{l}」在清冊＝{r}；"
-              f"在文件集＝{d}")
     return problems
 
 
@@ -219,16 +229,21 @@ inj[SECTIONS["乙"]] = inj[SECTIONS["乙"]].replace("（十二條）", "（十�
 inj[SECTIONS["辛"]] = inj[SECTIONS["辛"]].replace(
     "# M1 · 辛節骨架：全文取得之可行性與其限制",
     "# M1 · 辛節骨架：全文取得", 1)
-inj[REGISTER_DOC] = Path(REGISTER_DOC).read_text(encoding="utf-8")
+# (e) 把清冊的「檢」改回天干「庚」——**專門驗證「同代號異義」偵測器本身**。
+# 🚨 沒有這一項，本輪把衝突改掉之後，就分不清是「真的解決了」還是
+#    「偵測器跟著被我改壞了」——兩者在輸出上都是一行「✅ 四項皆一致」。
+inj[REGISTER_DOC] = Path(REGISTER_DOC).read_text(encoding="utf-8").replace(
+    "## 檢 · 措辭與計數規則", "## 庚 · 措辭與計數規則", 1)
 
-control = run(inj, "反向對照（已注入四種不一致）")
+control = run(inj, "反向對照（已注入五種不一致）")
 
 print()
 kinds = {("類別不一致" in p) * 1 or ("拘束措辭" in p) * 2
-         or ("條數" in p) * 3 or ("代號" in p) * 4
+         or ("條數" in p) * 3 or ("同代號異義" in p) * 5
+         or ("代號宣告不符" in p) * 4
          for p in control}
-ok = {1, 2, 3, 4} <= kinds
-print(f"反向對照：抓到 {len(control)} 項，涵蓋四型 → "
+ok = {1, 2, 3, 4, 5} <= kinds
+print(f"反向對照：抓到 {len(control)} 項，涵蓋五型 → "
       f"{'✅ 本檢查會失敗' if ok else '🚨 本檢查有盲區'}")
 
 sys.exit(1 if real or not ok else 0)
