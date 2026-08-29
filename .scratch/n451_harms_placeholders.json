@@ -1,0 +1,62 @@
+{
+ "schemaVersion": 1,
+ "documentType": "harms-section-placeholder-values",
+ "ruling": "n+119 status query item 2; values, producing commands and hashes",
+ "population": "the 庚 (harms) skeleton placeholders the coordinator listed",
+ "countingUnit": "placeholder",
+ "criterion": "value read from the named field of a tracked file, or, where no file exists, a stated lower bound with its method",
+ "values": {
+  "HARMS_S5_QUOTA": {
+   "value": 8,
+   "source": "ahig/calibration/b11-carbohydrate/strata.json",
+   "path": "strata[S5-gi-harms-primary].quota",
+   "tracked": true,
+   "fileHash": "sha256:373ffe2640ca16027cbcf87895368e373912a5173a4a9e4c0848f1ba197a3bab"
+  },
+  "HARMS_S6_QUOTA": {
+   "value": 7,
+   "source": "ahig/calibration/b11-carbohydrate/strata.json",
+   "path": "strata[S6-gi-harms-secondary-only].quota",
+   "tracked": true,
+   "fileHash": "sha256:373ffe2640ca16027cbcf87895368e373912a5173a4a9e4c0848f1ba197a3bab"
+  },
+  "HARMS_COMBINED": {
+   "value": 15,
+   "derivation": "S5 + S6",
+   "crossCheck": "m1_step2_assignment.json pool S5+S6-gi-merged quota = 15",
+   "matches": true
+  },
+  "HARMS_ADJACENT_N": {
+   "value": null,
+   "lowerBound": 22,
+   "lastStatedTotal": {
+    "line": 22276,
+    "value": 10
+   },
+   "distinctIdsAfter": 12,
+   "idsAfter": {
+    "c5293527": 46223,
+    "d6b09d4a": 46223,
+    "43e59f73": 46757,
+    "bd099307": 46757,
+    "acc1a817": 46757,
+    "69f52214": 47660,
+    "561bf9d9": 47660,
+    "183123c2": 48282,
+    "b747b916": 48847,
+    "124435c1": 49125,
+    "43ca524d": 49125,
+    "c720977d": 55841
+   },
+   "why": "There is no roster file. The count existed only as a running total in board prose, and that total stopped being updated after the line above while further harms-adjacent observations kept being recorded.",
+   "skeletonNoteStale": "The skeleton source column says the run went 4 to 5 to 6; the board actually reached 10.",
+   "sameFamilyAs": "round 447, the expected-miss figure -- a prose running total gives no signal when maintenance stops. Worse here: that one still had a base to recompute from; this has no roster at all.",
+   "recommendation": "Build a roster file as was done for the errata roster, so the count has a producing command. The inclusion criterion needs ruling first: \"harms-adjacent\" is used on the board both to admit a record and merely to describe one."
+  }
+ },
+ "notProvided": {
+  "HARMS_S5_ACTUAL": "exists only after full text is obtained; the coordinator excluded it"
+ },
+ "coverageStatement": "Quotas are read from a tracked file and can be checked independently. The adjacent count is a lower bound with its method stated, not a value.",
+ "contentNote": "Quotas, counts, id prefixes and line numbers only."
+}
