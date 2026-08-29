@@ -87,7 +87,10 @@ ITEMS.append((
     "n+115／清冊 48897",
     f"{n_ph} 格全部填入現算值，其中「不可及」{inaccessible} 格須執行室代跑；"
     "🚨 每格皆為交付當日現算，🚫 不得沿用任何一輪之值",
-    "✅ 可驗（填值後重跑 n115，殘留 {{…}} 應為 0）"))
+    "⚠️ **半可驗**（`n154_cell_producer.py`）：協調者可及之 88 格中 79 格已可由"
+    "權威來源現算，且逐格與定位欄自報值比對；"
+    "🚫 其餘 4 格之定位欄**不足以決定值**（母體、產物或判準未載），⚠️ 待裁；"
+    "🚫 填值完成本身仍須以 n115 殘留 {{…}}＝0 認定"))
 
 pend = owner_pending()
 ITEMS.append((
@@ -130,9 +133,9 @@ ITEMS.append((
 
 ITEMS.append((
     "既有機檢全綠", "協調者",
-    "n+136／n+141／n+131／n+116／n+153",
-    "閘門、佔位符表、交叉一致性、義務勾稽、字面數字、檢查表矩陣**六項**"
-    "於交付當日皆 exit 0",
+    "n+136／n+141／n+131／n+116／n+153／n+154",
+    "閘門、佔位符表、交叉一致性、義務勾稽、字面數字、檢查表矩陣、格值現算"
+    "**七項**於交付當日皆 exit 0",
     "✅ 可驗（本檔即現跑）"))
 
 print("=== M1 交付盤點｜🚨 骨架完稿 ≠ 可交付 ===")
@@ -148,7 +151,7 @@ print()
 
 gates = {"n115_delivery_checklist": None, "n116_obligation_crosscheck": None,
          "n131_cross_consistency": None, "n141_literal_numbers": None,
-         "n153_wording_audit_check": None}
+         "n153_wording_audit_check": None, "n154_cell_producer": None}
 for g in gates:
     gates[g] = gate(f".scratch/{g}.py")
 bad = [g for g, rc in gates.items() if rc != 0]
