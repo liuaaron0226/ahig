@@ -137,6 +137,11 @@ DETAIL = {
     "UNPROBED_N":   ("產物", "`.scratch/n493_unprobed_available.json` → `count`＝**12**（我已自檔覆核）；⚠️ 母體＝校準 60＋補集中從未試過者"),
     "UNPROBED_ALT": ("產物", "`.scratch/n494_alt_oa_round2.json` → 有其他位址者＝**3**（其餘 9 筆無）"),
     "UNPROBED_PDF": ("產物", "同上 → `obtainable`＝**0**；🚨 🚫 不得由此推論「替代位址法無效」——該法之前提對本批不成立"),
+    # ── n+151：節與偏移之一致性查核（第 498 輪）──
+    "SECTIONS_OK": ("產物", "`.scratch/n498_sections_integrity.json` → `counts.consistent`＝**41**（我已自檔覆核）"),
+    "UNTITLED_SECTIONS": ("產物", "同上 → `totals.untitledSections`＝**20**；⚠️ 判準為空字串**或**字面 `Untitled`"),
+    "UNTITLED_LEADING": ("產物", "同上 → `totals.filesWhoseLeadingSectionIsUntitled`＝**5**；🚨 首節無標題者，摘要／前言最常在此"),
+    "LEGACY_DIRS": ("產物", "`.scratch/n496_corpus_verify.json` → `legacySchemeDirectories` 之長度＝**4**（我已自檔覆核）；🚨 不刪，僅排除並列名"),
     "SHADOW_CONCORDANT": ("不可及", "私有根 `machine-reconciliation.json` → `counts.concordantCount`＝**288**（執行室量測）"),
     "SHADOW_QUEUED":    ("不可及", "同上 → `counts.ownerAuditCount`＝**12**（執行室量測）"),
     "DEBT_B4":          ("看板", "影子歧異之尚欠項 11（未解決者，n+106 裁定；單位＝抽查項目）"),

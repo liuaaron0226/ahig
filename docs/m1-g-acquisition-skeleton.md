@@ -313,6 +313,30 @@ TEI 登錄後（n+137），**同一個字 `acquired` 在四個母體上是四個
    **須以校準集以外之 TTE 紀錄執行同一檢查，並明載其為補充檢查、不屬凍結抽樣設計。**
 3. **🚫 不得為此改動凍結之抽樣框**（n+123 甲案：配額不動、據實載明）。
 
+### ⚠️ 走目錄計數者，須先說它排除了什麼
+
+私有根之全文目錄下另有 `{{LEGACY_DIRS}}` 個**舊命名目錄**，
+各持一份狀態為現行契約已不允許之值的 manifest。
+**⚠️ 其 `candidateId` 皆另有現行命名之目錄，故無資料損失**，
+**🚨 但走目錄計數會把它們重複計入。**
+
+> **✅ 裁定不刪（n+151 三）**：它們是**舊狀態的證據**，
+> **🚫 本 run 不為了讓計數好看而刪證據**；且刪除不可逆，計數錯可逆。
+> **⚠️ 故凡本報告有任何數字源自目錄走訪，須註明排除了這幾個目錄。**
+
+### ⚠️ 交給萃取階段之兩項既知限制（**取得端查得出，但不由取得端處置**）
+
+第 498 輪逐檔查核在手全文之節與字元偏移：**`{{SECTIONS_OK}}`／`{{SECTIONS_OK}}` 一致**
+（兩種讀法——依節取文與依偏移切文——結果相同）。**⚠️ 而查核順帶量到兩件事**：
+
+| | 值 | 對萃取階段的意義 |
+|---|---|---|
+| 無標題之節 | `{{UNTITLED_SECTIONS}}` | **🚨 這些節無法用標題定位**——萃取若以節名尋找「方法」「結果」，會找不到 |
+| **首節即無標題者** | `{{UNTITLED_LEADING}}` | ⚠️ 通常表示摘要或前言未被標出，**🚨 而那正是最常被取用的一段** |
+
+> **🚫 這兩項不由取得端處置**——**⚠️ 如何在無標題時定位，是萃取階段的判準問題。**
+> **✅ 取得端的責任是把它量出來並交代清楚，🚫 不是順手補一個標題上去。**
+
 ## 三之四、⚠️ 授權欄：可讀 ≠ 可再散布
 
 首批 8 筆之 `licence` 欄原皆空；第三方書目庫對其中 `{{LIC_FILLED}}` 筆載有授權
@@ -406,6 +430,8 @@ TEI 登錄後（n+137），**同一個字 `acquired` 在四個母體上是四個
 | `VER_PUBLISHED`／`VER_ACCEPTED`／`VER_SUBMITTED`／`VER_UNKNOWN` | **漂移** | `.scratch/n486_licence_gap.json` ＋ `n487_version_and_licence.json` 之合計；🚫 版本不明不得計入 published |
 | `CALIB_VER_PUB`／`CALIB_VER_ACC`／`CALIB_VER_SUB`／`CALIB_NONPUB` | **漂移** | `.scratch/n489_calibration_versions.json`；🚨 **母體為校準集 60 之 acquired**，🚫 不得與全部 manifest 之分布互換 |
 | `S3_QUOTA` | 凍結 | `strata.json` 之 `S3-tte` 配額 |
+| `SECTIONS_OK`／`UNTITLED_SECTIONS`／`UNTITLED_LEADING` | **漂移** | `.scratch/n498_sections_integrity.json`；⚠️ 母體為私有根之 acquired，🚫 非校準 60 亦非補集 |
+| `LEGACY_DIRS` | **漂移** | `.scratch/n496_corpus_verify.json` → `legacySchemeDirectories` 之長度；🚨 不刪，僅排除並列名（n+151 三） |
 | `S3_ACQ_CALIB`／`S3_ACQ_BACKFILL` | **漂移** | `.scratch/n492_stratum_table.json`；🚨 **兩欄母體不同**（校準 60 ／ 加計補集），🚫 不得互換，亦不得取其一作分子另一作分母 |
 | `UNPROBED_N`／`UNPROBED_ALT`／`UNPROBED_PDF` | **漂移** | `.scratch/n493_unprobed_available.json`＋`n494_alt_oa_round2.json`；🚨 母體為「從未試過替代位址之 `available-*`」，🚫 不得與遭擋 11 筆混為一批 |
 | `LIC_FILLED` | **漂移** | 首批 8 筆中第三方書目庫載有授權者；⚠️ 已填入並附來源與查取日期，🚫 非本室查核之結論 |
