@@ -239,6 +239,33 @@ for pat, name in CONFLICT:
     p3_hits += hit
 p3_ok = not p3_hits
 
+# ── 附加（本室自訂，🚨 非 n+48 公布樣式）：路徑內嵌逐字標題之網址 ──
+# ⚠️ 第 452 輪發現：figshare 等站之 landing URL 把逐字英文標題放進路徑。
+# 🚨 n+48 五道樣式對這一型完全抓不到（已以合成樣本實測，五道皆未命中），
+#    ⚠️ 而剛解鎖之取得層工作處理的正是這種網址——
+#    任一腳本若把 availableUrl 落盤到 .scratch/，逐字標題就無聲進入版控。
+# ⚠️ 本段為預警不是 n+48：基線取「現況」而非「零」，
+#    🚨 現有命中全部位於 trading-desk/ 與 docs/research/，與 AHIG 文獻無關。
+URLTITLE = re.compile(
+    r'https?://[^\s"\'<>)]*/(?:[A-Za-z]{3,}[_-]){3,}[A-Za-z]{3,}[^\s"\'<>)]*')
+URLTITLE_BASE_FILES, URLTITLE_BASE_SITES = 5, 32
+
+uf, un = set(), 0
+for _f, _t in alltexts.items():
+    _m = URLTITLE.findall(_t)
+    if _m:
+        uf.add(_f)
+        un += len(_m)
+u_ok = (len(uf) == URLTITLE_BASE_FILES and un == URLTITLE_BASE_SITES)
+print()
+print('=== 附加預警：路徑內嵌標題之網址（🚨 本室自訂，非 n+48）===')
+print('   現算 %d 檔／%d 處｜基線 %d／%d   %s'
+      % (len(uf), un, URLTITLE_BASE_FILES, URLTITLE_BASE_SITES,
+         '✅ 與基線相同' if u_ok else '🚨 有出入'))
+if not u_ok:
+    print('   命中檔：%s' % sorted(uf)[:8])
+print('   ⚠️ 不影響 exit code（非公布樣式）；🚨 AHIG 之 .scratch/ 出現此型即為外洩。')
+
 # ── 測試：🚨 數字必須來自實跑，不得沿用上一輪 ────────────────────
 # ⚠️ 第 435 輪之由來：本室每輪回報「測試 743/743」，實為抄寫。
 # 🚨 本機 `python` 根本沒有 pytest（只有 `python3` 有），即使有也收集不全
