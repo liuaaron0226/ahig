@@ -14,6 +14,7 @@
    "quota": 12,
    "acquiredCalibration60": 2,
    "acquiredWithBackfill": 5,
+   "denominatorWithBackfill": 19,
    "versionsCalibration60": {
     "publishedVersion": 1,
     "acceptedVersion": 1
@@ -24,6 +25,7 @@
    "quota": 10,
    "acquiredCalibration60": 4,
    "acquiredWithBackfill": 5,
+   "denominatorWithBackfill": 11,
    "versionsCalibration60": {
     "acceptedVersion": 2,
     "publishedVersion": 2
@@ -34,6 +36,7 @@
    "quota": 8,
    "acquiredCalibration60": 0,
    "acquiredWithBackfill": 1,
+   "denominatorWithBackfill": 14,
    "versionsCalibration60": {}
   },
   {
@@ -41,6 +44,7 @@
    "quota": 10,
    "acquiredCalibration60": 4,
    "acquiredWithBackfill": 7,
+   "denominatorWithBackfill": 14,
    "versionsCalibration60": {
     "publishedVersion": 3,
     "acceptedVersion": 1
@@ -51,6 +55,7 @@
    "quota": 15,
    "acquiredCalibration60": 3,
    "acquiredWithBackfill": 7,
+   "denominatorWithBackfill": 20,
    "versionsCalibration60": {
     "publishedVersion": 1,
     "acceptedVersion": 1,
@@ -62,6 +67,7 @@
    "quota": 5,
    "acquiredCalibration60": 1,
    "acquiredWithBackfill": 2,
+   "denominatorWithBackfill": 6,
    "versionsCalibration60": {
     "publishedVersion": 1
    }
@@ -70,12 +76,14 @@
  "totals": {
   "quota": 60,
   "calibration60": 14,
-  "withBackfill": 27
+  "withBackfill": 27,
+  "denominatorWithBackfill": 84
  },
+ "denominatorNote": "The quota column is the denominator of column 甲 only. Column 乙 is drawn plus accepted backfill, which is 84, not 60. A first version of this table carried one quota column for both, so a reader forming a rate for 乙 would divide by the wrong number -- in a table written specifically to stop the two populations being mixed.",
  "numericallyUsableCalibration60": 13,
  "requiringPerValueMarking": 5,
  "whyThisExists": "The same stratum was misreported in two consecutive rounds, both times by computing the table by hand: once mixing the two populations in a single sentence, once quoting a figure that registration had already moved. A hand computation does not say which population it used.",
  "coverageStatement": "Version detail exists only for the calibration 60, so no ratio may take its numerator from the version counts and its denominator from the backfill column. Neither column is frozen -- the first moves when the inventory is re-run, the second when records are registered -- so cite the round alongside the number.",
  "contentNote": "Pool ids and counts only.",
- "tableHash": "sha256:c5454679c14a504551e338cb3454caa9aad67c72484f8ee85ad870dcfadaf19c"
+ "tableHash": "sha256:b6fb1a33936eb6538f0328ef4625d24f6e611e73dd71a50e67653d9a3986e3dd"
 }

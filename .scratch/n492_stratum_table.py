@@ -24,6 +24,17 @@ n+142 據此立為義務：**報告中每一個層別筆數須註明其取自哪
 **⚠️ 甲之分母是契約所定之 60；乙之分母是遞補後實際處理之集合。**
 **🚨 版本分布（`n489`）之母體是甲——故任何「版本 ÷ 在手」之比例，分母只能取甲欄。**
 
+## 🚨 第 499 輪補上的第三個欄（⚠️ 這張表自己漏掉的那個）
+
+**⚠️ 初版只有一個「配額」欄，而它是甲的分母**——
+**🚨 乙的分母是「抽出 ＋ 該池接受之遞補」，逐池不同，合計 84 而非 60。**
+
+> **⚠️ 於是讀者看到「配額 60｜乙 27」會算出 27／60**，
+> **🚨 而乙的真實比率是 27／84。⚠️ 這張表是為了防止母體混用而寫的，
+> 它自己卻讓兩個母體共用一個分母欄。**
+
+**✅ 已加「乙之分母」欄，逐池列出。🚫 兩欄之分母不得互換。**
+
 ## 涵蓋範圍聲明（n+80 三之紀律）
 
 - ✅ 查得到：兩個母體下各層之 `acquired` 筆數，及甲欄之版本細分。
@@ -77,25 +88,40 @@ for cid, pid in pool.items():
 
 quota = {p['poolId']: p['quota'] for p in bf['pools']}
 order = [p['poolId'] for p in bf['pools']]
+# 🚨 乙之分母：該池抽出 ＋ 該池接受之遞補（⚠️ 逐池不同，🚫 不是配額）。
+denom_b = {}
+for p in bf['pools']:
+    pid = p['poolId']
+    acc = sum(1 for r in (p.get('backfilled') or []) if r.get('accepted'))
+    denom_b[pid] = len(cal['draws'].get(pid, {}).get('candidateIds') or []) + acc
 
 print('=== 層別 acquired：兩個母體並列（🚫 不可互代）===')
 print('甲 ← .scratch/m1_step3_inventory.json（原始校準集 60）')
 print('乙 ← 校準集抽出 ＋ backfill accepted，逐筆現查 manifest（60 ＋ 遞補）')
 print()
-print('%-32s %6s %6s %6s   %s' % ('層', '配額', '甲', '乙', '甲欄之版本細分'))
-print('-' * 96)
+print('%-32s %6s %6s %6s %8s   %s'
+      % ('層', '配額', '甲', '乙', '乙之分母', '甲欄之版本細分'))
+print('🚨 「配額」是甲之分母；🚫 不是乙之分母——⚠️ 兩欄不得共用。')
+print('-' * 104)
 rows = []
 for pid in order:
     vs = a_ver.get(pid, Counter())
     detail = '／'.join('%s %d' % (k.replace('Version', ''), n)
                        for k, n in sorted(vs.items())) or '—'
-    print('%-32s %6d %6d %6d   %s' % (pid, quota[pid], a.get(pid, 0), b.get(pid, 0), detail))
+    print('%-32s %6d %6d %6d %8d   %s'
+          % (pid, quota[pid], a.get(pid, 0), b.get(pid, 0), denom_b[pid], detail))
     rows.append({'pool': pid, 'quota': quota[pid],
                  'acquiredCalibration60': a.get(pid, 0),
                  'acquiredWithBackfill': b.get(pid, 0),
+                 'denominatorWithBackfill': denom_b[pid],
                  'versionsCalibration60': dict(vs)})
-print('-' * 96)
-print('%-32s %6d %6d %6d' % ('合計', sum(quota.values()), sum(a.values()), sum(b.values())))
+print('-' * 104)
+print('%-32s %6d %6d %6d %8d'
+      % ('合計', sum(quota.values()), sum(a.values()), sum(b.values()),
+         sum(denom_b.values())))
+print('🚨 甲之比率為 %d／%d；⚠️ 乙之比率為 %d／%d——🚫 不是 %d／%d。'
+      % (sum(a.values()), sum(quota.values()), sum(b.values()),
+         sum(denom_b.values()), sum(b.values()), sum(quota.values())))
 print()
 usable = sum(n for pid in order for k, n in a_ver.get(pid, Counter()).items()
              if k != 'submittedVersion')
@@ -118,7 +144,14 @@ doc = {
     },
     'rows': rows,
     'totals': {'quota': sum(quota.values()), 'calibration60': sum(a.values()),
-               'withBackfill': sum(b.values())},
+               'withBackfill': sum(b.values()),
+               'denominatorWithBackfill': sum(denom_b.values())},
+    'denominatorNote': 'The quota column is the denominator of column 甲 only. '
+                       'Column 乙 is drawn plus accepted backfill, which is 84, '
+                       'not 60. A first version of this table carried one quota '
+                       'column for both, so a reader forming a rate for 乙 would '
+                       'divide by the wrong number -- in a table written '
+                       'specifically to stop the two populations being mixed.',
     'numericallyUsableCalibration60': usable,
     'requiringPerValueMarking': marked,
     'whyThisExists': 'The same stratum was misreported in two consecutive rounds, '

@@ -1,0 +1,126 @@
+{
+ "schemaVersion": 1,
+ "documentType": "calibration-draw-reproduction",
+ "ruling": "self-initiated: m1_step2_draw.py itself says the draw can be independently re-run, and nobody had. Tidy quota arithmetic does not distinguish a real stratified draw from a hand-picked list.",
+ "population": "the six sampling pools of the frozen frame",
+ "countingUnit": "pool for the redraw, record for the hygiene checks",
+ "criterion": "seed, picked list and drawHash all recomputed from the recorded anchorHash by the procedure written in m1_step2_draw.py",
+ "interpreter": "3.12.4",
+ "interpreterCaveat": "random.Random.sample is a CPython implementation detail and is not guaranteed stable across major versions. A reproduction is evidence on this interpreter; \"independently re-runnable\" is weaker than it sounds unless the version travels with it.",
+ "controlProbes": [
+  {
+   "probe": "正向：忠實重抽之紀錄",
+   "expectFail": false,
+   "failed": false,
+   "findings": [],
+   "asExpected": true
+  },
+  {
+   "probe": "反向甲：名單換掉一筆",
+   "expectFail": true,
+   "failed": true,
+   "findings": [
+    "抽出名單不符：記錄獨有 1 筆、重抽獨有 1 筆"
+   ],
+   "asExpected": true
+  },
+  {
+   "probe": "反向乙：種子差一個位元",
+   "expectFail": true,
+   "failed": true,
+   "findings": [
+    "種子不符：記錄 6885827039610489672 ≠ 重算 6885827039610489673"
+   ],
+   "asExpected": true
+  },
+  {
+   "probe": "反向丙：drawHash 改一字元",
+   "expectFail": true,
+   "failed": true,
+   "findings": [
+    "drawHash 不符"
+   ],
+   "asExpected": true
+  },
+  {
+   "probe": "反向丁：錨定雜湊換掉",
+   "expectFail": true,
+   "failed": true,
+   "findings": [
+    "種子不符：記錄 6885827039610489673 ≠ 重算 10401631275922869071",
+    "抽出名單不符：記錄獨有 6 筆、重抽獨有 6 筆",
+    "drawHash 不符"
+   ],
+   "asExpected": true
+  },
+  {
+   "probe": "反向戊：池多一筆",
+   "expectFail": true,
+   "failed": true,
+   "findings": [
+    "poolSize 不符：記錄 40 ≠ 實際 41",
+    "抽出名單不符：記錄獨有 6 筆、重抽獨有 6 筆",
+    "drawHash 不符"
+   ],
+   "asExpected": true
+  }
+ ],
+ "anchorHash": "sha256:84cde8904e86b72830d4aeed70ca1e593205f9c97d34d7cc14e186d4cc4993eb",
+ "frameFindings": [],
+ "pools": [
+  {
+   "pool": "S1-tt-moderate-dose",
+   "quota": 12,
+   "poolSize": 62,
+   "verdict": "reproduced",
+   "findings": []
+  },
+  {
+   "pool": "S2-tt-high-and-very-high-dose",
+   "quota": 10,
+   "poolSize": 12,
+   "verdict": "reproduced",
+   "findings": []
+  },
+  {
+   "pool": "S3-tte",
+   "quota": 8,
+   "poolSize": 24,
+   "verdict": "reproduced",
+   "findings": []
+  },
+  {
+   "pool": "S4-exogenous-oxidation",
+   "quota": 10,
+   "poolSize": 32,
+   "verdict": "reproduced",
+   "findings": []
+  },
+  {
+   "pool": "S5+S6-gi-merged",
+   "quota": 15,
+   "poolSize": 27,
+   "verdict": "reproduced",
+   "findings": []
+  },
+  {
+   "pool": "S7-glycogen",
+   "quota": 5,
+   "poolSize": 6,
+   "verdict": "reproduced",
+   "findings": []
+  }
+ ],
+ "totals": {
+  "drawn": 60,
+  "distinct": 60,
+  "totalSampleSize": 60,
+  "backfillAccepted": 24
+ },
+ "backfillFindings": [],
+ "neverAttempted": [],
+ "verdict": "reproduced",
+ "coverageStatement": "Proves the documented procedure was followed on the recorded pools. It cannot say the pools are right: if assignment is wrong, the redraw faithfully reproduces that wrong. And it says nothing about whether populationHash matches the judgement state it claims -- that is M1 step 1, not acquisition.",
+ "contentNote": "Pool ids, counts, seeds and hashes. Candidate ids appear only as 8-character tails.",
+ "reproductionHash": "sha256:4950a77e9fe2026f9f9e918ae9e1358291d62af8c4c8a222b4f130f365961254"
+}
