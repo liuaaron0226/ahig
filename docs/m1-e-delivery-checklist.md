@@ -20,7 +20,7 @@
 
 <!-- BEGIN GENERATED n115 -->
 
-共 **65** 個佔位符。凍結 **42**、漂移 **23**；其中 **9** 個之權威來源**協調者無法自行核對**（見下文第二節）。
+共 **67** 個佔位符。凍結 **43**、漂移 **24**；其中 **10** 個之權威來源**協調者無法自行核對**（見下文第二節）。
 
 | 節 | 佔位符 | 類別 | 來源型態 | 定位 |
 |---|---|---|---|---|
@@ -38,7 +38,9 @@
 | 乙 | `THRESHOLD3_STRATA` | 凍結 | 看板 | 看板 47448–47460：三分層之門檻 3 實測 **1.52** |
 | 乙 | `THRESHOLD3_SUBGROUP` | 凍結 | 看板 | 同上：「補得到」子群體之門檻 3 實測 **1.76**（🚨 與 1.52 是兩個檢定） |
 | 乙 | `THRESHOLD3_VALUE` | 凍結 | 看板 | 同上：事前門檻 1.5 |
+| 乙 | `TITLE_ONLY_EXPECTED_GAP` | 漂移 | 不可及 | 🚨 **須重算**：底數 77→133→175 而衍生數一直寫「約 10」；舊率 14.7% 取自特定段落，不得直接套用（n+121） |
 | 乙 | `TITLE_ONLY_N` | 漂移 | 不可及 | 私有根 `title-only-judged-roster.json` → `entryCount`＝**175**（執行室量測）；🚨 不得以判讀理由文字代算 |
+| 乙 | `UNTRACEABLE_N` | 凍結 | 看板 | 看板 61541／61653：33 段設計輸入無 `candidateId` 可對應 |
 | 丙 | `ALPHA` | 凍結 | 原始碼 | `statistical_termination.py` `DEFAULT_ALPHA` = 0.05 |
 | 丙 | `NOT_SCREENED_STD` | 漂移 | 產物 | `.scratch/n78_termination_evidence.json` → `tailSpotCheckPopulation.count`（**閉合式之第三項**） |
 | 丙 | `N_TOTAL_STD` | 凍結 | 產物 | `.scratch/n78_termination_evidence.json` → `standardLaneSequence.nTotal` |
@@ -111,15 +113,20 @@
 | 產物雜湊 | 該量測所依據之檔案雜湊，**並註明雜湊涵蓋什麼範圍** |
 | 覆核狀態 | 明寫「**執行室量測、協調者未獨立覆核**」 |
 
-**現行「不可及」共 8 項，分兩批**：
+**「不可及」之項數以第一節表為準**（🚫 此處刻意不複寫數字——
+**複寫的數字會過期，而過期的描述正是本檔一路在修的東西**）。分三批：
 
 | 批 | 佔位符 | 狀態 |
 |---|---|---|
-| 已取得值與 `file_hash` | `TITLE_ONLY_N` **175**、`SHADOW_CONCORDANT` **288**、`SHADOW_QUEUED` **12** | 可寫入，須標「執行室量測、協調者未獨立覆核」 |
-| **🚨 尚未索取** | 庚節五格（`HARMS_S5_QUOTA`／`HARMS_S6_QUOTA`／`HARMS_COMBINED`／`HARMS_S5_ACTUAL`／`HARMS_ADJACENT_N`） | 私有根 `strata.json` 與 harms 相鄰素材名單 |
+| **已取得值與 `file_hash`** | `TITLE_ONLY_N`、`SHADOW_CONCORDANT`、`SHADOW_QUEUED` | 可寫入，須標「執行室量測、協調者未獨立覆核」 |
+| **🚨 尚未索取** | 庚節之配額與相鄰素材各格、`SEX_SAMPLE_COMPOSITION` | 私有根 `strata.json` 與各名冊 |
+| **🚨 尚不存在／須重算** | `HARMS_S5_ACTUAL`、`TITLE_ONLY_EXPECTED_GAP` | 見下 |
 
-**⚠️ `HARMS_S5_ACTUAL` 之特殊性**：它**現在還不存在**——
-**全文取得後才會有值**，且 🚫 不得為填滿配額而放寬主要性判準。
+**⚠️ 第三批之兩格特別容易被誤填**：
+- **`HARMS_S5_ACTUAL` 現在還沒有值**——全文取得後才會有，
+  且 🚫 不得為填滿配額而放寬主要性判準。
+- **`TITLE_ONLY_EXPECTED_GAP` 有一個看板上現成的數字（「約 10」），而它已失效**——
+  底數由 77 長到 175 而該數未動。**🚨 現成而過期的數字，比沒有數字更危險。**
 
 ### 🚨 更正：本檔初版把 **8** 項列為不可及，其中 **5** 項其實在版控裡
 

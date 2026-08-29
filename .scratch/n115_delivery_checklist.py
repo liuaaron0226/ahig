@@ -68,6 +68,8 @@ DETAIL = {
     "ORPHAN_N":         ("看板", "看板 23514–23515；⚠️ 私有根之 `critical-harms-sweep-orphans` 工作單協調者不可及"),
     "COLLISION_N":      ("產物", "`docs/w4b-design-inputs.md`（**受追蹤**）之 `C-*` 相異編號＝**40**（⚠️ 檔內排列非遞增，🚫 不得以「順序遞增」查完備）"),
     "TITLE_ONLY_N":     ("不可及", "私有根 `title-only-judged-roster.json` → `entryCount`＝**175**（執行室量測）；🚨 不得以判讀理由文字代算"),
+    "TITLE_ONLY_EXPECTED_GAP": ("不可及", "🚨 **須重算**：底數 77→133→175 而衍生數一直寫「約 10」；舊率 14.7% 取自特定段落，不得直接套用（n+121）"),
+    "UNTRACEABLE_N":    ("看板", "看板 61541／61653：33 段設計輸入無 `candidateId` 可對應"),
     # 🚫 `SEX_REPRESENTATION` 作廢（n+120）：該名稱把行為差異標成樣本組成。
     "PLANNING_RATE_OVERALL": ("看板", "看板 49702：菁英層級補給規劃率（⚠️ **規劃率，非佔比**）"),
     "PLANNING_RATE_M":  ("看板", "同上，男性 91–93%"),
