@@ -4,9 +4,10 @@
  "ruling": "n+151(1): the 不可及 cells are the executor room to run. This makes them one command instead of a hand rebuild on delivery day.",
  "population": "cells whose kind is 不可及 in n115_delivery_checklist.py's DETAIL, read by ast rather than copied",
  "countingUnit": "placeholder cell",
- "cellsFound": 17,
+ "cellsFound": 18,
  "cellsWithNonLiteralKind": [],
- "cellsPerN151": 17,
+ "cellsPerRuling": 18,
+ "cellsPerRulingSource": "n+151 十七格 ＋ n+152（一）新增 RETRACT_IN_EVIDENCE",
  "listDrift": false,
  "producible": [
   "ACQ_ALL",
@@ -17,6 +18,7 @@
   "NARR_INSTRUMENT_N",
   "NARR_RETRACT_TEXT_N",
   "RETRACT_FIELD_N",
+  "RETRACT_IN_EVIDENCE",
   "SHADOW_CONCORDANT",
   "SHADOW_QUEUED",
   "TAG_ROSTER_COUNT",
@@ -53,7 +55,13 @@
    "producible": true,
    "value": 10,
    "population": "八份 worksheet 之聯集，逐筆去重（candidateId）",
-   "note": "🚨 逐份為 {'critical-harms-sweep': 0, 'critical-harms-sweep-orphans': 0, 'safety-full-screen-pass-1': 3, 'safety-full-screen-pass-2': 3, 'screening-pilot': 0, 'screening-shadow-pass-a': 0, 'screening-shadow-pass-b': 0, 'standard-full-screen-pass-1': 7}——⚠️ 各份互有重疊，故「哪一份」與「聯集」是不同的量；🚫 交付時須點名母體，並依 n+86（十）逐筆確認主題涵蓋。"
+   "note": "🚨 逐份為 {'critical-harms-sweep': 0, 'critical-harms-sweep-orphans': 0, 'safety-full-screen-pass-1': 3, 'safety-full-screen-pass-2': 3, 'screening-pilot': 0, 'screening-shadow-pass-a': 0, 'screening-shadow-pass-b': 0, 'standard-full-screen-pass-1': 7}——⚠️ 各份互有重疊。✅ n+152（一）已裁定本格母體即此聯集；🚫 不得與 `NARR_RETRACT_TEXT_N`（理由文字）或 `RETRACT_IN_EVIDENCE`（進入證據體）相加或互換。"
+  },
+  "RETRACT_IN_EVIDENCE": {
+   "producible": true,
+   "value": 0,
+   "population": "上一格之聯集 10 筆中，錨定母體判為 `advance` 者",
+   "note": "🚨 逐筆狀態：錨定母體 exclude 6 筆；⚠️ 安全線另檔判讀 3 筆（皆 exclude）；🚨 完全無判讀 1 筆（9c2cc462）——⚠️ 未判讀者不可能「進入」證據體，故本格仍為 0，🚫 但它與「已被排除」不是同一回事，報告不得寫成一律排除。"
   },
   "ACQ_ALL": {
    "producible": true,
@@ -140,6 +148,32 @@
   "screening-shadow-pass-b": 0,
   "standard-full-screen-pass-1": 7
  },
+ "retractionDecisionState": {
+  "1a844302": "exclude",
+  "3bf49d47": "(不在錨定母體之 decisions 內)",
+  "71beed9b": "exclude",
+  "32766cbc": "exclude",
+  "9c2cc462": "(不在錨定母體之 decisions 內)",
+  "d7e6ed69": "(不在錨定母體之 decisions 內)",
+  "e9eb1788": "exclude",
+  "59851668": "(不在錨定母體之 decisions 內)",
+  "911a4b3a": "exclude",
+  "8d1045d5": "exclude"
+ },
+ "retractionJudgedElsewhere": {
+  "3bf49d47": [
+   "exclude"
+  ],
+  "d7e6ed69": [
+   "exclude"
+  ],
+  "59851668": [
+   "exclude"
+  ]
+ },
+ "retractionNeverJudged": [
+  "9c2cc462"
+ ],
  "legacyDirectoriesExcluded": [
   "ahig_candidate_publication_21e29112ef4d15d8fe4d9796",
   "ahig_candidate_publication_465dca4abe3d419a0c094731",
@@ -155,5 +189,5 @@
  "valuesAreNotAnswers": "Every value here is evidence that the cell can be produced, not the value to paste. n+151(1) requires each cell to be computed on the day of delivery.",
  "coverageStatement": "Produces what can be counted from private-root files or existing read-only scripts. Cells needing a judgement, a ruling, or an extraction that has not happened are reported as not producible with the specific blocker, never filled with an approximation. Values parsed out of n60_tags.py's printed table are anchored; a missing anchor yields parse-failed rather than a number.",
  "contentNote": "Counts, cell names and population statements only.",
- "producerHash": "sha256:b61f5579e29d504df5b9ee4af78acce5da15744aed157f87e0868521570bb01c"
+ "producerHash": "sha256:923f16e83307a1b4987712f63298b2cc6d5c33229728fd395ad45ea3d740bf1f"
 }

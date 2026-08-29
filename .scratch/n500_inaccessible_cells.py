@@ -58,7 +58,11 @@ PRIV = Path(os.environ['AHIG_PRIVATE_ROOT'])
 FULL = PRIV / 'fulltext'
 RUN = (PRIV / 'search-runs' / 'b11-exogenous-cho-endurance' / 'b11-full-run')
 ARTIFACT_DIR = re.compile(r'-[0-9a-f]{16}$')
-N151_SAYS = 17
+# 🚨 這個數是「上一次裁定點過的格數」，不是常數。
+# ⚠️ n+151 點的是 17；n+152（一）新增 `RETRACT_IN_EVIDENCE` → 18。
+# 🚨 不符時腳本會直接說「清單已漂移」——⚠️ 上一輪它就是這樣抓到新格的。
+EXPECTED_CELLS = 18
+EXPECTED_SOURCE = 'n+151 十七格 ＋ n+152（一）新增 RETRACT_IN_EVIDENCE'
 
 
 def jload(p):
@@ -92,9 +96,11 @@ cells = sorted(k for k, v in kinds.items() if v == '不可及')
 
 print('=== n+151（一）之「不可及」格：一道指令代替一場手工重建 ===')
 print('   清單以 ast 解析檢查表 `DETAIL` 取得，🚫 非手打。')
-print('   實得 %d 格；n+151 所載 %d 格 %s'
-      % (len(cells), N151_SAYS,
-         '✅ 相符' if len(cells) == N151_SAYS else '🚨 不符——⚠️ 清單已漂移'))
+print('   實得 %d 格；裁定所載 %d 格 %s'
+      % (len(cells), EXPECTED_CELLS,
+         '✅ 相符' if len(cells) == EXPECTED_CELLS
+         else '🚨 不符——⚠️ 清單已漂移'))
+print('   （%s）' % EXPECTED_SOURCE)
 if nonliteral:
     print('   🚨 %d 格之型態非字面，本檔無從分類：%s'
           % (len(nonliteral), '、'.join(nonliteral[:6])))
@@ -141,8 +147,50 @@ for p in sorted(RUN.glob('*/worksheet.json')):
     union |= hit
 give('RETRACT_FIELD_N', len(union),
      '八份 worksheet 之聯集，逐筆去重（candidateId）',
-     '🚨 逐份為 %s——⚠️ 各份互有重疊，故「哪一份」與「聯集」是不同的量；'
-     '🚫 交付時須點名母體，並依 n+86（十）逐筆確認主題涵蓋。' % per_ws)
+     '🚨 逐份為 %s——⚠️ 各份互有重疊。✅ n+152（一）已裁定本格母體即此聯集；'
+     '🚫 不得與 `NARR_RETRACT_TEXT_N`（理由文字）或 `RETRACT_IN_EVIDENCE`'
+     '（進入證據體）相加或互換。' % per_ws)
+
+# ── 🆕 n+152（一）：聯集之中「進入證據體」者 ──────────────────────
+# 🚨 母體是上面那個聯集（篩選過程遇到的），🚫 不是全體文獻；
+# ⚠️ 而「進入證據體」以**錨定母體之最終判讀**為準（`m1_step2_population.json`
+#    之 `decisions`，即校準抽樣所錨定的那一份），🚫 不是我自己定義的。
+pop = jload(S + 'm1_step2_population.json')
+dec = pop['decisions']
+
+
+def in_evidence(ids, decisions):
+    '''回傳 (進入證據體者, 逐筆狀態)。🚨 只有 `advance` 算進入。'''
+    state = {cid: decisions.get(cid, '(不在錨定母體之 decisions 內)')
+             for cid in sorted(ids)}
+    return {c for c, v in state.items() if v == 'advance'}, state
+
+
+# 🚨 控制探針：⚠️ 若不設，一個「永遠回 0」的實作與「真的沒有」長得一樣。
+_ctl_ok = in_evidence({'a', 'b', 'c'},
+                      {'a': 'advance', 'b': 'exclude'})[0] == {'a'}
+print('   %s 控制：合成之 advance／exclude／缺席 → 只有 advance 被算進去'
+      % ('✅' if _ctl_ok else '🚨'))
+if not _ctl_ok:
+    sys.exit('🚨 in_evidence 控制探針未過——🚫 不報 RETRACT_IN_EVIDENCE。')
+
+adv, state = in_evidence(union, dec)
+# ⚠️ 安全線之判讀不在錨定母體內，須另查其 judgements
+#    （🚨 鍵為 `opinion`，🚫 不是 `decision`——本輪一次猜錯已由實查更正）。
+elsewhere = {}
+for jp in sorted(RUN.glob('*/judgements.json')):
+    for e in (jload(jp).get('entries') or []):
+        if e['candidateId'] in union and e['candidateId'] not in dec:
+            elsewhere.setdefault(e['candidateId'], set()).add(e.get('opinion'))
+never = sorted(c for c in union if c not in dec and c not in elsewhere)
+give('RETRACT_IN_EVIDENCE', len(adv),
+     '上一格之聯集 %d 筆中，錨定母體判為 `advance` 者' % len(union),
+     '🚨 逐筆狀態：錨定母體 exclude %d 筆；⚠️ 安全線另檔判讀 %d 筆（皆 %s）；'
+     '🚨 完全無判讀 %d 筆（%s）——⚠️ 未判讀者不可能「進入」證據體，故本格仍為 %d，'
+     '🚫 但它與「已被排除」不是同一回事，報告不得寫成一律排除。'
+     % (sum(1 for v in state.values() if v == 'exclude'), len(elsewhere),
+        '／'.join(sorted({o for s2 in elsewhere.values() for o in s2})) or '—',
+        len(never), '、'.join(c[-8:] for c in never) or '無', len(adv)))
 
 # ── 取得層（🚨 依 n+151 三：走目錄者須列出被排除之舊命名目錄） ────
 dirs = [p for p in FULL.iterdir() if p.is_dir()]
@@ -283,13 +331,18 @@ doc = {
     'countingUnit': 'placeholder cell',
     'cellsFound': len(cells),
     'cellsWithNonLiteralKind': nonliteral,
-    'cellsPerN151': N151_SAYS,
-    'listDrift': len(cells) != N151_SAYS,
+    'cellsPerRuling': EXPECTED_CELLS,
+    'cellsPerRulingSource': EXPECTED_SOURCE,
+    'listDrift': len(cells) != EXPECTED_CELLS,
     'producible': ok,
     'notProducible': no,
     'notCovered': missing,
     'cells': out,
     'retractionPerWorksheet': per_ws,
+    'retractionDecisionState': {c[-8:]: v for c, v in state.items()},
+    'retractionJudgedElsewhere': {c[-8:]: sorted(v)
+                                  for c, v in elsewhere.items()},
+    'retractionNeverJudged': [c[-8:] for c in never],
     'legacyDirectoriesExcluded': legacy,
     'nonArtifactDirectoriesExcluded': other,
     'mustRecomputeOnDeliveryDay': True,
