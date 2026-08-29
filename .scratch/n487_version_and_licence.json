@@ -1,0 +1,251 @@
+{
+ "schemaVersion": 1,
+ "documentType": "version-distribution-and-licence-fill",
+ "ruling": "n+138(4).1 and .2",
+ "population": "the acquired manifests not covered by round 486",
+ "countingUnit": "record",
+ "criterion": "OpenAlex best_oa_location.version / .license for the same DOI",
+ "versionDistribution": {
+  "🚨 無 DOI／查詢失敗": 26,
+  "publishedVersion": 3,
+  "submittedVersion": 3,
+  "acceptedVersion": 1
+ },
+ "records": [
+  {
+   "idFrag": "012d9a3486e6a580",
+   "sourceType": "europe-pmc-jats",
+   "version": null,
+   "license": null,
+   "queried": false
+  },
+  {
+   "idFrag": "0b68902a081d147c",
+   "sourceType": "europe-pmc-jats",
+   "version": null,
+   "license": null,
+   "queried": false
+  },
+  {
+   "idFrag": "11f2906259b4558a",
+   "sourceType": "europe-pmc-jats",
+   "version": null,
+   "license": null,
+   "queried": false
+  },
+  {
+   "idFrag": "211950e67902e3ec",
+   "sourceType": "grobid-tei",
+   "version": "publishedVersion",
+   "license": "cc-by-nc-nd",
+   "queried": true
+  },
+  {
+   "idFrag": "2cc49e0ddbdb6ea5",
+   "sourceType": "europe-pmc-jats",
+   "version": null,
+   "license": null,
+   "queried": false
+  },
+  {
+   "idFrag": "38c6412fc97d2ed8",
+   "sourceType": "europe-pmc-jats",
+   "version": null,
+   "license": null,
+   "queried": false
+  },
+  {
+   "idFrag": "38d538c00eea079e",
+   "sourceType": "europe-pmc-jats",
+   "version": null,
+   "license": null,
+   "queried": false
+  },
+  {
+   "idFrag": "44ebb4f2358bbf2c",
+   "sourceType": "europe-pmc-jats",
+   "version": null,
+   "license": null,
+   "queried": false
+  },
+  {
+   "idFrag": "742f1c1d44243ac6",
+   "sourceType": "europe-pmc-jats",
+   "version": null,
+   "license": null,
+   "queried": false
+  },
+  {
+   "idFrag": "769c71fae4871d50",
+   "sourceType": "europe-pmc-jats",
+   "version": null,
+   "license": null,
+   "queried": false
+  },
+  {
+   "idFrag": "76df6297501bb474",
+   "sourceType": "europe-pmc-jats",
+   "version": null,
+   "license": null,
+   "queried": false
+  },
+  {
+   "idFrag": "7bc2c46bd4251685",
+   "sourceType": "europe-pmc-jats",
+   "version": null,
+   "license": null,
+   "queried": false
+  },
+  {
+   "idFrag": "7c5800be8a62d501",
+   "sourceType": "europe-pmc-jats",
+   "version": null,
+   "license": null,
+   "queried": false
+  },
+  {
+   "idFrag": "7dec3f4066e16f08",
+   "sourceType": "europe-pmc-jats",
+   "version": null,
+   "license": null,
+   "queried": false
+  },
+  {
+   "idFrag": "85855b5e7a97713b",
+   "sourceType": "europe-pmc-jats",
+   "version": null,
+   "license": null,
+   "queried": false
+  },
+  {
+   "idFrag": "85e0e186b9ab2f27",
+   "sourceType": "europe-pmc-jats",
+   "version": null,
+   "license": null,
+   "queried": false
+  },
+  {
+   "idFrag": "861b4a2965d459b9",
+   "sourceType": "europe-pmc-jats",
+   "version": null,
+   "license": null,
+   "queried": false
+  },
+  {
+   "idFrag": "8a8d5efcf6a82302",
+   "sourceType": "europe-pmc-jats",
+   "version": null,
+   "license": null,
+   "queried": false
+  },
+  {
+   "idFrag": "8d9e152de8d48c04",
+   "sourceType": "europe-pmc-jats",
+   "version": null,
+   "license": null,
+   "queried": false
+  },
+  {
+   "idFrag": "8dd0f644a9012191",
+   "sourceType": "grobid-tei",
+   "version": "submittedVersion",
+   "license": "cc-by-nc-nd",
+   "queried": true
+  },
+  {
+   "idFrag": "9454731aad7c0004",
+   "sourceType": "grobid-tei",
+   "version": "publishedVersion",
+   "license": "cc-by-nc-nd",
+   "queried": true
+  },
+  {
+   "idFrag": "a32397909a3b03b4",
+   "sourceType": "europe-pmc-jats",
+   "version": null,
+   "license": null,
+   "queried": false
+  },
+  {
+   "idFrag": "a4bbe8aa65dd82a8",
+   "sourceType": "grobid-tei",
+   "version": "submittedVersion",
+   "license": "cc-by",
+   "queried": true
+  },
+  {
+   "idFrag": "b1eeb9c554d4200c",
+   "sourceType": "europe-pmc-jats",
+   "version": null,
+   "license": null,
+   "queried": false
+  },
+  {
+   "idFrag": "bd9995f482cbc04b",
+   "sourceType": "grobid-tei",
+   "version": "acceptedVersion",
+   "license": null,
+   "queried": true
+  },
+  {
+   "idFrag": "bfc01fa20cfceb6c",
+   "sourceType": "europe-pmc-jats",
+   "version": null,
+   "license": null,
+   "queried": false
+  },
+  {
+   "idFrag": "c380c744307c0dd5",
+   "sourceType": "grobid-tei",
+   "version": "submittedVersion",
+   "license": null,
+   "queried": true
+  },
+  {
+   "idFrag": "c512422dd4149a8b",
+   "sourceType": "europe-pmc-jats",
+   "version": null,
+   "license": null,
+   "queried": false
+  },
+  {
+   "idFrag": "cd1e43154103c4b5",
+   "sourceType": "europe-pmc-jats",
+   "version": null,
+   "license": null,
+   "queried": false
+  },
+  {
+   "idFrag": "de939065eac2b5fd",
+   "sourceType": "grobid-tei",
+   "version": "publishedVersion",
+   "license": null,
+   "queried": true
+  },
+  {
+   "idFrag": "f6a2becc97c2233f",
+   "sourceType": "europe-pmc-jats",
+   "version": null,
+   "license": null,
+   "queried": false
+  },
+  {
+   "idFrag": "f8392067834de4d8",
+   "sourceType": "europe-pmc-jats",
+   "version": null,
+   "license": null,
+   "queried": false
+  },
+  {
+   "idFrag": "ff8c5c2ca6ce9c92",
+   "sourceType": "europe-pmc-jats",
+   "version": null,
+   "license": null,
+   "queried": false
+  }
+ ],
+ "licencesFilled": 5,
+ "retrievedAt": "2026-08-29",
+ "note": "A missing version field is reported as missing, never as published (n+138(4).1). The 5/8 licence ratio from round 486 came from a selected subgroup and must not be extrapolated to all acquired records (n+138(3)).",
+ "contentNote": "Id fragments, versions and licence codes only."
+}
