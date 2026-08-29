@@ -244,6 +244,27 @@ TEI 登錄後（n+137），**同一個字 `acquired` 在四個母體上是四個
 **🚨 這一組才是「校準集的證據品質」**；上表那一組是私有根全部 manifest。
 **⚠️ 兩組比例不同且母體不同，🚫 不得互相代替，亦不得相加。**
 
+### 🚨 逐層攤開之後才看得見的一件事：**有一層是全空的**
+
+**⚠️ 合計數把它藏住了。** 逐層表見 `.scratch/n492_stratum_table.json`
+（**兩個母體並列、每欄自帶來源**）。**🚨 其中 `S3-tte` 一層**：
+
+| | 值 |
+|---|---|
+| 配額 | `{{S3_QUOTA}}` |
+| 校準集 60 內已取得 | **`{{S3_ACQ_CALIB}}`** |
+| 加計補集後已取得 | `{{S3_ACQ_BACKFILL}}` |
+
+> **🚨 這與 `S5+S6` 不是同一種問題**：
+> **⚠️ 那一層是「薄，而且拿到的多是作者稿」；這一層是「空」。**
+> **🚫 兩者不得寫成同一句「取得不足」——讀者需要知道哪一層根本沒有東西可讀。**
+
+**⚠️ 它為何一直沒被單獨提起**：**它被平均進「在手 14」裡了。**
+**🚨 合計數會把一個零藏起來，而零是所有值裡最該被看見的那一個。**
+
+> **✅ 已立為做法：逐層筆數一律由腳本產生，兩個母體並列、每欄標明來源檔**
+> （n+142 之義務落為機制；**🚫 不再手算**）。
+
 ## 三之四、⚠️ 授權欄：可讀 ≠ 可再散布
 
 首批 8 筆之 `licence` 欄原皆空；第三方書目庫對其中 `{{LIC_FILLED}}` 筆載有授權
@@ -336,6 +357,8 @@ TEI 登錄後（n+137），**同一個字 `acquired` 在四個母體上是四個
 | `ACQ_ALL`／`ACQ_SCOPED`／`ACQ_CALIB`／`EXTRACTABLE_N` | **漂移** | 四個母體之 acquired 數，交付時各自現算；🚨 **每一處引用皆須標母體**（n+137、n+140） |
 | `VER_PUBLISHED`／`VER_ACCEPTED`／`VER_SUBMITTED`／`VER_UNKNOWN` | **漂移** | `.scratch/n486_licence_gap.json` ＋ `n487_version_and_licence.json` 之合計；🚫 版本不明不得計入 published |
 | `CALIB_VER_PUB`／`CALIB_VER_ACC`／`CALIB_VER_SUB`／`CALIB_NONPUB` | **漂移** | `.scratch/n489_calibration_versions.json`；🚨 **母體為校準集 60 之 acquired**，🚫 不得與全部 manifest 之分布互換 |
+| `S3_QUOTA` | 凍結 | `strata.json` 之 `S3-tte` 配額 |
+| `S3_ACQ_CALIB`／`S3_ACQ_BACKFILL` | **漂移** | `.scratch/n492_stratum_table.json`；🚨 **兩欄母體不同**（校準 60 ／ 加計補集），🚫 不得互換，亦不得取其一作分子另一作分母 |
 | `LIC_FILLED` | **漂移** | 首批 8 筆中第三方書目庫載有授權者；⚠️ 已填入並附來源與查取日期，🚫 非本室查核之結論 |
 | `CALIBRATION_TARGET` | 凍結 | `strata.json` 之 `totalSampleSize` 與 ADR-0010 |
 | `S7_POOL_N` | 凍結 | S7 全池大小（發現當下之清點） |
