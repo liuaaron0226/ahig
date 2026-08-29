@@ -1,0 +1,79 @@
+{
+ "schemaVersion": 1,
+ "documentType": "unprobed-available-records",
+ "ruling": "self-initiated; generalises the n+124 alternative-location method",
+ "population": "calibration 60 plus accepted backfill, status available-*, not among the 11 blocked records already probed",
+ "countingUnit": "record",
+ "criterion": "manifest status read live; probed set from n477",
+ "count": 12,
+ "byPool": {
+  "S1-tt-moderate-dose": 5,
+  "S3-tte": 5,
+  "S4-exogenous-oxidation": 1,
+  "S5+S6-gi-merged": 1
+ },
+ "records": [
+  {
+   "idFrag": "4eccbfc6dd5b5237",
+   "pool": "S1-tt-moderate-dose",
+   "status": "available-landing-page"
+  },
+  {
+   "idFrag": "5138c93e07fb03ac",
+   "pool": "S1-tt-moderate-dose",
+   "status": "available-landing-page"
+  },
+  {
+   "idFrag": "608b0b6031daa098",
+   "pool": "S3-tte",
+   "status": "available-landing-page"
+  },
+  {
+   "idFrag": "66b408b0f85932c0",
+   "pool": "S4-exogenous-oxidation",
+   "status": "available-landing-page"
+  },
+  {
+   "idFrag": "63a6d1c092183b48",
+   "pool": "S5+S6-gi-merged",
+   "status": "available-landing-page"
+  },
+  {
+   "idFrag": "c8fea0895d84a17e",
+   "pool": "S1-tt-moderate-dose",
+   "status": "available-pdf"
+  },
+  {
+   "idFrag": "57ef311258a83414",
+   "pool": "S1-tt-moderate-dose",
+   "status": "available-pdf"
+  },
+  {
+   "idFrag": "2bcf407b20de6fd9",
+   "pool": "S1-tt-moderate-dose",
+   "status": "available-landing-page"
+  },
+  {
+   "idFrag": "2a20a5f4e2163324",
+   "pool": "S3-tte",
+   "status": "available-landing-page"
+  },
+  {
+   "idFrag": "ad4b0994a103783d",
+   "pool": "S3-tte",
+   "status": "available-landing-page"
+  },
+  {
+   "idFrag": "eac6aff9f98c855c",
+   "pool": "S3-tte",
+   "status": "available-landing-page"
+  },
+  {
+   "idFrag": "438c64ce77621b70",
+   "pool": "S3-tte",
+   "status": "available-landing-page"
+  }
+ ],
+ "note": "The 4-of-11 recovery rate from rounds 477 and 480 must not be applied here: those were publisher-hosted and blocked, these are mostly repository landing pages. Different populations.",
+ "contentNote": "Id fragments, pools and statuses only."
+}

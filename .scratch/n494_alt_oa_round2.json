@@ -1,0 +1,101 @@
+{
+ "schemaVersion": 1,
+ "documentType": "alternative-oa-locations-second-pass",
+ "ruling": "extends n+124(3) to records never probed",
+ "population": "the 12 from n493",
+ "countingUnit": "record",
+ "criterion": "OpenAlex locations[] beyond best_oa_location; PDF means a %PDF- prefix on a 2KB range request",
+ "distribution": {
+  "有位址無 PDF": 3,
+  "無其他位址": 9
+ },
+ "obtainable": 0,
+ "records": [
+  {
+   "idFrag": "4eccbfc6dd5b5237",
+   "pool": "S1-tt-moderate-dose",
+   "status": "available-landing-page",
+   "otherLocations": 1,
+   "pdfHosts": []
+  },
+  {
+   "idFrag": "5138c93e07fb03ac",
+   "pool": "S1-tt-moderate-dose",
+   "status": "available-landing-page",
+   "otherLocations": 0,
+   "pdfHosts": []
+  },
+  {
+   "idFrag": "608b0b6031daa098",
+   "pool": "S3-tte",
+   "status": "available-landing-page",
+   "otherLocations": 0,
+   "pdfHosts": []
+  },
+  {
+   "idFrag": "66b408b0f85932c0",
+   "pool": "S4-exogenous-oxidation",
+   "status": "available-landing-page",
+   "otherLocations": 0,
+   "pdfHosts": []
+  },
+  {
+   "idFrag": "63a6d1c092183b48",
+   "pool": "S5+S6-gi-merged",
+   "status": "available-landing-page",
+   "otherLocations": 0,
+   "pdfHosts": []
+  },
+  {
+   "idFrag": "c8fea0895d84a17e",
+   "pool": "S1-tt-moderate-dose",
+   "status": "available-pdf",
+   "otherLocations": 0,
+   "pdfHosts": []
+  },
+  {
+   "idFrag": "57ef311258a83414",
+   "pool": "S1-tt-moderate-dose",
+   "status": "available-pdf",
+   "otherLocations": 0,
+   "pdfHosts": []
+  },
+  {
+   "idFrag": "2bcf407b20de6fd9",
+   "pool": "S1-tt-moderate-dose",
+   "status": "available-landing-page",
+   "otherLocations": 0,
+   "pdfHosts": []
+  },
+  {
+   "idFrag": "2a20a5f4e2163324",
+   "pool": "S3-tte",
+   "status": "available-landing-page",
+   "otherLocations": 1,
+   "pdfHosts": []
+  },
+  {
+   "idFrag": "ad4b0994a103783d",
+   "pool": "S3-tte",
+   "status": "available-landing-page",
+   "otherLocations": 0,
+   "pdfHosts": []
+  },
+  {
+   "idFrag": "eac6aff9f98c855c",
+   "pool": "S3-tte",
+   "status": "available-landing-page",
+   "otherLocations": 0,
+   "pdfHosts": []
+  },
+  {
+   "idFrag": "438c64ce77621b70",
+   "pool": "S3-tte",
+   "status": "available-landing-page",
+   "otherLocations": 1,
+   "pdfHosts": []
+  }
+ ],
+ "note": "Read-only. Nothing downloaded in full, nothing registered.",
+ "contentNote": "Id fragments, pools, hosts and counts only."
+}
