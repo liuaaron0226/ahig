@@ -129,6 +129,10 @@ DETAIL = {
     "CALIB_NONPUB":  ("推導", "5＋1＝**6**（校準集 14 筆中）；⚠️ 🚫 不得與 41 筆之 10 互換，兩者母體不同"),
     "S56_ACQ":       ("產物", "同上依層別：`S5+S6-gi-merged` 之 acquired＝**3**"),
     "S56_NONPUB":    ("產物", "同上：其中非刊出版＝**2**；🚨 即本契約最在意之結局，其在手全文有三分之二是作者稿"),
+    # ── n+143：逐層表（🚨 由腳本產生，兩母體並列）──
+    "S3_QUOTA":        ("產物", "`ahig/calibration/b11-carbohydrate/strata.json` → `S3-tte` 配額＝**8**（我已自檔覆核）"),
+    "S3_ACQ_CALIB":    ("產物", "`.scratch/n492_stratum_table.json`（**受追蹤**，我已自檔覆核）→ `S3-tte` 之 `acquiredCalibration60`＝**0**；🚨 全空，且曾被合計數藏住"),
+    "S3_ACQ_BACKFILL": ("產物", "同上 → `acquiredWithBackfill`＝**1**；⚠️ 與上一格母體不同"),
     "SHADOW_CONCORDANT": ("不可及", "私有根 `machine-reconciliation.json` → `counts.concordantCount`＝**288**（執行室量測）"),
     "SHADOW_QUEUED":    ("不可及", "同上 → `counts.ownerAuditCount`＝**12**（執行室量測）"),
     "DEBT_B4":          ("看板", "影子歧異之尚欠項 11（未解決者，n+106 裁定；單位＝抽查項目）"),
