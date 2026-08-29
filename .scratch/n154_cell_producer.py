@@ -446,6 +446,16 @@ def closure_checks(resolved):
     if sum(p["shortfall"] for p in pools) != J(BACKFILL)["totals"]["shortfall"]:
         out.append("🚨 逐池缺口合計 ≠ `totals.shortfall`")
 
+    # 🚨 丙節第二節寫著「池子閉合 SEQ_LEN ＋ OUT_OF_SEQ ＋ NOT_SCREENED_STD ＝ N_TOTAL_STD」，
+    # ⚠️ 而 n+80 之分母裁定就是靠這條閉合式成立的——**🚫 它從未被執行過。**
+    pool = {"SEQ_LEN", "OUT_OF_SEQ", "NOT_SCREENED_STD", "N_TOTAL_STD"}
+    if pool <= set(resolved):
+        lhs = (resolved["SEQ_LEN"] + resolved["OUT_OF_SEQ"]
+               + resolved["NOT_SCREENED_STD"])
+        if lhs != resolved["N_TOTAL_STD"]:
+            out.append(f"🚨 標準線池子閉合式不成立：{lhs} ≠ {resolved['N_TOTAL_STD']}"
+                       "——⚠️ n+80 之分母裁定即建立在這條閉合式上")
+
     route = {"ACQ_IN_OBTAINABLE", "PDF_ROUTE_N", "LANDING_ROUTE_N"}
     if route <= set(resolved) and "OBTAINABLE_N" in resolved:
         s, ob = sum(resolved[k] for k in route), resolved["OBTAINABLE_N"]

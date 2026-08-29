@@ -76,6 +76,11 @@ def gate(cmd):
     return r.returncode
 
 
+def _drafted():
+    """已成稿之節數。🚨 現數，🚫 不寫死——⚠️ 每多寫一節就會變。"""
+    return len(list(Path("docs").glob("m1-*-report.md")))
+
+
 def _n154_cov():
     """（已解, 可及, 已登記為不可解）——🚨 現數，🚫 不得寫死。"""
     import importlib.util
@@ -148,15 +153,17 @@ ITEMS.append((
 ITEMS.append((
     "報告成稿", "協調者",
     "n+60 之大綱＋本 run 各節骨架",
-    "八節由骨架改寫為連續散文，且**每一句可回溯到骨架中的一格或一則裁定**；"
-    "🚨 骨架是給我看的，🚫 不是給擁有者看的",
-    "🚫 不可驗"))
+    f"八節由骨架改寫為連續散文，且**每一句可回溯到骨架中的一格或一則裁定**；"
+    f"🚨 骨架是給我看的，🚫 不是給擁有者看的。"
+    f"⚠️ **現況：{_drafted()}／8 節已成稿**",
+    "🚫 **不可驗**——⚠️ 產生器能證明數字現算、禁句未出現、"
+    "同值未在同段重複；🚨 **證明不了論證是對的**，那要人讀"))
 
 ITEMS.append((
     "既有機檢全綠", "協調者",
-    "n+136／n+141／n+131／n+116／n+153／n+154／n+155",
+    "n+136／n+141／n+131／n+116／n+153／n+154／n+155／n+157",
     "閘門、佔位符表、交叉一致性、義務勾稽、字面數字、檢查表矩陣、格值現算、"
-    "擁有者簡報**八項**於交付當日皆 exit 0",
+    "擁有者簡報、丙節成稿**九項**於交付當日皆 exit 0",
     "✅ 可驗（本檔即現跑）"))
 
 print("=== M1 交付盤點｜🚨 骨架完稿 ≠ 可交付 ===")
@@ -173,7 +180,7 @@ print()
 gates = {"n115_delivery_checklist": None, "n116_obligation_crosscheck": None,
          "n131_cross_consistency": None, "n141_literal_numbers": None,
          "n153_wording_audit_check": None, "n154_cell_producer": None,
-         "n155_owner_briefing": None}
+         "n155_owner_briefing": None, "n157_section_c_report": None}
 for g in gates:
     gates[g] = gate(f".scratch/{g}.py")
 bad = [g for g, rc in gates.items() if rc != 0]
