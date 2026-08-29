@@ -1314,3 +1314,30 @@ def test_manifest_failure_leaves_sweepable_orphans_not_committed_evidence():
                 os.environ.pop("AHIG_PRIVATE_ROOT", None)
             else:
                 os.environ["AHIG_PRIVATE_ROOT"] = old_root
+
+
+def test_artifact_files_names_the_raw_file_after_its_source_kind():
+    # n+123(5) 要求 PDF 路徑同時記下抓回的 PDF 與 GROBID 產出的 TEI。
+    # 兩者都會經過 _artifact_files，所以副檔名不能寫死成 jats。
+    source = "sha256:" + "a" * 64
+    sections = "sha256:" + "b" * 64
+
+    jats_raw, jats_sections = fulltext._artifact_files(source, "v/1.0.0", sections)
+    tei_raw, tei_sections = fulltext._artifact_files(
+        source, "v/1.0.0", sections, source_kind="tei")
+    pdf_raw, _ = fulltext._artifact_files(
+        source, "v/1.0.0", sections, source_kind="pdf")
+
+    assert jats_raw.endswith(".jats.xml")
+    assert tei_raw.endswith(".tei.xml")
+    assert pdf_raw.endswith(".pdf")
+    # sections 檔名不隨來源型別改變——它記的是 parser 與兩個雜湊，不是容器格式。
+    assert jats_sections == tei_sections
+
+    # 該檔未匯入 pytest，沿用其既有之 try/except/else 寫法。
+    try:
+        fulltext._artifact_files(source, "v/1.0.0", sections, source_kind="docx")
+    except fulltext.FulltextError as exc:
+        assert "docx" in str(exc)
+    else:
+        raise AssertionError("未知來源型別必須被拒絕")

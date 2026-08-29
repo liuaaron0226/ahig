@@ -432,11 +432,24 @@ def _version_token(version: str) -> str:
     return token
 
 
+# 原始檔之副檔名依來源型別而定。n+123（五）裁定 PDF 路徑須同時記下
+# 抓回的 PDF 與 GROBID 產出的 TEI，兩者都會經過本函式；副檔名若寫死成
+# .jats.xml，產物名稱就會與內容不符（n+111 四已因標籤名實不符出過問題）。
+_SOURCE_SUFFIX = {
+    "jats": "jats.xml",
+    "tei": "tei.xml",
+    "pdf": "pdf",
+}
+
+
 def _artifact_files(source_sha256: str, parser_version: str,
-                    sections_sha256: str) -> tuple[str, str]:
+                    sections_sha256: str,
+                    source_kind: str = "jats") -> tuple[str, str]:
+    if source_kind not in _SOURCE_SUFFIX:
+        raise FulltextError(f"未知的來源型別：{source_kind}")
     source_token = source_sha256.removeprefix("sha256:")[:16]
     sections_token = sections_sha256.removeprefix("sha256:")[:16]
-    raw_file = f"source-{source_token}.jats.xml"
+    raw_file = f"source-{source_token}.{_SOURCE_SUFFIX[source_kind]}"
     sections_file = (
         f"sections-v{_version_token(parser_version)}-"
         f"{source_token}-{sections_token}.json")
