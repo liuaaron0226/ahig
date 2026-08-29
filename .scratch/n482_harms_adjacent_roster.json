@@ -1,0 +1,408 @@
+{
+ "schemaVersion": 1,
+ "documentType": "harms-adjacent-roster",
+ "ruling": "n+129(4): three columns, criterion quoted verbatim, no total",
+ "population": "every line of COORDINATION.md containing \"harms 相鄰\"",
+ "countingUnit": "mention (an id may appear at several lines)",
+ "criterion": {
+  "included": "has a candidateId, an explicit inclusion action, and the running total advances at that line",
+  "reserve": "marked 候補 or 不計入正式清單, or appearing after the last running-total advance so no advance can be attributed",
+  "descriptive": "called harms-adjacent with no inclusion action or no candidateId"
+ },
+ "lastRunningTotal": {
+  "line": 21985,
+  "value": 10
+ },
+ "runningTotalAdvances": [
+  {
+   "line": 16884,
+   "value": 4
+  },
+  {
+   "line": 17192,
+   "value": 5
+  },
+  {
+   "line": 17415,
+   "value": 6
+  },
+  {
+   "line": 19980,
+   "value": 8
+  },
+  {
+   "line": 21985,
+   "value": 10
+  }
+ ],
+ "included": [
+  {
+   "idPrefix": "731a4d76",
+   "boardLine": 17415,
+   "excerpt": "交叉試驗**。harms 相鄰素材由 5 筆增至 6 筆。",
+   "why": "running total advanced at this line"
+  },
+  {
+   "idPrefix": "124e1321",
+   "boardLine": 19980,
+   "excerpt": "### 🩺 harms 相鄰素材增至 8 筆，本輪為「補給時序不當之危害」",
+   "why": "running total advanced at this line"
+  },
+  {
+   "idPrefix": "7d6847b2",
+   "boardLine": 21985,
+   "excerpt": "EAH 素材 2 筆、**harms 相鄰素材增至 10 筆**）。",
+   "why": "running total advanced at this line"
+  }
+ ],
+ "reserve": [
+  {
+   "idPrefix": "4a7aa557",
+   "boardLine": 21623,
+   "excerpt": "EAH 素材 2 筆、harms 相鄰素材 9 筆；**本輪 `4a7aa557` 為",
+   "why": "board marks it 候補 / 不計入正式清單"
+  },
+  {
+   "idPrefix": "2b25632c",
+   "boardLine": 21623,
+   "excerpt": "EAH 素材 2 筆、harms 相鄰素材 9 筆；**本輪 `4a7aa557` 為",
+   "why": "board marks it 候補 / 不計入正式清單"
+  },
+  {
+   "idPrefix": "7d6847b2",
+   "boardLine": 22276,
+   "excerpt": "EAH 素材 2 筆、harms 相鄰素材 10 筆）。",
+   "why": "after the last running-total advance (line 21985); no advance to attribute it to"
+  },
+  {
+   "idPrefix": "c5293527",
+   "boardLine": 46223,
+   "excerpt": "⚠️ **`d6b09d4a` 另屬 harms 相鄰**：作者明指「即使碳水攝取低於",
+   "why": "after the last running-total advance (line 21985); no advance to attribute it to"
+  },
+  {
+   "idPrefix": "d6b09d4a",
+   "boardLine": 46223,
+   "excerpt": "⚠️ **`d6b09d4a` 另屬 harms 相鄰**：作者明指「即使碳水攝取低於",
+   "why": "after the last running-total advance (line 21985); no advance to attribute it to"
+  },
+  {
+   "idPrefix": "057367c5",
+   "boardLine": 46757,
+   "excerpt": "- **🚨 harms 相鄰本頁 3 筆**：`bd099307`（**以「ALS 好發於運動員",
+   "why": "after the last running-total advance (line 21985); no advance to attribute it to"
+  },
+  {
+   "idPrefix": "d2a9e19c",
+   "boardLine": 46757,
+   "excerpt": "- **🚨 harms 相鄰本頁 3 筆**：`bd099307`（**以「ALS 好發於運動員",
+   "why": "after the last running-total advance (line 21985); no advance to attribute it to"
+  },
+  {
+   "idPrefix": "43e59f73",
+   "boardLine": 46757,
+   "excerpt": "- **🚨 harms 相鄰本頁 3 筆**：`bd099307`（**以「ALS 好發於運動員",
+   "why": "after the last running-total advance (line 21985); no advance to attribute it to"
+  },
+  {
+   "idPrefix": "bd099307",
+   "boardLine": 46757,
+   "excerpt": "- **🚨 harms 相鄰本頁 3 筆**：`bd099307`（**以「ALS 好發於運動員",
+   "why": "after the last running-total advance (line 21985); no advance to attribute it to"
+  },
+  {
+   "idPrefix": "acc1a817",
+   "boardLine": 46757,
+   "excerpt": "- **🚨 harms 相鄰本頁 3 筆**：`bd099307`（**以「ALS 好發於運動員",
+   "why": "after the last running-total advance (line 21985); no advance to attribute it to"
+  },
+  {
+   "idPrefix": "aea1c7de",
+   "boardLine": 46757,
+   "excerpt": "- **🚨 harms 相鄰本頁 3 筆**：`bd099307`（**以「ALS 好發於運動員",
+   "why": "after the last running-total advance (line 21985); no advance to attribute it to"
+  },
+  {
+   "idPrefix": "69f52214",
+   "boardLine": 47660,
+   "excerpt": "- **🚨 harms 相鄰：划船訓練營之低血鈉發生率高**（`561bf9d9`",
+   "why": "after the last running-total advance (line 21985); no advance to attribute it to"
+  },
+  {
+   "idPrefix": "561bf9d9",
+   "boardLine": 47660,
+   "excerpt": "- **🚨 harms 相鄰：划船訓練營之低血鈉發生率高**（`561bf9d9`",
+   "why": "after the last running-total advance (line 21985); no advance to attribute it to"
+  },
+  {
+   "idPrefix": "183123c2",
+   "boardLine": 48282,
+   "excerpt": "- **`183123c2` 之 harms 相鄰**：**16 年高蛋白自製飲食併過量補充品",
+   "why": "after the last running-total advance (line 21985); no advance to attribute it to"
+  },
+  {
+   "idPrefix": "b747b916",
+   "boardLine": 48847,
+   "excerpt": "提高導致銅與錳排泄顯著增加、體內呈負平衡**，與 harms 相鄰；",
+   "why": "after the last running-total advance (line 21985); no advance to attribute it to"
+  },
+  {
+   "idPrefix": "944b9795",
+   "boardLine": 49125,
+   "excerpt": "同方向**；🚨 **並記其 71% 有溶血現象而無人貧血**，屬 harms 相鄰。",
+   "why": "after the last running-total advance (line 21985); no advance to attribute it to"
+  },
+  {
+   "idPrefix": "124435c1",
+   "boardLine": 49125,
+   "excerpt": "同方向**；🚨 **並記其 71% 有溶血現象而無人貧血**，屬 harms 相鄰。",
+   "why": "after the last running-total advance (line 21985); no advance to attribute it to"
+  },
+  {
+   "idPrefix": "43ca524d",
+   "boardLine": 49125,
+   "excerpt": "同方向**；🚨 **並記其 71% 有溶血現象而無人貧血**，屬 harms 相鄰。",
+   "why": "after the last running-total advance (line 21985); no advance to attribute it to"
+  },
+  {
+   "idPrefix": "28a4e5aa",
+   "boardLine": 50750,
+   "excerpt": "⚠️ 並記其全程使用合成代謝類固醇，屬 harms 相鄰。",
+   "why": "after the last running-total advance (line 21985); no advance to attribute it to"
+  },
+  {
+   "idPrefix": "c720977d",
+   "boardLine": 55841,
+   "excerpt": "惟屬 harms 相鄰素材，建議 W4b 於安全性章節併記。",
+   "why": "after the last running-total advance (line 21985); no advance to attribute it to"
+  },
+  {
+   "idPrefix": "9feb7f83",
+   "boardLine": 55841,
+   "excerpt": "惟屬 harms 相鄰素材，建議 W4b 於安全性章節併記。",
+   "why": "after the last running-total advance (line 21985); no advance to attribute it to"
+  }
+ ],
+ "descriptive": [
+  {
+   "idPrefix": null,
+   "boardLine": 16884,
+   "excerpt": "### 🩺 harms 相鄰素材增至 4 筆，本輪新增基因型調節案例",
+   "why": "no candidateId in context"
+  },
+  {
+   "idPrefix": null,
+   "boardLine": 16893,
+   "excerpt": "**harms 相鄰素材現況（4 筆）**：",
+   "why": "no candidateId in context"
+  },
+  {
+   "idPrefix": null,
+   "boardLine": 17192,
+   "excerpt": "### 🩺 harms 相鄰素材增至 5 筆，代謝疾病基因型型累計 2 筆",
+   "why": "no candidateId in context"
+  },
+  {
+   "idPrefix": "71c2a14b",
+   "boardLine": 17202,
+   "excerpt": "經典表徵**——建議併入 harms 相鄰素材（4→5 筆），供 M1 討論適用性",
+   "why": "no inclusion action and no running-total advance"
+  },
+  {
+   "idPrefix": "3c68ac35",
+   "boardLine": 17683,
+   "excerpt": "可供 M1 討論效應修飾與適用性邊界。** harms 相鄰素材維持 6 筆",
+   "why": "no inclusion action and no running-total advance"
+  },
+  {
+   "idPrefix": null,
+   "boardLine": 18169,
+   "excerpt": "**⚠️ 這是 harms 相鄰素材第 7 筆，且方向與既有六筆相反**：",
+   "why": "no candidateId in context"
+  },
+  {
+   "idPrefix": "bf139991",
+   "boardLine": 19998,
+   "excerpt": "**建議協調者納入 harms 相鄰素材（7→8 筆）並註記一項論述機會**：",
+   "why": "no inclusion action and no running-total advance"
+  },
+  {
+   "idPrefix": null,
+   "boardLine": 20334,
+   "excerpt": "心臟電生理效應。建議協調者納入 harms 相鄰素材候補**（不計入正式",
+   "why": "no candidateId in context"
+  },
+  {
+   "idPrefix": "f6198ca3",
+   "boardLine": 20543,
+   "excerpt": "——EAH 素材累計 2 筆，且本筆提供發生率實測值。harms 相鄰素材",
+   "why": "no inclusion action and no running-total advance"
+  },
+  {
+   "idPrefix": "2b25632c",
+   "boardLine": 20719,
+   "excerpt": "EAH 素材 2 筆、harms 相鄰素材共 9 筆。",
+   "why": "no inclusion action and no running-total advance"
+  },
+  {
+   "idPrefix": "2b25632c",
+   "boardLine": 21019,
+   "excerpt": "免疫結局群 5 筆、harms 相鄰素材 9 筆）。",
+   "why": "no inclusion action and no running-total advance"
+  },
+  {
+   "idPrefix": "2b25632c",
+   "boardLine": 21324,
+   "excerpt": "互為佐證**；EAH 素材 2 筆（發生率 2/3）、harms 相鄰素材 9 筆。",
+   "why": "no inclusion action and no running-total advance"
+  },
+  {
+   "idPrefix": null,
+   "boardLine": 21804,
+   "excerpt": "(c) **相對能量不足（RED-S）徵象與高碳水攝取並存**，為 harms 相鄰",
+   "why": "no candidateId in context"
+  },
+  {
+   "idPrefix": "124e1321",
+   "boardLine": 21926,
+   "excerpt": "**建議協調者於 harms 相鄰素材中一併呈現兩筆以避免單向偏誤**——",
+   "why": "no inclusion action and no running-total advance"
+  },
+  {
+   "idPrefix": null,
+   "boardLine": 45805,
+   "excerpt": "⚠️ **並記一項與 harms 相鄰之觀察**：**三名自陳力竭者全數來自",
+   "why": "no candidateId in context"
+  },
+  {
+   "idPrefix": null,
+   "boardLine": 47355,
+   "excerpt": "屬 harms 相鄰素材。",
+   "why": "no candidateId in context"
+  },
+  {
+   "idPrefix": null,
+   "boardLine": 67336,
+   "excerpt": "骨架來源欄寫「harms 相鄰素材名單，交付時現算（本 run 內曾 4→5→6）」。**⚠️ 兩處都不準確**：",
+   "why": "no candidateId in context"
+  },
+  {
+   "idPrefix": null,
+   "boardLine": 67341,
+   "excerpt": "**🚨 而累計數自第 22276 行後即停止維護**，其後仍有多處記入新的 harms 相鄰觀察。",
+   "why": "no candidateId in context"
+  },
+  {
+   "idPrefix": null,
+   "boardLine": 67345,
+   "excerpt": "🚨 部分提及可能指同一筆、部分段落未帶 id、**部分「屬 harms 相鄰」是形容而非收錄**。",
+   "why": "no candidateId in context"
+  },
+  {
+   "idPrefix": null,
+   "boardLine": 67351,
+   "excerpt": "**⚠️ 但收錄判準須先裁定**——「屬 harms 相鄰」在看板上**同時被用作收錄與形容**，",
+   "why": "no candidateId in context"
+  },
+  {
+   "idPrefix": null,
+   "boardLine": 67359,
+   "excerpt": "「EAH 素材 **2** 筆、harms 相鄰素材 **10** 筆」，**取到了行內第一個數字 2**，",
+   "why": "no candidateId in context"
+  },
+  {
+   "idPrefix": null,
+   "boardLine": 67360,
+   "excerpt": "使下界一度算成 14。**⚠️ 已改為錨定於「harms 相鄰素材」之後取數，得 22。**",
+   "why": "no candidateId in context"
+  },
+  {
+   "idPrefix": null,
+   "boardLine": 68117,
+   "excerpt": "其後另有相異 id，**下界 ≥22**。**⚠️ 而「屬 harms 相鄰」在看板上同時被用作收錄與形容。**",
+   "why": "no candidateId in context"
+  },
+  {
+   "idPrefix": null,
+   "boardLine": 68130,
+   "excerpt": "②regex 取到行內第一個數字（「EAH 素材 2 筆、harms 相鄰素材 10 筆」取成 2）。",
+   "why": "no candidateId in context"
+  },
+  {
+   "idPrefix": null,
+   "boardLine": 69621,
+   "excerpt": "> 看板 20334：「**建議協調者納入 harms 相鄰素材候補**（**不計入正式清單**，因無運動情境）」",
+   "why": "no candidateId in context"
+  },
+  {
+   "idPrefix": null,
+   "boardLine": 69629,
+   "excerpt": "| **🚫 僅為形容** | 行文中稱某筆「屬 harms 相鄰」而**無納入動作或無 `candidateId`** |",
+   "why": "no candidateId in context"
+  },
+  {
+   "idPrefix": null,
+   "boardLine": 69645,
+   "excerpt": "**待執行室**：接線第三步；harms 相鄰名冊（三欄）；",
+   "why": "no candidateId in context"
+  },
+  {
+   "idPrefix": null,
+   "boardLine": 69699,
+   "excerpt": "**待執行室**：接線第三步；harms 相鄰名冊（三欄）；4 筆 landing-only 是否另有可取全文。",
+   "why": "no candidateId in context"
+  },
+  {
+   "idPrefix": null,
+   "boardLine": 69751,
+   "excerpt": "**待執行室**：接線第三步；harms 相鄰名冊三欄；4 筆 landing-only 是否另有可取全文。",
+   "why": "no candidateId in context"
+  },
+  {
+   "idPrefix": null,
+   "boardLine": 69861,
+   "excerpt": "**⚠️ 七節之中僅庚節未完，且其缺口不在我這裡——🚫 名冊三欄產出前不得給 harms 相鄰合計數。**",
+   "why": "no candidateId in context"
+  },
+  {
+   "idPrefix": null,
+   "boardLine": 69862,
+   "excerpt": "**待執行室**：接線第三步；harms 相鄰名冊（三欄）；4 筆 landing-only 是否另有可取全文；",
+   "why": "no candidateId in context"
+  },
+  {
+   "idPrefix": null,
+   "boardLine": 69963,
+   "excerpt": "**待執行室**：接線第三步；harms 相鄰名冊（三欄）；4 筆 landing-only 是否另有可取全文；",
+   "why": "no candidateId in context"
+  },
+  {
+   "idPrefix": null,
+   "boardLine": 70053,
+   "excerpt": "**待執行室**：接線第三步；harms 相鄰名冊（三欄）；4 筆 landing-only；",
+   "why": "no candidateId in context"
+  },
+  {
+   "idPrefix": null,
+   "boardLine": 70061,
+   "excerpt": "拉到 **n+129～n+134**（六則）。**待執行室三項**：接線第三步、harms 相鄰名冊（三欄）、",
+   "why": "no candidateId in context"
+  },
+  {
+   "idPrefix": null,
+   "boardLine": 70101,
+   "excerpt": "接線第三步；harms 相鄰名冊（三欄：收錄／候補／形容，判準已由 n+129 裁定）。",
+   "why": "no candidateId in context"
+  },
+  {
+   "idPrefix": null,
+   "boardLine": 70142,
+   "excerpt": "⏸ harms 相鄰名冊（三欄）       判準已由 n+129 裁定（收錄／候補／形容）",
+   "why": "no candidateId in context"
+  }
+ ],
+ "noTotalNote": "n+129(4) forbids any total until the coordinator rules on the reserve column record by record. The three column lengths must not be added together and presented as a count of harms-adjacent material.",
+ "coverageStatement": "Classifies by the form of the record, not by whether a record is substantively harms-adjacent, which is a judgement rather than a search. Id prefixes are taken from board prose and not verified against the queue.",
+ "contentNote": "Id prefixes, line numbers and short excerpts of coordination prose. No literature content.",
+ "rosterHash": "sha256:7c0527ccdb9ab1530cfe7c58f9884c19467d552f7d69b681c8c5ac72b49e6365"
+}
