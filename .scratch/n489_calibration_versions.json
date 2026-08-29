@@ -1,0 +1,108 @@
+{
+ "schemaVersion": 1,
+ "documentType": "calibration-set-version-distribution",
+ "ruling": "follows n+138(3); the executor flagged in round 488 that this count was not done",
+ "population": "records with status acquired inside the calibration 60",
+ "countingUnit": "record",
+ "criterion": "version from the merged rounds 486-488 lookups",
+ "distribution": {
+  "publishedVersion": 8,
+  "acceptedVersion": 5,
+  "submittedVersion": 1
+ },
+ "nonPublished": 6,
+ "records": [
+  {
+   "idFrag": "88747fa53f34fc92",
+   "pool": "S1-tt-moderate-dose",
+   "sourceType": "grobid-tei",
+   "version": "publishedVersion"
+  },
+  {
+   "idFrag": "98fe85bec4128a6f",
+   "pool": "S1-tt-moderate-dose",
+   "sourceType": "grobid-tei",
+   "version": "acceptedVersion"
+  },
+  {
+   "idFrag": "3ecdcbd448da8a7f",
+   "pool": "S2-tt-high-and-very-high-dose",
+   "sourceType": "grobid-tei",
+   "version": "acceptedVersion"
+  },
+  {
+   "idFrag": "7bc2c46bd4251685",
+   "pool": "S2-tt-high-and-very-high-dose",
+   "sourceType": "europe-pmc-jats",
+   "version": "publishedVersion"
+  },
+  {
+   "idFrag": "85855b5e7a97713b",
+   "pool": "S2-tt-high-and-very-high-dose",
+   "sourceType": "europe-pmc-jats",
+   "version": "publishedVersion"
+  },
+  {
+   "idFrag": "bf4f8f5a11055379",
+   "pool": "S2-tt-high-and-very-high-dose",
+   "sourceType": "grobid-tei",
+   "version": "acceptedVersion"
+  },
+  {
+   "idFrag": "012d9a3486e6a580",
+   "pool": "S4-exogenous-oxidation",
+   "sourceType": "europe-pmc-jats",
+   "version": "publishedVersion"
+  },
+  {
+   "idFrag": "69e040d16b7320d7",
+   "pool": "S4-exogenous-oxidation",
+   "sourceType": "grobid-tei",
+   "version": "acceptedVersion"
+  },
+  {
+   "idFrag": "76df6297501bb474",
+   "pool": "S4-exogenous-oxidation",
+   "sourceType": "europe-pmc-jats",
+   "version": "publishedVersion"
+  },
+  {
+   "idFrag": "f8392067834de4d8",
+   "pool": "S4-exogenous-oxidation",
+   "sourceType": "europe-pmc-jats",
+   "version": "publishedVersion"
+  },
+  {
+   "idFrag": "2cc49e0ddbdb6ea5",
+   "pool": "S5+S6-gi-merged",
+   "sourceType": "europe-pmc-jats",
+   "version": "publishedVersion"
+  },
+  {
+   "idFrag": "89e1a723c3028a8a",
+   "pool": "S5+S6-gi-merged",
+   "sourceType": "grobid-tei",
+   "version": "acceptedVersion"
+  },
+  {
+   "idFrag": "fc75f1d5298c3260",
+   "pool": "S5+S6-gi-merged",
+   "sourceType": "grobid-tei",
+   "version": "submittedVersion"
+  },
+  {
+   "idFrag": "7eef56b17a6ac155",
+   "pool": "S7-glycogen",
+   "sourceType": "grobid-tei",
+   "version": "publishedVersion"
+  }
+ ],
+ "byPoolNonPublished": {
+  "S1-tt-moderate-dose": 1,
+  "S2-tt-high-and-very-high-dose": 2,
+  "S4-exogenous-oxidation": 1,
+  "S5+S6-gi-merged": 2
+ },
+ "note": "n+138(3): accepted-version figures must be marked per value; submitted-version may not be a numeric source. Proportions here are the calibration set, not the 41 acquired manifests.",
+ "contentNote": "Id fragments, pools and version codes only."
+}
