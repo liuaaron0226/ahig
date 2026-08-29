@@ -1,0 +1,135 @@
+{
+ "schemaVersion": 1,
+ "documentType": "retraction-live-recheck",
+ "ruling": "n+151 delivery item 5 (n+86(10) / n+132): retraction status must be rechecked on the day of delivery. This is the rehearsal, and the fetch guard's first real network use.",
+ "population": "the calibration draw of 60 plus accepted n+103 backfill, queried by PMID",
+ "countingUnit": "publication",
+ "criterion": "Europe PMC search, resultType=idlist, PUB_TYPE:\"Retracted Publication\" restricted to the population EXT_IDs",
+ "isRehearsal": true,
+ "rehearsalNote": "These values are not the delivery answer. n+151(1) requires every cell to be computed on the day. What this shows is that the step runs and that a zero from it is a trustworthy zero.",
+ "controlProbes": [
+  {
+   "probe": "A EXT_ID 比對是否會中",
+   "expect": "大量命中",
+   "got": 40,
+   "of": 40,
+   "passed": true
+  },
+  {
+   "probe": "B 撤稿篩選語法是否有效",
+   "expect": "≥1",
+   "got": 10,
+   "of": 10,
+   "passed": true
+  },
+  {
+   "probe": "C DOI 路徑之撤稿篩選是否有效（單一已知撤稿 DOI）",
+   "expect": "1",
+   "got": 1,
+   "of": 1,
+   "passed": true
+  }
+ ],
+ "controlNote": "A zero here has three possible causes -- nothing retracted, no identifier matched, or a wrong filter -- and they look identical. Probe A rules out the second, probe B the third.",
+ "populationSize": 84,
+ "withPmid": 82,
+ "withoutPmid": [
+  {
+   "idTail": "714e7292",
+   "hasDoi": false
+  },
+  {
+   "idTail": "b141caed",
+   "hasDoi": true
+  }
+ ],
+ "doiRouteChecked": 1,
+ "doiRouteRetracted": [],
+ "doiRouteControl": {
+  "probe": "C DOI 路徑之撤稿篩選是否有效（單一已知撤稿 DOI）",
+  "expect": "1",
+  "got": 1,
+  "of": 1,
+  "passed": true
+ },
+ "snapshotFlagged": 10,
+ "snapshotFlaggedStillRetracted": 10,
+ "liveRetractedInPopulation": [],
+ "calls": [
+  {
+   "label": "A：不加撤稿篩選",
+   "status": 200,
+   "field": "EXT_ID",
+   "hitCount": 40,
+   "returned": 40,
+   "error": ""
+  },
+  {
+   "label": "B：撤稿篩選＋已知撤稿者",
+   "status": 200,
+   "field": "EXT_ID",
+   "hitCount": 10,
+   "returned": 10,
+   "error": ""
+  },
+  {
+   "label": "母體第 1 批（40 筆）",
+   "status": 200,
+   "field": "EXT_ID",
+   "hitCount": 0,
+   "returned": 0,
+   "error": ""
+  },
+  {
+   "label": "母體第 2 批（40 筆）",
+   "status": 200,
+   "field": "EXT_ID",
+   "hitCount": 0,
+   "returned": 0,
+   "error": ""
+  },
+  {
+   "label": "母體第 3 批（2 筆）",
+   "status": 200,
+   "field": "EXT_ID",
+   "hitCount": 0,
+   "returned": 0,
+   "error": ""
+  },
+  {
+   "label": "C：DOI 路徑之撤稿篩選",
+   "status": 200,
+   "field": "DOI",
+   "hitCount": 1,
+   "returned": 1,
+   "error": ""
+  },
+  {
+   "label": "無 PMID 者之 DOI 查詢",
+   "status": 200,
+   "field": "DOI",
+   "hitCount": 0,
+   "returned": 0,
+   "error": ""
+  }
+ ],
+ "fetchCounters": {
+  "totalRequests": 7,
+  "perRequestedHost": {
+   "www.ebi.ac.uk": 7
+  },
+  "perFinalHost": {
+   "www.ebi.ac.uk": 7
+  },
+  "redirectHops": 0,
+  "blockedHosts": {},
+  "distinctUrls": 7,
+  "minIntervalSeconds": 1.0,
+  "note": "Per-execution counters. totalRequests counts every hop actually sent, including redirect hops, because each hop is a real outbound request. Requested and final hosts are kept apart: a redirector such as doi.org appears in the first and the publisher it lands on in the second, and blocking keys on the second. State does not survive the process, so the no-retry guarantee holds within one run only."
+ },
+ "contactEmailSource": "HKCU\\Environment",
+ "notJudged": "Whether a retracted record is topically relevant is a reading, not a search. n+86(10) requires that per record; the count once moved from 4 to 5 precisely on such a reading.",
+ "coverageStatement": "Records without a PMID go through a DOI query with its own control; any that carry neither identifier are listed as uncovered rather than counted as clean. Europe PMC is one register: a retraction recorded elsewhere and not there is invisible here.",
+ "contentNote": "Identifiers and counts only. resultType=idlist means no title or abstract ever entered this process.",
+ "recheckHash": "sha256:a306c5aabc374145e266d3dca5414db7816037f1544b540933e96211ebff7d72"
+}

@@ -52,6 +52,7 @@
 - ⚠️ 亦擋不住**呼叫端不使用本檔**——**🚨 本檔是工具不是沙箱。**
 """
 import json
+import os
 import time
 import urllib.error
 import urllib.request
@@ -97,6 +98,41 @@ def _send(url, headers, timeout, cap):
     except Exception as e:
         return {'status': 'ERR', 'headers': {}, 'body': b'', 'url': url,
                 'error': '%s: %s' % (type(e).__name__, str(e)[:120])}
+
+
+def contact_email():
+    r"""取聯絡信箱：先環境變數，再 `HKCU\Environment`。
+
+    🚨 這支放在閘門裡而不是各呼叫端，是因為 n+150（三）把「信箱缺失即不送出」
+    立成了閘門的契約——**⚠️ 那麼「信箱從哪裡來」就是閘門的事。**
+
+    **⚠️ 而且這不是假想**：`m1_step3_acquire.py` 開頭已載明本 run 發生過
+    「信箱已以 PowerShell 設為使用者層級，但沒有進入該次執行之環境」。
+    **🚨 只看 `os.environ` 會把一個設好的信箱讀成沒設，於是 fail-closed
+    擋掉一次本來合規的抓取。**
+
+    回傳 `(信箱或 None, 來源)`；**🚫 讀取登錄檔是唯讀查詢，不寫入。**
+    """
+    v = os.environ.get('AHIG_CONTACT_EMAIL')
+    if v:
+        return v, 'os.environ'
+    try:
+        import winreg
+        with winreg.OpenKey(winreg.HKEY_CURRENT_USER, 'Environment') as k:
+            v, _ = winreg.QueryValueEx(k, 'AHIG_CONTACT_EMAIL')
+            return (v or None), r'HKCU\Environment'
+    except (ImportError, OSError):
+        return None, None
+
+
+def masked(addr):
+    """遮蔽本地部分——⚠️ 回報與產物一律用這個，🚫 不落盤完整信箱。"""
+    if not addr or '@' not in addr:
+        return '<無>'
+    local, _, domain = addr.partition('@')
+    keep = (local[0] + '*' * max(len(local) - 2, 1) + local[-1]
+            if len(local) > 1 else '*')
+    return '%s@%s' % (keep, domain)
 
 
 def _ua(email):
