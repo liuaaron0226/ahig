@@ -16,6 +16,18 @@ Run:  python3 .scratch/n115_delivery_checklist.py
 import re
 from pathlib import Path
 
+# ── n+132 之機制（🚫 不是規則）──────────────────────────────────────
+# ⚠️ 本檔輸出短，但仍常被順手接 `| head`。管線提前關閉時 Python 會丟
+# `BrokenPipeError`，**使一次完整且通過的執行在畫面上長得像失敗**。
+# 🚨 該情形已列為缺陷型錄第 15 型（規則寫下了，立規則者下一輪照犯）。
+# 故此處**改以機制解決**：把 SIGPIPE 還原為系統預設，接管線即安靜結束。
+import signal
+try:
+    signal.signal(signal.SIGPIPE, signal.SIG_DFL)
+except (AttributeError, ValueError):  # 非 POSIX 或非主執行緒
+    pass
+# ──────────────────────────────────────────────────────────────────
+
 FILES = {
     "甲": "docs/m1-a-search-coverage-skeleton.md",
     "乙": "docs/m1-b-screening-limits-skeleton.md",
@@ -83,6 +95,15 @@ DETAIL = {
     "ADVANCE_EXPECTED": ("看板", "同上：advance 側兩段合計期望 16.9 筆"),
     "ADVANCE_OBSERVED": ("看板", "同上：實測 1 筆"),
     "SIGNAL_DENSITY_RATIO": ("看板", "同上：標題碳水訊號密度相差 26.57 倍"),
+    # ── n+132：乙節第 1、4 條解封所生 ──
+    "WORDING_SPLIT_GROUPS": ("看板", "看板 7692（臨界功率兩篇）、7983（三篇同試驗）；🚨 **敘述式辨識，非掛牌統計**——不得寫成已窮舉"),
+    "POP_WORDING_UNCLEAR_N": ("不可及", "私有根名冊中「僅卡族群措辭」之 unclear 筆數；🚫 不得沿用看板逐輪累計（那是當輪快照）"),
+    "NARR_COMPARATOR_N": ("不可及", "`.scratch/n60_tags.py` 現跑（讀私有根 `judgements.json`）；🚨 須併報排除／納入"),
+    "NARR_COMPARATOR_ADV": ("不可及", "同上之 advance 筆數；⚠️ 這一格存在的理由就是「總數會被讀成排除數」"),
+    "NARR_INSTRUMENT_N": ("不可及", "同上，`allowedInstruments`／「儀器效度」敘述式"),
+    "NARR_RETRACT_TEXT_N": ("不可及", "同上，理由文字之撤稿字樣；🚫 不得與 `RETRACT_FIELD_N` 混用或相加"),
+    "NARR_CRITERIA_HASH": ("產物", "`.scratch/n60_tags.py`（**受追蹤**）之 content_hash（CRLF→LF 正規化後 SHA-256）；⚠️ 交付時重算，值變則三個筆數須重跑"),
+    "RETRACT_FIELD_N":  ("不可及", "私有根 `worksheet.json` → `publicationTypes` 含 `Retracted Publication` 者；⚠️ 並依 n+86（十）交付時重查"),
     "SHADOW_CONCORDANT": ("不可及", "私有根 `machine-reconciliation.json` → `counts.concordantCount`＝**288**（執行室量測）"),
     "SHADOW_QUEUED":    ("不可及", "同上 → `counts.ownerAuditCount`＝**12**（執行室量測）"),
     "DEBT_B4":          ("看板", "影子歧異之尚欠項 11（未解決者，n+106 裁定；單位＝抽查項目）"),

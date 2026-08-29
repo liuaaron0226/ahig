@@ -20,7 +20,7 @@
 
 <!-- BEGIN GENERATED n115 -->
 
-共 **83** 個佔位符。凍結 **50**、漂移 **33**；其中 **6** 個之權威來源**協調者無法自行核對**（見下文第二節）。
+共 **91** 個佔位符。凍結 **50**、漂移 **41**；其中 **12** 個之權威來源**協調者無法自行核對**（見下文第二節）。
 
 | 節 | 佔位符 | 類別 | 來源型態 | 定位 |
 |---|---|---|---|---|
@@ -29,9 +29,16 @@
 | 乙 | `ADVANCE_EXPECTED` | 凍結 | 看板 | 同上：advance 側兩段合計期望 16.9 筆 |
 | 乙 | `ADVANCE_OBSERVED` | 凍結 | 看板 | 同上：實測 1 筆 |
 | 乙 | `FISHER_P` | 凍結 | 看板 | 同上：Fisher p=0.0011 |
+| 乙 | `NARR_COMPARATOR_ADV` | 漂移 | 不可及 | 同上之 advance 筆數；⚠️ 這一格存在的理由就是「總數會被讀成排除數」 |
+| 乙 | `NARR_COMPARATOR_N` | 漂移 | 不可及 | `.scratch/n60_tags.py` 現跑（讀私有根 `judgements.json`）；🚨 須併報排除／納入 |
+| 乙 | `NARR_CRITERIA_HASH` | 漂移 | 產物 | `.scratch/n60_tags.py`（**受追蹤**）之 content_hash（CRLF→LF 正規化後 SHA-256）；⚠️ 交付時重算，值變則三個筆數須重跑 |
+| 乙 | `NARR_INSTRUMENT_N` | 漂移 | 不可及 | 同上，`allowedInstruments`／「儀器效度」敘述式 |
+| 乙 | `NARR_RETRACT_TEXT_N` | 漂移 | 不可及 | 同上，理由文字之撤稿字樣；🚫 不得與 `RETRACT_FIELD_N` 混用或相加 |
 | 乙 | `PLANNING_RATE_F` | 凍結 | 看板 | 同上，女性 67–72% |
 | 乙 | `PLANNING_RATE_M` | 凍結 | 看板 | 同上，男性 91–93% |
 | 乙 | `PLANNING_RATE_OVERALL` | 凍結 | 看板 | 看板 49702：菁英層級補給規劃率（⚠️ **規劃率，非佔比**） |
+| 乙 | `POP_WORDING_UNCLEAR_N` | 漂移 | 不可及 | 私有根名冊中「僅卡族群措辭」之 unclear 筆數；🚫 不得沿用看板逐輪累計（那是當輪快照） |
+| 乙 | `RETRACT_FIELD_N` | 漂移 | 不可及 | 私有根 `worksheet.json` → `publicationTypes` 含 `Retracted Publication` 者；⚠️ 並依 n+86（十）交付時重查 |
 | 乙 | `SEX_SAMPLE_COMPOSITION` | 漂移 | 不可及 | 證據體之性別組成，私有根名冊；🚨 與規劃率是兩個量 |
 | 乙 | `SIGNAL_DENSITY_RATIO` | 凍結 | 看板 | 同上：標題碳水訊號密度相差 26.57 倍 |
 | 乙 | `THRESHOLD3_GAP` | 凍結 | 看板 | 同上：差 0.02 倍而未放寬 |
@@ -41,6 +48,7 @@
 | 乙 | `TITLE_ONLY_EXPECTED_GAP` | 漂移 | 不可及 | 🚨 **須重算**：底數 77→133→175 而衍生數一直寫「約 10」；舊率 14.7% 取自特定段落，不得直接套用（n+121） |
 | 乙 | `TITLE_ONLY_N` | 漂移 | 不可及 | 私有根 `title-only-judged-roster.json` → `entryCount`＝**175**（執行室量測）；🚨 不得以判讀理由文字代算 |
 | 乙 | `UNTRACEABLE_N` | 凍結 | 看板 | 看板 61541／61653：33 段設計輸入無 `candidateId` 可對應 |
+| 乙 | `WORDING_SPLIT_GROUPS` | 漂移 | 看板 | 看板 7692（臨界功率兩篇）、7983（三篇同試驗）；🚨 **敘述式辨識，非掛牌統計**——不得寫成已窮舉 |
 | 丙 | `ALPHA` | 凍結 | 原始碼 | `statistical_termination.py` `DEFAULT_ALPHA` = 0.05 |
 | 丙 | `NOT_SCREENED_STD` | 漂移 | 產物 | `.scratch/n78_termination_evidence.json` → `tailSpotCheckPopulation.count`（**閉合式之第三項**） |
 | 丙 | `N_TOTAL_STD` | 凍結 | 產物 | `.scratch/n78_termination_evidence.json` → `standardLaneSequence.nTotal` |

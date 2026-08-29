@@ -17,6 +17,18 @@ import re
 import sys
 from pathlib import Path
 
+# ── n+132 之機制（🚫 不是規則）──────────────────────────────────────
+# ⚠️ 本檔輸出短，但仍常被順手接 `| head`。管線提前關閉時 Python 會丟
+# `BrokenPipeError`，**使一次完整且通過的執行在畫面上長得像失敗**。
+# 🚨 該情形已列為缺陷型錄第 15 型（規則寫下了，立規則者下一輪照犯）。
+# 故此處**改以機制解決**：把 SIGPIPE 還原為系統預設，接管線即安靜結束。
+import signal
+try:
+    signal.signal(signal.SIGPIPE, signal.SIG_DFL)
+except (AttributeError, ValueError):  # 非 POSIX 或非主執行緒
+    pass
+# ──────────────────────────────────────────────────────────────────
+
 SECTIONS = {
     "甲": "docs/m1-a-search-coverage-skeleton.md",
     "乙": "docs/m1-b-screening-limits-skeleton.md",
