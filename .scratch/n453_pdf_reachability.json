@@ -1,0 +1,178 @@
+{
+ "schemaVersion": 1,
+ "documentType": "pdf-reachability-probe",
+ "ruling": "n+117(1)/n+119(1): the PDF fetch layer needs no installation",
+ "population": "records classed available-pdf among the 45 obtainable",
+ "countingUnit": "publication",
+ "criterion": "range request for the first 2048 bytes; pdf-ok requires a 2xx and a %PDF- prefix",
+ "counts": {
+  "pdf-ok": 10,
+  "blocked": 3,
+  "not-pdf": 4
+ },
+ "records": [
+  {
+   "candidateId": "ahig:candidate:publication:3ecdcbd448da8a7f2f35af1f",
+   "host": "eprints.gla.ac.uk",
+   "http": 206,
+   "contentType": "application/pdf",
+   "isPdf": true,
+   "error": "",
+   "verdict": "pdf-ok"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:45b54e0f521c5d3359712b22",
+   "host": "www.sciencedirect.com",
+   "http": 403,
+   "contentType": "",
+   "isPdf": false,
+   "error": "HTTP 403",
+   "verdict": "blocked"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:57ef311258a83414e18036b3",
+   "host": "journals.humankinetics.com",
+   "http": 200,
+   "contentType": "text/html",
+   "isPdf": false,
+   "error": "",
+   "verdict": "not-pdf"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:69e040d16b7320d74cdda857",
+   "host": "purehost.bath.ac.uk",
+   "http": 200,
+   "contentType": "application/pdf",
+   "isPdf": true,
+   "error": "",
+   "verdict": "pdf-ok"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:6f9c5aec79503020d89e7ccf",
+   "host": "www.sciencedirect.com",
+   "http": 403,
+   "contentType": "",
+   "isPdf": false,
+   "error": "HTTP 403",
+   "verdict": "blocked"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:7d2f0e2a39079e90850b4f2b",
+   "host": "www.sciencedirect.com",
+   "http": 403,
+   "contentType": "",
+   "isPdf": false,
+   "error": "HTTP 403",
+   "verdict": "blocked"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:7eef56b17a6ac1559c740fd6",
+   "host": "onlinelibrary.wiley.com",
+   "http": 200,
+   "contentType": "text/html",
+   "isPdf": false,
+   "error": "",
+   "verdict": "not-pdf"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:89e1a723c3028a8a7b1ae2a1",
+   "host": "utoronto.scholaris.ca",
+   "http": 206,
+   "contentType": "application/pdf",
+   "isPdf": true,
+   "error": "",
+   "verdict": "pdf-ok"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:9454731aad7c0004c386f31c",
+   "host": "onlinelibrary.wiley.com",
+   "http": 200,
+   "contentType": "text/html",
+   "isPdf": false,
+   "error": "",
+   "verdict": "not-pdf"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:98fe85bec4128a6f6dd2c0b5",
+   "host": "utoronto.scholaris.ca",
+   "http": 206,
+   "contentType": "application/pdf",
+   "isPdf": true,
+   "error": "",
+   "verdict": "pdf-ok"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:bd9995f482cbc04b68c38e79",
+   "host": "utoronto.scholaris.ca",
+   "http": 206,
+   "contentType": "application/pdf",
+   "isPdf": true,
+   "error": "",
+   "verdict": "pdf-ok"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:bf4f8f5a1105537918c174c9",
+   "host": "utoronto.scholaris.ca",
+   "http": 206,
+   "contentType": "application/pdf",
+   "isPdf": true,
+   "error": "",
+   "verdict": "pdf-ok"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:c380c744307c0dd5b141caed",
+   "host": "researchonline.ljmu.ac.uk",
+   "http": 206,
+   "contentType": "application/pdf",
+   "isPdf": true,
+   "error": "",
+   "verdict": "pdf-ok"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:c8fea0895d84a17e2c347de7",
+   "host": "ro.ecu.edu.au",
+   "http": 200,
+   "contentType": "text/html",
+   "isPdf": false,
+   "error": "",
+   "verdict": "not-pdf"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:d9f8c03e09c665a709499ba1",
+   "host": "journals.physiology.org",
+   "http": 200,
+   "contentType": "application/pdf",
+   "isPdf": true,
+   "error": "",
+   "verdict": "pdf-ok"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:de939065eac2b5fd6bb06843",
+   "host": "www.cambridge.org",
+   "http": 206,
+   "contentType": "application/pdf",
+   "isPdf": true,
+   "error": "",
+   "verdict": "pdf-ok"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:fc75f1d5298c326024d22835",
+   "host": "purehost.bath.ac.uk",
+   "http": 200,
+   "contentType": "application/pdf",
+   "isPdf": true,
+   "error": "",
+   "verdict": "pdf-ok"
+  }
+ ],
+ "figshareApiAdds": 2,
+ "reachableUpperBound": 12,
+ "coverageStatement": "Says whether the first bytes arrive here and now. It does not say the PDF is complete full text, nor that a parser can read it. A blocked verdict describes this environment, not the literature.",
+ "contentNote": "Hosts, HTTP codes and a magic-byte boolean only. No URLs (landing paths embed verbatim titles, round 452) and no document bytes are stored.",
+ "throttle": {
+  "minIntervalSeconds": 1.5,
+  "rangeBytes": 2048,
+  "note": "deliberately a probe, not a download"
+ },
+ "probeHash": "sha256:7588228514c99c8c005598ca63fd20f5cbcb795a4288c5dc502975e29c569944"
+}
