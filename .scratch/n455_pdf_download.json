@@ -1,0 +1,138 @@
+{
+ "schemaVersion": 1,
+ "documentType": "pdf-download-cache",
+ "ruling": "owner instruction round 454; fetch layer already authorised by n+117(1). Downloads only -- no installation, no parsing, no tool choice.",
+ "population": "the 10 direct pdf-ok records of round 453 plus figshare PDFs",
+ "countingUnit": "file",
+ "criterion": "saved only if the body begins with %PDF- and exceeds 1KB",
+ "destination": "AHIG_PRIVATE_ROOT/fulltext/pdf-cache (private root, never version controlled)",
+ "namingNote": "files are named by an id fragment, never by title, and no URL is recorded -- landing paths embed verbatim titles",
+ "saved": 11,
+ "attempted": 12,
+ "totalBytes": 28926027,
+ "records": [
+  {
+   "candidateId": "ahig:candidate:publication:3ecdcbd448da8a7f2f35af1f",
+   "host": "eprints.gla.ac.uk",
+   "http": 200,
+   "bytes": 1075894,
+   "isPdf": true,
+   "saved": true,
+   "fileHash": "sha256:b50775a848214d0c68b696dfa9023bebca8d6570f9cb9f4b9f8349749ceb7cf3",
+   "error": ""
+  },
+  {
+   "candidateId": "ahig:candidate:publication:69e040d16b7320d74cdda857",
+   "host": "purehost.bath.ac.uk",
+   "http": 200,
+   "bytes": 6973181,
+   "isPdf": true,
+   "saved": true,
+   "fileHash": "sha256:a451d59d016a6fa5045b03be891a43d4e502987f3aeb8d01e8bf2093aacf0d2a",
+   "error": ""
+  },
+  {
+   "candidateId": "ahig:candidate:publication:89e1a723c3028a8a7b1ae2a1",
+   "host": "utoronto.scholaris.ca",
+   "http": 200,
+   "bytes": 1448108,
+   "isPdf": true,
+   "saved": true,
+   "fileHash": "sha256:0832b459a22d1e5f1c1ea4228e555b35e04b89999e9cd2287b2ecbcafc88b2d9",
+   "error": ""
+  },
+  {
+   "candidateId": "ahig:candidate:publication:98fe85bec4128a6f6dd2c0b5",
+   "host": "utoronto.scholaris.ca",
+   "http": 200,
+   "bytes": 471486,
+   "isPdf": true,
+   "saved": true,
+   "fileHash": "sha256:efdfe3c7e39252182e8f9e201cb7cd63c88727d0dfa3977c4c8da48b060e99d3",
+   "error": ""
+  },
+  {
+   "candidateId": "ahig:candidate:publication:bd9995f482cbc04b68c38e79",
+   "host": "utoronto.scholaris.ca",
+   "http": 200,
+   "bytes": 1197756,
+   "isPdf": true,
+   "saved": true,
+   "fileHash": "sha256:9759d1643bed357e41c10227b93bf827e2dc9180f43ae602350162caa84c6324",
+   "error": ""
+  },
+  {
+   "candidateId": "ahig:candidate:publication:bf4f8f5a1105537918c174c9",
+   "host": "utoronto.scholaris.ca",
+   "http": 200,
+   "bytes": 311754,
+   "isPdf": true,
+   "saved": true,
+   "fileHash": "sha256:fcb8d1fe305fcd92a9a3e6a188f440ba09c63e2eef8e79263537cf00adcf5e32",
+   "error": ""
+  },
+  {
+   "candidateId": "ahig:candidate:publication:c380c744307c0dd5b141caed",
+   "host": "researchonline.ljmu.ac.uk",
+   "http": 200,
+   "bytes": 10898391,
+   "isPdf": true,
+   "saved": true,
+   "fileHash": "sha256:147a4dd32495d2c0ef05d4cea4b7334404feed73b1a262b4f8e61e3bbe634c69",
+   "error": ""
+  },
+  {
+   "candidateId": "ahig:candidate:publication:d9f8c03e09c665a709499ba1",
+   "host": "journals.physiology.org",
+   "http": 403,
+   "bytes": 0,
+   "isPdf": false,
+   "saved": false,
+   "fileHash": "",
+   "error": "HTTP 403"
+  },
+  {
+   "candidateId": "ahig:candidate:publication:de939065eac2b5fd6bb06843",
+   "host": "www.cambridge.org",
+   "http": 200,
+   "bytes": 192684,
+   "isPdf": true,
+   "saved": true,
+   "fileHash": "sha256:df73f8fd92fac75d9d439c1d45c4e30ab2f95fea66f8c29987568080f0b5a92b",
+   "error": ""
+  },
+  {
+   "candidateId": "ahig:candidate:publication:fc75f1d5298c326024d22835",
+   "host": "purehost.bath.ac.uk",
+   "http": 200,
+   "bytes": 664468,
+   "isPdf": true,
+   "saved": true,
+   "fileHash": "sha256:2bdf70d822b0623c64557adc6aa79354e4b9ca2fc1d76c76b18bca6940d05119",
+   "error": ""
+  },
+  {
+   "candidateId": "figshare:12046290",
+   "host": "figshare.com",
+   "http": 200,
+   "bytes": 5202250,
+   "isPdf": true,
+   "saved": true,
+   "fileHash": "sha256:a985982e49a130bdac61b9d0e05dec7db423090572d5748e6bacc27e0154cd28",
+   "error": ""
+  },
+  {
+   "candidateId": "figshare:32548500",
+   "host": "figshare.com",
+   "http": 200,
+   "bytes": 490055,
+   "isPdf": true,
+   "saved": true,
+   "fileHash": "sha256:652f985ca92a150482d79546822b783cda9e5518bcadaf1cc3ce6b52500ff4b9",
+   "error": ""
+  }
+ ],
+ "coverageStatement": "These are bytes on disk. Whether each is complete full text, and whether a parser can section it, is not established here.",
+ "contentNote": "Hosts, sizes and hashes only. No document content and no URLs are stored in this artefact.",
+ "downloadHash": "sha256:ba66248832f30363a3994e3a316963b159789d7afe83f8efaa727c2f4f7269a4"
+}
