@@ -1,0 +1,548 @@
+{
+ "schemaVersion": 1,
+ "documentType": "acquired-corpus-verification",
+ "ruling": "self-initiated: _verify_committed_artifacts fires only on the write path, so a record acquired and never rewritten has never been re-verified -- and extraction is about to read all of them",
+ "population": "every directory under the private root fulltext/ whose manifest.json has status acquired",
+ "populationNote": "This is the private-root population. It is NOT the calibration 60 and NOT the calibration-plus-backfill set. Those three have been mixed twice in this run, so these figures may not serve as numerator or denominator for either of the other two.",
+ "countingUnit": "record (one artifact directory)",
+ "criterion": "structure passes _validate_latest_manifest and every artifact file on disk still hashes to what the manifest records",
+ "controlProbes": [
+  {
+   "probe": "正向甲：正確之 JATS artifact",
+   "expectRaise": false,
+   "raised": false,
+   "message": "",
+   "asExpected": true
+  },
+  {
+   "probe": "反向甲：sourceSha256 改一字元",
+   "expectRaise": true,
+   "raised": true,
+   "message": "FulltextError: 已提交 artifact 的 raw sha256 不符",
+   "asExpected": true
+  },
+  {
+   "probe": "反向乙：sections 檔不存在",
+   "expectRaise": true,
+   "raised": true,
+   "message": "FulltextError: 已提交 artifact 缺 raw 或 sections",
+   "asExpected": true
+  },
+  {
+   "probe": "正向乙：TEI 路徑（LF 正規化）",
+   "expectRaise": false,
+   "raised": false,
+   "message": "",
+   "asExpected": true
+  },
+  {
+   "probe": "反向丙：teiSha256 改一字元",
+   "expectRaise": true,
+   "raised": true,
+   "message": "FulltextError: 已提交 artifact 的 teiSha256 不符",
+   "asExpected": true
+  },
+  {
+   "probe": "分類器：a-study-name-0123456789abcdef",
+   "expectRaise": null,
+   "classifiedAsArtifact": true,
+   "expected": true,
+   "asExpected": true
+  },
+  {
+   "probe": "分類器：pdf-cache",
+   "expectRaise": null,
+   "classifiedAsArtifact": false,
+   "expected": false,
+   "asExpected": true
+  },
+  {
+   "probe": "分類器：tei-cache",
+   "expectRaise": null,
+   "classifiedAsArtifact": false,
+   "expected": false,
+   "asExpected": true
+  },
+  {
+   "probe": "分類器：tei-test",
+   "expectRaise": null,
+   "classifiedAsArtifact": false,
+   "expected": false,
+   "asExpected": true
+  }
+ ],
+ "controlNote": "A sweep whose expected result is zero cannot prove itself. Both directions are probed: two synthetic correct artifacts must pass and three deliberate corruptions must raise. If any probe misbehaves the script refuses to report the corpus result and exits non-zero.",
+ "artifactDirectories": 311,
+ "excludedNonArtifactDirectories": [
+  "ahig_candidate_publication_21e29112ef4d15d8fe4d9796",
+  "ahig_candidate_publication_465dca4abe3d419a0c094731",
+  "ahig_candidate_publication_c3c6e0d4ea912e19b9479d4a",
+  "ahig_candidate_publication_c7470eb375e0928eb4713afa",
+  "pdf-cache",
+  "tei-cache",
+  "tei-test"
+ ],
+ "artifactDirectoriesWithoutManifest": [],
+ "legacySchemeDirectories": [
+  {
+   "dir": "ahig_candidate_publication_21e29112ef4d15d8fe4d9796",
+   "candidateIdTail": "fe4d9796",
+   "legacyStatus": "unavailable",
+   "artifacts": 0,
+   "currentSchemeDirExists": true,
+   "currentSchemeStatus": "incomplete"
+  },
+  {
+   "dir": "ahig_candidate_publication_465dca4abe3d419a0c094731",
+   "candidateIdTail": "0c094731",
+   "legacyStatus": "unavailable",
+   "artifacts": 0,
+   "currentSchemeDirExists": true,
+   "currentSchemeStatus": "incomplete"
+  },
+  {
+   "dir": "ahig_candidate_publication_c3c6e0d4ea912e19b9479d4a",
+   "candidateIdTail": "b9479d4a",
+   "legacyStatus": "unavailable",
+   "artifacts": 0,
+   "currentSchemeDirExists": true,
+   "currentSchemeStatus": "incomplete"
+  },
+  {
+   "dir": "ahig_candidate_publication_c7470eb375e0928eb4713afa",
+   "candidateIdTail": "b4713afa",
+   "legacyStatus": "unavailable",
+   "artifacts": 0,
+   "currentSchemeDirExists": true,
+   "currentSchemeStatus": "incomplete"
+  }
+ ],
+ "legacyNote": "Four directories carry the superseded naming scheme (the whole candidateId slugified, with no digest suffix). Each holds a manifest with status \"unavailable\" -- a value the current contract does not allow -- and no artifacts. Every one of their candidateIds also has a current-scheme directory, so no record is lost; but a directory-walking count double-counts them, and _validate_latest_manifest would judge them invalid, which is a state sweep_orphans quarantines. Left untouched: retiring them is a coordinator decision, not an audit action.",
+ "withManifest": 311,
+ "acquired": 41,
+ "verdicts": {
+  "ok": 41
+ },
+ "sourceTypes": {
+  "europe-pmc-jats": 26,
+  "grobid-tei": 15
+ },
+ "records": [
+  {
+   "dir": "012d9a3486e6a580",
+   "candidateIdTail": "108fd94b",
+   "verdict": "ok",
+   "detail": "",
+   "sourceTypes": [
+    "europe-pmc-jats"
+   ],
+   "artifacts": 1
+  },
+  {
+   "dir": "0b68902a081d147c",
+   "candidateIdTail": "d92dee14",
+   "verdict": "ok",
+   "detail": "",
+   "sourceTypes": [
+    "europe-pmc-jats"
+   ],
+   "artifacts": 1
+  },
+  {
+   "dir": "11f2906259b4558a",
+   "candidateIdTail": "37f28bc9",
+   "verdict": "ok",
+   "detail": "",
+   "sourceTypes": [
+    "europe-pmc-jats"
+   ],
+   "artifacts": 1
+  },
+  {
+   "dir": "211950e67902e3ec",
+   "candidateIdTail": "54370729",
+   "verdict": "ok",
+   "detail": "",
+   "sourceTypes": [
+    "grobid-tei"
+   ],
+   "artifacts": 1
+  },
+  {
+   "dir": "2cc49e0ddbdb6ea5",
+   "candidateIdTail": "5c9667c3",
+   "verdict": "ok",
+   "detail": "",
+   "sourceTypes": [
+    "europe-pmc-jats"
+   ],
+   "artifacts": 1
+  },
+  {
+   "dir": "38c6412fc97d2ed8",
+   "candidateIdTail": "4b0d1057",
+   "verdict": "ok",
+   "detail": "",
+   "sourceTypes": [
+    "europe-pmc-jats"
+   ],
+   "artifacts": 1
+  },
+  {
+   "dir": "38d538c00eea079e",
+   "candidateIdTail": "79bf7913",
+   "verdict": "ok",
+   "detail": "",
+   "sourceTypes": [
+    "europe-pmc-jats"
+   ],
+   "artifacts": 1
+  },
+  {
+   "dir": "3ecdcbd448da8a7f",
+   "candidateIdTail": "2f35af1f",
+   "verdict": "ok",
+   "detail": "",
+   "sourceTypes": [
+    "grobid-tei"
+   ],
+   "artifacts": 1
+  },
+  {
+   "dir": "44ebb4f2358bbf2c",
+   "candidateIdTail": "1886ac4b",
+   "verdict": "ok",
+   "detail": "",
+   "sourceTypes": [
+    "europe-pmc-jats"
+   ],
+   "artifacts": 1
+  },
+  {
+   "dir": "69e040d16b7320d7",
+   "candidateIdTail": "4cdda857",
+   "verdict": "ok",
+   "detail": "",
+   "sourceTypes": [
+    "grobid-tei"
+   ],
+   "artifacts": 1
+  },
+  {
+   "dir": "742f1c1d44243ac6",
+   "candidateIdTail": "24c9b5e0",
+   "verdict": "ok",
+   "detail": "",
+   "sourceTypes": [
+    "europe-pmc-jats"
+   ],
+   "artifacts": 1
+  },
+  {
+   "dir": "769c71fae4871d50",
+   "candidateIdTail": "d0001e66",
+   "verdict": "ok",
+   "detail": "",
+   "sourceTypes": [
+    "europe-pmc-jats"
+   ],
+   "artifacts": 1
+  },
+  {
+   "dir": "76df6297501bb474",
+   "candidateIdTail": "ac4704fa",
+   "verdict": "ok",
+   "detail": "",
+   "sourceTypes": [
+    "europe-pmc-jats"
+   ],
+   "artifacts": 1
+  },
+  {
+   "dir": "7bc2c46bd4251685",
+   "candidateIdTail": "a43792ff",
+   "verdict": "ok",
+   "detail": "",
+   "sourceTypes": [
+    "europe-pmc-jats"
+   ],
+   "artifacts": 1
+  },
+  {
+   "dir": "7c5800be8a62d501",
+   "candidateIdTail": "f88c7d04",
+   "verdict": "ok",
+   "detail": "",
+   "sourceTypes": [
+    "europe-pmc-jats"
+   ],
+   "artifacts": 1
+  },
+  {
+   "dir": "7dec3f4066e16f08",
+   "candidateIdTail": "9f1522d1",
+   "verdict": "ok",
+   "detail": "",
+   "sourceTypes": [
+    "europe-pmc-jats"
+   ],
+   "artifacts": 1
+  },
+  {
+   "dir": "7eef56b17a6ac155",
+   "candidateIdTail": "9c740fd6",
+   "verdict": "ok",
+   "detail": "",
+   "sourceTypes": [
+    "grobid-tei"
+   ],
+   "artifacts": 1
+  },
+  {
+   "dir": "85855b5e7a97713b",
+   "candidateIdTail": "f254fa26",
+   "verdict": "ok",
+   "detail": "",
+   "sourceTypes": [
+    "europe-pmc-jats"
+   ],
+   "artifacts": 1
+  },
+  {
+   "dir": "85e0e186b9ab2f27",
+   "candidateIdTail": "317a6a2b",
+   "verdict": "ok",
+   "detail": "",
+   "sourceTypes": [
+    "europe-pmc-jats"
+   ],
+   "artifacts": 1
+  },
+  {
+   "dir": "861b4a2965d459b9",
+   "candidateIdTail": "129da800",
+   "verdict": "ok",
+   "detail": "",
+   "sourceTypes": [
+    "europe-pmc-jats"
+   ],
+   "artifacts": 1
+  },
+  {
+   "dir": "88747fa53f34fc92",
+   "candidateIdTail": "d4f4b70d",
+   "verdict": "ok",
+   "detail": "",
+   "sourceTypes": [
+    "grobid-tei"
+   ],
+   "artifacts": 1
+  },
+  {
+   "dir": "89e1a723c3028a8a",
+   "candidateIdTail": "7b1ae2a1",
+   "verdict": "ok",
+   "detail": "",
+   "sourceTypes": [
+    "grobid-tei"
+   ],
+   "artifacts": 1
+  },
+  {
+   "dir": "8a8d5efcf6a82302",
+   "candidateIdTail": "d7fe9adf",
+   "verdict": "ok",
+   "detail": "",
+   "sourceTypes": [
+    "europe-pmc-jats"
+   ],
+   "artifacts": 1
+  },
+  {
+   "dir": "8d9e152de8d48c04",
+   "candidateIdTail": "f919dbb0",
+   "verdict": "ok",
+   "detail": "",
+   "sourceTypes": [
+    "europe-pmc-jats"
+   ],
+   "artifacts": 1
+  },
+  {
+   "dir": "8dd0f644a9012191",
+   "candidateIdTail": "142e7e02",
+   "verdict": "ok",
+   "detail": "",
+   "sourceTypes": [
+    "grobid-tei"
+   ],
+   "artifacts": 1
+  },
+  {
+   "dir": "9454731aad7c0004",
+   "candidateIdTail": "c386f31c",
+   "verdict": "ok",
+   "detail": "",
+   "sourceTypes": [
+    "grobid-tei"
+   ],
+   "artifacts": 1
+  },
+  {
+   "dir": "98fe85bec4128a6f",
+   "candidateIdTail": "6dd2c0b5",
+   "verdict": "ok",
+   "detail": "",
+   "sourceTypes": [
+    "grobid-tei"
+   ],
+   "artifacts": 1
+  },
+  {
+   "dir": "a32397909a3b03b4",
+   "candidateIdTail": "fb24cf65",
+   "verdict": "ok",
+   "detail": "",
+   "sourceTypes": [
+    "europe-pmc-jats"
+   ],
+   "artifacts": 1
+  },
+  {
+   "dir": "a4bbe8aa65dd82a8",
+   "candidateIdTail": "9b2c5340",
+   "verdict": "ok",
+   "detail": "",
+   "sourceTypes": [
+    "grobid-tei"
+   ],
+   "artifacts": 1
+  },
+  {
+   "dir": "b1eeb9c554d4200c",
+   "candidateIdTail": "1c5e2b64",
+   "verdict": "ok",
+   "detail": "",
+   "sourceTypes": [
+    "europe-pmc-jats"
+   ],
+   "artifacts": 1
+  },
+  {
+   "dir": "bd9995f482cbc04b",
+   "candidateIdTail": "68c38e79",
+   "verdict": "ok",
+   "detail": "",
+   "sourceTypes": [
+    "grobid-tei"
+   ],
+   "artifacts": 1
+  },
+  {
+   "dir": "bf4f8f5a11055379",
+   "candidateIdTail": "18c174c9",
+   "verdict": "ok",
+   "detail": "",
+   "sourceTypes": [
+    "grobid-tei"
+   ],
+   "artifacts": 1
+  },
+  {
+   "dir": "bfc01fa20cfceb6c",
+   "candidateIdTail": "8a86f78b",
+   "verdict": "ok",
+   "detail": "",
+   "sourceTypes": [
+    "europe-pmc-jats"
+   ],
+   "artifacts": 1
+  },
+  {
+   "dir": "c380c744307c0dd5",
+   "candidateIdTail": "b141caed",
+   "verdict": "ok",
+   "detail": "",
+   "sourceTypes": [
+    "grobid-tei"
+   ],
+   "artifacts": 1
+  },
+  {
+   "dir": "c512422dd4149a8b",
+   "candidateIdTail": "ac287851",
+   "verdict": "ok",
+   "detail": "",
+   "sourceTypes": [
+    "europe-pmc-jats"
+   ],
+   "artifacts": 1
+  },
+  {
+   "dir": "cd1e43154103c4b5",
+   "candidateIdTail": "2bbf21e6",
+   "verdict": "ok",
+   "detail": "",
+   "sourceTypes": [
+    "europe-pmc-jats"
+   ],
+   "artifacts": 1
+  },
+  {
+   "dir": "de939065eac2b5fd",
+   "candidateIdTail": "6bb06843",
+   "verdict": "ok",
+   "detail": "",
+   "sourceTypes": [
+    "grobid-tei"
+   ],
+   "artifacts": 1
+  },
+  {
+   "dir": "f6a2becc97c2233f",
+   "candidateIdTail": "7e60c801",
+   "verdict": "ok",
+   "detail": "",
+   "sourceTypes": [
+    "europe-pmc-jats"
+   ],
+   "artifacts": 1
+  },
+  {
+   "dir": "f8392067834de4d8",
+   "candidateIdTail": "22dfb3cd",
+   "verdict": "ok",
+   "detail": "",
+   "sourceTypes": [
+    "europe-pmc-jats"
+   ],
+   "artifacts": 1
+  },
+  {
+   "dir": "fc75f1d5298c3260",
+   "candidateIdTail": "24d22835",
+   "verdict": "ok",
+   "detail": "",
+   "sourceTypes": [
+    "grobid-tei"
+   ],
+   "artifacts": 1
+  },
+  {
+   "dir": "ff8c5c2ca6ce9c92",
+   "candidateIdTail": "c7454a7c",
+   "verdict": "ok",
+   "detail": "",
+   "sourceTypes": [
+    "europe-pmc-jats"
+   ],
+   "artifacts": 1
+  }
+ ],
+ "orphanCandidates": [],
+ "lineEndingSensitiveSources": [],
+ "readOnly": "No file is written, unlinked or repaired. sweep_orphans is a recovery tool that unlinks; running it as a verification would turn an audit into a change.",
+ "coverageStatement": "Verifies consistency between bytes and manifest, not truth: the hashes come from the manifest, so editing both together stays self-consistent. Says nothing about whether sections are correct or the text complete -- that needs a reader. The orphan listing is bounded by the same four globs the sweep uses, so a stray file of another shape is invisible to both.",
+ "contentNote": "Directory prefixes, file names, counts and verdicts only. No literature content.",
+ "verificationHash": "sha256:ad49b637044828bdc0feb04daade9381d96e20ea593d98ce37fa8e3b0f7484b1"
+}
