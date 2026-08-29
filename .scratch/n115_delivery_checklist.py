@@ -35,6 +35,7 @@ FILES = {
     "丁": "docs/m1-d-audit-debt-skeleton.md",
     "庚": "docs/m1-f-harms-skeleton.md",
     "辛": "docs/m1-g-acquisition-skeleton.md",
+    "壬": "docs/m1-h-owner-decisions-skeleton.md",
 }
 TARGET = "docs/m1-e-delivery-checklist.md"
 BEGIN = "<!-- BEGIN GENERATED n115 -->"
@@ -104,6 +105,9 @@ DETAIL = {
     "NARR_RETRACT_TEXT_N": ("不可及", "同上，理由文字之撤稿字樣；🚫 不得與 `RETRACT_FIELD_N` 混用或相加"),
     "NARR_CRITERIA_HASH": ("產物", "`.scratch/n60_tags.py`（**受追蹤**）之 content_hash（CRLF→LF 正規化後 SHA-256）；⚠️ 交付時重算，值變則三個筆數須重跑"),
     "RETRACT_FIELD_N":  ("不可及", "私有根 `worksheet.json` → `publicationTypes` 含 `Retracted Publication` 者；⚠️ 並依 n+86（十）交付時重查"),
+    # ── n+133：壬節（需要擁有者決定的事），n+133 二查出此節從未起草 ──
+    "TAG_ROSTER_COUNT": ("不可及", "`.scratch/n60_tags.py` 現跑之掛牌名單份數（讀私有根）；⚠️ 份數本身會隨新掛牌而變"),
+    "TAG_ROSTER_TOTAL": ("不可及", "同上，去重後合計筆數（同一筆可掛多牌）；🚨 須併報各牌之排除／納入（檢查表第十條）"),
     "SHADOW_CONCORDANT": ("不可及", "私有根 `machine-reconciliation.json` → `counts.concordantCount`＝**288**（執行室量測）"),
     "SHADOW_QUEUED":    ("不可及", "同上 → `counts.ownerAuditCount`＝**12**（執行室量測）"),
     "DEBT_B4":          ("看板", "影子歧異之尚欠項 11（未解決者，n+106 裁定；單位＝抽查項目）"),

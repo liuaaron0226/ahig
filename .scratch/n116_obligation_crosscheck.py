@@ -39,6 +39,7 @@ DOCS = {
     "己": "docs/m1-e-delivery-checklist.md",
     "庚": "docs/m1-f-harms-skeleton.md",
     "辛": "docs/m1-g-acquisition-skeleton.md",
+    "壬": "docs/m1-h-owner-decisions-skeleton.md",
     "措": "docs/m1-wording-checklist.md",
 }
 REGISTER = "docs/m1-obligations.md"
@@ -77,11 +78,11 @@ ANCHORS = {
     3045: (["ownerAuditQueue"], "分歧進 ownerAuditQueue"),
     3083: (["unresolvedOpposedCandidateIds"], "對立歸零後餘額記帳"),
     3129: (["17 筆"], "17 筆一次清償"),  # 🚫 移除「累計」：甲節碰撞條數亦用該詞，屬假命中
-    48466: (["撤稿"], "撤稿筆數改為 5"),
-    48478: (["撤稿筆數", "重跑"], "交付前須重跑之項目"),
-    48662: (["撤稿"], "同 48466"),
-    48864: (["撤稿"], "同 48466"),
-    49142: (["撤稿"], "同 48466"),
+    48466: (["由 4 改為 5"], "撤稿筆數改為 5"),
+    48478: (["交付前必須重跑之項目"], "交付前須重跑之項目"),
+    48662: (["由 4 改為 5"], "同 48466"),
+    48864: (["由 4 改為 5"], "同 48466"),
+    49142: (["由 4 改為 5"], "同 48466"),
     # 己 3
     48414: (["逐筆確認其主題涵蓋", "撤稿狀態重查"], "交付前應重查"),
     48897: (["不得沿用任何一輪"], "不得沿用任何一輪之數字"),
@@ -113,6 +114,17 @@ ANCHORS = {
     64201: (["不可回溯"], "乙案已否定（清單未佚失）"),
     64376: (["27 筆"], "27 筆逐筆回看（乙 52108 之重述）"),
     64412: (["不得併入無效", "不得併入「無效」"], "殘量 4 筆須載明為無從判定"),
+}
+
+
+# ── n+133：**全域義務**（命中多份文件是正確特徵，不是稀釋）────────────
+# 🚨 稀釋稽核原本把兩種東西印成同一種：
+#   (a) 錨點太鬆——用「撤稿」兩字去找一條特定義務，五份文件都有 → 證據力為零
+#   (b) 義務本身就是跨章節通則——「不得沿用任何一輪」本來就該出現在每一節
+# ⚠️ 兩者輸出一模一樣，於是連續多輪沒有人分得出哪一條該修。
+# 故此處把 (b) 明列，餘者才報為可疑。**🚫 名單只能因「這條確實是通則」而加入。**
+GLOBAL = {
+    48897: "不得沿用任何一輪之數字——本即跨章節通則，出現於每一節才是對的",
 }
 
 
@@ -194,6 +206,7 @@ print(f"  → 反向對照 {len(NEGATIVE) - neg_fail}/{len(NEGATIVE)} 正確 MIS
 print()
 print("=== 自我稽核乙：錨點是否太鬆（命中數愈多，證據力愈弱）===")
 loose = []
+globals_hit = []
 for line_no in sorted(reg):
     alts, label = ANCHORS[line_no]
     n = sum(1 for t in docs.values() if any(a in t for a in alts))
@@ -201,11 +214,22 @@ for line_no in sorted(reg):
     # 「撤稿」只有兩字卻高度specific，「漂移」兩字卻五份文件都有。
     # 🚨 前一版以字數為準，把 14 條標成可疑，其中 12 條實查是好錨點。
     if n >= 5:
-        loose.append((line_no, label, n, alts))
-print(f"  錨點總數 {len(ANCHORS)}｜🚨 **稀釋（命中 ≥5 份文件）{len(loose)}**")
+        (globals_hit if line_no in GLOBAL else loose).append(
+            (line_no, label, n, alts))
+
+# ⚠️ 清冊之 55 條含「重述／同上」——**55 是條目數，不是相異義務數**
+dup = [k for k, (_, lab) in ANCHORS.items()
+       if ("重述" in lab or lab.startswith("同")) ]
+print(f"  錨點總數 {len(ANCHORS)}｜⚠️ 其中標為重述／同上者 {len(dup)}"
+      f"｜**相異義務約 {len(ANCHORS) - len(dup)}**")
+print("  🚨 故「55／55 涵蓋」之 55 是條目數，🚫 不得讀成 55 件不同的事。")
+print(f"  ✅ 全域義務（命中多份為正確特徵）{len(globals_hit)}")
+for line_no, label, n, alts in globals_hit:
+    print(f"     · {line_no} {label}：命中 {n} 份 — {GLOBAL[line_no]}")
+print(f"  🚨 **稀釋（命中 ≥5 份且非全域）{len(loose)}**")
 for line_no, label, n, alts in loose:
     print(f"  🚨 {line_no} {label}：命中 {n} 份，錨點 {alts}")
 if loose:
     print("  ⚠️ 上列各條之「有談到」不得採信，須人工逐條確認。")
 else:
-    print("  ✅ 無稀釋錨點。⚠️ 惟仍請記得：有談到 ≠ 已辦。")
+    print("  ✅ 無稀釋錨點（⚠️ 全域義務已另計）。惟仍請記得：有談到 ≠ 已辦。")
