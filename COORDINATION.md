@@ -68206,3 +68206,70 @@ Gradle 發行版下載中（`gradle-9.6.1-bin.zip`，觀察到 30%）。
 **預警段 5／32 ✅**｜**測試 717 passed／0 failed ✅，exit=0**。**`ahig/` 本輪零改動。**
 
 **M1 四步：① ✅｜② ✅｜③ ✅｜④ 🏁 工具已定，⏳ 建置進行中。**
+
+---
+
+## 🚨 執行室回報：**GROBID 0.9.1 之建置腳本不支援 Windows；WSL 亦壞**（第 463 輪）
+
+建置背景作業回報 exit 1。**⚠️ 依紀律先讀完整輸出，不憑狀態碼定性。**
+
+### 一、🚨 失敗點是硬性不支援，不是設定錯誤
+
+```
+BUILD FAILED in 7m 32s
+Build file '…\grobid-0.9.1\build.gradle' line: 30
+> Unsupported platform!
+```
+
+該處為 `getJavaLibraryPath`，其分支**只處理 Mac 與 UNIX**，其餘一律拋例外：
+
+```groovy
+if (Os.isFamily(Os.FAMILY_MAC)) { … }
+else if (Os.isFamily(Os.FAMILY_UNIX)) { … }
+else { throw new RuntimeException("Unsupported platform!") }
+```
+
+**⚠️ 即 GROBID 0.9.1 之 Gradle 建置在設計上不涵蓋 Windows。**
+
+### 二、⚠️ 兩條繞路各自查過，結論不同
+
+**（甲）WSL —— 🚨 已註冊但不可用。**
+`wsl -e bash` 回（訊息為 Big5，解碼後）：
+**「無法將磁碟 `E:\WSL\Ubuntu\ext4.vhdx` 掛接到 WSL2 …ERROR_PATH_NOT_FOUND」**
+——**⚠️ 該 Ubuntu 之磁碟映像在 `E:` 槽，而該槽不在。**
+
+**🚫 本室不嘗試修復**：⚠️ 重新註冊或改掛載點可能毀掉擁有者既有之 Ubuntu，
+**🚨 且 `E:` 可能是外接碟；此事應由擁有者判斷，本室不動。**
+
+**（乙）補上 Windows 分支 —— ✅ 有依據，已施行。**
+**🚨 關鍵事實**：`grobid-home/lib/` 內**本來就有 `win-64`**
+（與 `lin-64`、`mac-64` 並列）——**⚠️ 即原生庫有出 Windows 版，是建置腳本漏了分支。**
+
+**⚠️ 惟 `win-64` 內只有 `libwapiti.dll`（CRF 用），無 jep**
+——**🚨 故此路徑僅支援 CRF 模式，DeLFT 深度學習模型在本平台不可用。**
+**⚠️ 而本案只需 CRF：`parse_tei` 吃的是 TEI，不問模型種類。**
+
+### 三、✅ 修改之界線
+
+- **改的是 repo 之外的解壓目錄**（`Desktop\grobid`），**🚫 未動 `ahig/`、未動版控。**
+- **原檔已備份為 `build.gradle.orig`**，⚠️ 重新解壓亦可還原。
+- **🚨 該樣式在檔內出現兩處**（第 30、613 行），
+  **⚠️ 本室之唯一性斷言擋下第一版盲改**，已只改 `getJavaLibraryPath` 內那一處。
+- 補丁內以註解載明其限制（僅 CRF、無 jep），**🚫 不留一個看不出取捨的改動。**
+
+### 四、⏳ 現況
+
+已以補丁重啟建置（背景）。**⚠️ 上游不支援 Windows 是事實**，
+**🚨 故過了第 30 行之後仍可能撞到別處（例如 `pdfalto` 之路徑處理）**
+——**⚠️ 本室不預設會成功，下一個錯誤同樣會逐字讀。**
+
+**若補丁路線再撞牆**，本室將提請擁有者於下列擇一：
+① 修復 WSL（其 Ubuntu 磁碟在缺席之 `E:` 槽）；② 安裝 Docker Desktop；
+③ 放棄 GROBID 改走 Docling＋自寫解析器。**🚫 三者皆須擁有者裁示，本室不自行選。**
+
+### 五、每輪必做
+
+**閘門**：樣式來源 ✅✅✅｜控制探針 ✅✅✅｜n+48 兩道 ✅｜n+54 三道 ✅｜
+**預警段 5／32 ✅**｜**測試 717 passed／0 failed ✅，exit=0**。**`ahig/` 本輪零改動。**
+
+**M1 四步：① ✅｜② ✅｜③ ✅｜④ 🏁 工具已定，🚨 建置撞上平台限制，補丁後重試中。**
