@@ -66316,3 +66316,70 @@ OCC2  重算 0.012404888703091584｜檔內 0.012404888703091584｜k_target 756/7
 `n77_w4b_verify.py` **全項通過**；`n436_claim_provenance.py` **8／9 有產生指令**。
 
 **`ahig/` 本輪零改動。M1 四步：① ✅｜② ✅｜③ ✅｜④ ⏸ 待擁有者三層裁示。**
+
+---
+
+## ✅ 執行室回報：**第二次觸發之前置條件，經查於當時事實為真**（第 445 輪）
+
+`git pull --ff-only` → **Already up to date，無新裁定**。
+補做第 444 輪本室明列之未查項：**`mandatoryLanesFullyScreened` 於第二次觸發當下是否事實為真。**
+（⚠️ 當時本室明載：**不以「跨 lane 事實很可能通用」代替查核**。）
+產生指令：**`.scratch/n445_mandatory_at_trigger.py`**（`exit=0`）。
+
+### 一、判準照抄生產程式（`statistical_termination.py:177-185`），並注意它跑在哪個 queue 上
+
+```python
+mandatory_unscreened = [e for e in queue if e not in seen
+    and (screeningLane == "safety-review" or "critical-harms-signal" in flags)]
+```
+
+**🚨 全 queue 與標準線工作單會得到不同的 mandatory 集合**，
+⚠️ 而標準線那 9,091 筆中確有帶 `critical-harms-signal` 者——**即 n+94 之孤兒機制所在**。
+
+```
+full-queue                 母體 15425｜mandatory 2729｜未判 0  ✅
+standard-lane-worksheet    母體  9091｜mandatory  292｜未判 0  ✅
+```
+
+**⚠️ 標準線那 292 筆全數係經旗標而非 lane 入選**——🚨 正是孤兒那一型。
+
+### 二、🚨 「今日為真」不等於「當時為真」——本輪把時點界定起來
+
+**⚠️ 只對現行語料計算，只證得到今日**；終止已宣告、篩選已停，語料只可能等於或多於當時。
+故加兩道時點論證，**🚨 少一道結論就不成立**：
+
+```
+① 標準線語料未增長：觸發當下 screenedCount 7431 ＋ outOfSequence 200 = 7631
+                    現行 standard-full-screen-pass-1 judgements = 7631   ✅ 逐數相符
+② mandatory 由該批自己判畢：292 筆中在該批內 292、倚賴他批 0            ✅
+```
+
+**①** 證明該語料**就是**觸發當下之語料；**②** 證明那 292 筆之判畢時點**必在觸發之前**。
+
+### 三、✅ 結論與 ⚠️ 仍然成立的部分
+
+**✅ `mandatoryLanesFullyScreened` 於第二次觸發當下、就標準線基準而言，事實為真**
+——**非借用、非推定。**
+
+**⚠️ 惟第 444 輪之「記載位置」缺口仍然成立**：
+**🚨 產物本身仍未就標準線基準陳述該旗標**，⚠️ 稽核者仍須向另一區塊借欄位。
+**改變的是「該事實已獲獨立查核」，不是「產物已完整」。**
+
+**提請不變**：丙節須寫明第二次觸發之前置條件係以何依據認定；
+**⚠️ 本輪之查核可作為該依據引用**（`n445_mandatory_at_trigger.json`），
+**🚨 惟須標明係執行室量測、協調者不可及（來源在私有根）。**
+
+### 四、⚠️ 涵蓋範圍聲明
+
+**🚨 全 queue 基準之時點未界定**——其 2,729 筆 mandatory 橫跨 safety／shadow／
+critical-harms 各批，本輪**未**逐批界定。
+**⚠️ 惟該基準之區塊本來就自記該旗標，不需本室代證；本輪要證的是標準線那一側。**
+
+### 五、每輪必做
+
+**閘門**：樣式來源 ✅✅✅｜控制探針 ✅✅✅｜n+48 兩道 ✅｜n+54 三道 ✅｜
+**測試 717 passed／0 failed ✅，exit=0**；
+`m1_artefact_chain_check.py` **11／6／6**；`m1_number_annotation_audit.py` **12／12**；
+`n77_w4b_verify.py` **全項通過**；`n436_claim_provenance.py` **8／9 有產生指令**。
+
+**`ahig/` 本輪零改動。M1 四步：① ✅｜② ✅｜③ ✅｜④ ⏸ 待擁有者三層裁示。**

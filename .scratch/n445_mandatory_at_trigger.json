@@ -1,0 +1,36 @@
+{
+ "schemaVersion": 1,
+ "documentType": "precondition-truth-at-second-trigger",
+ "ruling": "self-initiated; closes the item round 444 listed as unchecked",
+ "population": "screening-queue (15,425) and the standard-lane worksheet subset (9,091)",
+ "countingUnit": "candidate",
+ "criterion": "statistical_termination.py:177-185 verbatim -- lane is safety-review, or flags contain critical-harms-signal",
+ "byBasis": {
+  "full-queue": {
+   "population": 15425,
+   "mandatory": 2729,
+   "unscreened": 0,
+   "met": true
+  },
+  "standard-lane-worksheet": {
+   "population": 9091,
+   "mandatory": 292,
+   "unscreened": 0,
+   "met": true
+  }
+ },
+ "standardLaneMandatoryAllFromFlag": true,
+ "standardLaneMandatoryNote": "Every mandatory record in the standard-lane subset qualifies through the critical-harms-signal flag, not through lane -- the orphan mechanism n+94 examined.",
+ "timeBounding": {
+  "corpusUnchanged": true,
+  "triggerScreened": 7431,
+  "triggerOutOfSequence": 200,
+  "currentJudgements": 7631,
+  "mandatoryJudgedInSameBatch": true,
+  "note": "Computing against the current corpus alone would only show the flag is true today. Two bounds close it: the standard-lane corpus is exactly its trigger-time size, and every mandatory record was judged inside that same batch rather than borrowed from a later one."
+ },
+ "verdict": "true at the second trigger for the standard-lane basis",
+ "recordingGapStands": "Round 444 stands: the artefact still never states this flag for the standard-lane basis. What changes is that the fact is now verified rather than assumed to carry over.",
+ "coverageStatement": "The full-queue basis is not time-bounded here -- its 2,729 mandatory records span several batches. That block records the flag itself, so it needs no proxy from this file.",
+ "contentNote": "Counts and field names only."
+}
