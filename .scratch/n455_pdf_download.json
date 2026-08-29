@@ -112,27 +112,35 @@
    "error": ""
   },
   {
-   "candidateId": "figshare:12046290",
+   "candidateId": "ahig:candidate:publication:8dd0f644a9012191142e7e02",
    "host": "figshare.com",
    "http": 200,
    "bytes": 5202250,
    "isPdf": true,
    "saved": true,
    "fileHash": "sha256:a985982e49a130bdac61b9d0e05dec7db423090572d5748e6bacc27e0154cd28",
-   "error": ""
+   "error": "",
+   "figshareArticleId": "12046290"
   },
   {
-   "candidateId": "figshare:32548500",
+   "candidateId": "ahig:candidate:publication:a4bbe8aa65dd82a89b2c5340",
    "host": "figshare.com",
    "http": 200,
    "bytes": 490055,
    "isPdf": true,
    "saved": true,
    "fileHash": "sha256:652f985ca92a150482d79546822b783cda9e5518bcadaf1cc3ce6b52500ff4b9",
-   "error": ""
+   "error": "",
+   "figshareArticleId": "32548500"
   }
  ],
  "coverageStatement": "These are bytes on disk. Whether each is complete full text, and whether a parser can section it, is not established here.",
  "contentNote": "Hosts, sizes and hashes only. No document content and no URLs are stored in this artefact.",
- "downloadHash": "sha256:ba66248832f30363a3994e3a316963b159789d7afe83f8efaa727c2f4f7269a4"
+ "downloadHash": "sha256:ba66248832f30363a3994e3a316963b159789d7afe83f8efaa727c2f4f7269a4",
+ "idCorrection": {
+  "round": 466,
+  "what": "Two figshare PDFs were recorded under a synthetic figshare:<articleId> instead of their candidateId, so they could not be joined back to the calibration set and the per-stratum table undercounted by two.",
+  "how": "articleId taken from each record manifest availableUrl, not inferred from the order of an earlier run.",
+  "corrected": 2
+ }
 }
