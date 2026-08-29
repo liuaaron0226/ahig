@@ -142,5 +142,29 @@
   "what": "Two figshare PDFs were recorded under a synthetic figshare:<articleId> instead of their candidateId, so they could not be joined back to the calibration set and the per-stratum table undercounted by two.",
   "how": "articleId taken from each record manifest availableUrl, not inferred from the order of an earlier run.",
   "corrected": 2
+ },
+ "alternativeLocationAdditions": {
+  "round": 477,
+  "ruling": "n+124(3)",
+  "records": [
+   {
+    "candidateId": "ahig:candidate:publication:211950e67902e3ec54370729",
+    "host": "researchonline.ljmu.ac.uk",
+    "bytes": 2664233,
+    "fileHash": "sha256:f60369f26fa979573986baf7d2cfaecd3690868ac9e76e45543ac02888bd8ab3"
+   },
+   {
+    "candidateId": "ahig:candidate:publication:7eef56b17a6ac1559c740fd6",
+    "host": "researchonline.ljmu.ac.uk",
+    "bytes": 3605622,
+    "fileHash": "sha256:1c87300d09cc54728a4e78a60e3da23e25f840fb755cb9526d817d695af26047"
+   },
+   {
+    "candidateId": "ahig:candidate:publication:88747fa53f34fc92d4f4b70d",
+    "host": "eprints.leedsbeckett.ac.uk",
+    "bytes": 1338202,
+    "fileHash": "sha256:2fda6b4d56445b6ad67702e034271af9403b1acb3f99a0f991b383448ab09f91"
+   }
+  ]
  }
 }

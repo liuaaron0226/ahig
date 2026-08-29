@@ -1,0 +1,180 @@
+{
+ "schemaVersion": 1,
+ "documentType": "alternative-oa-locations",
+ "ruling": "n+124(3): query the full locations array, not best_oa_location",
+ "population": "the 11 records blocked in this environment (round 450)",
+ "countingUnit": "publication",
+ "criterion": "OA locations in OpenAlex locations[] other than the one already attempted; reachable means 2xx, pdf means a %PDF- prefix",
+ "records": [
+  {
+   "candidateId": "ahig:candidate:publication:211950e67902e3ec54370729",
+   "triedHost": "doi.org",
+   "doi": "10.1152/japplphysiol.01072.2025",
+   "otherLocations": 2,
+   "otherHosts": [
+    "researchonline.ljmu.ac.uk",
+    "researchportal.bath.ac.uk"
+   ],
+   "reachable": [
+    {
+     "host": "researchportal.bath.ac.uk",
+     "isPdf": false,
+     "http": 200
+    },
+    {
+     "host": "researchonline.ljmu.ac.uk",
+     "isPdf": true,
+     "http": 206
+    }
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:3ecdcbd448da8a7f2f35af1f",
+   "triedHost": "eprints.gla.ac.uk",
+   "doi": "10.1249/mss.0000000000002764",
+   "otherLocations": 1,
+   "otherHosts": [
+    "eprints.leedsbeckett.ac.uk"
+   ],
+   "reachable": [
+    {
+     "host": "eprints.leedsbeckett.ac.uk",
+     "isPdf": true,
+     "http": 206
+    }
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:45b54e0f521c5d3359712b22",
+   "triedHost": "www.sciencedirect.com",
+   "doi": "10.1093/ajcn/67.3.397",
+   "otherLocations": 1,
+   "otherHosts": [
+    "cris.maastrichtuniversity.nl"
+   ],
+   "reachable": [
+    {
+     "host": "cris.maastrichtuniversity.nl",
+     "isPdf": false,
+     "http": 200
+    }
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:6f9c5aec79503020d89e7ccf",
+   "triedHost": "www.sciencedirect.com",
+   "doi": "10.1093/jn/nxab219",
+   "otherLocations": 0,
+   "otherHosts": [],
+   "reachable": []
+  },
+  {
+   "candidateId": "ahig:candidate:publication:7d2f0e2a39079e90850b4f2b",
+   "triedHost": "www.sciencedirect.com",
+   "doi": "10.1093/jn/137.5.1143",
+   "otherLocations": 1,
+   "otherHosts": [
+    "cris.maastrichtuniversity.nl"
+   ],
+   "reachable": [
+    {
+     "host": "cris.maastrichtuniversity.nl",
+     "isPdf": false,
+     "http": 200
+    }
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:7eef56b17a6ac1559c740fd6",
+   "triedHost": "onlinelibrary.wiley.com",
+   "doi": "10.1113/jp281127",
+   "otherLocations": 2,
+   "otherHosts": [
+    "figshare.com",
+    "researchonline.ljmu.ac.uk"
+   ],
+   "reachable": [
+    {
+     "host": "researchonline.ljmu.ac.uk",
+     "isPdf": true,
+     "http": 206
+    },
+    {
+     "host": "figshare.com",
+     "isPdf": false,
+     "http": 202
+    }
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:88747fa53f34fc92d4f4b70d",
+   "triedHost": "doi.org",
+   "doi": "10.1113/jp289885",
+   "otherLocations": 2,
+   "otherHosts": [
+    "eprints.gla.ac.uk",
+    "eprints.leedsbeckett.ac.uk"
+   ],
+   "reachable": [
+    {
+     "host": "eprints.leedsbeckett.ac.uk",
+     "isPdf": true,
+     "http": 206
+    }
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:9454731aad7c0004c386f31c",
+   "triedHost": "onlinelibrary.wiley.com",
+   "doi": "10.1080/17461391.2023.2207074",
+   "otherLocations": 1,
+   "otherHosts": [
+    "figshare.com"
+   ],
+   "reachable": [
+    {
+     "host": "figshare.com",
+     "isPdf": false,
+     "http": 202
+    }
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:d02d294c1de0f49f59fecb8b",
+   "triedHost": "doi.org",
+   "doi": "10.1152/ajpcell.00583.2024",
+   "otherLocations": 0,
+   "otherHosts": [],
+   "reachable": []
+  },
+  {
+   "candidateId": "ahig:candidate:publication:d9f8c03e09c665a709499ba1",
+   "triedHost": "journals.physiology.org",
+   "doi": "10.1152/jappl.1998.85.2.709",
+   "otherLocations": 1,
+   "otherHosts": [
+    "cris.maastrichtuniversity.nl"
+   ],
+   "reachable": [
+    {
+     "host": "cris.maastrichtuniversity.nl",
+     "isPdf": false,
+     "http": 200
+    }
+   ]
+  },
+  {
+   "candidateId": "ahig:candidate:publication:f09fd22168b1b2f9ce594d6c",
+   "triedHost": "doi.org",
+   "doi": "10.1152/japplphysiol.00665.2025",
+   "otherLocations": 0,
+   "otherHosts": [],
+   "reachable": []
+  }
+ ],
+ "anyAlternativeReachable": 8,
+ "pdfObtainable": 4,
+ "coverageStatement": "OpenAlex locations are not exhaustive, so finding no alternative does not prove none exists. And reaching bytes is not extraction -- these still have to pass GROBID and parse_tei.",
+ "contentNote": "Hosts, counts and HTTP codes only. No URLs are stored, since landing paths embed verbatim titles.",
+ "surveyHash": "sha256:f7727870a0bf0ce68b72a39f7170fdee8391c1cd823eaf1525f5aeabb41e5224"
+}
