@@ -1,0 +1,51 @@
+{
+ "schemaVersion": 1,
+ "documentType": "published-version-availability",
+ "ruling": "informs the open criterion question raised in round 489; no action taken",
+ "population": "the 6 non-published acquired records inside the calibration 60",
+ "countingUnit": "record",
+ "criterion": "OpenAlex locations[] entries that are OA and carry version publishedVersion",
+ "distribution": {
+  "無": 6
+ },
+ "records": [
+  {
+   "idFrag": "98fe85bec4128a6f",
+   "pool": "S1-tt-moderate-dose",
+   "version": "acceptedVersion",
+   "publishedOaLocations": []
+  },
+  {
+   "idFrag": "3ecdcbd448da8a7f",
+   "pool": "S2-tt-high-and-very-high-dose",
+   "version": "acceptedVersion",
+   "publishedOaLocations": []
+  },
+  {
+   "idFrag": "bf4f8f5a11055379",
+   "pool": "S2-tt-high-and-very-high-dose",
+   "version": "acceptedVersion",
+   "publishedOaLocations": []
+  },
+  {
+   "idFrag": "69e040d16b7320d7",
+   "pool": "S4-exogenous-oxidation",
+   "version": "acceptedVersion",
+   "publishedOaLocations": []
+  },
+  {
+   "idFrag": "89e1a723c3028a8a",
+   "pool": "S5+S6-gi-merged",
+   "version": "acceptedVersion",
+   "publishedOaLocations": []
+  },
+  {
+   "idFrag": "fc75f1d5298c3260",
+   "pool": "S5+S6-gi-merged",
+   "version": "submittedVersion",
+   "publishedOaLocations": []
+  }
+ ],
+ "note": "This says whether a published-version OA location is listed, not whether it can be fetched here, and not whether it should be sought. Whether to replace manuscripts is a criterion question for the coordinator.",
+ "contentNote": "Id fragments, pools, versions and hosts only."
+}
