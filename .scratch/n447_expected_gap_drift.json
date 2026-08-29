@@ -1,0 +1,54 @@
+{
+ "schemaVersion": 1,
+ "documentType": "obligation-derived-figure-drift",
+ "ruling": "self-initiated; fills the gap n+116(5) named -- whether an obligation is discharged, not merely mentioned",
+ "obligation": "board 41893-41894",
+ "population": "the [title-only-judged] roster",
+ "countingUnit": "record",
+ "criterion": "board line numbers read directly; roster entryCount read from the file",
+ "baseFigures": [
+  {
+   "source": "board 41893（義務原文）",
+   "value": 77
+  },
+  {
+   "source": "board 47917",
+   "value": 133
+  },
+  {
+   "source": "roster entryCount（現行）",
+   "value": 175
+  }
+ ],
+ "baseHasDriftMechanism": true,
+ "baseNote": "The roster count itself is fine: the skeleton marks TITLE_ONLY_N as a drift value to be recomputed at delivery, and the checklist carries 175.",
+ "derivedFigure": {
+  "text": "期望漏失約 10 筆",
+  "occurrences": [
+   {
+    "line": 41876,
+    "text": "advance 率 14.7%，該段實得含升級後僅 4 筆。**期望缺口約 10 筆，"
+   },
+   {
+    "line": 41894,
+    "text": "期望漏失約 10 筆，已以全文覆核處置。**擁有者有權知道證據基礎"
+   },
+   {
+    "line": 47918,
+    "text": "**其中約 10 筆期望漏失**，已排定全文期覆核。"
+   }
+  ],
+  "unchangedAcrossBaseGrowth": true,
+  "derivation": "base x 14.7% advance rate, less the 4 actually obtained (board 41875-41877)",
+  "placeholderExists": false,
+  "placeholderFiles": []
+ },
+ "arithmeticUnderStatedMethod": {
+  "77": 7.3,
+  "133": 15.6,
+  "175": 21.7
+ },
+ "claim": "The base grew from 77 to 133 to 175 while the derived figure stayed at \"about 10\" in both places it appears, and it has no placeholder anywhere, so a report that states it would copy board prose. The obligation as written requires stating it.",
+ "notDecidedHere": "Whether the 14.7% rate, taken from records that had signal and an abstract, transfers to the widened roster is a criterion question for the coordinator. The arithmetic is laid out so the ruling has numbers; it is not a proposed replacement value.",
+ "contentNote": "Counts, rates and board line numbers only."
+}
