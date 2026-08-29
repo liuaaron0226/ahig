@@ -66383,3 +66383,68 @@ critical-harms 各批，本輪**未**逐批界定。
 `n77_w4b_verify.py` **全項通過**；`n436_claim_provenance.py` **8／9 有產生指令**。
 
 **`ahig/` 本輪零改動。M1 四步：① ✅｜② ✅｜③ ✅｜④ ⏸ 待擁有者三層裁示。**
+
+---
+
+## 🚨 執行室自我更正：**兩個凍結區塊其實都可重算——本室勘誤中「做不到」一句過寬**（第 446 輪）
+
+`git pull --ff-only` → **Already up to date，無新裁定**。
+本輪複驗本室自己在 `n82_anchor_source_errata.json`「補正三」寫下的兩句：
+**「本應以生產程式算法重算該雜湊…惟做不到」**、**「該凍結產物無法自我驗證」**。
+
+### 一、原像是 12 欄（`statistical_termination.py:224-229`），而第一次觸發之產物只有 11 欄
+
+```
+alpha, pScore, relevantFound, screenedCount, poolSize, targetRecall,
+windowSize, notScreenedCount, mandatoryLanesFullyScreened,
+pScoreExcludedCount, outOfSequenceCount, allowedToStop
+```
+
+**⚠️ 第一次觸發之產物產於 n+72 之前，其中無 `outOfSequenceCount`**
+——**🚨 故 11 欄制才是它的正確配方**，這正是 n+115（三.3）所指者。
+
+### 二、✅ 實查：兩個區塊都重算成功
+
+| 區塊 | 配方 | 結果 |
+|---|---|---|
+| `n68.terminationResult`（第一次） | **11 欄** | **✅ 逐位相符** `sha256:1b27a710…` |
+| `n78.evaluateTerminationStandardBasis`（第二次之全 queue 基準） | **12 欄** ＋ 外補 `alpha 0.05`／`targetRecall 0.95` | **✅ 相符** `sha256:b9748df4…` |
+
+**🚨 故本室原措辭須收窄**：**「做不到」不正確——做得到，只是不能只靠產物自身。**
+**⚠️ 「可用外部常數重算」與「無法驗證」是兩件事，對稽核者意義完全不同**：
+前者只需公布常數來源，**後者是證據鏈斷裂。⚠️ 本室當時把前者寫成了後者。**
+
+**⚠️ 仍然成立之部分**：該區塊確實未落盤 `alpha` 與 `targetRecall`，**不具自足性**；
+**「後續凍結一律落盤雜湊所涵蓋之全部欄位」之建議不變。**
+
+### 三、🚨 併予公布「誤用配方會得到什麼」——給稽核者的辨識依據
+
+稽核者若依 `schemaVersion: 1.1.0` 找到**現行**程式碼（12 欄），以之重算第一次觸發：
+
+```
+11 欄（正確配方）                  sha256:1b27a710754e85a53c590b4d5800e83e1b10077bf797f0143d0c198e62942541
+12 欄（補 outOfSequenceCount=0）   sha256:7330c73df7a294fe9e2c55b4a2edcf9e48a5ff894eff1a244fb483fb049217b3
+```
+
+**⚠️ 兩值皆公布，使稽核者遇到不符時能立即辨認「是配方錯，不是證據被動過」。**
+**🚨 n+115（三.3）警示了這個情境，本項給出它實際的兩個值。**
+
+已加入 `n82_anchor_source_errata.json` 之**補正五**（⚠️ 原有各補正一字未改）。
+
+### 四、⚠️ 這件事本身的教訓
+
+本室當初查不出來，是因為**拿 12 欄配方去算 11 欄的產物，失敗後就寫下「做不到」**。
+**🚨 失敗的是配方，不是產物**——⚠️ 而本室把工具的失敗記成了對象的性質。
+
+**與本 run 反覆出現者同型**：`grep -P` 跑不動被記成「零命中」、
+猜錯鍵名被記成「從沒查過 Europe PMC」。
+**🚨 三次都是「我的方法失敗」被寫成「事實如此」。**
+
+### 五、每輪必做
+
+**閘門**：樣式來源 ✅✅✅｜控制探針 ✅✅✅｜n+48 兩道 ✅｜n+54 三道 ✅｜
+**測試 717 passed／0 failed ✅，exit=0**；
+`m1_artefact_chain_check.py` **11／6／6**；`m1_number_annotation_audit.py` **12／12**；
+`n77_w4b_verify.py` **全項通過**；`n436_claim_provenance.py` **8／9 有產生指令**。
+
+**`ahig/` 本輪零改動。M1 四步：① ✅｜② ✅｜③ ✅｜④ ⏸ 待擁有者三層裁示。**
