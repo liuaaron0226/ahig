@@ -1,0 +1,136 @@
+{
+ "schemaVersion": 1,
+ "documentType": "pdf-retry-and-landing-followup",
+ "ruling": "owner instruction (round 454): retry with the contact email and follow the five landing-page PDF links",
+ "population": "the 7 non-pdf-ok records of round 453, plus the 5 pdf-only landing pages of round 450",
+ "countingUnit": "publication",
+ "criterion": "range request for the first 2048 bytes; pdf-ok requires a %PDF- prefix. Landing pages are fetched in full, candidate links extracted by a widened pattern, then each candidate probed.",
+ "contactEmailSet": true,
+ "retry": {
+  "records": [
+   {
+    "candidateId": "ahig:candidate:publication:45b54e0f521c5d3359712b22",
+    "host": "www.sciencedirect.com",
+    "before": "blocked",
+    "after": "blocked",
+    "http": 403,
+    "contentType": "",
+    "error": "HTTP 403"
+   },
+   {
+    "candidateId": "ahig:candidate:publication:57ef311258a83414e18036b3",
+    "host": "journals.humankinetics.com",
+    "before": "not-pdf",
+    "after": "not-pdf",
+    "http": 200,
+    "contentType": "text/html",
+    "error": ""
+   },
+   {
+    "candidateId": "ahig:candidate:publication:6f9c5aec79503020d89e7ccf",
+    "host": "www.sciencedirect.com",
+    "before": "blocked",
+    "after": "blocked",
+    "http": 403,
+    "contentType": "",
+    "error": "HTTP 403"
+   },
+   {
+    "candidateId": "ahig:candidate:publication:7d2f0e2a39079e90850b4f2b",
+    "host": "www.sciencedirect.com",
+    "before": "blocked",
+    "after": "blocked",
+    "http": 403,
+    "contentType": "",
+    "error": "HTTP 403"
+   },
+   {
+    "candidateId": "ahig:candidate:publication:7eef56b17a6ac1559c740fd6",
+    "host": "onlinelibrary.wiley.com",
+    "before": "not-pdf",
+    "after": "not-pdf",
+    "http": 200,
+    "contentType": "text/html",
+    "error": ""
+   },
+   {
+    "candidateId": "ahig:candidate:publication:9454731aad7c0004c386f31c",
+    "host": "onlinelibrary.wiley.com",
+    "before": "not-pdf",
+    "after": "blocked",
+    "http": 403,
+    "contentType": "",
+    "error": "HTTP 403"
+   },
+   {
+    "candidateId": "ahig:candidate:publication:c8fea0895d84a17e2c347de7",
+    "host": "ro.ecu.edu.au",
+    "before": "not-pdf",
+    "after": "not-pdf",
+    "http": 200,
+    "contentType": "text/html",
+    "error": ""
+   }
+  ],
+  "rescued": 0,
+  "attempted": 7
+ },
+ "landingFollowup": {
+  "records": [
+   {
+    "candidateId": "ahig:candidate:publication:2bcf407b20de6fd9c68fa968",
+    "host": "researchportal.bath.ac.uk",
+    "candidates": 1,
+    "tried": 1,
+    "pdfHost": null,
+    "pdfObtained": false
+   },
+   {
+    "candidateId": "ahig:candidate:publication:5138c93e07fb03ac90367aca",
+    "host": "cris.maastrichtuniversity.nl",
+    "candidates": 2,
+    "tried": 2,
+    "pdfHost": null,
+    "pdfObtained": false
+   },
+   {
+    "candidateId": "ahig:candidate:publication:608b0b6031daa098b403a574",
+    "host": "www.ncbi.nlm.nih.gov",
+    "candidates": 2,
+    "tried": 2,
+    "pdfHost": null,
+    "pdfObtained": false
+   },
+   {
+    "candidateId": "ahig:candidate:publication:63a6d1c092183b4870ab6c46",
+    "host": "researchportal.bath.ac.uk",
+    "candidates": 1,
+    "tried": 1,
+    "pdfHost": null,
+    "pdfObtained": false
+   },
+   {
+    "candidateId": "ahig:candidate:publication:ad4b0994a103783d5231cfec",
+    "host": "birmingham.elsevierpure.com",
+    "candidates": 1,
+    "tried": 1,
+    "pdfHost": null,
+    "pdfObtained": false
+   }
+  ],
+  "obtained": 0,
+  "attempted": 5
+ },
+ "tally": {
+  "jatsInHand": 12,
+  "directPdf": 10,
+  "figshare": 2,
+  "rescuedByEmail": 0,
+  "fromLandingLinks": 0,
+  "total": 24,
+  "ownerTarget": 45
+ },
+ "coverageStatement": "Bytes arriving, not full text extracted. The widened link pattern still cannot see links assembled by JavaScript, so the landing figure remains a floor.",
+ "contentNote": "Hosts, HTTP codes, counts and a magic-byte boolean only. No URLs and no document bytes are stored.",
+ "tallyHash": "sha256:0b27fba3b6200b5a0dbca149044ccd00d878f8a729c61444d83b1088c7f4114c"
+}
