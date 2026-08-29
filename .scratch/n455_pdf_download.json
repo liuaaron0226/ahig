@@ -166,5 +166,17 @@
     "fileHash": "sha256:2fda6b4d56445b6ad67702e034271af9403b1acb3f99a0f991b383448ab09f91"
    }
   ]
+ },
+ "landingOnlyFollowup": {
+  "round": 480,
+  "ruling": "n+124/n+129",
+  "records": [
+   {
+    "candidateId": "ahig:candidate:publication:9454731aad7c0004c386f31c",
+    "host": "ndownloader.figshare.com",
+    "bytes": 1288204,
+    "fileHash": "sha256:edb5ae6fe0b932568a8d16b0c32afecf631acda43b4915dbc2224184ed4daba6"
+   }
+  ]
  }
 }
