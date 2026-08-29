@@ -1,0 +1,67 @@
+{
+ "schemaVersion": 1,
+ "documentType": "licence-gap-probe",
+ "ruling": "raised by executor in round 485; awaiting a ruling",
+ "population": "calibration-set records with status acquired and no licence recorded",
+ "countingUnit": "record",
+ "criterion": "OpenAlex best_oa_location.license for the same DOI",
+ "records": [
+  {
+   "idFrag": "88747fa53f34fc92",
+   "manifestLicence": null,
+   "openalexLicense": "cc-by",
+   "version": "publishedVersion"
+  },
+  {
+   "idFrag": "98fe85bec4128a6f",
+   "manifestLicence": null,
+   "openalexLicense": null,
+   "version": "acceptedVersion"
+  },
+  {
+   "idFrag": "3ecdcbd448da8a7f",
+   "manifestLicence": null,
+   "openalexLicense": "cc-by-sa",
+   "version": "acceptedVersion"
+  },
+  {
+   "idFrag": "bf4f8f5a11055379",
+   "manifestLicence": null,
+   "openalexLicense": null,
+   "version": "acceptedVersion"
+  },
+  {
+   "idFrag": "69e040d16b7320d7",
+   "manifestLicence": null,
+   "openalexLicense": "other-oa",
+   "version": "acceptedVersion"
+  },
+  {
+   "idFrag": "89e1a723c3028a8a",
+   "manifestLicence": null,
+   "openalexLicense": null,
+   "version": "acceptedVersion"
+  },
+  {
+   "idFrag": "fc75f1d5298c3260",
+   "manifestLicence": null,
+   "openalexLicense": "other-oa",
+   "version": "submittedVersion"
+  },
+  {
+   "idFrag": "7eef56b17a6ac155",
+   "manifestLicence": null,
+   "openalexLicense": "cc-by",
+   "version": "publishedVersion"
+  }
+ ],
+ "openalexHasLicence": 5,
+ "distribution": {
+  "cc-by": 2,
+  "（無）": 3,
+  "cc-by-sa": 1,
+  "other-oa": 2
+ },
+ "note": "Read-only probe. Nothing was written to any manifest.",
+ "contentNote": "Id fragments and licence codes only."
+}
