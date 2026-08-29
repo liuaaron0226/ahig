@@ -1,0 +1,102 @@
+{
+ "schemaVersion": 1,
+ "documentType": "tei-registration-result",
+ "ruling": "n+137(3)",
+ "population": "the 15 TEI produced by GROBID",
+ "countingUnit": "manifest",
+ "criterion": "_publish_tei run per record; status read from manifest before and after",
+ "statusBefore": {
+  "acquired": 12,
+  "no-oa-fulltext": 64,
+  "available-landing-page": 16,
+  "available-pdf": 17,
+  "incomplete": 1
+ },
+ "statusAfter": {
+  "acquired": 27,
+  "no-oa-fulltext": 64,
+  "available-landing-page": 12,
+  "available-pdf": 6,
+  "incomplete": 1
+ },
+ "converted": 15,
+ "records": [
+  {
+   "idFrag": "211950e67902e3ec",
+   "from": "available-landing-page",
+   "to": "acquired"
+  },
+  {
+   "idFrag": "3ecdcbd448da8a7f",
+   "from": "available-pdf",
+   "to": "acquired"
+  },
+  {
+   "idFrag": "69e040d16b7320d7",
+   "from": "available-pdf",
+   "to": "acquired"
+  },
+  {
+   "idFrag": "7eef56b17a6ac155",
+   "from": "available-pdf",
+   "to": "acquired"
+  },
+  {
+   "idFrag": "88747fa53f34fc92",
+   "from": "available-landing-page",
+   "to": "acquired"
+  },
+  {
+   "idFrag": "89e1a723c3028a8a",
+   "from": "available-pdf",
+   "to": "acquired"
+  },
+  {
+   "idFrag": "8dd0f644a9012191",
+   "from": "available-landing-page",
+   "to": "acquired"
+  },
+  {
+   "idFrag": "9454731aad7c0004",
+   "from": "available-pdf",
+   "to": "acquired"
+  },
+  {
+   "idFrag": "98fe85bec4128a6f",
+   "from": "available-pdf",
+   "to": "acquired"
+  },
+  {
+   "idFrag": "a4bbe8aa65dd82a8",
+   "from": "available-landing-page",
+   "to": "acquired"
+  },
+  {
+   "idFrag": "bd9995f482cbc04b",
+   "from": "available-pdf",
+   "to": "acquired"
+  },
+  {
+   "idFrag": "bf4f8f5a11055379",
+   "from": "available-pdf",
+   "to": "acquired"
+  },
+  {
+   "idFrag": "c380c744307c0dd5",
+   "from": "available-pdf",
+   "to": "acquired"
+  },
+  {
+   "idFrag": "de939065eac2b5fd",
+   "from": "available-pdf",
+   "to": "acquired"
+  },
+  {
+   "idFrag": "fc75f1d5298c3260",
+   "from": "available-pdf",
+   "to": "acquired"
+  }
+ ],
+ "note": "n+137(2): acquired means this record was obtained, not that all 45 obtainable were. n+137(3) requires both distributions, not just the new one.",
+ "contentNote": "Id fragments and statuses only."
+}

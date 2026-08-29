@@ -5,17 +5,18 @@
  "calibrationSetHash": "sha256:f3f1b6b22fff2df3d96f7cff0f3fb91429a4003d64b6244230560047050e6f64",
  "counts": {
   "total": 60,
-  "acquired": 6,
+  "acquired": 14,
   "byStatus": {
    "no-oa-fulltext": 38,
-   "available-landing-page": 6,
+   "available-landing-page": 5,
+   "acquired": 14,
    "incomplete": 1,
-   "available-pdf": 9,
-   "acquired": 6
+   "available-pdf": 2
   },
   "bySourceType": {
    "<未載>": 39,
-   "openalex-oa": 15,
+   "openalex-oa": 7,
+   "grobid-tei": 8,
    "europe-pmc-jats": 6
   }
  },
@@ -23,12 +24,12 @@
   {
    "poolId": "S1-tt-moderate-dose",
    "total": 12,
-   "acquired": 0
+   "acquired": 2
   },
   {
    "poolId": "S2-tt-high-and-very-high-dose",
    "total": 10,
-   "acquired": 2
+   "acquired": 4
   },
   {
    "poolId": "S3-tte",
@@ -38,17 +39,17 @@
   {
    "poolId": "S4-exogenous-oxidation",
    "total": 10,
-   "acquired": 3
+   "acquired": 4
   },
   {
    "poolId": "S5+S6-gi-merged",
    "total": 15,
-   "acquired": 1
+   "acquired": 3
   },
   {
    "poolId": "S7-glycogen",
    "total": 5,
-   "acquired": 0
+   "acquired": 1
   }
  ],
  "missing": [
@@ -84,18 +85,8 @@
   },
   {
    "poolId": "S1-tt-moderate-dose",
-   "candidateId": "ahig:candidate:publication:88747fa53f34fc92d4f4b70d",
-   "status": "available-landing-page"
-  },
-  {
-   "poolId": "S1-tt-moderate-dose",
    "candidateId": "ahig:candidate:publication:9469dd213ab18fc6714e7292",
    "status": "incomplete"
-  },
-  {
-   "poolId": "S1-tt-moderate-dose",
-   "candidateId": "ahig:candidate:publication:98fe85bec4128a6f6dd2c0b5",
-   "status": "available-pdf"
   },
   {
    "poolId": "S1-tt-moderate-dose",
@@ -119,11 +110,6 @@
   },
   {
    "poolId": "S2-tt-high-and-very-high-dose",
-   "candidateId": "ahig:candidate:publication:3ecdcbd448da8a7f2f35af1f",
-   "status": "available-pdf"
-  },
-  {
-   "poolId": "S2-tt-high-and-very-high-dose",
    "candidateId": "ahig:candidate:publication:5bb344ac70ef2dd551bfc98b",
    "status": "no-oa-fulltext"
   },
@@ -141,11 +127,6 @@
    "poolId": "S2-tt-high-and-very-high-dose",
    "candidateId": "ahig:candidate:publication:bedf50a7ceb34bf62d25537a",
    "status": "no-oa-fulltext"
-  },
-  {
-   "poolId": "S2-tt-high-and-very-high-dose",
-   "candidateId": "ahig:candidate:publication:bf4f8f5a1105537918c174c9",
-   "status": "available-pdf"
   },
   {
    "poolId": "S2-tt-high-and-very-high-dose",
@@ -214,11 +195,6 @@
   },
   {
    "poolId": "S4-exogenous-oxidation",
-   "candidateId": "ahig:candidate:publication:69e040d16b7320d74cdda857",
-   "status": "available-pdf"
-  },
-  {
-   "poolId": "S4-exogenous-oxidation",
    "candidateId": "ahig:candidate:publication:7d2f0e2a39079e90850b4f2b",
    "status": "available-pdf"
   },
@@ -251,11 +227,6 @@
    "poolId": "S5+S6-gi-merged",
    "candidateId": "ahig:candidate:publication:82b25034704141c6238031e0",
    "status": "no-oa-fulltext"
-  },
-  {
-   "poolId": "S5+S6-gi-merged",
-   "candidateId": "ahig:candidate:publication:89e1a723c3028a8a7b1ae2a1",
-   "status": "available-pdf"
   },
   {
    "poolId": "S5+S6-gi-merged",
@@ -293,11 +264,6 @@
    "status": "no-oa-fulltext"
   },
   {
-   "poolId": "S5+S6-gi-merged",
-   "candidateId": "ahig:candidate:publication:fc75f1d5298c326024d22835",
-   "status": "available-pdf"
-  },
-  {
    "poolId": "S7-glycogen",
    "candidateId": "ahig:candidate:publication:0ba83d3d6c6eee294c9eeb8f",
    "status": "no-oa-fulltext"
@@ -314,20 +280,24 @@
   },
   {
    "poolId": "S7-glycogen",
-   "candidateId": "ahig:candidate:publication:7eef56b17a6ac1559c740fd6",
-   "status": "available-pdf"
-  },
-  {
-   "poolId": "S7-glycogen",
    "candidateId": "ahig:candidate:publication:ab1a35304393752f2d7f8f25",
    "status": "no-oa-fulltext"
   }
  ],
  "acquiredWithoutSections": [],
- "acquiredWithoutLicenceText": [],
+ "acquiredWithoutLicenceText": [
+  "ahig:candidate:publication:88747fa53f34fc92d4f4b70d",
+  "ahig:candidate:publication:98fe85bec4128a6f6dd2c0b5",
+  "ahig:candidate:publication:3ecdcbd448da8a7f2f35af1f",
+  "ahig:candidate:publication:bf4f8f5a1105537918c174c9",
+  "ahig:candidate:publication:69e040d16b7320d74cdda857",
+  "ahig:candidate:publication:89e1a723c3028a8a7b1ae2a1",
+  "ahig:candidate:publication:fc75f1d5298c326024d22835",
+  "ahig:candidate:publication:7eef56b17a6ac1559c740fd6"
+ ],
  "licenceShapes": {
-  "NoneType": 45,
-  "str": 9,
+  "NoneType": 50,
+  "str": 4,
   "dict": 6
  },
  "blockReasons": {},
@@ -492,10 +462,10 @@
   {
    "poolId": "S1-tt-moderate-dose",
    "candidateId": "ahig:candidate:publication:88747fa53f34fc92d4f4b70d",
-   "status": "available-landing-page",
-   "sourceType": "openalex-oa",
-   "hasSections": false,
-   "licenceText": true,
+   "status": "acquired",
+   "sourceType": "grobid-tei",
+   "hasSections": true,
+   "licenceText": false,
    "unresolvedSources": [
     {
      "sourceId": "europe-pmc",
@@ -542,9 +512,9 @@
   {
    "poolId": "S1-tt-moderate-dose",
    "candidateId": "ahig:candidate:publication:98fe85bec4128a6f6dd2c0b5",
-   "status": "available-pdf",
-   "sourceType": "openalex-oa",
-   "hasSections": false,
+   "status": "acquired",
+   "sourceType": "grobid-tei",
+   "hasSections": true,
    "licenceText": false,
    "unresolvedSources": [
     {
@@ -670,10 +640,10 @@
   {
    "poolId": "S2-tt-high-and-very-high-dose",
    "candidateId": "ahig:candidate:publication:3ecdcbd448da8a7f2f35af1f",
-   "status": "available-pdf",
-   "sourceType": "openalex-oa",
-   "hasSections": false,
-   "licenceText": true,
+   "status": "acquired",
+   "sourceType": "grobid-tei",
+   "hasSections": true,
+   "licenceText": false,
    "unresolvedSources": [
     {
      "sourceId": "europe-pmc",
@@ -836,9 +806,9 @@
   {
    "poolId": "S2-tt-high-and-very-high-dose",
    "candidateId": "ahig:candidate:publication:bf4f8f5a1105537918c174c9",
-   "status": "available-pdf",
-   "sourceType": "openalex-oa",
-   "hasSections": false,
+   "status": "acquired",
+   "sourceType": "grobid-tei",
+   "hasSections": true,
    "licenceText": false,
    "unresolvedSources": [
     {
@@ -1226,10 +1196,10 @@
   {
    "poolId": "S4-exogenous-oxidation",
    "candidateId": "ahig:candidate:publication:69e040d16b7320d74cdda857",
-   "status": "available-pdf",
-   "sourceType": "openalex-oa",
-   "hasSections": false,
-   "licenceText": true,
+   "status": "acquired",
+   "sourceType": "grobid-tei",
+   "hasSections": true,
+   "licenceText": false,
    "unresolvedSources": [
     {
      "sourceId": "europe-pmc",
@@ -1480,9 +1450,9 @@
   {
    "poolId": "S5+S6-gi-merged",
    "candidateId": "ahig:candidate:publication:89e1a723c3028a8a7b1ae2a1",
-   "status": "available-pdf",
-   "sourceType": "openalex-oa",
-   "hasSections": false,
+   "status": "acquired",
+   "sourceType": "grobid-tei",
+   "hasSections": true,
    "licenceText": false,
    "unresolvedSources": [
     {
@@ -1698,10 +1668,10 @@
   {
    "poolId": "S5+S6-gi-merged",
    "candidateId": "ahig:candidate:publication:fc75f1d5298c326024d22835",
-   "status": "available-pdf",
-   "sourceType": "openalex-oa",
-   "hasSections": false,
-   "licenceText": true,
+   "status": "acquired",
+   "sourceType": "grobid-tei",
+   "hasSections": true,
+   "licenceText": false,
    "unresolvedSources": [
     {
      "sourceId": "europe-pmc",
@@ -1804,10 +1774,10 @@
   {
    "poolId": "S7-glycogen",
    "candidateId": "ahig:candidate:publication:7eef56b17a6ac1559c740fd6",
-   "status": "available-pdf",
-   "sourceType": "openalex-oa",
-   "hasSections": false,
-   "licenceText": true,
+   "status": "acquired",
+   "sourceType": "grobid-tei",
+   "hasSections": true,
+   "licenceText": false,
    "unresolvedSources": [
     {
      "sourceId": "europe-pmc",
@@ -1853,5 +1823,5 @@
   }
  ],
  "contentNote": "Status and opaque ids only. No literature content.",
- "inventoryHash": "sha256:2708baa8775cfa6b15e41fe64f28e72dda8b2d178873ee57d20ae6cd8cad98d4"
+ "inventoryHash": "sha256:ecdd4861a957bbc5aad8baa8182cd203417c33ad1a8e73a312246b104795b3da"
 }
