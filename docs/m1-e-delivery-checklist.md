@@ -20,7 +20,7 @@
 
 <!-- BEGIN GENERATED n115 -->
 
-共 **67** 個佔位符。凍結 **43**、漂移 **24**；其中 **10** 個之權威來源**協調者無法自行核對**（見下文第二節）。
+共 **67** 個佔位符。凍結 **43**、漂移 **24**；其中 **6** 個之權威來源**協調者無法自行核對**（見下文第二節）。
 
 | 節 | 佔位符 | 類別 | 來源型態 | 定位 |
 |---|---|---|---|---|
@@ -70,14 +70,14 @@
 | 丁 | `DEBT_SETTLED` | 漂移 | 看板 | n+108：**6** |
 | 丁 | `SHADOW_CONCORDANT` | 凍結 | 不可及 | 私有根 `machine-reconciliation.json` → `counts.concordantCount`＝**288**（執行室量測） |
 | 丁 | `SHADOW_QUEUED` | 凍結 | 不可及 | 同上 → `counts.ownerAuditCount`＝**12**（執行室量測） |
-| 庚 | `HARMS_ADJACENT_N` | 漂移 | 不可及 | harms 相鄰素材名單（私有根）；⚠️ 本 run 內曾 4→5→6 |
-| 庚 | `HARMS_COMBINED` | 凍結 | 不可及 | 同上，S5＋S6 合併抽樣單位（n+98 裁示） |
+| 庚 | `HARMS_ADJACENT_N` | 漂移 | 看板 | 🚨 **無名冊檔，只有看板散文**；累計數自看板 22276 行後停止維護（當時 10），其後另有相異 id 使下界 ≥22——**⚠️ 收錄判準未裁定前不得給單一數字**（n+122） |
+| 庚 | `HARMS_COMBINED` | 凍結 | 產物 | 同上：8＋7＝**15**；✅ 與 `m1_step2_assignment.json` 之 `S5+S6-gi-merged` 配額交叉核對相符 |
 | 庚 | `HARMS_S5_ACTUAL` | 漂移 | 不可及 | 🚨 **全文取得後才存在**；不得為填滿配額而放寬判準 |
-| 庚 | `HARMS_S5_QUOTA` | 凍結 | 不可及 | 私有根 `strata.json` 之 S5 配額（執行室量測） |
-| 庚 | `HARMS_S6_QUOTA` | 凍結 | 不可及 | 同上 S6 配額 |
+| 庚 | `HARMS_S5_QUOTA` | 凍結 | 產物 | `ahig/calibration/b11-carbohydrate/strata.json`（**受追蹤**，我已自算覆核）→ `strata[S5-gi-harms-primary].quota`＝**8** |
+| 庚 | `HARMS_S6_QUOTA` | 凍結 | 產物 | `ahig/calibration/b11-carbohydrate/strata.json`（**受追蹤**，我已自算覆核）→ `strata[S6-gi-harms-secondary-only].quota`＝**7** |
 | 庚 | `SHORTFALL_HARMS` | 漂移 | 看板 | 同上（S5+S6） |
 | 辛 | `ACQUIRED_N` | 漂移 | 產物 | `.scratch/m1_step3_inventory.json` 之 `acquired` |
-| 辛 | `CALIBRATION_TARGET` | 凍結 | 看板 | ADR-0010 與 `strata.json` 之 `totalSampleSize` |
+| 辛 | `CALIBRATION_TARGET` | 凍結 | 產物 | `ahig/calibration/b11-carbohydrate/strata.json`（**受追蹤**，我已自算覆核）→ `totalSampleSize`＝**60**；✅ 七層配額總和亦為 60 |
 | 辛 | `LANDING_FIGSHARE` | 漂移 | 產物 | 同上（figshare，有 API） |
 | 辛 | `LANDING_PMC_SCAN` | 漂移 | 產物 | 同上（PMC 掃描件） |
 | 辛 | `LANDING_PUBLISHER` | 漂移 | 產物 | 同上（出版社；⚠️ 經 doi.org 轉址解出後由 9 增為 13） |
@@ -119,7 +119,7 @@
 | 批 | 佔位符 | 狀態 |
 |---|---|---|
 | **已取得值與 `file_hash`** | `TITLE_ONLY_N`、`SHADOW_CONCORDANT`、`SHADOW_QUEUED` | 可寫入，須標「執行室量測、協調者未獨立覆核」 |
-| **🚨 尚未索取** | 庚節之配額與相鄰素材各格、`SEX_SAMPLE_COMPOSITION` | 私有根 `strata.json` 與各名冊 |
+| **🚨 尚未索取** | `SEX_SAMPLE_COMPOSITION` | 私有根名冊 |
 | **🚨 尚不存在／須重算** | `HARMS_S5_ACTUAL`、`TITLE_ONLY_EXPECTED_GAP` | 見下 |
 
 **⚠️ 第三批之兩格特別容易被誤填**：
@@ -127,6 +127,49 @@
   且 🚫 不得為填滿配額而放寬主要性判準。
 - **`TITLE_ONLY_EXPECTED_GAP` 有一個看板上現成的數字（「約 10」），而它已失效**——
   底數由 77 長到 175 而該數未動。**🚨 現成而過期的數字，比沒有數字更危險。**
+
+### 🚨 第三次同型：庚節配額也在版控裡；**而追下去查出一件更要緊的事**
+
+執行室第 451 輪指出 `strata.json` **受版控追蹤**，故 `HARMS_S5_QUOTA`／`HARMS_S6_QUOTA`／
+`HARMS_COMBINED`／`CALIBRATION_TARGET` 皆非不可及。**我已自算覆核**：
+S5 ＝ **8**、S6 ＝ **7**、合計 **15**、`totalSampleSize` ＝ **60**，
+**且七層配額總和恰為 60 ✅**。
+
+**⚠️ 這是我第三次把版控裡的東西標成不可及**（前兩次：W7 四格、`COLLISION_N`）。
+
+### 🚨🚨 而覆核時，它附的 `file_hash` 對不上——追出來的原因會影響整份報告
+
+執行室報 `file_hash(strata.json)` ＝ `sha256:373ffe26…`；
+**我以其同一支函式、同一個路徑現算，得 `sha256:05045684…`。**
+
+**⚠️ 我沒有臆測，逐一試算七種可能**，結果：
+
+```
+原樣（LF）        05045684…
+LF → CRLF        373ffe26…   ✅ 與執行室所報完全相同
+去尾端換行        08bc0128…
+加尾端換行        0775107f…
+UTF-8 BOM 版本    皆不符
+```
+
+**🚨 成因確定：執行室之 Windows 檢出為 CRLF，本室為 LF。同一份內容、不同位元組。**
+
+> **⚠️ 故 `file_hash`（原始位元組雜湊）用在文字檔上，跨平台不可攜——
+> 兩室對同一份受版控文字檔，永遠會算出不同的值。**
+
+**🚨 交付後果**：報告若引用任何文字檔之原始位元組雜湊，
+**在另一個平台上的稽核者必然對不上，而他看到的會像是檔案被動過。**
+
+**故立為規則（n+122）**：
+1. **文字／JSON 產物一律以 `content_hash`（正規化）為準**——它不吃行尾。
+2. **若必須用原始位元組雜湊**（例如非 JSON 附件），
+   **須同時載明「以 LF 行尾計算」**，否則該雜湊不構成可驗證的憑證。
+3. **⚠️ 已知受影響者**：`worksheetFileSha256`（私有根之文字檔，我不可及）
+   ——**🚨 交付前須確認其行尾約定，否則它與 `screeningQueueHash` 一樣是外部錨，
+   且比外部錨更糟：它看起來可重算，實際不可攜。**
+
+**✅ 反面確認**：本 run 證據鏈之九個自證雜湊皆為 `content_hash`（對已剖析之 JSON 計算），
+**不受此影響**——這也是為何前一輪那 26 處比對能全數相符。
 
 ### 🚨 更正：本檔初版把 **8** 項列為不可及，其中 **5** 項其實在版控裡
 
