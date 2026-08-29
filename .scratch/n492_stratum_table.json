@@ -1,0 +1,81 @@
+{
+ "schemaVersion": 1,
+ "documentType": "per-stratum-acquired-two-populations",
+ "ruling": "n+142: every per-stratum figure must name the artefact it comes from",
+ "population": "two, deliberately kept apart",
+ "countingUnit": "record",
+ "criterion": {
+  "calibration60": "status acquired among m1_step3_inventory.json records",
+  "withBackfill": "status acquired, read live from each manifest, over the calibration draw plus accepted backfill"
+ },
+ "rows": [
+  {
+   "pool": "S1-tt-moderate-dose",
+   "quota": 12,
+   "acquiredCalibration60": 2,
+   "acquiredWithBackfill": 5,
+   "versionsCalibration60": {
+    "publishedVersion": 1,
+    "acceptedVersion": 1
+   }
+  },
+  {
+   "pool": "S2-tt-high-and-very-high-dose",
+   "quota": 10,
+   "acquiredCalibration60": 4,
+   "acquiredWithBackfill": 5,
+   "versionsCalibration60": {
+    "acceptedVersion": 2,
+    "publishedVersion": 2
+   }
+  },
+  {
+   "pool": "S3-tte",
+   "quota": 8,
+   "acquiredCalibration60": 0,
+   "acquiredWithBackfill": 1,
+   "versionsCalibration60": {}
+  },
+  {
+   "pool": "S4-exogenous-oxidation",
+   "quota": 10,
+   "acquiredCalibration60": 4,
+   "acquiredWithBackfill": 7,
+   "versionsCalibration60": {
+    "publishedVersion": 3,
+    "acceptedVersion": 1
+   }
+  },
+  {
+   "pool": "S5+S6-gi-merged",
+   "quota": 15,
+   "acquiredCalibration60": 3,
+   "acquiredWithBackfill": 7,
+   "versionsCalibration60": {
+    "publishedVersion": 1,
+    "acceptedVersion": 1,
+    "submittedVersion": 1
+   }
+  },
+  {
+   "pool": "S7-glycogen",
+   "quota": 5,
+   "acquiredCalibration60": 1,
+   "acquiredWithBackfill": 2,
+   "versionsCalibration60": {
+    "publishedVersion": 1
+   }
+  }
+ ],
+ "totals": {
+  "quota": 60,
+  "calibration60": 14,
+  "withBackfill": 27
+ },
+ "numericallyUsableCalibration60": 13,
+ "requiringPerValueMarking": 5,
+ "whyThisExists": "The same stratum was misreported in two consecutive rounds, both times by computing the table by hand: once mixing the two populations in a single sentence, once quoting a figure that registration had already moved. A hand computation does not say which population it used.",
+ "coverageStatement": "Version detail exists only for the calibration 60, so no ratio may take its numerator from the version counts and its denominator from the backfill column. Neither column is frozen -- the first moves when the inventory is re-run, the second when records are registered -- so cite the round alongside the number.",
+ "contentNote": "Pool ids and counts only.",
+ "tableHash": "sha256:c5454679c14a504551e338cb3454caa9aad67c72484f8ee85ad870dcfadaf19c"
+}
