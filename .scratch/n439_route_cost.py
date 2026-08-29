@@ -73,7 +73,10 @@ KIND = {
     'ro.ecu.edu.au': '機構典藏庫',
     'researchonline.ljmu.ac.uk': '機構典藏庫',
     'figshare.com': '資料典藏（有 API）',
-    'doi.org': '🚨 未解析之 DOI（真正的落點未知）',
+    # 🚨 第 449 輪實跑一階轉址解出（HEAD 被拒 → 改 GET 並取 Location；
+    #    ⚠️ HEAD 失敗是方法失敗，不是落點不存在——本 run 已犯過三次同型錯）：
+    #    journals.physiology.org ×3、physoc.onlinelibrary.wiley.com ×1，皆為出版社。
+    'doi.org': '出版社（經 doi.org 轉址，第 449 輪解出）',
     'www.ncbi.nlm.nih.gov': 'NCBI PMC（掃描件，不在 OA 全文子集）',
     'link.springer.com': '出版社',
     'www.sciencedirect.com': '出版社',

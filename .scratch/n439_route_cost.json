@@ -25,7 +25,7 @@
  "landingKinds": {
   "available-landing-page|出版社": 1,
   "available-landing-page|機構典藏庫": 6,
-  "available-landing-page|🚨 未解析之 DOI（真正的落點未知）": 4,
+  "available-landing-page|出版社（經 doi.org 轉址，第 449 輪解出）": 4,
   "available-pdf|機構典藏庫": 9,
   "available-pdf|出版社": 8,
   "available-landing-page|NCBI PMC（掃描件，不在 OA 全文子集）": 1,
@@ -34,7 +34,7 @@
  "landingKindsAggregate": {
   "出版社": 9,
   "機構典藏庫": 15,
-  "🚨 未解析之 DOI（真正的落點未知）": 4,
+  "出版社（經 doi.org 轉址，第 449 輪解出）": 4,
   "NCBI PMC（掃描件，不在 OA 全文子集）": 1,
   "資料典藏（有 API）": 4
  },
@@ -46,5 +46,5 @@
  "europePmcMissNote": "Round 438 reported all 33 as miss and called the route exhausted. That conclusion stands, but miss conflates two causes: 32 have no PMCID at all, while 1 has a known PMCID whose fullTextXML returns 404 -- a 1995 article held in PMC as scans but outside the OA full-text subset. The remedies differ.",
  "coverageStatement": "Whether any of these repositories actually serves parseable full text is not tested here; that needs fetching, a capability this room does not enable on its own. The classification informs a cost estimate; it is not a promise of availability.",
  "contentNote": "Domains, counts and code locations only. No literature content.",
- "costHash": "sha256:22b214e372c689d55a9ba9d6a01c1249be19420fc2bf3a4706c4eff55a5385e4"
+ "costHash": "sha256:65898c2e160513ea14d716401aeb07aa5f82e843e459c4c75c1df992b1f0ac0f"
 }
