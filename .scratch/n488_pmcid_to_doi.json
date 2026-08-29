@@ -1,0 +1,174 @@
+{
+ "schemaVersion": 1,
+ "documentType": "pmcid-to-doi-version-recovery",
+ "ruling": "n+140(4).1",
+ "population": "the 26 records whose version was unknown after round 487",
+ "countingUnit": "record",
+ "criterion": "Europe PMC search by PMCID for a DOI, then OpenAlex best_oa_location.version for that DOI",
+ "resolved": 25,
+ "stillUnknown": 1,
+ "distribution": {
+  "publishedVersion": 25,
+  "🚨 有 DOI 但無 version 欄": 1
+ },
+ "records": [
+  {
+   "idFrag": "012d9a3486e6a580",
+   "pmcid": "PMC3975841",
+   "doiFound": true,
+   "version": "publishedVersion"
+  },
+  {
+   "idFrag": "0b68902a081d147c",
+   "pmcid": "PMC9639767",
+   "doiFound": true,
+   "version": "publishedVersion"
+  },
+  {
+   "idFrag": "11f2906259b4558a",
+   "pmcid": "PMC13282445",
+   "doiFound": true,
+   "version": "publishedVersion"
+  },
+  {
+   "idFrag": "2cc49e0ddbdb6ea5",
+   "pmcid": "PMC4963868",
+   "doiFound": true,
+   "version": "publishedVersion"
+  },
+  {
+   "idFrag": "38c6412fc97d2ed8",
+   "pmcid": "PMC4964999",
+   "doiFound": true,
+   "version": "publishedVersion"
+  },
+  {
+   "idFrag": "38d538c00eea079e",
+   "pmcid": "PMC1976551",
+   "doiFound": true,
+   "version": "publishedVersion"
+  },
+  {
+   "idFrag": "44ebb4f2358bbf2c",
+   "pmcid": "PMC5331598",
+   "doiFound": true,
+   "version": "publishedVersion"
+  },
+  {
+   "idFrag": "742f1c1d44243ac6",
+   "pmcid": "PMC3349497",
+   "doiFound": true,
+   "version": "publishedVersion"
+  },
+  {
+   "idFrag": "769c71fae4871d50",
+   "pmcid": "PMC7303329",
+   "doiFound": true,
+   "version": null
+  },
+  {
+   "idFrag": "76df6297501bb474",
+   "pmcid": "PMC5256160",
+   "doiFound": true,
+   "version": "publishedVersion"
+  },
+  {
+   "idFrag": "7bc2c46bd4251685",
+   "pmcid": "PMC6469629",
+   "doiFound": true,
+   "version": "publishedVersion"
+  },
+  {
+   "idFrag": "7c5800be8a62d501",
+   "pmcid": "PMC8811475",
+   "doiFound": true,
+   "version": "publishedVersion"
+  },
+  {
+   "idFrag": "7dec3f4066e16f08",
+   "pmcid": "PMC6962613",
+   "doiFound": true,
+   "version": "publishedVersion"
+  },
+  {
+   "idFrag": "85855b5e7a97713b",
+   "pmcid": "PMC7803447",
+   "doiFound": true,
+   "version": "publishedVersion"
+  },
+  {
+   "idFrag": "85e0e186b9ab2f27",
+   "pmcid": "PMC1915642",
+   "doiFound": true,
+   "version": "publishedVersion"
+  },
+  {
+   "idFrag": "861b4a2965d459b9",
+   "pmcid": "PMC5789655",
+   "doiFound": true,
+   "version": "publishedVersion"
+  },
+  {
+   "idFrag": "8a8d5efcf6a82302",
+   "pmcid": "PMC11676411",
+   "doiFound": true,
+   "version": "publishedVersion"
+  },
+  {
+   "idFrag": "8d9e152de8d48c04",
+   "pmcid": "PMC7311686",
+   "doiFound": true,
+   "version": "publishedVersion"
+  },
+  {
+   "idFrag": "a32397909a3b03b4",
+   "pmcid": "PMC6815417",
+   "doiFound": true,
+   "version": "publishedVersion"
+  },
+  {
+   "idFrag": "b1eeb9c554d4200c",
+   "pmcid": "PMC10534364",
+   "doiFound": true,
+   "version": "publishedVersion"
+  },
+  {
+   "idFrag": "bfc01fa20cfceb6c",
+   "pmcid": "PMC6953153",
+   "doiFound": true,
+   "version": "publishedVersion"
+  },
+  {
+   "idFrag": "c512422dd4149a8b",
+   "pmcid": "PMC7664948",
+   "doiFound": true,
+   "version": "publishedVersion"
+  },
+  {
+   "idFrag": "cd1e43154103c4b5",
+   "pmcid": "PMC4739491",
+   "doiFound": true,
+   "version": "publishedVersion"
+  },
+  {
+   "idFrag": "f6a2becc97c2233f",
+   "pmcid": "PMC5793265",
+   "doiFound": true,
+   "version": "publishedVersion"
+  },
+  {
+   "idFrag": "f8392067834de4d8",
+   "pmcid": "PMC9560939",
+   "doiFound": true,
+   "version": "publishedVersion"
+  },
+  {
+   "idFrag": "ff8c5c2ca6ce9c92",
+   "pmcid": "PMC4128743",
+   "doiFound": true,
+   "version": "publishedVersion"
+  }
+ ],
+ "note": "Records that stay unknown remain in the unknown column; being queried is not grounds for recording them as published (n+140(4).1).",
+ "contentNote": "Id fragments, PMCIDs and version codes only."
+}
