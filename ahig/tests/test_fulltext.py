@@ -1353,3 +1353,41 @@ def test_text_sources_hash_the_same_across_line_ending_conventions():
     assert fulltext._text_sha256(lf) == fulltext._text_sha256(crlf)
     # 二進位來源不得被正規化——PDF 內的 \r\n 是資料，不是行尾。
     assert fulltext._text_sha256(lf) == fulltext._sha256(lf)
+
+
+def test_publish_tei_records_both_sources_with_their_own_hash_methods():
+    # n+123(5)：PDF 路徑有兩份來源，而結構原本只容得下一個 sourceSha256。
+    # PDF 以裸位元組計算，TEI 以 LF 正規化計算，並記下 GROBID 版本——
+    # 因為同一份 PDF 經不同版本的 GROBID 會得到不同的 TEI。
+    tei = (FIXTURES / "sample-tei.xml").read_bytes()
+    pdf = b"%PDF-1.7\n" + b"x" * 512
+    candidate = {"candidateId": "ahig:candidate:publication:deadbeefdeadbeefdeadbeef"}
+
+    with tempfile.TemporaryDirectory() as tmp:
+        old = os.environ.get("AHIG_PRIVATE_ROOT")
+        os.environ["AHIG_PRIVATE_ROOT"] = tmp
+        try:
+            manifest = fulltext._publish_tei(
+                candidate, pdf=pdf, tei=tei, grobid_version="0.9.1",
+                source_url="https://example.invalid/a.pdf")
+            artifact_dir = fulltext._artifact_dir(candidate["candidateId"])
+
+            assert manifest["sourceType"] == "grobid-tei"
+            assert manifest["sha256"] == fulltext._sha256(pdf)
+            assert manifest["teiSha256"] == fulltext._text_sha256(tei)
+            assert manifest["grobidVersion"] == "0.9.1"
+            assert manifest["rawFile"].endswith(".pdf")
+            assert manifest["teiFile"].endswith(".tei.xml")
+
+            # 三份檔案都要真的落地，且 TEI 必須被視為「有人引用」——
+            # 否則孤兒清掃會把它當殘留檔刪掉。
+            for key in ("rawFile", "teiFile", "sectionsFile"):
+                assert (artifact_dir / manifest[key]).exists()
+            assert manifest["teiFile"] in fulltext._manifest_references(manifest)
+            assert fulltext.sweep_orphans(artifact_dir) == []
+            assert (artifact_dir / manifest["teiFile"]).exists()
+        finally:
+            if old is None:
+                os.environ.pop("AHIG_PRIVATE_ROOT", None)
+            else:
+                os.environ["AHIG_PRIVATE_ROOT"] = old

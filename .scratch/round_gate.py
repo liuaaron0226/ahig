@@ -286,7 +286,7 @@ PYTEST_IGNORE = 'tests/test_shacl_gates.py'
 # ✅ 第 437 輪依 n+113（四）修好該筆後，基線由 716+1 改為 717+0。
 # ⚠️ 基線是「已知且已載明之狀態」，🚨 修好了就得跟著改，否則閘門會把正確狀態判紅。
 # ⚠️ 第 475 輪新增 1 筆測試（_artifact_files 之來源型別），基線隨之由 717 改為 718。
-BASE_PASSED, BASE_FAILED = 719, 0
+BASE_PASSED, BASE_FAILED = 720, 0
 KNOWN_FAIL = '無（原 test_clopper_pearson_matches_closed_forms 已於第 437 輪依 n+113 四修正）'
 UNCOLLECTABLE = '%s（缺 pyshacl，pyproject 第 15 行已宣告）' % PYTEST_IGNORE
 
