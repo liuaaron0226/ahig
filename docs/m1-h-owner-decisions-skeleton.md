@@ -81,7 +81,7 @@
 > **⚠️ 理由**：他要用的是「會不會不舒服」，功能量測回答的是別的問題。
 
 **⚠️ 名冊三欄已於第 482 輪產出**（`.scratch/n482_harms_adjacent_roster.json`）。
-**🚨 而覆核後之結論是：那個「10 筆」不是一份名單**——只有
+**🚨 而覆核後之結論是：那個讀數（`{{HARMS_COUNTER_LAST}}` 筆）不是一份名單**——只有
 `{{HARMS_ATTRIBUTABLE}}` 筆能從記錄中指認身分（見庚節第四節）。
 
 > **🚫 故本節呈給擁有者的是候補欄的名單本身，不是任何一個合計數。**
@@ -165,3 +165,4 @@
 | `HARMS_COMBINED` | 凍結 | `strata.json` 之 S5＋S6 配額；⚠️ 與庚節同一來源 |
 | `S56_ACQ`／`S56_NONPUB` | **漂移** | `.scratch/n489_calibration_versions.json` 依層別；🚨 母體為校準集，🚫 不得與全部 manifest 之數互換 |
 | `S3_QUOTA` | 凍結 | `strata.json` 之 `S3-tte` 配額；⚠️ 與辛節同一來源 |
+| `HARMS_COUNTER_LAST` | 凍結 | 看板計數器之最終讀數；⚠️ 與庚節同一來源，🚫 不得各寫各的字面值 |
