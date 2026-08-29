@@ -20,7 +20,7 @@
 
 <!-- BEGIN GENERATED n115 -->
 
-共 **33** 個佔位符。凍結 **25**、漂移 **8**；其中 **3** 個之權威來源**協調者無法自行核對**（見下文第二節）。
+共 **54** 個佔位符。凍結 **32**、漂移 **22**；其中 **8** 個之權威來源**協調者無法自行核對**（見下文第二節）。
 
 | 節 | 佔位符 | 類別 | 來源型態 | 定位 |
 |---|---|---|---|---|
@@ -57,6 +57,27 @@
 | 丁 | `DEBT_SETTLED` | 漂移 | 看板 | n+108：**6** |
 | 丁 | `SHADOW_CONCORDANT` | 凍結 | 不可及 | 私有根 `machine-reconciliation.json` → `counts.concordantCount`＝**288**（執行室量測） |
 | 丁 | `SHADOW_QUEUED` | 凍結 | 不可及 | 同上 → `counts.ownerAuditCount`＝**12**（執行室量測） |
+| 庚 | `HARMS_ADJACENT_N` | 漂移 | 不可及 | harms 相鄰素材名單（私有根）；⚠️ 本 run 內曾 4→5→6 |
+| 庚 | `HARMS_COMBINED` | 凍結 | 不可及 | 同上，S5＋S6 合併抽樣單位（n+98 裁示） |
+| 庚 | `HARMS_S5_ACTUAL` | 漂移 | 不可及 | 🚨 **全文取得後才存在**；不得為填滿配額而放寬判準 |
+| 庚 | `HARMS_S5_QUOTA` | 凍結 | 不可及 | 私有根 `strata.json` 之 S5 配額（執行室量測） |
+| 庚 | `HARMS_S6_QUOTA` | 凍結 | 不可及 | 同上 S6 配額 |
+| 庚 | `SHORTFALL_HARMS` | 漂移 | 看板 | 同上（S5+S6） |
+| 辛 | `ACQUIRED_N` | 漂移 | 產物 | `.scratch/m1_step3_inventory.json` 之 `acquired` |
+| 辛 | `CALIBRATION_TARGET` | 凍結 | 看板 | ADR-0010 與 `strata.json` 之 `totalSampleSize` |
+| 辛 | `LANDING_FIGSHARE` | 漂移 | 產物 | 同上（figshare，有 API） |
+| 辛 | `LANDING_PMC_SCAN` | 漂移 | 產物 | 同上（PMC 掃描件） |
+| 辛 | `LANDING_PUBLISHER` | 漂移 | 產物 | 同上（出版社；⚠️ 經 doi.org 轉址解出後由 9 增為 13） |
+| 辛 | `LANDING_REPO` | 漂移 | 產物 | `.scratch/n439_route_cost.json` → `landingKindsAggregate`（機構典藏庫） |
+| 辛 | `LANDING_ROUTE_N` | 漂移 | 產物 | 同上 `available-landing-page` |
+| 辛 | `OBTAINABLE_N` | 漂移 | 產物 | `.scratch/m1_step3_inventory.json`＋`m1_step3_backfill.json`；⚠️ **上界非保證** |
+| 辛 | `PDF_ROUTE_N` | 漂移 | 產物 | 同上 `available-pdf` |
+| 辛 | `PMC_MISS_404` | 凍結 | 產物 | 同上（已知 PMCID 但 `fullTextXML` 404） |
+| 辛 | `PMC_MISS_NO_ID` | 凍結 | 產物 | `.scratch/n439_route_cost.json` → `europePmcMissCauses`（無 PMCID） |
+| 辛 | `S7_POOL_N` | 凍結 | 看板 | 看板 63655 一帶之清點（S7 全池） |
+| 辛 | `SHORTFALL_HARMS` | 漂移 | 看板 | 同上（S5+S6） |
+| 辛 | `SHORTFALL_N` | 漂移 | 看板 | 校準集設計數 − 可得數，交付時現算 |
+| 辛 | `SHORTFALL_S7` | 漂移 | 看板 | 看板 63655 三之缺口分布 |
 
 <!-- END GENERATED n115 -->
 
@@ -79,9 +100,15 @@
 | 產物雜湊 | 該量測所依據之檔案雜湊，**並註明雜湊涵蓋什麼範圍** |
 | 覆核狀態 | 明寫「**執行室量測、協調者未獨立覆核**」 |
 
-**🚨 現行「不可及」僅 3 項**，皆已由執行室提供值與 `file_hash`：
-`TITLE_ONLY_N` **175**、`SHADOW_CONCORDANT` **288**、`SHADOW_QUEUED` **12**。
-**⚠️ 三者交付時仍須標明「執行室量測、協調者未獨立覆核」。**
+**現行「不可及」共 8 項，分兩批**：
+
+| 批 | 佔位符 | 狀態 |
+|---|---|---|
+| 已取得值與 `file_hash` | `TITLE_ONLY_N` **175**、`SHADOW_CONCORDANT` **288**、`SHADOW_QUEUED` **12** | 可寫入，須標「執行室量測、協調者未獨立覆核」 |
+| **🚨 尚未索取** | 庚節五格（`HARMS_S5_QUOTA`／`HARMS_S6_QUOTA`／`HARMS_COMBINED`／`HARMS_S5_ACTUAL`／`HARMS_ADJACENT_N`） | 私有根 `strata.json` 與 harms 相鄰素材名單 |
+
+**⚠️ `HARMS_S5_ACTUAL` 之特殊性**：它**現在還不存在**——
+**全文取得後才會有值**，且 🚫 不得為填滿配額而放寬主要性判準。
 
 ### 🚨 更正：本檔初版把 **8** 項列為不可及，其中 **5** 項其實在版控裡
 
@@ -108,7 +135,7 @@
 
 ### ⚠️ 另須分清：「凍結」是交付規則，不是「有雜湊背書」
 
-上表 25 個凍結值中，**真正落在某個雜湊原像內的是少數**（見下節之實測）。
+上表之凍結值中，**真正落在某個雜湊原像內的是少數**（見下節之實測）。
 **⚠️ 而「可自版控核對」與「有雜湊」又是第三件事**——
 `W7_*` 與 `COLLISION_N` 我可自行打開重算，但那兩個檔並非證據鏈之雜湊產物。
 **🚨 兩者不可混為一談**：

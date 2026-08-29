@@ -21,6 +21,8 @@ FILES = {
     "乙": "docs/m1-b-screening-limits-skeleton.md",
     "丙": "docs/m1-c-termination-skeleton.md",
     "丁": "docs/m1-d-audit-debt-skeleton.md",
+    "庚": "docs/m1-f-harms-skeleton.md",
+    "辛": "docs/m1-g-acquisition-skeleton.md",
 }
 TARGET = "docs/m1-e-delivery-checklist.md"
 BEGIN = "<!-- BEGIN GENERATED n115 -->"
@@ -73,6 +75,27 @@ DETAIL = {
     "DEBT_CUMULATIVE":  ("看板", "n+108：**22**（相加 23、重疊 1，已去重）"),
     "DEBT_SETTLED":     ("看板", "n+108：**6**"),
     "DEBT_OUTSTANDING": ("看板", "n+108：**16**（W2 之 5 ∪ 影子 11）——⚠️ 單位＝**抽查項目**，非文獻"),
+    # ── n+118：庚節（harms）與辛節（取得可行性），n+117 三查出這兩節從未起草 ──
+    "HARMS_S5_QUOTA":   ("不可及", "私有根 `strata.json` 之 S5 配額（執行室量測）"),
+    "HARMS_S6_QUOTA":   ("不可及", "同上 S6 配額"),
+    "HARMS_COMBINED":   ("不可及", "同上，S5＋S6 合併抽樣單位（n+98 裁示）"),
+    "HARMS_S5_ACTUAL":  ("不可及", "🚨 **全文取得後才存在**；不得為填滿配額而放寬判準"),
+    "HARMS_ADJACENT_N": ("不可及", "harms 相鄰素材名單（私有根）；⚠️ 本 run 內曾 4→5→6"),
+    "CALIBRATION_TARGET": ("看板", "ADR-0010 與 `strata.json` 之 `totalSampleSize`"),
+    "S7_POOL_N":        ("看板", "看板 63655 一帶之清點（S7 全池）"),
+    "PMC_MISS_NO_ID":   ("產物", "`.scratch/n439_route_cost.json` → `europePmcMissCauses`（無 PMCID）"),
+    "PMC_MISS_404":     ("產物", "同上（已知 PMCID 但 `fullTextXML` 404）"),
+    "OBTAINABLE_N":     ("產物", "`.scratch/m1_step3_inventory.json`＋`m1_step3_backfill.json`；⚠️ **上界非保證**"),
+    "SHORTFALL_N":      ("看板", "校準集設計數 − 可得數，交付時現算"),
+    "SHORTFALL_S7":     ("看板", "看板 63655 三之缺口分布"),
+    "SHORTFALL_HARMS":  ("看板", "同上（S5+S6）"),
+    "ACQUIRED_N":       ("產物", "`.scratch/m1_step3_inventory.json` 之 `acquired`"),
+    "PDF_ROUTE_N":      ("產物", "同上 `available-pdf`"),
+    "LANDING_ROUTE_N":  ("產物", "同上 `available-landing-page`"),
+    "LANDING_REPO":     ("產物", "`.scratch/n439_route_cost.json` → `landingKindsAggregate`（機構典藏庫）"),
+    "LANDING_PUBLISHER": ("產物", "同上（出版社；⚠️ 經 doi.org 轉址解出後由 9 增為 13）"),
+    "LANDING_FIGSHARE": ("產物", "同上（figshare，有 API）"),
+    "LANDING_PMC_SCAN": ("產物", "同上（PMC 掃描件）"),
 }
 
 
