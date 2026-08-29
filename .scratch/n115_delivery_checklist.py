@@ -110,6 +110,18 @@ DETAIL = {
     "LANDING_PUBLISHER": ("產物", "同上（出版社；⚠️ 經 doi.org 轉址解出後由 9 增為 13）"),
     "LANDING_FIGSHARE": ("產物", "同上（figshare，有 API）"),
     "LANDING_PMC_SCAN": ("產物", "同上（PMC 掃描件）"),
+    # ── n+125：辛節依實測改寫後之新格 ──
+    "LANDING_REACHED":  ("產物", "`.scratch/n450_landing_survey.json`：HTTP 200 且有內容者＝**16**（我已自算）"),
+    "LANDING_FULLTEXT_MARKER": ("產物", "同上：其中有 HTML 全文標記者＝**1**"),
+    "LANDING_WORTH_PARSER": ("產物", "同上：達門檻者＝**0**（⚠️ 就已量到的 16 筆而言，非 33 筆）"),
+    "LANDING_WORDS_MIN": ("產物", "同上：去標籤字數最小 **160**"),
+    "LANDING_WORDS_MED": ("產物", "同上：中位 **3,807**"),
+    "LANDING_WORDS_MAX": ("產物", "同上：最大 **22,761**"),
+    "BLOCKED_N":        ("產物", "同上：`survey == blocked-or-error` ＝ **11**（403 十筆＋逾時一筆）"),
+    "PDF_IN_HAND":      ("產物", "`.scratch/n456_pdf_textlayer.json`：**11** 檔（我已自算）"),
+    "PDF_TEXTLAYER":    ("產物", "同上：文字層 **9**"),
+    "PDF_UNCERTAIN":    ("產物", "同上：不確定 **2**"),
+    "PDF_SCANNED":      ("產物", "同上：純掃描 **0**"),
 }
 
 

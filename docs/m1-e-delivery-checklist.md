@@ -20,7 +20,7 @@
 
 <!-- BEGIN GENERATED n115 -->
 
-共 **67** 個佔位符。凍結 **43**、漂移 **24**；其中 **6** 個之權威來源**協調者無法自行核對**（見下文第二節）。
+共 **78** 個佔位符。凍結 **50**、漂移 **28**；其中 **6** 個之權威來源**協調者無法自行核對**（見下文第二節）。
 
 | 節 | 佔位符 | 類別 | 來源型態 | 定位 |
 |---|---|---|---|---|
@@ -77,14 +77,25 @@
 | 庚 | `HARMS_S6_QUOTA` | 凍結 | 產物 | `ahig/calibration/b11-carbohydrate/strata.json`（**受追蹤**，我已自算覆核）→ `strata[S6-gi-harms-secondary-only].quota`＝**7** |
 | 庚 | `SHORTFALL_HARMS` | 漂移 | 看板 | 同上（S5+S6） |
 | 辛 | `ACQUIRED_N` | 漂移 | 產物 | `.scratch/m1_step3_inventory.json` 之 `acquired` |
+| 辛 | `BLOCKED_N` | 凍結 | 產物 | 同上：`survey == blocked-or-error` ＝ **11**（403 十筆＋逾時一筆） |
 | 辛 | `CALIBRATION_TARGET` | 凍結 | 產物 | `ahig/calibration/b11-carbohydrate/strata.json`（**受追蹤**，我已自算覆核）→ `totalSampleSize`＝**60**；✅ 七層配額總和亦為 60 |
 | 辛 | `LANDING_FIGSHARE` | 漂移 | 產物 | 同上（figshare，有 API） |
+| 辛 | `LANDING_FULLTEXT_MARKER` | 凍結 | 產物 | 同上：其中有 HTML 全文標記者＝**1** |
 | 辛 | `LANDING_PMC_SCAN` | 漂移 | 產物 | 同上（PMC 掃描件） |
 | 辛 | `LANDING_PUBLISHER` | 漂移 | 產物 | 同上（出版社；⚠️ 經 doi.org 轉址解出後由 9 增為 13） |
+| 辛 | `LANDING_REACHED` | 凍結 | 產物 | `.scratch/n450_landing_survey.json`：HTTP 200 且有內容者＝**16**（我已自算） |
 | 辛 | `LANDING_REPO` | 漂移 | 產物 | `.scratch/n439_route_cost.json` → `landingKindsAggregate`（機構典藏庫） |
 | 辛 | `LANDING_ROUTE_N` | 漂移 | 產物 | 同上 `available-landing-page` |
+| 辛 | `LANDING_WORDS_MAX` | 凍結 | 產物 | 同上：最大 **22,761** |
+| 辛 | `LANDING_WORDS_MED` | 凍結 | 產物 | 同上：中位 **3,807** |
+| 辛 | `LANDING_WORDS_MIN` | 凍結 | 產物 | 同上：去標籤字數最小 **160** |
+| 辛 | `LANDING_WORTH_PARSER` | 凍結 | 產物 | 同上：達門檻者＝**0**（⚠️ 就已量到的 16 筆而言，非 33 筆） |
 | 辛 | `OBTAINABLE_N` | 漂移 | 產物 | `.scratch/m1_step3_inventory.json`＋`m1_step3_backfill.json`；⚠️ **上界非保證** |
+| 辛 | `PDF_IN_HAND` | 漂移 | 產物 | `.scratch/n456_pdf_textlayer.json`：**11** 檔（我已自算） |
 | 辛 | `PDF_ROUTE_N` | 漂移 | 產物 | 同上 `available-pdf` |
+| 辛 | `PDF_SCANNED` | 漂移 | 產物 | 同上：純掃描 **0** |
+| 辛 | `PDF_TEXTLAYER` | 漂移 | 產物 | 同上：文字層 **9** |
+| 辛 | `PDF_UNCERTAIN` | 漂移 | 產物 | 同上：不確定 **2** |
 | 辛 | `PMC_MISS_404` | 凍結 | 產物 | 同上（已知 PMCID 但 `fullTextXML` 404） |
 | 辛 | `PMC_MISS_NO_ID` | 凍結 | 產物 | `.scratch/n439_route_cost.json` → `europePmcMissCauses`（無 PMCID） |
 | 辛 | `S7_POOL_N` | 凍結 | 看板 | 看板 63655 一帶之清點（S7 全池） |
