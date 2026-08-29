@@ -1,0 +1,51 @@
+{
+ "schemaVersion": 1,
+ "documentType": "occurrence-pscore-definition-check",
+ "ruling": "self-initiated; continues round 443, which left this row unread",
+ "population": "the pScore/window row of the 丙 two-occurrence table, and the precondition fields of both occurrences",
+ "countingUnit": "field / record",
+ "criterion": "whether the recorded aggregates reproduce the recorded pScore under the production formula, and where each ADR-0008 condition is recorded",
+ "pScoreReproduces": {
+  "OCC1": {
+   "p": 0.04602304387116314,
+   "recorded": 0.04602304387116314,
+   "kTarget": 747,
+   "recordedKTarget": 747,
+   "nStart": 2293,
+   "match": true
+  },
+  "OCC2": {
+   "p": 0.012404888703091584,
+   "recorded": 0.012404888703091584,
+   "kTarget": 756,
+   "recordedKTarget": 756,
+   "nStart": 1861,
+   "match": true
+  }
+ },
+ "pScoreVerdict": "Both reproduce digit for digit, including h0MinTotalRelevant, so the two pScores are the same quantity under the same definition. That row needs no footnote, unlike the population row in round 443.",
+ "thirdStateDirection": {
+  "excludedNStart": 1861,
+  "excludedP": 0.012404888703091584,
+  "includedNStart": 1661,
+  "includedP": 0.0070087806882777855,
+  "conservative": true,
+  "note": "Holding the 200 out-of-sequence records out of the sequence raises n_start and therefore raises p, making the second trigger harder to pass, not easier. This must be stated apart from n+115(3.1), whose asymmetry ran the unfavourable way."
+ },
+ "preconditionRecording": {
+  "occ1HasAll": true,
+  "occ2StandardLaneHas": {
+   "mandatoryLanesFullyScreened": false,
+   "allowedToStop": false,
+   "reason": false
+  },
+  "onlyRecordedIn": "evaluateTerminationStandardBasis",
+  "thatBlockPoolSize": 15425,
+  "standardLanePoolSize": 9091,
+  "thatBlockAllowedToStop": false,
+  "claim": "Not that the fact is wrong -- whether the safety and critical-harms lanes were fully screened is a cross-lane fact and may well carry over. The claim is about where it is recorded: the artefact never states the full ADR-0008 conjunction for the standard-lane basis, so reconstructing why occurrence 2 was allowed to stop means borrowing a field from a block computed on a different pool whose own verdict is False.",
+  "relationToN115": "Same gap seen from another side. n+115(3.1) found the only evidence hash sits on the block that did not decide; the only precondition flag sits there too."
+ },
+ "coverageStatement": "Whether mandatoryLanesFullyScreened was in fact true at the second trigger is not checked here; that needs replaying the lane state. Not substituted with \"probably carries over\".",
+ "contentNote": "Field names and numeric values only."
+}
