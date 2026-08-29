@@ -1341,3 +1341,15 @@ def test_artifact_files_names_the_raw_file_after_its_source_kind():
         assert "docx" in str(exc)
     else:
         raise AssertionError("未知來源型別必須被拒絕")
+
+
+def test_text_sources_hash_the_same_across_line_ending_conventions():
+    # n+122(3)：同一份文字在 CRLF 與 LF 檢出下位元組不同，
+    # 若以裸位元組雜湊記錄，該值跨平台就不是憑證。
+    lf = b"<TEI>\n  <text/>\n</TEI>\n"
+    crlf = lf.replace(b"\n", b"\r\n")
+
+    assert fulltext._sha256(lf) != fulltext._sha256(crlf)
+    assert fulltext._text_sha256(lf) == fulltext._text_sha256(crlf)
+    # 二進位來源不得被正規化——PDF 內的 \r\n 是資料，不是行尾。
+    assert fulltext._text_sha256(lf) == fulltext._sha256(lf)

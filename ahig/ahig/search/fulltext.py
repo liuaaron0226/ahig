@@ -114,6 +114,19 @@ def _sha256(raw: bytes) -> str:
     return "sha256:" + hashlib.sha256(raw).hexdigest()
 
 
+def _text_sha256(raw: bytes) -> str:
+    """文字類來源之雜湊：先把行尾正規化為 LF 再算。
+
+    n+122（三）查出同一份 JSON 在 CRLF 檢出與 LF 檢出下之位元組雜湊不同，
+    於是那個雜湊在跨平台時不構成憑證。n+123（五）據此裁定：
+    TEI 這類文字來源以正規化後之雜湊記錄，而 PDF 這類二進位來源維持
+    ``_sha256`` 的原始位元組雜湊。
+
+    兩者刻意不同，因為一個是文字、一個是二進位——不是其中一個寫錯了。
+    """
+    return _sha256(raw.replace(b"\r\n", b"\n"))
+
+
 def _json_bytes(document: dict) -> bytes:
     return (json.dumps(document, ensure_ascii=False, indent=2) + "\n").encode("utf-8")
 
