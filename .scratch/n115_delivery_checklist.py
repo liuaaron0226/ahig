@@ -104,7 +104,8 @@ DETAIL = {
     "NARR_INSTRUMENT_N": ("不可及", "同上，`allowedInstruments`／「儀器效度」敘述式"),
     "NARR_RETRACT_TEXT_N": ("不可及", "同上，理由文字之撤稿字樣；🚫 不得與 `RETRACT_FIELD_N` 混用或相加"),
     "NARR_CRITERIA_HASH": ("產物", "`.scratch/n60_tags.py`（**受追蹤**）之 content_hash（CRLF→LF 正規化後 SHA-256）；⚠️ 交付時重算，值變則三個筆數須重跑"),
-    "RETRACT_FIELD_N":  ("不可及", "私有根 `worksheet.json` → `publicationTypes` 含 `Retracted Publication` 者；⚠️ 並依 n+86（十）交付時重查"),
+    "RETRACT_FIELD_N":  ("不可及", "**八份工作單之 `publicationTypes` 聯集去重**（n+152 一裁定之母體；🚨 原僅寫「worksheet.json」而私有根有八份、互相重疊）；⚠️ 依 n+86（十）交付時重查"),
+    "RETRACT_IN_EVIDENCE": ("不可及", "上述聯集中**進入證據體**者；🚨 這一個才影響結論，🚫 不得與「篩選遇到幾筆」互換（n+152 一）"),
     # ── n+133：壬節（需要擁有者決定的事），n+133 二查出此節從未起草 ──
     "TAG_ROSTER_COUNT": ("不可及", "`.scratch/n60_tags.py` 現跑之掛牌名單份數（讀私有根）；⚠️ 份數本身會隨新掛牌而變"),
     "TAG_ROSTER_TOTAL": ("不可及", "同上，去重後合計筆數（同一筆可掛多牌）；🚨 須併報各牌之排除／納入（檢查表第十條）"),
