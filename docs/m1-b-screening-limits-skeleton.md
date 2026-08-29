@@ -2,7 +2,7 @@
 
 **⚠️ 骨架，非成稿。** 漂移數字以 `{{佔位符}}` 表示；
 **凍結值原樣引用、漂移值交付時現算**（兩規則方向相反，見丙節骨架）。
-**⚠️ 寫完須逐條過 `docs/m1-wording-checklist.md`（十一條）與 `docs/m1-e-delivery-checklist.md`。**
+**⚠️ 寫完須逐條過 `docs/m1-wording-checklist.md`（十二條）與 `docs/m1-e-delivery-checklist.md`。**
 
 ---
 
