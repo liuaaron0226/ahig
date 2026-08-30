@@ -225,20 +225,24 @@ give('ACQ_SCOPED', sum(1 for c in scope if c in acq),
      '🚨 n+138 曾把此數誤標為「全體 manifest」——⚠️ 分母是 %d，🚫 不是 60，'
      '亦🚫 不是 ACQ_ALL 之母體。' % len(scope))
 
-shapes = {}
+# 🚨 判準已於第 505 輪更正：**改用明示欄位 `licenceProvenance`。**
+# ⚠️ 初版以「授權欄之形狀」（字串 vs `{href,text}`）區分，並自陳
+#    「脆弱，因為沒有『由誰填』的欄位」——🚨 而那個欄位一直都在，
+#    我只是沒去看欄位清單，就把自己的沒看寫成了資料的缺陷。
+prov = auto = 0
 for m in acq.values():
     for a in (m.get('artifacts') or []):
-        lic = a.get('licence')
-        if lic:
-            shapes['dict'] = shapes.get('dict', 0) + 1 if isinstance(lic, dict) \
-                else shapes.get('dict', 0)
-            if not isinstance(lic, dict):
-                shapes['str'] = shapes.get('str', 0) + 1
-give('LIC_FILLED', shapes.get('str', 0),
-     'acquired manifest 之 artifact.licence 為純字串者（🚨 JATS 自動擷取者為 '
-     '`{href, text}` 物件，共 %d 筆）' % shapes.get('dict', 0),
-     '⚠️ 兩者以**形狀**區分，🚫 沒有明確的「由誰填」欄位——'
-     '🚨 故此判準脆弱：若日後自動擷取也寫成字串，這格會靜靜地變大。')
+        if not a.get('licence'):
+            continue
+        if 'licenceProvenance' in a:
+            prov += 1
+        else:
+            auto += 1
+give('LIC_FILLED', prov,
+     'acquired manifest 之 artifact 具 `licenceProvenance` 者'
+     '（🚨 即由本室依 n+138（三）填入並附來源與查取日期者）',
+     '⚠️ 另有 %d 筆之授權係自 JATS `<license>` 自動擷取，🚫 無 provenance 欄，'
+     '故不計入本格——🚨 兩者不是同一件事，🚫 不得相加後稱「有授權 N 筆」。' % auto)
 
 # ── n60_tags.py：🚨 讀他人印出來的表，故每項配錨點 ────────────────
 r = subprocess.run([sys.executable, S + 'n60_tags.py'], capture_output=True,

@@ -77,9 +77,9 @@
   },
   "LIC_FILLED": {
    "producible": true,
-   "value": 5,
-   "population": "acquired manifest 之 artifact.licence 為純字串者（🚨 JATS 自動擷取者為 `{href, text}` 物件，共 24 筆）",
-   "note": "⚠️ 兩者以**形狀**區分，🚫 沒有明確的「由誰填」欄位——🚨 故此判準脆弱：若日後自動擷取也寫成字串，這格會靜靜地變大。"
+   "value": 11,
+   "population": "acquired manifest 之 artifact 具 `licenceProvenance` 者（🚨 即由本室依 n+138（三）填入並附來源與查取日期者）",
+   "note": "⚠️ 另有 24 筆之授權係自 JATS `<license>` 自動擷取，🚫 無 provenance 欄，故不計入本格——🚨 兩者不是同一件事，🚫 不得相加後稱「有授權 N 筆」。"
   },
   "NARR_COMPARATOR_N": {
    "producible": true,
