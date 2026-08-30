@@ -165,11 +165,23 @@ ITEMS.append((
     "🚫 **不可驗**——⚠️ 產生器能證明數字現算、禁句未出現、"
     "同值未在同段重複；🚨 **證明不了論證是對的**，那要人讀"))
 
+GATES = ("round_gate", "n115_delivery_checklist", "n116_obligation_crosscheck",
+         "n116_anchor_rules", "n131_cross_consistency", "n141_literal_numbers",
+         "n153_wording_audit_check", "n154_cell_producer", "n155_owner_briefing",
+         "n157_section_c_report", "n159_section_g_report", "n160_section_f_report",
+         "n161_section_d_report", "n163_section_a_report", "n164_section_b_report",
+         "n165_section_e_report", "n166_report_cell_coverage")
+
 ITEMS.append((
     "既有機檢全綠", "協調者",
-    "n+136／n+141／n+131／n+116／n+153／n+154／n+155／n+157／n+159／n+160／n+161／n+163／n+164／n+165",
-    "閘門、佔位符表、交叉一致性、義務勾稽、字面數字、檢查表矩陣、格值現算、"
-    "擁有者簡報、甲乙丙丁己庚辛七節成稿**十五項**於交付當日皆 exit 0",
+    "n+136／n+141／n+131／n+116／n+153／n+154／n+155／n+157／n+159／n+160／"
+    "n+161／n+163／n+164／n+165／n+166／**n+167（判準單一來源）**",
+    # 🚨 **現數，🚫 不寫死**——⚠️ 本句原寫「十五項」，而當時實跑已是十七支：
+    #    `round_gate` 與 `n116_anchor_rules` 兩支從未被算進來。
+    # 🚨 那是本檔替別人抓過的同一型（自述與實況分家），這次在自己身上。
+    f"閘門、佔位符表、交叉一致性、義務勾稽、字面數字、檢查表矩陣、格值現算、"
+    f"擁有者簡報、甲乙丙丁己庚辛七節成稿、格覆蓋普查**共 {len(GATES)} 支**"
+    f"於交付當日皆 exit 0（⚠️ 另加本檔自身，合計 {len(GATES) + 1} 支）",
     "✅ 可驗（本檔即現跑）"))
 
 def counts():
@@ -191,21 +203,23 @@ def main():
         print(f"   {verifiable}")
     print()
 
-    gates = {"n115_delivery_checklist": None, "n116_obligation_crosscheck": None,
-             "n131_cross_consistency": None, "n141_literal_numbers": None,
-             "n153_wording_audit_check": None, "n154_cell_producer": None,
-             "n155_owner_briefing": None, "n157_section_c_report": None,
-             "n159_section_g_report": None,
-             "n160_section_f_report": None,
-             "n161_section_d_report": None,
-             "n163_section_a_report": None,
-             "n164_section_b_report": None,
-             "n165_section_e_report": None,
-             "n166_report_cell_coverage": None}
+    # 🚨 與上方完成判準**同一份清單**（n+170）——⚠️ 先前是兩份，
+    #    於是判準說「十五項」而實跑十五支、我手動另跑十七支，三個數各活各的。
+    gates = {g: None for g in GATES}
     for g in gates:
-        gates[g] = gate(f".scratch/{g}.py")
+        p = Path(f".scratch/{g}.py")
+        if not p.exists():
+            gates[g] = "缺檔"                       # 🚨 不存在即失敗，🚫 不靜默略過
+            continue
+        gates[g] = gate(str(p))
     bad = [g for g, rc in gates.items() if rc != 0]
-    print("現跑既有機檢：" + "｜".join(f"{g.split('_')[0]}={rc}" for g, rc in gates.items()))
+    # 🚨 標籤須可辨識：⚠️ `g.split('_')[0]` 使 `n116_obligation_crosscheck` 與
+    #    `n116_anchor_rules` 同顯為「n116」——**其一失敗時看不出是哪一支**。
+    # ✅ 故取前兩段。🚫 一份分不清誰壞了的綠燈，等於沒有燈。
+    def _lab(g):
+        parts = g.split("_")
+        return "_".join(parts[:2]) if len(parts) > 1 else g
+    print("現跑既有機檢：" + "｜".join(f"{_lab(g)}={rc}" for g, rc in gates.items()))
 
     unverifiable = sum(1 for it in ITEMS if it[4].startswith("🚫"))
     half = sum(1 for it in ITEMS if it[4].startswith("⚠️"))
