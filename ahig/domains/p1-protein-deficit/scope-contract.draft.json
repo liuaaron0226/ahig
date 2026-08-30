@@ -1,0 +1,263 @@
+{
+  "scopeContractId": "ahig:scope:p1-protein-energy-deficit-lean-mass",
+  "version": "0.1.0",
+  "status": "draft",
+  "supersedes": null,
+  "canonicalCompetency": [
+    "ahig:cc:protein-intake-and-lean-mass-retention-in-energy-deficit"
+  ],
+  "sourceCompetencyEntries": [
+    "roadmap:P1"
+  ],
+  "derivedFromSearchContract": {
+    "searchContractId": "ahig:search:p1-protein-energy-deficit-lean-mass",
+    "version": "0.1.0",
+    "hash": null
+  },
+  "researchQuestion": {
+    "questionType": "efficacy",
+    "population": {
+      "label": "處於熱量赤字並進行阻力訓練之健康成人",
+      "ageRange": {
+        "minYears": 18,
+        "maxYears": 65
+      },
+      "sex": "any",
+      "inclusionCriteria": [
+        "研究期間處於**有報告的**熱量赤字（規定攝取量低於估計需求，或有實測體重下降）",
+        "研究期間有**結構化阻力訓練**，且報告了訓練頻率與週期長度",
+        "健康成人"
+      ],
+      "exclusionCriteria": [
+        "以藥物或手術為減重手段者（減重藥、代謝手術）——⚠️ 其肌肉流失機轉與飲食赤字不同",
+        "臨床族群之肌少症／惡病質／臥床失用性萎縮——⚠️ 那是流失的另一種原因",
+        "第一型或第二型糖尿病、慢性腎臟病族群（蛋白質上限受疾病限制）",
+        "孕期與哺乳期",
+        "飲食失調診斷族群",
+        "18 歲以下與 65 歲以上（🚨 由分開的範圍契約處理——老年族群之蛋白質閾值不同）",
+        "🚨 **未報告熱量赤字者**——⚠️ 「有訓練有補蛋白」但不在赤字中，回答的是另一個問題"
+      ]
+    },
+    "interventionOrExposure": {
+      "label": "較高之每日蛋白質攝取量",
+      "separateStudyResultPerDoseBand": true,
+      "doseBands": [
+        {
+          "bandId": "low",
+          "min": 0.0,
+          "max": 1.19,
+          "unit": "g/kg/day"
+        },
+        {
+          "bandId": "moderate",
+          "min": 1.2,
+          "max": 1.59,
+          "unit": "g/kg/day"
+        },
+        {
+          "bandId": "high",
+          "min": 1.6,
+          "max": 2.39,
+          "unit": "g/kg/day"
+        },
+        {
+          "bandId": "very-high",
+          "min": 2.4,
+          "max": 4.0,
+          "unit": "g/kg/day"
+        }
+      ],
+      "durationRange": {
+        "min": 4,
+        "max": 104,
+        "unit": "week"
+      },
+      "doseRange": {
+        "min": 0.0,
+        "max": 4.0,
+        "unit": "g/kg/day",
+        "perBodyMass": true
+      }
+    },
+    "comparator": {
+      "types": [
+        "dose-comparison",
+        "usual-care",
+        "placebo"
+      ],
+      "activeComparatorAllowlist": [
+        "lower-protein-arm-same-deficit",
+        "isocaloric-carbohydrate-supplement",
+        "habitual-intake-control"
+      ]
+    },
+    "narrative": "🚨 本契約有**三項判準 schema 容不下**，已另檔登記並待擁有者核可之schema 升版：①受訓狀態不得合併；②蛋白質劑量之分母（總體重 vs 去脂體重）為兩個量；③兩組赤字深度須相當。🚫 在升版前，這三項只存在於散文，**沒有任何東西在強制它們**。"
+  },
+  "inScopeOutcomes": [
+    {
+      "outcomeId": "ffm-change",
+      "label": "去脂體重（fat-free mass）變化",
+      "role": "critical",
+      "quantityKind": "ahig:qk:fat-free-mass-change",
+      "comparabilityClass": "body-composition-multi-compartment",
+      "allowedInstruments": [
+        "dxa",
+        "four-compartment-model",
+        "air-displacement-plethysmography"
+      ],
+      "directionOfBenefit": "higher-is-better"
+    },
+    {
+      "outcomeId": "ffm-change-bioimpedance",
+      "label": "去脂體重變化（生物電阻抗量得）",
+      "role": "supporting",
+      "quantityKind": "ahig:qk:fat-free-mass-change",
+      "comparabilityClass": "body-composition-bioimpedance",
+      "allowedInstruments": [
+        "bia-single-frequency",
+        "bia-multi-frequency",
+        "skinfold-equation"
+      ],
+      "directionOfBenefit": "higher-is-better"
+    },
+    {
+      "outcomeId": "fat-mass-change",
+      "label": "脂肪量變化",
+      "role": "critical",
+      "quantityKind": "ahig:qk:fat-mass-change",
+      "comparabilityClass": "body-composition-multi-compartment",
+      "allowedInstruments": [
+        "dxa",
+        "four-compartment-model",
+        "air-displacement-plethysmography"
+      ],
+      "directionOfBenefit": "lower-is-better"
+    },
+    {
+      "outcomeId": "body-mass-change",
+      "label": "體重變化",
+      "role": "important",
+      "quantityKind": "ahig:qk:body-mass-change",
+      "comparabilityClass": "body-mass-scale",
+      "allowedInstruments": [
+        "calibrated-scale"
+      ],
+      "directionOfBenefit": "non-directional"
+    },
+    {
+      "outcomeId": "strength-change",
+      "label": "最大肌力變化",
+      "role": "important",
+      "quantityKind": "ahig:qk:maximal-strength-change",
+      "comparabilityClass": "dynamic-strength-1rm",
+      "allowedInstruments": [
+        "1rm-squat",
+        "1rm-bench-press",
+        "1rm-leg-press",
+        "1rm-deadlift"
+      ],
+      "directionOfBenefit": "higher-is-better"
+    },
+    {
+      "outcomeId": "renal-markers",
+      "label": "腎功能指標（eGFR、血清肌酸酐）",
+      "role": "important",
+      "quantityKind": "ahig:qk:renal-function-marker",
+      "comparabilityClass": "renal-function-serum",
+      "allowedInstruments": [
+        "serum-creatinine",
+        "egfr-equation",
+        "cystatin-c"
+      ],
+      "directionOfBenefit": "non-directional"
+    },
+    {
+      "outcomeId": "adverse-events",
+      "label": "不良事件（含腸胃道）",
+      "role": "critical",
+      "quantityKind": "ahig:qk:adverse-event-incidence",
+      "comparabilityClass": "adverse-event-count",
+      "allowedInstruments": [
+        "investigator-reported-ae",
+        "participant-diary-ae"
+      ],
+      "directionOfBenefit": "lower-is-better"
+    }
+  ],
+  "inScopeTimepoints": [
+    {
+      "timepointId": "intervention-end",
+      "label": "介入結束時",
+      "windowStart": 4,
+      "windowEnd": 104,
+      "unit": "week",
+      "onMultipleMatchesWithinWindow": "take-latest"
+    },
+    {
+      "timepointId": "mid-intervention",
+      "label": "介入中期（若有報告）",
+      "windowStart": 2,
+      "windowEnd": 12,
+      "unit": "week",
+      "onMultipleMatchesWithinWindow": "escalate"
+    }
+  ],
+  "inScopeAnalysisSets": [
+    "ITT",
+    "mITT",
+    "complete-case"
+  ],
+  "inScopeEffectMeasures": [
+    "MD",
+    "SMD",
+    "mean",
+    "RR",
+    "RD",
+    "proportion"
+  ],
+  "inScopeStatisticalModels": [
+    "unadjusted",
+    "adjusted-prespecified",
+    "mixed-effects"
+  ],
+  "inScopeStudyDesigns": [
+    "RCT-parallel"
+  ],
+  "extractionPolicy": {
+    "subgroupPolicy": "prespecified-only",
+    "sensitivityAnalysisPolicy": "exclude",
+    "adjustedModelPolicy": "primary-model-only",
+    "onOutOfScope": "record-in-outcome-inventory-only",
+    "maxStudyResultsPerStudy": 16,
+    "onExceedMax": "escalate"
+  },
+  "outcomeInventoryPolicy": {
+    "required": true,
+    "completeness": "all-reported-outcomes-plus-registry-comparison",
+    "registrySources": [
+      "ClinicalTrials.gov",
+      "ANZCTR",
+      "ISRCTN",
+      "UMIN-CTR",
+      "OSF"
+    ]
+  },
+  "backfillPolicy": {
+    "triggers": [
+      "scope-contract-version-bump",
+      "search-contract-version-bump",
+      "mid-registry-update",
+      "user-ad-hoc-question-outside-scope"
+    ],
+    "backfillFromInventory": true
+  },
+  "provenance": {
+    "authoredBy": "coordinator",
+    "createdAt": "2026-08-30T00:00:00Z",
+    "approvedBy": [],
+    "modelAssistance": {
+      "llmDrafted": true,
+      "modelVersion": "coordinator-room"
+    }
+  }
+}
