@@ -3,7 +3,7 @@
  "documentType": "executor-cell-handoff",
  "ruling": "n+151(1) assigns these cells to the executor room; n+160 recorded them as stalled. They were producible from round 500 but nothing on the coordinator side reads that artefact, so this is the file a single generic resolver can read.",
  "producedAtRound": 503,
- "producedAt": "2026-08-30T15:51:36+0800",
+ "producedAt": "2026-08-30T16:12:02+0800",
  "isSnapshot": true,
  "snapshotNote": "Values are measurements taken at producedAt against the private root. n+151(1) requires delivery-day figures, so re-run n500 then this file on the day; do not treat these as constants.",
  "howToConsume": "cells[<name>].value for kind == \"measured\"; for kind == \"blocked\" print blocker rather than an empty string, since an empty cell reads as zero; for kind == \"bounded\" print \"at most upperBound\" with patternCaveat, never as a point estimate.",
@@ -54,7 +54,7 @@
    "note": "🚨 n+138 曾把此數誤標為「全體 manifest」——⚠️ 分母是 84，🚫 不是 60，亦🚫 不是 ACQ_ALL 之母體。"
   },
   "LIC_FILLED": {
-   "value": 11,
+   "value": 12,
    "kind": "measured",
    "population": "acquired manifest 之 artifact 具 `licenceProvenance` 者（🚨 即由本室依 n+138（三）填入並附來源與查取日期者）",
    "note": "⚠️ 另有 24 筆之授權係自 JATS `<license>` 自動擷取，🚫 無 provenance 欄，故不計入本格——🚨 兩者不是同一件事，🚫 不得相加後稱「有授權 N 筆」。"
@@ -150,5 +150,5 @@
   "surveyed": 33
  },
  "contentNote": "Cell names, counts and positions only. No literature content.",
- "handoffHash": "sha256:8232decf28ca0eda768e793b694b5f5b60c1cd1bbb27adbef4a8397ba2e52d21"
+ "handoffHash": "sha256:a7e53b6850c903eba0c9ac6bf44ecf80919c46e3e2c22c33d3e171f332c07bee"
 }

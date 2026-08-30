@@ -1,0 +1,53 @@
+{
+ "schemaVersion": 1,
+ "documentType": "licence-third-register",
+ "ruling": "closes a loose end this room named itself in round 510: the DOI that returned 404 at Crossref is registered with a different agency, and a 404 there is information rather than failure.",
+ "population": "artifacts still without a licence whose DOI Crossref does not hold",
+ "countingUnit": "artifact",
+ "criterion": "DataCite data.attributes.rightsList, mapped to a code only for a creativecommons.org URI",
+ "controlProbe": {
+  "kind": "structural",
+  "askedDoi": "10.24377/ljmu.t.00014404",
+  "returnedDoi": "10.24377/ljmu.t.00014404",
+  "matches": true,
+  "why": "No record here has a licence known in advance, so the probe checks the endpoint and field path instead: without it, a wrong path and a genuinely empty rightsList are the same blank."
+ },
+ "records": [
+  {
+   "dir": "c380c744",
+   "doi": "10.24377/ljmu.t.00014404",
+   "rights": [
+    {
+     "uri": "https://creativecommons.org/licenses/by-nc/3.0/legalcode",
+     "rights": "Creative Commons Attribution Non Commercial 3.0 Unported",
+     "identifier": "cc-by-nc-3.0",
+     "code": "cc-by-nc"
+    }
+   ],
+   "mapped": "cc-by-nc",
+   "error": ""
+  }
+ ],
+ "mapped": 1,
+ "applied": true,
+ "written": [
+  "c380c744"
+ ],
+ "fetchCounters": {
+  "totalRequests": 1,
+  "perRequestedHost": {
+   "api.datacite.org": 1
+  },
+  "perFinalHost": {
+   "api.datacite.org": 1
+  },
+  "redirectHops": 0,
+  "blockedHosts": {},
+  "distinctUrls": 1,
+  "minIntervalSeconds": 1.0,
+  "note": "Per-execution counters. totalRequests counts every hop actually sent, including redirect hops, because each hop is a real outbound request. Requested and final hosts are kept apart: a redirector such as doi.org appears in the first and the publisher it lands on in the second, and blocking keys on the second. State does not survive the process, so the no-retry guarantee holds within one run only."
+ },
+ "coverageStatement": "Three registers have now been asked. Still-absent means absent from three indexes, not absent from the world; the repository landing page is not fetched, since its path embeds the verbatim title.",
+ "contentNote": "Directory prefixes, DOIs and rights URIs only.",
+ "thirdRegisterHash": "sha256:258f00c07ea93430dfa905393b370a4a6d15cf3b45dc43cf7b734293902e8ba4"
+}

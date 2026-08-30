@@ -77,7 +77,7 @@
   },
   "LIC_FILLED": {
    "producible": true,
-   "value": 11,
+   "value": 12,
    "population": "acquired manifest 之 artifact 具 `licenceProvenance` 者（🚨 即由本室依 n+138（三）填入並附來源與查取日期者）",
    "note": "⚠️ 另有 24 筆之授權係自 JATS `<license>` 自動擷取，🚫 無 provenance 欄，故不計入本格——🚨 兩者不是同一件事，🚫 不得相加後稱「有授權 N 筆」。"
   },
