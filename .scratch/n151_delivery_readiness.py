@@ -131,12 +131,19 @@ ITEMS.append((
     "n+144（S3）／n+147（S5-S6、S7）／**n+169（雜湊規則）**",
     "S3 之 TT／TTE 混同檢查以校準集外紀錄補做並標為補充；"
     "S5／S6 依全文之 GI 主要性完成區分；S7 之乾濕基準混用檢查先讀出兩筆之基準再定可否；"
-    "**⚠️ 第四項（n+169 新增）**：`parse_tei`／`parse_jats` 之 `sourceSha256` 為裸位元組雜湊，"
-    "而 manifest 之 `teiSha256` 為 LF 正規化後之雜湊——"
-    "🚨 **同一份 TEI 兩個欄位兩種規則，目前相等只因無一份含 CRLF**；"
+    "**⚠️ 第四項（n+169 新增；n+171 補入實測）**："
+    "`parse_tei`／`parse_jats` 之 `sourceSha256` 為裸位元組雜湊，"
+    "而 manifest 之 `teiSha256` 為 LF 正規化後之雜湊。"
+    "🚨 **今日 41 份兩式皆相等**，⚠️ **而那與「行尾無害」是兩句話**——"
+    "**正因為今日全為 LF，一旦經過會翻譯行尾的傳輸，39／41 之指紋即失效**"
+    "（另 2 份為單行 XML，🚨 免疫是因為沒有行尾可翻譯，🚫 不是因為做對了什麼）；"
+    "**🚨 且兩條路徑之後果不同**：JATS 路徑之 manifest 雜湊同一個檔，**會當場失敗（響）**；"
+    "**TEI 路徑之 manifest 只驗 PDF 與正規化後之 TEI，兩者皆免疫，故驗證器全過而指紋已過期（啞）**；"
     "⚠️ 該階段會重寫 41 份紀錄，**✅ 屆時一併處理成本最低**，"
     "🚫 而處理前須先裁定 `sourceSha256` 之語意（「我實際取得的那份」抑或「這段文字的身分」），"
     "**🚨 不得只換函式而不定語意**；"
+    "**✅ 惟「啞」不隨語意題一同遞延**——n+171 已交辦將節次來源不變式併入產線驗證器，"
+    "🚨 使部分傳輸當場失敗而非默默通過；"
     "🚨 四者皆須在報告中載明其為遞延或補做，🚫 不得寫成原設計已執行",
     "🚫 不可驗（該階段尚未開始）"))
 
@@ -170,7 +177,8 @@ GATES = ("round_gate", "n115_delivery_checklist", "n116_obligation_crosscheck",
          "n153_wording_audit_check", "n154_cell_producer", "n155_owner_briefing",
          "n157_section_c_report", "n159_section_g_report", "n160_section_f_report",
          "n161_section_d_report", "n163_section_a_report", "n164_section_b_report",
-         "n165_section_e_report", "n166_report_cell_coverage")
+         "n165_section_e_report", "n166_report_cell_coverage",
+         "n172_root_population")
 
 ITEMS.append((
     "既有機檢全綠", "協調者",
