@@ -358,7 +358,12 @@ PYTEST_IGNORE = 'tests/test_shacl_gates.py'
 # n537 之替身）——那三處先前都不合下游 schema，是新檢查抓出來的，不改變條數。
 BASE_PASSED, BASE_FAILED = 775, 0
 KNOWN_FAIL = '無（原 test_clopper_pearson_matches_closed_forms 已於第 437 輪依 n+113 四修正）'
-UNCOLLECTABLE = '%s（缺 pyshacl，pyproject 第 15 行已宣告）' % PYTEST_IGNORE
+# 第 544 輪更正：先前只寫「缺 pyshacl」。⚠️ 操作上沒錯（裝 pyshacl 會帶 rdflib），
+# 🚨 但那句話讓人以為只差一個套件，而實測 rdflib 也不在——
+# 亦即 gates/shacl.py 與 verify.py 整層在本機都跑不起來，不只是這 26 條測試。
+UNCOLLECTABLE = ('%s（🚨 rdflib 與 pyshacl 皆不在，pyproject 第 15 行已宣告；'
+                 '⚠️ 故本機 gates/shacl.py 與 verify.py 整層跑不起來）'
+                 % PYTEST_IGNORE)
 
 
 def run_tests():

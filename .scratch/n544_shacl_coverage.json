@@ -1,0 +1,88 @@
+{
+  "schemaVersion": 1,
+  "documentType": "shacl-coverage-of-inventory",
+  "ruling": "n+183「scoped → family/gates（既有）」之另一半：SHACL 那一層",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "rdfStack": {
+    "rdflib": "absent",
+    "pyshacl": "absent"
+  },
+  "environmentNote": "🚨 rdflib 與 pyshacl 兩個都不在，故本機不只是「26 條測試沒被收集」，⚠️ 是 gates/shacl.py 與 verify.py 整層都跑不起來。🚫 本支未安裝任何東西——先量盲區，不先動環境。",
+  "targetClasses": {
+    "core": {
+      "ahig:StudyResult": 2,
+      "ahig:QuantitativeStudyResult": 1,
+      "ahig:OutcomeInventory": 1,
+      "ahig:BatchQualityGate": 1,
+      "ahig:ClaimVersion": 3,
+      "ahig:SynthesizedClaim": 3,
+      "ahig:StudyFamily": 1,
+      "ahig:CitationAnchor": 4
+    },
+    "sparql": {
+      "ahig:StudyResult": 1,
+      "ahig:BatchQualityGate": 1,
+      "ahig:ClaimVersion": 1,
+      "ahig:SynthesizedClaim": 3,
+      "ahig:StudyFamily": 1,
+      "ahig:CanonicalCompetency": 1,
+      "ahig:CitationAnchor": 2
+    }
+  },
+  "inventoryConstraints": [
+    "PS-reportedOutcome：sh:minCount 1",
+    "PS-registryComparisonStatus：minCount 1／maxCount 1／sh:in（五值）"
+  ],
+  "enums": {
+    "shacl": [
+      "compared",
+      "no-registration-found",
+      "registry-record-inaccessible",
+      "not-applicable-non-interventional",
+      "pending"
+    ],
+    "jsonSchema": [
+      "compared",
+      "no-registration-found",
+      "registry-record-inaccessible",
+      "not-applicable-non-interventional",
+      "pending"
+    ],
+    "identical": true
+  },
+  "checkedRecords": 41,
+  "violations": {
+    "emptyReportedOutcomes": [],
+    "statusOutsideEnum": []
+  },
+  "whatThisIsNot": "🚨 這是**逐條照文字核對**，🚫 不是跑了 SHACL。⚠️ 差別在於：本支只核對了以 OutcomeInventory 為目標的那一條，而真的跑 SHACL 會連圖結構、資料型別、其他 shape 的間接影響一起看。",
+  "notInScopeHere": "⚠️ SHACL 對 StudyResult 說的話多得多（scopeContractHash、scopeRuleId、derivedFromOutcomeInventory…），🚫 但 StudyResult 是清冊的下游，🚨 而本階段不產出 StudyResult。",
+  "controlProbes": [
+    {
+      "probe": "以 OutcomeInventory 為目標的 shape 只有一條",
+      "passed": true,
+      "detail": "core 1 條｜sparql 0 條"
+    },
+    {
+      "probe": "SHACL 與 JSON Schema 的列舉逐字相同",
+      "passed": true,
+      "detail": "🚨 兩層不同就會有文件過得了一層過不了另一層；只在 schema []｜只在 shacl []"
+    },
+    {
+      "probe": "41 篇的產物都有至少一項 reportedOutcome",
+      "passed": true,
+      "detail": "空者 0 篇"
+    },
+    {
+      "probe": "41 篇的 registryComparisonStatus 都在列舉內",
+      "passed": true,
+      "detail": "不在列舉者：無"
+    },
+    {
+      "probe": "空清冊在鏈上真的會被擋（必觸發）",
+      "passed": true,
+      "detail": "🚨 若擋不下來，代表「41 篇都非空」只是替身剛好沒送空的"
+    }
+  ],
+  "auditHash": "sha256:4fa52d50fe29264c2439d7d33ac066812ab68a8125b5a13a2bc0d25fc6bfce54"
+}
