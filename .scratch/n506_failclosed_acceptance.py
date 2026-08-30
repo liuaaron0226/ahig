@@ -72,6 +72,7 @@ GENERATORS = {
     'n507_blocked_cells_review': 'n507_blocked_cells_review.json',
     'n510_licence_second_source': 'n510_licence_second_source.json',
     'n511_datacite_licence': 'n511_datacite_licence.json',
+    'n512_source_host_provenance': 'n512_source_host_provenance.json',
 }
 EXPECT_EXIT = 2
 

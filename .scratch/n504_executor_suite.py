@@ -52,7 +52,7 @@ import tempfile
 import time
 
 S = '.scratch/'
-ROUND = 511
+ROUND = 512
 
 # ⚠️ 清單手維護——🚨 故末行會逼人核對；新增常設檢查時請一併加進來。
 CHECKS = [
@@ -69,6 +69,8 @@ CHECKS = [
     ('n500_inaccessible_cells', '不可及 18 格之產出與清單漂移偵測', False),
     ('n507_blocked_cells_review',
      '四格受阻者之複查（🚨 一格已夾出上界）', False),
+    ('n512_source_host_provenance',
+     '在手 41 份之來源主機分類（🚫 唯讀、不記網址）', False),
     ('n503_executor_handoff', '三項交辦之答覆與 18 格交接檔', False),
     ('n501_retraction_recheck', '撤稿現場重查（🚨 會對外送請求）', True),
 ]

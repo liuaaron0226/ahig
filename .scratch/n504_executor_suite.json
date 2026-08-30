@@ -5,8 +5,8 @@
  "population": "the executor room's standing checks, hand-maintained list",
  "countingUnit": "check",
  "criterion": "exit code only; the suite deliberately does not parse any check's printed output",
- "listedChecks": 12,
- "listLastUpdatedRound": 511,
+ "listedChecks": 13,
+ "listLastUpdatedRound": 512,
  "withNetwork": false,
  "controlProbes": [
   {
@@ -28,21 +28,21 @@
    "check": "private_root",
    "status": "pass",
    "exit": 0,
-   "seconds": 0.4,
+   "seconds": 0.3,
    "asserts": "私有根前置檢查之自測（🚨 來源不在即拒絕產出）"
   },
   {
    "check": "n506_failclosed_acceptance",
    "status": "pass",
    "exit": 0,
-   "seconds": 1.2,
+   "seconds": 1.1,
    "asserts": "八支產生器在「根不存在」下是否 fail-closed（🚫 不需私有根）"
   },
   {
    "check": "round_gate",
    "status": "pass",
    "exit": 0,
-   "seconds": 17.2,
+   "seconds": 14.2,
    "asserts": "每輪閘門：樣式來源、控制探針、n+48 兩道、n+54 三道、測試基線"
   },
   {
@@ -56,7 +56,7 @@
    "check": "n492_stratum_table",
    "status": "pass",
    "exit": 0,
-   "seconds": 0.3,
+   "seconds": 0.2,
    "asserts": "層別筆數兩母體並列（🚨 兩欄分母不得互換）"
   },
   {
@@ -84,15 +84,22 @@
    "check": "n500_inaccessible_cells",
    "status": "pass",
    "exit": 0,
-   "seconds": 0.7,
+   "seconds": 0.6,
    "asserts": "不可及 18 格之產出與清單漂移偵測"
   },
   {
    "check": "n507_blocked_cells_review",
    "status": "pass",
    "exit": 0,
-   "seconds": 0.6,
+   "seconds": 0.5,
    "asserts": "四格受阻者之複查（🚨 一格已夾出上界）"
+  },
+  {
+   "check": "n512_source_host_provenance",
+   "status": "pass",
+   "exit": 0,
+   "seconds": 0.2,
+   "asserts": "在手 41 份之來源主機分類（🚫 唯讀、不記網址）"
   },
   {
    "check": "n503_executor_handoff",
@@ -127,7 +134,8 @@
    "n507_blocked_cells_review",
    "n508_section_g_crosscheck",
    "n510_licence_second_source",
-   "n511_datacite_licence"
+   "n511_datacite_licence",
+   "n512_source_host_provenance"
   ],
   "unlisted": [
    "n495_stratum_purpose",
@@ -148,12 +156,12 @@
   },
   "note": "The scan only covers scripts numbered from round 490 onward and named that way. An older or differently-named standing check is invisible to it, so this narrows the blind spot rather than closing it."
  },
- "passed": 11,
+ "passed": 12,
  "failed": [],
  "skipped": [
   "n501_retraction_recheck"
  ],
- "totalSeconds": 27.7,
+ "totalSeconds": 24.4,
  "coverageStatement": "Sees whether each check exits zero, not whether it checks the right thing -- that is each check's own control probes. And the list is hand-maintained, so a check this room forgot to add is invisible here; the list length and its last-updated round are printed to force that comparison.",
  "contentNote": "Check names, exit codes and durations only."
 }
