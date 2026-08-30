@@ -292,7 +292,12 @@ PYTEST_IGNORE = 'tests/test_shacl_gates.py'
 # 新增的兩條測的是同一件事在兩條路徑上的樣子——產線驗證器現在也對
 # sections 檔自記的來源指紋（n+171 交辦一）。**沒有既有測試由通過變成失敗**，
 # 增量恰為 2，故基線只是往上加，不是把紅的調成綠的。
-BASE_PASSED, BASE_FAILED = 722, 0
+# 第 529 輪：722 → 726。前後對照（n+113 四）：
+#   改動前  722 passed／0 failed
+#   改動後  726 passed／0 failed
+# 新增四條，測的是萃取讀取層（M1 第四步之第一塊，n+181 三之 2）。
+# 沒有既有測試由通過變成失敗，增量恰為 4。
+BASE_PASSED, BASE_FAILED = 726, 0
 KNOWN_FAIL = '無（原 test_clopper_pearson_matches_closed_forms 已於第 437 輪依 n+113 四修正）'
 UNCOLLECTABLE = '%s（缺 pyshacl，pyproject 第 15 行已宣告）' % PYTEST_IGNORE
 
