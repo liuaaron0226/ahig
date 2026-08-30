@@ -1,0 +1,95 @@
+{
+ "schemaVersion": 1,
+ "documentType": "line-ending-conversion-drill",
+ "ruling": "follows n+169(1)(4) and round 514: measuring that 39 of 41 fingerprints would change says nothing about whether anyone would notice, and a corruption nobody notices is the worse kind",
+ "population": "one acquired artifact per acquisition route",
+ "countingUnit": "route",
+ "criterion": "copy the directory, convert text sources to CRLF in the copy, then run the production verifier and the sections-source invariant and record which one fails",
+ "doesNotTouchPrivateRoot": true,
+ "controlProbe": "The same checks run first on an unconverted copy and must all pass; otherwise a failure after conversion could be an artefact of copying rather than of the conversion.",
+ "predictionWasWrong": "Predicted the TEI route would pass silently. Under a whole-directory conversion it does not: the sections file is itself text, so converting it breaks sectionsSha256 and the production verifier fires. The asymmetry appears only when the conversion touches the source file and not the sections file -- so the right statement is not \"safe\" but \"safe only if everything moves together\".",
+ "results": [
+  {
+   "route": "europe-pmc-jats",
+   "dir": "012d9a34",
+   "converted": true,
+   "filesChanged": [
+    "manifest.json",
+    "sections",
+    "source"
+   ],
+   "production": [
+    "fail",
+    "FulltextError: 已提交 artifact 的 raw sha256 不符"
+   ],
+   "sectionsSource": [
+    "fail",
+    "sections.sourceSha256 與來源檔不符"
+   ]
+  },
+  {
+   "route": "grobid-tei",
+   "dir": "211950e6",
+   "converted": true,
+   "filesChanged": [
+    "sections",
+    "source"
+   ],
+   "production": [
+    "fail",
+    "FulltextError: 已提交 artifact 的 sectionsSha256 不符"
+   ],
+   "sectionsSource": [
+    "fail",
+    "sections.sourceSha256 與來源檔不符"
+   ]
+  },
+  {
+   "route": "europe-pmc-jats",
+   "dir": "012d9a34",
+   "mode": "source-only",
+   "converted": true,
+   "filesChanged": [
+    "manifest.json",
+    "source"
+   ],
+   "production": [
+    "fail",
+    "FulltextError: 已提交 artifact 的 raw sha256 不符"
+   ],
+   "sectionsSource": [
+    "fail",
+    "sections.sourceSha256 與來源檔不符"
+   ]
+  },
+  {
+   "route": "grobid-tei",
+   "dir": "211950e6",
+   "mode": "source-only",
+   "converted": true,
+   "filesChanged": [
+    "source"
+   ],
+   "production": [
+    "pass",
+    ""
+   ],
+   "sectionsSource": [
+    "fail",
+    "sections.sourceSha256 與來源檔不符"
+   ]
+  }
+ ],
+ "silentlyBroken": [
+  "grobid-tei"
+ ],
+ "loudlyBroken": [
+  "europe-pmc-jats",
+  "grobid-tei",
+  "europe-pmc-jats"
+ ],
+ "whyAsymmetric": "On the JATS route the manifest records a raw-byte hash of the same file the sections document hashes, so both move together and the production verifier catches it. On the TEI route the manifest hashes the PDF (binary) and the LF-normalised TEI, both immune, while the sections document hashes the TEI raw -- so the production verifier passes while that fingerprint is already stale.",
+ "coverageStatement": "One record per route, because the difference is structural -- it follows from which field hashes which file -- not per record. The drill converts every text file; a real transfer might convert only some, so this is the simplest case rather than the worst.",
+ "contentNote": "Route names, file-name prefixes and verdicts only.",
+ "drillHash": "sha256:e40b0d8c3da6215c6a35f562d3e4fe507eeefa8dd0fee024f4cb7f5dfacb550d"
+}

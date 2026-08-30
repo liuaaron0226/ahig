@@ -52,7 +52,7 @@ import tempfile
 import time
 
 S = '.scratch/'
-ROUND = 514
+ROUND = 515
 
 # ⚠️ 清單手維護——🚨 故末行會逼人核對；新增常設檢查時請一併加進來。
 CHECKS = [
@@ -73,6 +73,8 @@ CHECKS = [
      '在手 41 份之來源主機分類（🚫 唯讀、不記網址）', False),
     ('n514_hash_lineending_exposure',
      '行尾曝險逐份量測（🚫 唯讀，不改規則）', False),
+    ('n515_conversion_drill',
+     '行尾轉換演習：誰響誰不響（🚫 只動複本）', False),
     ('n503_executor_handoff', '三項交辦之答覆與 18 格交接檔', False),
     ('n501_retraction_recheck', '撤稿現場重查（🚨 會對外送請求）', True),
 ]

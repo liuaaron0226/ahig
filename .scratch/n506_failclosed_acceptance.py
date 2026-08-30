@@ -75,6 +75,7 @@ GENERATORS = {
     'n512_source_host_provenance': 'n512_source_host_provenance.json',
     'n513_repository_deposit_terms': 'n513_repository_deposit_terms.json',
     'n514_hash_lineending_exposure': 'n514_hash_lineending_exposure.json',
+    'n515_conversion_drill': 'n515_conversion_drill.json',
 }
 EXPECT_EXIT = 2
 
