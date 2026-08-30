@@ -1,0 +1,92 @@
+{
+ "schemaVersion": 1,
+ "documentType": "licence-second-source",
+ "ruling": "follows n+138(3) with a second register: OpenAlex recorded nothing for six artifacts, four of them sharing one publisher prefix, and a systematic gap in one index is exactly the case where another index may hold it.",
+ "population": "acquired artifacts still carrying no licence after round 505",
+ "countingUnit": "artifact",
+ "criterion": "Crossref message.license; mapped to a code only when the URL is a creativecommons.org licence, otherwise recorded verbatim and left unmapped",
+ "whyUnmapped": "Crossref license entries frequently carry the publisher's own terms or TDM conditions. Those are conditions of use, not an open licence; writing one into the licence field would read a restriction as a permission.",
+ "controlProbe": {
+  "dir": "7eef56b1",
+  "knownLicence": "cc-by",
+  "crossrefReturnedCc": true,
+  "why": "A wrong field path returns nothing, which is indistinguishable from Crossref holding nothing."
+ },
+ "stillMissingBefore": 6,
+ "mapped": [],
+ "unmappedTermsOnly": [
+  {
+   "dir": "89e1a723",
+   "doi": "10.1139/apnm-2017-0361",
+   "entries": [
+    {
+     "url": "http://www.nrcresearchpress.com/page/about/CorporateTextAndDataMining",
+     "contentVersion": "tdm"
+    }
+   ]
+  },
+  {
+   "dir": "98fe85be",
+   "doi": "10.1139/apnm-2015-0491",
+   "entries": [
+    {
+     "url": "http://www.nrcresearchpress.com/page/about/CorporateTextAndDataMining",
+     "contentVersion": "tdm"
+    }
+   ]
+  },
+  {
+   "dir": "bd9995f4",
+   "doi": "10.1139/apnm-2017-0777",
+   "entries": [
+    {
+     "url": "http://www.nrcresearchpress.com/page/about/CorporateTextAndDataMining",
+     "contentVersion": "tdm"
+    }
+   ]
+  },
+  {
+   "dir": "bf4f8f5a",
+   "doi": "10.1139/apnm-2019-0802",
+   "entries": [
+    {
+     "url": "http://www.nrcresearchpress.com/page/about/CorporateTextAndDataMining",
+     "contentVersion": "tdm"
+    }
+   ]
+  },
+  {
+   "dir": "de939065",
+   "doi": "10.1079/bjn20041368",
+   "entries": [
+    {
+     "url": "https://www.cambridge.org/core/terms",
+     "contentVersion": "unspecified"
+    }
+   ]
+  }
+ ],
+ "readingOfUnmapped": "Two registers now agree that no open licence is on record for these: OpenAlex holds no licence for the OA location, and Crossref holds only the publisher's own terms. That is a stronger statement than \"unknown\", and a weaker one than \"not open access\" -- it says nothing about rights that exist outside both registers.",
+ "stillNone": [
+  "c380c744"
+ ],
+ "applied": false,
+ "written": [],
+ "fetchCounters": {
+  "totalRequests": 7,
+  "perRequestedHost": {
+   "api.crossref.org": 7
+  },
+  "perFinalHost": {
+   "api.crossref.org": 7
+  },
+  "redirectHops": 0,
+  "blockedHosts": {},
+  "distinctUrls": 7,
+  "minIntervalSeconds": 1.0,
+  "note": "Per-execution counters. totalRequests counts every hop actually sent, including redirect hops, because each hop is a real outbound request. Requested and final hosts are kept apart: a redirector such as doi.org appears in the first and the publisher it lands on in the second, and blocking keys on the second. State does not survive the process, so the no-retry guarantee holds within one run only."
+ },
+ "coverageStatement": "Two registers now, not one. Neither is a publisher statement and neither is a verification by this room. Where the licence applies to an author manuscript the content-version is recorded, because those terms need not match the published version.",
+ "contentNote": "Directory prefixes, DOIs and licence URLs only.",
+ "secondSourceHash": "sha256:6267ded95eada84307eb7457b6cafbedc9e98fb614ea8876120c122b9fd026df"
+}

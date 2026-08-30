@@ -52,7 +52,7 @@ import tempfile
 import time
 
 S = '.scratch/'
-ROUND = 508
+ROUND = 510
 
 # ⚠️ 清單手維護——🚨 故末行會逼人核對；新增常設檢查時請一併加進來。
 CHECKS = [
@@ -84,6 +84,8 @@ NOT_A_CHECK = {
     'n504_executor_suite': '本檔自己',
     'n505_licence_completion': ('一次性補齊作業：🚨 會對外請求且 `--apply` 會寫入'
                                 '私有根，🚫 不宜納入每次總跑'),
+    'n510_licence_second_source': ('一次性補查：🚨 會對外請求且 `--apply` 會寫入'
+                                   '私有根，🚫 不宜納入每次總跑'),
     'n508_section_g_crosscheck': ('跨室對帳：🚨 其非零表示**協調者之文件**有待更正，'
                                   '⚠️ 不是本室之檢查失敗——'
                                   '🚫 不納入總跑，否則本室會因他室文件而恆紅，'

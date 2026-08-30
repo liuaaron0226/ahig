@@ -70,6 +70,7 @@ GENERATORS = {
     'n503_executor_handoff': 'executor_cells.json',
     'n505_licence_completion': 'n505_licence_completion.json',
     'n507_blocked_cells_review': 'n507_blocked_cells_review.json',
+    'n510_licence_second_source': 'n510_licence_second_source.json',
 }
 EXPECT_EXIT = 2
 
