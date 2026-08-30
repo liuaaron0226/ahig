@@ -70,11 +70,32 @@ class AcquiredDocument:
     source_host: str
     parser_version: str
     sections_sha256: str
+    content_sha256: str = ""
+    # sections 文件自報的型別。照抄而不寫死：橋用它擋「這不是 sections 文件」，
+    # 而寫死等於讓那道檢查對本讀取層永遠成立。
+    document_type: str = ""
     version: str | None = field(default=None)
 
     def __post_init__(self) -> None:
         if not self.sections:
             raise CorpusError(f"{self.candidate_id}：sections 為空")
+
+    def as_sections_document(self) -> dict:
+        """還原成 ``inventory_draft`` 那一端收得下的形狀。
+
+        兩個房間各自造了半條鏈：讀取層要私有根，橋不要。接起來的地方就是這裡。
+        ``contentSha256`` 必須是 sections 文件自記的那一個——橋拿它當「被讀的是
+        哪一份」的憑證，重算會得到「現在這份」的雜湊，那是另一件事。
+        """
+        return {
+            "documentType": self.document_type,
+            "contentSha256": self.content_sha256,
+            "content": self.content,
+            "parserVersion": self.parser_version,
+            "sections": [{"kind": s.kind, "path": list(s.path), "title": s.title,
+                          "text": s.text, "startOffset": s.start_offset,
+                          "endOffset": s.end_offset} for s in self.sections],
+        }
 
 
 def _document_from(artifact_dir: Path, manifest: dict,
@@ -97,6 +118,8 @@ def _document_from(artifact_dir: Path, manifest: dict,
         source_host=urlparse(artifact.get("sourceUrl") or "").netloc,
         parser_version=parsed.get("parserVersion", ""),
         sections_sha256=artifact.get("sectionsSha256", ""),
+        content_sha256=parsed.get("contentSha256", ""),
+        document_type=parsed.get("documentType", ""),
     )
 
 
@@ -146,6 +169,28 @@ def iter_acquired() -> Iterator[tuple[str, AcquiredDocument | None, str]]:
             yield entry.name, load_document(candidate_id), ""
         except CorpusError as error:
             yield entry.name, None, str(error)
+
+
+def reading_request_for(candidate_id: str, contract: dict):
+    """從私有根一路接到讀論文的請求：**讀 → 驗 → 交出請求。**
+
+    在此之前這兩段接不起來：讀取層交出 ``AcquiredDocument``，橋收的是 dict，
+    中間得有人手工拼一個。手工拼的那一步沒有任何東西在看，而它要拼的正是
+    ``contentSha256``——清冊靠它綁住「被讀的是哪一份」。
+
+    ``build_reading_request`` 目前把**整份 content** 放進請求。本語料的內容量為
+    最小 12,526、中位 39,095、最大 348,621 字元（那一篇有 160 節）。這裡不改那個
+    行為——要不要分段、怎麼分，會改變模型看到什麼，屬契約層的決定——但把數字
+    寫在這裡，好讓「授權之後直接跑」不是在不知道規模的情況下說的。
+    """
+    from ahig.extraction.inventory_draft import build_reading_request
+
+    document = load_document(candidate_id)
+    if not document.content_sha256:
+        raise CorpusError(f"{candidate_id}：sections 文件無 contentSha256，"
+                          "無從指明被讀的是哪一份")
+    return build_reading_request(document.as_sections_document(), contract,
+                                 report=candidate_id)
 
 
 def sections_titled(document: AcquiredDocument, *wanted: str) -> tuple[Section, ...]:

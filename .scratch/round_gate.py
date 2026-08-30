@@ -310,7 +310,13 @@ PYTEST_IGNORE = 'tests/test_shacl_gates.py'
 # ⚠️ 差的 26 條是 `tests/test_shacl_gates.py`——**本閘門 `--ignore` 掉它**。
 # 🚫 兩個數都對，而它們數的不是同一個集合；**若當時逕自把基線寫成 767，
 #    此後每一輪都會偏離**。故基線一律以**本閘門自己的跑法**為準。
-BASE_PASSED, BASE_FAILED = 746, 0
+# 第 530 輪：746 → 749。前後對照（n+113 四）：
+#   改動前  746 passed／0 failed
+#   改動後  749 passed／0 failed
+# 新增三條，測讀取層與橋之接合：manifestation 綁 sections 自記之
+# contentSha256、驗證發生在組請求之前、契約未凍結即拒絕。
+# 無既有測試由通過變成失敗，增量恰為 3。
+BASE_PASSED, BASE_FAILED = 749, 0
 KNOWN_FAIL = '無（原 test_clopper_pearson_matches_closed_forms 已於第 437 輪依 n+113 四修正）'
 UNCOLLECTABLE = '%s（缺 pyshacl，pyproject 第 15 行已宣告）' % PYTEST_IGNORE
 

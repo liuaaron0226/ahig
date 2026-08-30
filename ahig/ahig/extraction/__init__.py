@@ -22,6 +22,7 @@ from ahig.extraction.corpus import (  # noqa: F401
     CorpusError,
     iter_acquired,
     load_document,
+    reading_request_for,
     sections_titled,
 )
 from ahig.extraction.inventory_draft import (  # noqa: F401
