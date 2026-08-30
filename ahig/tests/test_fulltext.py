@@ -1391,3 +1391,88 @@ def test_publish_tei_records_both_sources_with_their_own_hash_methods():
                 os.environ.pop("AHIG_PRIVATE_ROOT", None)
             else:
                 os.environ["AHIG_PRIVATE_ROOT"] = old
+
+
+def test_verify_catches_a_tei_source_the_sections_no_longer_match():
+    # 第 515 輪之演習：搬運若只翻譯了 TEI 的行尾而沒動 sections 檔，
+    # manifest 那側全部免疫——sourceSha256 記的是二進位 PDF，teiSha256
+    # 已做 LF 正規化——於是損壞靜靜通過。sections 檔自己記著一份來源
+    # 指紋，而在此之前沒有任何產線檢查在看它。
+    tei = (FIXTURES / "sample-tei.xml").read_bytes()
+    pdf = b"%PDF-1.7\n" + b"x" * 512
+    candidate = {"candidateId": "ahig:candidate:publication:feedfacefeedfacefeedface"}
+
+    with tempfile.TemporaryDirectory() as tmp:
+        old = os.environ.get("AHIG_PRIVATE_ROOT")
+        os.environ["AHIG_PRIVATE_ROOT"] = tmp
+        try:
+            manifest = fulltext._publish_tei(
+                candidate, pdf=pdf, tei=tei, grobid_version="0.9.1",
+                source_url="https://example.invalid/a.pdf")
+            artifact_dir = fulltext._artifact_dir(candidate["candidateId"])
+
+            # 剛發佈的狀態必須通過，否則下面的失敗不能歸因於改動。
+            fulltext._verify_committed_artifacts(artifact_dir, manifest)
+
+            # 只動 TEI 的行尾，sections 與 manifest 都不碰。
+            tei_path = artifact_dir / manifest["teiFile"]
+            converted = tei_path.read_bytes().replace(b"\r\n", b"\n") \
+                                             .replace(b"\n", b"\r\n")
+            assert converted != tei_path.read_bytes()
+            tei_path.write_bytes(converted)
+
+            # teiSha256 是正規化過的，所以它自己不會發現這件事。
+            assert (fulltext._text_sha256(converted)
+                    == manifest["artifacts"][0]["teiSha256"])
+            try:
+                fulltext._verify_committed_artifacts(artifact_dir, manifest)
+            except fulltext.FulltextError as error:
+                assert "sections 來源指紋" in str(error)
+            else:
+                raise AssertionError("行尾一改，sections 的來源指紋就該對不上")
+        finally:
+            if old is None:
+                os.environ.pop("AHIG_PRIVATE_ROOT", None)
+            else:
+                os.environ["AHIG_PRIVATE_ROOT"] = old
+
+
+def test_verify_catches_a_jats_source_the_sections_no_longer_match():
+    # 同一道檢查在 JATS 路徑上的樣子。這一條 manifest 側本來就抓得到
+    # （sourceSha256 記的是同一份 JATS 的裸位元組），但兩條路徑各驗一次，
+    # 免得日後有人只改了其中一邊的取檔規則。
+    raw = (FIXTURES / "sample-jats.xml").read_bytes()
+    candidate = {"candidateId": "ahig:candidate:publication:0123456789abcdef01234567",
+                 "identifiers": {"pmcid": "PMC7654321"}}
+
+    with tempfile.TemporaryDirectory() as tmp:
+        old = os.environ.get("AHIG_PRIVATE_ROOT")
+        os.environ["AHIG_PRIVATE_ROOT"] = tmp
+        try:
+            manifest = fulltext._publish_jats(
+                candidate, raw=raw, exchange={}, pmcid="PMC7654321",
+                source_url="https://example.invalid/a.xml")
+            artifact_dir = fulltext._artifact_dir(candidate["candidateId"])
+            fulltext._verify_committed_artifacts(artifact_dir, manifest)
+
+            sections_path = artifact_dir / manifest["sectionsFile"]
+            sections = json.loads(sections_path.read_text(encoding="utf-8"))
+            digest = sections["sourceSha256"]
+            sections["sourceSha256"] = digest[:-1] + (
+                "0" if digest[-1] != "0" else "1")
+            # sectionsSha256 一併更新，好讓失敗只能來自來源指紋那一項。
+            body = json.dumps(sections, ensure_ascii=False).encode("utf-8")
+            sections_path.write_bytes(body)
+            manifest["artifacts"][0]["sectionsSha256"] = fulltext._sha256(body)
+
+            try:
+                fulltext._verify_committed_artifacts(artifact_dir, manifest)
+            except fulltext.FulltextError as error:
+                assert "sections 來源指紋" in str(error)
+            else:
+                raise AssertionError("sections 記的來源指紋錯了就該被擋下")
+        finally:
+            if old is None:
+                os.environ.pop("AHIG_PRIVATE_ROOT", None)
+            else:
+                os.environ["AHIG_PRIVATE_ROOT"] = old

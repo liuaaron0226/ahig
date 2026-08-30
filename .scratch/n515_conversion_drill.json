@@ -71,8 +71,8 @@
     "source"
    ],
    "production": [
-    "pass",
-    ""
+    "fail",
+    "FulltextError: 已提交 artifact 的 sections 來源指紋不符"
    ],
    "sectionsSource": [
     "fail",
@@ -80,16 +80,15 @@
    ]
   }
  ],
- "silentlyBroken": [
-  "grobid-tei"
- ],
+ "silentlyBroken": [],
  "loudlyBroken": [
   "europe-pmc-jats",
   "grobid-tei",
-  "europe-pmc-jats"
+  "europe-pmc-jats",
+  "grobid-tei"
  ],
  "whyAsymmetric": "On the JATS route the manifest records a raw-byte hash of the same file the sections document hashes, so both move together and the production verifier catches it. On the TEI route the manifest hashes the PDF (binary) and the LF-normalised TEI, both immune, while the sections document hashes the TEI raw -- so the production verifier passes while that fingerprint is already stale.",
  "coverageStatement": "One record per route, because the difference is structural -- it follows from which field hashes which file -- not per record. The drill converts every text file; a real transfer might convert only some, so this is the simplest case rather than the worst.",
  "contentNote": "Route names, file-name prefixes and verdicts only.",
- "drillHash": "sha256:e40b0d8c3da6215c6a35f562d3e4fe507eeefa8dd0fee024f4cb7f5dfacb550d"
+ "drillHash": "sha256:64dfa8d9beb894964e78c06732603cc8729a0baa7cda1fa7777edaec6ba97f79"
 }

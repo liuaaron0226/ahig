@@ -123,7 +123,11 @@ def controls():
     out = []
     try:
         raw = b'<article>x</article>'
-        sec = b'{"sections":[]}'
+        # 🚨 第 516 輪起，產線驗證器也對 sections 檔自記之來源指紋。
+        # ⚠️ 故合成之「正確」案例必須把那一格填對——
+        # 🚫 這是把假樣本補成真的合格樣本，不是放寬檢查。
+        sec = ('{"sections":[],"sourceSha256":"%s"}'
+               % fulltext._sha256(raw)).encode('utf-8')
         (tmp / 'source-a.jats.xml').write_bytes(raw)
         (tmp / 'sections-va.json').write_bytes(sec)
         base = {'artifacts': [{'rawFile': 'source-a.jats.xml',
@@ -166,12 +170,17 @@ def controls():
         pdf = b'%PDF-1.4'
         (tmp / 'source-b.tei.xml').write_bytes(tei)
         (tmp / 'source-b.pdf').write_bytes(pdf)
+        # 🚨 TEI 路徑之 sections 記的是 **TEI 之裸位元組**（parse_tei），
+        # ⚠️ 與 JATS 那份不同，故必須各有各的 sections 檔。
+        sec_b = ('{"sections":[],"sourceSha256":"%s"}'
+                 % fulltext._sha256(tei)).encode('utf-8')
+        (tmp / 'sections-vb.json').write_bytes(sec_b)
         t = {'artifacts': [{'rawFile': 'source-b.pdf',
                             'teiFile': 'source-b.tei.xml',
-                            'sectionsFile': 'sections-va.json',
+                            'sectionsFile': 'sections-vb.json',
                             'sourceSha256': fulltext._sha256(pdf),
                             'teiSha256': fulltext._text_sha256(tei),
-                            'sectionsSha256': fulltext._sha256(sec),
+                            'sectionsSha256': fulltext._sha256(sec_b),
                             'parserVersion': 'v1', 'sourceUrl': 'x',
                             'sourceType': 'grobid-tei', 'grobidVersion': '0.9.1'}]}
         probe('正向乙：TEI 路徑（LF 正規化）', t, False)

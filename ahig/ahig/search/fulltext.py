@@ -673,6 +673,24 @@ def _verify_committed_artifacts(artifact_dir: Path, manifest: dict) -> None:
                 raise FulltextError("已提交 artifact 缺 TEI")
             if _text_sha256(tei_path.read_bytes()) != artifact.get("teiSha256"):
                 raise FulltextError("已提交 artifact 的 teiSha256 不符")
+        # sections 檔自己也記了一份來源指紋（parse_jats、parse_tei 各一處），
+        # 而在此之前沒有任何產線檢查在看它。第 515 輪之演習顯示：搬運若只
+        # 翻譯了來源檔而沒動 sections 檔，TEI 路徑上 manifest 側全部免疫
+        # （sourceSha256 記的是二進位 PDF，teiSha256 已正規化），於是損壞
+        # 靜靜通過。這一段補的就是那道缺口。
+        # 這裡不改任何雜湊規則，只是把既有欄位拿來對；sourceSha256 的語意
+        # 問題是另一件事，已遞延至萃取期（n+169 一）。
+        source_name = (tei_name if artifact.get("sourceType") == "grobid-tei"
+                       else artifact["rawFile"])
+        source_path = artifact_dir / source_name
+        try:
+            sections = json.loads(sections_path.read_text(encoding="utf-8"))
+        except (UnicodeDecodeError, json.JSONDecodeError) as error:
+            raise FulltextError("已提交 artifact 的 sections 無法解析") from error
+        if sections.get("sourceSha256") != _sha256(source_path.read_bytes()):
+            # 欄位缺失也走這一條：讀不到指紋、與指紋不符，對「這份 sections
+            # 是不是那份來源切出來的」是同一個答案。
+            raise FulltextError("已提交 artifact 的 sections 來源指紋不符")
 
 
 def _publish_jats(candidate: dict, *, raw: bytes, exchange: dict,
