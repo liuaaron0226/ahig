@@ -1,0 +1,50 @@
+{
+ "schemaVersion": 1,
+ "documentType": "owner-briefing-stratum-crosscheck",
+ "ruling": "self-initiated: section G was read back in round 508, but the document the owner actually reads -- and is currently blocked on -- is the briefing, and its per-stratum figures are what a spend-money decision would rest on",
+ "population": "the two per-stratum claims in the owner briefing",
+ "countingUnit": "claim",
+ "criterion": "the quoted figure against both populations: acquired among the drawn records, and acquired in that stratum including accepted backfill",
+ "controlProbe": {
+  "bothClaimsExtracted": true,
+  "injectionCaught": true,
+  "why": "An extractor that matches nothing reports no discrepancy, which reads as agreement."
+ },
+ "claims": [
+  {
+   "label": "GI（S5＋S6）",
+   "pool": "S5+S6-gi-merged",
+   "briefingQuota": 15,
+   "briefingAcquired": 3,
+   "drawn": 15,
+   "acquiredFromDrawn": 3,
+   "backfillAccepted": 5,
+   "acquiredFromBackfill": 4,
+   "stratumInHand": 7,
+   "matchesDrawnPopulation": true,
+   "differsFromStratumTotal": true
+  },
+  {
+   "label": "TTE（S3）",
+   "pool": "S3-tte",
+   "briefingQuota": 8,
+   "briefingAcquired": 0,
+   "drawn": 8,
+   "acquiredFromDrawn": 0,
+   "backfillAccepted": 6,
+   "acquiredFromBackfill": 1,
+   "stratumInHand": 1,
+   "matchesDrawnPopulation": true,
+   "differsFromStratumTotal": true
+  }
+ ],
+ "populationGap": [
+  "GI（S5＋S6）",
+  "TTE（S3）"
+ ],
+ "notThisRoomsCall": "Which population belongs in front of the owner is a judgement, not a search. Both are computed and set side by side; neither is chosen here.",
+ "consequenceNote": "The TTE sentence carries a consequence -- that the conflation check cannot be done. If the stratum holds a record after backfill, that consequence needs restating.",
+ "coverageStatement": "Only the two acquisition-layer stratum claims, matched on fixed wording. A change of wording makes extraction fail, and failure is reported as failure rather than as agreement.",
+ "contentNote": "Counts and pool ids only.",
+ "crosscheckHash": "sha256:1766c33e970d7cc0c8e43bb02acb877f2eee9cf3076751458d0446975d979325"
+}

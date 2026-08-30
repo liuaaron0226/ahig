@@ -52,7 +52,7 @@ import tempfile
 import time
 
 S = '.scratch/'
-ROUND = 519
+ROUND = 521
 
 # ⚠️ 清單手維護——🚨 故末行會逼人核對；新增常設檢查時請一併加進來。
 CHECKS = [
@@ -100,6 +100,9 @@ NOT_A_CHECK = {
                               '🚫 不宜納入每次總跑'),
     'n513_repository_deposit_terms': ('一次性補查：🚨 會對外請求，'
                                       '🚫 不宜納入每次總跑'),
+    'n521_owner_briefing_crosscheck': ('跨室對帳：🚨 其非零表示**簡報**有待協調者'
+                                       '處置，⚠️ 不是本室之檢查失敗——'
+                                       '🚫 不納入總跑，否則本室恆紅'),
     'n508_section_g_crosscheck': ('跨室對帳：🚨 其非零表示**協調者之文件**有待更正，'
                                   '⚠️ 不是本室之檢查失敗——'
                                   '🚫 不納入總跑，否則本室會因他室文件而恆紅，'
