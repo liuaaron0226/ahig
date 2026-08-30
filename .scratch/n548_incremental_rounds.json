@@ -1,0 +1,484 @@
+{
+  "schemaVersion": 1,
+  "documentType": "incremental-rounds-rehearsal",
+  "ruling": "第 546–547 輪那把尺之第三條：中途的那些輪次",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "readerIsAStub": true,
+  "stubMarker": "REHEARSAL-NOT-A-REAL-INVENTORY",
+  "storeDisabled": "🚨 store=None——編造的清冊一份都不落盤",
+  "pages": 18,
+  "records": 41,
+  "rounds": [
+    {
+      "page": 1,
+      "itemsThisPage": 2,
+      "draftedSoFar": 2,
+      "remaining": 39,
+      "feedAll": {
+        "attempted": 41,
+        "succeeded": 2,
+        "failed": 39,
+        "byStage": {
+          "read-corpus": 0,
+          "call-reader": 39,
+          "validate-draft": 0,
+          "scope": 0,
+          "reused": 0
+        }
+      },
+      "feedDraftedOnly": {
+        "attempted": 2,
+        "succeeded": 2,
+        "failed": 0
+      },
+      "firstFailureReason": "WorksheetError: …59b4558a37f28bc9：工作單收回來的清冊裡沒有這一篇"
+    },
+    {
+      "page": 2,
+      "itemsThisPage": 2,
+      "draftedSoFar": 4,
+      "remaining": 37,
+      "feedAll": {
+        "attempted": 41,
+        "succeeded": 4,
+        "failed": 37,
+        "byStage": {
+          "read-corpus": 0,
+          "call-reader": 37,
+          "validate-draft": 0,
+          "scope": 0,
+          "reused": 0
+        }
+      },
+      "feedDraftedOnly": {
+        "attempted": 4,
+        "succeeded": 4,
+        "failed": 0
+      },
+      "firstFailureReason": "WorksheetError: …dbdb6ea55c9667c3：工作單收回來的清冊裡沒有這一篇"
+    },
+    {
+      "page": 3,
+      "itemsThisPage": 3,
+      "draftedSoFar": 7,
+      "remaining": 34,
+      "feedAll": {
+        "attempted": 41,
+        "succeeded": 7,
+        "failed": 34,
+        "byStage": {
+          "read-corpus": 0,
+          "call-reader": 34,
+          "validate-draft": 0,
+          "scope": 0,
+          "reused": 0
+        }
+      },
+      "feedDraftedOnly": {
+        "attempted": 7,
+        "succeeded": 7,
+        "failed": 0
+      },
+      "firstFailureReason": "WorksheetError: …48da8a7f2f35af1f：工作單收回來的清冊裡沒有這一篇"
+    },
+    {
+      "page": 4,
+      "itemsThisPage": 3,
+      "draftedSoFar": 10,
+      "remaining": 31,
+      "feedAll": {
+        "attempted": 41,
+        "succeeded": 10,
+        "failed": 31,
+        "byStage": {
+          "read-corpus": 0,
+          "call-reader": 31,
+          "validate-draft": 0,
+          "scope": 0,
+          "reused": 0
+        }
+      },
+      "feedDraftedOnly": {
+        "attempted": 10,
+        "succeeded": 10,
+        "failed": 0
+      },
+      "firstFailureReason": "WorksheetError: …44243ac624c9b5e0：工作單收回來的清冊裡沒有這一篇"
+    },
+    {
+      "page": 5,
+      "itemsThisPage": 2,
+      "draftedSoFar": 12,
+      "remaining": 29,
+      "feedAll": {
+        "attempted": 41,
+        "succeeded": 12,
+        "failed": 29,
+        "byStage": {
+          "read-corpus": 0,
+          "call-reader": 29,
+          "validate-draft": 0,
+          "scope": 0,
+          "reused": 0
+        }
+      },
+      "feedDraftedOnly": {
+        "attempted": 12,
+        "succeeded": 12,
+        "failed": 0
+      },
+      "firstFailureReason": "WorksheetError: …501bb474ac4704fa：工作單收回來的清冊裡沒有這一篇"
+    },
+    {
+      "page": 6,
+      "itemsThisPage": 2,
+      "draftedSoFar": 14,
+      "remaining": 27,
+      "feedAll": {
+        "attempted": 41,
+        "succeeded": 14,
+        "failed": 27,
+        "byStage": {
+          "read-corpus": 0,
+          "call-reader": 27,
+          "validate-draft": 0,
+          "scope": 0,
+          "reused": 0
+        }
+      },
+      "feedDraftedOnly": {
+        "attempted": 14,
+        "succeeded": 14,
+        "failed": 0
+      },
+      "firstFailureReason": "WorksheetError: …8a62d501f88c7d04：工作單收回來的清冊裡沒有這一篇"
+    },
+    {
+      "page": 7,
+      "itemsThisPage": 2,
+      "draftedSoFar": 16,
+      "remaining": 25,
+      "feedAll": {
+        "attempted": 41,
+        "succeeded": 16,
+        "failed": 25,
+        "byStage": {
+          "read-corpus": 0,
+          "call-reader": 25,
+          "validate-draft": 0,
+          "scope": 0,
+          "reused": 0
+        }
+      },
+      "feedDraftedOnly": {
+        "attempted": 16,
+        "succeeded": 16,
+        "failed": 0
+      },
+      "firstFailureReason": "WorksheetError: …7a6ac1559c740fd6：工作單收回來的清冊裡沒有這一篇"
+    },
+    {
+      "page": 8,
+      "itemsThisPage": 1,
+      "draftedSoFar": 17,
+      "remaining": 24,
+      "feedAll": {
+        "attempted": 41,
+        "succeeded": 17,
+        "failed": 24,
+        "byStage": {
+          "read-corpus": 0,
+          "call-reader": 24,
+          "validate-draft": 0,
+          "scope": 0,
+          "reused": 0
+        }
+      },
+      "feedDraftedOnly": {
+        "attempted": 17,
+        "succeeded": 17,
+        "failed": 0
+      },
+      "firstFailureReason": "WorksheetError: …7a97713bf254fa26：工作單收回來的清冊裡沒有這一篇"
+    },
+    {
+      "page": 9,
+      "itemsThisPage": 2,
+      "draftedSoFar": 19,
+      "remaining": 22,
+      "feedAll": {
+        "attempted": 41,
+        "succeeded": 19,
+        "failed": 22,
+        "byStage": {
+          "read-corpus": 0,
+          "call-reader": 22,
+          "validate-draft": 0,
+          "scope": 0,
+          "reused": 0
+        }
+      },
+      "feedDraftedOnly": {
+        "attempted": 19,
+        "succeeded": 19,
+        "failed": 0
+      },
+      "firstFailureReason": "WorksheetError: …65d459b9129da800：工作單收回來的清冊裡沒有這一篇"
+    },
+    {
+      "page": 10,
+      "itemsThisPage": 2,
+      "draftedSoFar": 21,
+      "remaining": 20,
+      "feedAll": {
+        "attempted": 41,
+        "succeeded": 21,
+        "failed": 20,
+        "byStage": {
+          "read-corpus": 0,
+          "call-reader": 20,
+          "validate-draft": 0,
+          "scope": 0,
+          "reused": 0
+        }
+      },
+      "feedDraftedOnly": {
+        "attempted": 21,
+        "succeeded": 21,
+        "failed": 0
+      },
+      "firstFailureReason": "WorksheetError: …c3028a8a7b1ae2a1：工作單收回來的清冊裡沒有這一篇"
+    },
+    {
+      "page": 11,
+      "itemsThisPage": 2,
+      "draftedSoFar": 23,
+      "remaining": 18,
+      "feedAll": {
+        "attempted": 41,
+        "succeeded": 23,
+        "failed": 18,
+        "byStage": {
+          "read-corpus": 0,
+          "call-reader": 18,
+          "validate-draft": 0,
+          "scope": 0,
+          "reused": 0
+        }
+      },
+      "feedDraftedOnly": {
+        "attempted": 23,
+        "succeeded": 23,
+        "failed": 0
+      },
+      "firstFailureReason": "WorksheetError: …e8d48c04f919dbb0：工作單收回來的清冊裡沒有這一篇"
+    },
+    {
+      "page": 12,
+      "itemsThisPage": 3,
+      "draftedSoFar": 26,
+      "remaining": 15,
+      "feedAll": {
+        "attempted": 41,
+        "succeeded": 26,
+        "failed": 15,
+        "byStage": {
+          "read-corpus": 0,
+          "call-reader": 15,
+          "validate-draft": 0,
+          "scope": 0,
+          "reused": 0
+        }
+      },
+      "feedDraftedOnly": {
+        "attempted": 26,
+        "succeeded": 26,
+        "failed": 0
+      },
+      "firstFailureReason": "WorksheetError: …c4128a6f6dd2c0b5：工作單收回來的清冊裡沒有這一篇"
+    },
+    {
+      "page": 13,
+      "itemsThisPage": 2,
+      "draftedSoFar": 28,
+      "remaining": 13,
+      "feedAll": {
+        "attempted": 41,
+        "succeeded": 28,
+        "failed": 13,
+        "byStage": {
+          "read-corpus": 0,
+          "call-reader": 13,
+          "validate-draft": 0,
+          "scope": 0,
+          "reused": 0
+        }
+      },
+      "feedDraftedOnly": {
+        "attempted": 28,
+        "succeeded": 28,
+        "failed": 0
+      },
+      "firstFailureReason": "WorksheetError: …65dd82a89b2c5340：工作單收回來的清冊裡沒有這一篇"
+    },
+    {
+      "page": 14,
+      "itemsThisPage": 5,
+      "draftedSoFar": 33,
+      "remaining": 8,
+      "feedAll": {
+        "attempted": 41,
+        "succeeded": 33,
+        "failed": 8,
+        "byStage": {
+          "read-corpus": 0,
+          "call-reader": 8,
+          "validate-draft": 0,
+          "scope": 0,
+          "reused": 0
+        }
+      },
+      "feedDraftedOnly": {
+        "attempted": 33,
+        "succeeded": 33,
+        "failed": 0
+      },
+      "firstFailureReason": "WorksheetError: …307c0dd5b141caed：工作單收回來的清冊裡沒有這一篇"
+    },
+    {
+      "page": 15,
+      "itemsThisPage": 1,
+      "draftedSoFar": 34,
+      "remaining": 7,
+      "feedAll": {
+        "attempted": 41,
+        "succeeded": 34,
+        "failed": 7,
+        "byStage": {
+          "read-corpus": 0,
+          "call-reader": 7,
+          "validate-draft": 0,
+          "scope": 0,
+          "reused": 0
+        }
+      },
+      "feedDraftedOnly": {
+        "attempted": 34,
+        "succeeded": 34,
+        "failed": 0
+      },
+      "firstFailureReason": "WorksheetError: …d4149a8bac287851：工作單收回來的清冊裡沒有這一篇"
+    },
+    {
+      "page": 16,
+      "itemsThisPage": 3,
+      "draftedSoFar": 37,
+      "remaining": 4,
+      "feedAll": {
+        "attempted": 41,
+        "succeeded": 37,
+        "failed": 4,
+        "byStage": {
+          "read-corpus": 0,
+          "call-reader": 4,
+          "validate-draft": 0,
+          "scope": 0,
+          "reused": 0
+        }
+      },
+      "feedDraftedOnly": {
+        "attempted": 37,
+        "succeeded": 37,
+        "failed": 0
+      },
+      "firstFailureReason": "WorksheetError: …97c2233f7e60c801：工作單收回來的清冊裡沒有這一篇"
+    },
+    {
+      "page": 17,
+      "itemsThisPage": 2,
+      "draftedSoFar": 39,
+      "remaining": 2,
+      "feedAll": {
+        "attempted": 41,
+        "succeeded": 39,
+        "failed": 2,
+        "byStage": {
+          "read-corpus": 0,
+          "call-reader": 2,
+          "validate-draft": 0,
+          "scope": 0,
+          "reused": 0
+        }
+      },
+      "feedDraftedOnly": {
+        "attempted": 39,
+        "succeeded": 39,
+        "failed": 0
+      },
+      "firstFailureReason": "WorksheetError: …298c326024d22835：工作單收回來的清冊裡沒有這一篇"
+    },
+    {
+      "page": 18,
+      "itemsThisPage": 2,
+      "draftedSoFar": 41,
+      "remaining": 0,
+      "feedAll": {
+        "attempted": 41,
+        "succeeded": 41,
+        "failed": 0,
+        "byStage": {
+          "read-corpus": 0,
+          "call-reader": 0,
+          "validate-draft": 0,
+          "scope": 0,
+          "reused": 0
+        }
+      },
+      "feedDraftedOnly": {
+        "attempted": 41,
+        "succeeded": 41,
+        "failed": 0
+      },
+      "firstFailureReason": ""
+    }
+  ],
+  "finding": "⚠️ 中途每一輪若餵全部 41 篇，收據上會有 41−N 筆 call-reader 失敗，訊息是「工作單收回來的清冊裡沒有這一篇」。🚨 那是中途的**常態**，不是壞掉——但收據長得跟真的壞掉一樣。✅ 只餵已讀的那些就沒有失敗；🚫 而目前沒有任何東西告訴呼叫端該這樣做。",
+  "recommendation": "⚠️ 不改程式。`load_drafts(require_complete=False)` 已經回 `drafts` 與`remaining`，呼叫端拿 `list(loaded[\"drafts\"])` 當 candidate_ids 即可。🚨 但這件事只寫在本產物裡是不夠的——✅ 已補進 `worksheet.load_drafts` 的說明，讓要用的人在函式旁邊就看得到。",
+  "notProven": [
+    "🚨 抽得準不準：替身編造。",
+    "⚠️ 形狀由序位決定，🚫 不是真實論文的分布。"
+  ],
+  "controlProbes": [
+    {
+      "probe": "最後一輪全部讀完且全部跑完",
+      "passed": true,
+      "detail": "第 18 頁後：未讀 0｜成功 41｜失敗 0"
+    },
+    {
+      "probe": "中途餵全部時，未讀的那些一律記成 call-reader 失敗",
+      "passed": true,
+      "detail": "🚨 這是中途的常態，🚫 不是壞掉：第 10 頁時已讀 21，call-reader 失敗 20"
+    },
+    {
+      "probe": "中途只餵已讀的，就沒有失敗",
+      "passed": true,
+      "detail": "🚨 有失敗代表已讀的那些也跑不過；各輪失敗數 [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]"
+    },
+    {
+      "probe": "已讀數逐輪嚴格遞增（必觸發）",
+      "passed": true,
+      "detail": "🚨 不遞增代表 append_drafts 沒真的併進去；軌跡 [2, 4, 7, 10, 12, 14, 16, 17, 19, 21, 23, 26, 28, 33, 34, 37, 39, 41]"
+    },
+    {
+      "probe": "未讀者的失敗訊息說得出是「沒有這一篇」",
+      "passed": true,
+      "detail": "🚨 訊息若含糊，中途的收據會被讀成資料壞了；實得：WorksheetError: …c3028a8a7b1ae2a1：工作單收回來的清冊裡沒有這一篇"
+    },
+    {
+      "probe": "工作單已刪除",
+      "passed": true,
+      "detail": "⚠️ 帶全文，留著等於私有根多一份語料副本"
+    }
+  ],
+  "auditHash": "sha256:484baedabbd70024c247f00612dde0780185f53a64f970c286d94b5eb9ad3653"
+}

@@ -193,6 +193,12 @@ def load_drafts(out_dir: Path, *, require_complete: bool = True) -> dict:
 
     🚫 這裡不驗清冊的**內容**：那是 `inventory_draft.validate_draft` 的事，
     而它在 `run_inventory` 裡對每一筆都會跑。⚠️ 兩個地方各驗一次，遲早會分岔。
+
+    **中途要跑鏈時，candidate_ids 請傳 ``list(回傳值["drafts"])``。**
+    🚨 第 548 輪實測 18 輪的中途：若照樣餵全部 41 篇，收據上會出現 41−N 筆
+    `call-reader` 失敗（訊息為「工作單收回來的清冊裡沒有這一篇」）。
+    ⚠️ 那是中途的**常態**，🚫 不是壞掉——但收據長得跟真的壞掉一模一樣。
+    只餵已讀的那些，18 輪的失敗數全是 0。
     """
     out_dir = _require_private(Path(out_dir))
     sheet = json.loads((out_dir / "worksheet.json").read_text(encoding="utf-8"))
