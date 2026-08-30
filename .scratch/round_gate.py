@@ -321,7 +321,14 @@ PYTEST_IGNORE = 'tests/test_shacl_gates.py'
 #   改動後  753 passed／0 failed
 # 新增四條，測整批跑：不給 reader 要大聲失敗、reader 出錯的那篇仍列出、
 # 空清冊算失敗、每一篇恰好落在一個桶子裡。增量恰為 4。
-BASE_PASSED, BASE_FAILED = 753, 0
+# 第 533 輪：753 → 756。前後對照（n+113 四）：
+#   改動前  753 passed／0 failed
+#   改動後  756 passed／0 failed
+# 新增三條，測清冊存放處：存過就重用且記成 reused 而非「這次讀到的」、
+# 換了契約不算做過、同鍵不同內容拒絕覆寫。增量恰為 3。
+# 同一輪另修兩處測試自身之缺陷（不改變條數）：本檔的樁契約殘缺，
+# ScopeMatcher 收不下，於是「混合結果」那條其實兩筆都失敗仍照樣通過。
+BASE_PASSED, BASE_FAILED = 756, 0
 KNOWN_FAIL = '無（原 test_clopper_pearson_matches_closed_forms 已於第 437 輪依 n+113 四修正）'
 UNCOLLECTABLE = '%s（缺 pyshacl，pyproject 第 15 行已宣告）' % PYTEST_IGNORE
 
