@@ -6,7 +6,7 @@
  "countingUnit": "check",
  "criterion": "exit code only; the suite deliberately does not parse any check's printed output",
  "listedChecks": 13,
- "listLastUpdatedRound": 512,
+ "listLastUpdatedRound": 513,
  "withNetwork": false,
  "controlProbes": [
   {
@@ -35,14 +35,14 @@
    "check": "n506_failclosed_acceptance",
    "status": "pass",
    "exit": 0,
-   "seconds": 1.1,
+   "seconds": 1.3,
    "asserts": "八支產生器在「根不存在」下是否 fail-closed（🚫 不需私有根）"
   },
   {
    "check": "round_gate",
    "status": "pass",
    "exit": 0,
-   "seconds": 14.2,
+   "seconds": 18.4,
    "asserts": "每輪閘門：樣式來源、控制探針、n+48 兩道、n+54 三道、測試基線"
   },
   {
@@ -56,7 +56,7 @@
    "check": "n492_stratum_table",
    "status": "pass",
    "exit": 0,
-   "seconds": 0.2,
+   "seconds": 0.3,
    "asserts": "層別筆數兩母體並列（🚨 兩欄分母不得互換）"
   },
   {
@@ -105,7 +105,7 @@
    "check": "n503_executor_handoff",
    "status": "pass",
    "exit": 0,
-   "seconds": 0.3,
+   "seconds": 0.2,
    "asserts": "三項交辦之答覆與 18 格交接檔"
   },
   {
@@ -135,7 +135,8 @@
    "n508_section_g_crosscheck",
    "n510_licence_second_source",
    "n511_datacite_licence",
-   "n512_source_host_provenance"
+   "n512_source_host_provenance",
+   "n513_repository_deposit_terms"
   ],
   "unlisted": [
    "n495_stratum_purpose",
@@ -143,7 +144,8 @@
    "n505_licence_completion",
    "n508_section_g_crosscheck",
    "n510_licence_second_source",
-   "n511_datacite_licence"
+   "n511_datacite_licence",
+   "n513_repository_deposit_terms"
   ],
   "unlistedWithoutReason": [],
   "excludedWithReason": {
@@ -152,7 +154,8 @@
    "n505_licence_completion": "一次性補齊作業：🚨 會對外請求且 `--apply` 會寫入私有根，🚫 不宜納入每次總跑",
    "n508_section_g_crosscheck": "跨室對帳：🚨 其非零表示**協調者之文件**有待更正，⚠️ 不是本室之檢查失敗——🚫 不納入總跑，否則本室會因他室文件而恆紅，而恆紅等於沒有紅",
    "n510_licence_second_source": "一次性補查：🚨 會對外請求且 `--apply` 會寫入私有根，🚫 不宜納入每次總跑",
-   "n511_datacite_licence": "一次性補查：🚨 會對外請求且 `--apply` 會寫入私有根，🚫 不宜納入每次總跑"
+   "n511_datacite_licence": "一次性補查：🚨 會對外請求且 `--apply` 會寫入私有根，🚫 不宜納入每次總跑",
+   "n513_repository_deposit_terms": "一次性補查：🚨 會對外請求，🚫 不宜納入每次總跑"
   },
   "note": "The scan only covers scripts numbered from round 490 onward and named that way. An older or differently-named standing check is invisible to it, so this narrows the blind spot rather than closing it."
  },
@@ -161,7 +164,7 @@
  "skipped": [
   "n501_retraction_recheck"
  ],
- "totalSeconds": 24.4,
+ "totalSeconds": 28.8,
  "coverageStatement": "Sees whether each check exits zero, not whether it checks the right thing -- that is each check's own control probes. And the list is hand-maintained, so a check this room forgot to add is invisible here; the list length and its last-updated round are printed to force that comparison.",
  "contentNote": "Check names, exit codes and durations only."
 }

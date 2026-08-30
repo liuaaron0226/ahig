@@ -1,0 +1,83 @@
+{
+ "schemaVersion": 1,
+ "documentType": "repository-deposit-terms",
+ "ruling": "n+168(2): the item page may be fetched, under the fetch limits, without searching by title, without URLs entering this repo unless the path is opaque identifiers only, and with \"not retrieved\" kept apart from \"no licence\".",
+ "population": "acquired artifacts with no licence whose source host is a DSpace-style repository",
+ "countingUnit": "artifact",
+ "criterion": "walk the API's own _links from the recorded bitstream to the item, then read only metadata keys matching rights or licence",
+ "navigationNote": "Links are followed, never constructed. Last round's 404 came from guessing owningBundle when the API calls it bundle -- following what the response offers is not the same as guessing another shape.",
+ "noTitleSearch": true,
+ "verdictCounts": {
+  "terms-found": 0,
+  "no-terms-recorded": 4,
+  "terms-not-retrieved": 0
+ },
+ "verdictMeaning": {
+  "terms-found": "a rights field was read",
+  "no-terms-recorded": "the record was read and registers no rights",
+  "terms-not-retrieved": "the record was not read at all -- this is not evidence of no licence"
+ },
+ "records": [
+  {
+   "dir": "89e1a723",
+   "verdict": "no-terms-recorded",
+   "trail": [
+    "bundle",
+    "item"
+   ],
+   "rightsFields": {},
+   "ccCode": null,
+   "itemUrlRecordable": true
+  },
+  {
+   "dir": "98fe85be",
+   "verdict": "no-terms-recorded",
+   "trail": [
+    "bundle",
+    "item"
+   ],
+   "rightsFields": {},
+   "ccCode": null,
+   "itemUrlRecordable": true
+  },
+  {
+   "dir": "bd9995f4",
+   "verdict": "no-terms-recorded",
+   "trail": [
+    "bundle",
+    "item"
+   ],
+   "rightsFields": {},
+   "ccCode": null,
+   "itemUrlRecordable": true
+  },
+  {
+   "dir": "bf4f8f5a",
+   "verdict": "no-terms-recorded",
+   "trail": [
+    "bundle",
+    "item"
+   ],
+   "rightsFields": {},
+   "ccCode": null,
+   "itemUrlRecordable": true
+  }
+ ],
+ "fetchCounters": {
+  "totalRequests": 12,
+  "perRequestedHost": {
+   "utoronto.scholaris.ca": 12
+  },
+  "perFinalHost": {
+   "utoronto.scholaris.ca": 12
+  },
+  "redirectHops": 0,
+  "blockedHosts": {},
+  "distinctUrls": 12,
+  "minIntervalSeconds": 1.0,
+  "note": "Per-execution counters. totalRequests counts every hop actually sent, including redirect hops, because each hop is a real outbound request. Requested and final hosts are kept apart: a redirector such as doi.org appears in the first and the publisher it lands on in the second, and blocking keys on the second. State does not survive the process, so the no-retry guarantee holds within one run only."
+ },
+ "coverageStatement": "Reads structured metadata only. The deposit agreement itself is not public and is not inferred, and prose terms written on the item page are not read.",
+ "contentNote": "Directory prefixes, link relation names and rights field values only. No titles, and no URLs whose path is anything other than opaque identifiers.",
+ "termsHash": "sha256:3d4c3ab99b7d47799ce3b20e91d2039130a77e735f5db7135e24005780d56abb"
+}
