@@ -474,3 +474,51 @@ def test_a_source_location_naming_a_real_section_counts_zero():
         assert run.to_batch_record()["unknownSections"] == 0
 
     _in_corpus(body)
+
+
+def test_the_default_roster_covers_every_acquired_record():
+    # 不給 candidate_ids 是操作者最可能的用法，而先前沒有任何測試走過它。
+    def body(candidate_id):
+        run = run_inventory(CONTRACT, reader=_draft_for)
+        assert run.attempted == 1
+        assert [o.candidate_id for o in run.succeeded] == [candidate_id]
+
+    _in_corpus(body)
+
+
+def test_a_record_that_fails_verification_is_still_in_the_batch():
+    # 濾掉讀不出來的那些，會讓收據顯示「嘗試 N、成功 N」而磁碟上其實多一筆壞的。
+    # 那正是「語料悄悄變小」——變小的語料跟乾淨的語料長得一樣。
+    import json as _json
+
+    def body(candidate_id):
+        artifact_dir = fulltext._artifact_dir(candidate_id)
+        manifest = _json.loads(
+            (artifact_dir / "manifest.json").read_text(encoding="utf-8"))
+        source = artifact_dir / manifest["artifacts"][0]["rawFile"]
+        source.write_bytes(source.read_bytes() + b"<!-- moved -->")
+
+        run = run_inventory(CONTRACT, reader=_draft_for)
+        assert run.attempted == 1, "壞掉的那一筆不得從批次裡消失"
+        assert run.succeeded == []
+        assert run.failures_by_stage()["read-corpus"] == 1
+        assert "未通過取得層驗證" in run.failed[0].error
+
+    _in_corpus(body)
+
+
+def test_a_directory_whose_manifest_cannot_be_parsed_is_listed_by_name():
+    # 它連 candidateId 都讀不出來，故沒有 id 可用——但也不得靜靜消失。
+    def body(candidate_id):
+        artifact_dir = fulltext._artifact_dir(candidate_id)
+        (artifact_dir / "manifest.json").write_text("{ not json",
+                                                    encoding="utf-8")
+
+        run = run_inventory(CONTRACT, reader=_draft_for)
+        assert run.attempted == 1
+        assert run.failures_by_stage()["read-corpus"] == 1
+        # 以目錄名列出——那至少指得到磁碟上的東西。
+        assert run.failed[0].candidate_id == artifact_dir.name
+        assert "manifest 無法解析" in run.failed[0].error
+
+    _in_corpus(body)

@@ -78,7 +78,7 @@ from typing import Callable, Iterable
 from ahig.contracts.freeze import content_hash
 from ahig.extraction import inventory_draft as bridge
 from ahig.extraction.corpus import (AcquiredDocument, CorpusError,
-                                    iter_acquired, reading_request_for)
+                                    acquired_roster, reading_request_for)
 from ahig.scope.matcher import ScopeMatcher
 from ahig.search.fulltext import utc_now
 
@@ -246,17 +246,18 @@ def _unknown_sections(draft: dict, request) -> int:
     return unknown
 
 
-def _candidate_ids() -> list[str]:
-    """語料裡所有 acquired 的 candidateId。
+def _candidate_ids() -> tuple[list[str], list[tuple[str, str]]]:
+    """語料裡所有 acquired 的 candidateId，**含讀不出來的那些**。
 
-    讀不了的那些在這裡就要被看見，故走 ``iter_acquired`` 而不是自己走目錄：
-    它把失敗也產出來，而目錄走訪只會少幾個資料夾。
+    🚨 第 551 輪修正：這裡原本走 ``iter_acquired`` 之後把 ``document is None``
+    濾掉——**⚠️ 於是驗不過的紀錄根本不會進入批次**，收據會顯示「嘗試 41、成功 41」
+    而磁碟上其實多一筆壞的。**🚨 那正是「語料悄悄變小」**，
+    而濾掉它的那一行就寫在一段說「讀不了的那些在這裡就要被看見」的說明底下。
+
+    現在讀不出來的那些照樣進批次，並在主迴圈裡以 ``read-corpus`` 失敗列出——
+    ✅ 因為 ``reading_request_for`` 會再驗一次，理由由它給。
     """
-    ids = []
-    for _name, document, _error in iter_acquired():
-        if document is not None:
-            ids.append(document.candidate_id)
-    return ids
+    return acquired_roster()
 
 
 def run_inventory(contract: dict, *, reader: Reader | None = None,
@@ -282,7 +283,17 @@ def run_inventory(contract: dict, *, reader: Reader | None = None,
             "——整批拒跑，一篇都不讀") from error
     run = InventoryRun(contract_hash=contract.get("scopeContractHash", ""),
                        started_at=utc_now())
-    ids = list(candidate_ids) if candidate_ids is not None else _candidate_ids()
+    unnameable: list[tuple[str, str]] = []
+    if candidate_ids is not None:
+        ids = list(candidate_ids)
+    else:
+        ids, unnameable = _candidate_ids()
+
+    # 🚨 連 candidateId 都讀不出來的目錄：🚫 不得靜靜消失。
+    # ⚠️ 它們沒有 id 可用，故以目錄名列出——那至少指得到磁碟上的東西。
+    for name, error in unnameable:
+        run.outcomes.append(RecordOutcome(name, "read-corpus", False,
+                                          error))
 
     for candidate_id in ids:
         try:

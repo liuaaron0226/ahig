@@ -20,6 +20,7 @@ n+181 查明這個套件先前根本不存在：管線搜尋、篩選、抽樣�
 from ahig.extraction.corpus import (  # noqa: F401
     AcquiredDocument,
     CorpusError,
+    acquired_roster,
     iter_acquired,
     load_document,
     reading_request_for,

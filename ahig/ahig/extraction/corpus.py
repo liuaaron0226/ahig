@@ -146,11 +146,11 @@ def load_document(candidate_id: str) -> AcquiredDocument:
     return _document_from(artifact_dir, manifest, artifacts[0])
 
 
-def iter_acquired() -> Iterator[tuple[str, AcquiredDocument | None, str]]:
-    """走過私有根裡每一個 acquired，逐筆產出 ``(目錄名, 文件或 None, 錯誤)``。
+def _acquired_manifests() -> Iterator[tuple[str, dict | None, str]]:
+    """走過私有根裡每一個 acquired，產出 ``(目錄名, manifest 或 None, 錯誤)``。
 
-    失敗的那些照樣產出，只是文件是 ``None``——呼叫端因此數得出「幾篇讀不了」。
-    直接跳過會讓語料悄悄變小，而變小的語料看起來跟乾淨的語料一樣。
+    ``iter_acquired`` 與 ``acquired_roster`` 共用這一段——⚠️ 兩份走訪遲早會分岔，
+    而分岔之後「幾篇」這個問題就有兩個答案。
     """
     root = private_root() / "fulltext"
     for entry in sorted(root.iterdir()):
@@ -164,11 +164,51 @@ def iter_acquired() -> Iterator[tuple[str, AcquiredDocument | None, str]]:
             continue
         if manifest.get("status") != "acquired":
             continue
-        candidate_id = manifest.get("candidateId") or ""
+        yield entry.name, manifest, ""
+
+
+def iter_acquired() -> Iterator[tuple[str, AcquiredDocument | None, str]]:
+    """走過私有根裡每一個 acquired，逐筆產出 ``(目錄名, 文件或 None, 錯誤)``。
+
+    失敗的那些照樣產出，只是文件是 ``None``——呼叫端因此數得出「幾篇讀不了」。
+    直接跳過會讓語料悄悄變小，而變小的語料看起來跟乾淨的語料一樣。
+    """
+    for name, manifest, error in _acquired_manifests():
+        if manifest is None:
+            yield name, None, error
+            continue
         try:
-            yield entry.name, load_document(candidate_id), ""
+            yield name, load_document(manifest.get("candidateId") or ""), ""
         except CorpusError as error:
-            yield entry.name, None, str(error)
+            yield name, None, str(error)
+
+
+def acquired_roster() -> tuple[list[str], list[tuple[str, str]]]:
+    """**這批到底有幾篇**：``(candidateId 名冊, 連名字都沒有的那些)``。
+
+    🚨 這裡刻意**不**過濾讀不出來的那些。第 551 輪查明 ``run.py`` 的預設名冊
+    做了相反的事——它走 ``iter_acquired`` 之後把 ``document is None`` 濾掉，
+    **⚠️ 於是一筆驗不過的紀錄根本不會進入批次**：收據會顯示「嘗試 41、成功 41」，
+    而磁碟上其實有 42 筆、其中一筆是壞的。
+
+    **🚨 那正是 ``iter_acquired`` 這支函式存在要防的事**——
+    ⚠️ 而濾掉它的那一行，就寫在一段說「讀不了的那些在這裡就要被看見」的說明底下。
+
+    第二個回傳值是 **manifest 連 candidateId 都讀不出來** 的那些：
+    🚫 它們沒有 id 可以進批次，故另外列出——⚠️ 混進名冊會變成一個假的 id。
+    """
+    ids: list[str] = []
+    unnameable: list[tuple[str, str]] = []
+    for name, manifest, error in _acquired_manifests():
+        if manifest is None:
+            unnameable.append((name, error))
+            continue
+        candidate_id = manifest.get("candidateId") or ""
+        if candidate_id:
+            ids.append(candidate_id)
+        else:
+            unnameable.append((name, "manifest 無 candidateId"))
+    return ids, unnameable
 
 
 def reading_request_for(candidate_id: str, contract: dict):
