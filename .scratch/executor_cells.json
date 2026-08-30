@@ -3,7 +3,7 @@
  "documentType": "executor-cell-handoff",
  "ruling": "n+151(1) assigns these cells to the executor room; n+160 recorded them as stalled. They were producible from round 500 but nothing on the coordinator side reads that artefact, so this is the file a single generic resolver can read.",
  "producedAtRound": 503,
- "producedAt": "2026-08-30T22:32:26+0800",
+ "producedAt": "2026-08-30T22:51:37+0800",
  "isSnapshot": true,
  "snapshotNote": "Values are measurements taken at producedAt against the private root. n+151(1) requires delivery-day figures, so re-run n500 then this file on the day; do not treat these as constants.",
  "howToConsume": "cells[<name>].value for kind == \"measured\"; for kind == \"blocked\" print blocker rather than an empty string, since an empty cell reads as zero; for kind == \"bounded\" print \"at most upperBound\" with patternCaveat, never as a point estimate.",
