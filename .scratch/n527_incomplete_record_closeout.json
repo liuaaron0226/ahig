@@ -1,0 +1,79 @@
+{
+ "schemaVersion": 1,
+ "documentType": "incomplete-record-closeout",
+ "ruling": "closes the scope: 38 no-oa-fulltext were rechecked in round 526, the 18 with an address are all covered by existing probes, and this is the remaining one",
+ "population": "records in the calibration-plus-backfill scope with status incomplete",
+ "countingUnit": "record",
+ "criterion": "NCBI PMC OA service for the same PMCID Europe PMC missed; two endpoint shapes tried, both 404, so per n+168(2)(1) no third guess was made",
+ "secondRegisterReached": false,
+ "secondRegisterNote": "The point of the check was to ask a second register. Both shapes of the NCBI OA service returned 404, so it was not reached. Europe PMC fullTextXML answers for the control, which shows the question is well formed, but it is the same service the chain already used and is therefore not a second register.",
+ "namedNextStep": "NCBI E-utilities (esummary/efetch) -- a different service rather than another guess at the same one. A ruling, not this room to take.",
+ "statusUnchangedReason": "Not \"confirmed to have no open full text\" but \"two of three routes unaskable for want of a DOI, the third says no, and the second PMC entry point could not be reached this round\".",
+ "whyIncompleteNotNoOa": "Two of the three routes returned not-applicable for want of a DOI. Unable to ask is not the same as the answer being no, which is what that status is for.",
+ "controlProbe": {
+  "idTail": "108fd94b",
+  "pmcid": "PMC3975841",
+  "ncbiSaysAvailable": null,
+  "ncbiNote": "www.ncbi.nlm.nih.gov/pmc/utils → HTTP 404；pmc.ncbi.nlm.nih.gov/utils/oa/ → HTTP 404",
+  "europePmcFullText": true,
+  "why": "A wrong endpoint returns not-found for everything, which is indistinguishable from genuinely absent."
+ },
+ "records": [
+  {
+   "idTail": "714e7292",
+   "pmcid": "PMC6578418",
+   "hasDoi": false,
+   "hasPmid": false,
+   "attempts": [
+    {
+     "sourceId": "europe-pmc",
+     "httpStatus": 404,
+     "conclusion": "miss"
+    },
+    {
+     "sourceId": "openalex",
+     "httpStatus": null,
+     "conclusion": "not-applicable"
+    },
+    {
+     "sourceId": "unpaywall",
+     "httpStatus": null,
+     "conclusion": "not-applicable"
+    }
+   ],
+   "ncbiSaysAvailable": null,
+   "note": "www.ncbi.nlm.nih.gov/pmc/utils → HTTP 404；pmc.ncbi.nlm.nih.gov/utils/oa/ → HTTP 404",
+   "europePmcFullText": false,
+   "europePmcNote": "HTTP 404"
+  }
+ ],
+ "anyAvailableAtNcbi": [],
+ "scopeClosure": {
+  "noOaFulltext": 38,
+  "withAddressProbed": 18,
+  "incomplete": 1,
+  "totalUnacquired": 57
+ },
+ "noChangeMade": "No status changed, nothing downloaded. Whether this may now be called no-oa-fulltext is a ruling.",
+ "fetchCounters": {
+  "totalRequests": 6,
+  "perRequestedHost": {
+   "pmc.ncbi.nlm.nih.gov": 2,
+   "www.ebi.ac.uk": 2,
+   "www.ncbi.nlm.nih.gov": 2
+  },
+  "perFinalHost": {
+   "pmc.ncbi.nlm.nih.gov": 2,
+   "www.ebi.ac.uk": 2,
+   "www.ncbi.nlm.nih.gov": 2
+  },
+  "redirectHops": 0,
+  "blockedHosts": {},
+  "distinctUrls": 6,
+  "minIntervalSeconds": 1.0,
+  "note": "Per-execution counters. totalRequests counts every hop actually sent, including redirect hops, because each hop is a real outbound request. Requested and final hosts are kept apart: a redirector such as doi.org appears in the first and the publisher it lands on in the second, and blocking keys on the second. State does not survive the process, so the no-retry guarantee holds within one run only."
+ },
+ "coverageStatement": "Covers the PMC route only. Without a DOI the OpenAlex and Unpaywall routes remain unaskable, and this does not substitute for them.",
+ "contentNote": "Id tails, PMCIDs and conclusions only.",
+ "closeoutHash": "sha256:123a845e5336b9517bd5ae85f5bcdd50b3cb29ea0ef4252afae88aa5b9794e42"
+}

@@ -80,6 +80,8 @@ GENERATORS = {
     'n522_s3_record_factsheet': 'n522_s3_record_factsheet.json',
     'n523_s56_version_with_backfill': 'n523_s56_version_with_backfill.json',
     'n524_gi_published_availability': 'n524_gi_published_availability.json',
+    'n526_no_oa_locations_recheck': 'n526_no_oa_locations_recheck.json',
+    'n527_incomplete_record_closeout': 'n527_incomplete_record_closeout.json',
 }
 # ⚠️ `n517` 只讀 git，🚫 不碰私有根，故不適用 fail-closed 驗收
 #    （它在沒有私有根的機器上本來就該跑得起來）。

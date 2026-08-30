@@ -1,0 +1,303 @@
+{
+ "schemaVersion": 1,
+ "documentType": "no-oa-locations-recheck",
+ "ruling": "self-initiated: the exhaustion claim rested on probes of the blocked eleven and the unprobed twelve, while 38 records marked no-oa-fulltext had never had n+124 applied to them",
+ "population": "records in the calibration-plus-backfill scope whose manifest status is no-oa-fulltext",
+ "countingUnit": "record",
+ "criterion": "OpenAlex locations[] entries with is_oa true; the acquisition chain reads only best_oa_location (fulltext.py line 909)",
+ "controlProbes": {
+  "acquiredRecordHasOaLocations": true,
+  "n477ReferenceMatches": true,
+  "why": "A wrong field path returns empty for everything, which is indistinguishable from there being none."
+ },
+ "targets": 38,
+ "checked": 38,
+ "withOaLocations": 0,
+ "noDoi": [],
+ "records": [
+  {
+   "idTail": "6ef0f3eb",
+   "hasBestOaLocation": false,
+   "oaLocations": 0,
+   "hosts": [],
+   "versions": []
+  },
+  {
+   "idTail": "afbb588f",
+   "hasBestOaLocation": false,
+   "oaLocations": 0,
+   "hosts": [],
+   "versions": []
+  },
+  {
+   "idTail": "4c9eeb8f",
+   "hasBestOaLocation": false,
+   "oaLocations": 0,
+   "hosts": [],
+   "versions": []
+  },
+  {
+   "idTail": "b9790b1b",
+   "hasBestOaLocation": false,
+   "oaLocations": 0,
+   "hosts": [],
+   "versions": []
+  },
+  {
+   "idTail": "3ab46061",
+   "hasBestOaLocation": false,
+   "oaLocations": 0,
+   "hosts": [],
+   "versions": []
+  },
+  {
+   "idTail": "94e8ad39",
+   "hasBestOaLocation": false,
+   "oaLocations": 0,
+   "hosts": [],
+   "versions": []
+  },
+  {
+   "idTail": "fa457b46",
+   "hasBestOaLocation": false,
+   "oaLocations": 0,
+   "hosts": [],
+   "versions": []
+  },
+  {
+   "idTail": "7ab280a0",
+   "hasBestOaLocation": false,
+   "oaLocations": 0,
+   "hosts": [],
+   "versions": []
+  },
+  {
+   "idTail": "6fc33b45",
+   "hasBestOaLocation": false,
+   "oaLocations": 0,
+   "hosts": [],
+   "versions": []
+  },
+  {
+   "idTail": "2dd6ca09",
+   "hasBestOaLocation": false,
+   "oaLocations": 0,
+   "hosts": [],
+   "versions": []
+  },
+  {
+   "idTail": "5f4aafa0",
+   "hasBestOaLocation": false,
+   "oaLocations": 0,
+   "hosts": [],
+   "versions": []
+  },
+  {
+   "idTail": "52f2065b",
+   "hasBestOaLocation": false,
+   "oaLocations": 0,
+   "hosts": [],
+   "versions": []
+  },
+  {
+   "idTail": "232967c9",
+   "hasBestOaLocation": false,
+   "oaLocations": 0,
+   "hosts": [],
+   "versions": []
+  },
+  {
+   "idTail": "51bfc98b",
+   "hasBestOaLocation": false,
+   "oaLocations": 0,
+   "hosts": [],
+   "versions": []
+  },
+  {
+   "idTail": "f0532a8a",
+   "hasBestOaLocation": false,
+   "oaLocations": 0,
+   "hosts": [],
+   "versions": []
+  },
+  {
+   "idTail": "f23b3a3f",
+   "hasBestOaLocation": false,
+   "oaLocations": 0,
+   "hosts": [],
+   "versions": []
+  },
+  {
+   "idTail": "cd6efcd1",
+   "hasBestOaLocation": false,
+   "oaLocations": 0,
+   "hosts": [],
+   "versions": []
+  },
+  {
+   "idTail": "40219b9c",
+   "hasBestOaLocation": false,
+   "oaLocations": 0,
+   "hosts": [],
+   "versions": []
+  },
+  {
+   "idTail": "1380ab4f",
+   "hasBestOaLocation": false,
+   "oaLocations": 0,
+   "hosts": [],
+   "versions": []
+  },
+  {
+   "idTail": "3e4e6f10",
+   "hasBestOaLocation": false,
+   "oaLocations": 0,
+   "hosts": [],
+   "versions": []
+  },
+  {
+   "idTail": "b0501886",
+   "hasBestOaLocation": false,
+   "oaLocations": 0,
+   "hosts": [],
+   "versions": []
+  },
+  {
+   "idTail": "238031e0",
+   "hasBestOaLocation": false,
+   "oaLocations": 0,
+   "hosts": [],
+   "versions": []
+  },
+  {
+   "idTail": "4e78f4eb",
+   "hasBestOaLocation": false,
+   "oaLocations": 0,
+   "hosts": [],
+   "versions": []
+  },
+  {
+   "idTail": "af8a5ca8",
+   "hasBestOaLocation": false,
+   "oaLocations": 0,
+   "hosts": [],
+   "versions": []
+  },
+  {
+   "idTail": "30f2f36d",
+   "hasBestOaLocation": false,
+   "oaLocations": 0,
+   "hosts": [],
+   "versions": []
+  },
+  {
+   "idTail": "105006f0",
+   "hasBestOaLocation": false,
+   "oaLocations": 0,
+   "hosts": [],
+   "versions": []
+  },
+  {
+   "idTail": "66dbb223",
+   "hasBestOaLocation": false,
+   "oaLocations": 0,
+   "hosts": [],
+   "versions": []
+  },
+  {
+   "idTail": "2d7f8f25",
+   "hasBestOaLocation": false,
+   "oaLocations": 0,
+   "hosts": [],
+   "versions": []
+  },
+  {
+   "idTail": "2d25537a",
+   "hasBestOaLocation": false,
+   "oaLocations": 0,
+   "hosts": [],
+   "versions": []
+  },
+  {
+   "idTail": "7de854ae",
+   "hasBestOaLocation": false,
+   "oaLocations": 0,
+   "hosts": [],
+   "versions": []
+  },
+  {
+   "idTail": "4ae3425f",
+   "hasBestOaLocation": false,
+   "oaLocations": 0,
+   "hosts": [],
+   "versions": []
+  },
+  {
+   "idTail": "bf5de69f",
+   "hasBestOaLocation": false,
+   "oaLocations": 0,
+   "hosts": [],
+   "versions": []
+  },
+  {
+   "idTail": "17697f20",
+   "hasBestOaLocation": false,
+   "oaLocations": 0,
+   "hosts": [],
+   "versions": []
+  },
+  {
+   "idTail": "77366c70",
+   "hasBestOaLocation": false,
+   "oaLocations": 0,
+   "hosts": [],
+   "versions": []
+  },
+  {
+   "idTail": "4113602a",
+   "hasBestOaLocation": false,
+   "oaLocations": 0,
+   "hosts": [],
+   "versions": []
+  },
+  {
+   "idTail": "f0864812",
+   "hasBestOaLocation": false,
+   "oaLocations": 0,
+   "hosts": [],
+   "versions": []
+  },
+  {
+   "idTail": "d4956e9b",
+   "hasBestOaLocation": false,
+   "oaLocations": 0,
+   "hosts": [],
+   "versions": []
+  },
+  {
+   "idTail": "30ae2b46",
+   "hasBestOaLocation": false,
+   "oaLocations": 0,
+   "hosts": [],
+   "versions": []
+  }
+ ],
+ "noChangeMade": "No manifest, status or download was touched. What to do about any finding is a ruling.",
+ "fetchCounters": {
+  "totalRequests": 40,
+  "perRequestedHost": {
+   "api.openalex.org": 40
+  },
+  "perFinalHost": {
+   "api.openalex.org": 40
+  },
+  "redirectHops": 0,
+  "blockedHosts": {},
+  "distinctUrls": 40,
+  "minIntervalSeconds": 1.0,
+  "note": "Per-execution counters. totalRequests counts every hop actually sent, including redirect hops, because each hop is a real outbound request. Requested and final hosts are kept apart: a redirector such as doi.org appears in the first and the publisher it lands on in the second, and blocking keys on the second. State does not survive the process, so the no-retry guarantee holds within one run only."
+ },
+ "coverageStatement": "Whether the index lists an OA location, not whether it can be fetched, and only this index -- OpenAlex locations are not exhaustive, so finding none still means none here.",
+ "contentNote": "Id tails, host names and counts only.",
+ "recheckHash": "sha256:a3e8404338e812312d85c5182d78f91e330369e92e42ef7e7cb28919fe605c2d"
+}
