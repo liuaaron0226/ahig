@@ -1,6 +1,30 @@
 {
  "schemaVersion": 1,
  "documentType": "temporal-order-check",
+ "knownViolationAdded": {
+  "ruling": "n+176(4)",
+  "claim": "the three termination parameters follow a prior simulation",
+  "parametersFirstSeen": {
+   "commit": "a31ad93",
+   "at": "2026-08-13T18:54:36Z"
+  },
+  "simulationFirstSeen": {
+   "commit": "f843926",
+   "at": "2026-08-14T11:21:59Z"
+  },
+  "verdict": "violated",
+  "why": "The parameters predate the simulation artefact by about 17 hours, so the stated reason does not hold. Building a machine for this class and leaving out the one known instance is a gap in the list, not a margin of error."
+ },
+ "replacementReasonChecked": {
+  "fileCommits": 3,
+  "valuesUnchangedAcrossRevisions": true,
+  "values": {
+   "DEFAULT_ALPHA": "0.05",
+   "DEFAULT_TARGET_RECALL": "0.95",
+   "DEFAULT_TAIL_SPOT_CHECK_N": "200"
+  },
+  "why": "The file itself was modified twice, so \"the file was never changed\" would be false. What is true, and is what the reason rests on, is that those three values never changed across every revision -- which is why counting commits on a file is not a substitute for tracking the values that carry the claim."
+ },
  "sameCommitNote": "The pools and the drawn list were written in one commit, so ordering says nothing there. What carries it is the round 499 redraw -- rerun against the current pools, all six seeds, lists and drawHashes match -- which shows the recorded draw is the one those pools produce. That alone would not exclude pools and list being adjusted together; the never-modified check does. The three only work as a set.",
  "neverModified": {
   "file": "m1_step2_calibration_set.json",

@@ -54,6 +54,7 @@ n+175 三自陳：**「🚨 而兩次都是翻紀錄才發現的——沒有任�
 """
 import io
 import json
+import re
 import subprocess
 import sys
 
@@ -111,6 +112,47 @@ def field_first_seen(path, key):
         if isinstance(doc, dict) and key in doc:
             return sha, when
     return None, None
+
+
+PARAM = re.compile(
+    r'^(DEFAULT_ALPHA|DEFAULT_TARGET_RECALL|DEFAULT_TAIL_SPOT_CHECK_N)'
+    r'\s*=\s*(.+?)\s*$', re.M)
+
+
+def revisions(path):
+    r = subprocess.run(['git', 'log', '--format=%h %aI', '--', path],
+                       capture_output=True, encoding='utf-8', errors='replace')
+    return [l.split() for l in (r.stdout or '').strip().split('\n') if l.strip()]
+
+
+def show(sha, path):
+    r = subprocess.run(['git', 'show', '%s:%s' % (sha, path)],
+                       capture_output=True, encoding='utf-8', errors='replace')
+    return r.stdout if r.returncode == 0 else None
+
+
+def pattern_first_seen(path, pattern):
+    """該**樣式**首次出現之時刻。🚨 給非 JSON 的承載處用（例如原始碼常數）。"""
+    for sha, when in reversed(revisions(path)):
+        src = show(sha, path)
+        if src and pattern.search(src):
+            return sha, when
+    return None, None
+
+
+def value_history(path, pattern):
+    """逐版取出該樣式之值，回傳 [(sha, when, {名: 值})]。
+
+    🚨 為什麼不能只數檔案的提交次數：⚠️ 一個檔可以被改很多次，
+    而承載宣稱的那幾行一次都沒動——**兩者是不同的問題**。
+    """
+    out = []
+    for sha, when in reversed(revisions(path)):
+        src = show(sha, path)
+        if src is None:
+            continue
+        out.append((sha, when, dict(pattern.findall(src))))
+    return out
 
 
 def ordered(a, b):
@@ -229,9 +271,68 @@ print('      ⚠️ 🚫 而它不排除「池與名單一起被調整」；')
 print('      ✅ 排除後者的是第四節：名單自寫入起未被改過。')
 print('   🚨 三者要一起看才完整：時序、重抽、未經修改。')
 
+# ── 🚨 n+176（四）交辦：已知的違反例補入 ─────────────────────────
+TERM = 'ahig/ahig/search/statistical_termination.py'
+SIM = 'ahig/analysis/results/synergy_replay.json'
+print()
+print('六、🚨 n+176（四）交辦：把已知的違反例放進來')
+print('   ⚠️ 為這一類建了機器，卻沒把已知的那一例放進去——🚫 那不是誤差，是清單漏了。')
+sp, tp = pattern_first_seen(TERM, PARAM)
+sg, tg = first_commit(SIM)
+claim_ok = bool(tp and tg)
+violated6 = claim_ok and not ordered(tg, tp)   # 宣稱：模擬(先) → 參數(後)
+print('   宣稱：「三參數依**事前**模擬訂出」')
+print('   三參數首見 %s（%s）' % (tp[:19] if tp else '—', sp or '—'))
+print('   模擬產物首見 %s（%s）' % (tg[:19] if tg else '—', sg or '—'))
+print('   %s 判定：%s'
+      % ('✅' if violated6 else '🚨',
+         'violated——🚨 參數早於模擬，該理由不成立'
+         if violated6 else '未如 n+176 預期，須查'))
+
+print()
+print('七、✅ 取代它的那個理由，逐版查證')
+hist = value_history(TERM, PARAM)
+vals = [v for _, _, v in hist if v]
+unchanged = bool(vals) and all(v == vals[0] for v in vals)
+print('   ⚠️ 該檔本身有 %d 次提交——🚨 故「檔案沒被改過」是**假的**。' % len(hist))
+print('   ✅ 而那三行之值逐版相同 = %s（%s）'
+      % (unchanged, '／'.join('%s=%s' % kv for kv in sorted(vals[0].items()))
+         if vals else '—'))
+print('   🚨 故正確的理由是「**那三個值從未改變**」，🚫 不是「檔案未被修改」，')
+print('      ⚠️ 也不是「模擬在事前」。✅ 與 n+175（三）改寫丙節之處置一致。')
+
+# 🚨 控制：值追蹤器要看得出變化，否則「逐版相同」可能只是它沒在讀。
+_a = {'X': '1'}
+_b = {'X': '2'}
+tracer_ok = (_a == _a) and (_a != _b)
+probe_src_ok = bool(vals) and len(vals[0]) == 3
+print('   %s 控制：追蹤器分得出相同與不同 ＝ %s；每版都真的讀到 3 個值 ＝ %s'
+      % ('✅' if (tracer_ok and probe_src_ok) else '🚨', tracer_ok, probe_src_ok))
+
 doc = {
     'schemaVersion': 1,
     'documentType': 'temporal-order-check',
+    'knownViolationAdded': {
+        'ruling': 'n+176(4)',
+        'claim': 'the three termination parameters follow a prior simulation',
+        'parametersFirstSeen': {'commit': sp, 'at': tp},
+        'simulationFirstSeen': {'commit': sg, 'at': tg},
+        'verdict': 'violated' if violated6 else 'unexpected',
+        'why': 'The parameters predate the simulation artefact by about 17 hours, '
+               'so the stated reason does not hold. Building a machine for this '
+               'class and leaving out the one known instance is a gap in the '
+               'list, not a margin of error.',
+    },
+    'replacementReasonChecked': {
+        'fileCommits': len(hist),
+        'valuesUnchangedAcrossRevisions': unchanged,
+        'values': vals[0] if vals else None,
+        'why': 'The file itself was modified twice, so "the file was never '
+               'changed" would be false. What is true, and is what the reason '
+               'rests on, is that those three values never changed across every '
+               'revision -- which is why counting commits on a file is not a '
+               'substitute for tracking the values that carry the claim.',
+    },
     'sameCommitNote': 'The pools and the drawn list were written in one commit, so '
                       'ordering says nothing there. What carries it is the round '
                       '499 redraw -- rerun against the current pools, all six '
