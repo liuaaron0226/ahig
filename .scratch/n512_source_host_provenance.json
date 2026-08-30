@@ -1,0 +1,373 @@
+{
+ "schemaVersion": 1,
+ "documentType": "acquired-source-host-provenance",
+ "ruling": "self-initiated: chasing the last licences showed four of them come from one university repository, which changes who governs those rights -- and the report has never tabulated where each full text actually came from.",
+ "population": "artifacts of acquired manifests under the private root",
+ "countingUnit": "artifact",
+ "criterion": "host of the recorded sourceUrl, classified by the rules listed in the module docstring",
+ "classificationIsHeuristic": true,
+ "firstVersionDefect": "The first rule set put Europe PMC (www.ebi.ac.uk) in the repository bucket because the host contains \".ac.\", misclassifying 26 of 41 -- and five control probes passed, because they used hosts I thought of rather than hosts the corpus actually contains.",
+ "controlProbes": [
+  {
+   "host": "www.ebi.ac.uk",
+   "expected": "pmc",
+   "got": "pmc"
+  },
+  {
+   "host": "www.ncbi.nlm.nih.gov",
+   "expected": "pmc",
+   "got": "pmc"
+  },
+  {
+   "host": "utoronto.scholaris.ca",
+   "expected": "repository",
+   "got": "repository"
+  },
+  {
+   "host": "eprints.gla.ac.uk",
+   "expected": "repository",
+   "got": "repository"
+  },
+  {
+   "host": "onlinelibrary.wiley.com",
+   "expected": "publisher",
+   "got": "publisher"
+  },
+  {
+   "host": "www.cambridge.org",
+   "expected": "publisher",
+   "got": "publisher"
+  },
+  {
+   "host": "doi.org",
+   "expected": "unknown",
+   "got": "unknown"
+  },
+  {
+   "host": "example.invalid",
+   "expected": "unknown",
+   "got": "unknown"
+  },
+  {
+   "host": "",
+   "expected": "unknown",
+   "got": "unknown"
+  }
+ ],
+ "byKind": {
+  "pmc": 26,
+  "unknown": 2,
+  "repository": 10,
+  "publisher": 3
+ },
+ "byRouteAndKind": {
+  "europe-pmc-jats|pmc": 26,
+  "grobid-tei|unknown": 2,
+  "grobid-tei|repository": 10,
+  "grobid-tei|publisher": 3
+ },
+ "records": [
+  {
+   "dir": "012d9a34",
+   "sourceType": "europe-pmc-jats",
+   "host": "www.ebi.ac.uk",
+   "kind": "pmc",
+   "hasLicence": true
+  },
+  {
+   "dir": "0b68902a",
+   "sourceType": "europe-pmc-jats",
+   "host": "www.ebi.ac.uk",
+   "kind": "pmc",
+   "hasLicence": true
+  },
+  {
+   "dir": "11f29062",
+   "sourceType": "europe-pmc-jats",
+   "host": "www.ebi.ac.uk",
+   "kind": "pmc",
+   "hasLicence": true
+  },
+  {
+   "dir": "211950e6",
+   "sourceType": "grobid-tei",
+   "host": "doi.org",
+   "kind": "unknown",
+   "hasLicence": true
+  },
+  {
+   "dir": "2cc49e0d",
+   "sourceType": "europe-pmc-jats",
+   "host": "www.ebi.ac.uk",
+   "kind": "pmc",
+   "hasLicence": true
+  },
+  {
+   "dir": "38c6412f",
+   "sourceType": "europe-pmc-jats",
+   "host": "www.ebi.ac.uk",
+   "kind": "pmc",
+   "hasLicence": true
+  },
+  {
+   "dir": "38d538c0",
+   "sourceType": "europe-pmc-jats",
+   "host": "www.ebi.ac.uk",
+   "kind": "pmc",
+   "hasLicence": true
+  },
+  {
+   "dir": "3ecdcbd4",
+   "sourceType": "grobid-tei",
+   "host": "eprints.gla.ac.uk",
+   "kind": "repository",
+   "hasLicence": true
+  },
+  {
+   "dir": "44ebb4f2",
+   "sourceType": "europe-pmc-jats",
+   "host": "www.ebi.ac.uk",
+   "kind": "pmc",
+   "hasLicence": true
+  },
+  {
+   "dir": "69e040d1",
+   "sourceType": "grobid-tei",
+   "host": "purehost.bath.ac.uk",
+   "kind": "repository",
+   "hasLicence": true
+  },
+  {
+   "dir": "742f1c1d",
+   "sourceType": "europe-pmc-jats",
+   "host": "www.ebi.ac.uk",
+   "kind": "pmc",
+   "hasLicence": true
+  },
+  {
+   "dir": "769c71fa",
+   "sourceType": "europe-pmc-jats",
+   "host": "www.ebi.ac.uk",
+   "kind": "pmc",
+   "hasLicence": true
+  },
+  {
+   "dir": "76df6297",
+   "sourceType": "europe-pmc-jats",
+   "host": "www.ebi.ac.uk",
+   "kind": "pmc",
+   "hasLicence": true
+  },
+  {
+   "dir": "7bc2c46b",
+   "sourceType": "europe-pmc-jats",
+   "host": "www.ebi.ac.uk",
+   "kind": "pmc",
+   "hasLicence": true
+  },
+  {
+   "dir": "7c5800be",
+   "sourceType": "europe-pmc-jats",
+   "host": "www.ebi.ac.uk",
+   "kind": "pmc",
+   "hasLicence": true
+  },
+  {
+   "dir": "7dec3f40",
+   "sourceType": "europe-pmc-jats",
+   "host": "www.ebi.ac.uk",
+   "kind": "pmc",
+   "hasLicence": true
+  },
+  {
+   "dir": "7eef56b1",
+   "sourceType": "grobid-tei",
+   "host": "onlinelibrary.wiley.com",
+   "kind": "publisher",
+   "hasLicence": true
+  },
+  {
+   "dir": "85855b5e",
+   "sourceType": "europe-pmc-jats",
+   "host": "www.ebi.ac.uk",
+   "kind": "pmc",
+   "hasLicence": true
+  },
+  {
+   "dir": "85e0e186",
+   "sourceType": "europe-pmc-jats",
+   "host": "www.ebi.ac.uk",
+   "kind": "pmc",
+   "hasLicence": true
+  },
+  {
+   "dir": "861b4a29",
+   "sourceType": "europe-pmc-jats",
+   "host": "www.ebi.ac.uk",
+   "kind": "pmc",
+   "hasLicence": true
+  },
+  {
+   "dir": "88747fa5",
+   "sourceType": "grobid-tei",
+   "host": "doi.org",
+   "kind": "unknown",
+   "hasLicence": true
+  },
+  {
+   "dir": "89e1a723",
+   "sourceType": "grobid-tei",
+   "host": "utoronto.scholaris.ca",
+   "kind": "repository",
+   "hasLicence": false
+  },
+  {
+   "dir": "8a8d5efc",
+   "sourceType": "europe-pmc-jats",
+   "host": "www.ebi.ac.uk",
+   "kind": "pmc",
+   "hasLicence": true
+  },
+  {
+   "dir": "8d9e152d",
+   "sourceType": "europe-pmc-jats",
+   "host": "www.ebi.ac.uk",
+   "kind": "pmc",
+   "hasLicence": true
+  },
+  {
+   "dir": "8dd0f644",
+   "sourceType": "grobid-tei",
+   "host": "figshare.com",
+   "kind": "repository",
+   "hasLicence": true
+  },
+  {
+   "dir": "9454731a",
+   "sourceType": "grobid-tei",
+   "host": "onlinelibrary.wiley.com",
+   "kind": "publisher",
+   "hasLicence": true
+  },
+  {
+   "dir": "98fe85be",
+   "sourceType": "grobid-tei",
+   "host": "utoronto.scholaris.ca",
+   "kind": "repository",
+   "hasLicence": false
+  },
+  {
+   "dir": "a3239790",
+   "sourceType": "europe-pmc-jats",
+   "host": "www.ebi.ac.uk",
+   "kind": "pmc",
+   "hasLicence": true
+  },
+  {
+   "dir": "a4bbe8aa",
+   "sourceType": "grobid-tei",
+   "host": "figshare.com",
+   "kind": "repository",
+   "hasLicence": true
+  },
+  {
+   "dir": "b1eeb9c5",
+   "sourceType": "europe-pmc-jats",
+   "host": "www.ebi.ac.uk",
+   "kind": "pmc",
+   "hasLicence": true
+  },
+  {
+   "dir": "bd9995f4",
+   "sourceType": "grobid-tei",
+   "host": "utoronto.scholaris.ca",
+   "kind": "repository",
+   "hasLicence": false
+  },
+  {
+   "dir": "bf4f8f5a",
+   "sourceType": "grobid-tei",
+   "host": "utoronto.scholaris.ca",
+   "kind": "repository",
+   "hasLicence": false
+  },
+  {
+   "dir": "bfc01fa2",
+   "sourceType": "europe-pmc-jats",
+   "host": "www.ebi.ac.uk",
+   "kind": "pmc",
+   "hasLicence": true
+  },
+  {
+   "dir": "c380c744",
+   "sourceType": "grobid-tei",
+   "host": "researchonline.ljmu.ac.uk",
+   "kind": "repository",
+   "hasLicence": true
+  },
+  {
+   "dir": "c512422d",
+   "sourceType": "europe-pmc-jats",
+   "host": "www.ebi.ac.uk",
+   "kind": "pmc",
+   "hasLicence": true
+  },
+  {
+   "dir": "cd1e4315",
+   "sourceType": "europe-pmc-jats",
+   "host": "www.ebi.ac.uk",
+   "kind": "pmc",
+   "hasLicence": true
+  },
+  {
+   "dir": "de939065",
+   "sourceType": "grobid-tei",
+   "host": "www.cambridge.org",
+   "kind": "publisher",
+   "hasLicence": false
+  },
+  {
+   "dir": "f6a2becc",
+   "sourceType": "europe-pmc-jats",
+   "host": "www.ebi.ac.uk",
+   "kind": "pmc",
+   "hasLicence": true
+  },
+  {
+   "dir": "f8392067",
+   "sourceType": "europe-pmc-jats",
+   "host": "www.ebi.ac.uk",
+   "kind": "pmc",
+   "hasLicence": true
+  },
+  {
+   "dir": "fc75f1d5",
+   "sourceType": "grobid-tei",
+   "host": "purehost.bath.ac.uk",
+   "kind": "repository",
+   "hasLicence": true
+  },
+  {
+   "dir": "ff8c5c2c",
+   "sourceType": "europe-pmc-jats",
+   "host": "www.ebi.ac.uk",
+   "kind": "pmc",
+   "hasLicence": true
+  }
+ ],
+ "unlicensedHosts": {
+  "utoronto.scholaris.ca": 4,
+  "www.cambridge.org": 1
+ },
+ "dspaceAttempt": {
+  "tried": [
+   "bitstreams/{uuid}?embed=owningBundle/item -> _embedded empty",
+   "bitstreams/{uuid}/owningBundle -> HTTP 404"
+  ],
+  "stopped": "Two shapes failed; guessing further API shapes is where this turns into a rabbit hole. The next step is the repository item page, whose path may embed the verbatim title, so how to handle that needs deciding rather than assuming."
+ },
+ "whyItMatters": "Coming from PMC, a university repository, or a publisher are three different things for both version and reuse rights: repositories mostly hold author manuscripts, publishers the version of record, and the terms differ.",
+ "coverageStatement": "Classification is heuristic and unknown is a real bucket -- a rule that classifies everything only hides the uncertainty. Says nothing about which version sits at that host; that is measured elsewhere.",
+ "contentNote": "Host names and counts only. No URLs: one recorded path carried a 152-character segment that embeds the title.",
+ "provenanceHash": "sha256:ab9559ff176babaecfb5e5eeeecb681b5a06968a0c8c8a0389a5485ffbc92503"
+}
