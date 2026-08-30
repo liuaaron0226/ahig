@@ -362,7 +362,15 @@ PYTEST_IGNORE = 'tests/test_shacl_gates.py'
 # 新增五條，測工作單的「一頁一頁併回去」：併入一頁、同一篇不得併兩次、
 # 併入失敗時檔案要維持原樣（半套寫入會讓前面幾頁也卡住）、沒有 readBy 不併、
 # 單獨取一頁（含取不存在的頁要丟）。增量恰為 5。
-BASE_PASSED, BASE_FAILED = 780, 0
+# 第 549 輪：780 → 784。前後對照（n+113 四）：
+#   改動前  780 passed／0 failed
+#   改動後  784 passed／0 failed
+# 新增四條（新檔 test_extraction_route.py），測「工作單＋存放處＋逐頁」
+# 三者合起來的那個模式：前幾頁再跑時記成 reused 且 reader 呼叫數 2→4（不是 2→6）、
+# 收據只收這一輪讀的錢、每份存下的清冊都指得到且位元組相符、跑完的批次再跑一次
+# 一篇都不讀。三個突變（關掉存放處查詢）打紅其中 3 條，第 4 條與重用無關故仍綠。
+# 增量恰為 4。
+BASE_PASSED, BASE_FAILED = 784, 0
 KNOWN_FAIL = '無（原 test_clopper_pearson_matches_closed_forms 已於第 437 輪依 n+113 四修正）'
 # 第 544 輪更正：先前只寫「缺 pyshacl」。⚠️ 操作上沒錯（裝 pyshacl 會帶 rdflib），
 # 🚨 但那句話讓人以為只差一個套件，而實測 rdflib 也不在——
