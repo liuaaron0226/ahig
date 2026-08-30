@@ -74,6 +74,7 @@ GENERATORS = {
     'n511_datacite_licence': 'n511_datacite_licence.json',
     'n512_source_host_provenance': 'n512_source_host_provenance.json',
     'n513_repository_deposit_terms': 'n513_repository_deposit_terms.json',
+    'n514_hash_lineending_exposure': 'n514_hash_lineending_exposure.json',
 }
 EXPECT_EXIT = 2
 

@@ -1,0 +1,378 @@
+{
+ "schemaVersion": 1,
+ "documentType": "line-ending-exposure",
+ "ruling": "n+169(1)(4): recompute both forms per record and report how many would mismatch under a CRLF checkout; measure only, change nothing",
+ "population": "every acquired artifact, both routes",
+ "countingUnit": "artifact",
+ "criterion": "the file that sections.sourceSha256 hashes -- rawFile for the JATS route, teiFile for the TEI route -- rehashed after converting its line endings",
+ "scopeCorrection": "Round 498 called this a parse_tei problem. It is not: parse_jats hashes raw bytes the same way, so both routes are exposed. The coordinator caught this and it is accepted here.",
+ "controlProbes": {
+  "cases": [
+   {
+    "input": "b'a\\nb\\nc'",
+    "expected": {
+     "crlf": true,
+     "lf": false,
+     "kind": "lf"
+    }
+   },
+   {
+    "input": "b'a\\r\\nb\\r\\nc'",
+    "expected": {
+     "crlf": false,
+     "lf": true,
+     "kind": "crlf"
+    }
+   },
+   {
+    "input": "b'abc'",
+    "expected": {
+     "crlf": false,
+     "lf": false,
+     "kind": "no-newline"
+    }
+   }
+  ],
+  "hashesDifferOnCrlf": true,
+  "hashesAgreeOnLf": true,
+  "why": "If the comparison is not comparing, zero mismatches and no measurement at all print the same number."
+ },
+ "records": [
+  {
+   "dir": "012d9a34",
+   "route": "europe-pmc-jats",
+   "lineEndings": "lf",
+   "wouldMismatchAsCrlf": true,
+   "wouldMismatchAsLf": false,
+   "rawEqualsNormalised": true
+  },
+  {
+   "dir": "0b68902a",
+   "route": "europe-pmc-jats",
+   "lineEndings": "lf",
+   "wouldMismatchAsCrlf": true,
+   "wouldMismatchAsLf": false,
+   "rawEqualsNormalised": true
+  },
+  {
+   "dir": "11f29062",
+   "route": "europe-pmc-jats",
+   "lineEndings": "lf",
+   "wouldMismatchAsCrlf": true,
+   "wouldMismatchAsLf": false,
+   "rawEqualsNormalised": true
+  },
+  {
+   "dir": "211950e6",
+   "route": "grobid-tei",
+   "lineEndings": "lf",
+   "wouldMismatchAsCrlf": true,
+   "wouldMismatchAsLf": false,
+   "rawEqualsNormalised": true
+  },
+  {
+   "dir": "2cc49e0d",
+   "route": "europe-pmc-jats",
+   "lineEndings": "lf",
+   "wouldMismatchAsCrlf": true,
+   "wouldMismatchAsLf": false,
+   "rawEqualsNormalised": true
+  },
+  {
+   "dir": "38c6412f",
+   "route": "europe-pmc-jats",
+   "lineEndings": "lf",
+   "wouldMismatchAsCrlf": true,
+   "wouldMismatchAsLf": false,
+   "rawEqualsNormalised": true
+  },
+  {
+   "dir": "38d538c0",
+   "route": "europe-pmc-jats",
+   "lineEndings": "lf",
+   "wouldMismatchAsCrlf": true,
+   "wouldMismatchAsLf": false,
+   "rawEqualsNormalised": true
+  },
+  {
+   "dir": "3ecdcbd4",
+   "route": "grobid-tei",
+   "lineEndings": "lf",
+   "wouldMismatchAsCrlf": true,
+   "wouldMismatchAsLf": false,
+   "rawEqualsNormalised": true
+  },
+  {
+   "dir": "44ebb4f2",
+   "route": "europe-pmc-jats",
+   "lineEndings": "lf",
+   "wouldMismatchAsCrlf": true,
+   "wouldMismatchAsLf": false,
+   "rawEqualsNormalised": true
+  },
+  {
+   "dir": "69e040d1",
+   "route": "grobid-tei",
+   "lineEndings": "lf",
+   "wouldMismatchAsCrlf": true,
+   "wouldMismatchAsLf": false,
+   "rawEqualsNormalised": true
+  },
+  {
+   "dir": "742f1c1d",
+   "route": "europe-pmc-jats",
+   "lineEndings": "no-newline",
+   "wouldMismatchAsCrlf": false,
+   "wouldMismatchAsLf": false,
+   "rawEqualsNormalised": true
+  },
+  {
+   "dir": "769c71fa",
+   "route": "europe-pmc-jats",
+   "lineEndings": "lf",
+   "wouldMismatchAsCrlf": true,
+   "wouldMismatchAsLf": false,
+   "rawEqualsNormalised": true
+  },
+  {
+   "dir": "76df6297",
+   "route": "europe-pmc-jats",
+   "lineEndings": "lf",
+   "wouldMismatchAsCrlf": true,
+   "wouldMismatchAsLf": false,
+   "rawEqualsNormalised": true
+  },
+  {
+   "dir": "7bc2c46b",
+   "route": "europe-pmc-jats",
+   "lineEndings": "no-newline",
+   "wouldMismatchAsCrlf": false,
+   "wouldMismatchAsLf": false,
+   "rawEqualsNormalised": true
+  },
+  {
+   "dir": "7c5800be",
+   "route": "europe-pmc-jats",
+   "lineEndings": "lf",
+   "wouldMismatchAsCrlf": true,
+   "wouldMismatchAsLf": false,
+   "rawEqualsNormalised": true
+  },
+  {
+   "dir": "7dec3f40",
+   "route": "europe-pmc-jats",
+   "lineEndings": "lf",
+   "wouldMismatchAsCrlf": true,
+   "wouldMismatchAsLf": false,
+   "rawEqualsNormalised": true
+  },
+  {
+   "dir": "7eef56b1",
+   "route": "grobid-tei",
+   "lineEndings": "lf",
+   "wouldMismatchAsCrlf": true,
+   "wouldMismatchAsLf": false,
+   "rawEqualsNormalised": true
+  },
+  {
+   "dir": "85855b5e",
+   "route": "europe-pmc-jats",
+   "lineEndings": "lf",
+   "wouldMismatchAsCrlf": true,
+   "wouldMismatchAsLf": false,
+   "rawEqualsNormalised": true
+  },
+  {
+   "dir": "85e0e186",
+   "route": "europe-pmc-jats",
+   "lineEndings": "lf",
+   "wouldMismatchAsCrlf": true,
+   "wouldMismatchAsLf": false,
+   "rawEqualsNormalised": true
+  },
+  {
+   "dir": "861b4a29",
+   "route": "europe-pmc-jats",
+   "lineEndings": "lf",
+   "wouldMismatchAsCrlf": true,
+   "wouldMismatchAsLf": false,
+   "rawEqualsNormalised": true
+  },
+  {
+   "dir": "88747fa5",
+   "route": "grobid-tei",
+   "lineEndings": "lf",
+   "wouldMismatchAsCrlf": true,
+   "wouldMismatchAsLf": false,
+   "rawEqualsNormalised": true
+  },
+  {
+   "dir": "89e1a723",
+   "route": "grobid-tei",
+   "lineEndings": "lf",
+   "wouldMismatchAsCrlf": true,
+   "wouldMismatchAsLf": false,
+   "rawEqualsNormalised": true
+  },
+  {
+   "dir": "8a8d5efc",
+   "route": "europe-pmc-jats",
+   "lineEndings": "lf",
+   "wouldMismatchAsCrlf": true,
+   "wouldMismatchAsLf": false,
+   "rawEqualsNormalised": true
+  },
+  {
+   "dir": "8d9e152d",
+   "route": "europe-pmc-jats",
+   "lineEndings": "lf",
+   "wouldMismatchAsCrlf": true,
+   "wouldMismatchAsLf": false,
+   "rawEqualsNormalised": true
+  },
+  {
+   "dir": "8dd0f644",
+   "route": "grobid-tei",
+   "lineEndings": "lf",
+   "wouldMismatchAsCrlf": true,
+   "wouldMismatchAsLf": false,
+   "rawEqualsNormalised": true
+  },
+  {
+   "dir": "9454731a",
+   "route": "grobid-tei",
+   "lineEndings": "lf",
+   "wouldMismatchAsCrlf": true,
+   "wouldMismatchAsLf": false,
+   "rawEqualsNormalised": true
+  },
+  {
+   "dir": "98fe85be",
+   "route": "grobid-tei",
+   "lineEndings": "lf",
+   "wouldMismatchAsCrlf": true,
+   "wouldMismatchAsLf": false,
+   "rawEqualsNormalised": true
+  },
+  {
+   "dir": "a3239790",
+   "route": "europe-pmc-jats",
+   "lineEndings": "lf",
+   "wouldMismatchAsCrlf": true,
+   "wouldMismatchAsLf": false,
+   "rawEqualsNormalised": true
+  },
+  {
+   "dir": "a4bbe8aa",
+   "route": "grobid-tei",
+   "lineEndings": "lf",
+   "wouldMismatchAsCrlf": true,
+   "wouldMismatchAsLf": false,
+   "rawEqualsNormalised": true
+  },
+  {
+   "dir": "b1eeb9c5",
+   "route": "europe-pmc-jats",
+   "lineEndings": "lf",
+   "wouldMismatchAsCrlf": true,
+   "wouldMismatchAsLf": false,
+   "rawEqualsNormalised": true
+  },
+  {
+   "dir": "bd9995f4",
+   "route": "grobid-tei",
+   "lineEndings": "lf",
+   "wouldMismatchAsCrlf": true,
+   "wouldMismatchAsLf": false,
+   "rawEqualsNormalised": true
+  },
+  {
+   "dir": "bf4f8f5a",
+   "route": "grobid-tei",
+   "lineEndings": "lf",
+   "wouldMismatchAsCrlf": true,
+   "wouldMismatchAsLf": false,
+   "rawEqualsNormalised": true
+  },
+  {
+   "dir": "bfc01fa2",
+   "route": "europe-pmc-jats",
+   "lineEndings": "lf",
+   "wouldMismatchAsCrlf": true,
+   "wouldMismatchAsLf": false,
+   "rawEqualsNormalised": true
+  },
+  {
+   "dir": "c380c744",
+   "route": "grobid-tei",
+   "lineEndings": "lf",
+   "wouldMismatchAsCrlf": true,
+   "wouldMismatchAsLf": false,
+   "rawEqualsNormalised": true
+  },
+  {
+   "dir": "c512422d",
+   "route": "europe-pmc-jats",
+   "lineEndings": "lf",
+   "wouldMismatchAsCrlf": true,
+   "wouldMismatchAsLf": false,
+   "rawEqualsNormalised": true
+  },
+  {
+   "dir": "cd1e4315",
+   "route": "europe-pmc-jats",
+   "lineEndings": "lf",
+   "wouldMismatchAsCrlf": true,
+   "wouldMismatchAsLf": false,
+   "rawEqualsNormalised": true
+  },
+  {
+   "dir": "de939065",
+   "route": "grobid-tei",
+   "lineEndings": "lf",
+   "wouldMismatchAsCrlf": true,
+   "wouldMismatchAsLf": false,
+   "rawEqualsNormalised": true
+  },
+  {
+   "dir": "f6a2becc",
+   "route": "europe-pmc-jats",
+   "lineEndings": "lf",
+   "wouldMismatchAsCrlf": true,
+   "wouldMismatchAsLf": false,
+   "rawEqualsNormalised": true
+  },
+  {
+   "dir": "f8392067",
+   "route": "europe-pmc-jats",
+   "lineEndings": "lf",
+   "wouldMismatchAsCrlf": true,
+   "wouldMismatchAsLf": false,
+   "rawEqualsNormalised": true
+  },
+  {
+   "dir": "fc75f1d5",
+   "route": "grobid-tei",
+   "lineEndings": "lf",
+   "wouldMismatchAsCrlf": true,
+   "wouldMismatchAsLf": false,
+   "rawEqualsNormalised": true
+  },
+  {
+   "dir": "ff8c5c2c",
+   "route": "europe-pmc-jats",
+   "lineEndings": "lf",
+   "wouldMismatchAsCrlf": true,
+   "wouldMismatchAsLf": false,
+   "rawEqualsNormalised": true
+  }
+ ],
+ "wouldMismatchAsCrlf": 39,
+ "wouldMismatchAsLf": 0,
+ "rawEqualsNormalisedToday": 41,
+ "total": 41,
+ "triggerNote": "The private root is not in git, so no git checkout applies. The trigger is any transfer that translates line endings: an archive round-trip, a sync tool, a re-download, or being placed under version control with text=auto. The manifest side is normalised and unaffected, so the two sides would disagree after the same move.",
+ "coverageStatement": "Measures exposure, not likelihood: it says what would change, not whether it will. Binary sources are excluded because a PDF put through line-ending translation is damaged as a file, not merely re-fingerprinted.",
+ "contentNote": "Directory prefixes, route names and counts only.",
+ "exposureHash": "sha256:a2245db6542120c5a27586dee7ec923f86205344bc262deb0d741c95cfb2593d"
+}
