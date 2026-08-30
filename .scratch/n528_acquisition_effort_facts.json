@@ -1,0 +1,36 @@
+{
+ "schemaVersion": 1,
+ "documentType": "acquisition-effort-facts",
+ "ruling": "n+179(4) records acquisition as \"under two hours\" in an estimate the owner is about to use to decide whether to open more lines; this measures what that figure covers",
+ "population": "artifacts of acquired manifests under the private root",
+ "countingUnit": "artifact",
+ "criterion": "filesystem write time of each sections document, grouped by acquisition route",
+ "controlProbes": {
+  "routeStartsDiffer": true,
+  "countMatchesN496": true,
+  "why": "A measurement that cannot read times reports every span as zero, which reads as \"fast\"."
+ },
+ "routes": [
+  {
+   "route": "europe-pmc-jats",
+   "records": 26,
+   "firstWritten": "2026-08-18T07:43:33",
+   "lastWritten": "2026-08-18T07:57:47",
+   "spanMinutes": 14.2
+  },
+  {
+   "route": "grobid-tei",
+   "records": 15,
+   "firstWritten": "2026-08-29T22:29:12",
+   "lastWritten": "2026-08-29T22:29:13",
+   "spanMinutes": 0.0
+  }
+ ],
+ "daysBetweenBatches": 11.6,
+ "trueOf": "fetching and writing -- 14 minutes for one batch, within one second for the other",
+ "notTrueOf": "the acquisition phase as a whole: 41 records came through two routes, and the second did not exist when the first ran. The second batch landed in a second because the PDF downloads, the GROBID install and its acceptance had all been done separately beforehand, and none of that is inside the two hours.",
+ "forTheP1Estimate": "The lower bound holds -- both routes exist now. What the estimate has no term for is a source neither route handles, and B.11 is the evidence that such a term is not hypothetical: the second route was itself unplanned, built after hitting paywalls and bot blocking. This does not propose a value for that term; one sample cannot give a distribution.",
+ "coverageStatement": "Write times are a lower bound on effort: installing, debugging and waiting for rulings leave no artefact. File times can be rewritten by copying, and this corpus is taken as unmoved on the evidence of round 519 -- a premise, not a guarantee.",
+ "contentNote": "Route names, counts and timestamps only.",
+ "effortHash": "sha256:033d01645b89c3f1bce8150c3067f66a193fa03946a989c490952a07037e0908"
+}

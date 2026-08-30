@@ -5,8 +5,8 @@
  "population": "the executor room's standing checks, hand-maintained list",
  "countingUnit": "check",
  "criterion": "exit code only; the suite deliberately does not parse any check's printed output",
- "listedChecks": 18,
- "listLastUpdatedRound": 525,
+ "listedChecks": 19,
+ "listLastUpdatedRound": 528,
  "withNetwork": false,
  "controlProbes": [
   {
@@ -35,14 +35,14 @@
    "check": "n506_failclosed_acceptance",
    "status": "pass",
    "exit": 0,
-   "seconds": 1.6,
+   "seconds": 1.8,
    "asserts": "八支產生器在「根不存在」下是否 fail-closed（🚫 不需私有根）"
   },
   {
    "check": "round_gate",
    "status": "pass",
    "exit": 0,
-   "seconds": 20.5,
+   "seconds": 19.3,
    "asserts": "每輪閘門：樣式來源、控制探針、n+48 兩道、n+54 三道、測試基線"
   },
   {
@@ -63,7 +63,7 @@
    "check": "n496_corpus_verify",
    "status": "pass",
    "exit": 0,
-   "seconds": 0.3,
+   "seconds": 0.4,
    "asserts": "已取得 41 份之位元組與 manifest 對帳（唯讀）"
   },
   {
@@ -84,7 +84,7 @@
    "check": "n500_inaccessible_cells",
    "status": "pass",
    "exit": 0,
-   "seconds": 0.5,
+   "seconds": 0.6,
    "asserts": "不可及 18 格之產出與清單漂移偵測"
   },
   {
@@ -112,14 +112,14 @@
    "check": "n515_conversion_drill",
    "status": "pass",
    "exit": 0,
-   "seconds": 0.8,
+   "seconds": 0.9,
    "asserts": "行尾轉換演習：誰響誰不響（🚫 只動複本）"
   },
   {
    "check": "n517_temporal_order_check",
    "status": "pass",
    "exit": 0,
-   "seconds": 2.9,
+   "seconds": 0.6,
    "asserts": "取得層之時序與「抽樣結果未被改過」（🚫 只讀 git）"
   },
   {
@@ -135,6 +135,13 @@
    "exit": 0,
    "seconds": 0.3,
    "asserts": "識別碼切法清冊（🚫 唯讀、不需私有根）"
+  },
+  {
+   "check": "n528_acquisition_effort_facts",
+   "status": "pass",
+   "exit": 0,
+   "seconds": 0.1,
+   "asserts": "取得階段實測時刻（🚫 唯讀、不對外請求）"
   },
   {
    "check": "n503_executor_handoff",
@@ -180,7 +187,10 @@
    "n522_s3_record_factsheet",
    "n523_s56_version_with_backfill",
    "n524_gi_published_availability",
-   "n525_id_key_conventions"
+   "n525_id_key_conventions",
+   "n526_no_oa_locations_recheck",
+   "n527_incomplete_record_closeout",
+   "n528_acquisition_effort_facts"
   ],
   "unlisted": [
    "n495_stratum_purpose",
@@ -193,7 +203,9 @@
    "n521_owner_briefing_crosscheck",
    "n522_s3_record_factsheet",
    "n523_s56_version_with_backfill",
-   "n524_gi_published_availability"
+   "n524_gi_published_availability",
+   "n526_no_oa_locations_recheck",
+   "n527_incomplete_record_closeout"
   ],
   "unlistedWithoutReason": [],
   "excludedWithReason": {
@@ -207,16 +219,18 @@
    "n521_owner_briefing_crosscheck": "跨室對帳：🚨 其非零表示**簡報**有待協調者處置，⚠️ 不是本室之檢查失敗——🚫 不納入總跑，否則本室恆紅",
    "n522_s3_record_factsheet": "一次性事實表：🚨 會對外請求（版本查詢），🚫 不宜納入每次總跑",
    "n523_s56_version_with_backfill": "一次性量測：🚨 會對外請求（版本查詢），🚫 不宜納入每次總跑",
-   "n524_gi_published_availability": "一次性補查：🚨 會對外請求，🚫 不宜納入每次總跑"
+   "n524_gi_published_availability": "一次性補查：🚨 會對外請求，🚫 不宜納入每次總跑",
+   "n526_no_oa_locations_recheck": "一次性複查：🚨 會對外請求 40 次，🚫 不宜納入每次總跑",
+   "n527_incomplete_record_closeout": "一次性收尾：🚨 會對外請求，🚫 不宜納入每次總跑"
   },
   "note": "The scan only covers scripts numbered from round 490 onward and named that way. An older or differently-named standing check is invisible to it, so this narrows the blind spot rather than closing it."
  },
- "passed": 17,
+ "passed": 18,
  "failed": [],
  "skipped": [
   "n501_retraction_recheck"
  ],
- "totalSeconds": 35.1,
+ "totalSeconds": 32.2,
  "coverageStatement": "Sees whether each check exits zero, not whether it checks the right thing -- that is each check's own control probes. And the list is hand-maintained, so a check this room forgot to add is invisible here; the list length and its last-updated round are printed to force that comparison.",
  "contentNote": "Check names, exit codes and durations only."
 }

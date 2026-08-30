@@ -576,6 +576,40 @@
    }
   },
   {
+   "artefact": "n526_no_oa_locations_recheck.json",
+   "slicings": [
+    "hex8"
+   ],
+   "counts": {
+    "hex8": 38
+   },
+   "fields": {
+    "hex8": [
+     "idTail"
+    ]
+   },
+   "hex8Resolved": {
+    "idTail": "last8"
+   }
+  },
+  {
+   "artefact": "n527_incomplete_record_closeout.json",
+   "slicings": [
+    "hex8"
+   ],
+   "counts": {
+    "hex8": 2
+   },
+   "fields": {
+    "hex8": [
+     "idTail"
+    ]
+   },
+   "hex8Resolved": {
+    "idTail": "last8"
+   }
+  },
+  {
    "artefact": "executor_cells.json",
    "slicings": [
     "hex8"
@@ -619,6 +653,8 @@
    "n522_s3_record_factsheet.json",
    "n523_s56_version_with_backfill.json",
    "n524_gi_published_availability.json",
+   "n526_no_oa_locations_recheck.json",
+   "n527_incomplete_record_closeout.json",
    "executor_cells.json"
   ],
   "frag16": [
@@ -661,12 +697,14 @@
   "n501_retraction_recheck.json",
   "n522_s3_record_factsheet.json",
   "n523_s56_version_with_backfill.json",
-  "n524_gi_published_availability.json"
+  "n524_gi_published_availability.json",
+  "n526_no_oa_locations_recheck.json",
+  "n527_incomplete_record_closeout.json"
  ],
  "hex8Note": "Eight hex characters can be the head of the directory name or the tail of the id, and the two do not intersect. Both are labelled 8-hex by shape, so the label alone still walks into the same hole; they are resolved here against real ids.",
  "whatItCatches": "A mismatch visible before a join is written.",
  "whatItDoesNot": "Joins already written -- this reads artefacts, not code. Both incidents were found after the join existed, and by control probes rather than by this table.",
  "coverageStatement": "Two levels of nesting and the first 400 items of a list; deeper or longer structures are not inspected. Mixing conventions inside one artefact is reported, not judged.",
  "contentNote": "Artefact and field names, id shapes and counts only.",
- "inventoryHash": "sha256:5b98a29c3f51ed073904a997140f2d11ef258b9e2aba28c9c399cd0da1091d54"
+ "inventoryHash": "sha256:8063334a00010eeb5873c15201f8f326ffb834bc8fc51e545146aecd517a6f8a"
 }

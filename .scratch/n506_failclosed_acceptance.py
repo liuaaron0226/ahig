@@ -82,6 +82,7 @@ GENERATORS = {
     'n524_gi_published_availability': 'n524_gi_published_availability.json',
     'n526_no_oa_locations_recheck': 'n526_no_oa_locations_recheck.json',
     'n527_incomplete_record_closeout': 'n527_incomplete_record_closeout.json',
+    'n528_acquisition_effort_facts': 'n528_acquisition_effort_facts.json',
 }
 # ⚠️ `n517` 只讀 git，🚫 不碰私有根，故不適用 fail-closed 驗收
 #    （它在沒有私有根的機器上本來就該跑得起來）。
