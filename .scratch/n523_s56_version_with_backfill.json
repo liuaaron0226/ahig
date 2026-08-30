@@ -1,0 +1,86 @@
+{
+ "schemaVersion": 1,
+ "documentType": "s56-version-with-backfill",
+ "ruling": "n+177(5): the briefing rests recommendation (a) on how few records a paid route could improve, and that figure was measured over the drawn three while seven are in hand",
+ "population": "S5+S6 acquired records, drawn plus accepted backfill",
+ "countingUnit": "record",
+ "criterion": "OpenAlex best_oa_location.version, the same source and criterion as rounds 486-488 and n489",
+ "compositionNote": "Three versions come from n489 (measured then) and four are measured now. Same source and criterion, so composing them is legitimate -- but third-party metadata moves, so both measurement times are recorded.",
+ "controlProbe": {
+  "idFrag": "88747fa53f34fc92",
+  "recorded": "publishedVersion",
+  "refetched": "publishedVersion",
+  "agrees": true,
+  "why": "A broken lookup returns None for everything, which is indistinguishable from no version on record."
+ },
+ "records": [
+  {
+   "idTail": "5c9667c3",
+   "origin": "drawn",
+   "version": "publishedVersion",
+   "measuredBy": "n489（當時）",
+   "error": ""
+  },
+  {
+   "idTail": "7b1ae2a1",
+   "origin": "drawn",
+   "version": "acceptedVersion",
+   "measuredBy": "n489（當時）",
+   "error": ""
+  },
+  {
+   "idTail": "24d22835",
+   "origin": "drawn",
+   "version": "submittedVersion",
+   "measuredBy": "n489（當時）",
+   "error": ""
+  },
+  {
+   "idTail": "9b2c5340",
+   "origin": "backfill",
+   "version": "submittedVersion",
+   "measuredBy": "OpenAlex（2026-08-30）",
+   "error": ""
+  },
+  {
+   "idTail": "c386f31c",
+   "origin": "backfill",
+   "version": "publishedVersion",
+   "measuredBy": "OpenAlex（2026-08-30）",
+   "error": ""
+  },
+  {
+   "idTail": "fb24cf65",
+   "origin": "backfill",
+   "version": "publishedVersion",
+   "measuredBy": "OpenAlex（2026-08-30）",
+   "error": ""
+  },
+  {
+   "idTail": "f88c7d04",
+   "origin": "backfill",
+   "version": "publishedVersion",
+   "measuredBy": "OpenAlex（2026-08-30）",
+   "error": ""
+  }
+ ],
+ "distribution": {
+  "publishedVersion": 4,
+  "acceptedVersion": 1,
+  "submittedVersion": 2
+ },
+ "nonPublished": 3,
+ "drawnDistribution": {
+  "publishedVersion": 1,
+  "acceptedVersion": 1,
+  "submittedVersion": 1
+ },
+ "backfillDistribution": {
+  "submittedVersion": 1,
+  "publishedVersion": 3
+ },
+ "whatThisDoesNotSay": "Whether the recommendation still holds. That is a ruling. This supplies the figure it was resting on.",
+ "coverageStatement": "Says what OpenAlex records, not whether the label is right, and nothing about how far an author manuscript differs from the published version -- that needs reading, at the extraction stage.",
+ "contentNote": "Id tails, origins and version labels only.",
+ "versionHash": "sha256:fb6dfcf0ad8d08fd53d69b49c1cb9bcae3d89b2dff7f599e65dd744f8bb59ee0"
+}

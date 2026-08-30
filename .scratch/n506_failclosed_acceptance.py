@@ -78,6 +78,7 @@ GENERATORS = {
     'n515_conversion_drill': 'n515_conversion_drill.json',
     'n519_manifest_generation_drift': 'n519_manifest_generation_drift.json',
     'n522_s3_record_factsheet': 'n522_s3_record_factsheet.json',
+    'n523_s56_version_with_backfill': 'n523_s56_version_with_backfill.json',
 }
 # ⚠️ `n517` 只讀 git，🚫 不碰私有根，故不適用 fail-closed 驗收
 #    （它在沒有私有根的機器上本來就該跑得起來）。
