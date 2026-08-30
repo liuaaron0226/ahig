@@ -1,0 +1,195 @@
+{
+  "schemaVersion": 1,
+  "documentType": "untitled-section-reachability",
+  "ruling": "m1-g 交辦萃取階段之兩項既知限制",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "population": "私有根 fulltext/ 內所有 acquired",
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "counts": {
+    "records": 41,
+    "untitledSections": 20,
+    "recordsWithUntitled": 18,
+    "recordsWithLeadingUntitled": 5,
+    "untitledChars": 145607
+  },
+  "verdict": {
+    "status": "not-triggered",
+    "why": "🚨 本鏈不以節名尋找：`prompt_payload()` 送整份 content，而 `sections_titled` 全鏈無人呼叫（只有測試在用）。⚠️ 故無標題節的文字照樣送得出去。",
+    "notTheSameAsHandled": "🚨 「未被觸發」不等於「已被處置」——⚠️ 有人把送法改成「只送選定章節」的那一天，這項限制會立刻復活。",
+    "whyNothingWasBuilt": "✅ 爬梯子第一階：現在不需要一個「無標題定位器」存在。🚫 造了它等於為一個尚未成立的需求寫程式，而它會看起來像已經解決了什麼。"
+  },
+  "alsoDeferredToThisStage": {
+    "ruling": "n+144（三之處置 2）：萃取階段開始時若 S3 仍為空，須以校準集以外之 TTE 紀錄執行同一檢查",
+    "s3Row": {
+      "pool": "S3-tte",
+      "quota": 8,
+      "acquiredCalibration60": 0,
+      "acquiredWithBackfill": 1,
+      "denominatorWithBackfill": 14,
+      "versionsCalibration60": {}
+    },
+    "twoPopulationsTwoAnswers": "🚨 校準 60 之 S3 取得數為 0（**仍為空**）；而含補抽之 S3 取得數為 1（**不為空**）。⚠️ 該遞延條款沒有指明是哪一個母體——🚨 而本 run 一路在抓的正是混母體。**故不由本室自行選一個。**",
+    "alsoUndecided": "⚠️ 「萃取階段開始」是否已發生亦未定義：確定性鏈已建成並在真語料上演練過，🚨 但一篇論文都還沒有被讀。"
+  },
+  "controlProbes": [
+    {
+      "probe": "送出去的是整份 content（🚨 這項限制之所以未被觸發的原因）",
+      "passed": true,
+      "detail": "🚨 若哪天改成只送選定章節，這項限制立刻復活；目前被截斷者 0 篇"
+    },
+    {
+      "probe": "無標題節的文字確實在送出去的那份 content 裡",
+      "passed": true,
+      "detail": "找不到者 0 處"
+    },
+    {
+      "probe": "無標題節的偏移切得出同一段文字",
+      "passed": true,
+      "detail": "不符者 0 處"
+    },
+    {
+      "probe": "用標題找無標題節，一篇都找不到（必觸發之反向）",
+      "passed": true,
+      "detail": "🚨 若找得到，代表 UNTITLED 不是真的預設值；實得 0 篇"
+    },
+    {
+      "probe": "而有標題的節照樣找得到（必觸發之正向）",
+      "passed": true,
+      "detail": "🚨 沒有這一條，上一條在「什麼都找不到」時一樣會綠；實得 41／41"
+    }
+  ],
+  "records": [
+    {
+      "dir": "f832b2ea91cf03e6",
+      "sections": 29,
+      "untitled": 1,
+      "leadingUntitled": false,
+      "untitledChars": 9509
+    },
+    {
+      "dir": "26f1d80935d787df",
+      "sections": 26,
+      "untitled": 1,
+      "leadingUntitled": false,
+      "untitledChars": 12145
+    },
+    {
+      "dir": "5b012423d8b0be0b",
+      "sections": 20,
+      "untitled": 1,
+      "leadingUntitled": false,
+      "untitledChars": 10062
+    },
+    {
+      "dir": "6bf801689a8621c0",
+      "sections": 21,
+      "untitled": 1,
+      "leadingUntitled": false,
+      "untitledChars": 5921
+    },
+    {
+      "dir": "a91e4efb7f5b57b7",
+      "sections": 33,
+      "untitled": 1,
+      "leadingUntitled": false,
+      "untitledChars": 12176
+    },
+    {
+      "dir": "4b2be78f294f6d26",
+      "sections": 25,
+      "untitled": 1,
+      "leadingUntitled": false,
+      "untitledChars": 10231
+    },
+    {
+      "dir": "ea71c247cc395672",
+      "sections": 24,
+      "untitled": 1,
+      "leadingUntitled": false,
+      "untitledChars": 7821
+    },
+    {
+      "dir": "2922534c821c9127",
+      "sections": 28,
+      "untitled": 1,
+      "leadingUntitled": false,
+      "untitledChars": 9497
+    },
+    {
+      "dir": "35b1c315c88cd653",
+      "sections": 24,
+      "untitled": 3,
+      "leadingUntitled": false,
+      "untitledChars": 12506
+    },
+    {
+      "dir": "b0042b27bfd49070",
+      "sections": 18,
+      "untitled": 1,
+      "leadingUntitled": true,
+      "untitledChars": 708
+    },
+    {
+      "dir": "27c035a3b867c853",
+      "sections": 29,
+      "untitled": 1,
+      "leadingUntitled": false,
+      "untitledChars": 16803
+    },
+    {
+      "dir": "2ff74175627c1a85",
+      "sections": 27,
+      "untitled": 1,
+      "leadingUntitled": false,
+      "untitledChars": 12804
+    },
+    {
+      "dir": "08f8b2c453c5fdb7",
+      "sections": 12,
+      "untitled": 1,
+      "leadingUntitled": true,
+      "untitledChars": 7517
+    },
+    {
+      "dir": "d31b7224894847c9",
+      "sections": 31,
+      "untitled": 1,
+      "leadingUntitled": false,
+      "untitledChars": 406
+    },
+    {
+      "dir": "99f5af0f27301773",
+      "sections": 15,
+      "untitled": 1,
+      "leadingUntitled": true,
+      "untitledChars": 1870
+    },
+    {
+      "dir": "4e748522828a7cb4",
+      "sections": 5,
+      "untitled": 1,
+      "leadingUntitled": true,
+      "untitledChars": 2375
+    },
+    {
+      "dir": "aeb7ae224b5a2341",
+      "sections": 15,
+      "untitled": 1,
+      "leadingUntitled": true,
+      "untitledChars": 3988
+    },
+    {
+      "dir": "db16877def5676e0",
+      "sections": 20,
+      "untitled": 1,
+      "leadingUntitled": false,
+      "untitledChars": 9268
+    }
+  ],
+  "recordsNote": "🚫 只列出含無標題節者；其餘 23 篇無。",
+  "auditHash": "sha256:7cb073155fb43b7e8cceb68fb7a6fa613c40f853aab12c1ed1bf8b6859f8412b"
+}
