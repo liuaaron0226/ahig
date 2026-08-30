@@ -121,7 +121,7 @@
 | 辛 | `LANDING_WORDS_MIN` | 凍結 | 產物 | 同上：去標籤字數最小 **160**（⚠️ 母體＝已量到之 16 筆，🚫 非 33 筆） |
 | 辛 | `LANDING_WORTH_PARSER` | 凍結 | 產物 | 同上：達門檻者＝**0**（⚠️ 就已量到的 16 筆而言，非 33 筆）；🚨 **n+162 更正**：門檻值**有存**（`criterion` 欄之 8000 字），故本格可現算＝「有全文標記且字數 ≥ 8000」；⚠️ 實測 5 筆過字數而**無標記**、1 筆有標記而僅 1805 字，交集為 0——**🚨 這是一個真的量測，🚫 不是缺判準**；⚠️ 而 `n450` 自載「門檻只用來排序，不用來決定」仍須同引 |
 | 辛 | `LEGACY_DIRS` | 漂移 | 產物 | `.scratch/n496_corpus_verify.json` → `legacySchemeDirectories` 之長度＝**4**（我已自檔覆核）；🚨 不刪，僅排除並列名 |
-| 辛 | `LIC_FILLED` | 漂移 | 不可及 | 私有根 acquired manifest 中具 `licenceProvenance` 欄者（執行室依 n+138（三）填入並附來源與查取日期）；⚠️ 母體為 acquired 全體，🚫 **不是首批 8 筆**（n+167 更正）；🚨 另有 24 筆之授權係自 JATS `<license>` 自動擷取、無來源欄，🚫 不得與本格相加 |
+| 辛 | `LIC_FILLED` | 漂移 | 不可及 | 私有根 acquired manifest 中具 `licenceProvenance` 欄者（執行室依 n+138（三）填入並附來源與查取日期）；⚠️ 母體為 acquired 全體，🚫 **不是首批 8 筆**（n+167 更正）；🚨 另有 24 筆之授權係自 JATS `<license>` 自動擷取、無來源欄，🚫 不得與本格相加；✅ **第 519 輪由獨立路徑覆核**：latest manifest 與其世代檔逐筆比對，29 筆完全相符、**12 筆僅差授權欄**、無解釋不了者（29＋12＝41）——🚨 那 12 筆恰為具 `licenceProvenance` 者，**⚠️ 兩條互不相干的路徑得到同一個數**，🚫 故此處之 12 不是巧合，是同一件事量了兩次 |
 | 辛 | `OBTAINABLE_N` | 漂移 | 產物 | `.scratch/m1_step3_backfill.json` → `totals.obtainable`＝**45**（🚨 單一欄位；n+155 更正：原寫「inventory ＋ backfill」而未載合併規則，⚠️ 實則不需合併）；⚠️ **上界非保證** |
 | 辛 | `PDF_IN_HAND` | 漂移 | 產物 | `.scratch/n456_pdf_textlayer.json`：**11** 檔（我已自算）；🚨 **母體＝私有 pdf 快取之檔案，單位＝檔**——⚠️ 🚫 不得與 `PDF_ROUTE_N` 互換或相減 |
 | 辛 | `PDF_ROUTE_N` | 漂移 | 產物 | 同上 `available-pdf`；🚨 **母體＝45 筆可得中之路徑分類**——⚠️ 🚫 **不得與 `PDF_IN_HAND` 等四格互換或相減**，後者數的是私有快取裡實際在手的檔案（n+172 查出）；🚨 同義切面 `LANDING_ROUTE_N`（同為 45 筆之路徑分類） |

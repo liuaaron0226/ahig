@@ -126,7 +126,7 @@ DETAIL = {
     #    已補至 12——**⚠️ 一個從 8 份裡數出來的數，不可能大於 8**。
     #    值本身是漂移的（本欄之自報值只是快照，過期屬預期）；🚫 **母體不是**，
     #    而母體那一句過期之後，會把一個對的數字釘在一個錯的分母上。
-    "LIC_FILLED":   ("不可及", "私有根 acquired manifest 中具 `licenceProvenance` 欄者（執行室依 n+138（三）填入並附來源與查取日期）；⚠️ 母體為 acquired 全體，🚫 **不是首批 8 筆**（n+167 更正）；🚨 另有 24 筆之授權係自 JATS `<license>` 自動擷取、無來源欄，🚫 不得與本格相加"),
+    "LIC_FILLED":   ("不可及", "私有根 acquired manifest 中具 `licenceProvenance` 欄者（執行室依 n+138（三）填入並附來源與查取日期）；⚠️ 母體為 acquired 全體，🚫 **不是首批 8 筆**（n+167 更正）；🚨 另有 24 筆之授權係自 JATS `<license>` 自動擷取、無來源欄，🚫 不得與本格相加；✅ **第 519 輪由獨立路徑覆核**：latest manifest 與其世代檔逐筆比對，29 筆完全相符、**12 筆僅差授權欄**、無解釋不了者（29＋12＝41）——🚨 那 12 筆恰為具 `licenceProvenance` 者，**⚠️ 兩條互不相干的路徑得到同一個數**，🚫 故此處之 12 不是巧合，是同一件事量了兩次"),
     # ── n+141：校準集內之版本分布（🚨 與 41 筆之比例不可互換）──
     "CALIB_VER_PUB": ("產物", "`.scratch/n489_calibration_versions.json`（**受追蹤**，我已自檔交叉核對）→ 校準集 acquired 中之 `publishedVersion`＝**8**" + "；🚨 同義切面 `VER_PUBLISHED`（⚠️ 本格母體＝校準 14，該格＝在手 41）；🚫 與 `LANDING_PUBLISHER`／`SRC_PUBLISHER` **毫不相干**——⚠️ 那是「出版社」，本格是「刊出版」"),
     "CALIB_VER_ACC": ("產物", "同上：`acceptedVersion`＝**5**；🚨 每一個取自此類之數值須逐筆標記" + "；🚨 同義切面 `VER_ACCEPTED`（⚠️ 本格母體＝校準 14，該格＝在手 41）"),
