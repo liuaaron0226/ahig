@@ -244,3 +244,96 @@ def test_a_missing_draft_raises_instead_of_returning_an_empty_inventory():
             raise AssertionError("找不到清冊不該回空的")
 
     _in_corpus(body)
+
+
+def test_pages_are_merged_back_one_at_a_time():
+    # 18 頁分 18 輪讀完，所以併檔會發生很多次。整份重寫等於每次都要有全部。
+    def body(root, candidate_id):
+        request = reading_request_for(candidate_id, CONTRACT)
+        out = root / "extraction-worksheet"
+        worksheet.write_worksheet(out, [request], source="test")
+
+        result = worksheet.append_drafts(
+            out, [_draft_for(request)], read_by={"agentClass": "model"})
+        assert result["added"] == 1
+        assert result["draftedCount"] == 1
+        assert result["remaining"] == []
+        assert worksheet.load_drafts(out)["draftedCount"] == 1
+
+    _in_corpus(body)
+
+
+def test_merging_the_same_paper_twice_is_refused():
+    # 同一篇讀了兩次而兩份不同，是要有人看一眼的事，不是後寫的自動贏。
+    def body(root, candidate_id):
+        request = reading_request_for(candidate_id, CONTRACT)
+        out = root / "extraction-worksheet"
+        worksheet.write_worksheet(out, [request], source="test")
+        worksheet.append_drafts(out, [_draft_for(request)],
+                                read_by={"agentClass": "model"})
+        try:
+            worksheet.append_drafts(out, [_draft_for(request)])
+        except worksheet.WorksheetError as error:
+            assert "重複" in str(error)
+        else:
+            raise AssertionError("同一篇不該被併入兩次")
+
+    _in_corpus(body)
+
+
+def test_a_bad_entry_leaves_the_file_as_it_was():
+    # 半套寫入會讓清冊檔停在 load_drafts 讀不回來的狀態，
+    # 而那時候前面幾頁讀的東西也一起卡住。
+    def body(root, candidate_id):
+        request = reading_request_for(candidate_id, CONTRACT)
+        out = root / "extraction-worksheet"
+        worksheet.write_worksheet(out, [request], source="test")
+        before = (out / "drafts.json").read_text(encoding="utf-8")
+
+        bad = _draft_for(request)
+        bad["manifestation"] = "sha256:" + "f" * 64
+        try:
+            worksheet.append_drafts(out, [bad], read_by={"agentClass": "model"})
+        except worksheet.WorksheetError:
+            pass
+        else:
+            raise AssertionError("綁錯的清冊不該被併入")
+
+        assert (out / "drafts.json").read_text(encoding="utf-8") == before
+
+    _in_corpus(body)
+
+
+def test_merging_without_naming_the_reader_is_refused():
+    def body(root, candidate_id):
+        request = reading_request_for(candidate_id, CONTRACT)
+        out = root / "extraction-worksheet"
+        worksheet.write_worksheet(out, [request], source="test")
+        try:
+            worksheet.append_drafts(out, [_draft_for(request)])
+        except worksheet.WorksheetError as error:
+            assert "agentClass" in str(error)
+        else:
+            raise AssertionError("沒有 readBy 不該併入")
+
+    _in_corpus(body)
+
+
+def test_a_page_is_fetched_on_its_own():
+    # 逐頁一檔的用意：讀第 3 頁的人不必先把 1、2 頁一起載進來。
+    def body(root, candidate_id):
+        request = reading_request_for(candidate_id, CONTRACT)
+        out = root / "extraction-worksheet"
+        worksheet.write_worksheet(out, [request], source="test")
+
+        page = worksheet.page(out, 1)
+        assert page["page"] == 1
+        assert page["items"][0]["report"] == candidate_id
+        try:
+            worksheet.page(out, 99)
+        except worksheet.WorksheetError as error:
+            assert "沒有第 99 頁" in str(error)
+        else:
+            raise AssertionError("不存在的頁不該回東西")
+
+    _in_corpus(body)

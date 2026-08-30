@@ -356,7 +356,13 @@ PYTEST_IGNORE = 'tests/test_shacl_gates.py'
 # 而多一個未宣告欄位就該有話）。增量恰為 2。
 # ⚠️ 同一輪修了三處 fixture 自身之不合規（本檔與 worksheet 檔的 _draft_for、
 # n537 之替身）——那三處先前都不合下游 schema，是新檢查抓出來的，不改變條數。
-BASE_PASSED, BASE_FAILED = 775, 0
+# 第 546 輪：775 → 780。前後對照（n+113 四）：
+#   改動前  775 passed／0 failed
+#   改動後  780 passed／0 failed
+# 新增五條，測工作單的「一頁一頁併回去」：併入一頁、同一篇不得併兩次、
+# 併入失敗時檔案要維持原樣（半套寫入會讓前面幾頁也卡住）、沒有 readBy 不併、
+# 單獨取一頁（含取不存在的頁要丟）。增量恰為 5。
+BASE_PASSED, BASE_FAILED = 780, 0
 KNOWN_FAIL = '無（原 test_clopper_pearson_matches_closed_forms 已於第 437 輪依 n+113 四修正）'
 # 第 544 輪更正：先前只寫「缺 pyshacl」。⚠️ 操作上沒錯（裝 pyshacl 會帶 rdflib），
 # 🚨 但那句話讓人以為只差一個套件，而實測 rdflib 也不在——

@@ -223,6 +223,53 @@ def load_drafts(out_dir: Path, *, require_complete: bool = True) -> dict:
     }
 
 
+def append_drafts(out_dir: Path, new_entries: Sequence[dict], *,
+                  read_by: dict | None = None) -> dict:
+    """把一頁讀好的清冊併回 ``drafts.json``。
+
+    18 頁分 18 輪讀完（第 540 輪實測），**所以併檔會發生很多次**。判讀工作單
+    早就有這一支（``append_judgements``），理由一樣：⚠️ 一次一頁，而每次都要能
+    接得回去。
+
+    **每次都先把既有的與新來的一起驗過，全部通過才落盤**——
+    🚨 半套寫入會讓清冊檔停在 ``load_drafts`` 讀不回來的狀態，
+    而那時候前面幾頁讀的東西也一起卡住。
+    """
+    out_dir = _require_private(Path(out_dir))
+    sheet = json.loads((out_dir / "worksheet.json").read_text(encoding="utf-8"))
+    doc = json.loads((out_dir / "drafts.json").read_text(encoding="utf-8"))
+    index = {it["report"]: it for it in sheet["items"]}
+    seen: set[str] = set()
+    existing = [_validate_entry(i, item, index, seen)
+                for i, item in enumerate(doc.get("entries") or [])]
+    added = [_validate_entry(len(existing) + i, item, index, seen)
+             for i, item in enumerate(new_entries)]
+    if read_by is not None:
+        doc["readBy"] = read_by
+    if not (isinstance(doc.get("readBy"), dict)
+            and doc["readBy"].get("agentClass")):
+        raise WorksheetError(
+            "併入清冊前必須先記下 readBy.agentClass——誰讀的沒記下來，"
+            "清冊就不可稽核")
+    doc["entries"] = existing + added
+    atomic_write_json(out_dir / "drafts.json", doc)
+    return {"added": len(added), "draftedCount": len(doc["entries"]),
+            "remaining": sorted(set(index) - seen)}
+
+
+def page(out_dir: Path, number: int) -> dict:
+    """取第 ``number`` 頁。一輪讀一頁，故取頁這件事要有個名字。
+
+    🚫 不回整份工作單：那是逐頁一檔的用意——⚠️ 讀第 3 頁的人不必先把 1、2 頁
+    一起載進來。
+    """
+    out_dir = _require_private(Path(out_dir))
+    path = out_dir / "pages" / ("page-%03d.json" % number)
+    if not path.exists():
+        raise WorksheetError("沒有第 %d 頁：%s" % (number, path.name))
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
 def reader_from(drafts: dict[str, dict]):
     """把收回來的清冊包成 `run_inventory` 收得下的 ``reader``。
 
@@ -246,5 +293,6 @@ def reader_from(drafts: dict[str, dict]):
     return read
 
 
-__all__ = ["DEFAULT_PAGE_CHARS", "WorksheetError", "build_worksheet",
-           "load_drafts", "paginate", "reader_from", "write_worksheet"]
+__all__ = ["DEFAULT_PAGE_CHARS", "WorksheetError", "append_drafts",
+           "build_worksheet", "load_drafts", "page", "paginate",
+           "reader_from", "write_worksheet"]
