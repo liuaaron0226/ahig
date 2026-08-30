@@ -86,6 +86,7 @@ N493 = ".scratch/n493_unprobed_available.json"
 N494 = ".scratch/n494_alt_oa_round2.json"
 N496 = ".scratch/n496_corpus_verify.json"
 N498 = ".scratch/n498_sections_integrity.json"
+N512 = ".scratch/n512_source_host_provenance.json"
 W7 = "ahig/analysis/results/synergy_replay.json"
 F68E = ".scratch/n68_termination_evidence.json"
 N439 = ".scratch/n439_route_cost.json"
@@ -235,6 +236,17 @@ RESOLVERS = {
     "OBLIGATION_ROWS":     lambda: _anchors()[0],
     "OBLIGATION_RESTATED": lambda: _anchors()[1],
     "OBLIGATION_DISTINCT": lambda: _anchors()[0] - _anchors()[1],
+
+    # ── 辛：**已在手 41 份**之來源分類（n+169 納入；執行室 n512）─────
+    # 🚨 **與下方 `LANDING_*` 是兩張表，母體不重疊**：
+    #    此處＝**已到手**之 41 份當初從哪裡拿到；`LANDING_*`＝**尚未到手**之 33 筆掛在哪。
+    # ⚠️ 兩者用同一組分類名稱（典藏庫／出版社），**🚫 不得互減或並排無標籤**。
+    "SRC_PMC":       lambda: J(N512)["byKind"]["pmc"],
+    "SRC_REPO":      lambda: J(N512)["byKind"]["repository"],
+    "SRC_PUBLISHER": lambda: J(N512)["byKind"]["publisher"],
+    "SRC_UNKNOWN":   lambda: J(N512)["byKind"]["unknown"],
+    "SRC_NOLIC_REPO": lambda: _src_nolic("repository"),
+    "SRC_NOLIC_PUB":  lambda: _src_nolic("publisher"),
 
     # 辛：取得路徑分類
     "LANDING_REPO":      lambda: J(N439)["landingKindsAggregate"]["機構典藏庫"],
@@ -459,6 +471,40 @@ def _const(name):
     return float(m.group(1)) if "." in m.group(1) else int(m.group(1))
 
 
+def _src_nolic(kind):
+    """某一來源類別中**未記載授權**之份數（n+169）。
+
+    🚨 由 `records` 逐筆現數，🚫 不取 `unlicensedHosts`——
+    ⚠️ 那一欄的鍵是**主機**，本格要的是**類別**，
+    **而一個類別可含多個主機**（今日各只有一個，🚨 那是巧合，不是結構）。
+    """
+    rows = J(N512)["records"]
+    return sum(1 for r in rows if r["kind"] == kind and not r["hasLicence"])
+
+
+def _src_closure():
+    """🚨 四類相加須等於在手總份數，且與 `ACQ_ALL` 相符。
+
+    ⚠️ `ACQ_ALL` 與本表是**執行室兩次獨立量測**（n+151 交接檔 vs n512），
+    **✅ 兩者相等才表示這張表數的是同一批東西**；
+    🚫 不等時不得逕自取其一——那正是本 run 反覆抓到的那一族。
+    """
+    kinds = J(N512)["byKind"]
+    total = sum(kinds.values())
+    rows = len(J(N512)["records"])
+    if total != rows:
+        raise ValueError(f"🚨 n512 自身不閉合：byKind 合計 {total} ≠ 逐筆 {rows}")
+    try:
+        acq = value("ACQ_ALL")
+    except Exception:                                  # noqa: BLE001
+        return total, None                             # ⚠️ 交接檔尚無值時不強求
+    if acq != total:
+        raise ValueError(
+            f"🚨 來源分類合計 {total} ≠ `ACQ_ALL` {acq}"
+            "——⚠️ 兩次量測的母體已分家，🚫 不得逕自取其一印出")
+    return total, acq
+
+
 def _anchors():
     """⚠️ 由 n116 之 ANCHORS 現數，🚫 不手抄——n+116 之條目會增。
 
@@ -540,13 +586,18 @@ COINCIDENCE = {
         "⚠️ 兩者同在丙節且皆與篩選序列有關，🚨 相鄰書寫極易被讀成同一個 200。",
 
     # ── 🚨 n+162：執行室交接後新增之重合 ─────────────────────────
-    ("HARMS_COUNTER_LAST", "NARR_RETRACT_TEXT_N", "RETRACT_FIELD_N"):
-        "🚨 **三個不相干的 10**，且其中兩個是 n+152 明訂不得相加或互換的一對："
+    ("HARMS_COUNTER_LAST", "NARR_RETRACT_TEXT_N", "RETRACT_FIELD_N", "SRC_REPO"):
+        "🚨 **四個不相干的 10**，且其中兩個是 n+152 明訂不得相加或互換的一對："
         "10＝harms 相鄰計數器之最終讀數（**讀數，不是名單**）；"
         "10＝判讀理由文字提到撤稿者；"
-        "10＝八份工作單 `publicationTypes` 聯集去重之撤稿數。"
-        "**⚠️ 本 run 最早的同值異義例就是兩個 10，一度長到四個，"
-        "第 469 輪又退回三個**——🚨 因為第四個（義務重述數）根本不是 10，是 16。",
+        "10＝八份工作單 `publicationTypes` 聯集去重之撤稿數；"
+        "10＝**已在手 41 份中取自機構典藏庫者**（n+169 新增）。"
+        "**⚠️ 本 run 最早的同值異義例就是兩個 10，一度長到四個，第 469 輪退回三個"
+        "（因為義務重述數根本不是 10，是 16），第 470 輪又長回四個。**"
+        "🚨 **而 `SRC_REPO` 真正的危險不在這一組**：⚠️ 它與 `LANDING_REPO`（15）"
+        "同節、同名、同分類詞，**只是值不相等而躲過本簿**——"
+        "**🚫 本簿只抓「值相同」，抓不到「名字相同而母體不同」**，"
+        "✅ 後者由清單定位欄與成稿之母體標籤各自擋一次。",
     ("ACQ_IN_OBTAINABLE", "LIC_FILLED", "SHADOW_QUEUED", "UNPROBED_N"):
         "12＝45 筆可得中 JATS 已在手者；12＝影子對帳不一致而待人工覆核者；"
         "12＝從未試過替代位址者；"
@@ -622,6 +673,23 @@ def closure_checks(resolved):
         if s != ob:
             out.append(f"🚨 三條取文路徑合計 {s} ≠ 可得 {ob}"
                        "——⚠️ 三格並非同一母體，或其一已過期")
+
+    # 🚨 n+169：來源分類四類須合為在手總份數（`ACQ_ALL`）。
+    # ⚠️ 這一條特別值得跑，因為兩邊是**執行室兩次獨立量測**
+    #    （n+151 交接檔 vs n512）——**✅ 相等才表示兩者數的是同一批**。
+    # 🚫 不等時不得逕自取其一：⚠️ 那正是「數字都對而量的不是同一件事」那一族。
+    src = {"SRC_PMC", "SRC_REPO", "SRC_PUBLISHER", "SRC_UNKNOWN"}
+    if src <= set(resolved) and "ACQ_ALL" in resolved:
+        s, allm = sum(resolved[k] for k in src), resolved["ACQ_ALL"]
+        if s != allm:
+            out.append(f"🚨 來源四類合計 {s} ≠ `ACQ_ALL` {allm}"
+                       "——⚠️ 執行室兩次量測之母體已分家，🚫 不得取其一印出")
+    # ⚠️ 併查：未記載授權者之總數須與授權格互補，🚫 不得各報各的。
+    nolic = {"SRC_NOLIC_REPO", "SRC_NOLIC_PUB"}
+    if nolic <= set(resolved) and "SRC_REPO" in resolved:
+        if resolved["SRC_NOLIC_REPO"] > resolved["SRC_REPO"]:
+            out.append("🚨 典藏庫之未授權份數多於該類總份數"
+                       "——⚠️ 兩格母體不相容")
     return out
 
 

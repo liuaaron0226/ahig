@@ -20,7 +20,7 @@
 
 <!-- BEGIN GENERATED n115 -->
 
-共 **134** 個佔位符。凍結 **55**、漂移 **79**；其中 **18** 個之權威來源**協調者無法自行核對**（見下文第二節）。
+共 **140** 個佔位符。凍結 **55**、漂移 **85**；其中 **18** 個之權威來源**協調者無法自行核對**（見下文第二節）。
 
 | 節 | 佔位符 | 類別 | 來源型態 | 定位 |
 |---|---|---|---|---|
@@ -114,7 +114,7 @@
 | 辛 | `LANDING_PMC_SCAN` | 漂移 | 產物 | 同上（PMC 掃描件） |
 | 辛 | `LANDING_PUBLISHER` | 漂移 | 產物 | 同上（出版社；⚠️ 經 doi.org 轉址解出後由 9 增為 13） |
 | 辛 | `LANDING_REACHED` | 凍結 | 產物 | `.scratch/n450_landing_survey.json`：HTTP 200 且有內容者＝**16**（我已自算） |
-| 辛 | `LANDING_REPO` | 漂移 | 產物 | `.scratch/n439_route_cost.json` → `landingKindsAggregate`（機構典藏庫） |
+| 辛 | `LANDING_REPO` | 漂移 | 產物 | `.scratch/n439_route_cost.json` → `landingKindsAggregate`（機構典藏庫）；🚨 母體＝**尚未到手之 33 筆**，🚫 不得與 `SRC_REPO` 互換 |
 | 辛 | `LANDING_ROUTE_N` | 漂移 | 產物 | 同上 `available-landing-page` |
 | 辛 | `LANDING_WORDS_MAX` | 凍結 | 產物 | 同上：最大 **22,761**（⚠️ 母體＝已量到之 16 筆；🚨 而此值在 33 筆母體下**也是 22,761**——**⚠️ 三格中唯一巧合相同的一格，🚫 不得據此認為三格母體相同**） |
 | 辛 | `LANDING_WORDS_MED` | 凍結 | 產物 | 同上：中位 **3071.5**；🚨 **n+162 更正**：原寫 3,807，而那是 16 個排序值裡的**第 9 個**——⚠️ 偶數長度之中位數應取第 8、9 兩值之平均。🚫 該錯躲過本檢查兩輪，因定位欄未用 `＝` 而舊規則只認 `＝` |
@@ -138,6 +138,12 @@
 | 辛 | `SHORTFALL_HARMS` | 漂移 | 看板 | 同上（S5+S6） |
 | 辛 | `SHORTFALL_N` | 漂移 | 看板 | 校準集設計數 − 可得數，交付時現算 |
 | 辛 | `SHORTFALL_S7` | 漂移 | 看板 | 看板 63655 三之缺口分布 |
+| 辛 | `SRC_NOLIC_PUB` | 漂移 | 推導 | 同上，`kind=publisher` 者；⚠️ 未記載授權之 5 份全落在典藏庫與出版社，**🚨 PMC 那批一份不缺** |
+| 辛 | `SRC_NOLIC_REPO` | 漂移 | 推導 | 同上 `records` 中 `kind=repository` 且 `hasLicence=false` 者；🚨 逐筆現數，🚫 不取 `unlicensedHosts`（那一欄的鍵是主機不是類別） |
+| 辛 | `SRC_PMC` | 漂移 | 產物 | `.scratch/n512_source_host_provenance.json` → `byKind.pmc`＝**26**；⚠️ 母體＝**已在手之 41 份**，🚫 不是尚未到手的 33 筆 |
+| 辛 | `SRC_PUBLISHER` | 漂移 | 產物 | 同上 → `byKind.publisher`；🚨 同上不得與 `LANDING_PUBLISHER` 互換 |
+| 辛 | `SRC_REPO` | 漂移 | 產物 | 同上 → `byKind.repository`；🚨 **不得與 `LANDING_REPO` 互換**——後者是尚未到手者之網站別 |
+| 辛 | `SRC_UNKNOWN` | 漂移 | 產物 | 同上 → `byKind.unknown`；⚠️ `doi.org` 歸此類——**它是轉址器不是來源**，🚫 不假裝知道其指向 |
 | 辛 | `UNPROBED_ALT` | 漂移 | 產物 | `.scratch/n494_alt_oa_round2.json` → 有其他位址者＝**3**（其餘 9 筆無） |
 | 辛 | `UNPROBED_N` | 漂移 | 產物 | `.scratch/n493_unprobed_available.json` → `count`＝**12**（我已自檔覆核）；⚠️ 母體＝校準 60＋補集中從未試過者 |
 | 辛 | `UNPROBED_PDF` | 漂移 | 產物 | 同上 → `obtainable`＝**0**；🚨 🚫 不得由此推論「替代位址法無效」——該法之前提對本批不成立 |

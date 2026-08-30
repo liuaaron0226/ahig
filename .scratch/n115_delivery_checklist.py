@@ -174,7 +174,17 @@ DETAIL = {
     "ACQ_IN_OBTAINABLE": ("產物", "🚨 n+155 取代已作廢之 `ACQUIRED_N`：**45 筆可得之中 JATS 已在手者**＝`totals.obtainable` − `n450` 之記錄數（45−33）＝**12**；⚠️ 與 `ACQ_ALL`／`ACQ_SCOPED`／`ACQ_CALIB` 皆非同一母體"),
     "PDF_ROUTE_N":      ("產物", "同上 `available-pdf`"),
     "LANDING_ROUTE_N":  ("產物", "同上 `available-landing-page`"),
-    "LANDING_REPO":     ("產物", "`.scratch/n439_route_cost.json` → `landingKindsAggregate`（機構典藏庫）"),
+    # ── 🚨 已在手 41 份之來源分類（n+169）─────────────────────────
+    # ⚠️ 與 `LANDING_*` 用同一組分類名稱而**母體不重疊**：
+    #    此處＝已到手者當初從哪拿的；`LANDING_*`＝尚未到手者掛在哪。
+    # 🚫 兩組不得互減，🚫 不得相鄰而不標母體。
+    "SRC_PMC":          ("產物", "`.scratch/n512_source_host_provenance.json` → `byKind.pmc`＝**26**；⚠️ 母體＝**已在手之 41 份**，🚫 不是尚未到手的 33 筆"),
+    "SRC_REPO":         ("產物", "同上 → `byKind.repository`；🚨 **不得與 `LANDING_REPO` 互換**——後者是尚未到手者之網站別"),
+    "SRC_PUBLISHER":    ("產物", "同上 → `byKind.publisher`；🚨 同上不得與 `LANDING_PUBLISHER` 互換"),
+    "SRC_UNKNOWN":      ("產物", "同上 → `byKind.unknown`；⚠️ `doi.org` 歸此類——**它是轉址器不是來源**，🚫 不假裝知道其指向"),
+    "SRC_NOLIC_REPO":   ("推導", "同上 `records` 中 `kind=repository` 且 `hasLicence=false` 者；🚨 逐筆現數，🚫 不取 `unlicensedHosts`（那一欄的鍵是主機不是類別）"),
+    "SRC_NOLIC_PUB":    ("推導", "同上，`kind=publisher` 者；⚠️ 未記載授權之 5 份全落在典藏庫與出版社，**🚨 PMC 那批一份不缺**"),
+    "LANDING_REPO":     ("產物", "`.scratch/n439_route_cost.json` → `landingKindsAggregate`（機構典藏庫）；🚨 母體＝**尚未到手之 33 筆**，🚫 不得與 `SRC_REPO` 互換"),
     "LANDING_PUBLISHER": ("產物", "同上（出版社；⚠️ 經 doi.org 轉址解出後由 9 增為 13）"),
     "LANDING_FIGSHARE": ("產物", "同上（figshare，有 API）"),
     "LANDING_PMC_SCAN": ("產物", "同上（PMC 掃描件）"),

@@ -366,6 +366,27 @@ TEI 登錄後（n+137），**同一個字 `acquired` 在四個母體上是四個
 **⚠️ 最大一類是機構典藏庫，不是出版社**，且其中有一部分落在 PDF 側——
 **🚨 故兩條路的成本估計會被同一件事同時改變。**
 
+### 四之二、**已在手 41 份「當初從哪拿到的」**（n+169 納入）
+
+**🚨 這張表與上一張長得幾乎一樣，而母體不重疊——上表＝尚未到手的 33 筆，本表＝已到手的 41 份。**
+
+| 來源 | 份數 | 未記載授權 |
+|---|---|---|
+| Europe PMC | `{{SRC_PMC}}` | **0**——🚨 一份不缺 |
+| 機構典藏庫 | `{{SRC_REPO}}` | `{{SRC_NOLIC_REPO}}` |
+| 出版社 | `{{SRC_PUBLISHER}}` | `{{SRC_NOLIC_PUB}}` |
+| 不明（`doi.org` 轉址器歸此） | `{{SRC_UNKNOWN}}` | **0** |
+
+**🚨 未記載授權者全數落在典藏庫與出版社兩類**，⚠️ 而**典藏庫那批是作者自存副本**——
+**管轄它們的是典藏庫的存放條款，🚫 不是 DOI 登記處那一欄**（n+168 二）。
+
+> **🚫 本表與上表之「機構典藏庫」不得互減、不得相鄰而不標母體**（n+168 三）。
+> **⚠️ 兩個數字都對，而它們數的是兩批不重疊的東西。**
+
+**⚠️ 分類為啟發式，且 `unknown` 是一個真的會出現的類**——
+🚨 執行室初版規則把含 `.ac.` 者歸典藏庫，而 Europe PMC 的主機是 `www.ebi.ac.uk`，
+**於是 26 份被誤分，而五道控制探針全綠——因為探針取自「想得到的主機」而非語料裡的主機。**
+
 **✅ 併記一項方法上的更正**（執行室自陳）：
 判定 `doi.org` 之真正落點時，**先以 `HEAD` 請求失敗**，
 **🚨 而「HEAD 失敗」不等於「落點不存在」**——改以 `GET` 不跟進轉址並取 `Location` 後全部解出。
@@ -445,4 +466,5 @@ TEI 登錄後（n+137），**同一個字 `acquired` 在四個母體上是四個
 | `BLOCKED_N` | 凍結 | 同上，`survey == blocked-or-error`（403 十筆＋逾時一筆） |
 | `ALT_HAS`／`ALT_REACHABLE`／`ALT_PDF`／`ALT_NONE`／`ALT_LANDING_ONLY` | **漂移** | `.scratch/n477_alt_oa_locations.json`（我已自算覆核）；⚠️ 追完 landing-only 者會變動 |
 | `PDF_IN_HAND`／`PDF_TEXTLAYER`／`PDF_UNCERTAIN`／`PDF_SCANNED` | **漂移** | `.scratch/n456_pdf_textlayer.json`（我已覆核）；⚠️ 取得進行中會變 |
-| `LANDING_REPO`／`LANDING_PUBLISHER`／`LANDING_FIGSHARE`／`LANDING_PMC_SCAN` | **漂移** | `.scratch/n439_route_cost.json` 之 `landingKindsAggregate`，交付時現算 |
+| `LANDING_REPO`／`LANDING_PUBLISHER`／`LANDING_FIGSHARE`／`LANDING_PMC_SCAN` | **漂移** | `.scratch/n439_route_cost.json` 之 `landingKindsAggregate`（母體＝**尚未到手之 33 筆**），交付時現算 |
+| `SRC_PMC`／`SRC_REPO`／`SRC_PUBLISHER`／`SRC_UNKNOWN`／`SRC_NOLIC_REPO`／`SRC_NOLIC_PUB` | **漂移** | `.scratch/n512_source_host_provenance.json`（母體＝**已在手之 41 份**）；🚨 四類相加須等於 `ACQ_ALL`，⚠️ 那是執行室兩次獨立量測之閉合，🚫 不等時不得取其一 |
