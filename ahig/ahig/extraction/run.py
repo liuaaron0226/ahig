@@ -29,7 +29,7 @@ from ahig.extraction.corpus import (AcquiredDocument, CorpusError,
 
 Reader = Callable[[bridge.DraftRequest], dict]
 
-STAGES = ("read-corpus", "call-reader", "validate-draft", "scope")
+STAGES = ("read-corpus", "call-reader", "validate-draft", "scope", "reused")
 
 
 @dataclass
@@ -53,6 +53,16 @@ class InventoryRun:
     @property
     def succeeded(self) -> list[RecordOutcome]:
         return [o for o in self.outcomes if o.ok]
+
+    @property
+    def read_this_run(self) -> list[RecordOutcome]:
+        """這一次真的讀過的。與 ``succeeded`` 分開報，否則一次什麼都沒讀的
+        重跑，會和一次完整的跑長得一樣。"""
+        return [o for o in self.outcomes if o.ok and o.stage != "reused"]
+
+    @property
+    def reused(self) -> list[RecordOutcome]:
+        return [o for o in self.outcomes if o.stage == "reused"]
 
     @property
     def failed(self) -> list[RecordOutcome]:
@@ -91,11 +101,15 @@ def _candidate_ids() -> list[str]:
 
 def run_inventory(contract: dict, *, reader: Reader | None = None,
                   candidate_ids: Iterable[str] | None = None,
-                  now: str | None = None) -> InventoryRun:
+                  now: str | None = None, store=None) -> InventoryRun:
     """對每一篇跑：讀 → 交給讀論文那一端 → 驗收 → 判範圍。
 
     ``reader`` 不給就用尚未接上的那一支，於是整批會在第一篇就大聲失敗——
     那比安靜地跑出零篇好，零篇看起來像「這批沒有東西可報」。
+
+    給了 ``store`` 就會跳過「同一份文件、同一份契約」已經做過的那些，並把它們
+    記成 ``reused`` 而不是成功——讀一篇要花錢，而一次什麼都沒讀的重跑不該和
+    一次完整的跑長得一樣。
     """
     read = reader or bridge.read_sections
     run = InventoryRun(contract_hash=contract.get("scopeContractHash", ""))
@@ -108,6 +122,13 @@ def run_inventory(contract: dict, *, reader: Reader | None = None,
             run.outcomes.append(RecordOutcome(candidate_id, "read-corpus",
                                               False, str(error)))
             continue
+        if store is not None:
+            existing = store.load_if_current(candidate_id, request.manifestation,
+                                             request.scope_contract_hash)
+            if existing is not None:
+                run.outcomes.append(RecordOutcome(candidate_id, "reused", True,
+                                                  scoped=existing))
+                continue
         try:
             draft = read(request)
         except Exception as error:  # noqa: BLE001 — 讀論文那一端可能丟任何東西
@@ -128,6 +149,14 @@ def run_inventory(contract: dict, *, reader: Reader | None = None,
                 candidate_id, "scope", False,
                 f"{type(error).__name__}: {error}"))
             continue
+        if store is not None:
+            try:
+                store.save(scoped)
+            except Exception as error:  # noqa: BLE001
+                run.outcomes.append(RecordOutcome(
+                    candidate_id, "scope", False,
+                    f"{type(error).__name__}: {error}"))
+                continue
         run.outcomes.append(RecordOutcome(candidate_id, "scope", True,
                                           scoped=scoped))
 

@@ -32,6 +32,7 @@ from ahig.extraction.inventory_draft import (  # noqa: F401
     validate_draft,
     draft_to_scoped,
 )
+from ahig.extraction import store  # noqa: F401
 from ahig.extraction.run import (  # noqa: F401
     InventoryRun,
     RecordOutcome,
