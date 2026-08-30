@@ -434,3 +434,43 @@ def test_the_schema_check_says_nothing_about_a_document_that_conforms():
         assert _schema_errors(dict(_draft_for(request), anUnexpectedField=1))
 
     _in_corpus(body)
+
+
+def test_a_source_location_naming_no_real_section_is_counted_not_blocked():
+    # sectionsScanned 被核對，而每個數字自己的出處沒有——兩者是同一種宣稱，
+    # 而後者才是把數字追回去的那條線。這裡數它，不擋它：schema 明講粗座標
+    # 即可，且 20 個節的標題是字面 Untitled，擋下去等於讓它們無法被引用。
+    def body(candidate_id):
+        def elsewhere(request):
+            draft = _draft_for(request)
+            draft["reportedOutcomes"][0]["sourceLocation"] = {
+                "section": "A Section No Paper Has"}
+            return draft
+
+        run = run_inventory(CONTRACT, reader=elsewhere,
+                            candidate_ids=[candidate_id])
+        assert len(run.succeeded) == 1, "指不到的出處不該讓這一篇失敗"
+        record = run.to_batch_record()
+        assert record["unknownSections"] == 1
+        assert record["results"][0]["unknownSections"] == 1
+
+    _in_corpus(body)
+
+
+def test_a_source_location_naming_a_real_section_counts_zero():
+    # 沒有這一條，上面那條在「什麼出處都算指不到」時一樣會通過。
+    def body(candidate_id):
+        from ahig.extraction.corpus import reading_request_for
+        real = reading_request_for(candidate_id, CONTRACT).section_titles[0]
+
+        def cited(request):
+            draft = _draft_for(request)
+            draft["reportedOutcomes"][0]["sourceLocation"] = {
+                # 大小寫與前後空白不計，與 sections_titled 同一規則。
+                "section": "  " + real.upper() + "  "}
+            return draft
+
+        run = run_inventory(CONTRACT, reader=cited, candidate_ids=[candidate_id])
+        assert run.to_batch_record()["unknownSections"] == 0
+
+    _in_corpus(body)

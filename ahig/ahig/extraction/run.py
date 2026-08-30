@@ -17,6 +17,23 @@
 ``ReadingSeamNotImplemented``。**不給 reader 就跑，會大聲失敗而不是安靜地
 產出零篇。** 測試用替身注入，正式跑則注入真的那一端；接線本身不必再改。
 
+## 每個數字的出處：報而不擋
+
+`validate_draft` 拿文件真有的章節去核對 ``sectionsScanned``——理由是
+「聲稱掃描過本文件沒有的章節，該聲明不可信」。**而每一項結局自己的
+``sourceLocation.section``（那個數字是從哪裡抄來的）沒有任何東西在看。**
+🚨 兩者是同一種宣稱，而後者才是把數字追回去的那條線。
+
+**🚫 這裡不擋，只數。** 理由兩條：
+
+- schema 明講「粗座標即可……這是它廉價的原因」——⚠️ 擋下去等於改契約。
+- 全語料有 20 個節的標題是字面 ``Untitled``（`n541`：分布 18 篇、7.3% 的字）。
+  **🚨 強制「必須是真標題」會讓那些節無法被引用**，而那正是 `n541` 記為
+  「未被觸發」的那項限制——⚠️ 擋下去就是親手觸發它。
+
+故收據逐篇記 ``unknownSections``：**指不到任何真章節的出處有幾個。**
+⚠️ 今天沒有人讀，這個數必然是替身的；🚨 真的讀起來之後它才有意義。
+
 ## 兩套驗收，先前只跑其中一套
 
 `validate_draft` 是**本鏈**的驗收（綁定、lifecycle、完整性聲明）；
@@ -113,12 +130,15 @@ class RecordOutcome:
     # 送出去與收回來的**字元數**。不是 token，也不是錢——見模組說明。
     request_chars: int = 0
     draft_chars: int = 0
+    # 指不到任何真章節的 sourceLocation 有幾個。🚫 不擋，只數。
+    unknown_sections: int = 0
     reference: dict | None = None
 
     def to_json(self) -> dict:
         item = {"candidateId": self.candidate_id, "stage": self.stage,
                 "ok": self.ok, "requestChars": self.request_chars,
-                "draftChars": self.draft_chars}
+                "draftChars": self.draft_chars,
+                "unknownSections": self.unknown_sections}
         if self.error:
             item["error"] = self.error
         if self.reference:
@@ -187,6 +207,8 @@ class InventoryRun:
             "failedCount": len(self.failed),
             "charsSent": sum(o.request_chars for o in self.outcomes),
             "charsReturned": sum(o.draft_chars for o in self.outcomes),
+            "unknownSections": sum(o.unknown_sections
+                                   for o in self.outcomes),
             "results": [o.to_json() for o in self.outcomes],
         }
         seed = {"scopeContractHash": self.contract_hash,
@@ -207,6 +229,21 @@ class InventoryRun:
             if outcome.ok and outcome.scoped is None:
                 raise AssertionError(
                     f"{outcome.candidate_id}：判為成功卻沒有 scoped 清冊")
+
+
+def _unknown_sections(draft: dict, request) -> int:
+    """有幾個 ``sourceLocation.section`` 指不到這份文件真有的章節。
+
+    🚫 不擋，只數——理由見模組說明。⚠️ 比對照 `sections_titled` 的規則：
+    去前後空白、不分大小寫。
+    """
+    known = {title.strip().lower() for title in request.section_titles}
+    unknown = 0
+    for item in draft.get("reportedOutcomes") or []:
+        where = (item.get("sourceLocation") or {}).get("section")
+        if isinstance(where, str) and where.strip().lower() not in known:
+            unknown += 1
+    return unknown
 
 
 def _candidate_ids() -> list[str]:
@@ -276,18 +313,21 @@ def run_inventory(contract: dict, *, reader: Reader | None = None,
                 f"{type(error).__name__}: {error}", request_chars=sent))
             continue
         returned = len(json.dumps(draft, ensure_ascii=False, default=str))
+        unknown = _unknown_sections(draft, request)
         try:
             bridge.validate_draft(draft, request)
         except bridge.DraftRejected as error:
             run.outcomes.append(RecordOutcome(
                 candidate_id, "validate-draft", False, str(error),
-                request_chars=sent, draft_chars=returned))
+                request_chars=sent, draft_chars=returned,
+                unknown_sections=unknown))
             continue
         problem = _schema_errors(draft)
         if problem:
             run.outcomes.append(RecordOutcome(
                 candidate_id, "validate-draft", False, problem,
-                request_chars=sent, draft_chars=returned))
+                request_chars=sent, draft_chars=returned,
+                unknown_sections=unknown))
             continue
         try:
             scoped = bridge.draft_to_scoped(draft, contract, now=now)
@@ -315,7 +355,8 @@ def run_inventory(contract: dict, *, reader: Reader | None = None,
                 continue
         run.outcomes.append(RecordOutcome(
             candidate_id, "scope", True, scoped=scoped,
-            request_chars=sent, draft_chars=returned, reference=saved))
+            request_chars=sent, draft_chars=returned, reference=saved,
+            unknown_sections=unknown))
 
     run.finished_at = utc_now()
     run.check()

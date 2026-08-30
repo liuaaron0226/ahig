@@ -370,7 +370,13 @@ PYTEST_IGNORE = 'tests/test_shacl_gates.py'
 # 收據只收這一輪讀的錢、每份存下的清冊都指得到且位元組相符、跑完的批次再跑一次
 # 一篇都不讀。三個突變（關掉存放處查詢）打紅其中 3 條，第 4 條與重用無關故仍綠。
 # 增量恰為 4。
-BASE_PASSED, BASE_FAILED = 784, 0
+# 第 550 輪：784 → 786。前後對照（n+113 四）：
+#   改動前  784 passed／0 failed
+#   改動後  786 passed／0 failed
+# 新增兩條，測收據新增的 unknownSections（每個數字的出處指不指得到真章節）：
+# 指不到者要被數到但**不得**讓那一篇失敗；指得到者為 0（大小寫與空白不計）。
+# 增量恰為 2。
+BASE_PASSED, BASE_FAILED = 786, 0
 KNOWN_FAIL = '無（原 test_clopper_pearson_matches_closed_forms 已於第 437 輪依 n+113 四修正）'
 # 第 544 輪更正：先前只寫「缺 pyshacl」。⚠️ 操作上沒錯（裝 pyshacl 會帶 rdflib），
 # 🚨 但那句話讓人以為只差一個套件，而實測 rdflib 也不在——
