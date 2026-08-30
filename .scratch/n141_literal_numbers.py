@@ -98,6 +98,7 @@ _KNOWN_OUT = {
     "docs/m1-c-termination-report.md",
     "docs/m1-g-acquisition-report.md",   # 🚨 同上三條件（`n159` 產生）
     "docs/m1-f-harms-report.md",         # 🚨 同上三條件（`n160` 產生）
+    "docs/m1-d-audit-debt-report.md",    # 🚨 同上三條件（`n161` 產生）
 }
 _seen = set(DOCS.values()) | _KNOWN_OUT
 _stray = sorted(p.as_posix() for p in Path("docs").glob("m1-*.md")
