@@ -1,0 +1,147 @@
+{
+ "schemaVersion": 1,
+ "documentType": "executor-cell-handoff",
+ "ruling": "n+151(1) assigns these cells to the executor room; n+160 recorded them as stalled. They were producible from round 500 but nothing on the coordinator side reads that artefact, so this is the file a single generic resolver can read.",
+ "producedAtRound": 503,
+ "producedAt": "2026-08-30T10:32:14+0800",
+ "isSnapshot": true,
+ "snapshotNote": "Values are measurements taken at producedAt against the private root. n+151(1) requires delivery-day figures, so re-run n500 then this file on the day; do not treat these as constants.",
+ "howToConsume": "cells[<name>].value for kind == \"measured\"; for kind == \"blocked\" print blocker rather than an empty string, since an empty cell reads as zero.",
+ "cellCount": 18,
+ "measured": 14,
+ "cells": {
+  "TITLE_ONLY_N": {
+   "value": 175,
+   "kind": "measured",
+   "population": "standard-full-screen-pass-1 之 title-only-judged 名冊檔",
+   "note": "✅ 控制：entryCount 與 entries 長度相符"
+  },
+  "SHADOW_CONCORDANT": {
+   "value": 288,
+   "kind": "measured",
+   "population": "screening-shadow-gate 之 machine-reconciliation（candidateCount 300）",
+   "note": ""
+  },
+  "SHADOW_QUEUED": {
+   "value": 12,
+   "kind": "measured",
+   "population": "同上——⚠️ 與 concordant 同母體，🚫 不得與其他影子批次相加",
+   "note": ""
+  },
+  "RETRACT_FIELD_N": {
+   "value": 10,
+   "kind": "measured",
+   "population": "八份 worksheet 之聯集，逐筆去重（candidateId）",
+   "note": "🚨 逐份為 {'critical-harms-sweep': 0, 'critical-harms-sweep-orphans': 0, 'safety-full-screen-pass-1': 3, 'safety-full-screen-pass-2': 3, 'screening-pilot': 0, 'screening-shadow-pass-a': 0, 'screening-shadow-pass-b': 0, 'standard-full-screen-pass-1': 7}——⚠️ 各份互有重疊。✅ n+152（一）已裁定本格母體即此聯集；🚫 不得與 `NARR_RETRACT_TEXT_N`（理由文字）或 `RETRACT_IN_EVIDENCE`（進入證據體）相加或互換。"
+  },
+  "RETRACT_IN_EVIDENCE": {
+   "value": 0,
+   "kind": "measured",
+   "population": "上一格之聯集 10 筆中，錨定母體判為 `advance` 者",
+   "note": "🚨 逐筆狀態：錨定母體 exclude 6 筆；⚠️ 安全線另檔判讀 3 筆（皆 exclude）；🚨 完全無判讀 1 筆（9c2cc462）——⚠️ 未判讀者不可能「進入」證據體，故本格仍為 0，🚫 但它與「已被排除」不是同一回事，報告不得寫成一律排除。"
+  },
+  "ACQ_ALL": {
+   "value": 41,
+   "kind": "measured",
+   "population": "私有根 fulltext/ 全體之 acquired manifest（⚠️ 含本工作線以外之舊工作線）",
+   "note": "🚨 依 n+151（三）：走目錄之計數須列出被排除者——舊命名目錄 4 個（ahig_candidate_publication_21e2911、ahig_candidate_publication_465dca4、ahig_candidate_publication_c3c6e0d、ahig_candidate_publication_c7470eb）、非 artifact 目錄 3 個（pdf-cache、tei-cache、tei-test）。"
+  },
+  "ACQ_SCOPED": {
+   "value": 27,
+   "kind": "measured",
+   "population": "校準集抽出 60 ＋ n+103 接受之遞補 24 ＝ 84 筆之中的 acquired",
+   "note": "🚨 n+138 曾把此數誤標為「全體 manifest」——⚠️ 分母是 84，🚫 不是 60，亦🚫 不是 ACQ_ALL 之母體。"
+  },
+  "LIC_FILLED": {
+   "value": 5,
+   "kind": "measured",
+   "population": "acquired manifest 之 artifact.licence 為純字串者（🚨 JATS 自動擷取者為 `{href, text}` 物件，共 24 筆）",
+   "note": "⚠️ 兩者以**形狀**區分，🚫 沒有明確的「由誰填」欄位——🚨 故此判準脆弱：若日後自動擷取也寫成字串，這格會靜靜地變大。"
+  },
+  "NARR_COMPARATOR_N": {
+   "value": 127,
+   "kind": "measured",
+   "population": "standard-full-screen-pass-1 之判讀理由文字中 comparator 缺口字樣",
+   "note": "🚨 這是**已掛牌者**之數，🚫 不是該類母體——⚠️ 未掛牌者本檔看不到。"
+  },
+  "NARR_COMPARATOR_ADV": {
+   "value": 91,
+   "kind": "measured",
+   "population": "同上之 advance 筆數",
+   "note": "⚠️ 這一格存在的理由就是「總數會被讀成排除數」（n+115）。"
+  },
+  "NARR_INSTRUMENT_N": {
+   "value": 31,
+   "kind": "measured",
+   "population": "同上，儀器效度敘述式",
+   "note": ""
+  },
+  "NARR_RETRACT_TEXT_N": {
+   "value": 10,
+   "kind": "measured",
+   "population": "同上，理由文字之撤稿字樣",
+   "note": "🚨 🚫 不得與 `RETRACT_FIELD_N` 混用或相加——⚠️ 一個來自理由文字、一個來自 `publicationTypes` 欄位，母體與認定方式都不同。"
+  },
+  "TAG_ROSTER_TOTAL": {
+   "value": 1650,
+   "kind": "measured",
+   "population": "所有掛牌名單去重後之合計（同一筆可掛多牌）",
+   "note": ""
+  },
+  "TAG_ROSTER_COUNT": {
+   "value": 14,
+   "kind": "measured",
+   "population": "n60_tags 現跑之掛牌名單份數",
+   "note": "⚠️ 份數本身會隨新掛牌而變；🚨 已解析之列名：[outcome-adjacent]、[intermittent-team-sport]、[age]、[route]、…"
+  },
+  "TITLE_ONLY_EXPECTED_GAP": {
+   "value": null,
+   "kind": "blocked",
+   "blocker": "須由「僅憑題名判讀」之**率**推導，而 n+121 已裁定舊率（14.7%）取自特定段落不得直接套用；🚨 該用哪個率是裁定，🚫 不是檢索——待協調者裁定。",
+   "blockerKind": "needs-ruling"
+  },
+  "SEX_SAMPLE_COMPOSITION": {
+   "value": null,
+   "kind": "blocked",
+   "blocker": "證據體之性別組成須讀全文之受試者段落；🚨 萃取階段尚未開始，⚠️ 且它與「規劃率」是兩個量，🚫 不得互代。",
+   "blockerKind": "needs-extraction"
+  },
+  "POP_WORDING_UNCLEAR_N": {
+   "value": null,
+   "kind": "blocked",
+   "blocker": "「僅卡族群措辭」是對判讀理由的**判讀**，🚫 不是檢索；⚠️ `[population]` 掛牌數（n60_tags 現跑）是**已掛牌者**，🚨 不等於該類母體，故不得頂替。",
+   "blockerKind": "needs-judgement"
+  },
+  "HARMS_S5_ACTUAL": {
+   "value": null,
+   "kind": "blocked",
+   "blocker": "🚨 全文取得後、萃取判讀完成才存在；⚠️ 且 n+147 已明訂：GI 是否為主要結局之判斷正是 S5 要量的東西，🚫 不得由取得端順手做掉。",
+   "blockerKind": "needs-extraction"
+  }
+ },
+ "terminationPosition": {
+  "candidateIdTail": "9c2cc462",
+  "seq": 8388,
+  "page": 336,
+  "contiguousPagesJudged": 299,
+  "pagesBeyondFront": 37,
+  "itemsBeyondFront": 1616,
+  "judgedBeyondFront": 156,
+  "ownPageJudged": "3/25",
+  "unjudgedWorksheetItems": 1460,
+  "tailSpotCheckPopulation": 1460
+ },
+ "n450Threshold": {
+  "thresholdWords": 8000,
+  "thresholdIsStored": true,
+  "thresholdSource": "n450_landing_survey.json criterion",
+  "fulltextLikely": 0,
+  "overThresholdWithoutMarker": 5,
+  "wordsMin": 0,
+  "wordsMedian": 63,
+  "wordsMax": 22761,
+  "surveyed": 33
+ },
+ "contentNote": "Cell names, counts and positions only. No literature content.",
+ "handoffHash": "sha256:2bb82463aeb3dc5d82ac388e16c2b4b45faddc3bcd3d3ecccc84a77122f09219"
+}
