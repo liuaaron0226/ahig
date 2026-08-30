@@ -178,7 +178,7 @@ GATES = ("round_gate", "n115_delivery_checklist", "n116_obligation_crosscheck",
          "n157_section_c_report", "n159_section_g_report", "n160_section_f_report",
          "n161_section_d_report", "n163_section_a_report", "n164_section_b_report",
          "n165_section_e_report", "n166_report_cell_coverage",
-         "n172_root_population")
+         "n172_root_population", "n174_generator_literals")
 
 ITEMS.append((
     "既有機檢全綠", "協調者",
