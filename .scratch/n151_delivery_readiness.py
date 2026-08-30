@@ -194,7 +194,8 @@ def main():
              "n161_section_d_report": None,
              "n163_section_a_report": None,
              "n164_section_b_report": None,
-             "n165_section_e_report": None}
+             "n165_section_e_report": None,
+             "n166_report_cell_coverage": None}
     for g in gates:
         gates[g] = gate(f".scratch/{g}.py")
     bad = [g for g, rc in gates.items() if rc != 0]
