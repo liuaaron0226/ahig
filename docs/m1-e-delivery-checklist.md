@@ -51,8 +51,8 @@
 | 乙 | `UNTRACEABLE_N` | 凍結 | 看板 | 看板 61541／61653：33 段設計輸入無 `candidateId` 可對應 |
 | 乙 | `WORDING_SPLIT_GROUPS` | 漂移 | 看板 | 看板 7692（臨界功率兩篇）、7983（三篇同試驗）；🚨 **敘述式辨識，非掛牌統計**——不得寫成已窮舉 |
 | 丙 | `ALPHA` | 凍結 | 原始碼 | `statistical_termination.py` `DEFAULT_ALPHA` = 0.05 |
-| 丙 | `NOT_SCREENED_STD` | 漂移 | 產物 | `.scratch/n78_termination_evidence.json` → `tailSpotCheckPopulation.count`（**閉合式之第三項**） |
-| 丙 | `N_TOTAL_STD` | 凍結 | 產物 | `.scratch/n78_termination_evidence.json` → `standardLaneSequence.nTotal` |
+| 丙 | `NOT_SCREENED_STD` | 漂移 | 產物 | `.scratch/n78_termination_evidence.json` → `tailSpotCheckPopulation.count`（**閉合式之第三項**）；🚨 同義切面 `N_TOTAL_STD`（⚠️ 同屬 n+80 之閉合式：本格＋`SEQ_LEN`＋`OUT_OF_SEQ`＝該格） |
+| 丙 | `N_TOTAL_STD` | 凍結 | 產物 | `.scratch/n78_termination_evidence.json` → `standardLaneSequence.nTotal`；🚨 同義切面 `NOT_SCREENED_STD`（⚠️ 同屬 n+80 之閉合式） |
 | 丙 | `OCC1_HITS` | 凍結 | 產物 | `.scratch/n68_tail_result.json`（⚠️ 命中 2 筆，即絆網攔下者） |
 | 丙 | `OCC1_P` | 凍結 | 產物 | `.scratch/n78_termination_evidence.json` → `previousOccurrence.pScore` |
 | 丙 | `OCC1_PAGE` | 凍結 | 產物 | `.scratch/n78_termination_evidence.json` → `previousOccurrence.atPage` |
@@ -87,35 +87,35 @@
 | 庚 | `HARMS_COUNTER_LAST` | 凍結 | 看板 | 看板 21985 行「增至 10 筆」——**計數器之最終讀數**，其後停止維護；⚠️ **單位＝讀數**，🚫 不是名單，亦🚫 不得與同字根之配額格互換 |
 | 庚 | `HARMS_RESERVE_MENTIONS` | 漂移 | 產物 | 同上 → `reserve` 之長度＝**21**；**⚠️ 單位＝提及**，🚨 實測三個 id 同時落在兩欄，🚫 三欄不得相加 |
 | 庚 | `HARMS_S5_ACTUAL` | 漂移 | 不可及 | 🚨 **全文取得後才存在**；不得為填滿配額而放寬判準 |
-| 庚 | `HARMS_S5_QUOTA` | 凍結 | 產物 | `ahig/calibration/b11-carbohydrate/strata.json`（**受追蹤**，我已自算覆核）→ `strata[S5-gi-harms-primary].quota`＝**8**；⚠️ **單位＝設計配額**，🚫 不是實際取得數 |
-| 庚 | `HARMS_S6_QUOTA` | 凍結 | 產物 | `ahig/calibration/b11-carbohydrate/strata.json`（**受追蹤**，我已自算覆核）→ `strata[S6-gi-harms-secondary-only].quota`＝**7**；⚠️ **單位＝設計配額**，🚫 不是實際取得數 |
+| 庚 | `HARMS_S5_QUOTA` | 凍結 | 產物 | `ahig/calibration/b11-carbohydrate/strata.json`（**受追蹤**，我已自算覆核）→ `strata[S5-gi-harms-primary].quota`＝**8**；⚠️ **單位＝設計配額**，🚫 不是實際取得數；🚨 同義切面 `S3_QUOTA`（同為設計配額，🚫 層別不同） |
+| 庚 | `HARMS_S6_QUOTA` | 凍結 | 產物 | `ahig/calibration/b11-carbohydrate/strata.json`（**受追蹤**，我已自算覆核）→ `strata[S6-gi-harms-secondary-only].quota`＝**7**；⚠️ **單位＝設計配額**，🚫 不是實際取得數；🚨 同義切面 `S3_QUOTA`（同為設計配額，🚫 層別不同） |
 | 庚 | `HARMS_UNATTRIBUTABLE` | 漂移 | 推導 | 讀數 − 可指認者（**10 − 3 = 7**）；⚠️ **單位＝讀數之差**，🚫 不是一份名單；⚠️ 成因為五次計數器移動中兩次無 id、兩次 +2 而僅 1 個 id |
-| 庚 | `S56_ACQ` | 漂移 | 產物 | 同上依層別：`S5+S6-gi-merged` 之 acquired＝**3** |
-| 庚 | `S56_NONPUB` | 漂移 | 產物 | 同上：其中非刊出版＝**2**；🚨 即本契約最在意之結局，其在手全文有三分之二是作者稿 |
+| 庚 | `S56_ACQ` | 漂移 | 產物 | 同上依層別：`S5+S6-gi-merged` 之 acquired＝**3**；🚨 同義切面 `S3_ACQ_CALIB`（同為校準 60 分母）與 `S3_ACQ_BACKFILL`（⚠️ 分母為 84），🚫 不得互換 |
+| 庚 | `S56_NONPUB` | 漂移 | 產物 | 同上：其中非刊出版＝**2**；🚨 即本契約最在意之結局，其在手全文有三分之二是作者稿；🚨 同義切面 `CALIB_NONPUB`（同為非刊出版之份數，⚠️ 母體不同） |
 | 庚 | `SHORTFALL_HARMS` | 漂移 | 看板 | 同上（S5+S6） |
 | 辛 | `ACQ_ALL` | 漂移 | 不可及 | 私有根 fulltext 目錄之全部 acquired manifest＝**41**（執行室量測）；⚠️ **母體＝私有根 fulltext 全體**，含本工作線以外之舊工作線；🚫 不得與同字根其餘三格互換 |
-| 辛 | `ACQ_CALIB` | 漂移 | 產物 | `.scratch/m1_step3_inventory.json` → `counts.acquired`＝**14**（我已自檔覆核）；⚠️ **母體＝校準集抽出之 60**，🚫 非 41 亦非 84 |
+| 辛 | `ACQ_CALIB` | 漂移 | 產物 | `.scratch/m1_step3_inventory.json` → `counts.acquired`＝**14**（我已自檔覆核）；⚠️ **母體＝校準集抽出之 60**，🚫 非 41 亦非 84；🚨 同義切面 `S3_ACQ_CALIB`（同為校準 60 之 acquired，⚠️ 後者僅該層） |
 | 辛 | `ACQ_IN_OBTAINABLE` | 漂移 | 產物 | 🚨 n+155 取代已作廢之 `ACQUIRED_N`：**45 筆可得之中 JATS 已在手者**＝`totals.obtainable` − `n450` 之記錄數（45−33）＝**12**；⚠️ 與 `ACQ_ALL`／`ACQ_SCOPED`／`ACQ_CALIB` 皆非同一母體 |
 | 辛 | `ACQ_SCOPED` | 漂移 | 不可及 | ⚠️ **母體＝校準 60 ＋ n+103 補集＝84**：其中之 acquired＝**27**；🚨 n+138 曾誤標為「全體 manifest」 |
 | 辛 | `ALT_HAS` | 漂移 | 產物 | `.scratch/n477_alt_oa_locations.json`：有替代位址者＝**8**（我已自算） |
 | 辛 | `ALT_LANDING_ONLY` | 漂移 | 產物 | 同上：可達但僅取回書目頁＝**4**；⚠️ 是否另有可取全文未追 |
 | 辛 | `ALT_NONE` | 漂移 | 產物 | 同上：查無替代位址＝**3**（🚫 非窮盡，不等於不存在） |
-| 辛 | `ALT_PDF` | 漂移 | 產物 | 同上：可取得 PDF＝**4**，四筆短碼皆已見於驗收產物 ✅ |
+| 辛 | `ALT_PDF` | 漂移 | 產物 | 同上：可取得 PDF＝**4**，四筆短碼皆已見於驗收產物 ✅；🚨 同義切面 `UNPROBED_PDF`（第二輪之同一量，⚠️ 母體不同） |
 | 辛 | `ALT_REACHABLE` | 漂移 | 產物 | 同上：其中可達＝**8**（全數） |
 | 辛 | `BLOCKED_N` | 凍結 | 產物 | 同上：`survey == blocked-or-error` ＝ **11**（403 十筆＋逾時一筆） |
 | 辛 | `CALIBRATION_TARGET` | 凍結 | 產物 | `ahig/calibration/b11-carbohydrate/strata.json`（**受追蹤**，我已自算覆核）→ `totalSampleSize`＝**60**；✅ 七層配額總和亦為 60 |
-| 辛 | `CALIB_NONPUB` | 漂移 | 推導 | 5＋1＝**6**（校準集 14 筆中）；⚠️ 🚫 不得與 41 筆之 10 互換，兩者母體不同 |
-| 辛 | `CALIB_VER_ACC` | 漂移 | 產物 | 同上：`acceptedVersion`＝**5**；🚨 每一個取自此類之數值須逐筆標記 |
-| 辛 | `CALIB_VER_PUB` | 漂移 | 產物 | `.scratch/n489_calibration_versions.json`（**受追蹤**，我已自檔交叉核對）→ 校準集 acquired 中之 `publishedVersion`＝**8** |
-| 辛 | `CALIB_VER_SUB` | 漂移 | 產物 | 同上：`submittedVersion`＝**1**；🚫 不得作為數值來源 |
+| 辛 | `CALIB_NONPUB` | 漂移 | 推導 | 5＋1＝**6**（校準集 14 筆中）；⚠️ 🚫 不得與 41 筆之 10 互換，兩者母體不同；🚨 同義切面 `S56_NONPUB`（同為非刊出版之份數，⚠️ 一為校準 14、一為 S5+S6） |
+| 辛 | `CALIB_VER_ACC` | 漂移 | 產物 | 同上：`acceptedVersion`＝**5**；🚨 每一個取自此類之數值須逐筆標記；🚨 同義切面 `VER_ACCEPTED`（⚠️ 本格母體＝校準 14，該格＝在手 41） |
+| 辛 | `CALIB_VER_PUB` | 漂移 | 產物 | `.scratch/n489_calibration_versions.json`（**受追蹤**，我已自檔交叉核對）→ 校準集 acquired 中之 `publishedVersion`＝**8**；🚨 同義切面 `VER_PUBLISHED`（⚠️ 本格母體＝校準 14，該格＝在手 41）；🚫 與 `LANDING_PUBLISHER`／`SRC_PUBLISHER` **毫不相干**——⚠️ 那是「出版社」，本格是「刊出版」 |
+| 辛 | `CALIB_VER_SUB` | 漂移 | 產物 | 同上：`submittedVersion`＝**1**；🚫 不得作為數值來源；🚨 同義切面 `VER_SUBMITTED`（⚠️ 本格母體＝校準 14，該格＝在手 41） |
 | 辛 | `EXTRACTABLE_N` | 漂移 | 產物 | `.scratch/n492_stratum_table.json` → `totals.withBackfill`＝**27**（12 JATS ＋ 15 TEI）；🚨 n+155 更正：原註「與 `ACQ_SCOPED` 數值相同而**母體不同**」**是錯的**——⚠️ 兩者同母體，其相等是因為 `n498` 之節次一致性 41／41 全過，**🚫 無一筆被排除**；⚠️ 若日後有一筆不一致，兩數即分開 |
 | 辛 | `LANDING_FIGSHARE` | 漂移 | 產物 | 同上（figshare，有 API）；⚠️ **母體＝尚未到手之 33 筆** |
 | 辛 | `LANDING_FULLTEXT_MARKER` | 凍結 | 產物 | 同上：其中有 HTML 全文標記者＝**1**；⚠️ **母體＝已量到之 16 筆**，🚫 非 33 筆 |
 | 辛 | `LANDING_PMC_SCAN` | 漂移 | 產物 | 同上（PMC 掃描件）；⚠️ **母體＝尚未到手之 33 筆**，🚫 不得與 `SRC_PMC` 互換 |
-| 辛 | `LANDING_PUBLISHER` | 漂移 | 產物 | 同上（出版社；⚠️ 經 doi.org 轉址解出後由 9 增為 13）；🚨 **母體＝尚未到手之 33 筆**，🚫 不得與 `SRC_PUBLISHER` 互換 |
+| 辛 | `LANDING_PUBLISHER` | 漂移 | 產物 | 同上（出版社；⚠️ 經 doi.org 轉址解出後由 9 增為 13）；🚨 **母體＝尚未到手之 33 筆**，🚫 不得與 `SRC_PUBLISHER` 互換；🚨 同義切面 `SRC_NOLIC_PUB`（在手中未記載授權之出版社來源） |
 | 辛 | `LANDING_REACHED` | 凍結 | 產物 | `.scratch/n450_landing_survey.json`：HTTP 200 且有內容者＝**16**（我已自算）；⚠️ **母體＝實際抓過之 33 筆**，🚫 與 `LANDING_ROUTE_N` 之 16 非同一批（實測交集僅 6） |
-| 辛 | `LANDING_REPO` | 漂移 | 產物 | `.scratch/n439_route_cost.json` → `landingKindsAggregate`（機構典藏庫）；🚨 母體＝**尚未到手之 33 筆**，🚫 不得與 `SRC_REPO` 互換 |
-| 辛 | `LANDING_ROUTE_N` | 漂移 | 產物 | 同上 `available-landing-page`；⚠️ **母體＝45 筆可得中之路徑分類**，🚫 不得與 `LANDING_REPO` 等網站別四格互換 |
+| 辛 | `LANDING_REPO` | 漂移 | 產物 | `.scratch/n439_route_cost.json` → `landingKindsAggregate`（機構典藏庫）；🚨 母體＝**尚未到手之 33 筆**，🚫 不得與 `SRC_REPO` 互換；🚨 同義切面 `SRC_NOLIC_REPO`（在手中未記載授權之典藏庫來源） |
+| 辛 | `LANDING_ROUTE_N` | 漂移 | 產物 | 同上 `available-landing-page`；⚠️ **母體＝45 筆可得中之路徑分類**，🚫 不得與 `LANDING_REPO` 等網站別四格互換；🚨 同義切面 `PDF_ROUTE_N`（同為 45 筆之路徑分類，⚠️ 併 `ACQ_IN_OBTAINABLE` 三格相加＝45） |
 | 辛 | `LANDING_WORDS_MAX` | 凍結 | 產物 | 同上：最大 **22,761**（⚠️ 母體＝已量到之 16 筆；🚨 而此值在 33 筆母體下**也是 22,761**——**⚠️ 三格中唯一巧合相同的一格，🚫 不得據此認為三格母體相同**） |
 | 辛 | `LANDING_WORDS_MED` | 凍結 | 產物 | 同上：中位 **3071.5**；🚨 **n+162 更正**：原寫 3,807，而那是 16 個排序值裡的**第 9 個**——⚠️ 偶數長度之中位數應取第 8、9 兩值之平均。🚫 該錯躲過本檢查兩輪，因定位欄未用 `＝` 而舊規則只認 `＝` |
 | 辛 | `LANDING_WORDS_MIN` | 凍結 | 產物 | 同上：去標籤字數最小 **160**（⚠️ 母體＝已量到之 16 筆，🚫 非 33 筆） |
@@ -124,44 +124,44 @@
 | 辛 | `LIC_FILLED` | 漂移 | 不可及 | 私有根 acquired manifest 中具 `licenceProvenance` 欄者（執行室依 n+138（三）填入並附來源與查取日期）；⚠️ 母體為 acquired 全體，🚫 **不是首批 8 筆**（n+167 更正）；🚨 另有 24 筆之授權係自 JATS `<license>` 自動擷取、無來源欄，🚫 不得與本格相加 |
 | 辛 | `OBTAINABLE_N` | 漂移 | 產物 | `.scratch/m1_step3_backfill.json` → `totals.obtainable`＝**45**（🚨 單一欄位；n+155 更正：原寫「inventory ＋ backfill」而未載合併規則，⚠️ 實則不需合併）；⚠️ **上界非保證** |
 | 辛 | `PDF_IN_HAND` | 漂移 | 產物 | `.scratch/n456_pdf_textlayer.json`：**11** 檔（我已自算）；🚨 **母體＝私有 pdf 快取之檔案，單位＝檔**——⚠️ 🚫 不得與 `PDF_ROUTE_N` 互換或相減 |
-| 辛 | `PDF_ROUTE_N` | 漂移 | 產物 | 同上 `available-pdf`；🚨 **母體＝45 筆可得中之路徑分類**——⚠️ 🚫 **不得與 `PDF_IN_HAND` 等四格互換或相減**，後者數的是私有快取裡實際在手的檔案（n+172 查出） |
+| 辛 | `PDF_ROUTE_N` | 漂移 | 產物 | 同上 `available-pdf`；🚨 **母體＝45 筆可得中之路徑分類**——⚠️ 🚫 **不得與 `PDF_IN_HAND` 等四格互換或相減**，後者數的是私有快取裡實際在手的檔案（n+172 查出）；🚨 同義切面 `LANDING_ROUTE_N`（同為 45 筆之路徑分類） |
 | 辛 | `PDF_SCANNED` | 漂移 | 產物 | 同上：純掃描 **0**；⚠️ **母體＝私有 pdf 快取之檔案** |
 | 辛 | `PDF_TEXTLAYER` | 漂移 | 產物 | 同上：文字層 **9**；⚠️ **母體＝私有 pdf 快取之檔案** |
 | 辛 | `PDF_UNCERTAIN` | 漂移 | 產物 | 同上：不確定 **2**；⚠️ **母體＝私有 pdf 快取之檔案** |
 | 辛 | `PMC_MISS_404` | 凍結 | 產物 | 同上（已知 PMCID 但 `fullTextXML` 404） |
 | 辛 | `PMC_MISS_NO_ID` | 凍結 | 產物 | `.scratch/n439_route_cost.json` → `europePmcMissCauses`（無 PMCID） |
-| 辛 | `S3_ACQ_BACKFILL` | 漂移 | 產物 | 同上 → `acquiredWithBackfill`＝**1**；⚠️ 與上一格母體不同 |
-| 辛 | `S3_ACQ_CALIB` | 漂移 | 產物 | `.scratch/n492_stratum_table.json`（**受追蹤**，我已自檔覆核）→ `S3-tte` 之 `acquiredCalibration60`＝**0**；⚠️ **母體＝校準 60 之中該層**；🚨 全空，且曾被合計數藏住 |
-| 辛 | `S3_QUOTA` | 凍結 | 產物 | `ahig/calibration/b11-carbohydrate/strata.json` → `S3-tte` 配額＝**8**（我已自檔覆核） |
+| 辛 | `S3_ACQ_BACKFILL` | 漂移 | 產物 | 同上 → `acquiredWithBackfill`＝**1**；⚠️ 與上一格母體不同；🚨 同義切面 `S56_ACQ`，⚠️ 層別不同**且分母不同**（本格含補抽之 84） |
+| 辛 | `S3_ACQ_CALIB` | 漂移 | 產物 | `.scratch/n492_stratum_table.json`（**受追蹤**，我已自檔覆核）→ `S3-tte` 之 `acquiredCalibration60`＝**0**；⚠️ **母體＝校準 60 之中該層**；🚨 全空，且曾被合計數藏住；🚨 同義切面 `ACQ_CALIB`（校準 60 全體）與 `S56_ACQ`（另一層），🚫 層別不同不得互換 |
+| 辛 | `S3_QUOTA` | 凍結 | 產物 | `ahig/calibration/b11-carbohydrate/strata.json` → `S3-tte` 配額＝**8**（我已自檔覆核）；🚨 同義切面 `HARMS_S5_QUOTA`／`HARMS_S6_QUOTA`（同為設計配額，🚫 層別不同） |
 | 辛 | `S7_POOL_N` | 凍結 | 看板 | 看板 63655 一帶之清點（S7 全池） |
 | 辛 | `SECTIONS_OK` | 漂移 | 產物 | `.scratch/n498_sections_integrity.json` → `counts.consistent`＝**41**（我已自檔覆核） |
 | 辛 | `SHORTFALL_HARMS` | 漂移 | 看板 | 同上（S5+S6） |
 | 辛 | `SHORTFALL_N` | 漂移 | 看板 | 校準集設計數 − 可得數，交付時現算 |
 | 辛 | `SHORTFALL_S7` | 漂移 | 看板 | 看板 63655 三之缺口分布 |
-| 辛 | `SRC_NOLIC_PUB` | 漂移 | 推導 | 同上，`kind=publisher` 者；⚠️ 未記載授權之 5 份全落在典藏庫與出版社，**🚨 PMC 那批一份不缺** |
-| 辛 | `SRC_NOLIC_REPO` | 漂移 | 推導 | 同上 `records` 中 `kind=repository` 且 `hasLicence=false` 者；🚨 逐筆現數，🚫 不取 `unlicensedHosts`（那一欄的鍵是主機不是類別） |
-| 辛 | `SRC_PMC` | 漂移 | 產物 | `.scratch/n512_source_host_provenance.json` → `byKind.pmc`＝**26**；⚠️ 母體＝**已在手之 41 份**，🚫 不是尚未到手的 33 筆 |
+| 辛 | `SRC_NOLIC_PUB` | 漂移 | 推導 | 同上，`kind=publisher` 者；⚠️ 未記載授權之 5 份全落在典藏庫與出版社，**🚨 PMC 那批一份不缺**；🚨 同義切面 `LANDING_PUBLISHER`（⚠️ 母體為尚未到手之 33 筆） |
+| 辛 | `SRC_NOLIC_REPO` | 漂移 | 推導 | 同上 `records` 中 `kind=repository` 且 `hasLicence=false` 者；🚨 逐筆現數，🚫 不取 `unlicensedHosts`（那一欄的鍵是主機不是類別）；🚨 同義切面 `LANDING_REPO`（⚠️ 母體為尚未到手之 33 筆） |
+| 辛 | `SRC_PMC` | 漂移 | 產物 | `.scratch/n512_source_host_provenance.json` → `byKind.pmc`＝**26**；⚠️ 母體＝**已在手之 41 份**，🚫 不是尚未到手的 33 筆；🚨 同義切面 `LANDING_PMC_SCAN`——⚠️ **同一個 PMC，兩種相反處境**：該格是掃描件、不在可取全文子集，本格是已取回全文者 |
 | 辛 | `SRC_PUBLISHER` | 漂移 | 產物 | 同上 → `byKind.publisher`；🚨 同上不得與 `LANDING_PUBLISHER` 互換 |
 | 辛 | `SRC_REPO` | 漂移 | 產物 | 同上 → `byKind.repository`；🚨 **不得與 `LANDING_REPO` 互換**——後者是尚未到手者之網站別 |
-| 辛 | `SRC_UNKNOWN` | 漂移 | 產物 | 同上 → `byKind.unknown`；⚠️ `doi.org` 歸此類——**它是轉址器不是來源**，🚫 不假裝知道其指向 |
+| 辛 | `SRC_UNKNOWN` | 漂移 | 產物 | 同上 → `byKind.unknown`；⚠️ `doi.org` 歸此類——**它是轉址器不是來源**，🚫 不假裝知道其指向；🚨 同義切面 `VER_UNKNOWN`——**⚠️ 同母體（41）、同一個「不明」字，而不明的是不同東西**：本格是來源不明，該格是版本不明 |
 | 辛 | `UNPROBED_ALT` | 漂移 | 產物 | `.scratch/n494_alt_oa_round2.json` → 有其他位址者＝**3**（其餘 9 筆無） |
 | 辛 | `UNPROBED_N` | 漂移 | 產物 | `.scratch/n493_unprobed_available.json` → `count`＝**12**（我已自檔覆核）；⚠️ 母體＝校準 60＋補集中從未試過者 |
-| 辛 | `UNPROBED_PDF` | 漂移 | 產物 | 同上 → `obtainable`＝**0**；🚨 🚫 不得由此推論「替代位址法無效」——該法之前提對本批不成立 |
+| 辛 | `UNPROBED_PDF` | 漂移 | 產物 | 同上 → `obtainable`＝**0**；🚨 🚫 不得由此推論「替代位址法無效」——該法之前提對本批不成立；🚨 同義切面 `ALT_PDF`（第一輪之同一量，⚠️ 母體不同） |
 | 辛 | `UNTITLED_LEADING` | 漂移 | 產物 | 同上 → `totals.filesWhoseLeadingSectionIsUntitled`＝**5**；🚨 首節無標題者，摘要／前言最常在此 |
 | 辛 | `UNTITLED_SECTIONS` | 漂移 | 產物 | 同上 → `totals.untitledSections`＝**20**；⚠️ 判準為空字串**或**字面 `Untitled` |
-| 辛 | `VER_ACCEPTED` | 漂移 | 產物 | 同上 |
-| 辛 | `VER_PUBLISHED` | 漂移 | 產物 | `n486`＋`n487`＋`n488` 合計；⚠️ 三批母體互斥 |
-| 辛 | `VER_SUBMITTED` | 漂移 | 產物 | 同上；🚫 依 n+138 不得作為數值萃取來源 |
-| 辛 | `VER_UNKNOWN` | 漂移 | 產物 | 同上＋`n488_pmcid_to_doi.json`；⚠️ 補查後**由 26 降為 1**，🚨 該 26 是量測缺口且集中於單一取得路徑，🚫 不得反過來當成「多半是作者稿」之證據（n+141） |
+| 辛 | `VER_ACCEPTED` | 漂移 | 產物 | 同上；🚨 同義切面 `CALIB_VER_ACC`（⚠️ 本格母體＝在手 41，該格＝校準 14） |
+| 辛 | `VER_PUBLISHED` | 漂移 | 產物 | `n486`＋`n487`＋`n488` 合計；⚠️ 三批母體互斥；🚨 同義切面 `CALIB_VER_PUB`（⚠️ 本格母體＝在手全體，該格＝校準 14） |
+| 辛 | `VER_SUBMITTED` | 漂移 | 產物 | 同上；🚫 依 n+138 不得作為數值萃取來源；🚨 同義切面 `CALIB_VER_SUB`（⚠️ 本格母體＝在手 41，該格＝校準 14） |
+| 辛 | `VER_UNKNOWN` | 漂移 | 產物 | 同上＋`n488_pmcid_to_doi.json`；⚠️ 補查後**由 26 降為 1**，🚨 該 26 是量測缺口且集中於單一取得路徑，🚫 不得反過來當成「多半是作者稿」之證據（n+141）；🚨 同義切面 `SRC_UNKNOWN`——**⚠️ 同母體（41）、同一個「不明」字**：本格是版本不明，該格是來源不明 |
 | 壬 | `DEBT_CUMULATIVE` | 漂移 | 看板 | n+108：**22**（相加 23、重疊 1，已去重）；⚠️ **單位＝抽查項目**，🚫 非文獻 |
 | 壬 | `DEBT_OUTSTANDING` | 漂移 | 看板 | n+108：**16**（W2 之 5 ∪ 影子 11）——⚠️ 單位＝**抽查項目**，非文獻 |
 | 壬 | `DEBT_SETTLED` | 漂移 | 看板 | n+108：**6**；⚠️ **單位＝抽查項目**，🚫 非文獻 |
 | 壬 | `HARMS_ATTRIBUTABLE` | 漂移 | 產物 | `.scratch/n482_harms_adjacent_roster.json`（**受追蹤**，我已自跑覆核）→ `included` 之相異 `idPrefix`＝**3**；⚠️ **母體＝相鄰名冊之 included**，🚫 非配額亦非讀數 |
 | 壬 | `HARMS_COMBINED` | 凍結 | 產物 | 同上：8＋7＝**15**；✅ 與 `m1_step2_assignment.json` 之 `S5+S6-gi-merged` 配額交叉核對相符 |
 | 壬 | `HARMS_COUNTER_LAST` | 凍結 | 看板 | 看板 21985 行「增至 10 筆」——**計數器之最終讀數**，其後停止維護；⚠️ **單位＝讀數**，🚫 不是名單，亦🚫 不得與同字根之配額格互換 |
-| 壬 | `S3_QUOTA` | 凍結 | 產物 | `ahig/calibration/b11-carbohydrate/strata.json` → `S3-tte` 配額＝**8**（我已自檔覆核） |
-| 壬 | `S56_ACQ` | 漂移 | 產物 | 同上依層別：`S5+S6-gi-merged` 之 acquired＝**3** |
-| 壬 | `S56_NONPUB` | 漂移 | 產物 | 同上：其中非刊出版＝**2**；🚨 即本契約最在意之結局，其在手全文有三分之二是作者稿 |
+| 壬 | `S3_QUOTA` | 凍結 | 產物 | `ahig/calibration/b11-carbohydrate/strata.json` → `S3-tte` 配額＝**8**（我已自檔覆核）；🚨 同義切面 `HARMS_S5_QUOTA`／`HARMS_S6_QUOTA`（同為設計配額，🚫 層別不同） |
+| 壬 | `S56_ACQ` | 漂移 | 產物 | 同上依層別：`S5+S6-gi-merged` 之 acquired＝**3**；🚨 同義切面 `S3_ACQ_CALIB`（同為校準 60 分母）與 `S3_ACQ_BACKFILL`（⚠️ 分母為 84），🚫 不得互換 |
+| 壬 | `S56_NONPUB` | 漂移 | 產物 | 同上：其中非刊出版＝**2**；🚨 即本契約最在意之結局，其在手全文有三分之二是作者稿；🚨 同義切面 `CALIB_NONPUB`（同為非刊出版之份數，⚠️ 母體不同） |
 | 壬 | `TAG_ROSTER_COUNT` | 漂移 | 不可及 | `.scratch/n60_tags.py` 現跑之掛牌名單份數（讀私有根）；⚠️ 份數本身會隨新掛牌而變 |
 | 壬 | `TAG_ROSTER_TOTAL` | 漂移 | 不可及 | 同上，去重後合計筆數（同一筆可掛多牌）；🚨 須併報各牌之排除／納入（檢查表第十條） |
 
