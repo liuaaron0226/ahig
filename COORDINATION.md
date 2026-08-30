@@ -77727,3 +77727,65 @@ batch     → extraction/batches/inventory-batch-<…>.json
 
 **待協調者裁的兩項**：① 萃取讀論文走 session 還是 API（第 536 輪提出）；
 ② `sections.sourceSha256` 的語意（n+169 遞延，⚠️ 而其遞延理由已如上不成立）。
+
+---
+
+## 🚨 執行室回報：**這條鏈從不驗下游 schema，於是它產出的清冊沒有人保證下游收得下**（第 539 輪）
+
+看板最新仍為 **n+184**，⚠️ 無新裁定（🚨 已四輪；route 之問與 n+169 語意之問尚待裁）。
+續查 n+183 的那句「**scoped → family/gates（既有）✅**」。
+
+### 一、🚨 「既有」那一段的介面，本鏈從沒被驗過
+
+`schema/outcome-inventory.schema.json` 是下游的驗收，且 **`additionalProperties: false`**。
+`test_inventory_scope_integration.py` 已釘住「matcher 的輸出必須直接通過 schema」——
+**✅ 那條是真的，⚠️ 但它餵的是合成 draft。**
+
+**🚨 而鏈上（`run_inventory`）沒有任何一段在看 schema。** 後果：
+**⚠️ 不合下游規格的清冊會被照樣判範圍、照樣存檔，等到下游才退**——
+**🚨 那時候看起來會像模型回了壞東西，而實際上是我們自己沒驗。**
+
+**✅ 已補**：`validate_draft` 之後驗 draft 一次、判範圍之後驗 scoped 一次，
+失敗分別記在 `validate-draft` 與 `scope`。
+
+### 二、🚨 這道新檢查第一件事就是抓到我自己的三份 fixture
+
+`_draft_for`（本室兩個測試檔）與 n537 的替身，**先前全部不合下游 schema**：
+
+| 錯處 | 實情 |
+|---|---|
+| `attestedBy` 缺 `at` | schema 必填 |
+| `createdBy`／`attestedBy` 多帶 `note` | `additionalProperties: false` |
+| `agentClass: 'stub'` | 不在列舉內 |
+| `harmsScan` 缺三個必填欄位 | `sectionsScanned`／`harmOutcomesFound`／`harmsReportingStatement` |
+| `sectionsScanned: []` | `minItems: 1` |
+| `harmOutcomesFound: []` | 型別是 **integer**，🚨 我猜成陣列 |
+| `createdBy` 補了 `at` | 🚨 我又猜錯：**只有 `attestedBy` 收 `at`** |
+
+**⚠️ 猜欄位型別猜錯兩次，兩次都是這道新檢查當場說出來的。**
+**✅ 修的是 fixture 與替身，🚫 不是把檢查放寬。**
+
+### 三、✅ 修好之後：41 篇真文件，draft 與 scoped **雙雙 41／41 通過**
+
+```
+紀錄 41｜draft 不通過 0｜scoped 不通過 0
+餵進去的真值：相異章節標題 591 個｜Untitled 被掃描 20 次｜單篇最多 160 節
+```
+
+⚠️ 這才是「拿真的值去撞 schema」——**🚨 先前撞它的一直是 2 個短標題的合成值。**
+
+### 四、⚠️ 一句不敢多說的話
+
+scoped 那一側的檢查，**目前的鏈跑不出能觸發它的情形**（draft 側會先擋下）。
+**🚨 故它是一道防 matcher 漂移的守衛，不是本輪量到的東西**——
+✅ 那一側改以直接呼叫 `_schema_errors` 的方式測（合規者無話、多欄位者有話）。
+
+### 五、本輪對外請求：**0**
+
+**閘門**：n+48 兩道 ✅｜n+54 三道 ✅｜**測試 775／0 ✅，exit=0**（基線 773 → 775，前後對照已寫入）。
+**🚨 `ahig/` 有改動**：`run.py` 增 `_schema_errors` 與兩處驗證；兩個測試檔之 fixture 改為合規；測試兩條。
+新增 `.scratch/n539_scoped_schema_conformance.py`／`.json`；n537 之替身一併改為合規並重跑（結論不變）。
+**🚫 n539 不入輪次閘門**（n+181 三）。
+
+**待協調者裁**：① 萃取讀論文走 session 還是 API（第 536 輪）；
+② `sections.sourceSha256` 之語意（n+169 遞延，⚠️ 其遞延理由已於第 538 輪查明不成立）。

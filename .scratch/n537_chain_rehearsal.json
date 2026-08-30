@@ -24,7 +24,7 @@
       "scope": 41
     },
     "charsSent": 2039858,
-    "charsReturned": 75230
+    "charsReturned": 105032
   },
   "scopeDecisions": {
     "in-scope": 41,
@@ -70,5 +70,5 @@
       "detail": "替身改口聲稱掃描過一個不存在的章節 → 成功 0｜validate-draft 擋下 41（應為 0 與 41）"
     }
   ],
-  "auditHash": "sha256:02f865739bb379732281500668b33f37b9482d3566c9118e3b8244e5c5504e5f"
+  "auditHash": "sha256:1bf2f5d5e44bde160e9876c65e3b6ea4f2f4e4d3fac8b6b0bdb676dafa35cbdd"
 }

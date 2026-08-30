@@ -13,6 +13,8 @@ FIXTURES = Path(__file__).parent / "fixtures" / "fulltext"
 # 契約要完整到 ``ScopeMatcher`` 真的收得下。第 533 輪查明：先前這裡是個殘缺的
 # 樁，於是每一筆都在 scope 階段丟 KeyError——而下面那個「混合結果」的測試，
 # 兩筆其實都失敗，卻因為只數了 succeeded + failed 而照樣通過。
+AT = "2026-08-31T00:00:00Z"
+
 CONTRACT = {
     "status": "frozen",
     "scopeContractHash": "sha256:" + "c" * 64,
@@ -60,11 +62,20 @@ def _draft_for(request, **over):
             {"localLabel": "fat-free mass",
              "sourceLocation": {"section": "Results"}}],
         "registryComparison": {"status": "pending"},
+        # 下游 schema 也在看這些欄位（第 539 輪起鏈上會驗）：attestedBy 要 at，
+        # harmsScan 有三個必填欄位，agentClass 有列舉。
+        # createdBy 不收 at（只有 attestedBy 要）——additionalProperties:false。
         "createdBy": {"agentClass": "model"},
         "completenessAttestation": {
-            "sectionsScanned": [], "supplementaryScanned": False,
-            "harmsScan": {"performed": True},
-            "attestedBy": {"agentClass": "model"}},
+            # sectionsScanned 兩處都是 minItems:1，且外層那個還要是這份文件
+            # 真有的章節（validate_draft 在看）——故直接用請求帶來的標題。
+            "sectionsScanned": list(request.section_titles),
+            "supplementaryScanned": False,
+            "harmsScan": {"performed": True,
+                          "sectionsScanned": list(request.section_titles),
+                          "harmOutcomesFound": 0,
+                          "harmsReportingStatement": "not-mentioned"},
+            "attestedBy": {"agentClass": "model", "at": AT}},
     }
     draft.update(over)
     return draft
@@ -389,3 +400,37 @@ def test_the_real_frozen_contract_passes_the_preflight():
     run = run_inventory(contract, candidate_ids=[])
     assert run.attempted == 0
     assert run.contract_hash == contract["scopeContractHash"]
+
+
+def test_a_draft_the_seam_accepts_but_the_downstream_schema_rejects_is_a_failure():
+    # validate_draft 是本鏈的驗收，schema 是下游的，兩者不等價。先前鏈上沒有
+    # 任何一段在看 schema——不合下游規格的清冊會被照樣判範圍、照樣存檔，
+    # 等到下游才退，而那時候看起來會像模型回了壞東西。
+    def body(candidate_id):
+        def slightly_off(request):
+            draft = _draft_for(request)
+            # validate_draft 不看這一欄；schema 要 integer。
+            draft["completenessAttestation"]["harmsScan"]["harmOutcomesFound"] = "0"
+            return draft
+
+        run = run_inventory(CONTRACT, reader=slightly_off,
+                            candidate_ids=[candidate_id])
+        assert run.succeeded == []
+        assert run.failures_by_stage()["validate-draft"] == 1
+        assert "schema" in run.failed[0].error
+
+    _in_corpus(body)
+
+
+def test_the_schema_check_says_nothing_about_a_document_that_conforms():
+    # 沒有這一條，上面那條在「什麼都退」時一樣會通過。
+    from ahig.extraction.run import _schema_errors
+
+    def body(candidate_id):
+        from ahig.extraction.corpus import reading_request_for
+        request = reading_request_for(candidate_id, CONTRACT)
+        assert _schema_errors(_draft_for(request)) == ""
+        # 而多一個 schema 沒宣告的欄位就該有話說（additionalProperties: false）。
+        assert _schema_errors(dict(_draft_for(request), anUnexpectedField=1))
+
+    _in_corpus(body)

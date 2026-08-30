@@ -14,6 +14,8 @@ FIXTURES = Path(__file__).parent / "fixtures" / "fulltext"
 # 這一檔不判範圍，故契約只要湊得出「已凍結、有結局可對照」即可——
 # `reading_request_for` 看的就是這兩樣。要 ScopeMatcher 收得下的那份完整契約
 # 在 test_extraction_run.py，那裡才真的走到判定。
+AT = "2026-08-31T00:00:00Z"
+
 CONTRACT = {"status": "frozen",
             "scopeContractHash": "sha256:" + "c" * 64,
             "inScopeOutcomes": [{"outcomeId": "o1", "label": "fat-free mass"}]}
@@ -38,11 +40,19 @@ def _draft_for(request, **over):
             {"localLabel": "fat-free mass",
              "sourceLocation": {"section": "Results"}}],
         "registryComparison": {"status": "pending"},
+        # 下游 schema 也在看這些欄位（第 539 輪起鏈上會驗）：attestedBy 要 at，
+        # harmsScan 有三個必填欄位，agentClass 有列舉。
         "createdBy": {"agentClass": "model"},
         "completenessAttestation": {
-            "sectionsScanned": [], "supplementaryScanned": False,
-            "harmsScan": {"performed": True},
-            "attestedBy": {"agentClass": "model"}},
+            # sectionsScanned 兩處都是 minItems:1，且外層那個還要是這份文件
+            # 真有的章節（validate_draft 在看）——故直接用請求帶來的標題。
+            "sectionsScanned": list(request.section_titles),
+            "supplementaryScanned": False,
+            "harmsScan": {"performed": True,
+                          "sectionsScanned": list(request.section_titles),
+                          "harmOutcomesFound": 0,
+                          "harmsReportingStatement": "not-mentioned"},
+            "attestedBy": {"agentClass": "model", "at": AT}},
     }
     draft.update(over)
     return draft

@@ -17,6 +17,18 @@
 ``ReadingSeamNotImplemented``。**不給 reader 就跑，會大聲失敗而不是安靜地
 產出零篇。** 測試用替身注入，正式跑則注入真的那一端；接線本身不必再改。
 
+## 兩套驗收，先前只跑其中一套
+
+`validate_draft` 是**本鏈**的驗收（綁定、lifecycle、完整性聲明）；
+`schema/outcome-inventory.schema.json` 是**下游**的驗收，且它是
+``additionalProperties: false``。**第 539 輪查明兩者不等價**：一份
+`validate_draft` 收得下的 draft，schema 可以整份退回（缺 ``attestedBy.at``、
+``harmsScan`` 缺三個必填欄位、``agentClass`` 不在列舉內）。
+
+🚨 而在此之前，鏈上沒有任何一段在看 schema——**於是不合下游規格的清冊會被
+照樣判範圍、照樣存檔**，等到下游才退。⚠️ 那時候看起來會像是模型回了壞東西，
+🚫 而實際上是我們自己沒驗。故這裡兩處都驗：draft 一次、scoped 一次。
+
 ## 契約先驗，再花錢
 
 判範圍是**最後一段**，而 ``ScopeMatcher`` 是在那時候才被造出來的。於是一份
@@ -43,6 +55,7 @@ from __future__ import annotations
 
 import json
 from dataclasses import dataclass, field
+from pathlib import Path
 from typing import Callable, Iterable
 
 from ahig.contracts.freeze import content_hash
@@ -62,6 +75,32 @@ class ContractUnusable(Exception):
     """
 
 STAGES = ("read-corpus", "call-reader", "validate-draft", "scope", "reused")
+
+# 下游那一份。位置照本 repo 既有慣例（`gates/shacl.py` 亦以 parents[2] 定位）。
+_SCHEMA_PATH = (Path(__file__).resolve().parents[2] / "schema"
+                / "outcome-inventory.schema.json")
+_validator = None
+
+
+def _schema_errors(document: dict) -> str:
+    """不合下游 schema 之處，回傳一句話；沒有問題回空字串。
+
+    只報首處與總數：一份文件錯十處時，把十處都塞進 outcome 只會讓報表難讀，
+    而**修第一處通常就會連帶改掉其餘**。
+    """
+    global _validator
+    if _validator is None:
+        from jsonschema import Draft202012Validator
+        _validator = Draft202012Validator(
+            json.loads(_SCHEMA_PATH.read_text(encoding="utf-8")))
+    errors = sorted(_validator.iter_errors(document),
+                    key=lambda e: list(e.path))
+    if not errors:
+        return ""
+    first = errors[0]
+    where = "/".join(str(p) for p in first.path) or "(root)"
+    return "%d 處不合 outcome-inventory schema，首處 %s：%s" % (
+        len(errors), where, first.message)
 
 
 @dataclass
@@ -244,12 +283,24 @@ def run_inventory(contract: dict, *, reader: Reader | None = None,
                 candidate_id, "validate-draft", False, str(error),
                 request_chars=sent, draft_chars=returned))
             continue
+        problem = _schema_errors(draft)
+        if problem:
+            run.outcomes.append(RecordOutcome(
+                candidate_id, "validate-draft", False, problem,
+                request_chars=sent, draft_chars=returned))
+            continue
         try:
             scoped = bridge.draft_to_scoped(draft, contract, now=now)
         except Exception as error:  # noqa: BLE001
             run.outcomes.append(RecordOutcome(
                 candidate_id, "scope", False,
                 f"{type(error).__name__}: {error}",
+                request_chars=sent, draft_chars=returned))
+            continue
+        problem = _schema_errors(scoped)
+        if problem:
+            run.outcomes.append(RecordOutcome(
+                candidate_id, "scope", False, problem,
                 request_chars=sent, draft_chars=returned))
             continue
         saved = None

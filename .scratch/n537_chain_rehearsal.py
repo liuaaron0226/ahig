@@ -53,6 +53,8 @@ OUT = Path(__file__).resolve().parent / 'n537_chain_rehearsal.json'
 
 # 🚨 一眼看得出是演練的標記。萬一哪天真的漏出去，讀的人立刻知道它不是清冊。
 REHEARSAL = 'REHEARSAL-NOT-A-REAL-INVENTORY'
+# 固定時戳：演練要可重跑得到同一份產物。
+STUB_AT = '2026-08-31T00:00:00Z'
 
 
 def stub_reader(request):
@@ -85,12 +87,19 @@ def stub_reader(request):
              'sourceLocation': {'section': REHEARSAL}},
         ],
         'registryComparison': {'status': 'pending'},
-        'createdBy': {'agentClass': 'stub', 'note': REHEARSAL},
+        # 🚨 第 539 輪：替身原本自己就不合下游 schema（agentClass 不在列舉內、
+        # 多帶 note、attestedBy 缺 at、harmsScan 缺三個必填欄位）。
+        # ⚠️ 那是量測工具的錯，不是鏈的錯——修的是替身。
+        # 🚫 演練標記因此改掛在 inventoryId 與 localLabel（那兩處是自由文字）。
+        'createdBy': {'agentClass': 'model'},
         'completenessAttestation': {
             'sectionsScanned': list(request.section_titles),
             'supplementaryScanned': False,
-            'harmsScan': {'performed': True},
-            'attestedBy': {'agentClass': 'stub', 'note': REHEARSAL}},
+            'harmsScan': {'performed': True,
+                          'sectionsScanned': list(request.section_titles),
+                          'harmOutcomesFound': 0,
+                          'harmsReportingStatement': 'not-mentioned'},
+            'attestedBy': {'agentClass': 'model', 'at': STUB_AT}},
     }
 
 
