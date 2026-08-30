@@ -161,44 +161,57 @@ ITEMS.append((
 
 ITEMS.append((
     "既有機檢全綠", "協調者",
-    "n+136／n+141／n+131／n+116／n+153／n+154／n+155／n+157／n+159／n+160／n+161／n+163／n+164",
+    "n+136／n+141／n+131／n+116／n+153／n+154／n+155／n+157／n+159／n+160／n+161／n+163／n+164／n+165",
     "閘門、佔位符表、交叉一致性、義務勾稽、字面數字、檢查表矩陣、格值現算、"
-    "擁有者簡報、甲乙丙丁庚辛六節成稿**十四項**於交付當日皆 exit 0",
+    "擁有者簡報、甲乙丙丁己庚辛七節成稿**十五項**於交付當日皆 exit 0",
     "✅ 可驗（本檔即現跑）"))
 
-print("=== M1 交付盤點｜🚨 骨架完稿 ≠ 可交付 ===")
-print()
-print(f"⚠️ 佔位符共 {n_ph} 格，來源型態分布：{ph_kinds}")
-print(f"⚠️ 擁有者待決 {len(pend)} 項：{'／'.join(p[:12] for p in pend)}")
-print()
-for i, (name, who, basis, done, verifiable) in enumerate(ITEMS, 1):
-    print(f"{i}. **{name}**（{who}｜依據 {basis}）")
-    print(f"   完成判準：{done}")
-    print(f"   {verifiable}")
-print()
+def counts():
+    """（可驗, 半可驗, 不可驗）——🚨 供成稿引用，⚠️ 🚫 不重複一份分類邏輯。"""
+    unver = sum(1 for it in ITEMS if it[4].startswith("🚫"))
+    half = sum(1 for it in ITEMS if it[4].startswith("⚠️"))
+    return len(ITEMS) - unver - half, half, unver
 
-gates = {"n115_delivery_checklist": None, "n116_obligation_crosscheck": None,
-         "n131_cross_consistency": None, "n141_literal_numbers": None,
-         "n153_wording_audit_check": None, "n154_cell_producer": None,
-         "n155_owner_briefing": None, "n157_section_c_report": None,
-         "n159_section_g_report": None,
-         "n160_section_f_report": None,
-         "n161_section_d_report": None,
-         "n163_section_a_report": None,
-         "n164_section_b_report": None}
-for g in gates:
-    gates[g] = gate(f".scratch/{g}.py")
-bad = [g for g, rc in gates.items() if rc != 0]
-print("現跑既有機檢：" + "｜".join(f"{g.split('_')[0]}={rc}" for g, rc in gates.items()))
 
-unverifiable = sum(1 for it in ITEMS if it[4].startswith("🚫"))
-half = sum(1 for it in ITEMS if it[4].startswith("⚠️"))
-full = len(ITEMS) - unverifiable - half
-print()
-print(f"🚨 **{len(ITEMS)} 項之中，可驗 {full} 項／半可驗 {half} 項／"
-      f"沒有機器檢查 {unverifiable} 項**——"
-      "⚠️ 後兩類只能靠人做、靠人記錄，🚫 不得因為其餘全綠就當成整體就緒。")
-if half:
-    print("⚠️ **半可驗者尤須當心**：它有一支會過的腳本，"
-          "🚨 而那正是最容易被讀成「已驗證」的形狀。")
-sys.exit(1 if bad else 0)
+def main():
+    print("=== M1 交付盤點｜🚨 骨架完稿 ≠ 可交付 ===")
+    print()
+    print(f"⚠️ 佔位符共 {n_ph} 格，來源型態分布：{ph_kinds}")
+    print(f"⚠️ 擁有者待決 {len(pend)} 項：{'／'.join(p[:12] for p in pend)}")
+    print()
+    for i, (name, who, basis, done, verifiable) in enumerate(ITEMS, 1):
+        print(f"{i}. **{name}**（{who}｜依據 {basis}）")
+        print(f"   完成判準：{done}")
+        print(f"   {verifiable}")
+    print()
+
+    gates = {"n115_delivery_checklist": None, "n116_obligation_crosscheck": None,
+             "n131_cross_consistency": None, "n141_literal_numbers": None,
+             "n153_wording_audit_check": None, "n154_cell_producer": None,
+             "n155_owner_briefing": None, "n157_section_c_report": None,
+             "n159_section_g_report": None,
+             "n160_section_f_report": None,
+             "n161_section_d_report": None,
+             "n163_section_a_report": None,
+             "n164_section_b_report": None,
+             "n165_section_e_report": None}
+    for g in gates:
+        gates[g] = gate(f".scratch/{g}.py")
+    bad = [g for g, rc in gates.items() if rc != 0]
+    print("現跑既有機檢：" + "｜".join(f"{g.split('_')[0]}={rc}" for g, rc in gates.items()))
+
+    unverifiable = sum(1 for it in ITEMS if it[4].startswith("🚫"))
+    half = sum(1 for it in ITEMS if it[4].startswith("⚠️"))
+    full = len(ITEMS) - unverifiable - half
+    print()
+    print(f"🚨 **{len(ITEMS)} 項之中，可驗 {full} 項／半可驗 {half} 項／"
+          f"沒有機器檢查 {unverifiable} 項**——"
+          "⚠️ 後兩類只能靠人做、靠人記錄，🚫 不得因為其餘全綠就當成整體就緒。")
+    if half:
+        print("⚠️ **半可驗者尤須當心**：它有一支會過的腳本，"
+              "🚨 而那正是最容易被讀成「已驗證」的形狀。")
+    return 1 if bad else 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

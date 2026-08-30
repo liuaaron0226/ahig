@@ -32,8 +32,15 @@ import re
 SKELETON_WORDS = ["骨架", "佔位符", "待辦", "本檔是", "交付時由", "檢查表第"]
 
 
-def leaks(text):
-    return [w for w in SKELETON_WORDS if w in text]
+def leaks(text, words=None):
+    """⚠️ `words` 可由各節覆寫。
+
+    🚨 **而覆寫是一個縮小，須由該節寫明理由**——
+    ⚠️ 己節之讀者是交付當天動手的人，🚫 不是擁有者，
+    故「佔位符」對它是**操作者的日常用語**而非骨架殘留。
+    🚫 其餘各節不得比照：它們的讀者不同。
+    """
+    return [w for w in (SKELETON_WORDS if words is None else words) if w in text]
 
 
 # 🚨 禁止語：一行帶了這些字，該行對禁句就是**提及**而不是**使用**。
@@ -106,10 +113,10 @@ def repeated_in_paragraph(text, coincidence, value_of):
     return out
 
 
-def run(text, coincidence, value_of, forbidden_phrases=()):
+def run(text, coincidence, value_of, forbidden_phrases=(), skeleton_words=None):
     """回傳 (problems, 反向對照是否三型皆會失敗)。"""
     problems = []
-    for w in leaks(text):
+    for w in leaks(text, skeleton_words):
         problems.append(f"🚨 成稿含骨架用語「{w}」——⚠️ 那是給我看的，不是給讀者看的")
     for p in forbidden(text, forbidden_phrases):
         problems.append(f"🚨 成稿出現禁句片段「{p}」")
@@ -119,7 +126,8 @@ def run(text, coincidence, value_of, forbidden_phrases=()):
             f"（{'／'.join(key)}）——⚠️ 讀者會讀成同一個量")
 
     # ── 🚨 反向對照：三型各注入一次（n+134：沒試過會不會失敗的護欄不算護欄）
-    c1 = bool(leaks(text + "\n本檔是骨架，佔位符交付時由腳本填入。\n"))
+    _probe = (skeleton_words or SKELETON_WORDS)[0]
+    c1 = bool(leaks(text + f"\n本檔是{_probe}，交付時由腳本填入。\n", skeleton_words))
     probe = forbidden_phrases[0] if forbidden_phrases else "△不可能出現之字串△"
     c2 = bool(forbidden(text + f"\n{probe}\n", [probe]))
     c3 = False
