@@ -1,0 +1,74 @@
+{
+  "schemaVersion": 1,
+  "documentType": "extraction-chain-rehearsal",
+  "ruling": "n+181（三之 2）續：確定性鏈在真語料上走完讀者之後那一段",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）；與 n+184、n535 同類",
+  "readerIsAStub": true,
+  "stubMarker": "REHEARSAL-NOT-A-REAL-INVENTORY",
+  "storeDisabled": "🚨 store=None——編造的清冊一份都不得落盤",
+  "contract": {
+    "scopeContractId": "ahig:scope:b11-exogenous-cho-endurance",
+    "scopeContractHash": "sha256:1bd206e5c4741e2d0339a81ffa53a717330d539fa4f1d2a19fa31c3401ef8696"
+  },
+  "population": "私有根 fulltext/ 內所有 acquired（🚨 非校準 60，非 84）",
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "run": {
+    "attempted": 41,
+    "succeeded": 41,
+    "failed": 0,
+    "byStage": {
+      "scope": 41
+    },
+    "charsSent": 2039858,
+    "charsReturned": 75230
+  },
+  "scopeDecisions": {
+    "in-scope": 41,
+    "notExtracted-outcome-not-in-scope": 41
+  },
+  "exceededMaxStudyResults": 0,
+  "failures": [],
+  "notProven": [
+    "🚨 抽得準不準：判定的輸入是編造的，🚫 本支一個字都沒說。",
+    "🚨 真實 draft 會不會有本支沒想到的形狀。",
+    "⚠️ charsReturned 是替身的長度，🚫 不是模型會回多長。"
+  ],
+  "negativeControlRun": {
+    "what": "替身改口聲稱掃描過一個不存在的章節",
+    "succeeded": 0,
+    "blockedAtValidateDraft": 41,
+    "note": "🚨 沒有這一跑，「41 篇全綠」也可能是因為那道檢查沒在看。"
+  },
+  "controlProbes": [
+    {
+      "probe": "每一篇都有下落",
+      "passed": true,
+      "detail": "嘗試 41｜語料 41"
+    },
+    {
+      "probe": "41 篇全部走完到判範圍",
+      "passed": true,
+      "detail": "成功 41｜失敗 0"
+    },
+    {
+      "probe": "兩條判定分支都真的跑到（必觸發）",
+      "passed": true,
+      "detail": "🚨 只有一條跑到，等於另一條沒被證明過；實得 {'in-scope': 41, 'notExtracted-outcome-not-in-scope': 41}"
+    },
+    {
+      "probe": "沒有任何東西被寫進清冊存放處",
+      "passed": true,
+      "detail": "🚨 演練的清冊落盤，磁碟上就會有 41 份看起來正常而來源是假的東西"
+    },
+    {
+      "probe": "完整性聲明是拿各篇自己的章節標題去對的（必觸發）",
+      "passed": true,
+      "detail": "替身改口聲稱掃描過一個不存在的章節 → 成功 0｜validate-draft 擋下 41（應為 0 與 41）"
+    }
+  ],
+  "auditHash": "sha256:02f865739bb379732281500668b33f37b9482d3566c9118e3b8244e5c5504e5f"
+}
