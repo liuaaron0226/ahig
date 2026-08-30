@@ -1,0 +1,201 @@
+{
+  "schemaVersion": 1,
+  "documentType": "tei-line-ending-monitor",
+  "deferralPremise": {
+    "claim": "n+169（一之 2）：「萃取期本來就要重寫那 41 份，併做成本最低」",
+    "writeTargets": {
+      "inventory": "extraction/000000000000000000000000-bb8f0500e5a8afbe/inventory-0000000000000000-0000000000000000.json",
+      "batch": "extraction/batches/inventory-batch-0000000000000000.json"
+    },
+    "writesIntoFulltext": [],
+    "holds": false,
+    "note": "🚨 萃取的兩個寫入點都落在 extraction/ 之下，⚠️ 而 corpus.py 對 fulltext/ 只讀不寫。故「本來就要重寫那 41 份」對**已建成的萃取階段**不成立——🚨 換雜湊規則需要它自己的一次重寫，併做省不到那個成本。🚫 這不是說該現在改；⚠️ 只是說遞延時所寫的理由要重新看一次。"
+  },
+  "ruling": "n+169（一之 4）交辦：逐份重算兩種形式",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）；與 n+184、n535、n537 同類",
+  "population": "私有根 acquired 中 sourceType=grobid-tei 者",
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "nonTeiRecords": 26,
+  "counts": {
+    "teiRecords": 15,
+    "mismatchToday": 0,
+    "withCRLFToday": 0,
+    "withNewlines": 15,
+    "sectionsSideWouldBreakUnderCRLF": 15,
+    "manifestSideWouldBreakUnderCRLF": 0
+  },
+  "theTwoAnswers": {
+    "today": "✅ 0 份失配——與 n+169 之預期相同。",
+    "ifLineEndingsWereTranslated": "🚨 15／15 份的 sections 側會失配，而 manifest 側 0 份會失配。⚠️ 也就是說那道非對稱是實的，只是今天還沒被觸發。"
+  },
+  "consequenceToday": "⚠️ 第 516 輪起 corpus.load_document 會驗 sections 那一側，🚨 故行尾一旦被翻譯，後果不是靜靜通過，是 TEI 那 15 份在萃取時全部讀不出來——安全，但看起來會像資料壞了。🚫 而 manifest 側不會有任何動靜，所以查的人會先看錯地方。",
+  "controlProbes": [
+    {
+      "probe": "今日失配為 0（n+169 一之 4 之預期）",
+      "passed": true,
+      "detail": "0／15 份失配"
+    },
+    {
+      "probe": "今日無任何 TEI 含 CRLF",
+      "passed": true,
+      "detail": "⚠️ 這是環境事實，🚨 不是保證——n+169 的原話"
+    },
+    {
+      "probe": "模擬 CRLF 化真的動得到東西（必觸發）",
+      "passed": true,
+      "detail": "🚨 若模擬之後一份都不失配，代表模擬沒生效，而「今天是 0」就會被誤讀成「怎樣都是 0」"
+    },
+    {
+      "probe": "非對稱確實存在：一側會斷、另一側不會",
+      "passed": true,
+      "detail": "sections 側 15 份會斷｜manifest 側 0 份會斷（含換行者 15）"
+    },
+    {
+      "probe": "遞延所依附之前提：萃取是否會重寫那 41 份",
+      "passed": true,
+      "detail": "🚨 實測萃取的寫入點為 ['extraction/000000000000000000000000-bb8f0500e5a8afbe/inventory-0000000000000000-0000000000000000.json', 'extraction/batches/inventory-batch-0000000000000000.json']，皆不在 fulltext/ 之下——⚠️ 故前提不成立（本探針以「不成立」為通過，因為那是實情）"
+    }
+  ],
+  "records": [
+    {
+      "dir": "a7b3ea1f7160ac10",
+      "hasCRLFToday": false,
+      "lfCount": 2307,
+      "manifestSideOkToday": true,
+      "sectionsSideOkToday": true,
+      "manifestSideWouldBreak": false,
+      "sectionsSideWouldBreak": true
+    },
+    {
+      "dir": "b35fab9217289437",
+      "hasCRLFToday": false,
+      "lfCount": 1561,
+      "manifestSideOkToday": true,
+      "sectionsSideOkToday": true,
+      "manifestSideWouldBreak": false,
+      "sectionsSideWouldBreak": true
+    },
+    {
+      "dir": "50a0233f2bb867b0",
+      "hasCRLFToday": false,
+      "lfCount": 1394,
+      "manifestSideOkToday": true,
+      "sectionsSideOkToday": true,
+      "manifestSideWouldBreak": false,
+      "sectionsSideWouldBreak": true
+    },
+    {
+      "dir": "f150a72729a5e5d6",
+      "hasCRLFToday": false,
+      "lfCount": 2182,
+      "manifestSideOkToday": true,
+      "sectionsSideOkToday": true,
+      "manifestSideWouldBreak": false,
+      "sectionsSideWouldBreak": true
+    },
+    {
+      "dir": "b0042b27bfd49070",
+      "hasCRLFToday": false,
+      "lfCount": 1551,
+      "manifestSideOkToday": true,
+      "sectionsSideOkToday": true,
+      "manifestSideWouldBreak": false,
+      "sectionsSideWouldBreak": true
+    },
+    {
+      "dir": "762bd90aa5f4d62b",
+      "hasCRLFToday": false,
+      "lfCount": 1499,
+      "manifestSideOkToday": true,
+      "sectionsSideOkToday": true,
+      "manifestSideWouldBreak": false,
+      "sectionsSideWouldBreak": true
+    },
+    {
+      "dir": "bf857c94bbf82b34",
+      "hasCRLFToday": false,
+      "lfCount": 1190,
+      "manifestSideOkToday": true,
+      "sectionsSideOkToday": true,
+      "manifestSideWouldBreak": false,
+      "sectionsSideWouldBreak": true
+    },
+    {
+      "dir": "02efae5809935bf7",
+      "hasCRLFToday": false,
+      "lfCount": 1389,
+      "manifestSideOkToday": true,
+      "sectionsSideOkToday": true,
+      "manifestSideWouldBreak": false,
+      "sectionsSideWouldBreak": true
+    },
+    {
+      "dir": "08f8b2c453c5fdb7",
+      "hasCRLFToday": false,
+      "lfCount": 1455,
+      "manifestSideOkToday": true,
+      "sectionsSideOkToday": true,
+      "manifestSideWouldBreak": false,
+      "sectionsSideWouldBreak": true
+    },
+    {
+      "dir": "f0191beff371a279",
+      "hasCRLFToday": false,
+      "lfCount": 1164,
+      "manifestSideOkToday": true,
+      "sectionsSideOkToday": true,
+      "manifestSideWouldBreak": false,
+      "sectionsSideWouldBreak": true
+    },
+    {
+      "dir": "99f5af0f27301773",
+      "hasCRLFToday": false,
+      "lfCount": 1736,
+      "manifestSideOkToday": true,
+      "sectionsSideOkToday": true,
+      "manifestSideWouldBreak": false,
+      "sectionsSideWouldBreak": true
+    },
+    {
+      "dir": "4e748522828a7cb4",
+      "hasCRLFToday": false,
+      "lfCount": 426,
+      "manifestSideOkToday": true,
+      "sectionsSideOkToday": true,
+      "manifestSideWouldBreak": false,
+      "sectionsSideWouldBreak": true
+    },
+    {
+      "dir": "184a7f52879ea291",
+      "hasCRLFToday": false,
+      "lfCount": 10517,
+      "manifestSideOkToday": true,
+      "sectionsSideOkToday": true,
+      "manifestSideWouldBreak": false,
+      "sectionsSideWouldBreak": true
+    },
+    {
+      "dir": "aeb7ae224b5a2341",
+      "hasCRLFToday": false,
+      "lfCount": 1355,
+      "manifestSideOkToday": true,
+      "sectionsSideOkToday": true,
+      "manifestSideWouldBreak": false,
+      "sectionsSideWouldBreak": true
+    },
+    {
+      "dir": "50808c703c1c7c73",
+      "hasCRLFToday": false,
+      "lfCount": 1109,
+      "manifestSideOkToday": true,
+      "sectionsSideOkToday": true,
+      "manifestSideWouldBreak": false,
+      "sectionsSideWouldBreak": true
+    }
+  ],
+  "auditHash": "sha256:2cbcaeeb6016788c35f2ea79d69def630b62e1a6bb618b1e0231747ff0aff138"
+}
