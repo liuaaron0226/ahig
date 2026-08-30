@@ -121,7 +121,13 @@ ROOTS = {
     "NARR": ("SAME", "判讀理由文字之敘述式辨識"),
     "RETRACT": ("SAME", "八份工作單之 publicationTypes 聯集（IN_EVIDENCE 為其子集）"),
     "PMC": ("SAME", "Europe PMC 查無全文之 33 筆（依成因二分）"),
-    "S56": ("SAME", "S5+S6 合併層"),
+    "S56": ("MIXED", {
+        # 🚨 n+177：本組原登記為 SAME，⚠️ 而新增 `S56_ACQ_BACKFILL` 之後不再是。
+        #    **前兩格之母體是「當初抽出的那一批」，末格是「含已接受補抽的那一批」。**
+        "S56_ACQ": "當初抽出之校準 60 中該層",
+        "S56_NONPUB": "同上之中的非刊出版者（🚨 為 `S56_ACQ` 之子集）",
+        "S56_ACQ_BACKFILL": "含已接受補抽之該層（⚠️ 分母較大）",
+    }),
     "W7": ("SAME", "synergy_replay 之六組重放"),
     "TAG": ("SAME", "掛牌名冊"),
     "TITLE": ("SAME", "僅讀標題即判者之名冊"),
@@ -176,7 +182,15 @@ SYNONYMS = {
     ("ACQ_CALIB", "S3_ACQ_CALIB"): (FACET, "校準 60 之 acquired：全體 vs S3 該層"),
     ("S3_ACQ_CALIB", "S56_ACQ"): (FACET, "各層之 acquired，🚫 層別不同"),
     ("S3_ACQ_BACKFILL", "S56_ACQ"): (
-        FACET, "⚠️ 層別不同**且分母不同**（後者為校準 60，前者含補抽之 84）"),
+        FACET, "⚠️ 層別不同**且分母不同**（後者為當初抽出者，前者含補抽）"),
+    ("S3_ACQ_BACKFILL", "S56_ACQ_BACKFILL"): (
+        FACET, "✅ **同一種量、同一種分母，只差層別**（含補抽之該層取得數）——"
+               "🚨 故這一對是本簿裡最乾淨的一種同義切面，⚠️ 而正因為乾淨，"
+               "**兩數相鄰書寫時最容易被當成同一層**。"),
+    ("S3_ACQ_CALIB", "S56_ACQ_BACKFILL"): (
+        UNRELATED, "🚨 **層別不同，分母也不同**：前者為當初抽出之 S3，"
+                   "後者為含補抽之 S5+S6。⚠️ 兩者僅因同含 `ACQ` 而被本簿配對，"
+                   "**🚫 並無切面關係**——它們既不同層也不同母體。"),
     ("CALIB_NONPUB", "S56_NONPUB"): (FACET, "非刊出版之份數：校準 14 vs S5+S6"),
     ("HARMS_S5_QUOTA", "S3_QUOTA"): (FACET, "設計配額，層別不同"),
     ("HARMS_S6_QUOTA", "S3_QUOTA"): (FACET, "設計配額，層別不同"),

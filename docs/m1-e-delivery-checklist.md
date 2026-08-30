@@ -20,7 +20,7 @@
 
 <!-- BEGIN GENERATED n115 -->
 
-共 **140** 個佔位符。凍結 **55**、漂移 **85**；其中 **18** 個之權威來源**協調者無法自行核對**（見下文第二節）。
+共 **141** 個佔位符。凍結 **55**、漂移 **86**；其中 **18** 個之權威來源**協調者無法自行核對**（見下文第二節）。
 
 | 節 | 佔位符 | 類別 | 來源型態 | 定位 |
 |---|---|---|---|---|
@@ -91,6 +91,7 @@
 | 庚 | `HARMS_S6_QUOTA` | 凍結 | 產物 | `ahig/calibration/b11-carbohydrate/strata.json`（**受追蹤**，我已自算覆核）→ `strata[S6-gi-harms-secondary-only].quota`＝**7**；⚠️ **單位＝設計配額**，🚫 不是實際取得數；🚨 同義切面 `S3_QUOTA`（同為設計配額，🚫 層別不同） |
 | 庚 | `HARMS_UNATTRIBUTABLE` | 漂移 | 推導 | 讀數 − 可指認者（**10 − 3 = 7**）；⚠️ **單位＝讀數之差**，🚫 不是一份名單；⚠️ 成因為五次計數器移動中兩次無 id、兩次 +2 而僅 1 個 id |
 | 庚 | `S56_ACQ` | 漂移 | 產物 | 同上依層別：`S5+S6-gi-merged` 之 acquired＝**3**；🚨 同義切面 `S3_ACQ_CALIB`（同為校準 60 分母）與 `S3_ACQ_BACKFILL`（⚠️ 分母為 84），🚫 不得互換 |
+| 庚 | `S56_ACQ_BACKFILL` | 漂移 | 產物 | `.scratch/n492_stratum_table.json` → `S5+S6-gi-merged.acquiredWithBackfill`；🚨 **母體＝含已接受補抽（本層分母 20）**，🚫 不得與 `S56_ACQ`（分母 15）互換或相減；🚨 同義切面 `S3_ACQ_BACKFILL`（同為含補抽之層別取得數，⚠️ 層別不同）；**⚠️ 「這一類我們手上有幾篇」的答案是本格**，🚫 不是 `S56_ACQ`（n+177） |
 | 庚 | `S56_NONPUB` | 漂移 | 產物 | 同上：其中非刊出版＝**2**；🚨 即本契約最在意之結局，其在手全文有三分之二是作者稿；🚨 同義切面 `CALIB_NONPUB`（同為非刊出版之份數，⚠️ 母體不同） |
 | 庚 | `SHORTFALL_HARMS` | 漂移 | 看板 | 同上（S5+S6） |
 | 辛 | `ACQ_ALL` | 漂移 | 不可及 | 私有根 fulltext 目錄之全部 acquired manifest＝**41**（執行室量測）；⚠️ **母體＝私有根 fulltext 全體**，含本工作線以外之舊工作線；🚫 不得與同字根其餘三格互換 |
@@ -130,7 +131,7 @@
 | 辛 | `PDF_UNCERTAIN` | 漂移 | 產物 | 同上：不確定 **2**；⚠️ **母體＝私有 pdf 快取之檔案** |
 | 辛 | `PMC_MISS_404` | 凍結 | 產物 | 同上（已知 PMCID 但 `fullTextXML` 404） |
 | 辛 | `PMC_MISS_NO_ID` | 凍結 | 產物 | `.scratch/n439_route_cost.json` → `europePmcMissCauses`（無 PMCID） |
-| 辛 | `S3_ACQ_BACKFILL` | 漂移 | 產物 | 同上 → `acquiredWithBackfill`＝**1**；⚠️ 與上一格母體不同；🚨 同義切面 `S56_ACQ`，⚠️ 層別不同**且分母不同**（本格含補抽之 84） |
+| 辛 | `S3_ACQ_BACKFILL` | 漂移 | 產物 | 同上 → `acquiredWithBackfill`＝**1**；⚠️ 與上一格母體不同；🚨 同義切面 `S56_ACQ`，⚠️ 層別不同**且分母不同**（本格含補抽之 84）；🚨 同義切面 `S56_ACQ_BACKFILL`（同為含補抽之層別取得數，⚠️ 層別不同） |
 | 辛 | `S3_ACQ_CALIB` | 漂移 | 產物 | `.scratch/n492_stratum_table.json`（**受追蹤**，我已自檔覆核）→ `S3-tte` 之 `acquiredCalibration60`＝**0**；⚠️ **母體＝校準 60 之中該層**；🚨 全空，且曾被合計數藏住；🚨 同義切面 `ACQ_CALIB`（校準 60 全體）與 `S56_ACQ`（另一層），🚫 層別不同不得互換 |
 | 辛 | `S3_QUOTA` | 凍結 | 產物 | `ahig/calibration/b11-carbohydrate/strata.json` → `S3-tte` 配額＝**8**（我已自檔覆核）；🚨 同義切面 `HARMS_S5_QUOTA`／`HARMS_S6_QUOTA`（同為設計配額，🚫 層別不同） |
 | 辛 | `S7_POOL_N` | 凍結 | 看板 | 看板 63655 一帶之清點（S7 全池） |

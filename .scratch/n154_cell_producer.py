@@ -241,6 +241,11 @@ RESOLVERS = {
     # 🚨 **與下方 `LANDING_*` 是兩張表，母體不重疊**：
     #    此處＝**已到手**之 41 份當初從哪裡拿到；`LANDING_*`＝**尚未到手**之 33 筆掛在哪。
     # ⚠️ 兩者用同一組分類名稱（典藏庫／出版社），**🚫 不得互減或並排無標籤**。
+    # 🚨 庚：含補抽之層別取得數（n+177）——⚠️ 與 `S56_ACQ` 分母不同。
+    "S56_ACQ_BACKFILL": lambda: next(
+        r["acquiredWithBackfill"] for r in J(N492)["rows"]
+        if r["pool"] == "S5+S6-gi-merged"),
+
     "SRC_PMC":       lambda: J(N512)["byKind"]["pmc"],
     "SRC_REPO":      lambda: J(N512)["byKind"]["repository"],
     "SRC_PUBLISHER": lambda: J(N512)["byKind"]["publisher"],
