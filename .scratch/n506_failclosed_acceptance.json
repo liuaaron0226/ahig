@@ -163,9 +163,17 @@
    "artefactUnchanged": true,
    "verdict": "fail-closed",
    "stderrFirstLine": "🚨 私有根前置檢查未過——🚫 拒絕產出（n+162 九之二）："
+  },
+  {
+   "generator": "n526_no_oa_locations_recheck",
+   "artefact": "n526_no_oa_locations_recheck.json",
+   "exit": 2,
+   "artefactUnchanged": true,
+   "verdict": "fail-closed",
+   "stderrFirstLine": "🚨 私有根前置檢查未過——🚫 拒絕產出（n+162 九之二）："
   }
  ],
- "failClosed": 19,
+ "failClosed": 20,
  "failOpen": [],
  "needsNoPrivateRoot": true,
  "coverageStatement": "Covers a root that is absent entirely. A root that is present but truncated looks like a smaller real population and is not detectable here; require() records how many artifact directories it saw so that at least shows up as a smaller number. Generators missing from this list are invisible here; n504's blind-spot scan squeezes that from the other side.",
