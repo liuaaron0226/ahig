@@ -76,6 +76,7 @@ GENERATORS = {
     'n513_repository_deposit_terms': 'n513_repository_deposit_terms.json',
     'n514_hash_lineending_exposure': 'n514_hash_lineending_exposure.json',
     'n515_conversion_drill': 'n515_conversion_drill.json',
+    'n519_manifest_generation_drift': 'n519_manifest_generation_drift.json',
 }
 # ⚠️ `n517` 只讀 git，🚫 不碰私有根，故不適用 fail-closed 驗收
 #    （它在沒有私有根的機器上本來就該跑得起來）。

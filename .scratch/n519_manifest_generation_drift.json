@@ -1,0 +1,334 @@
+{
+ "schemaVersion": 1,
+ "documentType": "manifest-generation-drift",
+ "ruling": "self-initiated: publication writes a content-addressed generation and then updates latest, so latest should equal some generation. Where it does not, something edited it outside that path -- and \"I know I did it seven times\" is not the same as \"there are only seven\".",
+ "population": "acquired manifests under the private root",
+ "countingUnit": "record",
+ "criterion": "content_hash of latest against content_hash of each generation; differences reported as key names against the closest one",
+ "whyContentNotBytes": "Generations are written with _json_bytes and latest with atomic_write_json, so a byte comparison would flag every record on formatting alone -- reading a serialisation difference as evidence.",
+ "controlProbes": {
+  "identicalGivesNoDiff": true,
+  "changedKeyIsNamed": true
+ },
+ "counts": {
+  "matches-a-generation": 29,
+  "accounted-licence": 12
+ },
+ "records": [
+  {
+   "dir": "012d9a34",
+   "generations": 1,
+   "verdict": "matches-a-generation"
+  },
+  {
+   "dir": "0b68902a",
+   "generations": 1,
+   "verdict": "matches-a-generation"
+  },
+  {
+   "dir": "11f29062",
+   "generations": 1,
+   "verdict": "matches-a-generation"
+  },
+  {
+   "dir": "211950e6",
+   "generations": 3,
+   "closestGeneration": "manifest-1d4b5acafe14e453.json",
+   "topLevelKeys": [
+    "artifacts"
+   ],
+   "artifactKeys": [
+    "licence",
+    "licenceProvenance"
+   ],
+   "verdict": "accounted-licence"
+  },
+  {
+   "dir": "2cc49e0d",
+   "generations": 1,
+   "verdict": "matches-a-generation"
+  },
+  {
+   "dir": "38c6412f",
+   "generations": 1,
+   "verdict": "matches-a-generation"
+  },
+  {
+   "dir": "38d538c0",
+   "generations": 1,
+   "verdict": "matches-a-generation"
+  },
+  {
+   "dir": "3ecdcbd4",
+   "generations": 4,
+   "closestGeneration": "manifest-5dc3cc50f10741dd.json",
+   "topLevelKeys": [
+    "artifacts",
+    "licence",
+    "licenceProvenance"
+   ],
+   "artifactKeys": [
+    "licence",
+    "licenceProvenance"
+   ],
+   "verdict": "accounted-licence"
+  },
+  {
+   "dir": "44ebb4f2",
+   "generations": 1,
+   "verdict": "matches-a-generation"
+  },
+  {
+   "dir": "69e040d1",
+   "generations": 4,
+   "closestGeneration": "manifest-fbdd9171fa511f22.json",
+   "topLevelKeys": [
+    "artifacts",
+    "licence",
+    "licenceProvenance"
+   ],
+   "artifactKeys": [
+    "licence",
+    "licenceProvenance"
+   ],
+   "verdict": "accounted-licence"
+  },
+  {
+   "dir": "742f1c1d",
+   "generations": 1,
+   "verdict": "matches-a-generation"
+  },
+  {
+   "dir": "769c71fa",
+   "generations": 1,
+   "verdict": "matches-a-generation"
+  },
+  {
+   "dir": "76df6297",
+   "generations": 1,
+   "verdict": "matches-a-generation"
+  },
+  {
+   "dir": "7bc2c46b",
+   "generations": 1,
+   "verdict": "matches-a-generation"
+  },
+  {
+   "dir": "7c5800be",
+   "generations": 1,
+   "verdict": "matches-a-generation"
+  },
+  {
+   "dir": "7dec3f40",
+   "generations": 1,
+   "verdict": "matches-a-generation"
+  },
+  {
+   "dir": "7eef56b1",
+   "generations": 4,
+   "closestGeneration": "manifest-bb3fb662b555cd48.json",
+   "topLevelKeys": [
+    "artifacts",
+    "licence",
+    "licenceProvenance"
+   ],
+   "artifactKeys": [
+    "licence",
+    "licenceProvenance"
+   ],
+   "verdict": "accounted-licence"
+  },
+  {
+   "dir": "85855b5e",
+   "generations": 1,
+   "verdict": "matches-a-generation"
+  },
+  {
+   "dir": "85e0e186",
+   "generations": 1,
+   "closestGeneration": "manifest-99fedcef3babb7cc.json",
+   "topLevelKeys": [
+    "artifacts"
+   ],
+   "artifactKeys": [
+    "licence",
+    "licenceProvenance"
+   ],
+   "verdict": "accounted-licence"
+  },
+  {
+   "dir": "861b4a29",
+   "generations": 1,
+   "verdict": "matches-a-generation"
+  },
+  {
+   "dir": "88747fa5",
+   "generations": 4,
+   "closestGeneration": "manifest-ebf625f560d3b997.json",
+   "topLevelKeys": [
+    "artifacts",
+    "licence",
+    "licenceProvenance"
+   ],
+   "artifactKeys": [
+    "licence",
+    "licenceProvenance"
+   ],
+   "verdict": "accounted-licence"
+  },
+  {
+   "dir": "89e1a723",
+   "generations": 4,
+   "verdict": "matches-a-generation"
+  },
+  {
+   "dir": "8a8d5efc",
+   "generations": 1,
+   "verdict": "matches-a-generation"
+  },
+  {
+   "dir": "8d9e152d",
+   "generations": 1,
+   "verdict": "matches-a-generation"
+  },
+  {
+   "dir": "8dd0f644",
+   "generations": 3,
+   "closestGeneration": "manifest-9d5770f512d8271f.json",
+   "topLevelKeys": [
+    "artifacts"
+   ],
+   "artifactKeys": [
+    "licence",
+    "licenceProvenance"
+   ],
+   "verdict": "accounted-licence"
+  },
+  {
+   "dir": "9454731a",
+   "generations": 3,
+   "closestGeneration": "manifest-4b6ad68ee97e51f4.json",
+   "topLevelKeys": [
+    "artifacts"
+   ],
+   "artifactKeys": [
+    "licence",
+    "licenceProvenance"
+   ],
+   "verdict": "accounted-licence"
+  },
+  {
+   "dir": "98fe85be",
+   "generations": 4,
+   "verdict": "matches-a-generation"
+  },
+  {
+   "dir": "a3239790",
+   "generations": 1,
+   "verdict": "matches-a-generation"
+  },
+  {
+   "dir": "a4bbe8aa",
+   "generations": 3,
+   "closestGeneration": "manifest-5a94f3888c919129.json",
+   "topLevelKeys": [
+    "artifacts"
+   ],
+   "artifactKeys": [
+    "licence",
+    "licenceProvenance"
+   ],
+   "verdict": "accounted-licence"
+  },
+  {
+   "dir": "b1eeb9c5",
+   "generations": 1,
+   "verdict": "matches-a-generation"
+  },
+  {
+   "dir": "bd9995f4",
+   "generations": 3,
+   "verdict": "matches-a-generation"
+  },
+  {
+   "dir": "bf4f8f5a",
+   "generations": 4,
+   "verdict": "matches-a-generation"
+  },
+  {
+   "dir": "bfc01fa2",
+   "generations": 1,
+   "verdict": "matches-a-generation"
+  },
+  {
+   "dir": "c380c744",
+   "generations": 3,
+   "closestGeneration": "manifest-1453f568faf908fa.json",
+   "topLevelKeys": [
+    "artifacts"
+   ],
+   "artifactKeys": [
+    "licence",
+    "licenceProvenance"
+   ],
+   "verdict": "accounted-licence"
+  },
+  {
+   "dir": "c512422d",
+   "generations": 1,
+   "verdict": "matches-a-generation"
+  },
+  {
+   "dir": "cd1e4315",
+   "generations": 1,
+   "closestGeneration": "manifest-275b6ac1759f5abf.json",
+   "topLevelKeys": [
+    "artifacts"
+   ],
+   "artifactKeys": [
+    "licence",
+    "licenceProvenance"
+   ],
+   "verdict": "accounted-licence"
+  },
+  {
+   "dir": "de939065",
+   "generations": 4,
+   "verdict": "matches-a-generation"
+  },
+  {
+   "dir": "f6a2becc",
+   "generations": 1,
+   "verdict": "matches-a-generation"
+  },
+  {
+   "dir": "f8392067",
+   "generations": 1,
+   "verdict": "matches-a-generation"
+  },
+  {
+   "dir": "fc75f1d5",
+   "generations": 3,
+   "closestGeneration": "manifest-162b24db3f31aa6f.json",
+   "topLevelKeys": [
+    "artifacts",
+    "licence",
+    "licenceProvenance"
+   ],
+   "artifactKeys": [
+    "licence",
+    "licenceProvenance"
+   ],
+   "verdict": "accounted-licence"
+  },
+  {
+   "dir": "ff8c5c2c",
+   "generations": 1,
+   "verdict": "matches-a-generation"
+  }
+ ],
+ "accountedNote": "Licence-only differences are the backfills of rounds 505 and 511, which n+163(2) ruled should touch only the latest manifest. Deliberate, but still a divergence, so it is listed rather than hidden.",
+ "coverageStatement": "Cannot distinguish an edited latest from a deleted generation -- both look like latest matching nothing. Says whether and where, never whether it was right.",
+ "contentNote": "Directory prefixes, generation file names and key names only.",
+ "driftHash": "sha256:400d4bf954908507c4a8776eda0bccd04e60740ad0d6569ed829c7f4e911b09c"
+}

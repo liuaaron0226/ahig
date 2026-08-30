@@ -5,8 +5,8 @@
  "population": "the executor room's standing checks, hand-maintained list",
  "countingUnit": "check",
  "criterion": "exit code only; the suite deliberately does not parse any check's printed output",
- "listedChecks": 16,
- "listLastUpdatedRound": 517,
+ "listedChecks": 17,
+ "listLastUpdatedRound": 519,
  "withNetwork": false,
  "controlProbes": [
   {
@@ -35,14 +35,14 @@
    "check": "n506_failclosed_acceptance",
    "status": "pass",
    "exit": 0,
-   "seconds": 1.4,
+   "seconds": 1.3,
    "asserts": "八支產生器在「根不存在」下是否 fail-closed（🚫 不需私有根）"
   },
   {
    "check": "round_gate",
    "status": "pass",
    "exit": 0,
-   "seconds": 20.7,
+   "seconds": 20.3,
    "asserts": "每輪閘門：樣式來源、控制探針、n+48 兩道、n+54 三道、測試基線"
   },
   {
@@ -63,7 +63,7 @@
    "check": "n496_corpus_verify",
    "status": "pass",
    "exit": 0,
-   "seconds": 0.4,
+   "seconds": 0.3,
    "asserts": "已取得 41 份之位元組與 manifest 對帳（唯讀）"
   },
   {
@@ -105,14 +105,14 @@
    "check": "n514_hash_lineending_exposure",
    "status": "pass",
    "exit": 0,
-   "seconds": 0.3,
+   "seconds": 0.2,
    "asserts": "行尾曝險逐份量測（🚫 唯讀，不改規則）"
   },
   {
    "check": "n515_conversion_drill",
    "status": "pass",
    "exit": 0,
-   "seconds": 0.9,
+   "seconds": 0.8,
    "asserts": "行尾轉換演習：誰響誰不響（🚫 只動複本）"
   },
   {
@@ -121,6 +121,13 @@
    "exit": 0,
    "seconds": 2.3,
    "asserts": "取得層之時序與「抽樣結果未被改過」（🚫 只讀 git）"
+  },
+  {
+   "check": "n519_manifest_generation_drift",
+   "status": "pass",
+   "exit": 0,
+   "seconds": 0.2,
+   "asserts": "latest manifest 有無沒被記成一代的編輯（🚫 唯讀）"
   },
   {
    "check": "n503_executor_handoff",
@@ -160,7 +167,8 @@
    "n513_repository_deposit_terms",
    "n514_hash_lineending_exposure",
    "n515_conversion_drill",
-   "n517_temporal_order_check"
+   "n517_temporal_order_check",
+   "n519_manifest_generation_drift"
   ],
   "unlisted": [
    "n495_stratum_purpose",
@@ -183,12 +191,12 @@
   },
   "note": "The scan only covers scripts numbered from round 490 onward and named that way. An older or differently-named standing check is invisible to it, so this narrows the blind spot rather than closing it."
  },
- "passed": 15,
+ "passed": 16,
  "failed": [],
  "skipped": [
   "n501_retraction_recheck"
  ],
- "totalSeconds": 34.4,
+ "totalSeconds": 33.8,
  "coverageStatement": "Sees whether each check exits zero, not whether it checks the right thing -- that is each check's own control probes. And the list is hand-maintained, so a check this room forgot to add is invisible here; the list length and its last-updated round are printed to force that comparison.",
  "contentNote": "Check names, exit codes and durations only."
 }

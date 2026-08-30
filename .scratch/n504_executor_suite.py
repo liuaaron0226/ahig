@@ -52,7 +52,7 @@ import tempfile
 import time
 
 S = '.scratch/'
-ROUND = 517
+ROUND = 519
 
 # ⚠️ 清單手維護——🚨 故末行會逼人核對；新增常設檢查時請一併加進來。
 CHECKS = [
@@ -77,6 +77,8 @@ CHECKS = [
      '行尾轉換演習：誰響誰不響（🚫 只動複本）', False),
     ('n517_temporal_order_check',
      '取得層之時序與「抽樣結果未被改過」（🚫 只讀 git）', False),
+    ('n519_manifest_generation_drift',
+     'latest manifest 有無沒被記成一代的編輯（🚫 唯讀）', False),
     ('n503_executor_handoff', '三項交辦之答覆與 18 格交接檔', False),
     ('n501_retraction_recheck', '撤稿現場重查（🚨 會對外送請求）', True),
 ]
