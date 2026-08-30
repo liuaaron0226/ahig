@@ -17,6 +17,18 @@
 ``ReadingSeamNotImplemented``。**不給 reader 就跑，會大聲失敗而不是安靜地
 產出零篇。** 測試用替身注入，正式跑則注入真的那一端；接線本身不必再改。
 
+## 契約先驗，再花錢
+
+判範圍是**最後一段**，而 ``ScopeMatcher`` 是在那時候才被造出來的。於是一份
+造不出 matcher 的契約（缺欄位、型別不對），要等到 41 篇都讀完才會顯現——
+**41 筆全部卡在 ``scope``，錢已經花光，一份清冊都沒有。**
+
+第 535 輪實測：真的那份 ``b11-carbohydrate/scope-contract.json`` 造得出 matcher。
+**但那道檢查本身不存在**——而上一輪本室的樁契約正是造不出來的那一種，
+說明這不是想像出來的壞法。故 ``run_inventory`` 開跑前先造一次，造不出就**整批拒跑**。
+
+🚫 這裡不是「代替」最後那一段的判定，只是把**契約層面**的失敗挪到花錢之前。
+
 ## 跑完要留下收據
 
 n+184 卡在一句「沒有 B.11 的用量紀錄」。那句話當時是真的——**而它之所以是真的，
@@ -37,9 +49,17 @@ from ahig.contracts.freeze import content_hash
 from ahig.extraction import inventory_draft as bridge
 from ahig.extraction.corpus import (AcquiredDocument, CorpusError,
                                     iter_acquired, reading_request_for)
+from ahig.scope.matcher import ScopeMatcher
 from ahig.search.fulltext import utc_now
 
 Reader = Callable[[bridge.DraftRequest], dict]
+
+
+class ContractUnusable(Exception):
+    """契約造不出 ScopeMatcher。整批拒跑，不是逐筆失敗。
+
+    逐筆失敗的紀錄看起來像「試過了，41 篇都沒成」——而實際上一篇都不該試。
+    """
 
 STAGES = ("read-corpus", "call-reader", "validate-draft", "scope", "reused")
 
@@ -176,6 +196,14 @@ def run_inventory(contract: dict, *, reader: Reader | None = None,
     一次完整的跑長得一樣。
     """
     read = reader or bridge.read_sections
+    # 造不出 matcher 的契約，要在讀第一篇之前就擋下來——不然 41 篇讀完
+    # 才會全部卡在 scope，錢花光而一份清冊都沒有。
+    try:
+        ScopeMatcher(contract)
+    except Exception as error:  # noqa: BLE001 — 契約可能以任何方式壞掉
+        raise ContractUnusable(
+            f"範圍契約造不出 ScopeMatcher（{type(error).__name__}: {error}）"
+            "——整批拒跑，一篇都不讀") from error
     run = InventoryRun(contract_hash=contract.get("scopeContractHash", ""),
                        started_at=utc_now())
     ids = list(candidate_ids) if candidate_ids is not None else _candidate_ids()
@@ -245,5 +273,5 @@ def run_inventory(contract: dict, *, reader: Reader | None = None,
     return run
 
 
-__all__ = ["InventoryRun", "RecordOutcome", "Reader", "STAGES", "run_inventory",
-           "AcquiredDocument"]
+__all__ = ["ContractUnusable", "InventoryRun", "RecordOutcome", "Reader",
+           "STAGES", "run_inventory", "AcquiredDocument"]

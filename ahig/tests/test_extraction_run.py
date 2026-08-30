@@ -329,3 +329,63 @@ def test_a_reused_record_costs_nothing_on_the_receipt():
         assert item["inventoryPath"]
 
     _in_corpus(body)
+
+
+def test_an_unusable_contract_is_refused_before_a_single_paper_is_read():
+    # 判範圍是最後一段，故造不出 ScopeMatcher 的契約，本來要等 41 篇都讀完
+    # 才會顯現——41 筆全卡在 scope，錢花光而一份清冊都沒有。
+    from ahig.extraction import ContractUnusable
+
+    def body(candidate_id):
+        calls = {"n": 0}
+
+        def counting(request):
+            calls["n"] += 1
+            return _draft_for(request)
+
+        # 上一輪本室的樁契約正是這一種：缺 inScopeTimepoints。
+        broken = {k: v for k, v in CONTRACT.items() if k != "inScopeTimepoints"}
+        try:
+            run_inventory(broken, reader=counting, candidate_ids=[candidate_id])
+        except ContractUnusable as error:
+            assert "ScopeMatcher" in str(error)
+        else:
+            raise AssertionError("契約造不出 matcher，不該開跑")
+
+        # 這才是重點：一篇都沒讀。逐筆失敗的紀錄看起來像「試過了」。
+        assert calls["n"] == 0
+
+    _in_corpus(body)
+
+
+def test_a_usable_contract_still_gets_through_the_preflight():
+    # 沒有這一條，上面那條在「什麼契約都拒絕」時一樣會通過。
+    def body(candidate_id):
+        calls = {"n": 0}
+
+        def counting(request):
+            calls["n"] += 1
+            return _draft_for(request)
+
+        run = run_inventory(CONTRACT, reader=counting, candidate_ids=[candidate_id])
+        assert calls["n"] == 1
+        assert len(run.succeeded) == 1
+
+    _in_corpus(body)
+
+
+def test_the_real_frozen_contract_passes_the_preflight():
+    # 樁契約過得了不代表真的那份過得了。這一條若哪天紅了，代表凍結出去的契約
+    # 萃取階段用不了——而那要在花錢之前知道。
+    import json as _json
+    from pathlib import Path as _Path
+
+    path = (_Path(__file__).resolve().parents[1] / "calibration"
+            / "b11-carbohydrate" / "scope-contract.json")
+    contract = _json.loads(path.read_text(encoding="utf-8"))
+    assert contract["status"] == "frozen"
+
+    # 候選給空的：這一條只驗契約那一關，不碰語料。
+    run = run_inventory(contract, candidate_ids=[])
+    assert run.attempted == 0
+    assert run.contract_hash == contract["scopeContractHash"]

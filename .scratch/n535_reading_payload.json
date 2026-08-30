@@ -1,0 +1,444 @@
+{
+  "schemaVersion": 1,
+  "documentType": "reading-payload-measurement",
+  "ruling": "n+184（讀論文那一端的價錢）之後續：把估的那 3.0% 量出來",
+  "notAGate": "🚫 本支不入輪次閘門（n+181 三已裁定停止加機檢）；與 n+184 同類",
+  "contract": {
+    "path": "ahig/calibration/b11-carbohydrate/scope-contract.json",
+    "scopeContractId": "ahig:scope:b11-exogenous-cho-endurance",
+    "scopeContractHash": "sha256:1bd206e5c4741e2d0339a81ffa53a717330d539fa4f1d2a19fa31c3401ef8696",
+    "frozenVerified": true,
+    "inScopeOutcomes": 6
+  },
+  "population": "私有根 fulltext/ 內所有 acquired（🚨 非校準 60，非 84）",
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "measured": {
+    "records": 41,
+    "unreadable": 0,
+    "contentChars": 1981436,
+    "payloadChars": 2039858,
+    "overheadChars": 56001,
+    "overheadPct": 2.75,
+    "minPayload": 13282,
+    "medianPayload": 40222,
+    "maxPayload": 355929
+  },
+  "versusN184": {
+    "n184Estimate": 2042415,
+    "n184OverheadPctAssumed": 3.0,
+    "measuredTotal": 2039858,
+    "differenceChars": -2557,
+    "differencePct": -0.13,
+    "note": "🚨 差額若為正，代表 n+184 低估了送出去的量；⚠️ 但量級是否改變要看區間，不看這個百分比。"
+  },
+  "notMeasured": [
+    "🚨 token 數：無分詞器，🚫 不換算。",
+    "🚨 金額：牌價與匯率此處無憑據（n+184 自陳），🚫 不寫。",
+    "🚨 回來的清冊有多長：那要模型真的讀過才知道，⚠️ 目前是猜的。",
+    "🚨 讀錯要重來幾次：本支只算「讀一趟」。"
+  ],
+  "controlProbes": [
+    {
+      "probe": "每篇 payload 都大於其正文",
+      "passed": true,
+      "detail": "否則正文根本沒進去"
+    },
+    {
+      "probe": "固定開銷隨正文變動則為誤（必觸發）",
+      "passed": true,
+      "detail": "開銷含章節標題清單，故本應逐篇不同；🚨 若全部相同，代表章節標題沒被算進去"
+    },
+    {
+      "probe": "正文的 JSON 形式不小於原字元數",
+      "passed": true,
+      "detail": "跳脫只會變長，不會變短"
+    },
+    {
+      "probe": "走訪所得篇數等於磁碟上 status=acquired 之數",
+      "passed": true,
+      "detail": "磁碟 41｜走訪 41（含讀不了的 0）；⚠️ 目錄總數 311 不是本支母體"
+    },
+    {
+      "probe": "正文總數與 n+184 所報相同",
+      "passed": true,
+      "detail": "本支 1981436｜n+184 1981436"
+    }
+  ],
+  "records": [
+    {
+      "dir": "4e748522828a7cb4",
+      "sourceType": "grobid-tei",
+      "sections": 5,
+      "contentChars": 12526,
+      "payloadChars": 13282,
+      "overheadChars": 748,
+      "contentAsJsonChars": 12534
+    },
+    {
+      "dir": "5fc69308696a1c03",
+      "sourceType": "europe-pmc-jats",
+      "sections": 8,
+      "contentChars": 14331,
+      "payloadChars": 15166,
+      "overheadChars": 821,
+      "contentAsJsonChars": 14345
+    },
+    {
+      "dir": "421064824769eeab",
+      "sourceType": "europe-pmc-jats",
+      "sections": 10,
+      "contentChars": 18737,
+      "payloadChars": 19657,
+      "overheadChars": 902,
+      "contentAsJsonChars": 18755
+    },
+    {
+      "dir": "bf857c94bbf82b34",
+      "sourceType": "grobid-tei",
+      "sections": 11,
+      "contentChars": 25190,
+      "payloadChars": 26134,
+      "overheadChars": 924,
+      "contentAsJsonChars": 25210
+    },
+    {
+      "dir": "c43263cb1863896c",
+      "sourceType": "europe-pmc-jats",
+      "sections": 16,
+      "contentChars": 25069,
+      "payloadChars": 26156,
+      "overheadChars": 1057,
+      "contentAsJsonChars": 25099
+    },
+    {
+      "dir": "99f5af0f27301773",
+      "sourceType": "grobid-tei",
+      "sections": 15,
+      "contentChars": 26473,
+      "payloadChars": 27529,
+      "overheadChars": 1018,
+      "contentAsJsonChars": 26511
+    },
+    {
+      "dir": "02efae5809935bf7",
+      "sourceType": "grobid-tei",
+      "sections": 19,
+      "contentChars": 28143,
+      "payloadChars": 29254,
+      "overheadChars": 1073,
+      "contentAsJsonChars": 28181
+    },
+    {
+      "dir": "86d45bdea1e7ca2b",
+      "sourceType": "europe-pmc-jats",
+      "sections": 16,
+      "contentChars": 28301,
+      "payloadChars": 29471,
+      "overheadChars": 1140,
+      "contentAsJsonChars": 28331
+    },
+    {
+      "dir": "14e69e5285783b76",
+      "sourceType": "europe-pmc-jats",
+      "sections": 17,
+      "contentChars": 28914,
+      "payloadChars": 30027,
+      "overheadChars": 1081,
+      "contentAsJsonChars": 28946
+    },
+    {
+      "dir": "d166115f5bedfb3d",
+      "sourceType": "europe-pmc-jats",
+      "sections": 15,
+      "contentChars": 29272,
+      "payloadChars": 30382,
+      "overheadChars": 1082,
+      "contentAsJsonChars": 29300
+    },
+    {
+      "dir": "f0191beff371a279",
+      "sourceType": "grobid-tei",
+      "sections": 14,
+      "contentChars": 30094,
+      "payloadChars": 31132,
+      "overheadChars": 1012,
+      "contentAsJsonChars": 30120
+    },
+    {
+      "dir": "aeb7ae224b5a2341",
+      "sourceType": "grobid-tei",
+      "sections": 15,
+      "contentChars": 32350,
+      "payloadChars": 33435,
+      "overheadChars": 1057,
+      "contentAsJsonChars": 32378
+    },
+    {
+      "dir": "50808c703c1c7c73",
+      "sourceType": "grobid-tei",
+      "sections": 21,
+      "contentChars": 33466,
+      "payloadChars": 34672,
+      "overheadChars": 1166,
+      "contentAsJsonChars": 33506
+    },
+    {
+      "dir": "049ac52f07d38cf9",
+      "sourceType": "europe-pmc-jats",
+      "sections": 20,
+      "contentChars": 33626,
+      "payloadChars": 34805,
+      "overheadChars": 1141,
+      "contentAsJsonChars": 33664
+    },
+    {
+      "dir": "c7f005ead37a46ff",
+      "sourceType": "europe-pmc-jats",
+      "sections": 16,
+      "contentChars": 35511,
+      "payloadChars": 36655,
+      "overheadChars": 1114,
+      "contentAsJsonChars": 35541
+    },
+    {
+      "dir": "762bd90aa5f4d62b",
+      "sourceType": "grobid-tei",
+      "sections": 21,
+      "contentChars": 36213,
+      "payloadChars": 37446,
+      "overheadChars": 1193,
+      "contentAsJsonChars": 36253
+    },
+    {
+      "dir": "08f8b2c453c5fdb7",
+      "sourceType": "grobid-tei",
+      "sections": 12,
+      "contentChars": 37960,
+      "payloadChars": 38894,
+      "overheadChars": 912,
+      "contentAsJsonChars": 37982
+    },
+    {
+      "dir": "4e70637cdd8a4319",
+      "sourceType": "europe-pmc-jats",
+      "sections": 21,
+      "contentChars": 37924,
+      "payloadChars": 39137,
+      "overheadChars": 1173,
+      "contentAsJsonChars": 37964
+    },
+    {
+      "dir": "b35fab9217289437",
+      "sourceType": "grobid-tei",
+      "sections": 18,
+      "contentChars": 38178,
+      "payloadChars": 39365,
+      "overheadChars": 1151,
+      "contentAsJsonChars": 38214
+    },
+    {
+      "dir": "68a04090b746be6d",
+      "sourceType": "europe-pmc-jats",
+      "sections": 16,
+      "contentChars": 38886,
+      "payloadChars": 40011,
+      "overheadChars": 1095,
+      "contentAsJsonChars": 38916
+    },
+    {
+      "dir": "db16877def5676e0",
+      "sourceType": "europe-pmc-jats",
+      "sections": 20,
+      "contentChars": 39095,
+      "payloadChars": 40222,
+      "overheadChars": 1085,
+      "contentAsJsonChars": 39137
+    },
+    {
+      "dir": "50a0233f2bb867b0",
+      "sourceType": "grobid-tei",
+      "sections": 21,
+      "contentChars": 39447,
+      "payloadChars": 40710,
+      "overheadChars": 1215,
+      "contentAsJsonChars": 39495
+    },
+    {
+      "dir": "6bf801689a8621c0",
+      "sourceType": "europe-pmc-jats",
+      "sections": 21,
+      "contentChars": 41394,
+      "payloadChars": 42584,
+      "overheadChars": 1150,
+      "contentAsJsonChars": 41434
+    },
+    {
+      "dir": "5b012423d8b0be0b",
+      "sourceType": "europe-pmc-jats",
+      "sections": 20,
+      "contentChars": 41822,
+      "payloadChars": 42965,
+      "overheadChars": 1105,
+      "contentAsJsonChars": 41860
+    },
+    {
+      "dir": "b0042b27bfd49070",
+      "sourceType": "grobid-tei",
+      "sections": 18,
+      "contentChars": 42517,
+      "payloadChars": 43669,
+      "overheadChars": 1118,
+      "contentAsJsonChars": 42551
+    },
+    {
+      "dir": "8f4d886ad52e2d46",
+      "sourceType": "europe-pmc-jats",
+      "sections": 24,
+      "contentChars": 43903,
+      "payloadChars": 45185,
+      "overheadChars": 1236,
+      "contentAsJsonChars": 43949
+    },
+    {
+      "dir": "ec96e02289bd1c47",
+      "sourceType": "europe-pmc-jats",
+      "sections": 20,
+      "contentChars": 44062,
+      "payloadChars": 45332,
+      "overheadChars": 1232,
+      "contentAsJsonChars": 44100
+    },
+    {
+      "dir": "2922534c821c9127",
+      "sourceType": "europe-pmc-jats",
+      "sections": 28,
+      "contentChars": 50978,
+      "payloadChars": 52522,
+      "overheadChars": 1490,
+      "contentAsJsonChars": 51032
+    },
+    {
+      "dir": "e6a14c095bc606e5",
+      "sourceType": "europe-pmc-jats",
+      "sections": 30,
+      "contentChars": 51332,
+      "payloadChars": 53105,
+      "overheadChars": 1715,
+      "contentAsJsonChars": 51390
+    },
+    {
+      "dir": "ea71c247cc395672",
+      "sourceType": "europe-pmc-jats",
+      "sections": 24,
+      "contentChars": 54077,
+      "payloadChars": 55578,
+      "overheadChars": 1455,
+      "contentAsJsonChars": 54123
+    },
+    {
+      "dir": "a7b3ea1f7160ac10",
+      "sourceType": "grobid-tei",
+      "sections": 28,
+      "contentChars": 54178,
+      "payloadChars": 56181,
+      "overheadChars": 1941,
+      "contentAsJsonChars": 54240
+    },
+    {
+      "dir": "4b2be78f294f6d26",
+      "sourceType": "europe-pmc-jats",
+      "sections": 25,
+      "contentChars": 55806,
+      "payloadChars": 57148,
+      "overheadChars": 1294,
+      "contentAsJsonChars": 55854
+    },
+    {
+      "dir": "2ff74175627c1a85",
+      "sourceType": "europe-pmc-jats",
+      "sections": 27,
+      "contentChars": 55616,
+      "payloadChars": 57302,
+      "overheadChars": 1634,
+      "contentAsJsonChars": 55668
+    },
+    {
+      "dir": "d31b7224894847c9",
+      "sourceType": "europe-pmc-jats",
+      "sections": 31,
+      "contentChars": 56771,
+      "payloadChars": 58753,
+      "overheadChars": 1464,
+      "contentAsJsonChars": 57289
+    },
+    {
+      "dir": "27c035a3b867c853",
+      "sourceType": "europe-pmc-jats",
+      "sections": 29,
+      "contentChars": 57330,
+      "payloadChars": 58803,
+      "overheadChars": 1417,
+      "contentAsJsonChars": 57386
+    },
+    {
+      "dir": "26f1d80935d787df",
+      "sourceType": "europe-pmc-jats",
+      "sections": 26,
+      "contentChars": 57200,
+      "payloadChars": 58821,
+      "overheadChars": 1571,
+      "contentAsJsonChars": 57250
+    },
+    {
+      "dir": "a91e4efb7f5b57b7",
+      "sourceType": "europe-pmc-jats",
+      "sections": 33,
+      "contentChars": 60852,
+      "payloadChars": 62539,
+      "overheadChars": 1623,
+      "contentAsJsonChars": 60916
+    },
+    {
+      "dir": "f832b2ea91cf03e6",
+      "sourceType": "europe-pmc-jats",
+      "sections": 29,
+      "contentChars": 62121,
+      "payloadChars": 63559,
+      "overheadChars": 1382,
+      "contentAsJsonChars": 62177
+    },
+    {
+      "dir": "f150a72729a5e5d6",
+      "sourceType": "grobid-tei",
+      "sections": 24,
+      "contentChars": 63742,
+      "payloadChars": 65626,
+      "overheadChars": 1838,
+      "contentAsJsonChars": 63788
+    },
+    {
+      "dir": "35b1c315c88cd653",
+      "sourceType": "europe-pmc-jats",
+      "sections": 24,
+      "contentChars": 69408,
+      "payloadChars": 70715,
+      "overheadChars": 1261,
+      "contentAsJsonChars": 69454
+    },
+    {
+      "dir": "184a7f52879ea291",
+      "sourceType": "grobid-tei",
+      "sections": 160,
+      "contentChars": 348621,
+      "payloadChars": 355929,
+      "overheadChars": 6915,
+      "contentAsJsonChars": 349014
+    }
+  ],
+  "unreadable": [],
+  "auditHash": "sha256:1f9cb0b3dcc62ccabc12bf6c166eead5efcb86e518ca8a0f114c183b2916418a"
+}

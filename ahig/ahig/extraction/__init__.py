@@ -34,6 +34,7 @@ from ahig.extraction.inventory_draft import (  # noqa: F401
 )
 from ahig.extraction import store  # noqa: F401
 from ahig.extraction.run import (  # noqa: F401
+    ContractUnusable,
     InventoryRun,
     RecordOutcome,
     run_inventory,

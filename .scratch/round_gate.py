@@ -334,7 +334,13 @@ PYTEST_IGNORE = 'tests/test_shacl_gates.py'
 # 新增四條，測跑完留下的收據：桶子數不得改用嘗試數、記下的字元數須等於
 # 真的送出去的那串、每一列指得到磁碟上的檔且位元組相符、重用那趟送出 0 字元。
 # 三個必觸發控制（把對應的錯誤各種進去一次）皆打中該紅的那一條。增量恰為 4。
-BASE_PASSED, BASE_FAILED = 760, 0
+# 第 535 輪：760 → 763。前後對照（n+113 四）：
+#   改動前  760 passed／0 failed
+#   改動後  763 passed／0 failed
+# 新增三條，測「契約先驗再花錢」：造不出 ScopeMatcher 的契約整批拒跑且
+# 一篇都不讀（正向對照：能用的契約照樣過關）、真的那份凍結契約過得了前驗。
+# 增量恰為 3。
+BASE_PASSED, BASE_FAILED = 763, 0
 KNOWN_FAIL = '無（原 test_clopper_pearson_matches_closed_forms 已於第 437 輪依 n+113 四修正）'
 UNCOLLECTABLE = '%s（缺 pyshacl，pyproject 第 15 行已宣告）' % PYTEST_IGNORE
 
