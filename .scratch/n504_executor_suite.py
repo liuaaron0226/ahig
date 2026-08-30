@@ -52,7 +52,7 @@ import tempfile
 import time
 
 S = '.scratch/'
-ROUND = 527
+ROUND = 528
 
 # ⚠️ 清單手維護——🚨 故末行會逼人核對；新增常設檢查時請一併加進來。
 CHECKS = [
@@ -81,6 +81,8 @@ CHECKS = [
      'latest manifest 有無沒被記成一代的編輯（🚫 唯讀）', False),
     ('n525_id_key_conventions',
      '識別碼切法清冊（🚫 唯讀、不需私有根）', False),
+    ('n528_acquisition_effort_facts',
+     '取得階段實測時刻（🚫 唯讀、不對外請求）', False),
     ('n503_executor_handoff', '三項交辦之答覆與 18 格交接檔', False),
     ('n501_retraction_recheck', '撤稿現場重查（🚨 會對外送請求）', True),
 ]
