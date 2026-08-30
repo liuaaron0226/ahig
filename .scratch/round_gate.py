@@ -297,9 +297,10 @@ PYTEST_IGNORE = 'tests/test_shacl_gates.py'
 #   改動後  726 passed／0 failed
 # 新增四條，測的是萃取讀取層（M1 第四步之第一塊，n+181 三之 2）。
 # 沒有既有測試由通過變成失敗，增量恰為 4。
-# 第 481 輪：726 → 741。改動基線之前後對照（n+113 四）：
+# 第 481–482 輪：726 → 741 → 746。改動基線之前後對照（n+113 四）：
 #   改動前  726 passed／0 failed
-#   改動後  741 passed／0 failed
+#   改動後  741 passed／0 failed（+15 橋接）
+#   再改後  746 passed／0 failed（+5 鏈接合處；第 482 輪）
 # 增量 15 條全部來自萃取橋接（`test_extraction_bridge.py`，協調者），
 # 測的是 draft 清冊會安靜出錯的幾種方式：綁錯文件、綁錯契約、自稱 scoped、
 # 挾帶範圍判定、聲稱掃描過不存在的章節。
@@ -309,7 +310,7 @@ PYTEST_IGNORE = 'tests/test_shacl_gates.py'
 # ⚠️ 差的 26 條是 `tests/test_shacl_gates.py`——**本閘門 `--ignore` 掉它**。
 # 🚫 兩個數都對，而它們數的不是同一個集合；**若當時逕自把基線寫成 767，
 #    此後每一輪都會偏離**。故基線一律以**本閘門自己的跑法**為準。
-BASE_PASSED, BASE_FAILED = 741, 0
+BASE_PASSED, BASE_FAILED = 746, 0
 KNOWN_FAIL = '無（原 test_clopper_pearson_matches_closed_forms 已於第 437 輪依 n+113 四修正）'
 UNCOLLECTABLE = '%s（缺 pyshacl，pyproject 第 15 行已宣告）' % PYTEST_IGNORE
 
