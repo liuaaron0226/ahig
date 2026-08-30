@@ -35,14 +35,14 @@
    "check": "n506_failclosed_acceptance",
    "status": "pass",
    "exit": 0,
-   "seconds": 1.7,
+   "seconds": 1.4,
    "asserts": "八支產生器在「根不存在」下是否 fail-closed（🚫 不需私有根）"
   },
   {
    "check": "round_gate",
    "status": "pass",
    "exit": 0,
-   "seconds": 48.7,
+   "seconds": 20.7,
    "asserts": "每輪閘門：樣式來源、控制探針、n+48 兩道、n+54 三道、測試基線"
   },
   {
@@ -56,14 +56,14 @@
    "check": "n492_stratum_table",
    "status": "pass",
    "exit": 0,
-   "seconds": 1.4,
+   "seconds": 0.2,
    "asserts": "層別筆數兩母體並列（🚨 兩欄分母不得互換）"
   },
   {
    "check": "n496_corpus_verify",
    "status": "pass",
    "exit": 0,
-   "seconds": 6.5,
+   "seconds": 0.4,
    "asserts": "已取得 41 份之位元組與 manifest 對帳（唯讀）"
   },
   {
@@ -84,28 +84,28 @@
    "check": "n500_inaccessible_cells",
    "status": "pass",
    "exit": 0,
-   "seconds": 0.9,
+   "seconds": 0.5,
    "asserts": "不可及 18 格之產出與清單漂移偵測"
   },
   {
    "check": "n507_blocked_cells_review",
    "status": "pass",
    "exit": 0,
-   "seconds": 0.5,
+   "seconds": 0.4,
    "asserts": "四格受阻者之複查（🚨 一格已夾出上界）"
   },
   {
    "check": "n512_source_host_provenance",
    "status": "pass",
    "exit": 0,
-   "seconds": 0.1,
+   "seconds": 0.2,
    "asserts": "在手 41 份之來源主機分類（🚫 唯讀、不記網址）"
   },
   {
    "check": "n514_hash_lineending_exposure",
    "status": "pass",
    "exit": 0,
-   "seconds": 0.2,
+   "seconds": 0.3,
    "asserts": "行尾曝險逐份量測（🚫 唯讀，不改規則）"
   },
   {
@@ -119,7 +119,7 @@
    "check": "n517_temporal_order_check",
    "status": "pass",
    "exit": 0,
-   "seconds": 2.1,
+   "seconds": 2.3,
    "asserts": "取得層之時序與「抽樣結果未被改過」（🚫 只讀 git）"
   },
   {
@@ -188,7 +188,7 @@
  "skipped": [
   "n501_retraction_recheck"
  ],
- "totalSeconds": 70.1,
+ "totalSeconds": 34.4,
  "coverageStatement": "Sees whether each check exits zero, not whether it checks the right thing -- that is each check's own control probes. And the list is hand-maintained, so a check this room forgot to add is invisible here; the list length and its last-updated round are printed to force that comparison.",
  "contentNote": "Check names, exit codes and durations only."
 }

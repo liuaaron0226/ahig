@@ -1,6 +1,7 @@
 {
  "schemaVersion": 1,
  "documentType": "temporal-order-check",
+ "sameCommitNote": "The pools and the drawn list were written in one commit, so ordering says nothing there. What carries it is the round 499 redraw -- rerun against the current pools, all six seeds, lists and drawHashes match -- which shows the recorded draw is the one those pools produce. That alone would not exclude pools and list being adjusted together; the never-modified check does. The three only work as a set.",
  "neverModified": {
   "file": "m1_step2_calibration_set.json",
   "commits": 1,
@@ -37,6 +38,7 @@
  "claims": [
   {
    "earlier": "m1_step2_population.json",
+   "field": null,
    "later": "m1_step2_calibration_set.json",
    "earlierCommit": "e5017cc",
    "earlierAt": "2026-08-28T22:50:19+08:00",
@@ -47,16 +49,18 @@
   },
   {
    "earlier": "m1_step2_assignment.json",
+   "field": "pools",
    "later": "m1_step2_calibration_set.json",
-   "earlierCommit": "8d018c1",
-   "earlierAt": "2026-08-28T23:10:50+08:00",
+   "earlierCommit": "b0ee1c6",
+   "earlierAt": "2026-08-28T23:33:21+08:00",
    "laterCommit": "b0ee1c6",
    "laterAt": "2026-08-28T23:33:21+08:00",
-   "verdict": "consistent",
-   "why": "「依契約分層抽樣」——⚠️ 池若後出現，配額無所依"
+   "verdict": "same-commit",
+   "why": "「依契約分層抽樣」——🚨 承載此句的是 `pools`，🚫 不是檔案本身"
   },
   {
    "earlier": "m1_step2_calibration_set.json",
+   "field": null,
    "later": "m1_step3_inventory.json",
    "earlierCommit": "b0ee1c6",
    "earlierAt": "2026-08-28T23:33:21+08:00",
@@ -67,6 +71,7 @@
   },
   {
    "earlier": "m1_step2_calibration_set.json",
+   "field": null,
    "later": "m1_step3_backfill.json",
    "earlierCommit": "b0ee1c6",
    "earlierAt": "2026-08-28T23:33:21+08:00",
@@ -78,6 +83,9 @@
  ],
  "consistent": 4,
  "violated": [],
+ "sameCommit": [
+  "m1_step2_assignment.json → m1_step2_calibration_set.json"
+ ],
  "whatAPassMeans": "Consistent with what is claimed, not proof of it: commit time is not authoring time. A violation is hard evidence; a pass is not.",
  "strongerFormAvailable": "The coordinator ended up resting section C on \"those three lines were never modified after they were written\", which is harder than an ordering: it rules out the motive, not merely the timing. Where such a form exists it should be preferred.",
  "coverageStatement": "Timing only. Whether the content really came from the source it names is checked elsewhere -- the redraw for the sample, the byte reconciliation for the corpus.",

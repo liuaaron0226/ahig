@@ -17,7 +17,7 @@ n+175 三自陳：**「🚨 而兩次都是翻紀錄才發現的——沒有任�
 | # | 必須先 | 必須後 | 🚨 若顛倒，什麼句子會失去依據 |
 |---|---|---|---|
 | 1 | 判讀母體 `m1_step2_population.json` | 校準集 `m1_step2_calibration_set.json` | **「從該母體抽出 60 筆」**——⚠️ 母體若後出現，抽樣就不是從它抽的 |
-| 2 | 分層指派 `m1_step2_assignment.json` | 校準集 | **「依契約分層抽樣」**——⚠️ 池若後出現，配額無所依 |
+| 2 | 分層指派之 **`pools` 鍵** | 校準集 | **🚨 實測為同一次提交**——⚠️ 時序上不構成證據，見第五節 |
 | 3 | 校準集 | 取得盤點 `m1_step3_inventory.json` | **「就抽出的那 60 筆去取全文」** |
 | 4 | 校準集 | 遞補 `m1_step3_backfill.json` | **「不可得者以同層遞補」**——🚨 遞補是替代品，🚫 不能早於被替代者 |
 
@@ -49,6 +49,8 @@ n+175 三自陳：**「🚨 而兩次都是翻紀錄才發現的——沒有任�
 - 🚨 查不到：**檔案真正產生的時刻**——⚠️ 見上，通過只是一致，不是證明。
 - 🚨 亦查不到：**內容是否真的取自它所宣稱的來源**——
   ⚠️ 那由 `n499` 之重抽與 `n496` 之對帳各管一段，**🚫 本檔只管時序。**
+- 🚨 **「同一次提交」是一種真的會出現的判定**，⚠️ 且它不是通過——
+  **🚫 不得與「相符」併計**；本檔分開報，並於第五節說明該條靠什麼撐。
 """
 import io
 import json
@@ -58,14 +60,19 @@ import sys
 S = '.scratch/'
 ROUND = 517
 
+# 🚨 第 518 輪之更正：初版比的是**檔案首次出現**之時刻。
+# ⚠️ 而 `m1_step2_assignment.json` 首次出現時**根本沒有 `pools` 這個鍵**——
+#    承載「從這些池抽出」那句話的欄位，是在抽樣那一次提交才寫進去的。
+# 🚨 於是初版對該條印出「✅ 相符」，而它比的不是該句所依賴的東西。
+# ✅ 故第三欄改為「承載該句的鍵」：有指定時，比的是**該鍵首次出現**之時刻。
 CLAIMS = [
-    ('m1_step2_population.json', 'm1_step2_calibration_set.json',
+    ('m1_step2_population.json', None, 'm1_step2_calibration_set.json',
      '「從該母體抽出 60 筆」——⚠️ 母體若後出現，抽樣就不是從它抽的'),
-    ('m1_step2_assignment.json', 'm1_step2_calibration_set.json',
-     '「依契約分層抽樣」——⚠️ 池若後出現，配額無所依'),
-    ('m1_step2_calibration_set.json', 'm1_step3_inventory.json',
+    ('m1_step2_assignment.json', 'pools', 'm1_step2_calibration_set.json',
+     '「依契約分層抽樣」——🚨 承載此句的是 `pools`，🚫 不是檔案本身'),
+    ('m1_step2_calibration_set.json', None, 'm1_step3_inventory.json',
      '「就抽出的那 60 筆去取全文」'),
-    ('m1_step2_calibration_set.json', 'm1_step3_backfill.json',
+    ('m1_step2_calibration_set.json', None, 'm1_step3_backfill.json',
      '🚨 遞補是替代品，🚫 不能早於被替代者'),
 ]
 
@@ -80,6 +87,30 @@ def first_commit(path):
         return None, None
     sha, when = lines[-1].split()
     return sha, when
+
+
+def field_first_seen(path, key):
+    """該**鍵**在版控中首次出現之時刻。
+
+    🚨 存在的理由：檔案先出現、而承載那句話的欄位後出現，是兩件事。
+    ⚠️ 初版沒分，於是把一個「同一次提交才寫進去」的欄位讀成「事前就有」。
+    """
+    r = subprocess.run(['git', 'log', '--format=%h %aI', '--', path],
+                       capture_output=True, encoding='utf-8', errors='replace')
+    revs = [l.split() for l in (r.stdout or '').strip().split('\n') if l.strip()]
+    for sha, when in reversed(revs):          # ⚠️ 由舊到新
+        show = subprocess.run(['git', 'show', '%s:%s' % (sha, path)],
+                              capture_output=True, encoding='utf-8',
+                              errors='replace')
+        if show.returncode != 0:
+            continue
+        try:
+            doc = json.loads(show.stdout)
+        except ValueError:
+            continue
+        if isinstance(doc, dict) and key in doc:
+            return sha, when
+    return None, None
 
 
 def ordered(a, b):
@@ -109,28 +140,44 @@ print('二、逐條')
 print('   %-36s %-36s %s' % ('必須先', '必須後', '判定'))
 print('   ' + '-' * 92)
 rows = []
-for earlier, later, why in CLAIMS:
-    sa, ta = first_commit(S + earlier)
+for earlier, key, later, why in CLAIMS:
+    sa, ta = (field_first_seen(S + earlier, key) if key
+              else first_commit(S + earlier))
     sb, tb = first_commit(S + later)
+    label = '%s%s' % (earlier, '：`%s`' % key if key else '')
     if not ta or not tb:
-        rows.append({'earlier': earlier, 'later': later, 'verdict': 'not-in-git',
-                     'why': why})
-        print('   %-36s %-36s 🚨 版控內找不到' % (earlier, later))
+        rows.append({'earlier': earlier, 'field': key, 'later': later,
+                     'verdict': 'not-in-git', 'why': why})
+        print('   %-36s %-36s 🚨 版控內找不到' % (label, later))
         continue
     good = ordered(ta, tb)
-    rows.append({'earlier': earlier, 'later': later,
+    # 🚨 同一次提交：順序上通過，而它作為證據是空的。
+    same = (sa == sb)
+    verdict = ('same-commit' if (good and same)
+               else ('consistent' if good else 'violated'))
+    rows.append({'earlier': earlier, 'field': key, 'later': later,
                  'earlierCommit': sa, 'earlierAt': ta,
                  'laterCommit': sb, 'laterAt': tb,
-                 'verdict': 'consistent' if good else 'violated', 'why': why})
-    print('   %-36s %-36s %s' % (earlier, later,
-                                 '✅ 相符' if good else '🚨 顛倒'))
+                 'verdict': verdict, 'why': why})
+    print('   %-36s %-36s %s'
+          % (label, later,
+             {'consistent': '✅ 相符', 'same-commit': '⚠️ 同一次提交',
+              'violated': '🚨 顛倒'}[verdict]))
     print('      %s → %s   %s' % (ta[:19], tb[:19], why[:56]))
+    if verdict == 'same-commit':
+        print('      🚨 兩者寫在同一次提交（%s）——⚠️ 時序上沒有先後可言，'
+              '🚫 這一條不構成證據。' % sa)
 print('   ' + '-' * 92)
-bad = [r for r in rows if r['verdict'] != 'consistent']
-print('   %s %d／%d 條與所述一致'
-      % ('✅' if not bad else '🚨', len(rows) - len(bad), len(rows)))
+bad = [r for r in rows if r['verdict'] == 'violated'
+       or r['verdict'] == 'not-in-git']
+vacuous = [r for r in rows if r['verdict'] == 'same-commit']
+print('   ✅ 相符 %d｜⚠️ 同一次提交（不構成證據）%d｜🚨 顛倒或找不到 %d'
+      % (len(rows) - len(bad) - len(vacuous), len(vacuous), len(bad)))
 for r in bad:
     print('      🚨 %s → %s：%s' % (r['earlier'], r['later'], r['why'][:60]))
+for r in vacuous:
+    print('      ⚠️ %s → %s：🚨 這一條要靠別的證據撐，見第五節'
+          % (r['earlier'], r['later']))
 print()
 print('三、🚨 這道檢查證得了什麼')
 print('   ✅ 違反是硬證據：順序顛倒，那句話就站不住。')
@@ -172,9 +219,27 @@ else:
         print('   ⚠️ 曾被改動 %d 次——🚨 須逐次看改了什麼，🚫 不得逕稱未經調整。'
               % (n_commits - 1))
 
+print()
+print('五、🚨 同一次提交的那一條，靠什麼撐')
+print('   ⚠️ `pools` 與抽出名單寫在同一次提交，故時序上沒有先後可言。')
+print('   ✅ 撐住它的是第 499 輪之重抽：以**現行** `pools` 重跑，'
+      '六池之種子、名單、drawHash 逐一相符。')
+print('   🚨 那證明的是「記錄下來的那一抽，就是從現在這些池抽出來的」——')
+print('      ⚠️ 🚫 而它不排除「池與名單一起被調整」；')
+print('      ✅ 排除後者的是第四節：名單自寫入起未被改過。')
+print('   🚨 三者要一起看才完整：時序、重抽、未經修改。')
+
 doc = {
     'schemaVersion': 1,
     'documentType': 'temporal-order-check',
+    'sameCommitNote': 'The pools and the drawn list were written in one commit, so '
+                      'ordering says nothing there. What carries it is the round '
+                      '499 redraw -- rerun against the current pools, all six '
+                      'seeds, lists and drawHashes match -- which shows the '
+                      'recorded draw is the one those pools produce. That alone '
+                      'would not exclude pools and list being adjusted together; '
+                      'the never-modified check does. The three only work as a '
+                      'set.',
     'neverModified': {'file': FROZEN, 'commits': n_commits,
                       'controlFile': BUSY, 'controlCommits': n_busy,
                       'controlPassed': ctl_ok, 'unmodified': frozen_ok,
@@ -197,6 +262,7 @@ doc = {
     'claims': rows,
     'consistent': len(rows) - len(bad),
     'violated': [r['earlier'] + ' → ' + r['later'] for r in bad],
+    'sameCommit': [r['earlier'] + ' → ' + r['later'] for r in vacuous],
     'whatAPassMeans': 'Consistent with what is claimed, not proof of it: commit '
                       'time is not authoring time. A violation is hard evidence; '
                       'a pass is not.',
