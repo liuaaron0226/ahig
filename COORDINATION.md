@@ -78113,3 +78113,59 @@ sparql 層  7 個 targetClass，🚨 **一條都不以 OutcomeInventory 為目�
 
 **待協調者裁（🚨 四項，最久者已掛九輪；完整決策資料見第 543 輪）**：
 ① session／API；② `sections.sourceSha256` 語意；③ S3 遞延之母體；④ 「萃取階段開始」是否已發生。
+
+---
+
+## 🚨 執行室回報：**n+183 圖上那個 `scoped → family／gates` 的箭頭，程式裡沒有**（第 545 輪）
+
+看板最新仍為 **n+184**，⚠️ 無新裁定（🚨 已十輪）。
+**n+181 查到的那一型是「看板寫了八輪的階段，實情是東西沒被造出來」——✅ 本輪拿同一把尺量下游。**
+
+### 一、⚠️「（既有）」是真的，🚨 箭頭不是
+
+n+183 的圖寫 `scoped（既有 ScopeMatcher）✅ → family／gates（既有）✅`。
+**✅「那兩個模組存在」為真。🚨 但箭頭說的是「清冊會流進去」，而那是另一件事。**
+
+**普查 38 個 `.py`（AST ＋ 識別字，🚫 不憑印象）**：
+
+| 問的事 | 實測 |
+|---|---|
+| `studyResultId` 出現在幾個檔 | **0** |
+| 有沒有 study-result 的 JSON Schema | **沒有**（11 份 schema 裡沒有） |
+| 誰讀 `reportedOutcomes` | **只有 3 處**：`extraction/inventory_draft`、`scope/inventory`、`scope/matcher` |
+| `build_families` 吃什麼 | `Report`——**11 個欄位全是書目層**（work_id／doi／authors／registry_id…） |
+| `quality_gate.evaluate_batch_quality` 吃什麼 | `sample_size`／`error_count` |
+
+**✅ 必觸發也放了**：若連 `OutcomeInventory` 與帶 `inventory` 參數的函式都找不到，就是我搜壞了——
+實得 3 檔／**11 個**函式，🚨 故「其餘都是 0」不是搜壞的結果。
+
+### 二、🚨 因此，兩件事同時為真
+
+1. **沒有任何程式碼把 scoped 清冊接到 family 或 gates。**
+   ⚠️ `family.py` 做的是**同一個試驗的多份報告之歸群**（書目層），**🚫 與清冊裡的數值無關**；
+   `quality_gate` 做的是批次錯誤率，**🚫 也不吃清冊**。
+2. **沒有任何程式碼「造」StudyResult。**
+   🚨 而 StudyResult 正是 **SHACL 約束最多**（第 544 輪：core 8 類中它佔 2 條、sparql 也有）、
+   **`stats/deterministic.py` 整份在檢查**的那一種文件。
+   ⚠️ `ScopeMatcher` 決定的是「**該不該**產生 StudyResult」與其上限，**🚫 不是產生它。**
+
+### 三、🚫 本室不主張這是缺陷
+
+⚠️ M1 四步是 ①篩選 ②校準集 ③取全文 ④**萃取**，
+**🚨 而第四步的產物是清冊（OutcomeInventory），不是 StudyResult。**
+**故「沒有人造 StudyResult」可能完全符合 M1 的範圍。**
+
+> **🚫 那是協調者的判斷，不是本室的。**
+> **⚠️ 本室只指出一件事**：**🚨 讀那張圖的人會以為判完範圍之後管線自己會接下去，而它不會。**
+> ✅ 若 M1 就到清冊為止，**建議把圖上那個箭頭改成「M1 到此為止」**，
+> 🚫 而不是留一個看起來會自己流下去的箭頭。
+
+### 四、本輪對外請求：**0**
+
+**閘門**：n+48 兩道 ✅｜n+54 三道 ✅｜**測試 775／0 ✅，exit=0**（🚫 未動程式與測試）。
+**🚫 `ahig/` 無改動**；新增 `.scratch/n545_downstream_edge.py`／`.json`，🚫 不入輪次閘門。
+
+**待協調者裁（🚨 五項）**：
+① session／API；② `sections.sourceSha256` 語意；③ S3 遞延之母體；④ 「萃取階段開始」是否已發生
+（①–④ 之完整決策資料見第 543 輪）；**⑤ 新增：M1 是否就到清冊為止**——
+⚠️ 若是，n+183 那張圖的最後一個箭頭需改寫。

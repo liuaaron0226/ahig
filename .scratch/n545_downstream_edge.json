@@ -1,0 +1,216 @@
+{
+  "schemaVersion": 1,
+  "documentType": "downstream-edge-census",
+  "ruling": "n+183 之圖：scoped → family／gates（既有）",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "question": "⚠️「（既有）」說的是模組存在——那是真的。🚨 箭頭說的是清冊會流進去——本支問的是這個。",
+  "filesScanned": 38,
+  "identifierCensus": {
+    "studyResultId": [],
+    "StudyResult": [
+      {
+        "file": "ahig/ahig/scope/matcher.py",
+        "hits": 7
+      },
+      {
+        "file": "ahig/ahig/stats/adjudication.py",
+        "hits": 1
+      },
+      {
+        "file": "ahig/ahig/stats/deterministic.py",
+        "hits": 2
+      }
+    ],
+    "OutcomeInventory": [
+      {
+        "file": "ahig/ahig/extraction/inventory_draft.py",
+        "hits": 1
+      },
+      {
+        "file": "ahig/ahig/scope/inventory.py",
+        "hits": 1
+      },
+      {
+        "file": "ahig/ahig/scope/matcher.py",
+        "hits": 6
+      }
+    ],
+    "reportedOutcomes": [
+      {
+        "file": "ahig/ahig/extraction/inventory_draft.py",
+        "hits": 6
+      },
+      {
+        "file": "ahig/ahig/scope/inventory.py",
+        "hits": 3
+      },
+      {
+        "file": "ahig/ahig/scope/matcher.py",
+        "hits": 5
+      }
+    ],
+    "scopeDecision": [
+      {
+        "file": "ahig/ahig/extraction/inventory_draft.py",
+        "hits": 5
+      },
+      {
+        "file": "ahig/ahig/scope/inventory.py",
+        "hits": 7
+      },
+      {
+        "file": "ahig/ahig/scope/matcher.py",
+        "hits": 3
+      }
+    ],
+    "build_families": [
+      {
+        "file": "ahig/ahig/stats/family.py",
+        "hits": 1
+      }
+    ]
+  },
+  "functionsTakingInventory": [
+    {
+      "file": "ahig/ahig/extraction/store.py",
+      "function": "_binding_of",
+      "params": [
+        "scoped"
+      ]
+    },
+    {
+      "file": "ahig/ahig/extraction/store.py",
+      "function": "save",
+      "params": [
+        "scoped"
+      ]
+    },
+    {
+      "file": "ahig/ahig/scope/inventory.py",
+      "function": "lifecycle_of",
+      "params": [
+        "inventory"
+      ]
+    },
+    {
+      "file": "ahig/ahig/scope/inventory.py",
+      "function": "is_draft",
+      "params": [
+        "inventory"
+      ]
+    },
+    {
+      "file": "ahig/ahig/scope/inventory.py",
+      "function": "is_scoped",
+      "params": [
+        "inventory"
+      ]
+    },
+    {
+      "file": "ahig/ahig/scope/inventory.py",
+      "function": "assert_scopable",
+      "params": [
+        "inventory"
+      ]
+    },
+    {
+      "file": "ahig/ahig/scope/inventory.py",
+      "function": "audit_harms_scan",
+      "params": [
+        "inventory"
+      ]
+    },
+    {
+      "file": "ahig/ahig/scope/inventory.py",
+      "function": "audit_registry_comparison",
+      "params": [
+        "inventory"
+      ]
+    },
+    {
+      "file": "ahig/ahig/scope/inventory.py",
+      "function": "audit",
+      "params": [
+        "inventory"
+      ]
+    },
+    {
+      "file": "ahig/ahig/scope/matcher.py",
+      "function": "backfill_candidates",
+      "params": [
+        "inventory"
+      ]
+    },
+    {
+      "file": "ahig/ahig/scope/matcher.py",
+      "function": "decide_inventory",
+      "params": [
+        "inventory"
+      ]
+    }
+  ],
+  "familyEnd": {
+    "buildFamiliesParams": [
+      "reports",
+      "claim_supporting"
+    ],
+    "reportFields": [
+      "work_id",
+      "registry_id",
+      "doi",
+      "authors",
+      "sample_size",
+      "recruitment_start",
+      "recruitment_end",
+      "country_or_site",
+      "population_descriptor",
+      "trial_acronym",
+      "publication_year"
+    ],
+    "reading": "🚨 `build_families` 吃的是 `Report`，而 `Report` 的欄位全是書目層（work_id／doi／authors／registry_id…）。⚠️ 那是「同一個試驗的多份報告」之歸群，🚫 與清冊裡的數值無關。"
+  },
+  "gatesEnd": "⚠️ `gates/quality_gate.evaluate_batch_quality` 吃的是sample_size／error_count，🚫 不吃清冊。",
+  "schemas": [
+    "batch-quality-gate.schema.json",
+    "extraction-scope-contract.schema.json",
+    "gold-scope-metrics.schema.json",
+    "mid-registry.schema.json",
+    "monitoring.schema.json",
+    "outcome-inventory.schema.json",
+    "quantity-kind-registry.schema.json",
+    "search-contract-version.schema.json",
+    "study-family.schema.json",
+    "time-log.schema.json",
+    "title-abstract-screening.schema.json"
+  ],
+  "finding": "🚨 沒有任何程式碼把 scoped 清冊接到 family 或 gates；⚠️ 也沒有任何程式碼**造** StudyResult——而 StudyResult 正是 SHACL 約束最多、`stats/deterministic.py` 在檢查的那一種文件。✅ `ScopeMatcher` 決定的是「該不該產生 StudyResult」與其上限，🚫 不是產生它。",
+  "whatThisDoesNotClaim": "🚫 本支不主張這是缺陷。⚠️ M1 第四步的產物是清冊，不是 StudyResult，故「沒有人造它」可能完全符合 M1 範圍。🚨 但讀那張圖的人會以為判完範圍之後管線自己會接下去，而它不會——✅ 該不該接、何時接，請協調者裁。",
+  "controlProbes": [
+    {
+      "probe": "整個套件沒有任何東西造 StudyResult",
+      "passed": true,
+      "detail": "🚨 `studyResultId` 出現 0 個檔；⚠️ 有的話代表確實有人在造"
+    },
+    {
+      "probe": "沒有 study-result 的 JSON Schema",
+      "passed": true,
+      "detail": "schema 目錄：batch-quality-gate.schema.json, extraction-scope-contract.schema.json, gold-scope-metrics.schema.json, mid-registry.schema.json, monitoring.schema.json, outcome-inventory.schema.json, quantity-kind-registry.schema.json, search-contract-version.schema.json, study-family.schema.json, time-log.schema.json, title-abstract-screening.schema.json"
+    },
+    {
+      "probe": "family 那一端吃的是書目欄位，不是清冊",
+      "passed": true,
+      "detail": "Report 欄位：work_id, registry_id, doi, authors, sample_size, recruitment_start, recruitment_end, country_or_site, population_descriptor, trial_acronym, publication_year"
+    },
+    {
+      "probe": "清冊只被萃取／範圍兩處消費",
+      "passed": true,
+      "detail": "🚨 其他地方也讀 reportedOutcomes 的話，那才是箭頭；實得：無"
+    },
+    {
+      "probe": "搜尋本身有效（必觸發）",
+      "passed": true,
+      "detail": "🚨 若連 OutcomeInventory 與帶 inventory 參數的函式都找不到，代表搜壞了；實得 3 檔／11 個函式"
+    }
+  ],
+  "auditHash": "sha256:9de83504b573d0b95398397996321dd102c264e7a073fc98339b0c52126b3529"
+}
