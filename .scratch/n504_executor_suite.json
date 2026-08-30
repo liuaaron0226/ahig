@@ -5,8 +5,8 @@
  "population": "the executor room's standing checks, hand-maintained list",
  "countingUnit": "check",
  "criterion": "exit code only; the suite deliberately does not parse any check's printed output",
- "listedChecks": 9,
- "listLastUpdatedRound": 505,
+ "listedChecks": 11,
+ "listLastUpdatedRound": 506,
  "withNetwork": false,
  "controlProbes": [
   {
@@ -25,10 +25,24 @@
  "controlNote": "A runner that always reports success looks exactly like one where everything passes, so a certainly-failing command must be seen to fail before any result is reported.",
  "checks": [
   {
+   "check": "private_root",
+   "status": "pass",
+   "exit": 0,
+   "seconds": 0.3,
+   "asserts": "私有根前置檢查之自測（🚨 來源不在即拒絕產出）"
+  },
+  {
+   "check": "n506_failclosed_acceptance",
+   "status": "pass",
+   "exit": 0,
+   "seconds": 0.7,
+   "asserts": "八支產生器在「根不存在」下是否 fail-closed（🚫 不需私有根）"
+  },
+  {
    "check": "round_gate",
    "status": "pass",
    "exit": 0,
-   "seconds": 21.4,
+   "seconds": 16.3,
    "asserts": "每輪閘門：樣式來源、控制探針、n+48 兩道、n+54 三道、測試基線"
   },
   {
@@ -63,7 +77,7 @@
    "check": "n499_calibration_redraw",
    "status": "pass",
    "exit": 0,
-   "seconds": 0.1,
+   "seconds": 0.2,
    "asserts": "校準集之獨立重抽（種子／名單／drawHash）"
   },
   {
@@ -101,7 +115,8 @@
    "n501_retraction_recheck",
    "n503_executor_handoff",
    "n504_executor_suite",
-   "n505_licence_completion"
+   "n505_licence_completion",
+   "n506_failclosed_acceptance"
   ],
   "unlisted": [
    "n495_stratum_purpose",
@@ -116,12 +131,12 @@
   },
   "note": "The scan only covers scripts numbered from round 490 onward and named that way. An older or differently-named standing check is invisible to it, so this narrows the blind spot rather than closing it."
  },
- "passed": 8,
+ "passed": 10,
  "failed": [],
  "skipped": [
   "n501_retraction_recheck"
  ],
- "totalSeconds": 29.1,
+ "totalSeconds": 25.1,
  "coverageStatement": "Sees whether each check exits zero, not whether it checks the right thing -- that is each check's own control probes. And the list is hand-maintained, so a check this room forgot to add is invisible here; the list length and its last-updated round are printed to force that comparison.",
  "contentNote": "Check names, exit codes and durations only."
 }

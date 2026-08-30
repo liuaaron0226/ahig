@@ -58,8 +58,14 @@ from urllib.parse import quote
 
 sys.path.insert(0, 'ahig')
 sys.path.insert(0, '.scratch')
-os.environ.setdefault('AHIG_PRIVATE_ROOT',
-                      r'C:/Users/User/Desktop/claude/ahig-private')
+# 🚨 n+162（九之二）：來源不在就拒絕產出，🚫 不得寫入任何值。
+# ⚠️ 原本這裡是 `os.environ.setdefault(...)`——那行在別台機器上會
+#    「成功」地把根設成一個不存在的路徑，🚨 於是本支量到零並落盤，
+#    而「量到零」與「量不到」在檔案裡長得一模一樣。
+if '.scratch' not in sys.path:
+    sys.path.insert(0, '.scratch')
+import private_root  # noqa: E402
+PRIVATE_ROOT, ROOT_PROVENANCE = private_root.require('search-runs/b11-exogenous-cho-endurance/b11-full-run')
 import fetch_guard as G  # noqa: E402
 from ahig.contracts.freeze import content_hash  # noqa: E402
 

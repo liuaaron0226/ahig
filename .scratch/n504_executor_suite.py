@@ -45,15 +45,20 @@ import io
 import json
 import os
 import re
+import shutil
 import subprocess
 import sys
+import tempfile
 import time
 
 S = '.scratch/'
-ROUND = 505
+ROUND = 506
 
 # ⚠️ 清單手維護——🚨 故末行會逼人核對；新增常設檢查時請一併加進來。
 CHECKS = [
+    ('private_root', '私有根前置檢查之自測（🚨 來源不在即拒絕產出）', False),
+    ('n506_failclosed_acceptance',
+     '八支產生器在「根不存在」下是否 fail-closed（🚫 不需私有根）', False),
     ('round_gate', '每輪閘門：樣式來源、控制探針、n+48 兩道、n+54 三道、測試基線',
      False),
     ('fetch_guard', '對外抓取閘門之自測（🚫 不發真實請求）', False),
@@ -78,6 +83,8 @@ NOT_A_CHECK = {
     'n505_licence_completion': ('一次性補齊作業：🚨 會對外請求且 `--apply` 會寫入'
                                 '私有根，🚫 不宜納入每次總跑'),
 }
+# 🚨 n+162（九之一）：協調者不得執行本清單——⚠️ 其中多支是產生器，
+# 「跑一下看看」不是唯讀動作。✅ 兩室之總跑清單各自獨立，🚫 不互跑。
 
 
 def run(path, timeout=900):
@@ -100,14 +107,17 @@ print()
 
 # ── 控制探針 ─────────────────────────────────────────────────────
 print('一、控制探針——🚨 未如預期即拒絕報告')
-probe_dir = os.environ.get('CLAUDE_JOB_DIR', '.') + '/tmp'
-os.makedirs(probe_dir, exist_ok=True)
+# 🚨 n+162（九）：初版把探針檔寫進 `./tmp`（`CLAUDE_JOB_DIR` 未設時），
+# ⚠️ 於是協調者跑過一次之後，樹裡多出一個 `tmp/` 要清。
+# 🚫 檢查工具不該在被檢查的樹裡留東西——✅ 改用系統暫存並自清。
+probe_dir = tempfile.mkdtemp(prefix='n504-')
 ok_path = os.path.join(probe_dir, '_suite_ok.py')
 bad_path = os.path.join(probe_dir, '_suite_bad.py')
 io.open(ok_path, 'w', encoding='utf-8').write('import sys\nsys.exit(0)\n')
 io.open(bad_path, 'w', encoding='utf-8').write('import sys\nsys.exit(3)\n')
 rc_ok, _ = run(ok_path, timeout=60)
 rc_bad, _ = run(bad_path, timeout=60)
+shutil.rmtree(probe_dir, ignore_errors=True)
 ctl = [{'probe': '必然成功之命令', 'expect': 0, 'got': rc_ok, 'ok': rc_ok == 0},
        {'probe': '必然失敗之命令', 'expect': 3, 'got': rc_bad, 'ok': rc_bad == 3}]
 for c in ctl:

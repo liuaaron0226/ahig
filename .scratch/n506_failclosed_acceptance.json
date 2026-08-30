@@ -1,0 +1,85 @@
+{
+ "schemaVersion": 1,
+ "documentType": "fail-closed-acceptance",
+ "ruling": "n+162(9)(2): generators must refuse to produce, and write nothing, when their source is absent -- a measured zero and an unmeasurable one must be distinguishable in the file.",
+ "population": "the executor room's generators, hand-maintained list",
+ "countingUnit": "generator",
+ "criterion": "exit code 2 AND the artefact's bytes unchanged; refusing but writing anyway does not pass",
+ "controlProbe": {
+  "synthetic": "a generator that writes and exits 0 under the absent root",
+  "detectedAsFailing": true,
+  "why": "If the comparison were broken, eight refusals and eight silent overwrites would print the same table."
+ },
+ "absentRootUsed": "C:\\Users\\User\\AppData\\Local\\Temp\\n506-absent-private-root",
+ "generators": [
+  {
+   "generator": "n492_stratum_table",
+   "artefact": "n492_stratum_table.json",
+   "exit": 2,
+   "artefactUnchanged": true,
+   "verdict": "fail-closed",
+   "stderrFirstLine": "🚨 私有根前置檢查未過——🚫 拒絕產出（n+162 九之二）："
+  },
+  {
+   "generator": "n496_corpus_verify",
+   "artefact": "n496_corpus_verify.json",
+   "exit": 2,
+   "artefactUnchanged": true,
+   "verdict": "fail-closed",
+   "stderrFirstLine": "🚨 私有根前置檢查未過——🚫 拒絕產出（n+162 九之二）："
+  },
+  {
+   "generator": "n498_sections_integrity",
+   "artefact": "n498_sections_integrity.json",
+   "exit": 2,
+   "artefactUnchanged": true,
+   "verdict": "fail-closed",
+   "stderrFirstLine": "🚨 私有根前置檢查未過——🚫 拒絕產出（n+162 九之二）："
+  },
+  {
+   "generator": "n499_calibration_redraw",
+   "artefact": "n499_calibration_redraw.json",
+   "exit": 2,
+   "artefactUnchanged": true,
+   "verdict": "fail-closed",
+   "stderrFirstLine": "🚨 私有根前置檢查未過——🚫 拒絕產出（n+162 九之二）："
+  },
+  {
+   "generator": "n500_inaccessible_cells",
+   "artefact": "n500_inaccessible_cells.json",
+   "exit": 2,
+   "artefactUnchanged": true,
+   "verdict": "fail-closed",
+   "stderrFirstLine": "🚨 私有根前置檢查未過——🚫 拒絕產出（n+162 九之二）："
+  },
+  {
+   "generator": "n501_retraction_recheck",
+   "artefact": "n501_retraction_recheck.json",
+   "exit": 2,
+   "artefactUnchanged": true,
+   "verdict": "fail-closed",
+   "stderrFirstLine": "🚨 私有根前置檢查未過——🚫 拒絕產出（n+162 九之二）："
+  },
+  {
+   "generator": "n503_executor_handoff",
+   "artefact": "executor_cells.json",
+   "exit": 2,
+   "artefactUnchanged": true,
+   "verdict": "fail-closed",
+   "stderrFirstLine": "🚨 私有根前置檢查未過——🚫 拒絕產出（n+162 九之二）："
+  },
+  {
+   "generator": "n505_licence_completion",
+   "artefact": "n505_licence_completion.json",
+   "exit": 2,
+   "artefactUnchanged": true,
+   "verdict": "fail-closed",
+   "stderrFirstLine": "🚨 私有根前置檢查未過——🚫 拒絕產出（n+162 九之二）："
+  }
+ ],
+ "failClosed": 8,
+ "failOpen": [],
+ "needsNoPrivateRoot": true,
+ "coverageStatement": "Covers a root that is absent entirely. A root that is present but truncated looks like a smaller real population and is not detectable here; require() records how many artifact directories it saw so that at least shows up as a smaller number. Generators missing from this list are invisible here; n504's blind-spot scan squeezes that from the other side.",
+ "contentNote": "Script names, exit codes and hash prefixes only."
+}
