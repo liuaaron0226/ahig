@@ -1,0 +1,50 @@
+{
+ "schemaVersion": 1,
+ "documentType": "gi-published-version-availability",
+ "ruling": "self-initiated: the briefing frames the whole choice on \"these manuscripts have no free published version\", and n490 measured that inside the calibration 60 only, while seven records are in hand",
+ "population": "non-published acquired records in S5+S6, drawn plus accepted backfill",
+ "countingUnit": "record",
+ "criterion": "same as n490: OpenAlex locations[] entries that are OA and carry version publishedVersion",
+ "alreadyCovered": [
+  "7b1ae2a1",
+  "24d22835"
+ ],
+ "newlyChecked": [
+  {
+   "idTail": "9b2c5340",
+   "idFrag": "a4bbe8aa65dd82a8",
+   "origin": "backfill",
+   "version": "submittedVersion",
+   "candidateId": "ahig:candidate:publication:a4bbe8aa65dd82a89b2c5340",
+   "publishedOaLocations": 0,
+   "hostTypes": [],
+   "error": "",
+   "retrievedAt": "2026-08-30"
+  }
+ ],
+ "anyPublishedOaFound": [],
+ "idKeyTrap": "n490 keys on the first 16 characters of the id tail while recent artefacts key on the last 8. Compared directly, every record reads as uncovered. Both slices are computed before comparing.",
+ "controlProbe": {
+  "idTail": "7b1ae2a1",
+  "recorded": 0,
+  "refetched": 0,
+  "agrees": true
+ },
+ "fetchCounters": {
+  "totalRequests": 2,
+  "perRequestedHost": {
+   "api.openalex.org": 2
+  },
+  "perFinalHost": {
+   "api.openalex.org": 2
+  },
+  "redirectHops": 0,
+  "blockedHosts": {},
+  "distinctUrls": 2,
+  "minIntervalSeconds": 1.0,
+  "note": "Per-execution counters. totalRequests counts every hop actually sent, including redirect hops, because each hop is a real outbound request. Requested and final hosts are kept apart: a redirector such as doi.org appears in the first and the publisher it lands on in the second, and blocking keys on the second. State does not survive the process, so the no-retry guarantee holds within one run only."
+ },
+ "coverageStatement": "Whether a published-version OA location is listed, not whether it could be fetched, and not whether it should be sought -- n490's own caveat, kept.",
+ "contentNote": "Id slices, versions and counts only.",
+ "availabilityHash": "sha256:05ab25f27cac3c96be2a85bf6c87348f2d9fd20b821c77cf5eb92ec899092f07"
+}
