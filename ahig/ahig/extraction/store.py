@@ -25,9 +25,10 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+from ahig.contracts.freeze import file_hash
 from ahig.search.fulltext import (_candidate_directory_name, _require_private,
                                   private_root)
-from ahig.state import atomic_write_bytes
+from ahig.state import atomic_write_bytes, atomic_write_json
 
 SHA_PREFIX = "sha256:"
 
@@ -95,5 +96,40 @@ def load_if_current(candidate_id: str, manifestation: str,
         raise StoreError(f"{path.name} 讀不出來：{error}") from error
 
 
-__all__ = ["StoreError", "inventory_dir", "inventory_path", "load_if_current",
-           "save"]
+def reference(path: Path) -> dict:
+    """指向一份存下的清冊：路徑（相對私有根）＋**檔案位元組**的雜湊。
+
+    ⚠️ 這裡刻意用位元組雜湊而不是正規化雜湊。批次紀錄要能被拿去核對「磁碟上
+    那個檔是不是這一份」，而正規化雜湊在重排版之後仍然相同——那是另一個問題的
+    答案。取得層的 batch 也是這樣記的（``manifestSha256`` 取自 manifest 的原始
+    位元組），此處照它。
+    """
+    return {"inventoryPath": path.relative_to(private_root()).as_posix(),
+            "inventorySha256": file_hash(path.read_bytes())}
+
+
+def batch_path(batch_id: str) -> Path:
+    return private_root() / "extraction" / "batches" / f"{batch_id}.json"
+
+
+def save_batch(record: dict) -> Path:
+    """寫下一次整批跑的紀錄。已存在而內容不同時丟錯，🚫 不覆寫。
+
+    批次 id 由內容雜湊導出，故「同 id 不同內容」代表導出方式壞了，不是撞名。
+    """
+    batch_id = record.get("batchId") or ""
+    if not batch_id:
+        raise StoreError("批次紀錄缺 batchId")
+    path = batch_path(batch_id)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    _require_private(path.parent)
+    if path.exists() and json.loads(path.read_text(encoding="utf-8")) != record:
+        raise StoreError(f"{path.name} 已存在且內容不同——批次 id 由內容導出，"
+                         "同 id 不同內容代表導出方式壞了")
+    if not path.exists():
+        atomic_write_json(path, record)
+    return path
+
+
+__all__ = ["StoreError", "batch_path", "inventory_dir", "inventory_path",
+           "load_if_current", "reference", "save", "save_batch"]

@@ -1,5 +1,6 @@
 """整批跑萃取鏈。每一篇都要有下落。"""
 
+import json
 import os
 import tempfile
 from pathlib import Path
@@ -223,5 +224,108 @@ def test_the_store_refuses_to_overwrite_a_different_inventory():
             assert "內容不同" in str(error)
         else:
             raise AssertionError("同鍵不同內容不該被靜靜覆寫")
+
+    _in_corpus(body)
+
+
+def test_the_batch_record_counts_the_buckets_not_just_the_attempts():
+    # 跑完什麼都不留下，下一次「花了多少」就又是一句「不知道」——n+184 卡在
+    # 那句話上。收據要逐篇一列，且數字要來自桶子而不是嘗試數。
+    from ahig.extraction import store
+
+    def body(candidate_id):
+        calls = {"n": 0}
+
+        def sometimes(request):
+            calls["n"] += 1
+            if calls["n"] == 1:
+                raise RuntimeError("模型那端斷線")
+            return _draft_for(request)
+
+        run = run_inventory(CONTRACT, reader=sometimes,
+                            candidate_ids=[candidate_id, candidate_id],
+                            store=store)
+        written = json.loads(store.batch_path(run.to_batch_record()["batchId"])
+                             .read_text(encoding="utf-8"))
+
+        assert written["documentType"] == "outcome-inventory-batch"
+        assert written["candidateCount"] == 2
+        # 混合的一趟：只看總數分不出「一成一敗」與「兩篇都成」。
+        assert written["readThisRunCount"] == 1
+        assert written["failedCount"] == 1
+        assert written["reusedCount"] == 0
+        assert len(written["results"]) == 2
+        assert written["scopeContractHash"] == CONTRACT["scopeContractHash"]
+
+    _in_corpus(body)
+
+
+def test_the_chars_recorded_are_the_chars_actually_sent():
+    # 「送了多少字」是換算成錢的唯一起點。記錯了，後面整條算式都錯。
+    from ahig.extraction import store
+    from ahig.extraction.corpus import reading_request_for
+
+    def body(candidate_id):
+        def boom(_request):
+            raise RuntimeError("模型那端斷線")
+
+        run = run_inventory(CONTRACT, reader=boom, candidate_ids=[candidate_id],
+                            store=store)
+        record = run.to_batch_record()
+        truth = len(json.dumps(
+            reading_request_for(candidate_id, CONTRACT).prompt_payload(),
+            ensure_ascii=False))
+
+        assert truth > 0
+        assert record["charsSent"] == truth
+        # 模型沒回來，那一筆照樣要記 requestChars——那筆錢已經花了。
+        [item] = record["results"]
+        assert item["stage"] == "call-reader" and item["ok"] is False
+        assert item["requestChars"] == truth
+        assert item["draftChars"] == 0
+        assert record["charsReturned"] == 0
+
+    _in_corpus(body)
+
+
+def test_each_successful_row_points_at_a_file_whose_bytes_match():
+    # 收據上的指標若指不到東西，收據就只是一段自述。
+    from ahig.contracts.freeze import file_hash
+    from ahig.extraction import store
+    from ahig.search.fulltext import private_root
+
+    def body(candidate_id):
+        run = run_inventory(CONTRACT, reader=_draft_for,
+                            candidate_ids=[candidate_id], store=store)
+        [item] = run.to_batch_record()["results"]
+
+        path = private_root() / item["inventoryPath"]
+        assert path.exists()
+        assert file_hash(path.read_bytes()) == item["inventorySha256"]
+        # 且那個檔真的是這一篇的清冊，不是碰巧存在的別的東西。
+        assert json.loads(path.read_text(encoding="utf-8"))["report"] == candidate_id
+
+    _in_corpus(body)
+
+
+def test_a_reused_record_costs_nothing_on_the_receipt():
+    # 「重跑不重付錢」若在收據上看不出來，那句話就沒有憑據。
+    from ahig.extraction import store
+
+    def body(candidate_id):
+        run_inventory(CONTRACT, reader=_draft_for, candidate_ids=[candidate_id],
+                      store=store)
+        second = run_inventory(CONTRACT, reader=_draft_for,
+                               candidate_ids=[candidate_id], store=store)
+        record = second.to_batch_record()
+
+        assert record["reusedCount"] == 1
+        assert record["readThisRunCount"] == 0
+        assert record["charsSent"] == 0
+        assert record["charsReturned"] == 0
+        # 重用那一列仍要指得到檔，否則「這一趟交出了什麼」就少了它。
+        [item] = record["results"]
+        assert item["stage"] == "reused"
+        assert item["inventoryPath"]
 
     _in_corpus(body)
