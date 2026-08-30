@@ -31,6 +31,13 @@ except (AttributeError, ValueError):  # 非 POSIX 或非主執行緒
     pass
 # ──────────────────────────────────────────────────────────────────
 
+# 🚨 「哪一條算重述」之判準單一來源（n+167）——⚠️ 🚫 本檔不得自帶第二份。
+import importlib.util as _ilu
+_spec = _ilu.spec_from_file_location(
+    "n116_anchor_rules", str(Path(__file__).with_name("n116_anchor_rules.py")))
+_rules = _ilu.module_from_spec(_spec)
+_spec.loader.exec_module(_rules)
+
 DOCS = {
     "甲": "docs/m1-a-search-coverage-skeleton.md",
     "乙": "docs/m1-b-screening-limits-skeleton.md",
@@ -449,9 +456,12 @@ for key in sorted(reg, key=lambda k: reg[k][1]):
         (globals_hit if key in GLOBAL else loose).append(
             (line_no, label, n, alts, key))
 
-# ⚠️ 清冊之 55 條含「重述／同上」——**55 是條目數，不是相異義務數**
-dup = [k for k, (_, lab) in ANCHORS.items()
-       if ("重述" in lab or lab.startswith("同"))]
+# ⚠️ 清冊之條目含「重述／同上」——**條目數不是相異義務數**
+# 🚨 判準取自 `n116_anchor_rules`（單一來源）——⚠️ 本處原本自帶一份
+#    `lab.startswith("同")`，把「同試驗分裂之兩筆一併處理」誤算為重述；
+#    而 n154 另有一份只認「同上」的規則，漏掉六條「同 <看板號>」。
+#    **🚫 同一個量不得有兩份實作**（n+167）。
+dup = [k for k, v in ANCHORS.items() if _rules.is_restatement(v[1])]
 print(f"  錨點總數 {len(ANCHORS)}｜⚠️ 其中標為重述／同上者 {len(dup)}"
       f"｜**相異義務約 {len(ANCHORS) - len(dup)}**")
 print(f"  🚨 故「{len(ANCHORS)}／{len(ANCHORS)} 涵蓋」之 {len(ANCHORS)} 是條目數，"

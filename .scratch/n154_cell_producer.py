@@ -389,8 +389,27 @@ def _handoff_cell(name):
     if not cell:
         raise ValueError(f"{name}：🚨 交接檔中無此格")
     if cell.get("kind") != "measured":
-        raise ValueError(f"{name}：⚠️ 交接檔標為 {cell.get('kind')}，🚫 尚無值")
+        raise ValueError(f"{name}：⚠️ 交接檔標為 {cell.get('kind')}，🚫 尚無點值")
     return cell["value"]
+
+
+def bound(name):
+    """🚨 取一格之**上界**（`kind == "bounded"`）。
+
+    ⚠️ n+166 之後交接檔有第三態：一個格可能給不出點值，卻給得出
+    「至多 N，母體 M，某判準之下」。
+    **🚫 那既不是「有值」也不是「沒有值」**——
+    🚨 把它當成前者是捏造精確度，當成後者是把可用的材料丟掉。
+
+    回傳 dict 或 None。
+    """
+    d = _handoff()
+    cell = (d or {}).get("cells", {}).get(name) or {}
+    if cell.get("kind") != "bounded":
+        return None
+    return {k: cell.get(k) for k in
+            ("lowerBound", "upperBound", "denominator",
+             "boundCriterion", "whyNotExact", "patternCaveat")}
 
 
 # ✅ 逐格掛入：鍵取自交接檔本身，🚫 不另抄一份名單。
@@ -441,14 +460,24 @@ def _const(name):
 
 
 def _anchors():
-    """⚠️ 由 n116 之 ANCHORS 現數，🚫 不手抄——n+116 之條目會增。"""
+    """⚠️ 由 n116 之 ANCHORS 現數，🚫 不手抄——n+116 之條目會增。
+
+    🚨 **判準取自 `n116_anchor_rules`，🚫 本處不得自帶一份**（n+167）。
+    ⚠️ 原本這裡寫的是「整個 tuple 含『重述』或『同上』」，
+    **漏掉六條「同 <看板號>」形式的指向**，數出 10 而非 16；
+    而 n116 另有一份 `lab.startswith("同")`，反過來多算一條實質義務，數出 17。
+    **⚠️ 兩個錯誤的數字各自活了許多輪，因為沒有人把它們並排過。**
+    """
+    import importlib.util as ilu
     src = Path(".scratch/n116_obligation_crosscheck.py").read_text(encoding="utf-8")
     ns = {}
     exec("ANCHORS = {" + src.split("ANCHORS = {", 1)[1].split("\n}\n", 1)[0] + "\n}", ns)
-    a = ns["ANCHORS"]
-    restated = sum(1 for v in a.values()
-                   if any("重述" in str(x) or "同上" in str(x) for x in v))
-    return len(a), restated
+    spec = ilu.spec_from_file_location(
+        "n116_anchor_rules", str(Path(".scratch/n116_anchor_rules.py")))
+    rules = ilu.module_from_spec(spec)
+    spec.loader.exec_module(rules)
+    rows, restated, _distinct = rules.tally(ns["ANCHORS"])
+    return rows, restated
 
 
 def _ver(key):
@@ -480,45 +509,52 @@ MIN_COINCIDENCE = 10
 COINCIDENCE = {
     # 🚨 鍵為**該值上的整組名稱**（排序後），🚫 不是任意兩格——
     # ⚠️ 多一格加入同一個值時，這一筆就不再匹配，會逼我重新判一次。
-    ("BLOCKED_N", "DEBT_B4", "LIC_FILLED", "PDF_IN_HAND"):
+    ("BLOCKED_N", "DEBT_B4", "PDF_IN_HAND"):
         "11＝本環境遭擋之筆數（403 十筆＋逾時一筆）；11＝影子歧異之尚欠抽查項目；"
-        "11＝已補上授權欄之筆數（n+163 受理之 5＋6）；11＝私有 pdf 快取之檔數。"
-        "🚫 四者互不相干，⚠️ 且**單位各異**（文獻／抽查項目／文獻／檔案）。"
-        "🚨 **本組於第 467 輪由三格變四格**——`LIC_FILLED` 由 5 補為 11 而撞進來；"
-        "⚠️ 登記簿以整組名稱為鍵，故它當場失配並逼我重判一次，**✅ 那正是預期行為**。",
-    ("HARMS_COUNTER_LAST", "OBLIGATION_RESTATED"):
-        "10＝harms 相鄰計數器之最終讀數（🚨 讀數，不是名單）；"
-        "10＝義務清冊中標為「重述／同上」之條數。"
-        "⚠️ 本 run 早期即出現過的一對，🚫 兩者毫無關係。",
+        "11＝私有 pdf 快取之檔數。"
+        "🚫 三者互不相干，⚠️ 且**單位各異**（文獻／抽查項目／檔案）。"
+        "🚨 **本組兩度變形**：第 467 輪 `LIC_FILLED` 由 5 補為 11 而撞進來，"
+        "第 469 輪它再補為 12 而離開。⚠️ 登記簿以整組名稱為鍵，"
+        "故它**兩次都當場失配並逼我重判**，**✅ 那正是預期行為**。",
     ("HARMS_COMBINED", "LANDING_REPO", "SHORTFALL_N"):
         "15＝S5＋S6 合併配額（8＋7）；15＝著陸頁落在機構典藏庫者；"
         "15＝校準集之總缺口（60−45）。"
         "🚨 前兩者與第三者都出現在辛節，⚠️ 而「配額 15」與「缺口 15」相鄰書寫"
         "會讀成「這一層剛好全缺」——**🚫 實際 S5＋S6 之缺口是 6，不是 15。**",
-    ("DEBT_OUTSTANDING", "LANDING_REACHED", "LANDING_ROUTE_N"):
+    ("DEBT_OUTSTANDING", "LANDING_REACHED", "LANDING_ROUTE_N",
+     "OBLIGATION_RESTATED"):
         "🚨 **本簿最危險的一組，且其中兩格同節、同一批 33 筆記錄**："
         "16＝`status == available-landing-page`（**路徑分類**）；"
         "16＝`http == 200`（**當時抓得到**）。"
         "**⚠️ 實測交集僅 6 筆**——各有 10 筆只落在其中一邊。"
         "🚫 故報告不得寫「16 筆走著陸頁路徑，其中 16 筆可達」，"
         "**🚨 那會讀成「全部可達」，而實情是 16 筆裡只有 6 筆可達。**"
-        "⚠️ 第三個 16 是尚欠之抽查項目，**單位是抽查項目而非文獻**，🚫 與前兩者無關。",
+        "⚠️ 第三個 16 是尚欠之抽查項目，**單位是抽查項目而非文獻**，🚫 與前兩者無關。"
+        "🚨 **第四個 16 於第 469 輪加入**：義務清冊標為重述之條數，"
+        "由 10 更正為 16（判準漏掉六條「同 <看板號>」形式之指向，n+167）。"
+        "**⚠️ 值得原地記住：那個錯的 10，先前正是以「四個不相干的 10」之名"
+        "被登記在本簿裡——🚫 登記過不等於查核過，本簿只證明「這幾個數相等是巧合」，"
+        "🚫 從不證明「每個數各自算對了」。**",
     ("OUT_OF_SEQ", "SPOT_N"):
         "200＝標準線序列之亂序筆數；200＝尾端抽驗之樣本數常數。"
         "⚠️ 兩者同在丙節且皆與篩選序列有關，🚨 相鄰書寫極易被讀成同一個 200。",
 
     # ── 🚨 n+162：執行室交接後新增之重合 ─────────────────────────
-    ("HARMS_COUNTER_LAST", "NARR_RETRACT_TEXT_N",
-     "OBLIGATION_RESTATED", "RETRACT_FIELD_N"):
-        "🚨 **四個不相干的 10**，且其中兩個是 n+152 明訂不得相加或互換的一對："
+    ("HARMS_COUNTER_LAST", "NARR_RETRACT_TEXT_N", "RETRACT_FIELD_N"):
+        "🚨 **三個不相干的 10**，且其中兩個是 n+152 明訂不得相加或互換的一對："
         "10＝harms 相鄰計數器之最終讀數（**讀數，不是名單**）；"
         "10＝判讀理由文字提到撤稿者；"
-        "10＝義務清冊標為「重述／同上」之條數；"
         "10＝八份工作單 `publicationTypes` 聯集去重之撤稿數。"
-        "**⚠️ 本 run 最早的同值異義例就是兩個 10，如今是四個。**",
-    ("ACQ_IN_OBTAINABLE", "SHADOW_QUEUED", "UNPROBED_N"):
+        "**⚠️ 本 run 最早的同值異義例就是兩個 10，一度長到四個，"
+        "第 469 輪又退回三個**——🚨 因為第四個（義務重述數）根本不是 10，是 16。",
+    ("ACQ_IN_OBTAINABLE", "LIC_FILLED", "SHADOW_QUEUED", "UNPROBED_N"):
         "12＝45 筆可得中 JATS 已在手者；12＝影子對帳不一致而待人工覆核者；"
-        "12＝從未試過替代位址者。🚫 三者母體與單位皆異。",
+        "12＝從未試過替代位址者；"
+        "12＝授權欄由執行室補填且附來源與查取日期者。"
+        "🚫 四者母體與單位皆異。"
+        "🚨 **末者尤須當心**：另有 24 筆之授權係自 JATS `<license>` 自動擷取、"
+        "無來源欄，**🚫 不得與這 12 筆相加後稱「有授權 36 筆」**——"
+        "⚠️ 兩者的可信程度不同，而相加會把差別抹掉。",
     ("ACQ_CALIB", "TAG_ROSTER_COUNT"):
         "14＝校準 60 中已取得全文者；14＝掛牌名冊之**份數**（不是筆數）。"
         "🚨 後者單位是「牌」，🚫 不是文獻。",

@@ -45,7 +45,11 @@ except (AttributeError, ValueError):
 
 CHECKLIST = Path("docs/m1-e-delivery-checklist.md")
 ROW = re.compile(r"^\|\s*(\S+)\s*\|\s*`([A-Z0-9_]+)`")
-USE = re.compile(r"v\('([A-Z0-9_]+)'\)")
+# 🚨 取值有兩種寫法，🚫 只認一種就會誤報：
+#    `v('X')`（點值）與 `bound("X")`（上界，n+166 新增之第三態）。
+# ⚠️ 初版只認前者，於是把「有用到上界的那一格」報成未用——
+#    **🚨 一份清點工具自己漏數，比不清點更糟。**
+USE = re.compile(r"""(?:v|bound)\(\s*['"]([A-Z0-9_]+)['"]\s*\)""")
 
 # 節 → 產生器
 GENERATORS = {
@@ -86,11 +90,23 @@ def checklist_cells():
     return out
 
 
+# 🚨 n+167：**取值於「禁句清單」中出現，不是引用，是相反的事**。
+# ⚠️ 丙節寫 `forbidden_phrases=(v("P_ALLQUEUE"),)`，意思是
+#    **「這個數字不准出現在成稿裡」**；而本檔原本把它數成一次引用，
+#    於是報表宣稱「丙節引用了 P_ALLQUEUE」——**🚫 恰好與事實相反**。
+# 🚨 這是缺陷型錄裡的**舊型再現**：n158 曾把「引述一條禁令」誤判為「違反它」，
+#    規則寫下之後，同一型換一支工具又犯一次。
+# ✅ 故先剔除 `forbidden_phrases=(...)` 之內容，再數取值。
+_FORBIDDEN_ARG = re.compile(r"forbidden_phrases\s*=\s*\((?:[^()]|\([^()]*\))*\)")
+
+
 def used_cells():
     out = {}
     for sec, gen in GENERATORS.items():
         src = Path(".scratch") / gen
-        out[sec] = set(USE.findall(src.read_text(encoding="utf-8")))
+        text = src.read_text(encoding="utf-8")
+        text = _FORBIDDEN_ARG.sub("", text)
+        out[sec] = set(USE.findall(text))
     return out
 
 
@@ -143,6 +159,33 @@ def main():
     print(f"✅ 刻意不引用者已登記 {len(DELIBERATE)} 格：")
     for k, why in DELIBERATE.items():
         print(f"  · {k}：{why[:72]}…")
+
+    # ── 🚨 未引用之總數必須被逐格認領（n+167）────────────────────
+    # ⚠️ 本檔原本標頭印「未被引用 N 個」，而下方明細只交代了「刻意不用」與
+    #    「各節未用」兩類。**🚨 壬節尚未成稿，其獨有之格不屬於任何一節的桶子**，
+    #    於是標頭的 4 與明細的 3 差了一格，**而本檔照樣 exit 0**。
+    # 🚨 那正是缺陷型錄第 17 型：**一句總結，斷言了一件沒發生過的事**
+    #    （「未引用者皆已交代」）。✅ 故此處逐格認領，🚫 對不起來就失敗。
+    uncited = all_listed - all_used
+    by_section = set().union(*(listed.get(s, set()) for s in GENERATORS)) \
+        if GENERATORS else set()
+    pending = sorted(uncited - by_section)          # 只存在於尚未成稿之節
+    per_sec_unused = sorted(
+        {c for s in GENERATORS
+         for c in (listed.get(s, set()) - used.get(s, set()) - set(DELIBERATE))})
+    claimed = set(DELIBERATE) | set(pending) | set(per_sec_unused)
+    orphaned = sorted(uncited - claimed)
+
+    print()
+    print(f"未引用 {len(uncited)} 格之認領：刻意不用 {len(set(DELIBERATE) & uncited)}"
+          f"｜各節漏寫 {len(per_sec_unused)}｜尚未成稿之節獨有 {len(pending)}")
+    if pending:
+        print(f"  · 尚未成稿之節獨有：{pending}")
+        print("    ⚠️ 壬節須待擁有者答覆四項待決後方能成稿，"
+              "🚫 故此處不算漏寫，**亦不得算已完成**。")
+    if orphaned:
+        problems.append(f"🚨 未引用之格有 {len(orphaned)} 格無人認領：{orphaned}"
+                        "——⚠️ 標頭之總數與明細對不起來，🚫 不得視為已交代")
 
     # ── 🚨 反向對照：注入一個「成稿用了清單沒有的格」 ────────────────
     fake = "△不存在之格△"

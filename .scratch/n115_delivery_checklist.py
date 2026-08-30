@@ -122,7 +122,11 @@ DETAIL = {
     "VER_ACCEPTED":  ("產物", "同上"),
     "VER_SUBMITTED": ("產物", "同上；🚫 依 n+138 不得作為數值萃取來源"),
     "VER_UNKNOWN":   ("產物", "同上＋`n488_pmcid_to_doi.json`；⚠️ 補查後**由 26 降為 1**，🚨 該 26 是量測缺口且集中於單一取得路徑，🚫 不得反過來當成「多半是作者稿」之證據（n+141）"),
-    "LIC_FILLED":   ("不可及", "私有根 manifest 之 `licence` 欄，執行室依 n+138 填入並附來源與查取日期＝**5**；⚠️ 母體為首批 8 筆，🚫 不得外推"),
+    # 🚨 n+167 更正：本欄原寫「＝**5**；⚠️ 母體為首批 8 筆」，而執行室交接之值
+    #    已補至 12——**⚠️ 一個從 8 份裡數出來的數，不可能大於 8**。
+    #    值本身是漂移的（本欄之自報值只是快照，過期屬預期）；🚫 **母體不是**，
+    #    而母體那一句過期之後，會把一個對的數字釘在一個錯的分母上。
+    "LIC_FILLED":   ("不可及", "私有根 acquired manifest 中具 `licenceProvenance` 欄者（執行室依 n+138（三）填入並附來源與查取日期）；⚠️ 母體為 acquired 全體，🚫 **不是首批 8 筆**（n+167 更正）；🚨 另有 24 筆之授權係自 JATS `<license>` 自動擷取、無來源欄，🚫 不得與本格相加"),
     # ── n+141：校準集內之版本分布（🚨 與 41 筆之比例不可互換）──
     "CALIB_VER_PUB": ("產物", "`.scratch/n489_calibration_versions.json`（**受追蹤**，我已自檔交叉核對）→ 校準集 acquired 中之 `publishedVersion`＝**8**"),
     "CALIB_VER_ACC": ("產物", "同上：`acceptedVersion`＝**5**；🚨 每一個取自此類之數值須逐筆標記"),
@@ -249,7 +253,29 @@ lines += ["", END]
 
 doc = Path(TARGET).read_text(encoding="utf-8")
 i, j = doc.index(BEGIN), doc.index(END) + len(END)
-Path(TARGET).write_text(doc[:i] + "\n".join(lines) + doc[j:],
+
+# ── 🚨 n+167：**被覆寫的手改，必須留下痕跡** ────────────────────────
+# ⚠️ 本輪我直接改了產生區塊裡 `LIC_FILLED` 的定位欄，下一次跑本檔時
+#    **它被無聲地改回去了**——沒有警告、沒有差異、沒有非零離開碼。
+# 🚨 檔頭雖寫著「表格由本檔產生，不得手改」，⚠️ 而**一條沒有人在看的規則，
+#    只有在有人違反時才發現它沒有人在看**——本輪違反的正是立規則的我。
+# ✅ 故此處比對舊區塊：內容有變即印出，並逐行列出被覆寫掉的行。
+#    🚫 不因此失敗——⚠️ 值漂移本來就會使區塊改變，
+#    **本項要防的是「改動無聲」，🚫 不是「不准改動」。**
+_old_block = doc[i:j]
+_new_block = "\n".join(lines)
+if _old_block != _new_block:
+    _o = set(_old_block.split("\n"))
+    _n = set(_new_block.split("\n"))
+    _lost = [l for l in _old_block.split("\n") if l not in _n and l.startswith("|")]
+    print(f"⚠️ 產生區塊有變（{len(_lost)} 行被覆寫）"
+          "——🚨 若你剛才是手改本檔產物，**那次手改已經沒了**：")
+    for l in _lost[:8]:
+        print(f"    覆寫掉：{l[:110]}")
+    if len(_lost) > 8:
+        print(f"    …另有 {len(_lost) - 8} 行")
+
+Path(TARGET).write_text(doc[:i] + _new_block + doc[j:],
                         encoding="utf-8", newline="\n")
 print(f"wrote {len(rows)} rows into {TARGET}")
 for kind in ("產物", "原始碼", "推導", "看板", "不可及"):

@@ -121,7 +121,7 @@
 | 辛 | `LANDING_WORDS_MIN` | 凍結 | 產物 | 同上：去標籤字數最小 **160**（⚠️ 母體＝已量到之 16 筆，🚫 非 33 筆） |
 | 辛 | `LANDING_WORTH_PARSER` | 凍結 | 產物 | 同上：達門檻者＝**0**（⚠️ 就已量到的 16 筆而言，非 33 筆）；🚨 **n+162 更正**：門檻值**有存**（`criterion` 欄之 8000 字），故本格可現算＝「有全文標記且字數 ≥ 8000」；⚠️ 實測 5 筆過字數而**無標記**、1 筆有標記而僅 1805 字，交集為 0——**🚨 這是一個真的量測，🚫 不是缺判準**；⚠️ 而 `n450` 自載「門檻只用來排序，不用來決定」仍須同引 |
 | 辛 | `LEGACY_DIRS` | 漂移 | 產物 | `.scratch/n496_corpus_verify.json` → `legacySchemeDirectories` 之長度＝**4**（我已自檔覆核）；🚨 不刪，僅排除並列名 |
-| 辛 | `LIC_FILLED` | 漂移 | 不可及 | 私有根 manifest 之 `licence` 欄，執行室依 n+138 填入並附來源與查取日期＝**5**；⚠️ 母體為首批 8 筆，🚫 不得外推 |
+| 辛 | `LIC_FILLED` | 漂移 | 不可及 | 私有根 acquired manifest 中具 `licenceProvenance` 欄者（執行室依 n+138（三）填入並附來源與查取日期）；⚠️ 母體為 acquired 全體，🚫 **不是首批 8 筆**（n+167 更正）；🚨 另有 24 筆之授權係自 JATS `<license>` 自動擷取、無來源欄，🚫 不得與本格相加 |
 | 辛 | `OBTAINABLE_N` | 漂移 | 產物 | `.scratch/m1_step3_backfill.json` → `totals.obtainable`＝**45**（🚨 單一欄位；n+155 更正：原寫「inventory ＋ backfill」而未載合併規則，⚠️ 實則不需合併）；⚠️ **上界非保證** |
 | 辛 | `PDF_IN_HAND` | 漂移 | 產物 | `.scratch/n456_pdf_textlayer.json`：**11** 檔（我已自算） |
 | 辛 | `PDF_ROUTE_N` | 漂移 | 產物 | 同上 `available-pdf` |

@@ -7,6 +7,14 @@
   ② 拘束措辭是否逐字相同（n+80 二要求「一字不改」）
   ③ 各節引用之檢查表條數是否一致
   ④ **節次代號在「文件集」與「義務清冊」兩套體系中所指是否相同**（n+133）
+  ⑤ **同一個量的兩份實作是否算出同一個數**（n+167）
+
+🚨 ⑤ 之由來：`n116` 印「重述 17／相異義務 65」，`n154` 現算得 10／72。
+**⚠️ 兩者量的是同一件事，各自都通過自己的檢查，而沒有任何一道把它們並排。**
+兩份規則還都是錯的，且錯在相反方向（一份多算一條實質義務，一份漏掉六條指向）；
+**🚨 更糟的是，n154 那個錯的 10 已被寫進同值異義登記簿，
+成為「四個不相干的 10」之一——一個錯的數字被登記成「已查核」。**
+✅ 判準已抽為單一來源（`n116_anchor_rules.py`），本項則確保它不再分家。
 
 🚨 ④ 之由來（值得原地記住）：n+60 訂的 M1 大綱是甲乙丙丁＝
 「做了什麼／要你決定什麼／已知限制／流程品質」，現行文件集的甲乙丙丁卻是
@@ -237,6 +245,68 @@ inj[REGISTER_DOC] = Path(REGISTER_DOC).read_text(encoding="utf-8").replace(
 
 control = run(inj, "反向對照（已注入五種不一致）")
 
+
+# ── ⑤ 同一個量的兩份實作必須算出同一個數（n+167）─────────────────────
+# 🚨 本項**不吃 texts**：它比的不是文件裡的字，而是**兩支程式各自跑出來的數**。
+# ⚠️ 故它不能併進 run()，也不能靠注入文件來反向對照——
+#    它的反向對照是「把其中一邊的答案換掉，看本項會不會叫」。
+_TALLY_LINE = re.compile(r"錨點總數 (\d+)｜.*?者 (\d+)｜\*\*相異義務約 (\d+)\*\*")
+
+
+def obligation_agreement(n154_override=None):
+    """回傳不一致之敘述串列（空＝兩邊相符）。
+
+    ⚠️ n116 側**取其實際印出的那一行**，🚫 不重算——
+    🚨 讀者看到的是那一行；若程式內部算對而印錯，本項仍該叫。
+    """
+    import subprocess
+    out = subprocess.run([sys.executable, ".scratch/n116_obligation_crosscheck.py"],
+                         capture_output=True, text=True).stdout
+    m = _TALLY_LINE.search(out)
+    if not m:
+        return ["🚨 n116 之條目／重述／相異義務彙總行解析不到"
+                "——⚠️ 格式已改，🚫 不得視為相符"]
+    rows116, rest116, dist116 = (int(x) for x in m.groups())
+
+    if n154_override is not None:
+        rows154, rest154, dist154 = n154_override
+    else:
+        import importlib.util as ilu
+        spec = ilu.spec_from_file_location("n154", ".scratch/n154_cell_producer.py")
+        mod = ilu.module_from_spec(spec)
+        spec.loader.exec_module(mod)
+        rows154 = mod.value("OBLIGATION_ROWS")
+        rest154 = mod.value("OBLIGATION_RESTATED")
+        dist154 = mod.value("OBLIGATION_DISTINCT")
+
+    bad = []
+    for what, a, b in (("條目數", rows116, rows154),
+                       ("重述數", rest116, rest154),
+                       ("相異義務數", dist116, dist154)):
+        if a != b:
+            bad.append(f"義務清冊之{what}兩邊不符：n116＝{a}；n154＝{b}"
+                       "——⚠️ 同一個量有兩份實作，🚫 不得各報各的")
+    # 🚨 併附內部閉合：相異＝條目−重述。⚠️ 兩邊相等但都算錯，仍須抓。
+    if dist116 != rows116 - rest116:
+        bad.append(f"n116 自身不閉合：{rows116}−{rest116}≠{dist116}")
+    return bad
+
+
+print()
+_ob = obligation_agreement()
+print("=== ⑤ 義務清冊計數：兩份實作是否相符 ===")
+if _ob:
+    for p in _ob:
+        print(f"  🚨 {p}")
+else:
+    print("  ✅ n116 與 n154 之條目／重述／相異義務三數皆相符，且相異＝條目−重述")
+
+# 反向對照：把 n154 側換成本次修正前的那組錯值（82／10／72）。
+_ob_ctl = obligation_agreement(n154_override=(82, 10, 72))
+_ob_ok = len(_ob_ctl) >= 2
+print(f"  反向對照（注入修正前之 82／10／72）：抓到 {len(_ob_ctl)} 項 → "
+      f"{'✅ 本項會失敗' if _ob_ok else '🚨 本項有盲區'}")
+
 print()
 kinds = {("類別不一致" in p) * 1 or ("拘束措辭" in p) * 2
          or ("條數" in p) * 3 or ("同代號異義" in p) * 5
@@ -246,4 +316,4 @@ ok = {1, 2, 3, 4, 5} <= kinds
 print(f"反向對照：抓到 {len(control)} 項，涵蓋五型 → "
       f"{'✅ 本檢查會失敗' if ok else '🚨 本檢查有盲區'}")
 
-sys.exit(1 if real or not ok else 0)
+sys.exit(1 if real or not ok or _ob or not _ob_ok else 0)
