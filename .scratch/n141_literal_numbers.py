@@ -96,6 +96,7 @@ _KNOWN_OUT = {
     #
     # ⚠️ 三條缺一，豁免即不成立——🚫 不得因為「它也是產生的」就比照辦理。
     "docs/m1-c-termination-report.md",
+    "docs/m1-g-acquisition-report.md",   # 🚨 同上三條件（`n159` 產生）
 }
 _seen = set(DOCS.values()) | _KNOWN_OUT
 _stray = sorted(p.as_posix() for p in Path("docs").glob("m1-*.md")

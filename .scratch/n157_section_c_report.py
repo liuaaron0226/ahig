@@ -289,75 +289,17 @@ OUT.write_text(text, encoding="utf-8")
 print(f"{'🆕 首次產生' if _prev is None else ('⚠️ 內容有變（值漂移或被手改）' if changed else '✅ 內容未變')}"
       f" {OUT}（{len(text.splitlines())} 行）")
 
-# ── 🚨 成稿自檢 ────────────────────────────────────────────────
-problems = []
+# ── 🚨 成稿自檢：共用判準（`n158_report_lint.py`）────────────────
+# ⚠️ 原本這裡有一份自己的檢查碼。🚨 而每節各寫一份的結局是可預期的：
+# 改了一支，其餘各支還是舊的，**而輸出全綠，看不出來。**
+# ✅ 故判準抽為共用，🚫 內容仍各節自寫。
+_lspec = importlib.util.spec_from_file_location(
+    "n158", str(Path(".scratch/n158_report_lint.py")))
+lint = importlib.util.module_from_spec(_lspec)
+_lspec.loader.exec_module(lint)
 
-# ① 骨架用語不得漏進成稿
-LEAK = ["骨架", "佔位符", "待辦", "本檔是", "交付時由", "檢查表第"]
-for w in LEAK:
-    if w in text:
-        problems.append(f"🚨 成稿含骨架用語「{w}」——⚠️ 那是給我看的，不是給讀者看的")
-
-# ② 禁句：把兩個宣稱混成一個（檢查表第六條）
-if v("P_ALLQUEUE") in text:
-    problems.append("🚨 成稿出現全 queue 分母之 p 值——⚠️ 該句把兩個不同的宣稱混成一個")
-
-# ③ 同值異義：登記在案之值若在**同一段**出現兩次以上，即為危險寫法。
-#
-# 🚨 初版判準是錯的：它問「這一行有沒有同時出現這兩格」，
-# ⚠️ 而檢查只看得到**數字**，看不到那個數字是哪一格產生的——
-# 於是任何一行只要有一個 `**200**`，兩格都算「出現」，**必然誤報。**
-#
-# ✅ 改問一個檢查真的答得出來的問題：**同一段裡，同一個值出現了幾次？**
-# 🚨 而那正是真正的危險寫法本身——n+154 三那句
-#    「16 筆走著陸頁路徑，其中 16 筆可達」，危險就在那個 16 出現了兩次。
-# 🚫 本檔因此抓不到「兩個 200 分處兩段」——⚠️ 那要人讀，見涵蓋範圍聲明。
-_paras = [p for p in text.split("\n\n") if p.strip()]
-for key, why in _n154.COINCIDENCE.items():
-    try:
-        val = f"{_n154.value(key[0])}"
-    except Exception:                                  # noqa: BLE001
-        continue
-    for para in _paras:
-        if len(re.findall(rf"\*\*{re.escape(val)}\*\*", para)) > 1:
-            problems.append(
-                f"🚨 同一段內 **{val}** 出現兩次以上，而該值登記為同值異義"
-                f"（{'／'.join(key)}）——⚠️ 讀者會讀成同一個量。{why[:60]}…")
-
-for p in problems:
-    print(f"  {p}")
-if not problems:
-    print("  ✅ 自檢通過：無骨架用語、無禁句、無同值相鄰")
-
-# ── 🚨 反向對照：三種注入，各對應上面一項判準 ───────────────────
-# ⚠️ n+134：一道沒有被試過會不會失敗的護欄，不算護欄。
-def _leaks(t):
-    return [w for w in LEAK if w in t]
-
-
-def _forbidden(t):
-    return v("P_ALLQUEUE") in t
-
-
-def _adjacent(t):
-    out = []
-    for key in _n154.COINCIDENCE:
-        try:
-            val = f"{_n154.value(key[0])}"
-        except Exception:                              # noqa: BLE001
-            continue
-        for para in [p for p in t.split("\n\n") if p.strip()]:
-            if len(re.findall(rf"\*\*{re.escape(val)}\*\*", para)) > 1:
-                out.append(key)
-    return out
-
-
-c1 = bool(_leaks(text + "\n本檔是骨架，佔位符交付時由腳本填入。\n"))
-c2 = _forbidden(text + f"\n若改採全 queue 分母則 p = {v('P_ALLQUEUE')}，故終止存疑。\n")
-_two = f"\n亂序 **{v('OUT_OF_SEQ')}** 筆，而尾端抽驗抽了 **{v('SPOT_N')}** 筆。\n"
-c3 = bool(_adjacent(text + _two))
-
-print(f"反向對照①（注入骨架用語）：{'✅ 抓到' if c1 else '🚨 沒抓到'}")
-print(f"反向對照②（注入禁句）：{'✅ 抓到' if c2 else '🚨 沒抓到'}")
-print(f"反向對照③（同段內同值出現兩次）：{'✅ 抓到' if c3 else '🚨 沒抓到'}")
-sys.exit(1 if (problems or not (c1 and c2 and c3)) else 0)
+problems, controls = lint.run(
+    text, _n154.COINCIDENCE, _n154.value,
+    # 🚨 丙節之禁句：把兩個不同的宣稱混成一個（全 queue 分母之 p 值）。
+    forbidden_phrases=(v("P_ALLQUEUE"),))
+sys.exit(1 if lint.report(problems, controls, "丙節成稿自檢") else 0)
