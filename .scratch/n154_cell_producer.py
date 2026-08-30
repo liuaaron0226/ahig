@@ -25,7 +25,9 @@ n+115（清冊 48897）明訂：**🚫 不得沿用任何一輪之數字**。
 - ✅ 抓得到：定位欄自報值過期、兩格取自同一欄位而未聲明、解析器覆蓋率下降。
 - 🚨 抓不到：**定位欄指錯來源**。⚠️ 若某格的權威來源本來就寫錯，
   本檔會忠實地從錯的地方取值，**🚫 且兩邊都「相符」。**
-- 🚨 抓不到：**私有根之 18 格**（`來源型態 == 不可及`）——那是執行室 `n500` 的範圍。
+- ⚠️ **私有根之 18 格**：其權威在執行室。n+162 起，執行室以帶時戳之交接檔
+  （`.scratch/executor_cells.json`）交出其中已量得者，本檔逐格讀入。
+  **🚨 那是快照，🚫 不是現算**——交付當日仍須由執行室重跑，本檔照印其時戳。
 
 **🚫 故本檔之「覆蓋率 N／M」不是進度條**：未解之格**不是通過，是還沒做**。
 
@@ -47,6 +49,18 @@ CHECKLIST = "docs/m1-e-delivery-checklist.md"
 ROW = re.compile(r"^\|\s*(\S+)\s*\|\s*`([A-Z0-9_]+)`\s*\|\s*(\S+)\s*\|\s*(\S+)\s*\|\s*(.*?)\s*\|\s*$")
 # 🚨 定位欄自報之值：`＝**41**`／`＝ **0.3652**`／`＝**22,761**`
 SELF_VALUE = re.compile(r"＝\s*\*\*([0-9][0-9,]*(?:\.[0-9]+)?)\*\*")
+
+# ── 🚨 n+162：而只認 `＝` 是一個洞，且它藏住了一個真的錯 ──────────────
+# ⚠️ `LANDING_WORDS_MED` 之定位欄寫「同上：中位 **3,807**」——**沒有 `＝`**，
+# 🚨 於是本檔從未比對過它。而 3,807 是錯的：
+#    16 筆偶數長度之中位數應為第 8、9 兩值之平均（3071.5），
+#    **⚠️ 而 3,807 正是第 9 個值本身**——典型的「偶數長度取中間那一個」。
+#
+# ✅ 故補一道較寬的檢查：**定位欄裡所有粗體數字**，
+#    若現算值一個都對不上，即為可疑。
+# 🚫 而這道檢查刻意寫得比上面那道弱：它只說「都對不上」，
+#    ⚠️ 因為定位欄合法地會提到別的數（母體、分母、對照值）。
+ANY_BOLD_NUM = re.compile(r"\*\*([0-9][0-9,]*(?:\.[0-9]+)?)\*\*")
 
 _cache = {}
 
@@ -100,6 +114,19 @@ def _bf_pool(pid, key):
         if p["poolId"] == pid:
             return p[key]
     raise KeyError(pid)
+
+
+def _n450_threshold():
+    """🚨 自 `criterion` 欄現讀門檻，🚫 不寫死 8000。
+
+    ⚠️ 寫死等於把一個「存在別人檔案裡的判準」複製一份到這裡，
+    而那正是本 run 反覆抓到的那種漂開。
+    """
+    import re as _re
+    m = _re.search(r"(\d+)\s*-word threshold", J(N450)["criterion"])
+    if not m:
+        raise ValueError("🚨 `n450` 之 criterion 欄已無門檻字樣——⚠️ 判準已變")
+    return int(m.group(1))
 
 
 def _landing_words():
@@ -179,6 +206,11 @@ RESOLVERS = {
     "UNPROBED_N":    lambda: J(N493)["count"],
     "UNPROBED_PDF":  lambda: J(N494)["obtainable"],
     "UNPROBED_ALT":  lambda: J(N494)["distribution"]["有位址無 PDF"],
+    # 🚨 n+162：門檻值存於 `criterion` 欄（8000 字），故本格可現算。
+    # ⚠️ 判準為「有全文標記**且**字數達門檻」——🚫 兩者缺一不算。
+    "LANDING_WORTH_PARSER": lambda: sum(
+        1 for r in J(N450)["records"]
+        if r["fulltextMarker"] and r["textWords"] >= _n450_threshold()),
 
     # 己：W7 重放
     "W7_ADVERSARIAL": lambda: J(W7)["aggregate"]["adversarial@look100"]["violationRate"],
@@ -317,18 +349,57 @@ BOARD_CITED = {
         "**語意比對需要判準，而該判準不存在**；為了補 33 段而現造判準，是本末倒置。"),
     "S7_POOL_N": (6,
         "- **S7 全池僅 6 筆**，即該範圍內肌肝醣文獻總數；**最終僅 2 篇可得。**"),
-    # 🚨 n+158：本格是**凍結值**（n+155 四已更正 n+154 五之誤判）。
-    # ⚠️ 而它原被登記為「無法處理」，於是成稿印出缺口標記——
-    # **🚨 那把「已凍結、照引即可」錯報成「還沒量」，是第三種狀態被壓成第二種。**
-    # ✅ 錨定執行室之**自我設限原句**，🚫 不錨那個 0：
-    #    ⚠️ 引用這個 0 而不引這句話，就是把它讀得比證據強。
-    "LANDING_WORTH_PARSER": (0,
-        "**⚠️ 故「0 筆值得寫 HTML 解析器」是就已量到的 16 筆而言，不是就 33 筆而言。**"),
+    # 🚨 `LANDING_WORTH_PARSER` 已於 n+162 移出本表——見 RESOLVERS。
+    # ⚠️ 三輪之內我對這一格判錯三次：n+154 五判為缺陷、n+155 四改判凍結值
+    #    並稱「門檻值未存」、**而 n+162 由執行室查明門檻值一直存在**
+    #    （`criterion` 欄之 8000 字）。**🚨 它從頭到尾都是可現算的。**
 }
 
 
 # ✅ 逐格掛入解析器：鍵取自 BOARD_CITED 本身，🚫 不另抄一份名單。
 RESOLVERS.update({k: (lambda n=k: _board_cited(n)) for k in BOARD_CITED})
+
+
+# ── 🚨 執行室交接檔：18 格「不可及」之值 ─────────────────────────────
+#
+# ⚠️ **這一段的由來，是本 run 少數幾次「兩室都對，而事情還是沒發生」的例子。**
+# 🚨 執行室自第 500 輪起就算得出這 18 格，而本檔在 `RESOLVERS` 查不到名字時
+#    只會印「待執行室量測」——**兩邊各自完成了自己那一半，中間沒有人接。**
+#
+# > **⚠️ 一個沒有人讀的值，與沒有產出，在輸出上一模一樣。**
+#
+# 🚨 **而這🚫 不推翻 n+158 二**：那則說的是「🚫 不得拿舊快照冒充現算」。
+#    ✅ 此檔不是我去翻它的舊產物——是執行室**主動交出的、帶時戳的量測**，
+#    且自報 `isSnapshot`。**⚠️ 交付當日仍須重跑，本檔照印其時戳以使陳舊看得見。**
+HANDOFF = ".scratch/executor_cells.json"
+
+
+def _handoff():
+    try:
+        return J(HANDOFF)
+    except (FileNotFoundError, ValueError):
+        return None
+
+
+def _handoff_cell(name):
+    d = _handoff()
+    if not d:
+        raise ValueError(f"{name}：🚨 執行室交接檔不存在")
+    cell = d.get("cells", {}).get(name)
+    if not cell:
+        raise ValueError(f"{name}：🚨 交接檔中無此格")
+    if cell.get("kind") != "measured":
+        raise ValueError(f"{name}：⚠️ 交接檔標為 {cell.get('kind')}，🚫 尚無值")
+    return cell["value"]
+
+
+# ✅ 逐格掛入：鍵取自交接檔本身，🚫 不另抄一份名單。
+_HO = _handoff()
+if _HO:
+    RESOLVERS.update({
+        k: (lambda n=k: _handoff_cell(n))
+        for k, c in _HO.get("cells", {}).items()
+        if c.get("kind") == "measured" and k not in RESOLVERS})
 
 
 def _board_cited(name):
@@ -433,6 +504,36 @@ COINCIDENCE = {
     ("OUT_OF_SEQ", "SPOT_N"):
         "200＝標準線序列之亂序筆數；200＝尾端抽驗之樣本數常數。"
         "⚠️ 兩者同在丙節且皆與篩選序列有關，🚨 相鄰書寫極易被讀成同一個 200。",
+
+    # ── 🚨 n+162：執行室交接後新增之重合 ─────────────────────────
+    ("HARMS_COUNTER_LAST", "NARR_RETRACT_TEXT_N",
+     "OBLIGATION_RESTATED", "RETRACT_FIELD_N"):
+        "🚨 **四個不相干的 10**，且其中兩個是 n+152 明訂不得相加或互換的一對："
+        "10＝harms 相鄰計數器之最終讀數（**讀數，不是名單**）；"
+        "10＝判讀理由文字提到撤稿者；"
+        "10＝義務清冊標為「重述／同上」之條數；"
+        "10＝八份工作單 `publicationTypes` 聯集去重之撤稿數。"
+        "**⚠️ 本 run 最早的同值異義例就是兩個 10，如今是四個。**",
+    ("ACQ_IN_OBTAINABLE", "SHADOW_QUEUED", "UNPROBED_N"):
+        "12＝45 筆可得中 JATS 已在手者；12＝影子對帳不一致而待人工覆核者；"
+        "12＝從未試過替代位址者。🚫 三者母體與單位皆異。",
+    ("ACQ_CALIB", "TAG_ROSTER_COUNT"):
+        "14＝校準 60 中已取得全文者；14＝掛牌名冊之**份數**（不是筆數）。"
+        "🚨 後者單位是「牌」，🚫 不是文獻。",
+
+    # ── 🚨 以下兩組**不是巧合，是有理由相等**，而那個理由可能失效 ──
+    # ⚠️ 巧合相等只要不寫在一起就沒事；**有理由相等則反過來**：
+    # 🚨 它一旦不再相等，那個「不再相等」本身就是一項發現，
+    #    **而若當初把它當巧合登記，沒有人會去看它。**
+    ("ACQ_SCOPED", "EXTRACTABLE_N"):
+        "✅ **有理由相等**（n+155 五）：兩者同母體（本工作線之取得範圍），"
+        "其相等是因為節次一致性檢查 41／41 全過、**一筆未被排除**。"
+        "🚨 執行室本輪獨立量得 `ACQ_SCOPED`＝27，與本檔現算相符——**該推論獲證實**。"
+        "**⚠️ 若日後有一筆不一致，兩數即分開，而那時的「不相等」是一項發現。**",
+    ("ACQ_ALL", "SECTIONS_OK"):
+        "✅ **有理由相等**：私有根之 acquired 全部通過節次一致性檢查。"
+        "**⚠️ 故 41＝41 說的是「一筆都沒壞」，🚫 不是兩個獨立巧合的數。**"
+        "🚨 兩數若哪一輪分開了，差額就是壞掉的檔數——**那時要看的是差額，不是各自的值。**",
     ("ACQ_IN_OBTAINABLE", "UNPROBED_N"):
         "⚠️ **兩者都在講取得，故須特別分清**："
         "12＝45 筆可得之中 JATS 已在手者；"
@@ -519,6 +620,12 @@ def run(rows, label):
         if m and not same_value(m.group(1), val):
             problems.append(
                 f"🚨 {r['name']}：定位欄自報 **{m.group(1)}**，現算得 **{val}**")
+        elif not m:
+            bolds = ANY_BOLD_NUM.findall(r["locator"])
+            if bolds and not any(same_value(b, val) for b in bolds):
+                problems.append(
+                    f"⚠️ {r['name']}：定位欄粗體數字 {bolds} 全部對不上現算值"
+                    f" **{val}**——🚨 須確認那些數指的是別的量，還是這一格寫錯了")
 
     # 🚨 同來源重合之偵測
     by_val = {}
@@ -654,8 +761,19 @@ def main():
 
     print()
     print(f"反向對照：{'✅ 抓到過期的自報值' if caught else '🚨 沒抓到——本檢查有盲區'}")
-    inacc = sum(1 for r in rows if r["srctype"] == "不可及")
-    print(f"⚠️ 另有 {inacc} 格為「不可及」，屬執行室 `n500` 之範圍，🚫 本檔不碰。")
+    # 🚨 本段原寫「18 格…本檔不碰」，⚠️ 而 n+162 之後本檔碰了 14 格。
+    # **🚫 那句話會變成「狀態變了而描述沒跟著變」——型錄第 12 型，在本檔身上。**
+    inacc = {r["name"] for r in rows if r["srctype"] == "不可及"}
+    ho = _handoff()
+    got = sorted(inacc & set(RESOLVERS))
+    still = sorted(inacc - set(RESOLVERS))
+    if ho:
+        print(f"⚠️ 「不可及」{len(inacc)} 格：執行室交接檔已給 {len(got)} 格"
+              f"（🚨 快照，產生於第 {ho.get('producedAtRound')} 輪 "
+              f"{ho.get('producedAt')}），🚫 尚無值 {len(still)} 格：{still}")
+        print("   🚨 **交付當日仍須由執行室重跑**——⚠️ 上列時戳越舊，此行越該被當成警告。")
+    else:
+        print(f"⚠️ 「不可及」{len(inacc)} 格：🚨 交接檔不存在，全數待執行室。")
 
     # 🚨 看板型之格**不在 reachable 之內**，⚠️ 而它們一樣要被填。
     # 🚫 不得因為它們不在覆蓋率的分母裡，就當成不存在。
