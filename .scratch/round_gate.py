@@ -316,7 +316,12 @@ PYTEST_IGNORE = 'tests/test_shacl_gates.py'
 # 新增三條，測讀取層與橋之接合：manifestation 綁 sections 自記之
 # contentSha256、驗證發生在組請求之前、契約未凍結即拒絕。
 # 無既有測試由通過變成失敗，增量恰為 3。
-BASE_PASSED, BASE_FAILED = 749, 0
+# 第 531 輪：749 → 753。前後對照（n+113 四）：
+#   改動前  749 passed／0 failed
+#   改動後  753 passed／0 failed
+# 新增四條，測整批跑：不給 reader 要大聲失敗、reader 出錯的那篇仍列出、
+# 空清冊算失敗、每一篇恰好落在一個桶子裡。增量恰為 4。
+BASE_PASSED, BASE_FAILED = 753, 0
 KNOWN_FAIL = '無（原 test_clopper_pearson_matches_closed_forms 已於第 437 輪依 n+113 四修正）'
 UNCOLLECTABLE = '%s（缺 pyshacl，pyproject 第 15 行已宣告）' % PYTEST_IGNORE
 
