@@ -1,0 +1,78 @@
+{
+ "schemaVersion": 1,
+ "documentType": "blocked-cell-review",
+ "ruling": "self-initiated: three of the four blockers n500 recorded were reasoned rather than looked up, and this run has already turned one of my own failures to look into a claimed defect in the data.",
+ "population": "the four cells n500 reports as not producible",
+ "countingUnit": "cell",
+ "criterion": "verified-blocked / bounded / needs-ruling / needs-extraction, each with what was actually inspected",
+ "judgementEntries": 13138,
+ "opinionCounts": {
+  "exclude": 12294,
+  "unclear": 517,
+  "advance": 327
+ },
+ "controlProbes": {
+  "patternHitsAcrossAll": 7756,
+  "patternHitsAmongUnclear": 340,
+  "unclearTotal": 517,
+  "why": "A pattern that matches nothing and a corpus that contains nothing both count zero; a pattern that matches everything yields an impressive-looking upper bound. Both directions are checked before any bound is reported."
+ },
+ "cells": {
+  "POP_WORDING_UNCLEAR_N": {
+   "verdict": "bounded",
+   "lowerBound": 0,
+   "upperBound": 340,
+   "denominator": 517,
+   "criterion": "opinion == unclear 且理由文字含「族群」或 population",
+   "whyNotExact": "該格要的是「**僅**卡族群措辭」者。⚠️ 抽樣讀過之理由多半同時寫著對照臂、劑量、摘要缺漏等其他卡點——🚨 「僅」這個字要靠逐筆讀理由才判得出來，🚫 不是檢索。",
+   "whyUsefulAnyway": "⚠️ 「產不出」與「產得出一個界」在交付時是兩件事：🚨 上界說得出「至多這麼多」，而那已足以判斷它會不會影響結論。",
+   "patternCaveat": "🚨 以中文字樣認定，措辭換了就漏——⚠️ 故這是**該樣式下**之上界。"
+  },
+  "SEX_SAMPLE_COMPOSITION": {
+   "verdict": "verified-blocked",
+   "queueFields": [
+    "autoDecision",
+    "candidateId",
+    "canonicalIdentity",
+    "conceptMatches",
+    "doseSignals",
+    "entityKind",
+    "flags",
+    "identifiers",
+    "matchedRuleIds",
+    "outcomeHints",
+    "priorityScore",
+    "priorityTier",
+    "publicationYear",
+    "requiredReviewMode",
+    "requiresHumanScreening",
+    "scoreBreakdown",
+    "screeningLane",
+    "strataAssignmentFinal",
+    "suggestedStrata",
+    "title"
+   ],
+   "participantFieldsFound": [],
+   "abstractsAvailable": 3357,
+   "whatWasChecked": "逐一列出 queue 條目之欄位聯集，並清點 abstract-enrichment 之涵蓋筆數。",
+   "finding": "🚨 queue 之欄位裡**沒有任何一個**與受試者組成有關（僅題名、識別碼、分數、旗標、分層）；⚠️ 摘要另存 3357 筆，🚨 但由摘要判定性別組成仍是閱讀，🚫 不是取欄位。",
+   "correction": "⚠️ `n500` 原記其阻礙為 needs-extraction——**結論不變，但當時是推的**；🚨 本檔實查後改記為 verified-blocked，並附所查之欄位清單。"
+  },
+  "TITLE_ONLY_EXPECTED_GAP": {
+   "verdict": "needs-ruling",
+   "finding": "⚠️ 資料齊全（名冊 175 筆在手），🚨 卡的是「該用哪個率去推導」——n+121 已裁定舊率不得直接套用，而新率尚未指定。"
+  },
+  "HARMS_S5_ACTUAL": {
+   "verdict": "needs-extraction",
+   "finding": "🚨 該值須萃取判讀後才存在；⚠️ 且 n+147 明訂「GI 是否為主要結局」正是 S5 要量的東西，🚫 不得由取得端順手做掉。"
+  }
+ },
+ "rootProvenance": {
+  "privateRootVerified": true,
+  "artifactDirectoriesSeen": 311,
+  "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+ },
+ "coverageStatement": "The bound is a bound under one Chinese wording pattern; differently worded reasons are missed, so it bounds what that pattern can see. The word \"only\" in \"blocked only by population wording\" is a reading of each reason and is left to a reader rather than approximated.",
+ "contentNote": "Counts and field names only. No reason text is stored.",
+ "reviewHash": "sha256:6aaf01187d1245e711659e0a0a729a41cc3c1f0f915d0080f2a35ebbaa30f599"
+}

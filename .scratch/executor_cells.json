@@ -3,12 +3,13 @@
  "documentType": "executor-cell-handoff",
  "ruling": "n+151(1) assigns these cells to the executor room; n+160 recorded them as stalled. They were producible from round 500 but nothing on the coordinator side reads that artefact, so this is the file a single generic resolver can read.",
  "producedAtRound": 503,
- "producedAt": "2026-08-30T11:33:08+0800",
+ "producedAt": "2026-08-30T15:07:57+0800",
  "isSnapshot": true,
  "snapshotNote": "Values are measurements taken at producedAt against the private root. n+151(1) requires delivery-day figures, so re-run n500 then this file on the day; do not treat these as constants.",
- "howToConsume": "cells[<name>].value for kind == \"measured\"; for kind == \"blocked\" print blocker rather than an empty string, since an empty cell reads as zero.",
+ "howToConsume": "cells[<name>].value for kind == \"measured\"; for kind == \"blocked\" print blocker rather than an empty string, since an empty cell reads as zero; for kind == \"bounded\" print \"at most upperBound\" with patternCaveat, never as a point estimate.",
  "cellCount": 18,
  "measured": 14,
+ "bounded": 1,
  "cells": {
   "TITLE_ONLY_N": {
    "value": 175,
@@ -108,9 +109,15 @@
   },
   "POP_WORDING_UNCLEAR_N": {
    "value": null,
-   "kind": "blocked",
+   "kind": "bounded",
    "blocker": "「僅卡族群措辭」是對判讀理由的**判讀**，🚫 不是檢索；⚠️ `[population]` 掛牌數（n60_tags 現跑）是**已掛牌者**，🚨 不等於該類母體，故不得頂替。",
-   "blockerKind": "needs-judgement"
+   "blockerKind": "needs-judgement",
+   "lowerBound": 0,
+   "upperBound": 340,
+   "denominator": 517,
+   "boundCriterion": "opinion == unclear 且理由文字含「族群」或 population",
+   "whyNotExact": "該格要的是「**僅**卡族群措辭」者。⚠️ 抽樣讀過之理由多半同時寫著對照臂、劑量、摘要缺漏等其他卡點——🚨 「僅」這個字要靠逐筆讀理由才判得出來，🚫 不是檢索。",
+   "patternCaveat": "🚨 以中文字樣認定，措辭換了就漏——⚠️ 故這是**該樣式下**之上界。"
   },
   "HARMS_S5_ACTUAL": {
    "value": null,

@@ -69,6 +69,7 @@ GENERATORS = {
     'n501_retraction_recheck': 'n501_retraction_recheck.json',
     'n503_executor_handoff': 'executor_cells.json',
     'n505_licence_completion': 'n505_licence_completion.json',
+    'n507_blocked_cells_review': 'n507_blocked_cells_review.json',
 }
 EXPECT_EXIT = 2
 

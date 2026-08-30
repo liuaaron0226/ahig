@@ -159,6 +159,7 @@ print()
 # ── 三、18 格交接檔 ─────────────────────────────────────────────
 print('三、18 格交接檔')
 n500 = jload(S + 'n500_inaccessible_cells.json')
+review = jload(S + 'n507_blocked_cells_review.json')
 if n500.get('listDrift'):
     sys.exit('🚨 `n500` 自報清單漂移——🚫 先修 n500 再產交接檔。')
 cells = {}
@@ -171,11 +172,25 @@ for name, e in n500['cells'].items():
         cells[name] = {'value': None, 'kind': 'blocked',
                        'blocker': e.get('blocker', ''),
                        'blockerKind': e.get('blockerKind', '')}
+        # 🚨 第 507 輪：受阻者若已被夾出一個界，就不該只交出「產不出」——
+        # ⚠️ 「產不出」與「至多 N」在交付時是兩件事。
+        b = (review.get('cells') or {}).get(name)
+        if b and b.get('verdict') == 'bounded':
+            cells[name].update({
+                'kind': 'bounded', 'lowerBound': b['lowerBound'],
+                'upperBound': b['upperBound'], 'denominator': b['denominator'],
+                'boundCriterion': b['criterion'],
+                'whyNotExact': b['whyNotExact'],
+                'patternCaveat': b['patternCaveat']})
 measured = sum(1 for v in cells.values() if v['kind'] == 'measured')
-print('   可量測 %d 格｜受阻 %d 格（🚫 受阻者留 `blocked` 標記，不留空白——'
-      '⚠️ 空白會被讀成零）' % (measured, len(cells) - measured))
+bounded = sum(1 for v in cells.values() if v['kind'] == 'bounded')
+print('   可量測 %d 格｜可給界 %d 格｜受阻 %d 格'
+      '（🚫 受阻者留標記，不留空白——⚠️ 空白會被讀成零）'
+      % (measured, bounded, len(cells) - measured - bounded))
 print('   🚨 消費方式：讀 `.scratch/executor_cells.json` → `cells[<格名>].value`；')
-print('      ⚠️ `kind == "blocked"` 者請印其 `blocker`，🚫 不要印空字串。')
+print('      ⚠️ `kind == "blocked"` 者請印其 `blocker`，🚫 不要印空字串；')
+print('      📐 `kind == "bounded"` 者請印「至多 `upperBound`」並附 `patternCaveat`，'
+      '🚫 不得當成點估計。')
 
 stamp = time.strftime('%Y-%m-%dT%H:%M:%S%z')
 hand = {
@@ -194,9 +209,12 @@ hand = {
                     'as constants.',
     'howToConsume': 'cells[<name>].value for kind == "measured"; for kind == '
                     '"blocked" print blocker rather than an empty string, since '
-                    'an empty cell reads as zero.',
+                    'an empty cell reads as zero; for kind == "bounded" print '
+                    '"at most upperBound" with patternCaveat, never as a point '
+                    'estimate.',
     'cellCount': len(cells),
     'measured': measured,
+    'bounded': bounded,
     'cells': cells,
     'terminationPosition': pos,
     'n450Threshold': n450,
