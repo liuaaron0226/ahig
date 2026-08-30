@@ -1,0 +1,38 @@
+{
+ "schemaVersion": 1,
+ "documentType": "s3-in-hand-factsheet",
+ "ruling": "follows round 521: the briefing says the TTE conflation check cannot be done because nothing was obtained, and one record is in fact in hand. What that record is, is retrievable; whether it suffices is not.",
+ "population": "acquired records in the S3-tte stratum, drawn plus accepted backfill",
+ "countingUnit": "record",
+ "criterion": "manifest status acquired; facts read from the manifest and the sections document, verification borrowed from the production verifier",
+ "drawn": 8,
+ "backfillAccepted": 6,
+ "inHand": 1,
+ "records": [
+  {
+   "idTail": "d7fe9adf",
+   "origin": "backfill",
+   "route": "europe-pmc-jats",
+   "sourceHost": "www.ebi.ac.uk",
+   "sections": 29,
+   "chars": 57330,
+   "licence": {
+    "href": null,
+    "text": "Licensee MDPI, Basel, Switzerland. This article is an open access article distributed under the terms and conditions of the Creative Commons Attribution (CC BY) license (https://creativecommons.org/licenses/by/4.0/)."
+   },
+   "licenceProvenance": false,
+   "verifierPasses": true,
+   "verifierError": "",
+   "version": "publishedVersion",
+   "versionProvenance": {
+    "source": "OpenAlex best_oa_location.version",
+    "note": "第三方書目資料，🚫 非本室查證（與 n486–488 同一來源與判準）"
+   }
+  }
+ ],
+ "whatThisDoesNotSay": "Whether one record can support the check S3 was designed to run. That is a reading and a judgement, and n+147 reserves it away from the acquisition end.",
+ "whyItHelps": "Nothing obtained and one record with these properties are different decision situations: the first can only be bought, the second can be looked at first. Choosing between them is not this room's call.",
+ "coverageStatement": "Facts about the artifact, not about its contents. No title, abstract or section name is recorded.",
+ "contentNote": "Id tails, counts, version and licence codes, host names.",
+ "factsheetHash": "sha256:71970bb7add8cbf7078342028c27017495be77f83890ef4dc9abe41af7c54768"
+}
