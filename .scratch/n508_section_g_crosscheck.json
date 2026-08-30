@@ -1,0 +1,29 @@
+{
+ "schemaVersion": 1,
+ "documentType": "section-g-crosscheck",
+ "ruling": "self-initiated: section G is entirely about this room's layer, written by someone who cannot reach the private root, and this room had never read it back. Round 503 was \"a value nobody reads\"; this is the other half -- a value that gets read as something else.",
+ "population": "bold numbers and stated arithmetic in docs/m1-g-acquisition-report.md",
+ "countingUnit": "claim",
+ "criterion": "internal arithmetic, agreement with this room's artefacts, and whether the document's own statement of what is still outstanding is still true",
+ "boldNumbersFound": 28,
+ "findings": [
+  "🚨 過期自述：文件已無「待執行室量測」標記，卻仍寫「仍待另一台機器量測」"
+ ],
+ "controlProbe": {
+  "injection": "刊出版 30 → 99",
+  "caught": true,
+  "why": "An extractor that matches nothing reports zero discrepancies, which looks exactly like agreement."
+ },
+ "notCovered": [
+  "figures with board-only provenance and no artefact",
+  "whether the prose is accurate, which is reading"
+ ],
+ "rootProvenance": {
+  "privateRootVerified": true,
+  "artifactDirectoriesSeen": 311,
+  "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+ },
+ "coverageStatement": "Extraction keys on bold numbers, so a change of layout silently reduces coverage; the count of numbers found is printed so that shows up. This checks agreement and staleness, not whether the wording is right.",
+ "contentNote": "Counts and claim descriptions only.",
+ "crosscheckHash": "sha256:e49399286d1c978c90f7420496c1da0421c53ad4bd3e4fa8a30f4d6318818698"
+}
