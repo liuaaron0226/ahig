@@ -20,7 +20,7 @@
 
 <!-- BEGIN GENERATED n115 -->
 
-共 **141** 個佔位符。凍結 **55**、漂移 **86**；其中 **18** 個之權威來源**協調者無法自行核對**（見下文第二節）。
+共 **145** 個佔位符。凍結 **55**、漂移 **90**；其中 **18** 個之權威來源**協調者無法自行核對**（見下文第二節）。
 
 | 節 | 佔位符 | 類別 | 來源型態 | 定位 |
 |---|---|---|---|---|
@@ -92,7 +92,11 @@
 | 庚 | `HARMS_UNATTRIBUTABLE` | 漂移 | 推導 | 讀數 − 可指認者（**10 − 3 = 7**）；⚠️ **單位＝讀數之差**，🚫 不是一份名單；⚠️ 成因為五次計數器移動中兩次無 id、兩次 +2 而僅 1 個 id |
 | 庚 | `S56_ACQ` | 漂移 | 產物 | 同上依層別：`S5+S6-gi-merged` 之 acquired＝**3**；🚨 同義切面 `S3_ACQ_CALIB`（同為校準 60 分母）與 `S3_ACQ_BACKFILL`（⚠️ 分母為 84），🚫 不得互換 |
 | 庚 | `S56_ACQ_BACKFILL` | 漂移 | 產物 | `.scratch/n492_stratum_table.json` → `S5+S6-gi-merged.acquiredWithBackfill`；🚨 **母體＝含已接受補抽（本層分母 20）**，🚫 不得與 `S56_ACQ`（分母 15）互換或相減；🚨 同義切面 `S3_ACQ_BACKFILL`（同為含補抽之層別取得數，⚠️ 層別不同）；**⚠️ 「這一類我們手上有幾篇」的答案是本格**，🚫 不是 `S56_ACQ`（n+177） |
-| 庚 | `S56_NONPUB` | 漂移 | 產物 | 同上：其中非刊出版＝**2**；🚨 即本契約最在意之結局，其在手全文有三分之二是作者稿；🚨 同義切面 `CALIB_NONPUB`（同為非刊出版之份數，⚠️ 母體不同） |
+| 庚 | `S56_BF_ACC` | 漂移 | 產物 | `.scratch/n523_s56_version_with_backfill.json` → `distribution.acceptedVersion`；⚠️ **母體＝含補抽之該層**（同 `S56_ACQ_BACKFILL`），🚫 非當初抽出者；🚨 同義切面 `CALIB_VER_ACC`／`VER_ACCEPTED`（同為作者接受版，⚠️ 母體各異）；**🚨 不得與 `S56_BF_SUB` 合稱「作者稿」**——本格已通過審查，該格未通過；🚨 同義切面 `VER_ACCEPTED`（在手全體） |
+| 庚 | `S56_BF_NONPUB` | 漂移 | 推導 | 同上：`acceptedVersion ＋ submittedVersion`，並與該檔 `nonPublished` 欄閉合比對；⚠️ **母體＝含補抽之該層**，🚫 不得與 `S56_NONPUB`（母體為當初抽出者）互換；🚨 同義切面 `S56_NONPUB`（同為非刊出版數，⚠️ 母體不同）；**🚨 本格是兩種東西的合計**——接受版已通過審查、投稿版未通過，🚫 不得只以「作者稿」一詞帶過（n+178）；🚨 同義切面 `CALIB_NONPUB`（校準 14）與 `S56_NONPUB`（🚨 **只差母體**：當初抽出者） |
+| 庚 | `S56_BF_PUB` | 漂移 | 產物 | `.scratch/n523_s56_version_with_backfill.json` → `distribution.publishedVersion`；⚠️ **母體＝含補抽之該層**；🚨 同義切面 `CALIB_VER_PUB`／`VER_PUBLISHED`（⚠️ 母體各異）；🚨 同義切面 `VER_PUBLISHED`（在手全體）；🚫 與 `LANDING_PUBLISHER`／`SRC_PUBLISHER`／`SRC_NOLIC_PUB` **無關**——⚠️ 那是「出版社」，本格是「刊出版」 |
+| 庚 | `S56_BF_SUB` | 漂移 | 產物 | 同上 → `distribution.submittedVersion`；⚠️ **母體＝含補抽之該層**，🚫 非當初抽出者；🚨 同義切面 `CALIB_VER_SUB`／`VER_SUBMITTED`（同為投稿版，⚠️ 母體各異）；**🚨 本格之文獻尚未通過同儕審查**，🚫 不得與 `S56_BF_ACC` 合稱「作者稿」（n+178）；🚨 同義切面 `VER_SUBMITTED`（在手全體） |
+| 庚 | `S56_NONPUB` | 漂移 | 產物 | 同上：其中非刊出版＝**2**；🚨 即本契約最在意之結局，其在手全文有三分之二是作者稿；🚨 同義切面 `CALIB_NONPUB`（同為非刊出版之份數，⚠️ 母體不同）；🚨 同義切面 `S56_BF_NONPUB`（**只差母體**：含補抽者） |
 | 庚 | `SHORTFALL_HARMS` | 漂移 | 看板 | 同上（S5+S6） |
 | 辛 | `ACQ_ALL` | 漂移 | 不可及 | 私有根 fulltext 目錄之全部 acquired manifest＝**41**（執行室量測）；⚠️ **母體＝私有根 fulltext 全體**，含本工作線以外之舊工作線；🚫 不得與同字根其餘三格互換 |
 | 辛 | `ACQ_CALIB` | 漂移 | 產物 | `.scratch/m1_step3_inventory.json` → `counts.acquired`＝**14**（我已自檔覆核）；⚠️ **母體＝校準集抽出之 60**，🚫 非 41 亦非 84；🚨 同義切面 `S3_ACQ_CALIB`（同為校準 60 之 acquired，⚠️ 後者僅該層） |
@@ -105,10 +109,10 @@
 | 辛 | `ALT_REACHABLE` | 漂移 | 產物 | 同上：其中可達＝**8**（全數） |
 | 辛 | `BLOCKED_N` | 凍結 | 產物 | 同上：`survey == blocked-or-error` ＝ **11**（403 十筆＋逾時一筆） |
 | 辛 | `CALIBRATION_TARGET` | 凍結 | 產物 | `ahig/calibration/b11-carbohydrate/strata.json`（**受追蹤**，我已自算覆核）→ `totalSampleSize`＝**60**；✅ 七層配額總和亦為 60 |
-| 辛 | `CALIB_NONPUB` | 漂移 | 推導 | 5＋1＝**6**（校準集 14 筆中）；⚠️ 🚫 不得與 41 筆之 10 互換，兩者母體不同；🚨 同義切面 `S56_NONPUB`（同為非刊出版之份數，⚠️ 一為校準 14、一為 S5+S6） |
-| 辛 | `CALIB_VER_ACC` | 漂移 | 產物 | 同上：`acceptedVersion`＝**5**；🚨 每一個取自此類之數值須逐筆標記；🚨 同義切面 `VER_ACCEPTED`（⚠️ 本格母體＝校準 14，該格＝在手 41） |
-| 辛 | `CALIB_VER_PUB` | 漂移 | 產物 | `.scratch/n489_calibration_versions.json`（**受追蹤**，我已自檔交叉核對）→ 校準集 acquired 中之 `publishedVersion`＝**8**；🚨 同義切面 `VER_PUBLISHED`（⚠️ 本格母體＝校準 14，該格＝在手 41）；🚫 與 `LANDING_PUBLISHER`／`SRC_PUBLISHER` **毫不相干**——⚠️ 那是「出版社」，本格是「刊出版」 |
-| 辛 | `CALIB_VER_SUB` | 漂移 | 產物 | 同上：`submittedVersion`＝**1**；🚫 不得作為數值來源；🚨 同義切面 `VER_SUBMITTED`（⚠️ 本格母體＝校準 14，該格＝在手 41） |
+| 辛 | `CALIB_NONPUB` | 漂移 | 推導 | 5＋1＝**6**（校準集 14 筆中）；⚠️ 🚫 不得與 41 筆之 10 互換，兩者母體不同；🚨 同義切面 `S56_NONPUB`（同為非刊出版之份數，⚠️ 一為校準 14、一為 S5+S6）；🚨 同義切面 `S56_BF_NONPUB`（含補抽之 S5+S6 之非刊出版數） |
+| 辛 | `CALIB_VER_ACC` | 漂移 | 產物 | 同上：`acceptedVersion`＝**5**；🚨 每一個取自此類之數值須逐筆標記；🚨 同義切面 `VER_ACCEPTED`（⚠️ 本格母體＝校準 14，該格＝在手 41）；🚨 同義切面 `S56_BF_ACC`（含補抽之該層） |
+| 辛 | `CALIB_VER_PUB` | 漂移 | 產物 | `.scratch/n489_calibration_versions.json`（**受追蹤**，我已自檔交叉核對）→ 校準集 acquired 中之 `publishedVersion`＝**8**；🚨 同義切面 `VER_PUBLISHED`（⚠️ 本格母體＝校準 14，該格＝在手 41）；🚫 與 `LANDING_PUBLISHER`／`SRC_PUBLISHER` **毫不相干**——⚠️ 那是「出版社」，本格是「刊出版」；🚨 同義切面 `S56_BF_PUB`（含補抽之該層） |
+| 辛 | `CALIB_VER_SUB` | 漂移 | 產物 | 同上：`submittedVersion`＝**1**；🚫 不得作為數值來源；🚨 同義切面 `VER_SUBMITTED`（⚠️ 本格母體＝校準 14，該格＝在手 41）；🚨 同義切面 `S56_BF_SUB`（含補抽之該層） |
 | 辛 | `EXTRACTABLE_N` | 漂移 | 產物 | `.scratch/n492_stratum_table.json` → `totals.withBackfill`＝**27**（12 JATS ＋ 15 TEI）；🚨 n+155 更正：原註「與 `ACQ_SCOPED` 數值相同而**母體不同**」**是錯的**——⚠️ 兩者同母體，其相等是因為 `n498` 之節次一致性 41／41 全過，**🚫 無一筆被排除**；⚠️ 若日後有一筆不一致，兩數即分開 |
 | 辛 | `LANDING_FIGSHARE` | 漂移 | 產物 | 同上（figshare，有 API）；⚠️ **母體＝尚未到手之 33 筆** |
 | 辛 | `LANDING_FULLTEXT_MARKER` | 凍結 | 產物 | 同上：其中有 HTML 全文標記者＝**1**；⚠️ **母體＝已量到之 16 筆**，🚫 非 33 筆 |
@@ -150,9 +154,9 @@
 | 辛 | `UNPROBED_PDF` | 漂移 | 產物 | 同上 → `obtainable`＝**0**；🚨 🚫 不得由此推論「替代位址法無效」——該法之前提對本批不成立；🚨 同義切面 `ALT_PDF`（第一輪之同一量，⚠️ 母體不同） |
 | 辛 | `UNTITLED_LEADING` | 漂移 | 產物 | 同上 → `totals.filesWhoseLeadingSectionIsUntitled`＝**5**；🚨 首節無標題者，摘要／前言最常在此 |
 | 辛 | `UNTITLED_SECTIONS` | 漂移 | 產物 | 同上 → `totals.untitledSections`＝**20**；⚠️ 判準為空字串**或**字面 `Untitled` |
-| 辛 | `VER_ACCEPTED` | 漂移 | 產物 | 同上；🚨 同義切面 `CALIB_VER_ACC`（⚠️ 本格母體＝在手 41，該格＝校準 14） |
-| 辛 | `VER_PUBLISHED` | 漂移 | 產物 | `n486`＋`n487`＋`n488` 合計；⚠️ 三批母體互斥；🚨 同義切面 `CALIB_VER_PUB`（⚠️ 本格母體＝在手全體，該格＝校準 14） |
-| 辛 | `VER_SUBMITTED` | 漂移 | 產物 | 同上；🚫 依 n+138 不得作為數值萃取來源；🚨 同義切面 `CALIB_VER_SUB`（⚠️ 本格母體＝在手 41，該格＝校準 14） |
+| 辛 | `VER_ACCEPTED` | 漂移 | 產物 | 同上；🚨 同義切面 `CALIB_VER_ACC`（⚠️ 本格母體＝在手 41，該格＝校準 14）；🚨 同義切面 `S56_BF_ACC`（含補抽之該層） |
+| 辛 | `VER_PUBLISHED` | 漂移 | 產物 | `n486`＋`n487`＋`n488` 合計；⚠️ 三批母體互斥；🚨 同義切面 `CALIB_VER_PUB`（⚠️ 本格母體＝在手全體，該格＝校準 14）；🚨 同義切面 `S56_BF_PUB`（含補抽之該層） |
+| 辛 | `VER_SUBMITTED` | 漂移 | 產物 | 同上；🚫 依 n+138 不得作為數值萃取來源；🚨 同義切面 `CALIB_VER_SUB`（⚠️ 本格母體＝在手 41，該格＝校準 14）；🚨 同義切面 `S56_BF_SUB`（含補抽之該層） |
 | 辛 | `VER_UNKNOWN` | 漂移 | 產物 | 同上＋`n488_pmcid_to_doi.json`；⚠️ 補查後**由 26 降為 1**，🚨 該 26 是量測缺口且集中於單一取得路徑，🚫 不得反過來當成「多半是作者稿」之證據（n+141）；🚨 同義切面 `SRC_UNKNOWN`——**⚠️ 同母體（41）、同一個「不明」字**：本格是版本不明，該格是來源不明 |
 | 壬 | `DEBT_CUMULATIVE` | 漂移 | 看板 | n+108：**22**（相加 23、重疊 1，已去重）；⚠️ **單位＝抽查項目**，🚫 非文獻 |
 | 壬 | `DEBT_OUTSTANDING` | 漂移 | 看板 | n+108：**16**（W2 之 5 ∪ 影子 11）——⚠️ 單位＝**抽查項目**，非文獻 |
@@ -162,7 +166,7 @@
 | 壬 | `HARMS_COUNTER_LAST` | 凍結 | 看板 | 看板 21985 行「增至 10 筆」——**計數器之最終讀數**，其後停止維護；⚠️ **單位＝讀數**，🚫 不是名單，亦🚫 不得與同字根之配額格互換 |
 | 壬 | `S3_QUOTA` | 凍結 | 產物 | `ahig/calibration/b11-carbohydrate/strata.json` → `S3-tte` 配額＝**8**（我已自檔覆核）；🚨 同義切面 `HARMS_S5_QUOTA`／`HARMS_S6_QUOTA`（同為設計配額，🚫 層別不同） |
 | 壬 | `S56_ACQ` | 漂移 | 產物 | 同上依層別：`S5+S6-gi-merged` 之 acquired＝**3**；🚨 同義切面 `S3_ACQ_CALIB`（同為校準 60 分母）與 `S3_ACQ_BACKFILL`（⚠️ 分母為 84），🚫 不得互換 |
-| 壬 | `S56_NONPUB` | 漂移 | 產物 | 同上：其中非刊出版＝**2**；🚨 即本契約最在意之結局，其在手全文有三分之二是作者稿；🚨 同義切面 `CALIB_NONPUB`（同為非刊出版之份數，⚠️ 母體不同） |
+| 壬 | `S56_NONPUB` | 漂移 | 產物 | 同上：其中非刊出版＝**2**；🚨 即本契約最在意之結局，其在手全文有三分之二是作者稿；🚨 同義切面 `CALIB_NONPUB`（同為非刊出版之份數，⚠️ 母體不同）；🚨 同義切面 `S56_BF_NONPUB`（**只差母體**：含補抽者） |
 | 壬 | `TAG_ROSTER_COUNT` | 漂移 | 不可及 | `.scratch/n60_tags.py` 現跑之掛牌名單份數（讀私有根）；⚠️ 份數本身會隨新掛牌而變 |
 | 壬 | `TAG_ROSTER_TOTAL` | 漂移 | 不可及 | 同上，去重後合計筆數（同一筆可掛多牌）；🚨 須併報各牌之排除／納入（檢查表第十條） |
 

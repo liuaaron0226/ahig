@@ -118,9 +118,9 @@ DETAIL = {
     "ACQ_SCOPED":   ("不可及", "⚠️ **母體＝校準 60 ＋ n+103 補集＝84**：其中之 acquired＝**27**；🚨 n+138 曾誤標為「全體 manifest」"),
     "ACQ_CALIB":    ("產物", "`.scratch/m1_step3_inventory.json` → `counts.acquired`＝**14**（我已自檔覆核）；⚠️ **母體＝校準集抽出之 60**，🚫 非 41 亦非 84" + "；🚨 同義切面 `S3_ACQ_CALIB`（同為校準 60 之 acquired，⚠️ 後者僅該層）"),
     "EXTRACTABLE_N": ("產物", "`.scratch/n492_stratum_table.json` → `totals.withBackfill`＝**27**（12 JATS ＋ 15 TEI）；🚨 n+155 更正：原註「與 `ACQ_SCOPED` 數值相同而**母體不同**」**是錯的**——⚠️ 兩者同母體，其相等是因為 `n498` 之節次一致性 41／41 全過，**🚫 無一筆被排除**；⚠️ 若日後有一筆不一致，兩數即分開"),
-    "VER_PUBLISHED": ("產物", "`n486`＋`n487`＋`n488` 合計；⚠️ 三批母體互斥" + "；🚨 同義切面 `CALIB_VER_PUB`（⚠️ 本格母體＝在手全體，該格＝校準 14）"),
-    "VER_ACCEPTED":  ("產物", "同上" + "；🚨 同義切面 `CALIB_VER_ACC`（⚠️ 本格母體＝在手 41，該格＝校準 14）"),
-    "VER_SUBMITTED": ("產物", "同上；🚫 依 n+138 不得作為數值萃取來源" + "；🚨 同義切面 `CALIB_VER_SUB`（⚠️ 本格母體＝在手 41，該格＝校準 14）"),
+    "VER_PUBLISHED": ("產物", "`n486`＋`n487`＋`n488` 合計；⚠️ 三批母體互斥" + "；🚨 同義切面 `CALIB_VER_PUB`（⚠️ 本格母體＝在手全體，該格＝校準 14）" + "；🚨 同義切面 `S56_BF_PUB`（含補抽之該層）"),
+    "VER_ACCEPTED":  ("產物", "同上" + "；🚨 同義切面 `CALIB_VER_ACC`（⚠️ 本格母體＝在手 41，該格＝校準 14）" + "；🚨 同義切面 `S56_BF_ACC`（含補抽之該層）"),
+    "VER_SUBMITTED": ("產物", "同上；🚫 依 n+138 不得作為數值萃取來源" + "；🚨 同義切面 `CALIB_VER_SUB`（⚠️ 本格母體＝在手 41，該格＝校準 14）" + "；🚨 同義切面 `S56_BF_SUB`（含補抽之該層）"),
     "VER_UNKNOWN":   ("產物", "同上＋`n488_pmcid_to_doi.json`；⚠️ 補查後**由 26 降為 1**，🚨 該 26 是量測缺口且集中於單一取得路徑，🚫 不得反過來當成「多半是作者稿」之證據（n+141）" + "；🚨 同義切面 `SRC_UNKNOWN`——**⚠️ 同母體（41）、同一個「不明」字**：本格是版本不明，該格是來源不明"),
     # 🚨 n+167 更正：本欄原寫「＝**5**；⚠️ 母體為首批 8 筆」，而執行室交接之值
     #    已補至 12——**⚠️ 一個從 8 份裡數出來的數，不可能大於 8**。
@@ -128,13 +128,17 @@ DETAIL = {
     #    而母體那一句過期之後，會把一個對的數字釘在一個錯的分母上。
     "LIC_FILLED":   ("不可及", "私有根 acquired manifest 中具 `licenceProvenance` 欄者（執行室依 n+138（三）填入並附來源與查取日期）；⚠️ 母體為 acquired 全體，🚫 **不是首批 8 筆**（n+167 更正）；🚨 另有 24 筆之授權係自 JATS `<license>` 自動擷取、無來源欄，🚫 不得與本格相加；✅ **第 519 輪由獨立路徑覆核**：latest manifest 與其世代檔逐筆比對，29 筆完全相符、**12 筆僅差授權欄**、無解釋不了者（29＋12＝41）——🚨 那 12 筆恰為具 `licenceProvenance` 者，**⚠️ 兩條互不相干的路徑得到同一個數**，🚫 故此處之 12 不是巧合，是同一件事量了兩次"),
     # ── n+141：校準集內之版本分布（🚨 與 41 筆之比例不可互換）──
-    "CALIB_VER_PUB": ("產物", "`.scratch/n489_calibration_versions.json`（**受追蹤**，我已自檔交叉核對）→ 校準集 acquired 中之 `publishedVersion`＝**8**" + "；🚨 同義切面 `VER_PUBLISHED`（⚠️ 本格母體＝校準 14，該格＝在手 41）；🚫 與 `LANDING_PUBLISHER`／`SRC_PUBLISHER` **毫不相干**——⚠️ 那是「出版社」，本格是「刊出版」"),
-    "CALIB_VER_ACC": ("產物", "同上：`acceptedVersion`＝**5**；🚨 每一個取自此類之數值須逐筆標記" + "；🚨 同義切面 `VER_ACCEPTED`（⚠️ 本格母體＝校準 14，該格＝在手 41）"),
-    "CALIB_VER_SUB": ("產物", "同上：`submittedVersion`＝**1**；🚫 不得作為數值來源" + "；🚨 同義切面 `VER_SUBMITTED`（⚠️ 本格母體＝校準 14，該格＝在手 41）"),
-    "CALIB_NONPUB":  ("推導", "5＋1＝**6**（校準集 14 筆中）；⚠️ 🚫 不得與 41 筆之 10 互換，兩者母體不同" + "；🚨 同義切面 `S56_NONPUB`（同為非刊出版之份數，⚠️ 一為校準 14、一為 S5+S6）"),
+    "CALIB_VER_PUB": ("產物", "`.scratch/n489_calibration_versions.json`（**受追蹤**，我已自檔交叉核對）→ 校準集 acquired 中之 `publishedVersion`＝**8**" + "；🚨 同義切面 `VER_PUBLISHED`（⚠️ 本格母體＝校準 14，該格＝在手 41）；🚫 與 `LANDING_PUBLISHER`／`SRC_PUBLISHER` **毫不相干**——⚠️ 那是「出版社」，本格是「刊出版」" + "；🚨 同義切面 `S56_BF_PUB`（含補抽之該層）"),
+    "CALIB_VER_ACC": ("產物", "同上：`acceptedVersion`＝**5**；🚨 每一個取自此類之數值須逐筆標記" + "；🚨 同義切面 `VER_ACCEPTED`（⚠️ 本格母體＝校準 14，該格＝在手 41）" + "；🚨 同義切面 `S56_BF_ACC`（含補抽之該層）"),
+    "CALIB_VER_SUB": ("產物", "同上：`submittedVersion`＝**1**；🚫 不得作為數值來源" + "；🚨 同義切面 `VER_SUBMITTED`（⚠️ 本格母體＝校準 14，該格＝在手 41）" + "；🚨 同義切面 `S56_BF_SUB`（含補抽之該層）"),
+    "CALIB_NONPUB":  ("推導", "5＋1＝**6**（校準集 14 筆中）；⚠️ 🚫 不得與 41 筆之 10 互換，兩者母體不同" + "；🚨 同義切面 `S56_NONPUB`（同為非刊出版之份數，⚠️ 一為校準 14、一為 S5+S6）" + "；🚨 同義切面 `S56_BF_NONPUB`（含補抽之 S5+S6 之非刊出版數）"),
     "S56_ACQ":       ("產物", "同上依層別：`S5+S6-gi-merged` 之 acquired＝**3**" + "；🚨 同義切面 `S3_ACQ_CALIB`（同為校準 60 分母）與 `S3_ACQ_BACKFILL`（⚠️ 分母為 84），🚫 不得互換"),
     "S56_ACQ_BACKFILL": ("產物", "`.scratch/n492_stratum_table.json` → `S5+S6-gi-merged.acquiredWithBackfill`；🚨 **母體＝含已接受補抽（本層分母 20）**，🚫 不得與 `S56_ACQ`（分母 15）互換或相減；🚨 同義切面 `S3_ACQ_BACKFILL`（同為含補抽之層別取得數，⚠️ 層別不同）；**⚠️ 「這一類我們手上有幾篇」的答案是本格**，🚫 不是 `S56_ACQ`（n+177）"),
-    "S56_NONPUB":    ("產物", "同上：其中非刊出版＝**2**；🚨 即本契約最在意之結局，其在手全文有三分之二是作者稿" + "；🚨 同義切面 `CALIB_NONPUB`（同為非刊出版之份數，⚠️ 母體不同）"),
+    "S56_BF_PUB": ("產物", "`.scratch/n523_s56_version_with_backfill.json` → `distribution.publishedVersion`；⚠️ **母體＝含補抽之該層**；🚨 同義切面 `CALIB_VER_PUB`／`VER_PUBLISHED`（⚠️ 母體各異）" + "；🚨 同義切面 `VER_PUBLISHED`（在手全體）；🚫 與 `LANDING_PUBLISHER`／`SRC_PUBLISHER`／`SRC_NOLIC_PUB` **無關**——⚠️ 那是「出版社」，本格是「刊出版」"),
+    "S56_BF_NONPUB": ("推導", "同上：`acceptedVersion ＋ submittedVersion`，並與該檔 `nonPublished` 欄閉合比對；⚠️ **母體＝含補抽之該層**，🚫 不得與 `S56_NONPUB`（母體為當初抽出者）互換；🚨 同義切面 `S56_NONPUB`（同為非刊出版數，⚠️ 母體不同）；**🚨 本格是兩種東西的合計**——接受版已通過審查、投稿版未通過，🚫 不得只以「作者稿」一詞帶過（n+178）" + "；🚨 同義切面 `CALIB_NONPUB`（校準 14）與 `S56_NONPUB`（🚨 **只差母體**：當初抽出者）"),
+    "S56_BF_ACC": ("產物", "`.scratch/n523_s56_version_with_backfill.json` → `distribution.acceptedVersion`；⚠️ **母體＝含補抽之該層**（同 `S56_ACQ_BACKFILL`），🚫 非當初抽出者；🚨 同義切面 `CALIB_VER_ACC`／`VER_ACCEPTED`（同為作者接受版，⚠️ 母體各異）；**🚨 不得與 `S56_BF_SUB` 合稱「作者稿」**——本格已通過審查，該格未通過" + "；🚨 同義切面 `VER_ACCEPTED`（在手全體）"),
+    "S56_BF_SUB": ("產物", "同上 → `distribution.submittedVersion`；⚠️ **母體＝含補抽之該層**，🚫 非當初抽出者；🚨 同義切面 `CALIB_VER_SUB`／`VER_SUBMITTED`（同為投稿版，⚠️ 母體各異）；**🚨 本格之文獻尚未通過同儕審查**，🚫 不得與 `S56_BF_ACC` 合稱「作者稿」（n+178）" + "；🚨 同義切面 `VER_SUBMITTED`（在手全體）"),
+    "S56_NONPUB":    ("產物", "同上：其中非刊出版＝**2**；🚨 即本契約最在意之結局，其在手全文有三分之二是作者稿" + "；🚨 同義切面 `CALIB_NONPUB`（同為非刊出版之份數，⚠️ 母體不同）" + "；🚨 同義切面 `S56_BF_NONPUB`（**只差母體**：含補抽者）"),
     # ── n+143：逐層表（🚨 由腳本產生，兩母體並列）──
     "S3_QUOTA":        ("產物", "`ahig/calibration/b11-carbohydrate/strata.json` → `S3-tte` 配額＝**8**（我已自檔覆核）" + "；🚨 同義切面 `HARMS_S5_QUOTA`／`HARMS_S6_QUOTA`（同為設計配額，🚫 層別不同）"),
     "S3_ACQ_CALIB":    ("產物", "`.scratch/n492_stratum_table.json`（**受追蹤**，我已自檔覆核）→ `S3-tte` 之 `acquiredCalibration60`＝**0**；⚠️ **母體＝校準 60 之中該層**；🚨 全空，且曾被合計數藏住" + "；🚨 同義切面 `ACQ_CALIB`（校準 60 全體）與 `S56_ACQ`（另一層），🚫 層別不同不得互換"),

@@ -82,6 +82,10 @@ S5 之 rationale 原句為：**「確保它不是靠 S1–S4 的附帶回報湊�
 | `S5+S6` **在校準集抽出之 60 內**已取得全文者 | `{{S56_ACQ}}` |
 | **其中非刊出版（作者稿）者** | `{{S56_NONPUB}}` |
 | 🚨 `S5+S6` **連同已接受之補抽一併計**（⚠️ 分母非本層配額） | `{{S56_ACQ_BACKFILL}}` |
+| 其中**正式刊出版** | `{{S56_BF_PUB}}` |
+| 其中**作者接受版**（已通過審查，未排版） | `{{S56_BF_ACC}}` |
+| 🚨 **非刊出版合計**（接受版＋投稿版） | `{{S56_BF_NONPUB}}` |
+| 🚨 其中**投稿版**（**尚未通過審查**） | `{{S56_BF_SUB}}` |
 
 > **🚨 上表最後一列與前兩列母體不同，🚫 不得相減。**
 > ⚠️ 前者之分母是**當初抽出的那一批**（本層即 `{{HARMS_COMBINED}}`），
@@ -167,6 +171,7 @@ S5 之 rationale 原句為：**「確保它不是靠 S1–S4 的附帶回報湊�
 | `HARMS_RESERVE_MENTIONS` | **漂移** | 同上之候補欄；**⚠️ 單位＝提及，非筆數**，🚫 不得與其他欄相加 |
 | `SHORTFALL_HARMS` | **漂移** | 缺口分布，交付時現算（與辛節同一來源） |
 | `S56_ACQ`／`S56_NONPUB` | **漂移** | `.scratch/n489_calibration_versions.json` 依層別；🚨 「非刊出版」之比例**限於本層已取得者**，🚫 不得外推到全層或全案 |
+| `S56_BF_PUB`／`S56_BF_ACC`／`S56_BF_SUB`／`S56_BF_NONPUB` | **漂移** | `.scratch/n523_s56_version_with_backfill.json`；🚨 **母體同 `S56_ACQ_BACKFILL`（含補抽）**；⚠️ **兩者不可合稱「作者稿」**——接受版已通過審查，投稿版未通過 |
 | `S56_ACQ_BACKFILL` | **漂移** | `.scratch/n492_stratum_table.json` → `S5+S6-gi-merged.acquiredWithBackfill`；⚠️ **母體含已接受之補抽**，🚫 不得與 `S56_ACQ`（母體為當初抽出者）互換 |
 
 **🚫 `HARMS_ADJACENT_N` 已作廢**：該名稱把一個「沒有名單的計數器讀數」

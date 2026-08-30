@@ -127,6 +127,12 @@ ROOTS = {
         "S56_ACQ": "當初抽出之校準 60 中該層",
         "S56_NONPUB": "同上之中的非刊出版者（🚨 為 `S56_ACQ` 之子集）",
         "S56_ACQ_BACKFILL": "含已接受補抽之該層（⚠️ 分母較大）",
+        # 🚨 n+178：版本切分四格，母體同 `S56_ACQ_BACKFILL`（含補抽），
+        #    ⚠️ 🚫 與前兩格（當初抽出者）不同。
+        "S56_BF_PUB": "含補抽之該層：正式刊出版",
+        "S56_BF_ACC": "含補抽之該層：作者接受版（已通過審查）",
+        "S56_BF_SUB": "含補抽之該層：投稿版（🚨 未通過審查）",
+        "S56_BF_NONPUB": "含補抽之該層：接受版＋投稿版（🚨 兩種東西之合計）",
     }),
     "W7": ("SAME", "synergy_replay 之六組重放"),
     "TAG": ("SAME", "掛牌名冊"),
@@ -192,6 +198,21 @@ SYNONYMS = {
                    "後者為含補抽之 S5+S6。⚠️ 兩者僅因同含 `ACQ` 而被本簿配對，"
                    "**🚫 並無切面關係**——它們既不同層也不同母體。"),
     ("CALIB_NONPUB", "S56_NONPUB"): (FACET, "非刊出版之份數：校準 14 vs S5+S6"),
+    # ── 🚨 n+178：含補抽之版本切分所生 ──────────────────────────
+    ("CALIB_NONPUB", "S56_BF_NONPUB"): (
+        FACET, "非刊出版數：校準 14 vs 含補抽之 S5+S6"),
+    ("CALIB_VER_ACC", "S56_BF_ACC"): (FACET, "作者接受版：校準 14 vs 含補抽之該層"),
+    ("CALIB_VER_PUB", "S56_BF_PUB"): (FACET, "刊出版：校準 14 vs 含補抽之該層"),
+    ("CALIB_VER_SUB", "S56_BF_SUB"): (FACET, "投稿版：校準 14 vs 含補抽之該層"),
+    ("S56_BF_ACC", "VER_ACCEPTED"): (FACET, "作者接受版：含補抽之該層 vs 在手全體"),
+    ("S56_BF_PUB", "VER_PUBLISHED"): (FACET, "刊出版：含補抽之該層 vs 在手全體"),
+    ("S56_BF_SUB", "VER_SUBMITTED"): (FACET, "投稿版：含補抽之該層 vs 在手全體"),
+    ("LANDING_PUBLISHER", "S56_BF_PUB"): (
+        UNRELATED, "🚨 `PUB`＝刊出版 vs `PUBLISHER`＝出版社，⚠️ 前綴相同而無關"),
+    ("S56_BF_PUB", "SRC_PUBLISHER"): (UNRELATED, "同上：刊出版 vs 出版社"),
+    ("S56_BF_PUB", "SRC_NOLIC_PUB"): (UNRELATED, "同上：刊出版 vs 出版社"),
+    ("S56_BF_SUB", "THRESHOLD3_SUBGROUP"): (
+        UNRELATED, "`SUB`＝投稿版 vs subgroup（子群體）"),
     ("HARMS_S5_QUOTA", "S3_QUOTA"): (FACET, "設計配額，層別不同"),
     ("HARMS_S6_QUOTA", "S3_QUOTA"): (FACET, "設計配額，層別不同"),
     ("ALT_PDF", "UNPROBED_PDF"): (FACET, "替代位址可取 PDF：第一輪 11 筆 vs 第二輪 12 筆"),

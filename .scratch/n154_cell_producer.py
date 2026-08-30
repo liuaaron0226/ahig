@@ -87,6 +87,7 @@ N494 = ".scratch/n494_alt_oa_round2.json"
 N496 = ".scratch/n496_corpus_verify.json"
 N498 = ".scratch/n498_sections_integrity.json"
 N512 = ".scratch/n512_source_host_provenance.json"
+N523 = ".scratch/n523_s56_version_with_backfill.json"
 W7 = "ahig/analysis/results/synergy_replay.json"
 F68E = ".scratch/n68_termination_evidence.json"
 N439 = ".scratch/n439_route_cost.json"
@@ -94,6 +95,20 @@ N486 = ".scratch/n486_licence_gap.json"
 N487 = ".scratch/n487_version_and_licence.json"
 N488 = ".scratch/n488_pmcid_to_doi.json"
 BACKFILL = ".scratch/m1_step3_backfill.json"
+
+
+def _s56_nonpub_bf():
+    """含補抽之該層非刊出版數 —— 🚨 相加後**與產物自報之 nonPublished 閉合**。
+
+    ⚠️ 兩者若不等，表示該檔之 `distribution` 與 `nonPublished` 已分家，
+    🚫 不得逕自取其一。
+    """
+    d = J(N523)["distribution"]
+    s = d["acceptedVersion"] + d["submittedVersion"]
+    if s != J(N523)["nonPublished"]:
+        raise ValueError(f"🚨 n523 不閉合：接受＋投稿 {s} ≠ nonPublished "
+                         f"{J(N523)['nonPublished']}")
+    return s
 
 
 def _stratum(sid, key="quota"):
@@ -242,6 +257,11 @@ RESOLVERS = {
     #    此處＝**已到手**之 41 份當初從哪裡拿到；`LANDING_*`＝**尚未到手**之 33 筆掛在哪。
     # ⚠️ 兩者用同一組分類名稱（典藏庫／出版社），**🚫 不得互減或並排無標籤**。
     # 🚨 庚：含補抽之層別取得數（n+177）——⚠️ 與 `S56_ACQ` 分母不同。
+    # 🚨 庚：含補抽之版本切分（n+178）——⚠️ 兩者**不可合稱「作者稿」**。
+    "S56_BF_PUB": lambda: J(N523)["distribution"]["publishedVersion"],
+    "S56_BF_NONPUB": lambda: _s56_nonpub_bf(),
+    "S56_BF_ACC": lambda: J(N523)["distribution"]["acceptedVersion"],
+    "S56_BF_SUB": lambda: J(N523)["distribution"]["submittedVersion"],
     "S56_ACQ_BACKFILL": lambda: next(
         r["acquiredWithBackfill"] for r in J(N492)["rows"]
         if r["pool"] == "S5+S6-gi-merged"),
