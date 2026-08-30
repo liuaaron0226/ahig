@@ -141,6 +141,9 @@ RESOLVERS = {
     "HARMS_ATTRIBUTABLE": lambda: len({r["idPrefix"] for r in J(N482)["included"]}),
     "HARMS_RESERVE_MENTIONS": lambda: len(J(N482)["reserve"]),
     "S3_QUOTA":        lambda: _stratum("S3-tte"),
+    # ⚠️ 非交付清單之格，僅供成稿引用（庚節須說明「缺最多」是按什麼算的）。
+    # 🚨 覆蓋率之分母只數清單列，故此格不影響任何比例。
+    "S7_QUOTA":        lambda: _stratum("S7-glycogen"),
     "CALIBRATION_TARGET": lambda: J(STRATA)["totalSampleSize"],
     "S56_ACQ":         lambda: _pool("S5+S6-gi-merged", "acquiredCalibration60"),
     "S3_ACQ_CALIB":    lambda: _pool("S3-tte", "acquiredCalibration60"),
