@@ -123,7 +123,10 @@ def main():
     decisions, capped = {}, 0
     for outcome in run.succeeded:
         summary = outcome.scoped.get('scopeDecisionSummary') or {}
-        if summary.get('exceedsMaxStudyResults'):
+        # 🚨 第 547 輪更正：這裡原本讀 `exceedsMaxStudyResults`——**那個欄位
+        # 不存在**（`scope_inventory` 寫的是 `escalated`）。⚠️ 於是這個計數
+        # 永遠是 0，而 0 看起來像量到的。🚫 同一型的第 N 次。
+        if summary.get('escalated'):
             capped += 1
         for item in outcome.scoped.get('reportedOutcomes') or []:
             code = (item.get('scopeDecision') or {}).get('reasonCode', '(缺)')
@@ -189,7 +192,10 @@ def main():
             'charsReturned': sum(o.draft_chars for o in run.outcomes),
         },
         'scopeDecisions': decisions,
-        'exceededMaxStudyResults': capped,
+        'escalatedExceedsMax': capped,
+        'escalatedFieldNote': ('🚨 第 547 輪更正：原本讀的欄位名 '
+                               '`exceedsMaxStudyResults` 不存在，'
+                               '故先前那個 0 不是量測。'),
         'failures': [{'dir': o.candidate_id[-16:], 'stage': o.stage,
                       'error': o.error[:200]} for o in run.failed],
         'notProven': [

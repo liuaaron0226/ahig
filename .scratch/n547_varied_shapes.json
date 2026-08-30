@@ -1,0 +1,81 @@
+{
+  "schemaVersion": 1,
+  "documentType": "varied-shape-rehearsal",
+  "ruling": "第 546 輪之尺：演練是否走了現實不會走的路",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "readerIsAStub": true,
+  "stubMarker": "REHEARSAL-NOT-A-REAL-INVENTORY",
+  "storeDisabled": "🚨 store=None——編造的清冊一份都不落盤",
+  "shapeRule": "第 0 篇 = 上限+1 個 in-scope｜第 1 篇 = 0 個｜其餘 = 序位 mod 4 + 1 個。🚫 不用隨機：演練要可複驗。",
+  "cap": 12,
+  "run": {
+    "attempted": 41,
+    "succeeded": 41,
+    "failed": 0
+  },
+  "inScopeCountDistribution": {
+    "0": 1,
+    "1": 10,
+    "2": 9,
+    "3": 10,
+    "4": 10,
+    "13": 1
+  },
+  "escalated": [
+    "86e6a580108fd94b"
+  ],
+  "zeroInScope": [
+    "081d147cd92dee14"
+  ],
+  "leftoverInScopeTrue": [],
+  "storePaths": {
+    "unique": 41,
+    "count": 41,
+    "minLen": 143,
+    "maxLen": 143,
+    "note": "🚫 只算不寫；⚠️ 長度以本機私有根為準，搬到更深的路徑會變長。"
+  },
+  "correctedThisRound": "🚨 n537 原本讀 scopeDecisionSummary[\"exceedsMaxStudyResults\"]——⚠️ 該欄位不存在（實際是 \"escalated\"），故那個計數永遠是 0。✅ 已修並在 n537 產物內留註。",
+  "notProven": [
+    "🚨 抽得準不準：替身編造。",
+    "⚠️ 形狀是我排的，🚫 不是真實論文的分布。"
+  ],
+  "controlProbes": [
+    {
+      "probe": "每一篇仍恰好落在一個桶子裡",
+      "passed": true,
+      "detail": "成功 41｜失敗 0｜語料 41"
+    },
+    {
+      "probe": "超過上限那一條真的走到了（必觸發）",
+      "passed": true,
+      "detail": "🚨 走不到就等於這條最激烈的分支從沒被證明過；上限 12，實得 escalated 1 篇"
+    },
+    {
+      "probe": "超限篇不得留下任何 inScope=true",
+      "passed": true,
+      "detail": "🚨 留著會讓下游以為那幾項可以抽取；實得 無"
+    },
+    {
+      "probe": "零個 in-scope 的那一篇仍算成功",
+      "passed": true,
+      "detail": "🚨 全部範圍外是一種結果，🚫 不是失敗；實得 1 篇"
+    },
+    {
+      "probe": "各篇的 in-scope 數確實不同（必觸發）",
+      "passed": true,
+      "detail": "🚨 若只有一種計數，代表替身其實還是一模一樣；實得分布 {0: 1, 1: 10, 2: 9, 3: 10, 4: 10, 13: 1}"
+    },
+    {
+      "probe": "41 個存放路徑互不相同",
+      "passed": true,
+      "detail": "相異 41／41"
+    },
+    {
+      "probe": "存放路徑長度在 Windows 限制內",
+      "passed": true,
+      "detail": "⚠️ 最長 143 字元（MAX_PATH 260）；🚨 超過會在寫入時才爆"
+    }
+  ],
+  "auditHash": "sha256:169935d0a36564d20592aa2a6210235f5df260d5ad14e73bf202bbfb61867dd1"
+}

@@ -30,7 +30,8 @@
     "in-scope": 41,
     "notExtracted-outcome-not-in-scope": 41
   },
-  "exceededMaxStudyResults": 0,
+  "escalatedExceedsMax": 0,
+  "escalatedFieldNote": "🚨 第 547 輪更正：原本讀的欄位名 `exceedsMaxStudyResults` 不存在，故先前那個 0 不是量測。",
   "failures": [],
   "notProven": [
     "🚨 抽得準不準：判定的輸入是編造的，🚫 本支一個字都沒說。",
@@ -70,5 +71,5 @@
       "detail": "替身改口聲稱掃描過一個不存在的章節 → 成功 0｜validate-draft 擋下 41（應為 0 與 41）"
     }
   ],
-  "auditHash": "sha256:1bf2f5d5e44bde160e9876c65e3b6ea4f2f4e4d3fac8b6b0bdb676dafa35cbdd"
+  "auditHash": "sha256:e22f2c48f25d9ccaa292e2e10676cc945204fd05baf0d404a0a8dbd2d4ed064a"
 }
