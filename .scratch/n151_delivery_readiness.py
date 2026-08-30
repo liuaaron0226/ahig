@@ -161,9 +161,9 @@ ITEMS.append((
 
 ITEMS.append((
     "既有機檢全綠", "協調者",
-    "n+136／n+141／n+131／n+116／n+153／n+154／n+155／n+157／n+159／n+160／n+161／n+163",
+    "n+136／n+141／n+131／n+116／n+153／n+154／n+155／n+157／n+159／n+160／n+161／n+163／n+164",
     "閘門、佔位符表、交叉一致性、義務勾稽、字面數字、檢查表矩陣、格值現算、"
-    "擁有者簡報、丙辛庚丁甲五節成稿**十三項**於交付當日皆 exit 0",
+    "擁有者簡報、甲乙丙丁庚辛六節成稿**十四項**於交付當日皆 exit 0",
     "✅ 可驗（本檔即現跑）"))
 
 print("=== M1 交付盤點｜🚨 骨架完稿 ≠ 可交付 ===")
@@ -184,7 +184,8 @@ gates = {"n115_delivery_checklist": None, "n116_obligation_crosscheck": None,
          "n159_section_g_report": None,
          "n160_section_f_report": None,
          "n161_section_d_report": None,
-         "n163_section_a_report": None}
+         "n163_section_a_report": None,
+         "n164_section_b_report": None}
 for g in gates:
     gates[g] = gate(f".scratch/{g}.py")
 bad = [g for g, rc in gates.items() if rc != 0]

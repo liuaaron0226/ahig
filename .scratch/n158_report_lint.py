@@ -79,6 +79,17 @@ def repeated_in_paragraph(text, coincidence, value_of):
     見 n+157 六：**檢查看得到數字，看不到那個數字是哪一格產生的**，
     🚫 故「兩格同時出現」必然誤報。
     """
+    ## 🚨 n+164：表格列須排除，而這是一個**縮小**，須寫明理由
+
+    # ⚠️ 危險寫法的形狀是「**16** 筆走著陸頁路徑，其中 **16** 筆可達」——
+    #    同一句話裡出現兩次，而沒有任何東西告訴讀者它們不是同一批。
+    #
+    # ✅ **表格列不同**：每一列自帶標籤（「判讀理由文字提到的」「篩選實際遇到的」），
+    #    🚨 而撤稿那三個量**本來就必須並列**——n+152 明訂三個都要報。
+    #    ⚠️ 若連表格都擋，等於逼人把該並列的東西拆開，**那會使報告更難讀而非更準確。**
+    #
+    # 🚫 **代價要寫明**：本檔不再看表格列裡的重複。
+    #    ⚠️ 一張兩列同值而**標籤模糊**的表，本檔放行——那要人讀。
     out = []
     paras = [p for p in text.split("\n\n") if p.strip()]
     for key in coincidence:
@@ -87,7 +98,9 @@ def repeated_in_paragraph(text, coincidence, value_of):
         except Exception:                              # noqa: BLE001
             continue
         for para in paras:
-            if len(re.findall(rf"\*\*{re.escape(val)}\*\*", para)) > 1:
+            prose = "\n".join(l for l in para.split("\n")
+                              if not l.lstrip().startswith("|"))
+            if len(re.findall(rf"\*\*{re.escape(val)}\*\*", prose)) > 1:
                 out.append((key, val))
                 break
     return out
