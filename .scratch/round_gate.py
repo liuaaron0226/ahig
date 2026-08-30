@@ -340,7 +340,15 @@ PYTEST_IGNORE = 'tests/test_shacl_gates.py'
 # 新增三條，測「契約先驗再花錢」：造不出 ScopeMatcher 的契約整批拒跑且
 # 一篇都不讀（正向對照：能用的契約照樣過關）、真的那份凍結契約過得了前驗。
 # 增量恰為 3。
-BASE_PASSED, BASE_FAILED = 763, 0
+# 第 536 輪：763 → 773。前後對照（n+113 四）：
+#   改動前  763 passed／0 failed
+#   改動後  773 passed／0 failed
+# 新增十條，測萃取工作單（ADR-0009 裁定①那條路的萃取版）：按字元編頁、
+# 超預算單篇自成一頁不切開、索引不帶全文而逐頁帶、工作單不得離開私有根、
+# 綁到別份文件的清冊收回時被拒（正向對照：綁對的照樣收）、沒讀完不算讀完、
+# 沒有 readBy 不收、文件在寫清冊之後變過則拒用、找不到清冊要丟不要回空的。
+# 增量恰為 10。
+BASE_PASSED, BASE_FAILED = 773, 0
 KNOWN_FAIL = '無（原 test_clopper_pearson_matches_closed_forms 已於第 437 輪依 n+113 四修正）'
 UNCOLLECTABLE = '%s（缺 pyshacl，pyproject 第 15 行已宣告）' % PYTEST_IGNORE
 

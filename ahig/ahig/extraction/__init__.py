@@ -33,6 +33,7 @@ from ahig.extraction.inventory_draft import (  # noqa: F401
     draft_to_scoped,
 )
 from ahig.extraction import store  # noqa: F401
+from ahig.extraction import worksheet  # noqa: F401
 from ahig.extraction.run import (  # noqa: F401
     ContractUnusable,
     InventoryRun,
