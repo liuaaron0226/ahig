@@ -1,0 +1,85 @@
+{
+ "schemaVersion": 1,
+ "documentType": "temporal-order-check",
+ "neverModified": {
+  "file": "m1_step2_calibration_set.json",
+  "commits": 1,
+  "controlFile": "n496_corpus_verify.py",
+  "controlCommits": 3,
+  "controlPassed": true,
+  "unmodified": true,
+  "why": "The ordering checks rule out a wrong sequence. They do not rule out drawing, seeing which records turned out obtainable, and going back to adjust. One commit and no later modification does rule that out, which is why it is the stronger claim -- it excludes the motive rather than only the timing."
+ },
+ "ruling": "generalises n+174 and n+175: twice in two rounds the conclusion was right and the stated reason was false, and both were caught only by reading the record. Reasons in general cannot be checked; claimed orderings between version-controlled files can.",
+ "population": "the four before/after relations the acquisition layer relies on",
+ "countingUnit": "claimed ordering",
+ "criterion": "first appearance in version control, earlier file must not be later than the one that depends on it",
+ "controlProbes": [
+  {
+   "a": "2026-01-01T00:00:00+08:00",
+   "b": "2026-01-02T00:00:00+08:00",
+   "expected": true,
+   "got": true
+  },
+  {
+   "a": "2026-01-02T00:00:00+08:00",
+   "b": "2026-01-01T00:00:00+08:00",
+   "expected": false,
+   "got": false
+  },
+  {
+   "a": "2026-01-01T00:00:00+08:00",
+   "b": "2026-01-01T00:00:00+08:00",
+   "expected": true,
+   "got": true
+  }
+ ],
+ "claims": [
+  {
+   "earlier": "m1_step2_population.json",
+   "later": "m1_step2_calibration_set.json",
+   "earlierCommit": "e5017cc",
+   "earlierAt": "2026-08-28T22:50:19+08:00",
+   "laterCommit": "b0ee1c6",
+   "laterAt": "2026-08-28T23:33:21+08:00",
+   "verdict": "consistent",
+   "why": "「從該母體抽出 60 筆」——⚠️ 母體若後出現，抽樣就不是從它抽的"
+  },
+  {
+   "earlier": "m1_step2_assignment.json",
+   "later": "m1_step2_calibration_set.json",
+   "earlierCommit": "8d018c1",
+   "earlierAt": "2026-08-28T23:10:50+08:00",
+   "laterCommit": "b0ee1c6",
+   "laterAt": "2026-08-28T23:33:21+08:00",
+   "verdict": "consistent",
+   "why": "「依契約分層抽樣」——⚠️ 池若後出現，配額無所依"
+  },
+  {
+   "earlier": "m1_step2_calibration_set.json",
+   "later": "m1_step3_inventory.json",
+   "earlierCommit": "b0ee1c6",
+   "earlierAt": "2026-08-28T23:33:21+08:00",
+   "laterCommit": "214f4bb",
+   "laterAt": "2026-08-28T23:52:40+08:00",
+   "verdict": "consistent",
+   "why": "「就抽出的那 60 筆去取全文」"
+  },
+  {
+   "earlier": "m1_step2_calibration_set.json",
+   "later": "m1_step3_backfill.json",
+   "earlierCommit": "b0ee1c6",
+   "earlierAt": "2026-08-28T23:33:21+08:00",
+   "laterCommit": "38b3c39",
+   "laterAt": "2026-08-29T00:36:57+08:00",
+   "verdict": "consistent",
+   "why": "🚨 遞補是替代品，🚫 不能早於被替代者"
+  }
+ ],
+ "consistent": 4,
+ "violated": [],
+ "whatAPassMeans": "Consistent with what is claimed, not proof of it: commit time is not authoring time. A violation is hard evidence; a pass is not.",
+ "strongerFormAvailable": "The coordinator ended up resting section C on \"those three lines were never modified after they were written\", which is harder than an ordering: it rules out the motive, not merely the timing. Where such a form exists it should be preferred.",
+ "coverageStatement": "Timing only. Whether the content really came from the source it names is checked elsewhere -- the redraw for the sample, the byte reconciliation for the corpus.",
+ "contentNote": "File names, commit hashes and timestamps only."
+}
