@@ -6,7 +6,7 @@
  "countingUnit": "check",
  "criterion": "exit code only; the suite deliberately does not parse any check's printed output",
  "listedChecks": 9,
- "listLastUpdatedRound": 504,
+ "listLastUpdatedRound": 505,
  "withNetwork": false,
  "controlProbes": [
   {
@@ -28,7 +28,7 @@
    "check": "round_gate",
    "status": "pass",
    "exit": 0,
-   "seconds": 16.7,
+   "seconds": 21.4,
    "asserts": "每輪閘門：樣式來源、控制探針、n+48 兩道、n+54 三道、測試基線"
   },
   {
@@ -63,7 +63,7 @@
    "check": "n499_calibration_redraw",
    "status": "pass",
    "exit": 0,
-   "seconds": 0.2,
+   "seconds": 0.1,
    "asserts": "校準集之獨立重抽（種子／名單／drawHash）"
   },
   {
@@ -100,16 +100,19 @@
    "n500_inaccessible_cells",
    "n501_retraction_recheck",
    "n503_executor_handoff",
-   "n504_executor_suite"
+   "n504_executor_suite",
+   "n505_licence_completion"
   ],
   "unlisted": [
    "n495_stratum_purpose",
-   "n504_executor_suite"
+   "n504_executor_suite",
+   "n505_licence_completion"
   ],
   "unlistedWithoutReason": [],
   "excludedWithReason": {
    "n495_stratum_purpose": "一次性描述：把七層各自要檢驗什麼列出來，🚫 無成敗可言",
-   "n504_executor_suite": "本檔自己"
+   "n504_executor_suite": "本檔自己",
+   "n505_licence_completion": "一次性補齊作業：🚨 會對外請求且 `--apply` 會寫入私有根，🚫 不宜納入每次總跑"
   },
   "note": "The scan only covers scripts numbered from round 490 onward and named that way. An older or differently-named standing check is invisible to it, so this narrows the blind spot rather than closing it."
  },
@@ -118,7 +121,7 @@
  "skipped": [
   "n501_retraction_recheck"
  ],
- "totalSeconds": 24.5,
+ "totalSeconds": 29.1,
  "coverageStatement": "Sees whether each check exits zero, not whether it checks the right thing -- that is each check's own control probes. And the list is hand-maintained, so a check this room forgot to add is invisible here; the list length and its last-updated round are printed to force that comparison.",
  "contentNote": "Check names, exit codes and durations only."
 }

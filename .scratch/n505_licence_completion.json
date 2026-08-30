@@ -1,0 +1,124 @@
+{
+ "schemaVersion": 1,
+ "documentType": "licence-completion",
+ "ruling": "n+138(3) established the procedure and a first batch of five was filled under it; this extends the same procedure to the rest. n486 raised the gap in round 485 and never got a ruling.",
+ "population": "artifacts of acquired manifests under the private root with no licence recorded",
+ "countingUnit": "artifact",
+ "criterion": "OpenAlex best_oa_location.license for the artifact's DOI, recorded with source and retrieval date in the same shape as the existing five",
+ "controlProbe": {
+  "dir": "3ecdcbd4",
+  "recorded": "cc-by-sa",
+  "refetched": "cc-by-sa",
+  "agrees": true,
+  "why": "A broken query path returns None for everything, which is indistinguishable from OpenAlex simply not recording a licence. Reproducing an existing record is what makes a None readable as \"not recorded\"."
+ },
+ "acquiredArtifacts": 41,
+ "withLicence": 29,
+ "withProvenance": 5,
+ "missing": 12,
+ "resolved": 6,
+ "plan": [
+  {
+   "dir": "211950e6",
+   "sourceType": "grobid-tei",
+   "licence": "cc-by-nc-nd",
+   "why": ""
+  },
+  {
+   "dir": "85e0e186",
+   "sourceType": "europe-pmc-jats",
+   "licence": "cc-by-nc",
+   "why": ""
+  },
+  {
+   "dir": "89e1a723",
+   "sourceType": "grobid-tei",
+   "licence": null,
+   "why": ""
+  },
+  {
+   "dir": "8dd0f644",
+   "sourceType": "grobid-tei",
+   "licence": "cc-by-nc-nd",
+   "why": ""
+  },
+  {
+   "dir": "9454731a",
+   "sourceType": "grobid-tei",
+   "licence": "cc-by-nc-nd",
+   "why": ""
+  },
+  {
+   "dir": "98fe85be",
+   "sourceType": "grobid-tei",
+   "licence": null,
+   "why": ""
+  },
+  {
+   "dir": "a4bbe8aa",
+   "sourceType": "grobid-tei",
+   "licence": "cc-by",
+   "why": ""
+  },
+  {
+   "dir": "bd9995f4",
+   "sourceType": "grobid-tei",
+   "licence": null,
+   "why": ""
+  },
+  {
+   "dir": "bf4f8f5a",
+   "sourceType": "grobid-tei",
+   "licence": null,
+   "why": ""
+  },
+  {
+   "dir": "c380c744",
+   "sourceType": "grobid-tei",
+   "licence": null,
+   "why": ""
+  },
+  {
+   "dir": "cd1e4315",
+   "sourceType": "europe-pmc-jats",
+   "licence": "cc-by-nd",
+   "why": ""
+  },
+  {
+   "dir": "de939065",
+   "sourceType": "grobid-tei",
+   "licence": null,
+   "why": ""
+  }
+ ],
+ "applied": true,
+ "written": [
+  "211950e6",
+  "85e0e186",
+  "8dd0f644",
+  "9454731a",
+  "a4bbe8aa",
+  "cd1e4315"
+ ],
+ "backupDirectory": "C:\\Users\\User\\Desktop\\claude\\ahig-private\\fulltext-manifest-backups\\n505",
+ "backupNote": "Outside version control on purpose: manifest URLs embed verbatim titles, so a backup in .scratch would be a leak.",
+ "generationNote": "Only the latest manifest.json is edited; no new immutable generation is written, so latest carries a field the generations lack. The existing five were written the same way -- their generations carry no licence either -- and this follows that rather than introducing a second practice. Whether generations should also be written is a ruling.",
+ "licFilledCriterionCorrection": "n500 keyed LIC_FILLED on the shape of the licence field and called that fragile for want of a \"who filled it\" marker. There is one -- licenceProvenance -- on exactly the five filled records and on none of the automatically extracted ones.",
+ "fetchCounters": {
+  "totalRequests": 13,
+  "perRequestedHost": {
+   "api.openalex.org": 13
+  },
+  "perFinalHost": {
+   "api.openalex.org": 13
+  },
+  "redirectHops": 0,
+  "blockedHosts": {},
+  "distinctUrls": 13,
+  "minIntervalSeconds": 1.0,
+  "note": "Per-execution counters. totalRequests counts every hop actually sent, including redirect hops, because each hop is a real outbound request. Requested and final hosts are kept apart: a redirector such as doi.org appears in the first and the publisher it lands on in the second, and blocking keys on the second. State does not survive the process, so the no-retry guarantee holds within one run only."
+ },
+ "coverageStatement": "OpenAlex is third-party bibliographic metadata, not a verification by this room and not a publisher statement. Where it records nothing the artifact says so; open access is never taken to imply a right to redistribute.",
+ "contentNote": "Directory prefixes, DOIs and licence codes only.",
+ "completionHash": "sha256:41ae1dc53f2d330f0ed51c81ecfefbbfa3a7044167f395096ee55acc1917ca73"
+}

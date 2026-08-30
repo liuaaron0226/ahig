@@ -50,7 +50,7 @@ import sys
 import time
 
 S = '.scratch/'
-ROUND = 504
+ROUND = 505
 
 # ⚠️ 清單手維護——🚨 故末行會逼人核對；新增常設檢查時請一併加進來。
 CHECKS = [
@@ -75,6 +75,8 @@ RECENT = re.compile(r'^n(49[0-9]|5[0-9][0-9])_.*\.py$')
 NOT_A_CHECK = {
     'n495_stratum_purpose': '一次性描述：把七層各自要檢驗什麼列出來，🚫 無成敗可言',
     'n504_executor_suite': '本檔自己',
+    'n505_licence_completion': ('一次性補齊作業：🚨 會對外請求且 `--apply` 會寫入'
+                                '私有根，🚫 不宜納入每次總跑'),
 }
 
 
