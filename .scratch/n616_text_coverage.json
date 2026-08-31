@@ -1,0 +1,467 @@
+{
+  "schemaVersion": 1,
+  "documentType": "text-coverage",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "reports": 41,
+  "totals": {
+    "europe-pmc-jats:body": 1142786,
+    "europe-pmc-jats:payload": 1132338,
+    "body": 2138832,
+    "payload": 1981436,
+    "table": 41470,
+    "otherFigure": 91124,
+    "note": 2861,
+    "grobid-tei:body": 996046,
+    "grobid-tei:payload": 849098
+  },
+  "coverageBySource": {
+    "grobid-tei": 85,
+    "europe-pmc-jats": 99
+  },
+  "rows": [
+    {
+      "report": "c3028a8a7b1ae2a1",
+      "sourceType": "grobid-tei",
+      "bodyChars": 46265,
+      "payloadChars": 36213,
+      "coveragePct": 78,
+      "tableChars": 2117,
+      "otherFigureChars": 7386,
+      "noteChars": 90
+    },
+    {
+      "report": "c4128a6f6dd2c0b5",
+      "sourceType": "grobid-tei",
+      "bodyChars": 48466,
+      "payloadChars": 37960,
+      "coveragePct": 78,
+      "tableChars": 4561,
+      "otherFigureChars": 5665,
+      "noteChars": 90
+    },
+    {
+      "report": "82cbc04b68c38e79",
+      "sourceType": "grobid-tei",
+      "bodyChars": 33819,
+      "payloadChars": 26473,
+      "coveragePct": 78,
+      "tableChars": 403,
+      "otherFigureChars": 6541,
+      "noteChars": 134
+    },
+    {
+      "report": "307c0dd5b141caed",
+      "sourceType": "grobid-tei",
+      "bodyChars": 425629,
+      "payloadChars": 348621,
+      "coveragePct": 82,
+      "tableChars": 22770,
+      "otherFigureChars": 48770,
+      "noteChars": 95
+    },
+    {
+      "report": "7a6ac1559c740fd6",
+      "sourceType": "grobid-tei",
+      "bodyChars": 75589,
+      "payloadChars": 63742,
+      "coveragePct": 84,
+      "tableChars": 3048,
+      "otherFigureChars": 7496,
+      "noteChars": 254
+    },
+    {
+      "report": "65dd82a89b2c5340",
+      "sourceType": "grobid-tei",
+      "bodyChars": 35275,
+      "payloadChars": 30094,
+      "coveragePct": 85,
+      "tableChars": 2788,
+      "otherFigureChars": 1965,
+      "noteChars": 108
+    },
+    {
+      "report": "eac2b5fd6bb06843",
+      "sourceType": "grobid-tei",
+      "bodyChars": 36685,
+      "payloadChars": 32350,
+      "coveragePct": 88,
+      "tableChars": 1779,
+      "otherFigureChars": 2182,
+      "noteChars": 82
+    },
+    {
+      "report": "48da8a7f2f35af1f",
+      "sourceType": "grobid-tei",
+      "bodyChars": 42355,
+      "payloadChars": 38178,
+      "coveragePct": 90,
+      "tableChars": 1660,
+      "otherFigureChars": 1946,
+      "noteChars": 182
+    },
+    {
+      "report": "a9012191142e7e02",
+      "sourceType": "grobid-tei",
+      "bodyChars": 27845,
+      "payloadChars": 25190,
+      "coveragePct": 90,
+      "tableChars": 320,
+      "otherFigureChars": 2147,
+      "noteChars": 0
+    },
+    {
+      "report": "3f34fc92d4f4b70d",
+      "sourceType": "grobid-tei",
+      "bodyChars": 46259,
+      "payloadChars": 42517,
+      "coveragePct": 92,
+      "tableChars": 426,
+      "otherFigureChars": 1936,
+      "noteChars": 1018
+    },
+    {
+      "report": "7902e3ec54370729",
+      "sourceType": "grobid-tei",
+      "bodyChars": 58284,
+      "payloadChars": 54178,
+      "coveragePct": 93,
+      "tableChars": 63,
+      "otherFigureChars": 2454,
+      "noteChars": 393
+    },
+    {
+      "report": "1105537918c174c9",
+      "sourceType": "grobid-tei",
+      "bodyChars": 13482,
+      "payloadChars": 12526,
+      "coveragePct": 93,
+      "tableChars": 732,
+      "otherFigureChars": 84,
+      "noteChars": 90
+    },
+    {
+      "report": "6b7320d74cdda857",
+      "sourceType": "grobid-tei",
+      "bodyChars": 41902,
+      "payloadChars": 39447,
+      "coveragePct": 94,
+      "tableChars": 0,
+      "otherFigureChars": 1727,
+      "noteChars": 304
+    },
+    {
+      "report": "ad7c0004c386f31c",
+      "sourceType": "grobid-tei",
+      "bodyChars": 29724,
+      "payloadChars": 28143,
+      "coveragePct": 95,
+      "tableChars": 803,
+      "otherFigureChars": 430,
+      "noteChars": 21
+    },
+    {
+      "report": "0eea079e79bf7913",
+      "sourceType": "europe-pmc-jats",
+      "bodyChars": 43366,
+      "payloadChars": 41822,
+      "coveragePct": 96,
+      "tableChars": 0,
+      "otherFigureChars": 0,
+      "noteChars": 0
+    },
+    {
+      "report": "298c326024d22835",
+      "sourceType": "grobid-tei",
+      "bodyChars": 34467,
+      "payloadChars": 33466,
+      "coveragePct": 97,
+      "tableChars": 0,
+      "otherFigureChars": 395,
+      "noteChars": 0
+    },
+    {
+      "report": "97c2233f7e60c801",
+      "sourceType": "europe-pmc-jats",
+      "bodyChars": 52280,
+      "payloadChars": 51332,
+      "coveragePct": 98,
+      "tableChars": 0,
+      "otherFigureChars": 0,
+      "noteChars": 0
+    },
+    {
+      "report": "a6ce9c92c7454a7c",
+      "sourceType": "europe-pmc-jats",
+      "bodyChars": 25686,
+      "payloadChars": 25069,
+      "coveragePct": 98,
+      "tableChars": 0,
+      "otherFigureChars": 0,
+      "noteChars": 0
+    },
+    {
+      "report": "86e6a580108fd94b",
+      "sourceType": "europe-pmc-jats",
+      "bodyChars": 62502,
+      "payloadChars": 62121,
+      "coveragePct": 99,
+      "tableChars": 0,
+      "otherFigureChars": 0,
+      "noteChars": 0
+    },
+    {
+      "report": "59b4558a37f28bc9",
+      "sourceType": "europe-pmc-jats",
+      "bodyChars": 57822,
+      "payloadChars": 57200,
+      "coveragePct": 99,
+      "tableChars": 0,
+      "otherFigureChars": 0,
+      "noteChars": 0
+    },
+    {
+      "report": "dbdb6ea55c9667c3",
+      "sourceType": "europe-pmc-jats",
+      "bodyChars": 35878,
+      "payloadChars": 35511,
+      "coveragePct": 99,
+      "tableChars": 0,
+      "otherFigureChars": 0,
+      "noteChars": 0
+    },
+    {
+      "report": "c97d2ed84b0d1057",
+      "sourceType": "europe-pmc-jats",
+      "bodyChars": 29125,
+      "payloadChars": 28914,
+      "coveragePct": 99,
+      "tableChars": 0,
+      "otherFigureChars": 0,
+      "noteChars": 0
+    },
+    {
+      "report": "358bbf2c1886ac4b",
+      "sourceType": "europe-pmc-jats",
+      "bodyChars": 28687,
+      "payloadChars": 28301,
+      "coveragePct": 99,
+      "tableChars": 0,
+      "otherFigureChars": 0,
+      "noteChars": 0
+    },
+    {
+      "report": "e4871d50d0001e66",
+      "sourceType": "europe-pmc-jats",
+      "bodyChars": 61180,
+      "payloadChars": 60852,
+      "coveragePct": 99,
+      "tableChars": 0,
+      "otherFigureChars": 0,
+      "noteChars": 0
+    },
+    {
+      "report": "501bb474ac4704fa",
+      "sourceType": "europe-pmc-jats",
+      "bodyChars": 44376,
+      "payloadChars": 44062,
+      "coveragePct": 99,
+      "tableChars": 0,
+      "otherFigureChars": 0,
+      "noteChars": 0
+    },
+    {
+      "report": "d4251685a43792ff",
+      "sourceType": "europe-pmc-jats",
+      "bodyChars": 56092,
+      "payloadChars": 55806,
+      "coveragePct": 99,
+      "tableChars": 0,
+      "otherFigureChars": 0,
+      "noteChars": 0
+    },
+    {
+      "report": "66e16f089f1522d1",
+      "sourceType": "europe-pmc-jats",
+      "bodyChars": 38243,
+      "payloadChars": 37924,
+      "coveragePct": 99,
+      "tableChars": 0,
+      "otherFigureChars": 0,
+      "noteChars": 0
+    },
+    {
+      "report": "7a97713bf254fa26",
+      "sourceType": "europe-pmc-jats",
+      "bodyChars": 54512,
+      "payloadChars": 54077,
+      "coveragePct": 99,
+      "tableChars": 0,
+      "otherFigureChars": 0,
+      "noteChars": 0
+    },
+    {
+      "report": "b9ab2f27317a6a2b",
+      "sourceType": "europe-pmc-jats",
+      "bodyChars": 51445,
+      "payloadChars": 50978,
+      "coveragePct": 99,
+      "tableChars": 0,
+      "otherFigureChars": 0,
+      "noteChars": 0
+    },
+    {
+      "report": "f6a82302d7fe9adf",
+      "sourceType": "europe-pmc-jats",
+      "bodyChars": 57732,
+      "payloadChars": 57330,
+      "coveragePct": 99,
+      "tableChars": 0,
+      "otherFigureChars": 0,
+      "noteChars": 0
+    },
+    {
+      "report": "e8d48c04f919dbb0",
+      "sourceType": "europe-pmc-jats",
+      "bodyChars": 56343,
+      "payloadChars": 55616,
+      "coveragePct": 99,
+      "tableChars": 0,
+      "otherFigureChars": 0,
+      "noteChars": 0
+    },
+    {
+      "report": "9a3b03b4fb24cf65",
+      "sourceType": "europe-pmc-jats",
+      "bodyChars": 57210,
+      "payloadChars": 56771,
+      "coveragePct": 99,
+      "tableChars": 0,
+      "otherFigureChars": 0,
+      "noteChars": 0
+    },
+    {
+      "report": "54d4200c1c5e2b64",
+      "sourceType": "europe-pmc-jats",
+      "bodyChars": 18931,
+      "payloadChars": 18737,
+      "coveragePct": 99,
+      "tableChars": 0,
+      "otherFigureChars": 0,
+      "noteChars": 0
+    },
+    {
+      "report": "d4149a8bac287851",
+      "sourceType": "europe-pmc-jats",
+      "bodyChars": 39154,
+      "payloadChars": 38886,
+      "coveragePct": 99,
+      "tableChars": 0,
+      "otherFigureChars": 0,
+      "noteChars": 0
+    },
+    {
+      "report": "4103c4b52bbf21e6",
+      "sourceType": "europe-pmc-jats",
+      "bodyChars": 29574,
+      "payloadChars": 29272,
+      "coveragePct": 99,
+      "tableChars": 0,
+      "otherFigureChars": 0,
+      "noteChars": 0
+    },
+    {
+      "report": "834de4d822dfb3cd",
+      "sourceType": "europe-pmc-jats",
+      "bodyChars": 39303,
+      "payloadChars": 39095,
+      "coveragePct": 99,
+      "tableChars": 0,
+      "otherFigureChars": 0,
+      "noteChars": 0
+    },
+    {
+      "report": "081d147cd92dee14",
+      "sourceType": "europe-pmc-jats",
+      "bodyChars": 33775,
+      "payloadChars": 33626,
+      "coveragePct": 100,
+      "tableChars": 0,
+      "otherFigureChars": 0,
+      "noteChars": 0
+    },
+    {
+      "report": "44243ac624c9b5e0",
+      "sourceType": "europe-pmc-jats",
+      "bodyChars": 41486,
+      "payloadChars": 41394,
+      "coveragePct": 100,
+      "tableChars": 0,
+      "otherFigureChars": 0,
+      "noteChars": 0
+    },
+    {
+      "report": "8a62d501f88c7d04",
+      "sourceType": "europe-pmc-jats",
+      "bodyChars": 44042,
+      "payloadChars": 43903,
+      "coveragePct": 100,
+      "tableChars": 0,
+      "otherFigureChars": 0,
+      "noteChars": 0
+    },
+    {
+      "report": "65d459b9129da800",
+      "sourceType": "europe-pmc-jats",
+      "bodyChars": 69652,
+      "payloadChars": 69408,
+      "coveragePct": 100,
+      "tableChars": 0,
+      "otherFigureChars": 0,
+      "noteChars": 0
+    },
+    {
+      "report": "0cfceb6c8a86f78b",
+      "sourceType": "europe-pmc-jats",
+      "bodyChars": 14390,
+      "payloadChars": 14331,
+      "coveragePct": 100,
+      "tableChars": 0,
+      "otherFigureChars": 0,
+      "noteChars": 0
+    }
+  ],
+  "notAllOfItIsADefect": "⚠️ 圖說本來就不一定要進正文；✅ 但**表格內容是資料**，而它也在這個差額裡——🚨 故本支把差額分開歸屬。",
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "controlProbes": [
+    {
+      "probe": "兩種來源都量到了（必觸發）",
+      "passed": true,
+      "detail": "🚨 少一邊就沒有對照；實得 TEI 15 篇、JATS 26 篇"
+    },
+    {
+      "probe": "15 篇 TEI 都量到了（必觸發）",
+      "passed": true,
+      "detail": "🚨 少一篇就低估了差額；實得 15 篇"
+    },
+    {
+      "probe": "讀者拿到的字數不多於原文（必觸發）",
+      "passed": true,
+      "detail": "🚨 若有超過，代表本支比錯了東西"
+    },
+    {
+      "probe": "表格文字確實佔可觀比例（必觸發之反向）",
+      "passed": true,
+      "detail": "✅ 表格文字合計 41470 字，占被丟掉總量的 31%；🚨 若為零，那 50 張表就只是空殼"
+    },
+    {
+      "probe": "讀者看到了原文的全部",
+      "passed": false,
+      "detail": "🚨 TEI 覆蓋率 85%，而 JATS 對照是 99%——⚠️ 少的 146948 字裡，表格占 41470、其他圖說占 91124、註腳占 2861；最低的一篇只有 78%（c3028a8a7b1ae2a1）"
+    }
+  ],
+  "auditHash": "sha256:e6464bac523752774c22cc6bcc9c15bfdd9d080bd657993bfc6ddd99a975e3a2"
+}
