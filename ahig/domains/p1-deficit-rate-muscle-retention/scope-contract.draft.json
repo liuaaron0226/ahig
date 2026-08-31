@@ -24,8 +24,9 @@
       },
       "sex": "any",
       "inclusionCriteria": [
-        "研究期間處於**有報告的**熱量赤字（規定攝取量低於估計需求，或有實測體重下降）",
+        "研究期間處於**有報告的**熱量赤字，且**減重速度可算得出來**（有起訖體重與期間）",
         "研究期間有**結構化阻力訓練**，且報告了訓練頻率與週期長度",
+        "🚨 **蛋白質攝取量有報告**——⚠️ 它已不是暴露，但**沒有它就分不出是速度還是蛋白質造成的**",
         "健康成人"
       ],
       "exclusionCriteria": [
@@ -35,36 +36,37 @@
         "孕期與哺乳期",
         "飲食失調診斷族群",
         "18 歲以下與 65 歲以上（🚨 由分開的範圍契約處理——老年族群之蛋白質閾值不同）",
-        "🚨 **未報告熱量赤字者**——⚠️ 「有訓練有補蛋白」但不在赤字中，回答的是另一個問題"
+        "🚨 **未報告熱量赤字者**——⚠️ 「有訓練有補蛋白」但不在赤字中，回答的是另一個問題",
+        "🚨 **未報告蛋白質攝取量者**——⚠️ 主問題換成速度之後，蛋白質變成必要共變項，缺了無法歸因"
       ]
     },
     "interventionOrExposure": {
-      "label": "較高之每日蛋白質攝取量",
+      "label": "減重速度（每週佔體重之百分比）",
       "separateStudyResultPerDoseBand": true,
       "doseBands": [
         {
-          "bandId": "low",
+          "bandId": "slow",
           "min": 0.0,
-          "max": 1.19,
-          "unit": "g/kg/day"
+          "max": 0.5,
+          "unit": "%BM/week"
         },
         {
           "bandId": "moderate",
-          "min": 1.2,
-          "max": 1.59,
-          "unit": "g/kg/day"
+          "min": 0.5,
+          "max": 1.0,
+          "unit": "%BM/week"
         },
         {
-          "bandId": "high",
-          "min": 1.6,
-          "max": 2.39,
-          "unit": "g/kg/day"
+          "bandId": "fast",
+          "min": 1.0,
+          "max": 1.5,
+          "unit": "%BM/week"
         },
         {
-          "bandId": "very-high",
-          "min": 2.4,
-          "max": 4.0,
-          "unit": "g/kg/day"
+          "bandId": "very-fast",
+          "min": 1.5,
+          "max": 3.0,
+          "unit": "%BM/week"
         }
       ],
       "durationRange": {
@@ -74,21 +76,18 @@
       },
       "doseRange": {
         "min": 0.0,
-        "max": 4.0,
-        "unit": "g/kg/day",
+        "max": 3.0,
+        "unit": "%BM/week",
         "perBodyMass": true
       }
     },
     "comparator": {
       "types": [
-        "dose-comparison",
-        "usual-care",
-        "placebo"
+        "dose-comparison"
       ],
       "activeComparatorAllowlist": [
-        "lower-protein-arm-same-deficit",
-        "isocaloric-carbohydrate-supplement",
-        "habitual-intake-control"
+        "slower-deficit-arm-same-protein-and-training",
+        "faster-deficit-arm-same-protein-and-training"
       ]
     },
     "narrative": "🚨 本契約有**三項判準 schema 容不下**，已另檔登記並待擁有者核可之schema 升版：①受訓狀態不得合併；②蛋白質劑量之分母（總體重 vs 去脂體重）為兩個量；③兩組赤字深度須相當。🚫 在升版前，這三項只存在於散文，**沒有任何東西在強制它們**。"

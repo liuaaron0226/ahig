@@ -3,7 +3,7 @@
 
 ## 🚨 這支存在的理由
 
-`ahig/domains/p1-protein-deficit/scope-contract.draft.json` 目前有**兩處**
+`ahig/domains/p1-deficit-rate-muscle-retention/scope-contract.draft.json` 目前有**兩處**
 通不過 schema，而**兩處都是如實記載，🚫 不是待辦**：
 
   1. `derivedFromSearchContract.hash` ＝ `null` —— ⚠️ 搜尋契約尚未起草。
@@ -35,9 +35,9 @@ try:
 except (AttributeError, ValueError):
     pass
 
-DRAFT = Path("ahig/domains/p1-protein-deficit/scope-contract.draft.json")
+DRAFT = Path("ahig/domains/p1-deficit-rate-muscle-retention/scope-contract.draft.json")
 SCHEMA = Path("ahig/schema/extraction-scope-contract.schema.json")
-EXT = Path("ahig/domains/p1-protein-deficit/scope-extensions-required.md")
+EXT = Path("ahig/domains/p1-deficit-rate-muscle-retention/scope-extensions-required.md")
 
 # 🚨 預期之錯誤路徑（排序後）。⚠️ 逐字比對，🚫 不用「數量相符」代替。
 EXPECTED = [
@@ -49,8 +49,13 @@ EXPECTED = [
 # 🚨 第 491 輪增列第四、第五項（ADR-0012 決策 1，外部審視指出）：
 #    ⚠️ 納入條件已要求「有赤字、有阻力訓練」，但那只擋掉「完全沒有」，
 #    🚫 擋不掉「合併不同程度」——而現行 schema 只表達得出納入，不表達分層。
-UNEXPRESSIBLE = ["stratifyDoNotPool", "doseUnitPolicy", "requireMatchedDeficit",
-                 "stratifyByDeficitMagnitude", "stratifyByTrainingDose"]
+# 🚨 第 493 輪：主問題由蛋白質換成減重速度（ADR-0013），兩項因此改變：
+#    ✅ `stratifyByDeficitMagnitude` **移除**——⚠️ 它現在是暴露本身，
+#       `doseBands` + `separateStudyResultPerDoseBand` 已逐字表達，🚫 不再是漏的。
+#    🚨 `requireMatchedDeficit` **反轉**成 `requireMatchedProteinAndTraining`——
+#       ⚠️ 比較的既然是赤字，該被匹配的就是另外兩項。只加不改會留著一條錯的。
+UNEXPRESSIBLE = ["stratifyDoNotPool", "doseUnitPolicy",
+                 "requireMatchedProteinAndTraining", "stratifyByTrainingDose"]
 
 
 def main():
