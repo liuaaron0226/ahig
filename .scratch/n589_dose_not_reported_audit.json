@@ -1,0 +1,91 @@
+{
+  "schemaVersion": 1,
+  "documentType": "dose-not-reported-audit",
+  "question": "12 項 dose=None 是論文沒寫，還是讀的人沒填",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "blankItems": 12,
+  "blankReports": 6,
+  "naiveWholeDocumentSaysReported": 3,
+  "sectionAwareSaysReported": 1,
+  "recoverableReports": [
+    "0cfceb6c8a86f78b"
+  ],
+  "rows": [
+    {
+      "report": "ad7c0004c386f31c",
+      "blankItems": 5,
+      "ratesInStudySections": [],
+      "ratesInCitingSections": [
+        "55 g/h",
+        "60 g/h",
+        "90 g/h"
+      ],
+      "verdict": "blank-is-correct"
+    },
+    {
+      "report": "54d4200c1c5e2b64",
+      "blankItems": 2,
+      "ratesInStudySections": [],
+      "ratesInCitingSections": [],
+      "verdict": "blank-is-correct"
+    },
+    {
+      "report": "82cbc04b68c38e79",
+      "blankItems": 2,
+      "ratesInStudySections": [],
+      "ratesInCitingSections": [],
+      "verdict": "blank-is-correct"
+    },
+    {
+      "report": "0eea079e79bf7913",
+      "blankItems": 1,
+      "ratesInStudySections": [],
+      "ratesInCitingSections": [
+        "1 g/min"
+      ],
+      "verdict": "blank-is-correct"
+    },
+    {
+      "report": "0cfceb6c8a86f78b",
+      "blankItems": 1,
+      "ratesInStudySections": [
+        "1.8 g/min"
+      ],
+      "ratesInCitingSections": [],
+      "verdict": "recoverable-rate-stated-in-methods"
+    },
+    {
+      "report": "a6ce9c92c7454a7c",
+      "blankItems": 1,
+      "ratesInStudySections": [],
+      "ratesInCitingSections": [],
+      "verdict": "blank-is-correct"
+    }
+  ],
+  "headline": "🚨 全文搜尋會說 3 篇有寫劑量（其中一篇寫著 55／60／90 g/h，全在帶內），⚠️ 而那些數字全部在 Introduction 與 Discussion——✅ 它們是引述文獻的建議攝取率，🚫 不是那篇自己餵的量。✅ 真正在方法段寫明速率的只有 1 篇。",
+  "theOneRecoverable": "`0cfceb6c8a86f78b` 於方法段寫明 1.8 g/min（＝108 g/h，很高帶內），⚠️ 而讀的人留空。📮 但這需要裁定：g/min → g/h 是單位換算，🚨 與「6% 溶液 × 每次 284 ml」換算成 g/h 不是同一件事。🚫 本室不逕自換算。",
+  "lesson": "✅ 這是第 587 輪那個教訓的第二次應驗：⚠️ 一次是 time trial 全在參考文獻裡，一次是劑量全在導論裡。🚨 **數字出現在哪一段，決定它是什麼。**",
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "controlProbes": [
+    {
+      "probe": "找到第 588 輪數到的那 12 項（必觸發）",
+      "passed": true,
+      "detail": "🚨 對不上就代表本支看的不是同一批項目；實得 12 項／6 篇"
+    },
+    {
+      "probe": "段落分類兩邊都真的出現（必觸發之反向）",
+      "passed": true,
+      "detail": "⚠️ 只在引述段落 2 篇、只在研究段落 1 篇；🚨 若其中一邊為空，這個分類可能根本沒生效"
+    },
+    {
+      "probe": "天真做法（全文有數字就算有報）與段落分類給的答案不同",
+      "passed": true,
+      "detail": "🚨 天真做法會說 3 篇有報劑量，✅ 段落分類說 1 篇；⚠️ 差的那 2 篇，數字全在導論與討論裡——那是別人的研究"
+    }
+  ],
+  "auditHash": "sha256:ff9a3063d224f4e880343fd12ea1cbfb033bc47d71839fff2854a050a4624082"
+}
