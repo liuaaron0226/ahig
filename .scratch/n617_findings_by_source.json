@@ -1,0 +1,80 @@
+{
+  "schemaVersion": 1,
+  "documentType": "findings-by-source",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "baseRatePct": 37,
+  "corpus": {
+    "total": 41,
+    "grobid": 15
+  },
+  "findings": [
+    {
+      "finding": "零貢獻論文（n586）",
+      "reports": 13,
+      "grobidReports": 5,
+      "grobidShare": 38
+    },
+    {
+      "finding": "劑量留空（n589）",
+      "reports": 6,
+      "grobidReports": 2,
+      "grobidShare": 33
+    },
+    {
+      "finding": "宣稱有數值而無數字（n597）",
+      "reports": 1,
+      "grobidReports": 1,
+      "grobidShare": 100
+    },
+    {
+      "finding": "出處無結果標記（n598）",
+      "reports": 1,
+      "grobidReports": 1,
+      "grobidShare": 100
+    },
+    {
+      "finding": "出處為討論段（n590）",
+      "reports": 1,
+      "grobidReports": 1,
+      "grobidShare": 100
+    }
+  ],
+  "concentrated": [
+    "宣稱有數值而無數字（n597）",
+    "出處無結果標記（n598）",
+    "出處為討論段（n590）"
+  ],
+  "atBaseRate": [
+    "零貢獻論文（n586）",
+    "劑量留空（n589）"
+  ],
+  "whatThisDoesNotShow": "🚫 本支不證明那些發現「是酬載造成的」——⚠️ 集中只是相容於那個解釋。🚨 而若某一項落在基準率附近，那一項就**不能**用酬載解釋。",
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "controlProbes": [
+    {
+      "probe": "取到了多個既有發現（必觸發）",
+      "passed": true,
+      "detail": "🚨 太少就談不上分布；實得 5 項發現"
+    },
+    {
+      "probe": "基準率算得出來（必觸發）",
+      "passed": true,
+      "detail": "⚠️ GROBID 佔全語料 37%——🚨 任何發現的占比若接近它，就不算集中"
+    },
+    {
+      "probe": "並非每一項發現都集中在 GROBID（必觸發之反向）",
+      "passed": true,
+      "detail": "⚠️ 集中者 3／5；🚨 若全部都集中，代表本支只是在複述來源分布"
+    },
+    {
+      "probe": "沒有任何發現不成比例地集中在 GROBID",
+      "passed": false,
+      "detail": "🚨 實得 3 項超出基準率 20 個百分點以上：[('宣稱有數值而無數字（n597）', '100%'), ('出處無結果標記（n598）', '100%'), ('出處為討論段（n590）', '100%')]；⚠️ 基準率 37%——✅ 那支持「酬載品質是成因之一」，🚫 但不證明每一項都是"
+    }
+  ],
+  "auditHash": "sha256:636e971e9aeb0c5f132a3d719c93016e67f5b10500c1e084ed83f0ba0f0daf7f"
+}
