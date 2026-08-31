@@ -1,0 +1,152 @@
+{
+  "schemaVersion": 1,
+  "documentType": "p3-step1g-screen-stress-side",
+  "assignment": "n+195：P3 第一步（篩甲半邊）",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "reasonVocabulary": {
+    "on-topic": "✅ 成人、介入、結局為壓力／情緒驅動的進食",
+    "adjacent": "⚠️ 相鄰：描述性關聯、疾患族群、手術，或結局換成了別的東西",
+    "wrong-population": "🚫 兒童、青少年或大學生為主",
+    "off-topic": "🚫 不在 protocol 一的問題範圍內",
+    "excluded-by-protocol-drugs": "🚫 protocol 一明文不回答藥物"
+  },
+  "screened": {
+    "39763344": {
+      "reason": "on-topic",
+      "note": "✅ 成人過重／肥胖之**情緒性進食介入**，並拆解行為改變技術",
+      "statedCutoff": "31 April 2023"
+    },
+    "36768088": {
+      "reason": "on-topic",
+      "note": "✅ 同一問題的較早一版",
+      "statedCutoff": "February 2022"
+    },
+    "32551798": {
+      "reason": "on-topic",
+      "note": "✅ **正念**介入對問題性進食行為——protocol 三所列類別",
+      "statedCutoff": "June 2017"
+    },
+    "36763199": {
+      "reason": "on-topic",
+      "note": "✅ **接納與承諾治療**對進食行為",
+      "statedCutoff": "17 June 2022"
+    },
+    "37012653": {
+      "reason": "adjacent",
+      "note": "⚠️ 情緒性進食之**盛行與關聯**，🚫 不是介入",
+      "statedCutoff": "January 2022"
+    },
+    "37242168": {
+      "reason": "adjacent",
+      "note": "⚠️ 睡眠 ↔ 情緒性進食 ↔ 肥胖；🚨 **對 P2（睡眠）直接相關**",
+      "statedCutoff": "31 December 2022"
+    },
+    "39940059": {
+      "reason": "adjacent",
+      "note": "⚠️ 情緒調節與失序進食，族群含青少年",
+      "statedCutoff": "November 2024"
+    },
+    "40899275": {
+      "reason": "adjacent",
+      "note": "⚠️ 心理社會介入，族群為**飲食疾患**",
+      "statedCutoff": "September 2024"
+    },
+    "32671964": {
+      "reason": "adjacent",
+      "note": "⚠️ **減重手術**後之情緒性進食變化",
+      "statedCutoff": "August 2019"
+    },
+    "33103340": {
+      "reason": "adjacent",
+      "note": "⚠️ 行為體重管理對**心理健康**——結局換了",
+      "statedCutoff": "7 May 2019"
+    },
+    "41418451": {
+      "reason": "adjacent",
+      "note": "⚠️ 肥胖者之**述情障礙**，🚫 不是介入",
+      "statedCutoff": "September 2024"
+    },
+    "42323682": {
+      "reason": "wrong-population",
+      "note": "🚫 美國大學生",
+      "statedCutoff": "2024"
+    },
+    "35565862": {
+      "reason": "wrong-population",
+      "note": "🚫 親職餵食與**兒童**進食行為",
+      "statedCutoff": "February 2022"
+    },
+    "42666688": {
+      "reason": "excluded-by-protocol-drugs",
+      "note": "🚫 GLP-1 受體促效劑",
+      "statedCutoff": "April 2026"
+    },
+    "40864442": {
+      "reason": "off-topic",
+      "note": "🚫 皮膚科族群之失序進食",
+      "statedCutoff": "May 2025"
+    },
+    "41344801": {
+      "reason": "adjacent",
+      "note": "⚠️ 限時進食之質性經驗——屬乙半邊，第 601 輪已記",
+      "statedCutoff": "March 2025"
+    }
+  },
+  "tally": {
+    "on-topic": 4,
+    "adjacent": 8,
+    "wrong-population": 2,
+    "excluded-by-protocol-drugs": 1,
+    "off-topic": 1
+  },
+  "onTopic": {
+    "39763344": "31 April 2023",
+    "36768088": "February 2022",
+    "32551798": "June 2017",
+    "36763199": "17 June 2022"
+  },
+  "cutoffAnomaly": {
+    "39763344": [
+      "31 April 2023",
+      "🚨 四月只有 30 天。✅ 照抄，🚫 不代它更正——⚠️ 那是讀方法段時要問的事。"
+    ]
+  },
+  "bothHalves": {
+    "stress-eating": "31 April 2023（⚠️ 論文自述，見 cutoffAnomaly）",
+    "deficit-adherence": "July 2023（✅ 已讀方法段確認）",
+    "conclusion": "✅ 兩半一致：**我們的搜尋從 2023 年年中補起**。🚨 而這也再次確認「既有回顧已回答、不必做」不成立。"
+  },
+  "crossDomainFind": {
+    "record": "37242168",
+    "why": "🚨 睡眠 ↔ 情緒性進食 ↔ 肥胖之系統性回顧（截止 31 December 2022）。⚠️ 對本 protocol 只是相鄰，✅ 但擁有者的順序裡 P2 睡眠緊接在後——🚫 先記下來，不要等到開 P2 再重找。"
+  },
+  "stillProvisional": "⚠️ 甲半邊的截止日仍取自**摘要**；🚫 尚未讀方法段。🚨 而乙半邊那一份已讀過方法段，逐字為 「searched from inception to July 2023」。",
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "controlProbes": [
+    {
+      "probe": "篩的正是甲組那 16 份（必觸發）",
+      "passed": true,
+      "detail": "🚨 篩錯對象與篩對的長得一樣；額外 無，漏掉 無"
+    },
+    {
+      "probe": "理由都在固定詞彙裡（必觸發之反向）",
+      "passed": true,
+      "detail": "🚨 自創理由等於沒有分類；實得 無"
+    },
+    {
+      "probe": "甲半邊至少有一份直接切題（必觸發）",
+      "passed": true,
+      "detail": "✅ 實得 4 份：{'39763344': '31 April 2023', '36768088': 'February 2022', '32551798': 'June 2017', '36763199': '17 June 2022'}；🚨 若一份都沒有，甲半邊就沒有可用的截止日"
+    },
+    {
+      "probe": "存在 2024 年以後截止的切題回顧（甲半邊）",
+      "passed": false,
+      "detail": "🚨 甲半邊切題者的截止日為 {'39763344': '31 April 2023', '36768088': 'February 2022', '32551798': 'June 2017', '36763199': '17 June 2022'}——⚠️ 最新僅到 2023 年，✅ 與乙半邊的 July 2023 一致，🚫 故仍要補 2023 年年中以後"
+    }
+  ],
+  "auditHash": "sha256:31e6f66e5ae3c4ce45be87bbe1af84b472424fb7c8e4432ce1f6c0ea95a8b46d"
+}
