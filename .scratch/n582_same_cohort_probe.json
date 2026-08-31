@@ -5,7 +5,7 @@
   "notAGate": "🚫 不入輪次閘門（n+181 三）",
   "method": "✅ 只比對 Participants／Subjects 段落裡的「平均 ± 標準差」字串。🚫 不看全文——⚠️ 結果段落裡也有幾百個 ±。",
   "corpusSize": 41,
-  "reportsWithValues": 29,
+  "reportsWithValues": 33,
   "reportsWithoutParticipantSection": [
     "65dd82a89b2c5340",
     "82cbc04b68c38e79",
@@ -13,11 +13,219 @@
     "0cfceb6c8a86f78b"
   ],
   "verdictCounts": {
-    "undetermined-too-few-values": 442,
-    "different-cohort": 374,
+    "undetermined-too-few-values": 324,
+    "different-cohort": 491,
     "possible-same-cohort": 1,
-    "coincidental-single-match": 3
+    "partial-overlap-not-same-cohort": 4
   },
+  "valueSources": {
+    "86e6a580108fd94b": {
+      "text": 0,
+      "table1": 7,
+      "table1RejectedAsTooLarge": 0
+    },
+    "081d147cd92dee14": {
+      "text": 0,
+      "table1": 0,
+      "table1RejectedAsTooLarge": 0
+    },
+    "59b4558a37f28bc9": {
+      "text": 6,
+      "table1": 0,
+      "table1RejectedAsTooLarge": 71
+    },
+    "7902e3ec54370729": {
+      "text": 6,
+      "table1": 0,
+      "table1RejectedAsTooLarge": 0
+    },
+    "dbdb6ea55c9667c3": {
+      "text": 4,
+      "table1": 0,
+      "table1RejectedAsTooLarge": 0
+    },
+    "c97d2ed84b0d1057": {
+      "text": 0,
+      "table1": 0,
+      "table1RejectedAsTooLarge": 0
+    },
+    "0eea079e79bf7913": {
+      "text": 0,
+      "table1": 6,
+      "table1RejectedAsTooLarge": 0
+    },
+    "48da8a7f2f35af1f": {
+      "text": 4,
+      "table1": 0,
+      "table1RejectedAsTooLarge": 0
+    },
+    "358bbf2c1886ac4b": {
+      "text": 5,
+      "table1": 0,
+      "table1RejectedAsTooLarge": 0
+    },
+    "6b7320d74cdda857": {
+      "text": 8,
+      "table1": 0,
+      "table1RejectedAsTooLarge": 0
+    },
+    "44243ac624c9b5e0": {
+      "text": 2,
+      "table1": 0,
+      "table1RejectedAsTooLarge": 0
+    },
+    "e4871d50d0001e66": {
+      "text": 4,
+      "table1": 0,
+      "table1RejectedAsTooLarge": 0
+    },
+    "501bb474ac4704fa": {
+      "text": 2,
+      "table1": 12,
+      "table1RejectedAsTooLarge": 0
+    },
+    "d4251685a43792ff": {
+      "text": 5,
+      "table1": 0,
+      "table1RejectedAsTooLarge": 66
+    },
+    "8a62d501f88c7d04": {
+      "text": 4,
+      "table1": 0,
+      "table1RejectedAsTooLarge": 80
+    },
+    "66e16f089f1522d1": {
+      "text": 7,
+      "table1": 0,
+      "table1RejectedAsTooLarge": 0
+    },
+    "7a6ac1559c740fd6": {
+      "text": 6,
+      "table1": 0,
+      "table1RejectedAsTooLarge": 0
+    },
+    "7a97713bf254fa26": {
+      "text": 5,
+      "table1": 0,
+      "table1RejectedAsTooLarge": 31
+    },
+    "b9ab2f27317a6a2b": {
+      "text": 0,
+      "table1": 12,
+      "table1RejectedAsTooLarge": 0
+    },
+    "65d459b9129da800": {
+      "text": 4,
+      "table1": 0,
+      "table1RejectedAsTooLarge": 68
+    },
+    "3f34fc92d4f4b70d": {
+      "text": 3,
+      "table1": 0,
+      "table1RejectedAsTooLarge": 0
+    },
+    "c3028a8a7b1ae2a1": {
+      "text": 5,
+      "table1": 0,
+      "table1RejectedAsTooLarge": 0
+    },
+    "f6a82302d7fe9adf": {
+      "text": 5,
+      "table1": 17,
+      "table1RejectedAsTooLarge": 0
+    },
+    "e8d48c04f919dbb0": {
+      "text": 5,
+      "table1": 0,
+      "table1RejectedAsTooLarge": 0
+    },
+    "a9012191142e7e02": {
+      "text": 3,
+      "table1": 0,
+      "table1RejectedAsTooLarge": 0
+    },
+    "ad7c0004c386f31c": {
+      "text": 8,
+      "table1": 0,
+      "table1RejectedAsTooLarge": 0
+    },
+    "c4128a6f6dd2c0b5": {
+      "text": 10,
+      "table1": 0,
+      "table1RejectedAsTooLarge": 0
+    },
+    "9a3b03b4fb24cf65": {
+      "text": 0,
+      "table1": 0,
+      "table1RejectedAsTooLarge": 28
+    },
+    "65dd82a89b2c5340": {
+      "text": 0,
+      "table1": 0,
+      "table1RejectedAsTooLarge": 0
+    },
+    "54d4200c1c5e2b64": {
+      "text": 3,
+      "table1": 0,
+      "table1RejectedAsTooLarge": 0
+    },
+    "82cbc04b68c38e79": {
+      "text": 0,
+      "table1": 0,
+      "table1RejectedAsTooLarge": 0
+    },
+    "1105537918c174c9": {
+      "text": 0,
+      "table1": 0,
+      "table1RejectedAsTooLarge": 0
+    },
+    "0cfceb6c8a86f78b": {
+      "text": 0,
+      "table1": 12,
+      "table1RejectedAsTooLarge": 0
+    },
+    "307c0dd5b141caed": {
+      "text": 11,
+      "table1": 0,
+      "table1RejectedAsTooLarge": 0
+    },
+    "d4149a8bac287851": {
+      "text": 10,
+      "table1": 18,
+      "table1RejectedAsTooLarge": 0
+    },
+    "4103c4b52bbf21e6": {
+      "text": 1,
+      "table1": 0,
+      "table1RejectedAsTooLarge": 0
+    },
+    "eac2b5fd6bb06843": {
+      "text": 0,
+      "table1": 0,
+      "table1RejectedAsTooLarge": 0
+    },
+    "97c2233f7e60c801": {
+      "text": 0,
+      "table1": 0,
+      "table1RejectedAsTooLarge": 0
+    },
+    "834de4d822dfb3cd": {
+      "text": 9,
+      "table1": 0,
+      "table1RejectedAsTooLarge": 37
+    },
+    "298c326024d22835": {
+      "text": 6,
+      "table1": 0,
+      "table1RejectedAsTooLarge": 0
+    },
+    "a6ce9c92c7454a7c": {
+      "text": 7,
+      "table1": 0,
+      "table1RejectedAsTooLarge": 0
+    }
+  },
+  "tableValueCap": 20,
   "possibleSameCohort": 1,
   "missedByAuthorScreen": 1,
   "headline": "🚨 找到一對報告同一批受試者的論文，⚠️ 而第 581 輪的署名篩選看不見它：該對其中一篇只抽得到 1 位作者（GROBID 未解出作者清單），故「共有 ≥2 位作者」永遠不可能成立。🚨 第 581 輪報的「作者涵蓋率 41／41」量的是有沒有，不是完不完整。",
@@ -28,6 +236,7 @@
         "7a6ac1559c740fd6"
       ],
       "identicalValues": 6,
+      "matchedFractionOfSmaller": 1.0,
       "verdict": "possible-same-cohort",
       "valuesAvailable": [
         11,
@@ -44,10 +253,28 @@
         "ad7c0004c386f31c"
       ],
       "identicalValues": 1,
-      "verdict": "coincidental-single-match",
+      "matchedFractionOfSmaller": 0.333,
+      "verdict": "partial-overlap-not-same-cohort",
       "valuesAvailable": [
         3,
         8
+      ],
+      "inAuthorScreen": false,
+      "sharedAuthors": 0,
+      "sameFirstAuthor": false,
+      "sameLastAuthor": false
+    },
+    {
+      "pair": [
+        "44243ac624c9b5e0",
+        "d4149a8bac287851"
+      ],
+      "identicalValues": 1,
+      "matchedFractionOfSmaller": 0.5,
+      "verdict": "partial-overlap-not-same-cohort",
+      "valuesAvailable": [
+        2,
+        28
       ],
       "inAuthorScreen": false,
       "sharedAuthors": 0,
@@ -60,7 +287,8 @@
         "7902e3ec54370729"
       ],
       "identicalValues": 1,
-      "verdict": "coincidental-single-match",
+      "matchedFractionOfSmaller": 0.333,
+      "verdict": "partial-overlap-not-same-cohort",
       "valuesAvailable": [
         3,
         6
@@ -76,7 +304,8 @@
         "834de4d822dfb3cd"
       ],
       "identicalValues": 1,
-      "verdict": "coincidental-single-match",
+      "matchedFractionOfSmaller": 0.167,
+      "verdict": "partial-overlap-not-same-cohort",
       "valuesAvailable": [
         6,
         9
@@ -92,6 +321,7 @@
         "d4251685a43792ff"
       ],
       "identicalValues": 0,
+      "matchedFractionOfSmaller": 0.0,
       "verdict": "different-cohort",
       "valuesAvailable": [
         4,
@@ -108,9 +338,10 @@
         "d4251685a43792ff"
       ],
       "identicalValues": 0,
+      "matchedFractionOfSmaller": 0.0,
       "verdict": "different-cohort",
       "valuesAvailable": [
-        2,
+        14,
         5
       ],
       "inAuthorScreen": true,
@@ -124,6 +355,7 @@
         "48da8a7f2f35af1f"
       ],
       "identicalValues": 0,
+      "matchedFractionOfSmaller": 0.0,
       "verdict": "different-cohort",
       "valuesAvailable": [
         3,
@@ -140,10 +372,11 @@
         "501bb474ac4704fa"
       ],
       "identicalValues": 0,
+      "matchedFractionOfSmaller": 0.0,
       "verdict": "different-cohort",
       "valuesAvailable": [
         4,
-        2
+        14
       ],
       "inAuthorScreen": true,
       "sharedAuthors": 4,
@@ -156,6 +389,7 @@
         "65d459b9129da800"
       ],
       "identicalValues": 0,
+      "matchedFractionOfSmaller": 0.0,
       "verdict": "different-cohort",
       "valuesAvailable": [
         4,
@@ -172,9 +406,10 @@
         "65d459b9129da800"
       ],
       "identicalValues": 0,
+      "matchedFractionOfSmaller": 0.0,
       "verdict": "different-cohort",
       "valuesAvailable": [
-        2,
+        14,
         4
       ],
       "inAuthorScreen": true,
@@ -188,6 +423,7 @@
         "d4251685a43792ff"
       ],
       "identicalValues": 0,
+      "matchedFractionOfSmaller": 0.0,
       "verdict": "different-cohort",
       "valuesAvailable": [
         4,
@@ -204,6 +440,7 @@
         "e8d48c04f919dbb0"
       ],
       "identicalValues": 0,
+      "matchedFractionOfSmaller": 0.0,
       "verdict": "different-cohort",
       "valuesAvailable": [
         5,
@@ -220,10 +457,11 @@
         "d4149a8bac287851"
       ],
       "identicalValues": 0,
+      "matchedFractionOfSmaller": 0.0,
       "verdict": "undetermined-too-few-values",
       "valuesAvailable": [
         0,
-        10
+        28
       ],
       "inAuthorScreen": true,
       "sharedAuthors": 3,
@@ -236,6 +474,7 @@
         "a9012191142e7e02"
       ],
       "identicalValues": 0,
+      "matchedFractionOfSmaller": 0.0,
       "verdict": "undetermined-too-few-values",
       "valuesAvailable": [
         0,
@@ -252,6 +491,7 @@
         "7902e3ec54370729"
       ],
       "identicalValues": 0,
+      "matchedFractionOfSmaller": 0.0,
       "verdict": "different-cohort",
       "valuesAvailable": [
         8,
@@ -268,6 +508,7 @@
         "834de4d822dfb3cd"
       ],
       "identicalValues": 0,
+      "matchedFractionOfSmaller": 0.0,
       "verdict": "undetermined-too-few-values",
       "valuesAvailable": [
         0,
@@ -284,6 +525,7 @@
         "ad7c0004c386f31c"
       ],
       "identicalValues": 0,
+      "matchedFractionOfSmaller": 0.0,
       "verdict": "undetermined-too-few-values",
       "valuesAvailable": [
         0,
@@ -300,6 +542,7 @@
         "7a6ac1559c740fd6"
       ],
       "identicalValues": 0,
+      "matchedFractionOfSmaller": 0.0,
       "verdict": "different-cohort",
       "valuesAvailable": [
         8,
@@ -316,10 +559,11 @@
         "d4149a8bac287851"
       ],
       "identicalValues": 0,
+      "matchedFractionOfSmaller": 0.0,
       "verdict": "different-cohort",
       "valuesAvailable": [
         9,
-        10
+        28
       ],
       "inAuthorScreen": true,
       "sharedAuthors": 2,
@@ -332,6 +576,7 @@
         "e4871d50d0001e66"
       ],
       "identicalValues": 0,
+      "matchedFractionOfSmaller": 0.0,
       "verdict": "undetermined-too-few-values",
       "valuesAvailable": [
         0,
@@ -348,6 +593,7 @@
         "ad7c0004c386f31c"
       ],
       "identicalValues": 0,
+      "matchedFractionOfSmaller": 0.0,
       "verdict": "different-cohort",
       "valuesAvailable": [
         3,
@@ -373,7 +619,12 @@
     {
       "probe": "多數論文真的抽得到受試者數值（必觸發）",
       "passed": true,
-      "detail": "🚨 抽不到的話，「零相同」只是沒東西可比；實得 29／41 篇有數值，4 篇連受試者段落都沒認出來"
+      "detail": "🚨 抽不到的話，「零相同」只是沒東西可比；實得 33／41 篇有數值，4 篇連受試者段落都沒認出來"
+    },
+    {
+      "probe": "樣式字面裡沒有控制字元（必觸發之反向）",
+      "passed": true,
+      "detail": "🚨 控制字元會讓樣式永遠不命中，⚠️ 而「沒命中」看起來像是「沒東西」；實得壞掉的樣式 0 條"
     },
     {
       "probe": "判準抓得到相同（必觸發之反向）",
@@ -383,13 +634,13 @@
     {
       "probe": "判準在真實資料上排除得掉（必觸發）",
       "passed": true,
-      "detail": "✅ 實得判為「不同批」者 374 對；🚨 若為零，代表它只會說「不知道」"
+      "detail": "✅ 實得判為「不同批」者 491 對；🚨 若為零，代表它只會說「不知道」"
     },
     {
-      "probe": "巧合率低（只相同 1 個數值的配對很少）",
+      "probe": "巧合率低（有部分重疊但判為不同批者很少）",
       "passed": true,
-      "detail": "⚠️ 820 對裡只相同 1 個數值者 3 對；🚨 若這個數字大，「相同 ≥2 個」就不代表同一批人"
+      "detail": "⚠️ 820 對裡有重疊卻比例不足者 4 對；🚨 若這個數字大，「相同 ≥2 個」就不代表同一批人"
     }
   ],
-  "auditHash": "sha256:2eb32bdde5f77130adf008baa7563e608ca3c194a51778d011689b9ef88505e8"
+  "auditHash": "sha256:892aaecca0733a0623ffc7ae65f0a715c523c8cbd7d98d4b7e22daa7042bcf61"
 }
