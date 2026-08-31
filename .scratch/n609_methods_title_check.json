@@ -1,0 +1,56 @@
+{
+  "schemaVersion": 1,
+  "documentType": "methods-title-check",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "distinctSectionTitles": 591,
+  "titlesMatchingMethods": 38,
+  "inScopeScanned": 98,
+  "outOfScopeScanned": 692,
+  "inScopeCitingMethodsTitle": 0,
+  "outOfScopeCitingMethodsTitle": 13,
+  "outOfScopeByReport": {
+    "a9012191142e7e02": 1,
+    "c4128a6f6dd2c0b5": 1,
+    "65dd82a89b2c5340": 4,
+    "54d4200c1c5e2b64": 1,
+    "307c0dd5b141caed": 3,
+    "d4149a8bac287851": 1,
+    "97c2233f7e60c801": 1,
+    "834de4d822dfb3cd": 1
+  },
+  "n598SectionsCaughtByTitle": [],
+  "complementarity": "🚨 兩條檢查各自看不見對方抓到的東西：⚠️ 標題式對「名字不像方法的方法段」全盲（n598 那 7 項就是）；⚠️ 內容式對「有數字的方法段」全盲（方法段本來就有數字）。✅ 兩條都要，🚫 而任何一條單獨都會給出「沒事」。",
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "controlProbes": [
+    {
+      "probe": "掃到的是那 98 項（必觸發）",
+      "passed": true,
+      "detail": "🚨 對不上就代表本支看的不是同一批；實得 98 項"
+    },
+    {
+      "probe": "樣式在真實標題上打得中（必觸發之反向）",
+      "passed": true,
+      "detail": "✅ 語料 591 個相異標題中命中 38 個；🚨 若為零，「在範圍內 0 項」只是樣式壞了"
+    },
+    {
+      "probe": "這條檢查在真實資料上會亮（必觸發之反向）",
+      "passed": true,
+      "detail": "✅ 範圍外的結局有 13 項引用方法段；🚨 若為零，「在範圍內 0 項」就可能只是它從不觸發"
+    },
+    {
+      "probe": "在範圍內沒有結局引用方法類標題的段落",
+      "passed": true,
+      "detail": "✅ 實得 0 項"
+    },
+    {
+      "probe": "標題式檢查抓得到 n598 那一批",
+      "passed": false,
+      "detail": "🚨 n598 那 7 項引用的段落是 ['Gastrointestinal discomfort']——⚠️ 那個標題一點都不像方法段，而內容是方法。🚫 故標題式檢查對它全盲，✅ 而內容式檢查對「有數字的方法段」全盲——**兩條都要**"
+    }
+  ],
+  "auditHash": "sha256:3675d426056f13a0b5facd4b6c0fcbfed6dfcfe5a356415391ef3cf286232fee"
+}
