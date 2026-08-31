@@ -1,0 +1,102 @@
+{
+  "schemaVersion": 1,
+  "documentType": "zero-declared-adjudication",
+  "question": "第 586 輪點名的 5 篇零宣告論文，零是不是正確的",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "answer": "✅ 五篇全部是正當的零，讀的人都對。🚨 故 98 這個數字不因這五篇而偏低。",
+  "nearMissVocabulary": {
+    "mean-not-peak": "第一型：平均 ≠ 峰值（第 557 輪）",
+    "three-min-all-out": "第二型：三分鐘全力測驗既不固定距離也不固定強度",
+    "allowed-instrument-reports-power": "第三型：允許的工具，但報的是功率不是時間",
+    "fixed-time-reports-work": "第四型：固定時間的試驗報作功量（第 561 輪）",
+    "fixed-time-reports-power": "第五型：固定時間的試驗報功率（第 566 輪）",
+    "glycogen-utilisation-not-concentration": "第六型：肝醣氧化／利用率 ≠ 運動後濃度（第 568 輪）"
+  },
+  "adjudication": {
+    "b9ab2f27317a6a2b": {
+      "whatThePaperReports": "肌肉肝醣以任意單位（AU）分肌纖維型別呈現，且陳述的是運動造成的**淨下降量**與試驗間差異。",
+      "nearMiss": [
+        "glycogen-utilisation-not-concentration"
+      ],
+      "zeroIsCorrect": true,
+      "alsoNote": "⚠️ 單位是 AU（組織化學），🚫 不是契約所要的濃度單位。"
+    },
+    "4103c4b52bbf21e6": {
+      "whatThePaperReports": "兩小時騎乘後接 **15 分鐘**全力計時賽，紀錄作功（kJ）、距離（km）與平均速度。",
+      "nearMiss": [
+        "fixed-time-reports-work",
+        "fixed-time-reports-power"
+      ],
+      "zeroIsCorrect": true,
+      "alsoNote": "🚨 固定的是**時間**，故沒有「完成時間」這個結果。"
+    },
+    "c97d2ed84b0d1057": {
+      "whatThePaperReports": "**15 分鐘**計時賽，報三個條件的**總作功（kJ）**。",
+      "nearMiss": [
+        "fixed-time-reports-work"
+      ],
+      "zeroIsCorrect": true,
+      "alsoNote": null
+    },
+    "97c2233f7e60c801": {
+      "whatThePaperReports": "外源碳水氧化以**第二小時的總克數與速率**呈現；⚠️ 全文出現「peak」之處是討論別人的研究，🚫 不是本篇自己報的峰值。",
+      "nearMiss": [
+        "mean-not-peak"
+      ],
+      "zeroIsCorrect": true,
+      "alsoNote": "⚠️ 論文自述只取第二小時，因為該時段速率穩定——🚨 那正是「不是峰值」的原因。"
+    },
+    "44243ac624c9b5e0": {
+      "whatThePaperReports": "表現測驗是 **5 分鐘平均功率**測驗。",
+      "nearMiss": [
+        "fixed-time-reports-power"
+      ],
+      "zeroIsCorrect": true,
+      "alsoNote": "🚨 它的 8 處 `time trial` **全部在參考文獻裡**——⚠️ 那正是全文詞彙底率會是 41／41 的原因。"
+    }
+  },
+  "inScopeNow": {
+    "b9ab2f27317a6a2b": 0,
+    "4103c4b52bbf21e6": 0,
+    "c97d2ed84b0d1057": 0,
+    "97c2233f7e60c801": 0,
+    "44243ac624c9b5e0": 0
+  },
+  "retraction": "🚨 第 586 輪說「五篇全部命中結局詞彙」——⚠️ 而其中一篇的命中**全部在參考文獻裡**。✅ 全文詞彙篩選必須排除參考文獻段落，🚫 否則它量的是「這個領域引用了誰」。",
+  "consistencyDatapoint": {
+    "pair": [
+      "4103c4b52bbf21e6",
+      "65d459b9129da800"
+    ],
+    "situation": "固定**時間**的計時賽（15 分鐘／30 分鐘），報的是作功或平均功率",
+    "outcome": "⚠️ 一個視窗不宣告（✅ 正確），🚨 另一個宣告成 tt-completion-time（❌ 錯，n585 之撤回類）",
+    "lesson": "🚨 本 run 第一個跨視窗、同情境、可判定對錯的一致性資料點：**產出為零的那一次，比產出非零的那一次更可信。**",
+    "declaredCounts": {
+      "65d459b9129da800": 9,
+      "4103c4b52bbf21e6": 0
+    }
+  },
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "controlProbes": [
+    {
+      "probe": "這五篇現在仍然是零（必觸發）",
+      "passed": true,
+      "detail": "🚨 若已經不是零，本份判讀就過期了，⚠️ 而過期的判讀看起來跟有效的一樣；實得 {'b9ab2f27317a6a2b': 0, '4103c4b52bbf21e6': 0, 'c97d2ed84b0d1057': 0, '97c2233f7e60c801': 0, '44243ac624c9b5e0': 0}"
+    },
+    {
+      "probe": "引用的「差一點」型別都在已立的六型裡（必觸發之反向）",
+      "passed": true,
+      "detail": "🚨 打錯一個鍵就等於發明一個沒立過的型別；實得未知 無"
+    },
+    {
+      "probe": "同情境相反答案確實存在（必觸發之反向）",
+      "passed": true,
+      "detail": "⚠️ 4103c4b52bbf21e6 宣告 0 項、65d459b9129da800 宣告 9 項；🚨 若兩者相同，本支所稱的一致性資料點就不存在"
+    }
+  ],
+  "auditHash": "sha256:0a4dd9d35a4c21521d29621ab7803dcf800823578adea047cdba252097da2545"
+}
