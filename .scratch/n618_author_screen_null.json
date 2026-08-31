@@ -1,0 +1,50 @@
+{
+  "schemaVersion": 1,
+  "documentType": "author-screen-null",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "seed": 20260901,
+  "trials": 400,
+  "reports": 41,
+  "observedPairsAuthorsOnly": 22,
+  "observedPairsWithYearFilter": 17,
+  "nullMean": 10.11,
+  "nullRange": [
+    3,
+    22
+  ],
+  "nullPercentiles": {
+    "p50": 10,
+    "p95": 15
+  },
+  "timesNullReachedObserved": 2,
+  "pValue": 0.0075,
+  "whatThisTests": "✅ 只問一件事：第 581 輪那 17 對「共有 ≥2 位作者」，🚨 隨機打散作者後會不會也出現這麼多。🚫 不改任何既有判定。",
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "controlProbes": [
+    {
+      "probe": "作者清單取到了（必觸發）",
+      "passed": true,
+      "detail": "🚨 少了就低估重疊；實得 41 篇（每篇 1–24 位作者）"
+    },
+    {
+      "probe": "兩種定義的差額說得出來（必觸發）",
+      "passed": true,
+      "detail": "⚠️ 只看作者重疊 22 對；再加「年差 ≤4」則 17 對（＝第 581 輪那個數）。🚨 本支的 p 值屬於**前者**——🚫 年份有 10 篇不明，把它放進虛無模型會讓虛無自己帶著缺值"
+    },
+    {
+      "probe": "隨機打散後仍會出現重疊（必觸發之反向）",
+      "passed": true,
+      "detail": "✅ 虛無分布 3–22 對、平均 10.1；🚨 若全為零，代表打散方式錯了，而「顯著」會是假的"
+    },
+    {
+      "probe": "觀察到的重疊超出偶然",
+      "passed": true,
+      "detail": "⚠️ 觀察 22 對；虛無平均 10.1、範圍 3–22；🚨 2／400 次隨機達到或超過觀察值，p ≈ 0.007"
+    }
+  ],
+  "auditHash": "sha256:b10ac612416f35d79302419cfbaf605baaee97c319c1262fc71a01544f39309c"
+}
