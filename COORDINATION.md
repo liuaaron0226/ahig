@@ -79910,3 +79910,69 @@ harms：harms-reported 14｜explicit-none-reported 1｜not-mentioned 8
 **工作單 41 篇｜已讀 23｜尚未讀 18。**
 **閘門**：n+48 兩道 ✅｜n+54 三道 ✅｜**測試 810／0 ✅，exit=0**。
 **🚫 `ahig/` 無改動**；新增 `.scratch/n574_instrument_exclusions.py`／`.json`，🚫 不入輪次閘門。
+
+---
+
+## 🚨 執行室回報：**41 篇全讀完了；而 n+189 的新守衛第一次上場就擋下 3 篇，其中一篇是對應錯**（第 575 輪）
+
+看板無新裁定（`review_packet` 之路徑修正已收）。
+
+### 一、🚨 先擋一個會毀掉 23 篇已讀成果的作法
+
+n+189（三）說「工作單需重新產生」。**⚠️ 而 `--write` 遇到既有目錄會拒絕**——
+**🚨 照做的人只能先刪目錄，而 `drafts.json` 與 `drafts/` 就在裡面。**
+
+**✅ 已補 `--regenerate`：只覆寫 `worksheet.json` 與 `pages/`，
+🚫 一個位元組都不碰 `drafts.json`／`drafts/`／`second/`。**
+**🚨 前提條件是「沒有任何一篇換頁」**——⚠️ 逐頁清冊按頁碼存，
+分頁一移動舊清冊會對到別頁上，**而那是安靜的錯**。
+
+實測：payload **+34,440 字元（+1.69%）**，**18 頁不變、0 篇換頁**，✅ 就地更新成功。
+
+### 二、✅ 41 篇全部讀完（並行視窗把 10–17 頁也讀了）
+
+```
+清冊 38 份｜登錄 790 項｜在範圍內 98 項｜🚫 無一篇超過上限 12
+harms：harms-reported 24｜explicit-none-reported 2｜not-mentioned 12
+```
+
+| 契約結局 | 篇數 | | 判定理由 | 項數 |
+|---|---|---|---|---|
+| `gi-symptom-severity` | 21 | | `outcome-not-in-scope` | 647 |
+| `exogenous-cho-oxidation-peak` | 13 | | **`in-scope`** | **98** |
+| `tt-completion-time` | 12 | | `dose-outside-bands` | 19 |
+| `gi-symptom-incidence` | 11 | | `no-numeric-result` | 10 |
+| `time-to-exhaustion` | 8 | | `instrument-not-in-allowlist` | 9 |
+| `muscle-glycogen-post-exercise` | **3** | | `effect-measure-not-in-scope` | 7 |
+
+### 三、🚨 n+189 的驗收守衛第一次上場就擋下 3 篇——**而它擋到的不只是命名**
+
+```
+第 10 頁 65d459b9129da800  填 'cycling-time-trial-fixed-duration-30min'
+第 10 頁 3f34fc92d4f4b70d  填 'treadmill-time-trial-5km'
+第 11 頁 f6a82302d7fe9adf  填 'cycling-time-to-exhaustion-fixed-power'
+```
+
+**⚠️ 三篇不是同一回事：**
+
+| 篇 | 實情 | 怎麼修 |
+|---|---|---|
+| `3f34fc92d4f4b70d` | 標籤是「**Time to complete** the 5 km treadmill time trial」——固定距離、報時間 | ✅ **命名錯誤**：改成 `running-time-trial-fixed-distance` |
+| `f6a82302d7fe9adf` | 「Time-to-exhaustion cycling at **75% Wmax**」——固定強度 | ✅ **命名錯誤**：改成 `cycling-tte-fixed-intensity` |
+| `65d459b9129da800` | 標籤是「**Mean power output** during the 30 min self-paced time trial」 | **🚨 對應錯，不是命名錯**——⚠️ 平均功率不是完成時間（第 566 輪之第五型），**🚫 該項根本不該對應** |
+
+> **🚨 這是本輪最要緊的一句**：那道守衛表面上查的是儀器名，
+> **⚠️ 但一個「其實不是計時賽完成時間」的項目，本來就找不到允許的儀器可填**——
+> **✅ 於是它連帶擋下了對應錯誤，而那是它沒有被設計要抓的東西。**
+
+### 四、📮 待處置（🚫 皆非本室可逕行）
+
+1. **上述 3 篇的清冊要由讀它們的視窗修正後重交**——⚠️ 逐頁一檔的守衛會擋覆寫，這是刻意的。
+2. **重讀 `7a6ac1559c740fd6`**（第 8 頁，唯一有切片肝醣者）——⚠️ 同樣需先移除舊的逐頁清冊。
+3. **滑雪 2 篇**（第 574 輪）：📮 契約的 TT 工具要不要涵蓋滑雪。
+
+### 五、進度與本輪對外請求：**0**
+
+**工作單 41 篇｜18 頁全部有清冊｜38 篇已進鏈、3 篇被驗收擋下。**
+**閘門**：n+48 兩道 ✅｜n+54 三道 ✅｜**測試 810／0 ✅，exit=0**。
+**🚨 `.scratch/extract_worksheet.py` 增 `--regenerate`**；🚫 `ahig/` 無改動。
