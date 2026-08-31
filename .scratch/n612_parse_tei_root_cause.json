@@ -1,0 +1,129 @@
+{
+  "schemaVersion": 1,
+  "documentType": "parse-tei-root-cause",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "rootCause": "🚨 `parse_tei` 只走 `<body>` 底下的 `<div>`；⚠️ 而 GROBID 把表格放在 `<figure type=\"table\">`，它是 `<body>` 的直接子元素、與 `<div>` 平行。✅ 故 visit() 從來不會走到它們。",
+  "asymmetryInCode": {
+    "parse_tei": {
+      "table": 0,
+      "figure": 0
+    },
+    "parse_jats": {
+      "table": 29,
+      "figure": 0
+    },
+    "note": "🚨 JATS 有 append_table，TEI 一行都沒有。"
+  },
+  "droppedAcross15Reports": {
+    "figure": 225,
+    "figure-table": 50,
+    "note": 19
+  },
+  "perReport": [
+    {
+      "report": "7902e3ec54370729",
+      "figures": 7,
+      "tables": 1
+    },
+    {
+      "report": "48da8a7f2f35af1f",
+      "figures": 13,
+      "tables": 2
+    },
+    {
+      "report": "6b7320d74cdda857",
+      "figures": 7,
+      "tables": 0
+    },
+    {
+      "report": "7a6ac1559c740fd6",
+      "figures": 17,
+      "tables": 3
+    },
+    {
+      "report": "3f34fc92d4f4b70d",
+      "figures": 7,
+      "tables": 1
+    },
+    {
+      "report": "c3028a8a7b1ae2a1",
+      "figures": 8,
+      "tables": 2
+    },
+    {
+      "report": "a9012191142e7e02",
+      "figures": 8,
+      "tables": 1
+    },
+    {
+      "report": "ad7c0004c386f31c",
+      "figures": 3,
+      "tables": 2
+    },
+    {
+      "report": "c4128a6f6dd2c0b5",
+      "figures": 9,
+      "tables": 4
+    },
+    {
+      "report": "65dd82a89b2c5340",
+      "figures": 6,
+      "tables": 2
+    },
+    {
+      "report": "82cbc04b68c38e79",
+      "figures": 11,
+      "tables": 1
+    },
+    {
+      "report": "1105537918c174c9",
+      "figures": 3,
+      "tables": 1
+    },
+    {
+      "report": "307c0dd5b141caed",
+      "figures": 115,
+      "tables": 27
+    },
+    {
+      "report": "eac2b5fd6bb06843",
+      "figures": 7,
+      "tables": 3
+    },
+    {
+      "report": "298c326024d22835",
+      "figures": 4,
+      "tables": 0
+    }
+  ],
+  "proposedMinimalFix": "✅ 在 TEI 那一支比照 JATS 的 append_table：把 `<body>` 直接子元素中的 `<figure type=\"table\">`（以及 div 內的）收成 kind=table 的節。⚠️ 本室**不逕自施行**——🚨 它會改變雜湊。",
+  "fixMakesA1Harder": "🚨 重新解析會改變 contentSha256／sectionsSha256，⚠️ 那 15 篇的綁定與 draft 的 manifestation 都會變——✅ 修好之後那 15 篇是「另一版的文件」。📮 而 A1 問的正是全語料同版與否：**修會製造新的版本分歧，不修則 13 篇的讀者看不到表格。**🚫 兩害相權是協調者的事。",
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "controlProbes": [
+    {
+      "probe": "讀到了 15 篇 TEI（必觸發）",
+      "passed": true,
+      "detail": "🚨 少一篇診斷就不完整；實得 15 篇"
+    },
+    {
+      "probe": "JATS 那一支確實處理表格（正對照，必觸發）",
+      "passed": true,
+      "detail": "✅ parse_jats 內提到 table 29 次；🚨 若為零，那就是「這條管線本來就不收表格」，而不是 TEI 那支漏了"
+    },
+    {
+      "probe": "TEI 那一支有處理表格的分支",
+      "passed": false,
+      "detail": "🚨 parse_tei 內提到 table 0 次、figure 0 次——⚠️ 它只走 <body> 底下的 <div>，而 GROBID 把表格放在 <figure type=\"table\">，那是 <div> 的兄弟節點"
+    },
+    {
+      "probe": "修好之後語料仍是同一版",
+      "passed": false,
+      "detail": "🚨 重新解析會改變 contentSha256 與 sectionsSha256——⚠️ 那 15 篇的綁定與每一份 draft 的 manifestation 雜湊都會變；✅ 而 A1 問的正是「全語料是不是同一版請求」"
+    }
+  ],
+  "auditHash": "sha256:7568db38c898efbf464eefd9f0862baa0220b8e92db16fc5a284e6e3014caf2d"
+}
