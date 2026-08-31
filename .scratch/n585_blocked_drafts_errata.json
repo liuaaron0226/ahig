@@ -1,0 +1,143 @@
+{
+  "schemaVersion": 1,
+  "documentType": "blocked-drafts-errata",
+  "ruling": "n+190（三）A4：門口被擋下的三筆全部結清",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "appliesNothing": "🚫 本支只記錄，不修改——⚠️ 逐頁清冊是別的視窗交回的，🚨 本室不逕自改寫另一個視窗讀出來的宣告。",
+  "blockedReports": [
+    "3f34fc92d4f4b70d",
+    "65d459b9129da800",
+    "f6a82302d7fe9adf"
+  ],
+  "zeroedButNotBlocked": [
+    "298c326024d22835",
+    "7a6ac1559c740fd6",
+    "9a3b03b4fb24cf65"
+  ],
+  "kinds": 7,
+  "itemsByCategory": {
+    "rename-safe": 15,
+    "withdraw": 5,
+    "rename-needs-ruling": 3,
+    "contract-gap": 3
+  },
+  "itemsByReport": {
+    "65d459b9129da800": 11,
+    "7a6ac1559c740fd6": 9,
+    "3f34fc92d4f4b70d": 9,
+    "f6a82302d7fe9adf": 6,
+    "298c326024d22835": 2,
+    "9a3b03b4fb24cf65": 1
+  },
+  "rows": [
+    {
+      "outcomeId": "time-to-exhaustion",
+      "declaredInstrument": "cycling-time-to-exhaustion-fixed-power",
+      "items": 6,
+      "reports": [
+        "7a6ac1559c740fd6",
+        "f6a82302d7fe9adf"
+      ],
+      "category": "rename-safe",
+      "correctTo": "cycling-tte-fixed-intensity",
+      "why": "✅ 固定功率騎到力竭＝固定強度之力竭時間，⚠️ 只是契約用 intensity 一詞。"
+    },
+    {
+      "outcomeId": "exogenous-cho-oxidation-peak",
+      "declaredInstrument": "13c-tracer-irms-indirect-calorimetry",
+      "items": 6,
+      "reports": [
+        "3f34fc92d4f4b70d",
+        "65d459b9129da800"
+      ],
+      "category": "rename-safe",
+      "correctTo": "13c-tracer-indirect-calorimetry",
+      "why": "✅ 同一條方法，⚠️ 讀的人多寫了 irms（質譜儀）。🚨 兩篇各自寫出同一個名字，故這是契約用語不夠明顯，🚫 不是誰粗心。"
+    },
+    {
+      "outcomeId": "tt-completion-time",
+      "declaredInstrument": "cycling-time-trial-fixed-duration-30min",
+      "items": 5,
+      "reports": [
+        "65d459b9129da800"
+      ],
+      "category": "withdraw",
+      "correctTo": null,
+      "why": "🚨 這 5 項的標籤全部是「**Mean power output** during the 30 min self-paced time trial」——⚠️ **平均功率不是完成時間**。✅ 第 566 輪之第五型：固定**時間**的試驗報的是功率。🚫 改名救不了；⚠️ 契約也沒有固定時間長度的計時賽工具，🚨 但那是次要的——**主要問題是宣告本身。**"
+    },
+    {
+      "outcomeId": "muscle-glycogen-post-exercise",
+      "declaredInstrument": "acid-hydrolysis-freeze-dried-biopsy",
+      "items": 3,
+      "reports": [
+        "7a6ac1559c740fd6"
+      ],
+      "category": "rename-needs-ruling",
+      "correctTo": "needle-biopsy-vastus-lateralis",
+      "why": "⚠️ **部分相符**：論文的取樣部位敘述指的就是股外側肌，✅ 部位對得上（🚫 原句不逐字寫進 repo）；🚨 但**全文沒有出現 needle**，而允許值裡有這個字。⚠️ 讀的人寫的是**化驗方法**（酸水解、冷凍乾燥），🚫 不是取樣方法。📮 「部位相符即可」還是「必須逐字有 needle」，只有協調者能定。"
+    },
+    {
+      "outcomeId": "tt-completion-time",
+      "declaredInstrument": "treadmill-time-trial-5km",
+      "items": 3,
+      "reports": [
+        "3f34fc92d4f4b70d"
+      ],
+      "category": "rename-safe",
+      "correctTo": "running-time-trial-fixed-distance",
+      "why": "✅ 跑步機上跑固定的 5 公里＝跑步之固定距離計時賽。"
+    },
+    {
+      "outcomeId": "tt-completion-time",
+      "declaredInstrument": null,
+      "items": 2,
+      "reports": [
+        "298c326024d22835"
+      ],
+      "category": "contract-gap",
+      "correctTo": null,
+      "why": "✅ 本室讀第 18 頁時**刻意留空**：⚠️ 同一個滑雪缺口，🚫 自創一個工具名等於製造假對應。"
+    },
+    {
+      "outcomeId": "tt-completion-time",
+      "declaredInstrument": "double-poling-ski-ergometer-time-trial-fixed-distance",
+      "items": 1,
+      "reports": [
+        "9a3b03b4fb24cf65"
+      ],
+      "category": "contract-gap",
+      "correctTo": null,
+      "why": "🚨 契約的計時賽工具只有自行車與跑步，**沒有滑雪**（第 573 輪已報）。"
+    }
+  ],
+  "linkedToN584": "🚨 rename-safe 會讓 7a6ac1559c740fd6 從「在範圍內 0 項」變回 9 項，⚠️ 而其中的肌肉肝醣正是 n584 那本博士論文 Study 2 的同一批 8 人。📮 故改名與「這兩筆算一個 study」是同一個決定，🚫 不可分開做。",
+  "detailKeptPrivate": "C:\\Users\\User\\Desktop\\claude\\ahig-private\\extraction\\n585-errata-labels.json",
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "controlProbes": [
+    {
+      "probe": "真的掃到對不上的名字（必觸發）",
+      "passed": true,
+      "detail": "🚨 若為零，這份更正表就是空的，⚠️ 而空的更正表看起來像是「沒事」；實得 7 種／26 項／6 篇"
+    },
+    {
+      "probe": "每一種都分過類（必觸發之反向）",
+      "passed": true,
+      "detail": "🚨 沒分類的會落進 unclassified 而不被看見；實得未分類 0 種 []"
+    },
+    {
+      "probe": "四類都真的出現在資料裡（必觸發之反向）",
+      "passed": true,
+      "detail": "⚠️ 沒出現的類別代表那條規則沒被驗證過；實得缺 無"
+    },
+    {
+      "probe": "本支沒有改動任何工作單檔案",
+      "passed": true,
+      "detail": "✅ 本支只讀不寫；🚨 若這裡紅了，代表它動了別的視窗交回的東西"
+    }
+  ],
+  "auditHash": "sha256:571643aab74ff1f5d30528aa97490d89a3b8ec82d80fc2b4fe9d9aea44acabba"
+}
