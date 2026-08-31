@@ -1,0 +1,89 @@
+{
+  "schemaVersion": 1,
+  "documentType": "gate-pattern-positive-controls",
+  "ruling": "n+112（二）：期待為空之檢查無法自證——閘門的控制探針用的是別的樣式",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "why": "⚠️ 閘門的控制探針證明「讀得到、比對得動」，🚫 不證明那七道樣式打得中它們要打的東西。🚨 而 n+54 三式既沒有原件比對（看板只公告一式），也沒有自己的正向對照——打錯一個空白就會永遠回報 ✅。",
+  "source": "以 AST 從 round_gate.py 取出實際在用的字面值，🚫 不匯入（它是腳本）、🚫 不重打（重打正是這一題的病）。",
+  "cases": [
+    {
+      "pattern": "title-line",
+      "regex": "^TITLE:",
+      "catchesTheThingItIsFor": true,
+      "alsoCatchesTheNearMiss": false,
+      "nearMiss": " TITLE: 前面多一個空白"
+    },
+    {
+      "pattern": "abstract-line",
+      "regex": "^ABS:",
+      "catchesTheThingItIsFor": true,
+      "alsoCatchesTheNearMiss": false,
+      "nearMiss": "XABS: 前面多一個字"
+    },
+    {
+      "pattern": "europepmc-field",
+      "regex": "\"abstractText\"",
+      "catchesTheThingItIsFor": true,
+      "alsoCatchesTheNearMiss": false,
+      "nearMiss": "{\"abstract_text\": \"…\"}"
+    },
+    {
+      "pattern": "indented-title",
+      "regex": "^   T: ",
+      "catchesTheThingItIsFor": true,
+      "alsoCatchesTheNearMiss": false,
+      "nearMiss": "  T: 只縮排兩格"
+    },
+    {
+      "pattern": "merge-begin",
+      "regex": "^<<<<<<< ",
+      "catchesTheThingItIsFor": true,
+      "alsoCatchesTheNearMiss": false,
+      "nearMiss": "<<<<<<<HEAD"
+    },
+    {
+      "pattern": "merge-end",
+      "regex": "^>>>>>>> ",
+      "catchesTheThingItIsFor": true,
+      "alsoCatchesTheNearMiss": false,
+      "nearMiss": ">>>>>>>branch"
+    },
+    {
+      "pattern": "merge-sep",
+      "regex": "^=======$",
+      "catchesTheThingItIsFor": true,
+      "alsoCatchesTheNearMiss": false,
+      "nearMiss": "========"
+    }
+  ],
+  "missedPositive": [],
+  "matchedNearMiss": [],
+  "coverageFactMeasured": "⚠️ 近似樣本順帶量到一件事：`^TITLE:` 打的是**零縮排**，而 `^   T: ` 打的是**恰好三格縮排**。🚨 故「兩格縮排的 TITLE:」兩道都打不中。🚫 本室不主張改樣式（那是看板公告的原件），✅ 只把這個涵蓋事實記下來——⚠️ 它先前沒有被寫在任何地方。",
+  "whatThisDoesNotProve": [
+    "🚨 不證明樣式**該**長這樣——那是原件比對的事，⚠️ 而 n+54 三式的原件看板上沒有完整公告。",
+    "🚨 不證明沒有文獻內容：閘門自己的涵蓋範圍聲明已載明「不加標記的英文題名」抓不到。"
+  ],
+  "controlProbes": [
+    {
+      "probe": "七道樣式全部打得中它們要打的東西",
+      "passed": true,
+      "detail": "🚨 打不中的樣式會每輪回報 ✅ 而永遠抓不到任何東西；打不中者：無"
+    },
+    {
+      "probe": "近似樣本一個都不中（必觸發之反向）",
+      "passed": true,
+      "detail": "🚨 什麼都打得中的樣式，正樣本一樣會過；誤中者：無"
+    },
+    {
+      "probe": "樣式是從閘門取出的，🚫 不是重打的",
+      "passed": true,
+      "detail": "取到 7 道（PASS1 四 ＋ CONFLICT 三）"
+    },
+    {
+      "probe": "行首錨定真的靠 re.M（必觸發）",
+      "passed": true,
+      "detail": "🚨 若不加 re.M 也打得中，代表這個正樣本沒有在測錨定"
+    }
+  ],
+  "auditHash": "sha256:bc84a8170b274d9a04adad1263d404a83edead113034597f26009ed9aa514643"
+}
