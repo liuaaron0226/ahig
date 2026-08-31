@@ -36,6 +36,7 @@
 from __future__ import annotations
 
 import json
+import re
 from collections.abc import Sequence
 from pathlib import Path
 
@@ -207,12 +208,24 @@ def _require_readable_agent(read_by: object) -> None:
             "🚫 來源記載不可能為真的清冊不得收下")
 
 
-def _page_draft_files(out_dir: Path) -> list[Path]:
-    return sorted((out_dir / "drafts").glob("page-*.json"))
+# 正式紀錄那一道。🚫 其他 lane 的東西**永遠不會**進入清冊——
+# ⚠️ 第二位讀者是拿來比對的，不是拿來補產量的。
+PRIMARY_LANE = "drafts"
+_LANE_OK = re.compile(r"^[a-z][a-z0-9-]{0,31}$")
+
+
+def _lane_dir(out_dir: Path, lane: str) -> Path:
+    if not _LANE_OK.match(lane):
+        raise WorksheetError(f"lane 名稱不合法：{lane!r}")
+    return out_dir / lane
+
+
+def _page_draft_files(out_dir: Path, lane: str = PRIMARY_LANE) -> list[Path]:
+    return sorted(_lane_dir(out_dir, lane).glob("page-*.json"))
 
 
 def write_page_drafts(out_dir: Path, page: int, entries: Sequence[dict], *,
-                      read_by: dict) -> dict:
+                      read_by: dict, lane: str = PRIMARY_LANE) -> dict:
     """一頁的清冊寫成**自己的檔**：`drafts/page-NNN.json`。
 
     ## 🚨 為什麼要有這一支
@@ -245,9 +258,9 @@ def write_page_drafts(out_dir: Path, page: int, entries: Sequence[dict], *,
             "會讓兩個視窗各自登錄同一篇而彼此看不見")
 
     doc = {"documentType": "extraction-drafts-page", "adr": "ADR-0009",
-           "source": sheet["source"], "page": page,
+           "source": sheet["source"], "page": page, "lane": lane,
            "readBy": read_by, "entries": validated}
-    path = out_dir / "drafts" / f"page-{page:03d}.json"
+    path = _lane_dir(out_dir, lane) / f"page-{page:03d}.json"
     if path.exists():
         existing = json.loads(path.read_text(encoding="utf-8"))
         if existing == doc:
@@ -362,6 +375,80 @@ def page(out_dir: Path, number: int) -> dict:
     if not path.exists():
         raise WorksheetError("沒有第 %d 頁：%s" % (number, path.name))
     return json.loads(path.read_text(encoding="utf-8"))
+
+
+def load_lane(out_dir: Path, lane: str) -> dict:
+    """讀回某一道 lane 的清冊。**🚫 不驗完整、🚫 不進正式紀錄。**
+
+    ⚠️ 第二位讀者多半只讀一部分（他讀得動多少算多少），**🚨 故「有洞」是常態**。
+    """
+    out_dir = _require_private(Path(out_dir))
+    sheet = json.loads((out_dir / "worksheet.json").read_text(encoding="utf-8"))
+    index = {it["report"]: it for it in sheet["items"]}
+    seen: set[str] = set()
+    entries: list[dict] = []
+    read_by_pages: dict[str, dict] = {}
+    for path in _page_draft_files(out_dir, lane):
+        doc = json.loads(path.read_text(encoding="utf-8"))
+        page_entries = doc.get("entries") or []
+        if page_entries:
+            _require_readable_agent(doc.get("readBy"))
+        read_by_pages[str(doc.get("page"))] = doc.get("readBy")
+        entries += [_validate_entry(f"{path.name}[{i}]", item, index, seen)
+                    for i, item in enumerate(page_entries)]
+    return {"lane": lane, "readByPages": read_by_pages,
+            "drafts": {e["report"]: e for e in entries}}
+
+
+def _labels(draft: dict) -> dict[str, str]:
+    """結局標籤 → 正規化鍵。⚠️ 大小寫、前後空白、連續空白不計。"""
+    out = {}
+    for outcome in draft.get("reportedOutcomes") or []:
+        raw = str(outcome.get("localLabel") or "")
+        out[re.sub(r"\s+", " ", raw.strip().lower())] = raw
+    return out
+
+
+def agreement(primary: dict, second: dict) -> dict:
+    """兩位讀者對**同一批論文**各自登錄了什麼，逐篇比。
+
+    ## 🚨 這個數字量的是什麼，以及**不是**什麼
+
+    ✅ 量的是：兩邊都登錄了、只有一邊登錄了的**標籤**（正規化後逐字比）。
+
+    > **🚫 它不是正確率。** ⚠️ 兩位讀者可能把同一個結局叫成不同名字
+    > （「fat-free mass」對「lean body mass」），**那會被算成兩邊各有一個**。
+    > **🚨 故「只有一邊有」是一份要人看的清單，不是錯誤數。**
+
+    🚫 亦不比 `sourceLocation`、不比數值——⚠️ 那些要逐欄對，而逐欄對之前
+    得先確定兩邊講的是同一個結局，**🚨 那正是這一步還沒做到的事**。
+    """
+    shared = sorted(set(primary) & set(second))
+    rows = []
+    both = only_a = only_b = 0
+    for report in shared:
+        a, b = _labels(primary[report]), _labels(second[report])
+        common = sorted(a.keys() & b.keys())
+        rows.append({
+            "report": report,
+            "both": len(common),
+            "onlyPrimary": sorted(a[k] for k in a.keys() - b.keys()),
+            "onlySecond": sorted(b[k] for k in b.keys() - a.keys()),
+        })
+        both += len(common)
+        only_a += len(a) - len(common)
+        only_b += len(b) - len(common)
+    return {
+        "comparedReports": len(shared),
+        "primaryOnlyReports": sorted(set(primary) - set(second)),
+        "secondOnlyReports": sorted(set(second) - set(primary)),
+        "labelsBoth": both,
+        "labelsOnlyPrimary": only_a,
+        "labelsOnlySecond": only_b,
+        "rows": rows,
+        "caveat": ("逐字比標籤。同一個結局被叫成不同名字時會算成兩邊各有一個，"
+                   "故「只有一邊有」是待人看的清單，不是錯誤數。"),
+    }
 
 
 def reader_from(drafts: dict[str, dict]):

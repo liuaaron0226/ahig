@@ -319,6 +319,90 @@ def test_the_same_paper_in_both_the_shared_file_and_a_page_file_is_caught():
     _in_corpus(body)
 
 
+def test_a_second_reader_never_reaches_the_record():
+    """🚨 這是第二位讀者最要緊的一條。
+
+    ⚠️ 第二位讀者存在的理由是**比對**，🚫 不是補產量。
+    若它寫的東西會被 `load_drafts` 收進去，那它就從「對照組」變成「產量」，
+    **🚨 而一批半數由 A 讀、半數由 B 讀的清冊，看起來和一批乾淨的一模一樣。**
+    """
+    def body(root, candidate_id):
+        out, requests = _two_page_sheet(root, candidate_id)
+        worksheet.write_page_drafts(out, 1, [_draft_for(requests[0])],
+                                    read_by={"agentClass": "model"})
+        # 第二位讀者讀的是**同一頁**——在正式那一道這會被擋，在別道則否。
+        worksheet.write_page_drafts(
+            out, 1, [_draft_for(requests[0], inventoryId="inv:second")],
+            read_by={"agentClass": "model", "name": "second"}, lane="second")
+
+        got = worksheet.load_drafts(out, require_complete=False)
+        assert got["draftedCount"] == 1
+        assert got["drafts"][requests[0].report]["inventoryId"] != "inv:second"
+        assert worksheet.load_lane(out, "second")["drafts"][
+            requests[0].report]["inventoryId"] == "inv:second"
+
+    _in_corpus(body)
+
+
+def test_agreement_counts_labels_and_says_what_it_does_not_measure():
+    """✅ 兩邊都有的、只有一邊有的，逐篇列出。
+
+    ⚠️ 同一個結局被叫成不同名字時會算成兩邊各有一個——🚨 那正是為什麼
+    「只有一邊有」是待人看的清單，🚫 不是錯誤數。
+    """
+    def body(root, candidate_id):
+        out, requests = _two_page_sheet(root, candidate_id)
+        request = requests[0]
+        primary = _draft_for(request)
+        primary["reportedOutcomes"] = [
+            {"localLabel": "fat-free mass",
+             "sourceLocation": {"section": "Results"}},
+            {"localLabel": "VO2max", "sourceLocation": {"section": "Results"}}]
+        second = _draft_for(request, inventoryId="inv:second")
+        second["reportedOutcomes"] = [
+            {"localLabel": "  Fat-Free   Mass ",   # 只差大小寫與空白 → 算同一個
+             "sourceLocation": {"section": "Results"}},
+            {"localLabel": "lean body mass",       # 同一件事、不同叫法 → 算兩邊各一
+             "sourceLocation": {"section": "Results"}}]
+        worksheet.write_page_drafts(out, 1, [primary],
+                                    read_by={"agentClass": "model"})
+        worksheet.write_page_drafts(out, 1, [second], lane="second",
+                                    read_by={"agentClass": "model"})
+
+        got = worksheet.agreement(
+            worksheet.load_drafts(out, require_complete=False)["drafts"],
+            worksheet.load_lane(out, "second")["drafts"])
+        assert got["comparedReports"] == 1
+        assert got["labelsBoth"] == 1
+        assert got["labelsOnlyPrimary"] == 1 and got["labelsOnlySecond"] == 1
+        assert got["rows"][0]["onlyPrimary"] == ["VO2max"]
+        assert got["rows"][0]["onlySecond"] == ["lean body mass"]
+        assert "不是錯誤數" in got["caveat"]
+
+    _in_corpus(body)
+
+
+def test_agreement_only_compares_papers_both_readers_read():
+    """⚠️ 第二位讀者多半只讀一部分——🚫 沒讀的不得算成不同意。"""
+    def body(root, candidate_id):
+        out, requests = _two_page_sheet(root, candidate_id)
+        for page, request in enumerate(requests, start=1):
+            worksheet.write_page_drafts(out, page, [_draft_for(request)],
+                                        read_by={"agentClass": "model"})
+        worksheet.write_page_drafts(out, 1, [_draft_for(requests[0])],
+                                    lane="second",
+                                    read_by={"agentClass": "model"})
+
+        got = worksheet.agreement(
+            worksheet.load_drafts(out)["drafts"],
+            worksheet.load_lane(out, "second")["drafts"])
+        assert got["comparedReports"] == 1
+        assert got["primaryOnlyReports"] == [requests[1].report]
+        assert got["secondOnlyReports"] == []
+
+    _in_corpus(body)
+
+
 def test_a_reader_who_could_not_have_read_it_is_refused():
     """記下誰讀的還不夠——**有些記載在這個專案裡不可能為真**。
 

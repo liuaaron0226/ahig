@@ -7,7 +7,14 @@
 python .scratch/extract_page.py                 # 每一頁的狀態（已讀／未讀）
 python .scratch/extract_page.py 3               # 印出第 3 頁，供這個視窗讀
 python .scratch/extract_page.py 3 --submit x.json   # 把讀好的清冊交回
+python .scratch/extract_page.py 3 --submit x.json --lane second   # 第二位讀者
 ```
+
+## 🚨 第二位讀者（`--lane second`）
+
+⚠️ **另一個模型讀同一頁**，寫進另一道。**🚫 那一道永遠不會進入正式清冊**
+——✅ 它存在的理由是**比對**，🚫 不是補產量。
+🚨 一批半數由 A 讀、半數由 B 讀的清冊，看起來和一批乾淨的一模一樣。
 
 ## 🚨 為什麼需要這一支
 
@@ -91,7 +98,7 @@ def _show(number):
     return 0
 
 
-def _submit(number, path):
+def _submit(number, path, lane):
     payload = json.loads(Path(path).read_text(encoding='utf-8'))
     entries = payload['entries'] if isinstance(payload, dict) else payload
     if not isinstance(entries, list):
@@ -101,10 +108,14 @@ def _submit(number, path):
     read_by = (payload.get('readBy') if isinstance(payload, dict) else None) \
         or {'agentClass': 'model'}
     result = worksheet.write_page_drafts(OUT_DIR, number, entries,
-                                         read_by=read_by)
-    print('✅ 第 %d 頁已交回：%d 筆%s'
-          % (number, result['written'],
+                                         read_by=read_by, lane=lane)
+    print('✅ 第 %d 頁已交回（lane=%s）：%d 筆%s'
+          % (number, lane, result['written'],
              '（%s）' % result['reason'] if result.get('reason') else ''))
+    if lane != worksheet.PRIMARY_LANE:
+        print('   🚫 這一道**不會**進入正式清冊——⚠️ 它是拿來比對的。')
+        print('   ✅ 比對：`python .scratch/extract_agreement.py`')
+        return 0
     print('   接著任一個視窗跑 `python .scratch/extract_run.py --run` 都可以，')
     print('   ⚠️ 它只會把**已經有清冊**的那些跑進鏈裡。')
     return 0
@@ -123,8 +134,10 @@ def main(argv):
     except ValueError:
         print('🚨 第一個參數要是頁碼', file=sys.stderr)
         return 2
+    lane = (args[args.index('--lane') + 1] if '--lane' in args
+            else worksheet.PRIMARY_LANE)
     if '--submit' in args:
-        return _submit(number, args[args.index('--submit') + 1])
+        return _submit(number, args[args.index('--submit') + 1], lane)
     return _show(number)
 
 
