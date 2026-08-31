@@ -1,0 +1,340 @@
+{
+  "schemaVersion": 1,
+  "documentType": "tables-missing-from-payload",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "bySource": {
+    "europe-pmc-jats": {
+      "reports": 26,
+      "withTableSections": 20,
+      "share": "77%"
+    },
+    "grobid-tei": {
+      "reports": 15,
+      "withTableSections": 1,
+      "share": "7%"
+    }
+  },
+  "reportsCitingInvisibleTables": 17,
+  "grobidReports": 15,
+  "grobidCitingInvisibleTables": 13,
+  "rows": [
+    {
+      "report": "86e6a580108fd94b",
+      "sourceType": "europe-pmc-jats",
+      "tablesInSource": 12,
+      "tableSectionsInPayload": true,
+      "inTextTableReferences": 15
+    },
+    {
+      "report": "081d147cd92dee14",
+      "sourceType": "europe-pmc-jats",
+      "tablesInSource": 9,
+      "tableSectionsInPayload": true,
+      "inTextTableReferences": 6
+    },
+    {
+      "report": "59b4558a37f28bc9",
+      "sourceType": "europe-pmc-jats",
+      "tablesInSource": 3,
+      "tableSectionsInPayload": true,
+      "inTextTableReferences": 3
+    },
+    {
+      "report": "7902e3ec54370729",
+      "sourceType": "grobid-tei",
+      "tablesInSource": 1,
+      "tableSectionsInPayload": false,
+      "inTextTableReferences": 2
+    },
+    {
+      "report": "dbdb6ea55c9667c3",
+      "sourceType": "europe-pmc-jats",
+      "tablesInSource": 9,
+      "tableSectionsInPayload": false,
+      "inTextTableReferences": 3
+    },
+    {
+      "report": "c97d2ed84b0d1057",
+      "sourceType": "europe-pmc-jats",
+      "tablesInSource": 7,
+      "tableSectionsInPayload": true,
+      "inTextTableReferences": 4
+    },
+    {
+      "report": "0eea079e79bf7913",
+      "sourceType": "europe-pmc-jats",
+      "tablesInSource": 2,
+      "tableSectionsInPayload": true,
+      "inTextTableReferences": 3
+    },
+    {
+      "report": "48da8a7f2f35af1f",
+      "sourceType": "grobid-tei",
+      "tablesInSource": 2,
+      "tableSectionsInPayload": false,
+      "inTextTableReferences": 12
+    },
+    {
+      "report": "358bbf2c1886ac4b",
+      "sourceType": "europe-pmc-jats",
+      "tablesInSource": 0,
+      "tableSectionsInPayload": false,
+      "inTextTableReferences": 0
+    },
+    {
+      "report": "6b7320d74cdda857",
+      "sourceType": "grobid-tei",
+      "tablesInSource": 0,
+      "tableSectionsInPayload": true,
+      "inTextTableReferences": 5
+    },
+    {
+      "report": "44243ac624c9b5e0",
+      "sourceType": "europe-pmc-jats",
+      "tablesInSource": 9,
+      "tableSectionsInPayload": true,
+      "inTextTableReferences": 11
+    },
+    {
+      "report": "e4871d50d0001e66",
+      "sourceType": "europe-pmc-jats",
+      "tablesInSource": 6,
+      "tableSectionsInPayload": true,
+      "inTextTableReferences": 14
+    },
+    {
+      "report": "501bb474ac4704fa",
+      "sourceType": "europe-pmc-jats",
+      "tablesInSource": 10,
+      "tableSectionsInPayload": true,
+      "inTextTableReferences": 12
+    },
+    {
+      "report": "d4251685a43792ff",
+      "sourceType": "europe-pmc-jats",
+      "tablesInSource": 6,
+      "tableSectionsInPayload": true,
+      "inTextTableReferences": 9
+    },
+    {
+      "report": "8a62d501f88c7d04",
+      "sourceType": "europe-pmc-jats",
+      "tablesInSource": 7,
+      "tableSectionsInPayload": true,
+      "inTextTableReferences": 6
+    },
+    {
+      "report": "66e16f089f1522d1",
+      "sourceType": "europe-pmc-jats",
+      "tablesInSource": 3,
+      "tableSectionsInPayload": true,
+      "inTextTableReferences": 2
+    },
+    {
+      "report": "7a6ac1559c740fd6",
+      "sourceType": "grobid-tei",
+      "tablesInSource": 3,
+      "tableSectionsInPayload": false,
+      "inTextTableReferences": 11
+    },
+    {
+      "report": "7a97713bf254fa26",
+      "sourceType": "europe-pmc-jats",
+      "tablesInSource": 6,
+      "tableSectionsInPayload": true,
+      "inTextTableReferences": 6
+    },
+    {
+      "report": "b9ab2f27317a6a2b",
+      "sourceType": "europe-pmc-jats",
+      "tablesInSource": 6,
+      "tableSectionsInPayload": true,
+      "inTextTableReferences": 11
+    },
+    {
+      "report": "65d459b9129da800",
+      "sourceType": "europe-pmc-jats",
+      "tablesInSource": 9,
+      "tableSectionsInPayload": true,
+      "inTextTableReferences": 17
+    },
+    {
+      "report": "3f34fc92d4f4b70d",
+      "sourceType": "grobid-tei",
+      "tablesInSource": 1,
+      "tableSectionsInPayload": false,
+      "inTextTableReferences": 6
+    },
+    {
+      "report": "c3028a8a7b1ae2a1",
+      "sourceType": "grobid-tei",
+      "tablesInSource": 2,
+      "tableSectionsInPayload": false,
+      "inTextTableReferences": 4
+    },
+    {
+      "report": "f6a82302d7fe9adf",
+      "sourceType": "europe-pmc-jats",
+      "tablesInSource": 3,
+      "tableSectionsInPayload": true,
+      "inTextTableReferences": 3
+    },
+    {
+      "report": "e8d48c04f919dbb0",
+      "sourceType": "europe-pmc-jats",
+      "tablesInSource": 0,
+      "tableSectionsInPayload": false,
+      "inTextTableReferences": 0
+    },
+    {
+      "report": "a9012191142e7e02",
+      "sourceType": "grobid-tei",
+      "tablesInSource": 1,
+      "tableSectionsInPayload": false,
+      "inTextTableReferences": 4
+    },
+    {
+      "report": "ad7c0004c386f31c",
+      "sourceType": "grobid-tei",
+      "tablesInSource": 2,
+      "tableSectionsInPayload": false,
+      "inTextTableReferences": 12
+    },
+    {
+      "report": "c4128a6f6dd2c0b5",
+      "sourceType": "grobid-tei",
+      "tablesInSource": 5,
+      "tableSectionsInPayload": false,
+      "inTextTableReferences": 15
+    },
+    {
+      "report": "9a3b03b4fb24cf65",
+      "sourceType": "europe-pmc-jats",
+      "tablesInSource": 9,
+      "tableSectionsInPayload": true,
+      "inTextTableReferences": 9
+    },
+    {
+      "report": "65dd82a89b2c5340",
+      "sourceType": "grobid-tei",
+      "tablesInSource": 2,
+      "tableSectionsInPayload": false,
+      "inTextTableReferences": 4
+    },
+    {
+      "report": "54d4200c1c5e2b64",
+      "sourceType": "europe-pmc-jats",
+      "tablesInSource": 2,
+      "tableSectionsInPayload": false,
+      "inTextTableReferences": 1
+    },
+    {
+      "report": "82cbc04b68c38e79",
+      "sourceType": "grobid-tei",
+      "tablesInSource": 1,
+      "tableSectionsInPayload": false,
+      "inTextTableReferences": 0
+    },
+    {
+      "report": "1105537918c174c9",
+      "sourceType": "grobid-tei",
+      "tablesInSource": 1,
+      "tableSectionsInPayload": false,
+      "inTextTableReferences": 2
+    },
+    {
+      "report": "0cfceb6c8a86f78b",
+      "sourceType": "europe-pmc-jats",
+      "tablesInSource": 3,
+      "tableSectionsInPayload": true,
+      "inTextTableReferences": 2
+    },
+    {
+      "report": "307c0dd5b141caed",
+      "sourceType": "grobid-tei",
+      "tablesInSource": 27,
+      "tableSectionsInPayload": false,
+      "inTextTableReferences": 95
+    },
+    {
+      "report": "d4149a8bac287851",
+      "sourceType": "europe-pmc-jats",
+      "tablesInSource": 3,
+      "tableSectionsInPayload": true,
+      "inTextTableReferences": 2
+    },
+    {
+      "report": "4103c4b52bbf21e6",
+      "sourceType": "europe-pmc-jats",
+      "tablesInSource": 12,
+      "tableSectionsInPayload": false,
+      "inTextTableReferences": 4
+    },
+    {
+      "report": "eac2b5fd6bb06843",
+      "sourceType": "grobid-tei",
+      "tablesInSource": 3,
+      "tableSectionsInPayload": false,
+      "inTextTableReferences": 7
+    },
+    {
+      "report": "97c2233f7e60c801",
+      "sourceType": "europe-pmc-jats",
+      "tablesInSource": 8,
+      "tableSectionsInPayload": false,
+      "inTextTableReferences": 4
+    },
+    {
+      "report": "834de4d822dfb3cd",
+      "sourceType": "europe-pmc-jats",
+      "tablesInSource": 3,
+      "tableSectionsInPayload": true,
+      "inTextTableReferences": 2
+    },
+    {
+      "report": "298c326024d22835",
+      "sourceType": "grobid-tei",
+      "tablesInSource": 0,
+      "tableSectionsInPayload": false,
+      "inTextTableReferences": 7
+    },
+    {
+      "report": "a6ce9c92c7454a7c",
+      "sourceType": "europe-pmc-jats",
+      "tablesInSource": 6,
+      "tableSectionsInPayload": true,
+      "inTextTableReferences": 7
+    }
+  ],
+  "whereTheLossIs": "🚨 TEI 來源檔本身有表格（中位數 2、最多 27），⚠️ 而讀的人拿到的 sections 幾乎沒有——**✅ 故損失發生在做 sections 的那一步，🚫 不是抓取。**",
+  "softensRound597": "⚠️ n597 說某篇有 4 項「宣稱有數值而文件裡沒有」。🚨 而那一篇正是 GROBID 來源，內文引用了表格而讀者看不到。✅ 指控要改寫：不是「宣稱了不存在的數字」，而是「**在一份被削掉表格的文件上，宣稱了看不到的數字**」——⚠️ 兩者都不對，🚫 但責任不在同一層。",
+  "widerConsequence": "🚨 「沒有數值結果」「劑量沒報」這些排除理由，⚠️ 在這 13 篇上都可能是表格被削掉造成的，🚫 不是論文沒寫。",
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "controlProbes": [
+    {
+      "probe": "兩種來源都掃到了（必觸發）",
+      "passed": true,
+      "detail": "🚨 少一種就沒有對照；實得 {'europe-pmc-jats': 26, 'grobid-tei': 15}"
+    },
+    {
+      "probe": "這條管線做得到把表格交給讀的人（正對照，必觸發）",
+      "passed": true,
+      "detail": "✅ JATS 來源 26 篇中 20 篇的 sections 有表格段落；🚨 若為零，那就是「本來就不給表格」，而不是這 15 篇被削掉"
+    },
+    {
+      "probe": "來源檔本身有表格（必觸發之反向）",
+      "passed": true,
+      "detail": "⚠️ GROBID 來源檔的表格數中位數 2；🚨 若全為零，那是抓取階段就沒有，而不是後段削掉"
+    },
+    {
+      "probe": "每一位讀者都看得到論文引用的表格",
+      "passed": false,
+      "detail": "🚨 實得 17 篇的內文引用了「Table N」而讀的人手上沒有表格（其中 GROBID 來源 13／15 篇）；⚠️ 最極端者引用 95 次、來源檔有 27 張表"
+    }
+  ],
+  "auditHash": "sha256:e7dc6adc1f32c61de6ed8452f60d46fa3371fe6ff37d86347a697e37dc334e6d"
+}
