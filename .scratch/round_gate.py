@@ -447,16 +447,31 @@ KNOWN_FAIL = '無（原 test_clopper_pearson_matches_closed_forms 已於第 437 
 # 成因，沒判完不算裁決過（⚠️ 那份分類比任何一致性分數有價值）；
 # ⚠️ 自創的成因要擋，判了不存在的不一致也要擋。增量恰為 2。
 SHACL_BASE_PASSED = 840          # 有 rdflib+pyshacl：814 + 26
-UNCOLLECTABLE_NOTE = ('%s（🚨 rdflib 或 pyshacl 不在，pyproject 第 15 行已宣告；'
-                      '⚠️ 故本機 gates/shacl.py 與 verify.py 整層跑不起來）'
+UNCOLLECTABLE_NOTE = ('%s（🚨 rdflib 或 pyshacl **匯入不了**，pyproject 第 15 行已宣告；'
+                      '⚠️ 故本機 gates/shacl.py 與 verify.py 整層跑不起來。'
+                      '🚨 匯入不了 ≠ 沒裝——見下一行的實際失敗）'
                       % PYTEST_IGNORE)
 UNCOLLECTABLE = UNCOLLECTABLE_NOTE   # run_tests() 依實測改寫
 
 
 def _has_shacl(exe):
-    """這台機器跑不跑得動那一層。🚨 由實際 import 決定，🚫 不憑記載。"""
-    return subprocess.run([exe, '-c', 'import rdflib, pyshacl'],
-                          capture_output=True).returncode == 0
+    """這台機器跑不跑得動那一層。🚨 由實際 import 決定，🚫 不憑記載。
+
+    回傳 (可用, 說不出所以然時的原因)。
+    🚨 第 579 輪：本室照 n+191 四裝完之後，這一格仍說「不在」——
+    ⚠️ 而實情是**兩個套件都在**，只是 rdflib 7.6 需要 pyparsing>=3.1
+    （`DelimitedList`），而環境裡是 3.0.9，於是 import 當場拋 AttributeError。
+    🚨 「沒裝」與「裝了但匯入壞掉」要做的事完全不同（去裝 vs 去修相依），
+    **⚠️ 而這一格原本把兩者說成同一句話**，照著做只會再 pip install 一次。
+    ✅ 故失敗時把真正的最後一行錯誤帶出來。
+    """
+    done = subprocess.run([exe, '-c', 'import rdflib, pyshacl'],
+                          capture_output=True, text=True,
+                          encoding='utf-8', errors='ignore')
+    if done.returncode == 0:
+        return True, None
+    lines = [ln.strip() for ln in (done.stderr or '').splitlines() if ln.strip()]
+    return False, (lines[-1] if lines else '（無錯誤輸出）')
 
 
 def run_tests():
@@ -466,10 +481,11 @@ def run_tests():
         probe = subprocess.run([exe, '-c', 'import pytest'], capture_output=True)
         if probe.returncode != 0:
             continue
-        shacl = _has_shacl(exe)
+        shacl, why = _has_shacl(exe)
         BASE_PASSED = SHACL_BASE_PASSED if shacl else BASE_PASSED
         UNCOLLECTABLE = ('✅ 無——rdflib 與 pyshacl 皆在，那 26 條**有跑**'
-                         if shacl else UNCOLLECTABLE_NOTE)
+                         if shacl else UNCOLLECTABLE_NOTE + '\n      🚨 實際失敗：'
+                         + why)
         args = [] if shacl else ['--ignore=' + PYTEST_IGNORE]
         r = subprocess.run([exe, '-X', 'utf8', '-m', 'pytest', '-q'] + args,
                            cwd=PYTEST_DIR, capture_output=True, text=True,

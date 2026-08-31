@@ -1,0 +1,348 @@
+{
+  "schemaVersion": 1,
+  "documentType": "request-version-split",
+  "ruling": "n+190（二）：據實列出哪幾篇是在重生之前讀的",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "answer": "🚨 41 篇全部是舊版請求，0 篇是新版。⚠️ 重生（2026-08-31 16:09:58）比最後一篇交回（2026-08-31 16:05:19）晚了 4 分 39 秒，故那份儀器清單一個讀的人都沒看到。",
+  "timeline": {
+    "earliestSubmission": "2026-08-31 14:49:40",
+    "latestSubmission": "2026-08-31 16:05:19",
+    "regeneratedAt": "2026-08-31 16:09:58",
+    "regenerateCodeCommitted": "61f6deb 2026-08-31 16:12:23"
+  },
+  "counts": {
+    "total": 41,
+    "beforeRegeneration": 41,
+    "afterRegeneration": 0,
+    "noDraft": 0
+  },
+  "a1Question": "📮 A1「全語料同一版請求」要的是哪一件，只有協調者能定：✅「同版」已達成（41 篇整齊劃一，0 篇要重讀）；🚨「都看過儀器清單」則 0／41 達成，要重讀的是 41 篇不是 23 篇。⚠️ 並排看 n574：實測因儀器名被誤排的只有 6 項／1 篇。",
+  "packetFigureWasLow": "⚠️ 資料包給外部審視的「23 篇用舊版」偏低，實情是 41 篇。🚫 不是審視者看錯，✅ 是本室把「重生會趕在讀完之前」當成已發生。",
+  "evidenceLimits": [
+    "⚠️ 交回時刻取自檔案 mtime——🚫 它不是簽章，改動檔案就會變。",
+    "🚨 第 1–7 頁（16 篇）共用 drafts.json 一個時刻，⚠️ 故它們的先後在頁與頁之間分不出來；✅ 但那一刻（14:49:40）遠早於重生，結論不受影響。",
+    "✅ 獨立佐證：做重生的程式碼到 16:12:23 才進 repo，🚫 更早不可能跑過。"
+  ],
+  "items": [
+    {
+      "report": "86e6a580108fd94b",
+      "page": 1,
+      "submittedAt": "2026-08-31 14:49:40",
+      "requestVersion": "before-regeneration",
+      "evidence": "drafts.json（合併檔，第 1-7 頁共用一刻）"
+    },
+    {
+      "report": "081d147cd92dee14",
+      "page": 1,
+      "submittedAt": "2026-08-31 14:49:40",
+      "requestVersion": "before-regeneration",
+      "evidence": "drafts.json（合併檔，第 1-7 頁共用一刻）"
+    },
+    {
+      "report": "59b4558a37f28bc9",
+      "page": 2,
+      "submittedAt": "2026-08-31 14:49:40",
+      "requestVersion": "before-regeneration",
+      "evidence": "drafts.json（合併檔，第 1-7 頁共用一刻）"
+    },
+    {
+      "report": "7902e3ec54370729",
+      "page": 2,
+      "submittedAt": "2026-08-31 14:49:40",
+      "requestVersion": "before-regeneration",
+      "evidence": "drafts.json（合併檔，第 1-7 頁共用一刻）"
+    },
+    {
+      "report": "dbdb6ea55c9667c3",
+      "page": 3,
+      "submittedAt": "2026-08-31 14:49:40",
+      "requestVersion": "before-regeneration",
+      "evidence": "drafts.json（合併檔，第 1-7 頁共用一刻）"
+    },
+    {
+      "report": "c97d2ed84b0d1057",
+      "page": 3,
+      "submittedAt": "2026-08-31 14:49:40",
+      "requestVersion": "before-regeneration",
+      "evidence": "drafts.json（合併檔，第 1-7 頁共用一刻）"
+    },
+    {
+      "report": "0eea079e79bf7913",
+      "page": 3,
+      "submittedAt": "2026-08-31 14:49:40",
+      "requestVersion": "before-regeneration",
+      "evidence": "drafts.json（合併檔，第 1-7 頁共用一刻）"
+    },
+    {
+      "report": "48da8a7f2f35af1f",
+      "page": 4,
+      "submittedAt": "2026-08-31 14:49:40",
+      "requestVersion": "before-regeneration",
+      "evidence": "drafts.json（合併檔，第 1-7 頁共用一刻）"
+    },
+    {
+      "report": "358bbf2c1886ac4b",
+      "page": 4,
+      "submittedAt": "2026-08-31 14:49:40",
+      "requestVersion": "before-regeneration",
+      "evidence": "drafts.json（合併檔，第 1-7 頁共用一刻）"
+    },
+    {
+      "report": "6b7320d74cdda857",
+      "page": 4,
+      "submittedAt": "2026-08-31 14:49:40",
+      "requestVersion": "before-regeneration",
+      "evidence": "drafts.json（合併檔，第 1-7 頁共用一刻）"
+    },
+    {
+      "report": "44243ac624c9b5e0",
+      "page": 5,
+      "submittedAt": "2026-08-31 14:49:40",
+      "requestVersion": "before-regeneration",
+      "evidence": "drafts.json（合併檔，第 1-7 頁共用一刻）"
+    },
+    {
+      "report": "e4871d50d0001e66",
+      "page": 5,
+      "submittedAt": "2026-08-31 14:49:40",
+      "requestVersion": "before-regeneration",
+      "evidence": "drafts.json（合併檔，第 1-7 頁共用一刻）"
+    },
+    {
+      "report": "501bb474ac4704fa",
+      "page": 6,
+      "submittedAt": "2026-08-31 14:49:40",
+      "requestVersion": "before-regeneration",
+      "evidence": "drafts.json（合併檔，第 1-7 頁共用一刻）"
+    },
+    {
+      "report": "d4251685a43792ff",
+      "page": 6,
+      "submittedAt": "2026-08-31 14:49:40",
+      "requestVersion": "before-regeneration",
+      "evidence": "drafts.json（合併檔，第 1-7 頁共用一刻）"
+    },
+    {
+      "report": "8a62d501f88c7d04",
+      "page": 7,
+      "submittedAt": "2026-08-31 14:49:40",
+      "requestVersion": "before-regeneration",
+      "evidence": "drafts.json（合併檔，第 1-7 頁共用一刻）"
+    },
+    {
+      "report": "66e16f089f1522d1",
+      "page": 7,
+      "submittedAt": "2026-08-31 14:49:40",
+      "requestVersion": "before-regeneration",
+      "evidence": "drafts.json（合併檔，第 1-7 頁共用一刻）"
+    },
+    {
+      "report": "7a6ac1559c740fd6",
+      "page": 8,
+      "submittedAt": "2026-08-31 15:11:07",
+      "requestVersion": "before-regeneration",
+      "evidence": "drafts/page-008.json"
+    },
+    {
+      "report": "7a97713bf254fa26",
+      "page": 9,
+      "submittedAt": "2026-08-31 15:23:17",
+      "requestVersion": "before-regeneration",
+      "evidence": "drafts/page-009.json"
+    },
+    {
+      "report": "b9ab2f27317a6a2b",
+      "page": 9,
+      "submittedAt": "2026-08-31 15:23:17",
+      "requestVersion": "before-regeneration",
+      "evidence": "drafts/page-009.json"
+    },
+    {
+      "report": "65d459b9129da800",
+      "page": 10,
+      "submittedAt": "2026-08-31 15:51:54",
+      "requestVersion": "before-regeneration",
+      "evidence": "drafts/page-010.json"
+    },
+    {
+      "report": "3f34fc92d4f4b70d",
+      "page": 10,
+      "submittedAt": "2026-08-31 15:51:54",
+      "requestVersion": "before-regeneration",
+      "evidence": "drafts/page-010.json"
+    },
+    {
+      "report": "c3028a8a7b1ae2a1",
+      "page": 11,
+      "submittedAt": "2026-08-31 15:55:39",
+      "requestVersion": "before-regeneration",
+      "evidence": "drafts/page-011.json"
+    },
+    {
+      "report": "f6a82302d7fe9adf",
+      "page": 11,
+      "submittedAt": "2026-08-31 15:55:39",
+      "requestVersion": "before-regeneration",
+      "evidence": "drafts/page-011.json"
+    },
+    {
+      "report": "e8d48c04f919dbb0",
+      "page": 12,
+      "submittedAt": "2026-08-31 15:54:17",
+      "requestVersion": "before-regeneration",
+      "evidence": "drafts/page-012.json"
+    },
+    {
+      "report": "a9012191142e7e02",
+      "page": 12,
+      "submittedAt": "2026-08-31 15:54:17",
+      "requestVersion": "before-regeneration",
+      "evidence": "drafts/page-012.json"
+    },
+    {
+      "report": "ad7c0004c386f31c",
+      "page": 12,
+      "submittedAt": "2026-08-31 15:54:17",
+      "requestVersion": "before-regeneration",
+      "evidence": "drafts/page-012.json"
+    },
+    {
+      "report": "c4128a6f6dd2c0b5",
+      "page": 13,
+      "submittedAt": "2026-08-31 15:27:13",
+      "requestVersion": "before-regeneration",
+      "evidence": "drafts/page-013.json"
+    },
+    {
+      "report": "9a3b03b4fb24cf65",
+      "page": 13,
+      "submittedAt": "2026-08-31 15:27:13",
+      "requestVersion": "before-regeneration",
+      "evidence": "drafts/page-013.json"
+    },
+    {
+      "report": "65dd82a89b2c5340",
+      "page": 14,
+      "submittedAt": "2026-08-31 16:00:45",
+      "requestVersion": "before-regeneration",
+      "evidence": "drafts/page-014.json"
+    },
+    {
+      "report": "54d4200c1c5e2b64",
+      "page": 14,
+      "submittedAt": "2026-08-31 16:00:45",
+      "requestVersion": "before-regeneration",
+      "evidence": "drafts/page-014.json"
+    },
+    {
+      "report": "82cbc04b68c38e79",
+      "page": 14,
+      "submittedAt": "2026-08-31 16:00:45",
+      "requestVersion": "before-regeneration",
+      "evidence": "drafts/page-014.json"
+    },
+    {
+      "report": "1105537918c174c9",
+      "page": 14,
+      "submittedAt": "2026-08-31 16:00:45",
+      "requestVersion": "before-regeneration",
+      "evidence": "drafts/page-014.json"
+    },
+    {
+      "report": "0cfceb6c8a86f78b",
+      "page": 14,
+      "submittedAt": "2026-08-31 16:00:45",
+      "requestVersion": "before-regeneration",
+      "evidence": "drafts/page-014.json"
+    },
+    {
+      "report": "307c0dd5b141caed",
+      "page": 15,
+      "submittedAt": "2026-08-31 15:58:34",
+      "requestVersion": "before-regeneration",
+      "evidence": "drafts/page-015.json"
+    },
+    {
+      "report": "d4149a8bac287851",
+      "page": 16,
+      "submittedAt": "2026-08-31 16:01:32",
+      "requestVersion": "before-regeneration",
+      "evidence": "drafts/page-016.json"
+    },
+    {
+      "report": "4103c4b52bbf21e6",
+      "page": 16,
+      "submittedAt": "2026-08-31 16:01:32",
+      "requestVersion": "before-regeneration",
+      "evidence": "drafts/page-016.json"
+    },
+    {
+      "report": "eac2b5fd6bb06843",
+      "page": 16,
+      "submittedAt": "2026-08-31 16:01:32",
+      "requestVersion": "before-regeneration",
+      "evidence": "drafts/page-016.json"
+    },
+    {
+      "report": "97c2233f7e60c801",
+      "page": 17,
+      "submittedAt": "2026-08-31 16:05:19",
+      "requestVersion": "before-regeneration",
+      "evidence": "drafts/page-017.json"
+    },
+    {
+      "report": "834de4d822dfb3cd",
+      "page": 17,
+      "submittedAt": "2026-08-31 16:05:19",
+      "requestVersion": "before-regeneration",
+      "evidence": "drafts/page-017.json"
+    },
+    {
+      "report": "298c326024d22835",
+      "page": 18,
+      "submittedAt": "2026-08-31 15:31:31",
+      "requestVersion": "before-regeneration",
+      "evidence": "drafts/page-018.json"
+    },
+    {
+      "report": "a6ce9c92c7454a7c",
+      "page": 18,
+      "submittedAt": "2026-08-31 15:31:31",
+      "requestVersion": "before-regeneration",
+      "evidence": "drafts/page-018.json"
+    }
+  ],
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "controlProbes": [
+    {
+      "probe": "名冊上每一篇都分了類（必觸發）",
+      "passed": true,
+      "detail": "🚨 少一篇就代表名單不完整，而不完整的名單看起來跟完整的一樣；實得 41／41，無清冊者 0 篇"
+    },
+    {
+      "probe": "分類器說得出「之後」（必觸發之反向）",
+      "passed": true,
+      "detail": "🚨 以合成時刻試分類器兩邊；⚠️ 只會回一種答案的分類器，會把任何語料都判成單一版本"
+    },
+    {
+      "probe": "18 個 pages/ 出自同一次重生（跨度 < 5 秒）",
+      "passed": true,
+      "detail": "🚨 若跨度大，就沒有單一的重生分界，而是好幾次混在一起；實得跨度 0.087 秒，最早一頁距 worksheet.json 0.006 秒"
+    },
+    {
+      "probe": "磁碟上這份工作單確實是重生後的版本",
+      "passed": true,
+      "detail": "✅ 與 n+190 所述 +34,440 字元相符；實得 +34440"
+    },
+    {
+      "probe": "更早偷跑過重生：已排除",
+      "passed": true,
+      "detail": "🚨 做重生的程式碼 61f6deb 2026-08-31 16:12:23 才進 repo，晚於最後一篇交回 2026-08-31 16:05:19"
+    }
+  ],
+  "auditHash": "sha256:90d60e74010454f7ef36a81c288f5645f8cde25577ac2f7b9d51613744af41d5"
+}

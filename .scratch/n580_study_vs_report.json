@@ -1,0 +1,115 @@
+{
+  "schemaVersion": 1,
+  "documentType": "study-vs-report-family-scan",
+  "ruling": "n+192（三）：拿 41 篇跑 stats/family.py 的 tier1，據實回報有沒有成群",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "corpusSize": 41,
+  "tier1Families": 0,
+  "tier1Edges": 0,
+  "suspectedPairs": 0,
+  "signalCoverage": {
+    "registry": 3,
+    "doi": 26,
+    "authors": 26,
+    "year": 26,
+    "jats": 26,
+    "pdfOnly": 15
+  },
+  "verdict": "🚨 tier1 回報 0 個成群，**而那句話答不了問題**：⚠️ 唯一會讓不同論文成群的訊號是試驗登錄號，41 篇裡只有 3 篇有；DOI 依建構每篇各異，試驗簡稱無處可取。🚫 故本支不得被引用為「沒有重複計數」。",
+  "whyCoverageIsLow": "⚠️ 41 篇中 26 篇為 JATS、15 篇只留下 PDF（GROBID 的 TEI 未留存），🚨 那 15 篇連作者都取不到，故它們連下面那個篩選也過不了。",
+  "authorOverlapScreen": {
+    "whatItIs": "✅ 本支自算：共有 ≥2 位正規化後相同的作者且出版年相差 ≤4。🚫 不是 family.py 的 tier，🚫 不是判定，⚠️ 只是把值得看一眼的配對縮小。",
+    "eligibleReports": 26,
+    "pairsConsidered": 325,
+    "flagged": [
+      {
+        "pair": [
+          "501bb474ac4704fa",
+          "d4251685a43792ff"
+        ],
+        "sharedAuthors": 5,
+        "yearSpan": 2
+      },
+      {
+        "pair": [
+          "501bb474ac4704fa",
+          "65d459b9129da800"
+        ],
+        "sharedAuthors": 4,
+        "yearSpan": 1
+      },
+      {
+        "pair": [
+          "d4251685a43792ff",
+          "65d459b9129da800"
+        ],
+        "sharedAuthors": 4,
+        "yearSpan": 1
+      },
+      {
+        "pair": [
+          "7a97713bf254fa26",
+          "e8d48c04f919dbb0"
+        ],
+        "sharedAuthors": 4,
+        "yearSpan": 0
+      },
+      {
+        "pair": [
+          "081d147cd92dee14",
+          "d4149a8bac287851"
+        ],
+        "sharedAuthors": 3,
+        "yearSpan": 2
+      },
+      {
+        "pair": [
+          "081d147cd92dee14",
+          "834de4d822dfb3cd"
+        ],
+        "sharedAuthors": 2,
+        "yearSpan": 0
+      },
+      {
+        "pair": [
+          "e4871d50d0001e66",
+          "9a3b03b4fb24cf65"
+        ],
+        "sharedAuthors": 2,
+        "yearSpan": 1
+      },
+      {
+        "pair": [
+          "d4149a8bac287851",
+          "834de4d822dfb3cd"
+        ],
+        "sharedAuthors": 2,
+        "yearSpan": 2
+      }
+    ]
+  },
+  "detailKeptPrivate": "C:\\Users\\User\\Desktop\\claude\\ahig-private\\extraction\\n580-family-detail.json",
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "controlProbes": [
+    {
+      "probe": "41 篇全部進了 family.py（必觸發）",
+      "passed": true,
+      "detail": "🚨 少一篇，成群判定就是在一個較小的語料上做的，⚠️ 而較小的語料看起來跟完整的一樣；實得 41 篇"
+    },
+    {
+      "probe": "成群機制真的連得起來（必觸發之反向）",
+      "passed": true,
+      "detail": "🚨 以兩筆同登錄號的合成資料試 build_families；⚠️ 連不起來的話，「0 個成群」只是機制沒動"
+    },
+    {
+      "probe": "tier1 有足夠訊號可以回答這個問題",
+      "passed": false,
+      "detail": "🚨 tier1 唯一會成群的訊號是登錄號，而 41 篇裡只有 3 篇有；⚠️ 故「0 個成群」等於 38 篇沒被看過，🚫 不是「沒有重複」"
+    }
+  ],
+  "auditHash": "sha256:716b19438586c3a979a50b3b04a2ad113b6fcb78adae51c6705af4018793e274"
+}

@@ -1,0 +1,94 @@
+{
+  "schemaVersion": 1,
+  "documentType": "mapping-contradiction-scan",
+  "ruling": "第 575 輪：守衛碰巧抓到一個對應錯，而它不是為此設計的",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "inventories": 38,
+  "inScopeItemsScanned": 98,
+  "rules": [
+    {
+      "outcomeId": "tt-completion-time",
+      "contradictoryPattern": "\\bpower\\b",
+      "rescuePattern": null,
+      "why": "完成時間 vs 功率——第 566 輪之第五型"
+    },
+    {
+      "outcomeId": "tt-completion-time",
+      "contradictoryPattern": "work (done|completed)|\\bkJ\\b",
+      "rescuePattern": "completion time|time to complete",
+      "why": "完成時間 vs 作功量——第 561 輪之第四型"
+    },
+    {
+      "outcomeId": "time-to-exhaustion",
+      "contradictoryPattern": "\\bpower output\\b|distance covered",
+      "rescuePattern": null,
+      "why": "力竭時間 vs 功率／距離"
+    },
+    {
+      "outcomeId": "exogenous-cho-oxidation-peak",
+      "contradictoryPattern": "\\bmean\\b|\\baverage\\b",
+      "rescuePattern": "\\bpeak\\b|\\bmaximal\\b|\\bhighest\\b",
+      "why": "峰值 vs 平均——第 557 輪之第一型"
+    },
+    {
+      "outcomeId": "muscle-glycogen-post-exercise",
+      "contradictoryPattern": "oxidation|utilisation|utilization|breakdown",
+      "rescuePattern": null,
+      "why": "濃度 vs 氧化／利用——第 568 輪之第六型"
+    },
+    {
+      "outcomeId": "muscle-glycogen-post-exercise",
+      "contradictoryPattern": "pre-exercise|before exercise|baseline",
+      "rescuePattern": null,
+      "why": "運動**後** vs 運動前"
+    },
+    {
+      "outcomeId": "gi-symptom-incidence",
+      "contradictoryPattern": "\\bscore",
+      "rescuePattern": "incidence|prevalence|proportion|%|number of|participants experiencing|counted",
+      "why": "發生率 vs 分數"
+    },
+    {
+      "outcomeId": "gi-symptom-severity",
+      "contradictoryPattern": "incidence|prevalence|proportion of participants",
+      "rescuePattern": "\\bscore|\\bscale\\b",
+      "why": "嚴重度 vs 發生率"
+    }
+  ],
+  "flagged": [],
+  "flaggedByRule": {},
+  "flaggedReports": [],
+  "whatThisCannotDo": [
+    "🚨 判定對錯——⚠️ 這是待人看的清單，不是錯誤數。",
+    "🚨 抓到沒寫在標籤裡的矛盾。⚠️ 標籤是自由文字；一個沒寫 mean 的平均值它抓不到，🚫 故零命中不代表沒有對應錯誤。",
+    "🚨 看論文——⚠️ 它只讀清冊。"
+  ],
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "controlProbes": [
+    {
+      "probe": "真的掃到在範圍內的項目（必觸發）",
+      "passed": true,
+      "detail": "🚨 若為零，代表篩選條件寫錯，而「無矛盾」會是假的；實得 98 項"
+    },
+    {
+      "probe": "每條規則的字面都乾淨且編得起來（必觸發之反向）",
+      "passed": true,
+      "detail": "🚨 控制字元會讓規則永遠不命中，而「零命中」看起來像是沒問題；實得壞掉的規則 0 條"
+    },
+    {
+      "probe": "規則本身打得中（必觸發之反向）",
+      "passed": true,
+      "detail": "🚨 以合成樣本「Mean power output…」試第一條規則；打不中代表規則壞了"
+    },
+    {
+      "probe": "沒有任何在範圍內的項目與其宣告矛盾",
+      "passed": true,
+      "detail": "待人看的有 0 項／0 篇"
+    }
+  ],
+  "auditHash": "sha256:1d2e4e8d4ffdda977616e8c0e6bb012d7903134fb6e3ba9c82224f42c4a16929"
+}
