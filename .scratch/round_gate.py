@@ -383,7 +383,15 @@ PYTEST_IGNORE = 'tests/test_shacl_gates.py'
 # 預設涵蓋每一筆 acquired、驗不過的那筆仍留在批次裡（🚨 修掉一個真的缺陷：
 # 原本被濾掉，收據會顯示「嘗試 N 成功 N」而磁碟上多一筆壞的）、
 # manifest 讀不出來的目錄以目錄名列出。增量恰為 3。
-BASE_PASSED, BASE_FAILED = 789, 0
+# 第 552 輪：789 → 796。前後對照（n+113 四）：
+#   改動前  789 passed／0 failed
+#   改動後  796 passed／0 failed
+# 新增七條，補上 sys.settrace 查出「從未被執行過」的那幾道守衛：
+# 桶子不變式真的喊得出來（🚨 含一句先前恆真、執行不到的斷言，已改寫成拿輸入比）、
+# 兩份全文不得默默挑第一份、缺 contentSha256 不得組出請求、缺綁定的清冊不得存、
+# 同批次 id 不同內容不得覆寫、空工作單要拒、工作單上沒有的那一篇不得收。
+# 增量恰為 7。
+BASE_PASSED, BASE_FAILED = 796, 0
 KNOWN_FAIL = '無（原 test_clopper_pearson_matches_closed_forms 已於第 437 輪依 n+113 四修正）'
 # 第 544 輪更正：先前只寫「缺 pyshacl」。⚠️ 操作上沒錯（裝 pyshacl 會帶 rdflib），
 # 🚨 但那句話讓人以為只差一個套件，而實測 rdflib 也不在——

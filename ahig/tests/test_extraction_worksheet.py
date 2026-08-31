@@ -337,3 +337,33 @@ def test_a_page_is_fetched_on_its_own():
             raise AssertionError("不存在的頁不該回東西")
 
     _in_corpus(body)
+
+
+# ── 守衛：第 552 輪查出這兩道 raise 從未被執行過 ──────────────────────────
+
+def test_an_empty_worksheet_is_refused():
+    # 空工作單與「這批沒有論文」在檔案裡分不出來。
+    try:
+        worksheet.build_worksheet([], source="test")
+    except worksheet.WorksheetError as error:
+        assert "空工作單" in str(error)
+    else:
+        raise AssertionError("沒有要讀的東西就不該產出工作單")
+
+
+def test_a_draft_for_a_paper_not_on_the_worksheet_is_refused():
+    # 收回一份工作單上沒有的清冊，代表兩邊對的不是同一批。
+    def body(root, candidate_id):
+        request = reading_request_for(candidate_id, CONTRACT)
+        out = root / "extraction-worksheet"
+        worksheet.write_worksheet(out, [request], source="test")
+        stray = dict(_draft_for(request), report="ahig:candidate:publication:" + "f" * 24)
+        try:
+            worksheet.append_drafts(out, [stray],
+                                    read_by={"agentClass": "model"})
+        except worksheet.WorksheetError as error:
+            assert "不在工作單內" in str(error)
+        else:
+            raise AssertionError("工作單上沒有的那一篇不該被收")
+
+    _in_corpus(body)

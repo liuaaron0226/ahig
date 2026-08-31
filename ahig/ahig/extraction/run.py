@@ -219,10 +219,29 @@ class InventoryRun:
         record["batchHash"] = content_hash(record)
         return record
 
-    def check(self) -> None:
-        """每一篇都要有下落。桶子加起來對不上就是有人被漏掉了。"""
-        if len(self.succeeded) + len(self.failed) != self.attempted:
-            raise AssertionError("成功與失敗之和不等於嘗試數——有紀錄不見了")
+    def check(self, expected_ids: Iterable[str] | None = None) -> None:
+        """每一篇都要有下落。
+
+        🚨 第 552 輪修正：這裡原本第一句是
+        ``len(succeeded) + len(failed) != attempted`` ——**那句話不可能為真**。
+        ``succeeded`` 與 ``failed`` 是依 ``ok`` 對同一個 list 做的二分，
+        兩者之和**恆等於** ``len(outcomes)``，而 ``attempted`` 就是它。
+        ⚠️ 於是那道斷言看起來在護「每一篇都有下落」，**🚫 實際上什麼都沒護**——
+        以 `sys.settrace` 查出它從未被執行過，追下去才發現它**執行不到**。
+
+        ✅ 真正要護的是「**送進來的每一個候選，恰好產生一筆下落**」——
+        那要拿**輸入**來比，🚫 光看輸出自己跟自己比永遠會相等。
+        故 ``expected_ids`` 有給時才是完整的檢查；``run_inventory`` 會給。
+        """
+        if expected_ids is not None:
+            wanted = sorted(expected_ids)
+            got = sorted(o.candidate_id for o in self.outcomes)
+            if wanted != got:
+                missing = sorted(set(wanted) - set(got))
+                extra = sorted(set(got) - set(wanted))
+                raise AssertionError(
+                    "下落與送進來的候選對不上——少了 %s，多了 %s"
+                    % (missing[:3] or "無", extra[:3] or "無"))
         for outcome in self.outcomes:
             if outcome.stage not in STAGES:
                 raise AssertionError(f"未知階段：{outcome.stage}")
@@ -370,7 +389,7 @@ def run_inventory(contract: dict, *, reader: Reader | None = None,
             unknown_sections=unknown))
 
     run.finished_at = utc_now()
-    run.check()
+    run.check(expected_ids=ids + [name for name, _e in unnameable])
     if store is not None:
         run.batch_path = store.save_batch(run.to_batch_record()).name
     return run

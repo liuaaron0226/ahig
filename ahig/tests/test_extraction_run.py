@@ -522,3 +522,123 @@ def test_a_directory_whose_manifest_cannot_be_parsed_is_listed_by_name():
         assert "manifest 無法解析" in run.failed[0].error
 
     _in_corpus(body)
+
+
+# ── 守衛：第 552 輪以 sys.settrace 查出這些 raise 從未被執行過 ──────────────
+# 一道從沒觸發過的守衛，與一道不存在的守衛，在紀錄上分不出來。
+
+def test_the_bucket_invariant_actually_fires_when_it_is_violated():
+    # check() 是「每一篇都有下落」這句話的憑據。它從沒失敗過，
+    # 故先前只知道它「沒有喊」，不知道它「喊得出來」。
+    from ahig.extraction.run import InventoryRun, RecordOutcome
+
+    run = InventoryRun(contract_hash="sha256:" + "c" * 64)
+    run.outcomes.append(RecordOutcome("x", "scope", True, scoped=None))
+    try:
+        run.check()
+    except AssertionError as error:
+        assert "沒有 scoped" in str(error)
+    else:
+        raise AssertionError("判為成功卻沒有清冊，check() 必須喊")
+
+    # 送進來三個候選，只交回兩筆下落——這一句先前是恆真的（見 check 的說明）。
+    lost = InventoryRun(contract_hash="sha256:" + "c" * 64)
+    lost.outcomes.append(RecordOutcome("a", "scope", True, scoped={}))
+    lost.outcomes.append(RecordOutcome("b", "scope", True, scoped={}))
+    lost.check(expected_ids=["a", "b"])          # 對得上：不該喊
+    try:
+        lost.check(expected_ids=["a", "b", "c"])
+    except AssertionError as error:
+        assert "少了" in str(error)
+    else:
+        raise AssertionError("有候選沒有下落，check() 必須喊")
+
+    unknown = InventoryRun(contract_hash="sha256:" + "c" * 64)
+    unknown.outcomes.append(RecordOutcome("x", "not-a-stage", True, scoped={}))
+    try:
+        unknown.check()
+    except AssertionError as error:
+        assert "未知階段" in str(error)
+    else:
+        raise AssertionError("未知階段必須喊")
+
+
+def test_two_artifacts_are_refused_instead_of_silently_taking_the_first():
+    # 哪天一篇有兩份全文，要先有人決定「誰為準」——🚫 不是讓讀取層默默挑第一個。
+    import json as _json
+    from ahig.extraction.corpus import CorpusError, load_document
+
+    def body(candidate_id):
+        artifact_dir = fulltext._artifact_dir(candidate_id)
+        path = artifact_dir / "manifest.json"
+        manifest = _json.loads(path.read_text(encoding="utf-8"))
+        manifest["artifacts"] = manifest["artifacts"] * 2
+        path.write_text(_json.dumps(manifest, ensure_ascii=False),
+                        encoding="utf-8")
+        try:
+            load_document(candidate_id)
+        except CorpusError as error:
+            assert "artifacts 有 2 個" in str(error)
+        else:
+            raise AssertionError("兩份全文不該被默默挑一個")
+
+    _in_corpus(body)
+
+
+def test_a_sections_file_without_a_content_hash_cannot_name_what_was_read():
+    import json as _json
+    from ahig.extraction.corpus import CorpusError, reading_request_for
+
+    def body(candidate_id):
+        artifact_dir = fulltext._artifact_dir(candidate_id)
+        manifest = _json.loads(
+            (artifact_dir / "manifest.json").read_text(encoding="utf-8"))
+        sections_path = artifact_dir / manifest["artifacts"][0]["sectionsFile"]
+        body_json = _json.loads(sections_path.read_text(encoding="utf-8"))
+        body_json.pop("contentSha256", None)
+        sections_path.write_text(_json.dumps(body_json, ensure_ascii=False),
+                                 encoding="utf-8")
+        # 來源指紋沒動，故驗證那一關會過；擋下它的是 contentSha256 這一關。
+        manifest["artifacts"][0]["sectionsSha256"] = fulltext._sha256(
+            sections_path.read_bytes())
+        (artifact_dir / "manifest.json").write_text(
+            _json.dumps(manifest, ensure_ascii=False), encoding="utf-8")
+
+        try:
+            reading_request_for(candidate_id, CONTRACT)
+        except CorpusError as error:
+            assert "無從指明被讀的是哪一份" in str(error)
+        else:
+            raise AssertionError("沒有 contentSha256 就不該組出請求")
+
+    _in_corpus(body)
+
+
+def test_an_inventory_without_its_bindings_cannot_be_filed():
+    # 沒有綁定就無從決定它是誰的、讀的是哪一份、對的是哪一份契約。
+    from ahig.extraction import store
+
+    try:
+        store.save({"report": "x"})
+    except store.StoreError as error:
+        assert "無從決定" in str(error)
+    else:
+        raise AssertionError("缺綁定的清冊不該存得進去")
+
+
+def test_a_batch_id_that_collides_with_different_content_is_refused():
+    # 批次 id 由內容導出，故同 id 不同內容代表導出方式壞了，🚫 不是撞名。
+    from ahig.extraction import store
+
+    def body(candidate_id):
+        record = {"batchId": "inventory-batch-" + "0" * 16, "candidateCount": 1}
+        store.save_batch(record)
+        store.save_batch(dict(record))          # 同內容：不該喊
+        try:
+            store.save_batch(dict(record, candidateCount=2))
+        except store.StoreError as error:
+            assert "內容不同" in str(error)
+        else:
+            raise AssertionError("同 id 不同內容不該被靜靜覆寫")
+
+    _in_corpus(body)
