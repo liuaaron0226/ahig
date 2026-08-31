@@ -1,0 +1,73 @@
+{
+  "schemaVersion": 1,
+  "documentType": "absent-vs-null-axis-audit",
+  "question": "在範圍內那 98 項的契約各軸，有沒有空欄位；空的那一格意味著什麼",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "inScopeScanned": 98,
+  "blankAxes": {
+    "statisticalModel": 98,
+    "outcomeRoleAsStated": 32,
+    "instrument": 60
+  },
+  "howReadersWroteTheAxis": {
+    "key-absent": 878,
+    "has-value": 5
+  },
+  "asymmetry": {
+    "axis": "statisticalModel",
+    "matcherLine": "reported.get(\"statisticalModel\", \"unadjusted\")",
+    "keyAbsent": {
+      "inScope": true,
+      "reasonCode": "in-scope"
+    },
+    "keyPresentNull": {
+      "inScope": false,
+      "reasonCode": "notExtracted-model-not-in-scope"
+    },
+    "schemaAllowsNull": true,
+    "why": "⚠️ `.get(鍵, 預設)` 的預設值只在鍵不存在時生效；🚨 鍵存在而值為 null 時拿到的是 None。"
+  },
+  "noLiveHarmButThatIsLuck": "✅ 實測 883 項裡鍵缺席 878、明寫 null 0，故目前無人受害。🚨 但那是因為沒有人選擇誠實地寫 null。",
+  "axisNeverConstrainedAnything": "⚠️ 878 項都吃了 \"unadjusted\" 這個沒有人聲明過的預設。🚨 契約碰巧三種模型全收，故它不改變結果；⚠️ 但清冊記的是「沒說」、判定記的是「unadjusted」——那是兩句不同的話。",
+  "poolComposition": {
+    "byOutcome": {
+      "tt-completion-time": 6,
+      "exogenous-cho-oxidation-peak": 18,
+      "gi-symptom-incidence": 13,
+      "gi-symptom-severity": 47,
+      "time-to-exhaustion": 10,
+      "muscle-glycogen-post-exercise": 4
+    },
+    "giSymptoms": 60,
+    "performance": 16,
+    "note": "🚨 在範圍內 98 項中 GI 症狀佔 60 項（61%），⚠️ 表現類只有 16 項。📮 而第 588 輪已查明契約不收 median——median 正是 GI 嚴重度的自然統計量。"
+  },
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "controlProbes": [
+    {
+      "probe": "掃到的是那 98 項（必觸發）",
+      "passed": true,
+      "detail": "🚨 對不上就代表本支看的不是同一批；實得 98 項"
+    },
+    {
+      "probe": "鍵缺席的那種寫法確實會過（正對照，必觸發）",
+      "passed": true,
+      "detail": "✅ 實得 inScope=True；🚨 若它也不過，本支所稱的不對稱就不存在"
+    },
+    {
+      "probe": "明寫 null 的那種寫法確實被排除（必觸發之反向）",
+      "passed": true,
+      "detail": "🚨 實得 inScope=False／理由=notExtracted-model-not-in-scope；⚠️ 兩種寫法出自同一份讀法，只差在這一個鍵怎麼寫"
+    },
+    {
+      "probe": "同一份讀法不會因為寫法不同而得到相反結果",
+      "passed": false,
+      "detail": "🚨 缺席 → inScope=True；明寫 null → inScope=False（notExtracted-model-not-in-scope）。⚠️ 而 schema 明文允許寫 null，🚫 故誠實寫下「這篇沒說模型」的人，結局會被丟掉，而理由碼會說「模型不在範圍內」——那是一句假話"
+    }
+  ],
+  "auditHash": "sha256:d5a0345622d93bd83f3b1f3fbc2af18687a1f66fa070ee8ed6741c8c1216564f"
+}
