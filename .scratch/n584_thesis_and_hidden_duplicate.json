@@ -1,0 +1,68 @@
+{
+  "schemaVersion": 1,
+  "documentType": "thesis-and-hidden-duplicate",
+  "question": "語料裡有沒有「一份文件含多個試驗」的東西，以及它有沒有造成重複",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "corpusSize": 41,
+  "looseRuleHits": 10,
+  "preciseRuleHits": 1,
+  "rows": [
+    {
+      "report": "307c0dd5b141caed",
+      "chars": 348621,
+      "sections": 160,
+      "chapterTitles": 5,
+      "participantSections": 4,
+      "inScopeOutcomes": 4,
+      "readerNoticed": true
+    }
+  ],
+  "cohortPair": {
+    "thesis": "307c0dd5b141caed",
+    "journalArticle": "7a6ac1559c740fd6",
+    "identicalCohortValues": 6,
+    "scope": {
+      "307c0dd5b141caed": {
+        "inScope": 4,
+        "byOutcome": {
+          "time-to-exhaustion": 2,
+          "muscle-glycogen-post-exercise": 2
+        }
+      },
+      "7a6ac1559c740fd6": {
+        "inScope": 0,
+        "byOutcome": {}
+      }
+    }
+  },
+  "whyTheDuplicateIsInvisible": "🚨 期刊那篇目前在範圍內 0 項，⚠️ 不是因為它沒有結局，而是 n+189 之前的請求沒帶儀器清單，六項宣告全被判成 instrument-not-in-allowlist（第 574 輪已數）。🚫 故重複計數現在是潛伏的——⚠️ 一旦重讀就會浮出來。",
+  "consequence": "📮 重讀 7a6ac1559c740fd6 不能單獨做：🚨 必須與「這兩筆算一個 study」一起決定，⚠️ 否則修好一個缺陷會製造另一個。",
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "controlProbes": [
+    {
+      "probe": "偵測到那本論文（必觸發）",
+      "passed": true,
+      "detail": "🚨 若偵測不到，本支的「只有 1 本」就是假的；實得命中 1 篇"
+    },
+    {
+      "probe": "精確規則真的比寬鬆規則窄（必觸發之反向）",
+      "passed": true,
+      "detail": "⚠️ 寬鬆規則（致謝／縮寫表）標到 10 篇，✅ 精確規則只標 1 篇；🚨 若兩者一樣，代表精確規則沒有生效"
+    },
+    {
+      "probe": "讀那本論文的視窗自己註明了它是論文",
+      "passed": true,
+      "detail": "✅ 完整性聲明裡寫著 thesis；🚨 若沒有，那 4 項在範圍內結局會被當成單一試驗的結果"
+    },
+    {
+      "probe": "這兩筆已被記錄為同一個 study",
+      "passed": false,
+      "detail": "🚨 tier1 成群為 0 個，⚠️ 故這一對在系統裡仍是兩份獨立證據。期刊那篇目前在範圍內 0 項（因儀器清單缺陷被歸零）、論文那本 4 項；🚫 重讀之後同一批 8 人的結局會被數兩次"
+    }
+  ],
+  "auditHash": "sha256:eb1280465334cb0e866d33f9e98fa1929fac578db31e9ec16040c75a279e2360"
+}
