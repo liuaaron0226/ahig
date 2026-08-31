@@ -1,0 +1,94 @@
+{
+  "schemaVersion": 1,
+  "documentType": "numeric-result-unsupported",
+  "report": "1105537918c174c9",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "inScopeSeverityItems": 6,
+  "symptomNumberProximity": {
+    "fullness": {
+      "mentions": 5,
+      "withNumberNearby": 2
+    },
+    "bloat": {
+      "mentions": 2,
+      "withNumberNearby": 1
+    },
+    "cramp": {
+      "mentions": 1,
+      "withNumberNearby": 0
+    },
+    "nausea": {
+      "mentions": 1,
+      "withNumberNearby": 0
+    },
+    "headache": {
+      "mentions": 1,
+      "withNumberNearby": 0
+    },
+    "comfort": {
+      "mentions": 5,
+      "withNumberNearby": 0
+    },
+    "thirst": {
+      "mentions": 2,
+      "withNumberNearby": 1
+    }
+  },
+  "unsupported": [
+    {
+      "symptoms": [
+        "comfort"
+      ],
+      "hasNumericResult": true
+    },
+    {
+      "symptoms": [
+        "cramp"
+      ],
+      "hasNumericResult": true
+    },
+    {
+      "symptoms": [
+        "nausea"
+      ],
+      "hasNumericResult": true
+    },
+    {
+      "symptoms": [
+        "headache"
+      ],
+      "hasNumericResult": true
+    }
+  ],
+  "correctionToRound596": "🚨 第 596 輪把這一篇的差異歸為「界線位移」——⚠️ 那也是錯的。✅ 兩位讀者對「平均評分＝嚴重度、嚴重計次＝發生率」其實一致；6／2 與 1／5 是在兩個結局上各自往相反方向切造成的，🚫 故那也是顆粒度。⚠️ 本室連兩輪把它分錯類。",
+  "whyThisMatters": "⚠️ hasNumericResult 是 notExtracted-no-numeric-result 的唯一守門員，🚨 而第 593 輪已測出它缺席時預設為 True（放寬方向）。⚠️ 這一次不是缺席，是明寫 True。",
+  "noVerdict": "📮 ADJUDICATION_CAUSES 裡最貼近的是 model-fabricated，⚠️ 但也可能是把「有量、只是沒報數字」讀成「有結果」。🚫 本室不逕自定罪另一個視窗的讀法——📮 成因請協調者判。",
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "controlProbes": [
+    {
+      "probe": "這一篇確實有在範圍內的嚴重度項目（必觸發）",
+      "passed": true,
+      "detail": "🚨 若為零，本支就無事可查；實得 6 項"
+    },
+    {
+      "probe": "數值鄰近檢查在有數值處確實找得到（正對照，必觸發）",
+      "passed": true,
+      "detail": "✅ stomach fullness 附近有數值 2 次、thirst 1 次；🚨 若都為零，代表檢查壞了，而「沒有數值」會是假的"
+    },
+    {
+      "probe": "確實有症狀在文件中完全沒有數值（必觸發之反向）",
+      "passed": true,
+      "detail": "🚨 實得 ['cramp', 'nausea', 'headache', 'comfort']；⚠️ 若一個都沒有，本支的指控就沒有對象"
+    },
+    {
+      "probe": "每一項在範圍內的嚴重度，其症狀在文件中都有數值",
+      "passed": false,
+      "detail": "🚨 實得 4 項宣稱有數值結果，而其症狀在整份文件裡沒有任何數字：[['comfort'], ['cramp'], ['nausea'], ['headache']]；⚠️ 那是 98 項中的 4 項"
+    }
+  ],
+  "auditHash": "sha256:28b952bc03a6baef8dfb3d4cd8846c717e8669fc7727883730d9e032bb31f918"
+}
