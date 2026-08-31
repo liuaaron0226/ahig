@@ -433,19 +433,39 @@ KNOWN_FAIL = '無（原 test_clopper_pearson_matches_closed_forms 已於第 437 
 # 第 544 輪更正：先前只寫「缺 pyshacl」。⚠️ 操作上沒錯（裝 pyshacl 會帶 rdflib），
 # 🚨 但那句話讓人以為只差一個套件，而實測 rdflib 也不在——
 # 亦即 gates/shacl.py 與 verify.py 整層在本機都跑不起來，不只是這 26 條測試。
-UNCOLLECTABLE = ('%s（🚨 rdflib 與 pyshacl 皆不在，pyproject 第 15 行已宣告；'
-                 '⚠️ 故本機 gates/shacl.py 與 verify.py 整層跑不起來）'
-                 % PYTEST_IGNORE)
+# 🚨 第 490 輪：擁有者核准安裝 rdflib 與 pyshacl（n+8 就此兩者解除）。
+# ⚠️ 協調者環境裝完後，那 26 條**第一次真的跑過，全數通過**——
+#    **✅ 那一層不是壞的，是從來沒被執行過。**
+# 🚨 但兩室環境不同步：執行室裝好之前，那邊仍收集不到。
+#    **⚠️ 故基線改為「由實測決定」**，🚫 不寫死一個數字：
+#    裝了就跑全部（838），沒裝就照舊排除（812），**兩者各自標明**。
+#    🚨 若改成單一基線，其中一室會恆紅或恆綠，而恆紅的閘門等於沒有閘門。
+SHACL_BASE_PASSED = 838          # 有 rdflib+pyshacl：812 + 26
+UNCOLLECTABLE_NOTE = ('%s（🚨 rdflib 或 pyshacl 不在，pyproject 第 15 行已宣告；'
+                      '⚠️ 故本機 gates/shacl.py 與 verify.py 整層跑不起來）'
+                      % PYTEST_IGNORE)
+UNCOLLECTABLE = UNCOLLECTABLE_NOTE   # run_tests() 依實測改寫
+
+
+def _has_shacl(exe):
+    """這台機器跑不跑得動那一層。🚨 由實際 import 決定，🚫 不憑記載。"""
+    return subprocess.run([exe, '-c', 'import rdflib, pyshacl'],
+                          capture_output=True).returncode == 0
 
 
 def run_tests():
     """回傳 (passed, failed, 直譯器, 原始摘要行)；找不到可用直譯器則回 None。"""
+    global BASE_PASSED, UNCOLLECTABLE
     for exe in ('python3', 'python'):
         probe = subprocess.run([exe, '-c', 'import pytest'], capture_output=True)
         if probe.returncode != 0:
             continue
-        r = subprocess.run([exe, '-X', 'utf8', '-m', 'pytest', '-q',
-                            '--ignore=' + PYTEST_IGNORE],
+        shacl = _has_shacl(exe)
+        BASE_PASSED = SHACL_BASE_PASSED if shacl else BASE_PASSED
+        UNCOLLECTABLE = ('✅ 無——rdflib 與 pyshacl 皆在，那 26 條**有跑**'
+                         if shacl else UNCOLLECTABLE_NOTE)
+        args = [] if shacl else ['--ignore=' + PYTEST_IGNORE]
+        r = subprocess.run([exe, '-X', 'utf8', '-m', 'pytest', '-q'] + args,
                            cwd=PYTEST_DIR, capture_output=True, text=True,
                            encoding='utf-8', errors='ignore')
         txt = re.sub(r'\x1b\[[0-9;]*m', '', r.stdout or '')
