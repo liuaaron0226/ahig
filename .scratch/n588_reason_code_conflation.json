@@ -1,0 +1,93 @@
+{
+  "schemaVersion": 1,
+  "documentType": "reason-code-conflation-census",
+  "question": "兩個理由碼各自把幾件不同的事記成同一件",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "contractEffectMeasures": [
+    "MD",
+    "SMD",
+    "RR",
+    "RD",
+    "mean",
+    "proportion"
+  ],
+  "summary": {
+    "notExtracted-dose-outside-bands": {
+      "totalItems": 19,
+      "situations": {
+        "control-arm": {
+          "items": 4,
+          "reports": 1,
+          "values": {
+            "0": 4
+          }
+        },
+        "genuinely-out-of-band": {
+          "items": 3,
+          "reports": 1,
+          "values": {
+            "180": 3
+          }
+        },
+        "not-reported": {
+          "items": 12,
+          "reports": 6,
+          "values": {}
+        }
+      }
+    },
+    "notExtracted-effect-measure-not-in-scope": {
+      "totalItems": 7,
+      "situations": {
+        "not-filled-in": {
+          "items": 4,
+          "reports": 2,
+          "values": {}
+        },
+        "reported-but-not-in-contract": {
+          "items": 3,
+          "reports": 1,
+          "values": {
+            "median": 3
+          }
+        }
+      }
+    }
+  },
+  "headline": "🚨 劑量那一碼是**三**件事，不是本室先前說的兩件：沒報（12 項／6 篇）、真的帶外 180 g/h（3 項）、**對照組 0 g/h（4 項）**。⚠️ 第三種是分類上的錯——劑量帶描述介入，而安慰劑組依定義沒有劑量。",
+  "secondFinding": "🚨 同一個毛病在 notExtracted-effect-measure-not-in-scope 上原封不動：「讀的人沒填」4 項與「論文用了 median」3 項共用一個碼。",
+  "contractGap": "📮 median 不在 inScopeEffectMeasures 裡，⚠️ 而腸胃道症狀分數是次序尺度，median 配 IQR 本來就是自然寫法。🚨 故那不是論文報錯，是契約收不下那個結局家族實際被報告的方式。",
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "controlProbes": [
+    {
+      "probe": "兩個理由碼都真的有東西可分（必觸發）",
+      "passed": true,
+      "detail": "🚨 若其中一個為零，本支對它的說法就沒有根據；實得 {'notExtracted-dose-outside-bands': 19, 'notExtracted-effect-measure-not-in-scope': 7}"
+    },
+    {
+      "probe": "五種情形全部真的出現在資料裡（必觸發之反向）",
+      "passed": true,
+      "detail": "⚠️ 沒出現的那一種代表本支對它的描述從未被驗證；實得缺 無"
+    },
+    {
+      "probe": "median 確實不在契約的效應量清單裡",
+      "passed": true,
+      "detail": "⚠️ 契約收的是 ['MD', 'SMD', 'RR', 'RD', 'mean', 'proportion']；🚨 而腸胃道症狀分數是次序尺度，median 本來就是它的自然統計量"
+    },
+    {
+      "probe": "notExtracted-dose-outside-bands 只對應一種實情",
+      "passed": false,
+      "detail": "🚨 實得 3 種：{'control-arm': 4, 'genuinely-out-of-band': 3, 'not-reported': 12}；⚠️ 共用一個理由碼，會讓「資料缺漏」與「正當排除」在報表上長得一樣"
+    },
+    {
+      "probe": "notExtracted-effect-measure-not-in-scope 只對應一種實情",
+      "passed": false,
+      "detail": "🚨 實得 2 種：{'not-filled-in': 4, 'reported-but-not-in-contract': 3}；⚠️ 共用一個理由碼，會讓「資料缺漏」與「正當排除」在報表上長得一樣"
+    }
+  ],
+  "auditHash": "sha256:ba35a33f7f326daa2fd2a2c2f83359bc5a2b19f50d1d629b5620db5dbeed4ca9"
+}
