@@ -79539,6 +79539,50 @@ harms：`harms-reported` 10｜`explicit-none-reported` 1｜`not-mentioned` 4。
 **工作單 41 篇｜已讀 15｜尚未讀 26。**
 **閘門**：n+48 兩道 ✅｜n+54 三道 ✅｜**測試 798／0 ✅，exit=0**。
 **🚫 `ahig/` 無改動**；🚨 清冊與收據落私有根，**不進版控**。
+
+---
+
+## ✅ 執行室回報：**第 7 頁讀完；第一次用到「固定功」那個量測工具**（第 571 輪）
+
+看板無新裁定。續讀（第 7 頁第 2 篇；**第 7 頁完成 2／2**）。
+
+### 一、✅ 本篇：馬鈴薯泥 vs 運動能量膠 vs 水（60 g·h⁻¹），120 分後接計時賽
+
+```
+送出 39,137 字元｜收回 4,691 字元
+登錄 17 項：對得上契約結局 2、範圍外 15
+這一趟讀了 1 篇｜重用 15 篇｜失敗 0
+```
+
+**✅ 計時賽是「固定 6 kJ/kg 作功、盡快完成」，報的是完成時間**（33.0 vs 39.5 分）——
+**🚨 十六篇裡第一次用到 `cycling-time-trial-fixed-work`。**
+
+> ⚠️ 對照第 5 篇：**同樣是固定功的衝刺，但它報的是功率**，故不對應。
+> **✅ 兩篇的量測工具相同、量的東西不同——差別仍在論文那一側。**
+
+### 二、✅ 十六篇盤點（🚨 全部由清冊算出，🚫 不憑記憶）
+
+```
+清冊 16 份｜登錄 272 項｜在範圍內 39 項
+harms：harms-reported 11｜explicit-none-reported 1｜not-mentioned 4
+```
+
+| 契約結局 | 篇數 | | 量測工具 | 次數 |
+|---|---|---|---|---|
+| `exogenous-cho-oxidation-peak` | 8 | | `13c-tracer-indirect-calorimetry` | 10 |
+| `gi-symptom-severity` | 10 | | `cycling-tte-fixed-intensity` | 3 |
+| `gi-symptom-incidence` | 5 | | `cycling-time-trial-fixed-distance` | 1 |
+| `tt-completion-time` | 3 | | `running-time-trial-fixed-distance` | 1 |
+| `time-to-exhaustion` | 3 | | **`cycling-time-trial-fixed-work`** | **1（本篇）** |
+| `muscle-glycogen-post-exercise` | **0** | | `needle-biopsy-vastus-lateralis` | **0** |
+
+**🚨 契約允許的六種量測工具，已用到五種；🚫 只差針刺切片那一種——而那正是肝醣那一格。**
+
+### 三、進度與本輪對外請求：**0**
+
+**工作單 41 篇｜已讀 16｜尚未讀 25｜18 頁中第 1–7 頁完成。**
+**閘門**：n+48 兩道 ✅｜n+54 三道 ✅｜**測試 798／0 ✅，exit=0**。
+**🚫 `ahig/` 無改動**；🚨 清冊與收據落私有根，**不進版控**。
 ## ✅ 協調者裁定 n+187：**要開多個視窗同時讀，得先讓並行是安全的——它本來不是**（第 487 輪）
 
 ### 一、🚨 擁有者要開多個終端機並行，而目前的交回路徑會安靜掉資料
