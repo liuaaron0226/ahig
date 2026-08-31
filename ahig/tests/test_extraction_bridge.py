@@ -191,3 +191,64 @@ def test_scoping_is_delegated_and_produces_scoped_lifecycle():
     scoped = draft_to_scoped(validate_draft(_draft(r), r), _contract())
     assert scoped["lifecycle"] == "scoped"
     assert all("scopeDecision" in o for o in scoped["reportedOutcomes"])
+
+
+# ── 儀器：讀的人必須看得到判定會逐字比對的那份清單（第 488 輪） ──────
+INSTRUMENTS = ["dxa", "four-compartment-model"]
+
+
+def _req_with_instruments():
+    return build_reading_request(
+        _sections_doc(),
+        _contract(inScopeOutcomes=[
+            {"outcomeId": "ffm-change", "label": "去脂體重變化",
+             "role": "critical", "quantityKind": "qk:ffm",
+             "comparabilityClass": "body-composition-multi-compartment",
+             "allowedInstruments": list(INSTRUMENTS)}]),
+        report="rep:1")
+
+
+def test_the_reader_is_told_which_instruments_will_be_accepted():
+    """判定拿 instrument 逐字比 allowedInstruments，而讀的人先前看不到那份清單。
+
+    第二位讀者第一次比對就撞到：六項全部以「儀器不在允許清單」被排除，
+    而那篇論文用的就是允許的儀器，只是名字被改寫過。
+    """
+    payload = _req_with_instruments().prompt_payload()
+    hint = payload["contractOutcomesForReference"][0]
+    assert hint["allowedInstruments"] == INSTRUMENTS
+    # 清單會讓人想去湊一個，故規則要同時說「或留 null」。
+    assert "null" in payload["instrumentRule"]
+    assert "nearest" in payload["instrumentRule"]
+
+
+def test_an_invented_instrument_is_refused_at_the_door():
+    """擋的是**沉默的排除**：改寫過的名字下游會變成「儀器不在允許清單」，
+    而那個理由與「這篇真的用了別的儀器」長得一模一樣。"""
+    r = _req_with_instruments()
+    d = _draft(r)
+    d["reportedOutcomes"][0].update(
+        {"normalisedOutcomeRef": "ffm-change",
+         "instrument": "dual-energy-x-ray-absorptiometry-whole-body"})
+    with pytest.raises(DraftRejected, match="不在允許清單"):
+        validate_draft(d, r)
+
+
+def test_null_instrument_is_accepted_so_the_two_reasons_stay_apart():
+    """null 一樣落在範圍外，但它說的是「這篇的儀器不在清單裡」。"""
+    r = _req_with_instruments()
+    d = _draft(r)
+    d["reportedOutcomes"][0].update({"normalisedOutcomeRef": "ffm-change",
+                                     "instrument": None})
+    assert validate_draft(d, r) is not None
+    d["reportedOutcomes"][0]["instrument"] = "dxa"
+    assert validate_draft(d, r) is not None
+
+
+def test_an_out_of_scope_outcome_may_use_the_papers_own_wording():
+    """清冊登錄的是論文報告了什麼——範圍外的那些不必落在任何允許清單裡。"""
+    r = _req_with_instruments()
+    d = _draft(r)
+    d["reportedOutcomes"][0].update({"normalisedOutcomeRef": None,
+                                     "instrument": "bioimpedance, 8-electrode"})
+    assert validate_draft(d, r) is not None

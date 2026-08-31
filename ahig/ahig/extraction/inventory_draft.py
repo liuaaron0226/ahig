@@ -72,6 +72,20 @@ class DraftRequest:
         outcome_hints 是範圍契約裡的結局，供對照用；**不是允許清單**——
         清冊要登錄的是「論文報告了什麼」，含範圍外的，否則
         outcome-switching 偵測與日後的 backfill 都失去依據。
+
+        ## 為什麼 hints 帶著 allowedInstruments（第 488 輪起）
+
+        第二位讀者第一次比對就撞到這件事：`_match_outcome` 拿 ``instrument``
+        **逐字**比對契約的 ``allowedInstruments``，而讀的人**從來沒被告知那份
+        清單**，於是寫出描述性的名字（`acid-hydrolysis-freeze-dried-biopsy`），
+        六項全部以「儀器不在允許清單」被排除。
+
+        **那篇論文其實用的就是允許的儀器**——十七篇裡唯一做肌肉切片的那一篇，
+        因為名字對不上而整篇不貢獻任何東西。排除的理由是真的，被排除的事實不是。
+
+        > 清單會讓讀的人想去湊一個。故規則寫成兩條：**用逐字的允許值，
+        > 或留 null**；**不得改寫、不得挑一個最接近的**。null 一樣會落在範圍外，
+        > 但「這篇的儀器不在清單裡」與「名字沒對上」從此分得開。
         """
         return {
             "task": "list every outcome this report states it measured",
@@ -79,6 +93,14 @@ class DraftRequest:
             "sectionTitles": self.section_titles,
             "content": self.content,
             "contractOutcomesForReference": self.outcome_hints,
+            "instrumentRule": (
+                "instrument for an outcome you map to a contract outcomeId must "
+                "be one of that outcome's allowedInstruments, copied verbatim, or "
+                "null when the paper's method is not among them. Never invent a "
+                "descriptive name and never pick the nearest one: a wrong match is "
+                "worse than null, because null is visibly out of scope while a "
+                "wrong match is silently wrong. Outcomes you do not map to a "
+                "contract outcomeId may carry the paper's own wording."),
             "returnShape": "reportedOutcomes[] per OutcomeInventory schema",
             "mustNotReturn": ["scopeDecision", "scopedAt", "scopeDecisionSummary"],
         }
@@ -112,7 +134,10 @@ def build_reading_request(sections_doc: dict, contract: dict, *,
         scope_contract_hash=contract_hash,
         section_titles=[s.get("title") or "" for s in sections],
         content=sections_doc.get("content", ""),
-        outcome_hints=[{"outcomeId": o["outcomeId"], "label": o["label"]}
+        outcome_hints=[{"outcomeId": o["outcomeId"], "label": o["label"],
+                        # 判定時逐字比的就是這一份。不給，讀的人只能猜。
+                        "allowedInstruments": list(
+                            o.get("allowedInstruments") or [])}
                        for o in contract.get("inScopeOutcomes", [])],
     )
 
@@ -148,6 +173,25 @@ def validate_draft(draft: dict, request: DraftRequest) -> dict:
             raise DraftRejected(
                 f"{field_name} 與請求不符：請求 {want!r}，回傳 {got!r}"
                 "——不確定讀的是同一份時，不得收下")
+
+    # 儀器：只在該筆自稱對應某個契約結局時才管。範圍外的那些照樣用論文的用詞
+    # ——清冊登錄的是論文報告了什麼，那些本來就不必落在任何允許清單裡。
+    #
+    # 這一條擋的是**沉默的排除**：寫錯的儀器名不會在這裡出聲，會在 ScopeMatcher
+    # 那一步變成「儀器不在允許清單」，而那個理由與「這篇真的用了別的儀器」
+    # 長得一模一樣。分不開的兩件事裡，一件是真的排除，一件是資料被丟掉。
+    permitted = {h["outcomeId"]: h.get("allowedInstruments") or []
+                 for h in request.outcome_hints}
+    for i, outcome in enumerate(draft.get("reportedOutcomes") or []):
+        ref = outcome.get("normalisedOutcomeRef")
+        allowed = permitted.get(ref) if ref else None
+        instrument = outcome.get("instrument")
+        if allowed and instrument is not None and instrument not in allowed:
+            raise DraftRejected(
+                f"reportedOutcomes[{i}] 對應 {ref}，而 instrument "
+                f"{instrument!r} 不在允許清單內：{allowed}——"
+                "逐字用清單裡的值，或留 null；改寫過的名字會在判定那一步"
+                "變成「儀器不在允許清單」，而那與「這篇真的用了別的儀器」分不開")
 
     att = draft.get("completenessAttestation") or {}
     scanned = set(att.get("sectionsScanned") or [])
