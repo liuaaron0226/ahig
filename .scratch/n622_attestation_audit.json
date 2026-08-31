@@ -1,0 +1,427 @@
+{
+  "schemaVersion": 1,
+  "documentType": "attestation-audit",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "inventories": 38,
+  "ghostSectionTotal": 0,
+  "reportsWithGhostSections": 0,
+  "uncoveredInScopeSectionTotal": 0,
+  "reportsWithUncovered": 0,
+  "harmMismatch": [],
+  "rows": [
+    {
+      "report": "86e6a580108fd94b",
+      "scanned": 23,
+      "ghostSections": [],
+      "ghostCount": 0,
+      "uncoveredInScopeSections": [],
+      "harmOutcomesFound": 3,
+      "giOutcomesDeclared": 3,
+      "harmsReportingStatement": "harms-reported"
+    },
+    {
+      "report": "081d147cd92dee14",
+      "scanned": 17,
+      "ghostSections": [],
+      "ghostCount": 0,
+      "uncoveredInScopeSections": [],
+      "harmOutcomesFound": 2,
+      "giOutcomesDeclared": 2,
+      "harmsReportingStatement": "harms-reported"
+    },
+    {
+      "report": "59b4558a37f28bc9",
+      "scanned": 21,
+      "ghostSections": [],
+      "ghostCount": 0,
+      "uncoveredInScopeSections": [],
+      "harmOutcomesFound": 6,
+      "giOutcomesDeclared": 6,
+      "harmsReportingStatement": "harms-reported"
+    },
+    {
+      "report": "7902e3ec54370729",
+      "scanned": 22,
+      "ghostSections": [],
+      "ghostCount": 0,
+      "uncoveredInScopeSections": [],
+      "harmOutcomesFound": 2,
+      "giOutcomesDeclared": 2,
+      "harmsReportingStatement": "harms-reported"
+    },
+    {
+      "report": "dbdb6ea55c9667c3",
+      "scanned": 16,
+      "ghostSections": [],
+      "ghostCount": 0,
+      "uncoveredInScopeSections": [],
+      "harmOutcomesFound": 2,
+      "giOutcomesDeclared": 2,
+      "harmsReportingStatement": "harms-reported"
+    },
+    {
+      "report": "c97d2ed84b0d1057",
+      "scanned": 17,
+      "ghostSections": [],
+      "ghostCount": 0,
+      "uncoveredInScopeSections": [],
+      "harmOutcomesFound": 0,
+      "giOutcomesDeclared": 0,
+      "harmsReportingStatement": "not-mentioned"
+    },
+    {
+      "report": "0eea079e79bf7913",
+      "scanned": 17,
+      "ghostSections": [],
+      "ghostCount": 0,
+      "uncoveredInScopeSections": [],
+      "harmOutcomesFound": 0,
+      "giOutcomesDeclared": 1,
+      "harmsReportingStatement": "explicit-none-reported"
+    },
+    {
+      "report": "48da8a7f2f35af1f",
+      "scanned": 18,
+      "ghostSections": [],
+      "ghostCount": 0,
+      "uncoveredInScopeSections": [],
+      "harmOutcomesFound": 2,
+      "giOutcomesDeclared": 2,
+      "harmsReportingStatement": "harms-reported"
+    },
+    {
+      "report": "358bbf2c1886ac4b",
+      "scanned": 16,
+      "ghostSections": [],
+      "ghostCount": 0,
+      "uncoveredInScopeSections": [],
+      "harmOutcomesFound": 3,
+      "giOutcomesDeclared": 2,
+      "harmsReportingStatement": "harms-reported"
+    },
+    {
+      "report": "6b7320d74cdda857",
+      "scanned": 13,
+      "ghostSections": [],
+      "ghostCount": 0,
+      "uncoveredInScopeSections": [],
+      "harmOutcomesFound": 2,
+      "giOutcomesDeclared": 2,
+      "harmsReportingStatement": "harms-reported"
+    },
+    {
+      "report": "44243ac624c9b5e0",
+      "scanned": 9,
+      "ghostSections": [],
+      "ghostCount": 0,
+      "uncoveredInScopeSections": [],
+      "harmOutcomesFound": 0,
+      "giOutcomesDeclared": 0,
+      "harmsReportingStatement": "not-mentioned"
+    },
+    {
+      "report": "e4871d50d0001e66",
+      "scanned": 14,
+      "ghostSections": [],
+      "ghostCount": 0,
+      "uncoveredInScopeSections": [],
+      "harmOutcomesFound": 3,
+      "giOutcomesDeclared": 1,
+      "harmsReportingStatement": "harms-reported"
+    },
+    {
+      "report": "501bb474ac4704fa",
+      "scanned": 18,
+      "ghostSections": [],
+      "ghostCount": 0,
+      "uncoveredInScopeSections": [],
+      "harmOutcomesFound": 0,
+      "giOutcomesDeclared": 0,
+      "harmsReportingStatement": "not-mentioned"
+    },
+    {
+      "report": "d4251685a43792ff",
+      "scanned": 18,
+      "ghostSections": [],
+      "ghostCount": 0,
+      "uncoveredInScopeSections": [],
+      "harmOutcomesFound": 0,
+      "giOutcomesDeclared": 0,
+      "harmsReportingStatement": "not-mentioned"
+    },
+    {
+      "report": "8a62d501f88c7d04",
+      "scanned": 18,
+      "ghostSections": [],
+      "ghostCount": 0,
+      "uncoveredInScopeSections": [],
+      "harmOutcomesFound": 4,
+      "giOutcomesDeclared": 4,
+      "harmsReportingStatement": "harms-reported"
+    },
+    {
+      "report": "66e16f089f1522d1",
+      "scanned": 17,
+      "ghostSections": [],
+      "ghostCount": 0,
+      "uncoveredInScopeSections": [],
+      "harmOutcomesFound": 2,
+      "giOutcomesDeclared": 1,
+      "harmsReportingStatement": "harms-reported"
+    },
+    {
+      "report": "7a6ac1559c740fd6",
+      "scanned": 24,
+      "ghostSections": [],
+      "ghostCount": 0,
+      "uncoveredInScopeSections": [],
+      "harmOutcomesFound": 0,
+      "giOutcomesDeclared": 0,
+      "harmsReportingStatement": "not-mentioned"
+    },
+    {
+      "report": "7a97713bf254fa26",
+      "scanned": 24,
+      "ghostSections": [],
+      "ghostCount": 0,
+      "uncoveredInScopeSections": [],
+      "harmOutcomesFound": 1,
+      "giOutcomesDeclared": 1,
+      "harmsReportingStatement": "harms-reported"
+    },
+    {
+      "report": "b9ab2f27317a6a2b",
+      "scanned": 28,
+      "ghostSections": [],
+      "ghostCount": 0,
+      "uncoveredInScopeSections": [],
+      "harmOutcomesFound": 0,
+      "giOutcomesDeclared": 0,
+      "harmsReportingStatement": "not-mentioned"
+    },
+    {
+      "report": "c3028a8a7b1ae2a1",
+      "scanned": 21,
+      "ghostSections": [],
+      "ghostCount": 0,
+      "uncoveredInScopeSections": [],
+      "harmOutcomesFound": 15,
+      "giOutcomesDeclared": 6,
+      "harmsReportingStatement": "harms-reported"
+    },
+    {
+      "report": "e8d48c04f919dbb0",
+      "scanned": 27,
+      "ghostSections": [],
+      "ghostCount": 0,
+      "uncoveredInScopeSections": [],
+      "harmOutcomesFound": 4,
+      "giOutcomesDeclared": 4,
+      "harmsReportingStatement": "harms-reported"
+    },
+    {
+      "report": "a9012191142e7e02",
+      "scanned": 11,
+      "ghostSections": [],
+      "ghostCount": 0,
+      "uncoveredInScopeSections": [],
+      "harmOutcomesFound": 4,
+      "giOutcomesDeclared": 4,
+      "harmsReportingStatement": "harms-reported"
+    },
+    {
+      "report": "ad7c0004c386f31c",
+      "scanned": 19,
+      "ghostSections": [],
+      "ghostCount": 0,
+      "uncoveredInScopeSections": [],
+      "harmOutcomesFound": 3,
+      "giOutcomesDeclared": 3,
+      "harmsReportingStatement": "harms-reported"
+    },
+    {
+      "report": "c4128a6f6dd2c0b5",
+      "scanned": 9,
+      "ghostSections": [],
+      "ghostCount": 0,
+      "uncoveredInScopeSections": [],
+      "harmOutcomesFound": 0,
+      "giOutcomesDeclared": 0,
+      "harmsReportingStatement": "not-mentioned"
+    },
+    {
+      "report": "9a3b03b4fb24cf65",
+      "scanned": 29,
+      "ghostSections": [],
+      "ghostCount": 0,
+      "uncoveredInScopeSections": [],
+      "harmOutcomesFound": 4,
+      "giOutcomesDeclared": 2,
+      "harmsReportingStatement": "harms-reported"
+    },
+    {
+      "report": "65dd82a89b2c5340",
+      "scanned": 14,
+      "ghostSections": [],
+      "ghostCount": 0,
+      "uncoveredInScopeSections": [],
+      "harmOutcomesFound": 7,
+      "giOutcomesDeclared": 7,
+      "harmsReportingStatement": "harms-reported"
+    },
+    {
+      "report": "54d4200c1c5e2b64",
+      "scanned": 10,
+      "ghostSections": [],
+      "ghostCount": 0,
+      "uncoveredInScopeSections": [],
+      "harmOutcomesFound": 0,
+      "giOutcomesDeclared": 0,
+      "harmsReportingStatement": "not-mentioned"
+    },
+    {
+      "report": "82cbc04b68c38e79",
+      "scanned": 15,
+      "ghostSections": [],
+      "ghostCount": 0,
+      "uncoveredInScopeSections": [],
+      "harmOutcomesFound": 0,
+      "giOutcomesDeclared": 0,
+      "harmsReportingStatement": "not-mentioned"
+    },
+    {
+      "report": "1105537918c174c9",
+      "scanned": 5,
+      "ghostSections": [],
+      "ghostCount": 0,
+      "uncoveredInScopeSections": [],
+      "harmOutcomesFound": 6,
+      "giOutcomesDeclared": 7,
+      "harmsReportingStatement": "harms-reported"
+    },
+    {
+      "report": "0cfceb6c8a86f78b",
+      "scanned": 8,
+      "ghostSections": [],
+      "ghostCount": 0,
+      "uncoveredInScopeSections": [],
+      "harmOutcomesFound": 0,
+      "giOutcomesDeclared": 0,
+      "harmsReportingStatement": "not-mentioned"
+    },
+    {
+      "report": "307c0dd5b141caed",
+      "scanned": 63,
+      "ghostSections": [],
+      "ghostCount": 0,
+      "uncoveredInScopeSections": [],
+      "harmOutcomesFound": 2,
+      "giOutcomesDeclared": 0,
+      "harmsReportingStatement": "harms-reported"
+    },
+    {
+      "report": "d4149a8bac287851",
+      "scanned": 16,
+      "ghostSections": [],
+      "ghostCount": 0,
+      "uncoveredInScopeSections": [],
+      "harmOutcomesFound": 5,
+      "giOutcomesDeclared": 3,
+      "harmsReportingStatement": "harms-reported"
+    },
+    {
+      "report": "4103c4b52bbf21e6",
+      "scanned": 15,
+      "ghostSections": [],
+      "ghostCount": 0,
+      "uncoveredInScopeSections": [],
+      "harmOutcomesFound": 0,
+      "giOutcomesDeclared": 0,
+      "harmsReportingStatement": "not-mentioned"
+    },
+    {
+      "report": "eac2b5fd6bb06843",
+      "scanned": 15,
+      "ghostSections": [],
+      "ghostCount": 0,
+      "uncoveredInScopeSections": [],
+      "harmOutcomesFound": 2,
+      "giOutcomesDeclared": 2,
+      "harmsReportingStatement": "harms-reported"
+    },
+    {
+      "report": "97c2233f7e60c801",
+      "scanned": 30,
+      "ghostSections": [],
+      "ghostCount": 0,
+      "uncoveredInScopeSections": [],
+      "harmOutcomesFound": 0,
+      "giOutcomesDeclared": 0,
+      "harmsReportingStatement": "explicit-none-reported"
+    },
+    {
+      "report": "834de4d822dfb3cd",
+      "scanned": 20,
+      "ghostSections": [],
+      "ghostCount": 0,
+      "uncoveredInScopeSections": [],
+      "harmOutcomesFound": 3,
+      "giOutcomesDeclared": 3,
+      "harmsReportingStatement": "harms-reported"
+    },
+    {
+      "report": "298c326024d22835",
+      "scanned": 20,
+      "ghostSections": [],
+      "ghostCount": 0,
+      "uncoveredInScopeSections": [],
+      "harmOutcomesFound": 2,
+      "giOutcomesDeclared": 2,
+      "harmsReportingStatement": "harms-reported"
+    },
+    {
+      "report": "a6ce9c92c7454a7c",
+      "scanned": 16,
+      "ghostSections": [],
+      "ghostCount": 0,
+      "uncoveredInScopeSections": [],
+      "harmOutcomesFound": 0,
+      "giOutcomesDeclared": 0,
+      "harmsReportingStatement": "not-mentioned"
+    }
+  ],
+  "whyItMatters": "⚠️ 完整性聲明是「我看過哪裡」的自述。🚨 一份指向不存在段落的聲明，比沒有聲明更糟——它讓人以為查過了。✅ 而「出處不在已掃清單裡」更硬：**🚫 你不可能在一個沒掃的段落裡找到結局。**",
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "controlProbes": [
+    {
+      "probe": "每份清冊都有完整性聲明（必觸發）",
+      "passed": true,
+      "detail": "🚨 少一份就代表本支看的不是同一批；實得 38 份，其中 0 份的 sectionsScanned 為空"
+    },
+    {
+      "probe": "段落存在查核說得出「不存在」（必觸發之反向）",
+      "passed": true,
+      "detail": "🚨 以一個不可能存在的段落名試；⚠️ 若它也算存在，「幽靈段落 0 個」就沒有意義"
+    },
+    {
+      "probe": "聲明列出的段落都真的存在",
+      "passed": true,
+      "detail": "🚨 實得 0 份清冊列了不存在的段落，共 0 個；⚠️ 一份指向不存在段落的聲明，比沒有聲明更糟"
+    },
+    {
+      "probe": "在範圍內結局的出處都在已掃段落內",
+      "passed": true,
+      "detail": "🚨 實得 0 份清冊有 0 個「出處不在已掃清單裡」的段落；⚠️ 你不可能在一個沒掃的段落裡找到結局"
+    },
+    {
+      "probe": "傷害掃描的數字與宣告的 GI 結局一致",
+      "passed": true,
+      "detail": "🚨 實得 0 份宣告了 GI 結局卻回報 harmOutcomesFound=0：[]"
+    }
+  ],
+  "auditHash": "sha256:27f4e9fef451fcdf7b1916a1d860df66d6336683d987a17615222d775f817b2c"
+}
