@@ -677,3 +677,64 @@ def test_a_real_disagreement_on_contract_outcomes_still_shows():
         assert got["reportsFullyAgreed"] == 0
 
     _in_corpus(body)
+
+
+def _one_disagreement(root, candidate_id):
+    """造出恰好一處契約結局層級的不一致，供裁決用。"""
+    out, requests = _two_page_sheet(root, candidate_id)
+    request = requests[0]
+    a = _draft_for(request)
+    a["reportedOutcomes"] = [{"localLabel": "x", "normalisedOutcomeRef": "o1",
+                              "sourceLocation": {"section": "Results"}}]
+    b = _draft_for(request, inventoryId="inv:second")
+    b["reportedOutcomes"] = [{"localLabel": "x", "normalisedOutcomeRef": None,
+                              "sourceLocation": {"section": "Results"}}]
+    worksheet.write_page_drafts(out, 1, [a], read_by={"agentClass": "model"})
+    worksheet.write_page_drafts(out, 1, [b], lane="second",
+                                read_by={"agentClass": "model"})
+    got = worksheet.agreement(
+        worksheet.load_drafts(out, require_complete=False)["drafts"],
+        worksheet.load_lane(out, "second")["drafts"])
+    return got, request.report
+
+
+def test_every_disagreement_must_be_given_a_cause():
+    """🚫 沒判完就不算裁決過——⚠️ 那份分類比任何一致性分數有價值。"""
+    def body(root, candidate_id):
+        got, report = _one_disagreement(root, candidate_id)
+        try:
+            worksheet.adjudicate(got, {})
+        except worksheet.WorksheetError as error:
+            assert "未判成因" in str(error)
+        else:
+            raise AssertionError("沒判成因不該算裁決過")
+
+        done = worksheet.adjudicate(got, {report: {"o1": "contract-ambiguous"}})
+        assert done["byCause"] == {"contract-ambiguous": 1}
+        # 🚨 它量的是可靠度，🚫 不是正確性。
+        assert done["measures"] == "可靠度"
+        assert "正確性" in done["doesNotMeasure"]
+
+    _in_corpus(body)
+
+
+def test_an_invented_cause_and_a_phantom_disagreement_are_both_refused():
+    """⚠️ 成因要在清單內；🚨 判了不存在的不一致也要擋——那表示有人在對錯東西。"""
+    def body(root, candidate_id):
+        got, report = _one_disagreement(root, candidate_id)
+        try:
+            worksheet.adjudicate(got, {report: {"o1": "看起來還好"}})
+        except worksheet.WorksheetError as error:
+            assert "不在清單內" in str(error)
+        else:
+            raise AssertionError("自創成因不該收")
+
+        try:
+            worksheet.adjudicate(got, {report: {"o1": "granularity",
+                                                "o9": "granularity"}})
+        except worksheet.WorksheetError as error:
+            assert "不存在的不一致" in str(error)
+        else:
+            raise AssertionError("判了不存在的不一致不該收")
+
+    _in_corpus(body)

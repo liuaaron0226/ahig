@@ -428,7 +428,7 @@ PYTEST_IGNORE = 'tests/test_shacl_gates.py'
 # 新增兩條，測「以契約結局為單位的一致性」（n+190）：🚨 顆粒度不同（一邊拆
 # 十筆、一邊記一筆）時標籤零重疊而契約結局完全一致、⚠️ 反向——顆粒度免疫
 # 不等於什麼都算一致，真的指向不同就要顯示出來。增量恰為 2。
-BASE_PASSED, BASE_FAILED = 812, 0
+BASE_PASSED, BASE_FAILED = 814, 0
 KNOWN_FAIL = '無（原 test_clopper_pearson_matches_closed_forms 已於第 437 輪依 n+113 四修正）'
 # 第 544 輪更正：先前只寫「缺 pyshacl」。⚠️ 操作上沒錯（裝 pyshacl 會帶 rdflib），
 # 🚨 但那句話讓人以為只差一個套件，而實測 rdflib 也不在——
@@ -440,7 +440,13 @@ KNOWN_FAIL = '無（原 test_clopper_pearson_matches_closed_forms 已於第 437 
 #    **⚠️ 故基線改為「由實測決定」**，🚫 不寫死一個數字：
 #    裝了就跑全部（838），沒裝就照舊排除（812），**兩者各自標明**。
 #    🚨 若改成單一基線，其中一室會恆紅或恆綠，而恆紅的閘門等於沒有閘門。
-SHACL_BASE_PASSED = 838          # 有 rdflib+pyshacl：812 + 26
+# 第 491 輪：812 → 814（不含 SHACL）／838 → 840（含）。前後對照（n+113 四）：
+#   改動前  812／838 passed，0 failed
+#   改動後  814／840 passed，0 failed
+# 新增兩條，測不一致之裁決（n+192，外部審視第三題）：🚨 每一處不一致都要有
+# 成因，沒判完不算裁決過（⚠️ 那份分類比任何一致性分數有價值）；
+# ⚠️ 自創的成因要擋，判了不存在的不一致也要擋。增量恰為 2。
+SHACL_BASE_PASSED = 840          # 有 rdflib+pyshacl：814 + 26
 UNCOLLECTABLE_NOTE = ('%s（🚨 rdflib 或 pyshacl **匯入不了**，pyproject 第 15 行已宣告；'
                       '⚠️ 故本機 gates/shacl.py 與 verify.py 整層跑不起來。'
                       '🚨 匯入不了 ≠ 沒裝——見下一行的實際失敗）'

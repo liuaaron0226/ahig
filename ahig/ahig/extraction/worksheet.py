@@ -483,6 +483,75 @@ def agreement(primary: dict, second: dict) -> dict:
     }
 
 
+# 每一處不一致的成因。**🚨 這份分類比任何一致性分數有價值**——外部審視
+# （第 491 輪）：它會告訴你該修的是 prompt、schema、契約，還是讀的人本身。
+ADJUDICATION_CAUSES = {
+    "misread-source": "讀錯原文",
+    "wrong-table-or-arm": "找錯表格或組別",
+    "contract-ambiguous": "契約定義模糊",
+    "schema-cannot-express": "schema 無法表達",
+    "granularity": "顆粒度不同",
+    "source-unclear": "原文資訊本身不清楚",
+    "model-fabricated": "模型自行補寫或推測",
+}
+
+
+def adjudicate(result: dict, decisions: dict[str, dict[str, str]]) -> dict:
+    """把每一處不一致判明成因。**🚫 沒判完就不算裁決過。**
+
+    ``decisions``：``{report: {outcomeId: 成因}}``。
+
+    ## 🚨 這一支不證明什麼
+
+    > **一致性衡量的是可靠度，🚫 不是正確性。**
+    > ⚠️ 兩個模型可以高度一致地讀錯同一句話，
+    > **🚨 而那會得到滿分的一致性。**
+
+    ✅ 亦不得把本流程稱作方法學上的「兩位獨立人工審查者」——
+    **⚠️ 兩邊都是模型。據實的名稱是「雙模型獨立抽取＋衝突裁決」。**
+    """
+    pending = {}
+    for row in result.get("rows", []):
+        refs = sorted(set(row["refsOnlyPrimary"]) | set(row["refsOnlySecond"]))
+        if refs:
+            pending[row["report"]] = set(refs)
+
+    tally: dict[str, int] = {}
+    unknown, missing, spurious = [], [], []
+    for report, refs in pending.items():
+        given = decisions.get(report) or {}
+        for ref in sorted(refs):
+            cause = given.get(ref)
+            if cause is None:
+                missing.append(f"{report}:{ref}")
+            elif cause not in ADJUDICATION_CAUSES:
+                unknown.append(f"{report}:{ref}={cause}")
+            else:
+                tally[cause] = tally.get(cause, 0) + 1
+    for report, given in decisions.items():
+        for ref in given:
+            if ref not in pending.get(report, set()):
+                spurious.append(f"{report}:{ref}")
+
+    if missing or unknown or spurious:
+        raise WorksheetError(
+            "裁決不完整——"
+            + (f"未判成因 {missing}；" if missing else "")
+            + (f"成因不在清單內 {unknown}（可用："
+               f"{sorted(ADJUDICATION_CAUSES)}）；" if unknown else "")
+            + (f"判了不存在的不一致 {spurious}；" if spurious else "")
+            + "🚫 每一處不一致都要有成因，那份分類比任何分數有價值")
+
+    return {
+        "disagreements": sum(tally.values()),
+        "byCause": tally,
+        "measures": "可靠度",
+        "doesNotMeasure": ("正確性——兩個模型可以高度一致地讀錯同一句話；"
+                           "且兩邊都是模型，不得稱為兩位獨立人工審查者，"
+                           "據實名稱為雙模型獨立抽取＋衝突裁決"),
+    }
+
+
 def reader_from(drafts: dict[str, dict]):
     """把收回來的清冊包成 `run_inventory` 收得下的 ``reader``。
 
