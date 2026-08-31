@@ -1,0 +1,57 @@
+{
+  "schemaVersion": 1,
+  "documentType": "source-location-audit",
+  "question": "每一項結局宣稱的出處站不站得住",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "outcomesScanned": 790,
+  "inScope": 98,
+  "sourceSectionMissing": 0,
+  "citedContextSections": 3,
+  "citedContextInScope": 0,
+  "citedContextWithContractOutcome": [
+    {
+      "report": "c4128a6f6dd2c0b5",
+      "section": "Discussion",
+      "inScope": false,
+      "normalisedOutcomeRef": "tt-completion-time",
+      "excludedFor": "notExtracted-effect-measure-not-in-scope"
+    }
+  ],
+  "contextSectionsAvailable": 101,
+  "headline": "✅ 790 項的來源段落全部真的存在，⚠️ 而在範圍內的 98 項沒有一項取自導論／討論類段落。🚨 但 790 項裡有 3 項取自討論段落，其中 1 項宣告了契約結局——⚠️ 它取的是討論段落裡陳述的百分比改善，🚫 不是結果段落裡的完成時間。",
+  "whyItMatters": "🚨 那一項沒有進入範圍的理由是 effect-measure-not-in-scope（欄位留空），⚠️ 而不是「出處不對」。🚫 若那個欄位當初填了，一個取自討論段落的數字就會進入證據池。",
+  "whyZeroCanBeBelieved": "⚠️ 期待為零的檢查天生無法自證。✅ 兩層證據：① 它在真實資料上抓到 3 項，🚫 不是永不觸發；② 這批文件裡有 101 個導論類段落可供引用，而在範圍內的 98 項一個都沒用到。",
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "controlProbes": [
+    {
+      "probe": "掃到的是完整的那一批（必觸發）",
+      "passed": true,
+      "detail": "🚨 對不上就代表本支看的不是同一批；實得結局 790 項／在範圍內 98 項"
+    },
+    {
+      "probe": "段落存在檢查說得出「不存在」（必觸發之反向）",
+      "passed": true,
+      "detail": "🚨 以一個不可能存在的段落名試；⚠️ 若它也算存在，「790／790」就沒有意義"
+    },
+    {
+      "probe": "引用導論類段落的檢查在真實資料上會亮（必觸發之反向）",
+      "passed": true,
+      "detail": "✅ 790 項裡抓到 3 項；🚨 若為零，「在範圍內 0 項」就可能只是檢查沒動"
+    },
+    {
+      "probe": "這些文件裡本來就有導論類段落可供引用（必觸發）",
+      "passed": true,
+      "detail": "⚠️ 實得 101 個；🚨 若為零，「沒有人引用它們」是廢話"
+    },
+    {
+      "probe": "沒有任何契約結局的出處是導論／討論類段落",
+      "passed": false,
+      "detail": "🚨 實得 1 項：⚠️ 其中一項宣告 tt-completion-time 而出處是 Discussion，🚫 它沒進範圍的理由卻是 ['notExtracted-effect-measure-not-in-scope']——**擋住它的不是出處不對**"
+    }
+  ],
+  "auditHash": "sha256:98c9a693d25f3de13e0334555e45d0b75d6ccfcec3e8f37f6b2293d56ff70ef7"
+}
