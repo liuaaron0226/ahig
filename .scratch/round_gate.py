@@ -495,6 +495,20 @@ def run_tests():
         line = tail[-1] if tail else ''
         gp = re.search(r'(\d+) passed', line)
         gf = re.search(r'(\d+) failed', line)
+        # 🚨 第 623 輪：⚠️ 原本讀不到摘要行時回 (0, 0, exe, '')——
+        # 於是 0 != 基線，測試那格變紅，而印出來的那一行是**空的**。
+        # **🚨 「測試失敗」與「讀不到 pytest 的輸出」長得一樣**，
+        # 而第 622 輪那次一次性的紅，正是這個樣子。
+        # ✅ 故兩者分開：讀不到就說讀不到，並把實際輸出留下來。
+        if gp is None and gf is None:
+            evidence = (txt.strip().split('\n')[-6:]
+                        or ['（pytest 沒有輸出）'])
+            stderr = (r.stderr or '').strip().split('\n')[-4:]
+            return (None, None, exe,
+                    '🚨 讀不到 pytest 的摘要行（returncode=%s）——'
+                    '⚠️ 這不是「測試失敗」，是本閘門沒看到結果。'
+                    '\n      stdout 末幾行：%s\n      stderr 末幾行：%s'
+                    % (r.returncode, evidence, [s for s in stderr if s]))
         return (int(gp.group(1)) if gp else 0,
                 int(gf.group(1)) if gf else 0, exe, line.strip())
     return None
@@ -508,10 +522,17 @@ if tr is None:
     t_ok = False
 else:
     passed, failed, exe, line = tr
-    t_ok = (passed == BASE_PASSED and failed == BASE_FAILED)
+    # 🚨 passed 為 None ＝ 讀不到摘要行。⚠️ 那不是「測試失敗」，
+    # 🚫 而本閘門先前把兩者印成同一種樣子（一個空行加一個紅字）。
+    unreadable = passed is None
+    t_ok = (not unreadable and passed == BASE_PASSED and failed == BASE_FAILED)
     print('   直譯器 %s｜%s' % (exe, line))
-    print('   基線 %d passed／%d failed  %s' % (BASE_PASSED, BASE_FAILED,
-                                             '✅ 相同' if t_ok else '🚨 偏離'))
+    if unreadable:
+        print('   🚨 本輪**沒有測試數字**——⚠️ 不得把它讀成「測試通過」，'
+              '🚫 也不得讀成「某條測試壞了」。')
+    else:
+        print('   基線 %d passed／%d failed  %s'
+              % (BASE_PASSED, BASE_FAILED, '✅ 相同' if t_ok else '🚨 偏離'))
     print('   已知失敗：%s' % KNOWN_FAIL)
     print('   ⚠️ 未收集：%s' % UNCOLLECTABLE)
     print('   🚨 故本閘門不得聲稱「743/743」——⚠️ 743 是協調者環境之數，非此處實測。')
