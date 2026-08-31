@@ -1,0 +1,132 @@
+{
+  "schemaVersion": 1,
+  "documentType": "p3-step1i-table",
+  "assignment": "n+195：P3 第一步之產出一（表）與產出三（判斷）",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "directionVocabulary": {
+    "favourable": "✅ 該回顧自述為有利",
+    "null": "🚨 該回顧自述為無顯著差異",
+    "mixed": "⚠️ 部分結局有利、部分無",
+    "not-reported": "🚫 該回顧未給方向"
+  },
+  "sides": {
+    "stress-eating": "甲：減少壓力／情緒驅動的進食",
+    "deficit-adherence": "乙：提高赤字的維持率"
+  },
+  "rows": {
+    "36768088": {
+      "side": "stress-eating",
+      "cutoff": "February 2022",
+      "population": "成人，過重或肥胖",
+      "intervention": "針對情緒性進食的心理介入（含 CBT）",
+      "outcome": "情緒性進食分數與體重",
+      "direction": "favourable",
+      "statedGap": "⚠️ 該回顧自述證據有限、異質性高",
+      "chain": "🚨 為 39763344 的前一版"
+    },
+    "39763344": {
+      "side": "stress-eating",
+      "cutoff": "31 April 2023",
+      "population": "成人，BMI > 25",
+      "intervention": "情緒性進食介入，並以行為改變技術分類法拆解",
+      "outcome": "情緒性進食分數與體重",
+      "direction": "favourable",
+      "statedGap": "🚨 該回顧自述**機轉仍不清楚**——✅ 這正是它做 BCT 拆解的理由",
+      "chain": "🚨 自述為 36768088 的 review update（搜 2022-01 至 2023-04）"
+    },
+    "32551798": {
+      "side": "stress-eating",
+      "cutoff": "June 2017",
+      "population": "有問題性進食或身體意象困擾者",
+      "intervention": "正念為基礎之介入",
+      "outcome": "情緒性、外因性、暴食進食",
+      "direction": "favourable",
+      "statedGap": "⚠️ 僅 9 篇隨機對照試驗",
+      "chain": null
+    },
+    "36763199": {
+      "side": "stress-eating",
+      "cutoff": "17 June 2022",
+      "population": "成人，過重或肥胖",
+      "intervention": "接納與承諾治療",
+      "outcome": "體重、進食行為、心理結局",
+      "direction": "mixed",
+      "statedGap": "🚨 **情緒性進食該項不顯著**；⚠️ BMI 與心理彈性有利",
+      "chain": null
+    },
+    "39489689": {
+      "side": "stress-eating",
+      "cutoff": "June 2023",
+      "population": "成人（含不同場域）",
+      "intervention": "正念為基礎之介入",
+      "outcome": "肥胖性進食行為（分「無意識進食」與「壓力相關進食」）",
+      "direction": "mixed",
+      "statedGap": "🚨 **情緒性進食與暴食皆不顯著**，且長期追蹤仍不顯著；⚠️ 有利的是「無意識進食」那一組結局。✅ 該回顧自述場域為調節變項（臨床優於學校）",
+      "chain": null
+    },
+    "38246879": {
+      "side": "deficit-adherence",
+      "cutoff": "July 2023",
+      "population": "成人，過重或肥胖",
+      "intervention": "計畫性暫停 vs 持續能量限制",
+      "outcome": "體重變化與**中途退出**",
+      "direction": "null",
+      "statedGap": "🚨 體重與中途退出**皆無差別**；⚠️ 僅 9 個介入組",
+      "chain": null
+    }
+  },
+  "unresolved": {
+    "38784136": "⚠️ 開放取用但全文找不到檢索日期 → protocol 二之 2：**無法接續**",
+    "39228092": "🚫 非開放取用，方法段讀不到 → 截止日不明"
+  },
+  "countsBySide": {
+    "stress-eating": 5,
+    "deficit-adherence": 1
+  },
+  "countsByDirection": {
+    "favourable": 3,
+    "mixed": 2,
+    "null": 1
+  },
+  "chainedPair": [
+    "36768088",
+    "39763344"
+  ],
+  "chainWarning": "🚨 36768088 與 39763344 是同一條線的前後兩版（後者自述為 update）。⚠️ 合成時**不得當成兩筆獨立證據**——✅ 與 B.11 那條「研究 vs 論文」是同一個問題。",
+  "answerToProtocolFour3": "🚨 **既有回顧沒有回答擁有者的問題。**⚠️ 減少情緒性進食：兩份較早的說有幫助，**而兩份較新且更專一的，情緒性進食那一項都不顯著**；🚨 提高赤字維持率：唯一直接測過的（計畫性暫停）**無差別**。✅ 而這不只是「沒人做過」——**是做過而結果多半是零**。",
+  "searchStartsFrom": "2023 年年中（甲 June 2023／乙 July 2023，皆方法段逐字）",
+  "numbersKeptPrivate": "C:\\Users\\User\\Desktop\\claude\\ahig-private\\p3-stress-eating\\step1i-table.json",
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "controlProbes": [
+    {
+      "probe": "每一列都有截止日（必觸發）",
+      "passed": true,
+      "detail": "🚨 protocol 三：沒有截止日的回顧無法接續；實得 6 列全部有"
+    },
+    {
+      "probe": "方向標籤都在固定詞彙裡（必觸發之反向）",
+      "passed": true,
+      "detail": "🚨 自創方向等於沒有分類；實得 無"
+    },
+    {
+      "probe": "方向欄真的分得出不同答案（必觸發之反向）",
+      "passed": true,
+      "detail": "⚠️ 實得 {'favourable': 3, 'mixed': 2, 'null': 1}；🚨 若只有一種，這一欄什麼都沒說"
+    },
+    {
+      "probe": "兩半都有列（必觸發）",
+      "passed": true,
+      "detail": "⚠️ 實得 {'stress-eating': 5, 'deficit-adherence': 1}"
+    },
+    {
+      "probe": "有回顧直接測過「赤字維持率」且結果為正",
+      "passed": false,
+      "detail": "🚨 乙半邊只有 1 份直接測過，且方向為 ['null']——⚠️ 計畫性暫停對中途退出**無差別**。✅ 故 protocol 四之 3：既有回顧**沒有**回答擁有者的問題"
+    }
+  ],
+  "auditHash": "sha256:abf9efa608ad68fa06553a5bed4942617e44fd42f556a238d1e0fb9cddd4c747"
+}
