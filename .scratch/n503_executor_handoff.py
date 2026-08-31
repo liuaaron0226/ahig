@@ -71,7 +71,31 @@ from ahig.contracts.freeze import content_hash  # noqa: E402
 S = '.scratch/'
 RUN = (Path(os.environ['AHIG_PRIVATE_ROOT']) / 'search-runs' /
        'b11-exogenous-cho-endurance' / 'b11-full-run')
-ROUND = 503
+
+
+def _round_from_argv():
+    """輪次由呼叫端指明，🚫 不寫死。
+
+    🚨 這個數原本是寫死的 `503`。⚠️ 而本檔自己的 `snapshotNote` 要求交付日重跑——
+    重跑時 `producedAt` 會更新，**而寫死的輪次不會**，
+    🚨 於是產物會宣稱一個它並不是在那時產出的輪次。第 542 輪重跑時當場看到這件事：
+    值全部沒變（18／18），但輪次仍寫 503。
+
+    ✅ 改為必填；未指明即 `exit 2`——⚠️ 2 是「這裡不該這樣跑」，🚫 不是「檢查失敗」
+    （與 `private_root.require` 同一慣例）。
+    """
+    args = [a for a in sys.argv[1:] if not a.startswith('-')]
+    if len(args) != 1 or not args[0].isdigit():
+        print('🚨 用法：python n503_executor_handoff.py <輪次>', file=sys.stderr)
+        print('   ⚠️ 輪次先前寫死為 503。交付日重跑時 producedAt 會更新而它不會，',
+              file=sys.stderr)
+        print('   🚨 於是產物會宣稱一個它不是在那時產出的輪次。故改為必填。',
+              file=sys.stderr)
+        sys.exit(2)
+    return int(args[0])
+
+
+ROUND = _round_from_argv()
 
 
 def jload(p):

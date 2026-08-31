@@ -12,10 +12,6 @@ n+181 查明這個套件先前根本不存在：管線搜尋、篩選、抽樣�
   inventory_draft   橋——sections 文件 → draft 清冊 → 既有確定性層 → scoped 清冊。
                     這一塊不需要私有根，故由協調者做。
 
-  in_room_reader    不另外花錢的那條讀論文路線：論文由房間裡已經在跑的會話讀，
-                    讀完的清冊放在版控外的一個目錄，整批跑時從那裡取。
-                    n+185：擁有者決定不多花錢，而缺的從來不是模型，是放東西的地方。
-
 已存在而本套件直接沿用（不重造）：
   ahig.scope.matcher     ScopeMatcher：確定性範圍判定、backfill 候選
   ahig.scope.inventory   lifecycle、assert_scopable、harms 掃描與註冊比對之稽核
@@ -24,6 +20,7 @@ n+181 查明這個套件先前根本不存在：管線搜尋、篩選、抽樣�
 from ahig.extraction.corpus import (  # noqa: F401
     AcquiredDocument,
     CorpusError,
+    acquired_roster,
     iter_acquired,
     load_document,
     reading_request_for,
@@ -36,14 +33,10 @@ from ahig.extraction.inventory_draft import (  # noqa: F401
     validate_draft,
     draft_to_scoped,
 )
-from ahig.extraction.in_room_reader import (  # noqa: F401
-    DropReader,
-    DropReaderError,
-    NotDrafted,
-    draft_skeleton,
-)
 from ahig.extraction import store  # noqa: F401
+from ahig.extraction import worksheet  # noqa: F401
 from ahig.extraction.run import (  # noqa: F401
+    ContractUnusable,
     InventoryRun,
     RecordOutcome,
     run_inventory,

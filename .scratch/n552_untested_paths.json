@@ -1,0 +1,176 @@
+{
+  "schemaVersion": 1,
+  "documentType": "extraction-function-coverage",
+  "ruling": "第 551 輪之後續：把「沒有測試走過的路」系統化地問一次",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "method": "sys.settrace 逐行記錄，再與 AST 取出的函式行號區間對照。🚫 本機無 coverage。",
+  "testModules": [
+    "test_extraction_corpus",
+    "test_extraction_run",
+    "test_extraction_worksheet",
+    "test_extraction_route",
+    "test_extraction_bridge",
+    "test_extraction_chain"
+  ],
+  "testsRun": 74,
+  "testFailures": [],
+  "functionsTotal": 49,
+  "functionsTouched": 49,
+  "functionsUntouched": [],
+  "statementsNeverRun": [
+    {
+      "file": "ahig/ahig/extraction/corpus.py",
+      "line": 81,
+      "source": "raise CorpusError(f\"{self.candidate_id}：sections 為空\")"
+    },
+    {
+      "file": "ahig/ahig/extraction/corpus.py",
+      "line": 131,
+      "source": "raise CorpusError(f\"{candidate_id}：沒有 manifest\")"
+    },
+    {
+      "file": "ahig/ahig/extraction/corpus.py",
+      "line": 134,
+      "source": "raise CorpusError(f\"{candidate_id}：status 為 {manifest.get('status')}，\""
+    },
+    {
+      "file": "ahig/ahig/extraction/corpus.py",
+      "line": 159,
+      "source": "continue"
+    },
+    {
+      "file": "ahig/ahig/extraction/corpus.py",
+      "line": 166,
+      "source": "continue"
+    },
+    {
+      "file": "ahig/ahig/extraction/corpus.py",
+      "line": 178,
+      "source": "yield name, None, error"
+    },
+    {
+      "file": "ahig/ahig/extraction/corpus.py",
+      "line": 179,
+      "source": "continue"
+    },
+    {
+      "file": "ahig/ahig/extraction/corpus.py",
+      "line": 210,
+      "source": "unnameable.append((name, \"manifest 無 candidateId\"))"
+    },
+    {
+      "file": "ahig/ahig/extraction/inventory_draft.py",
+      "line": 45,
+      "source": "return SHA_PREFIX + hashlib.sha256(data).hexdigest()"
+    },
+    {
+      "file": "ahig/ahig/extraction/inventory_draft.py",
+      "line": 50,
+      "source": "raise ValueError("
+    },
+    {
+      "file": "ahig/ahig/extraction/run.py",
+      "line": 108,
+      "source": "global _validator"
+    },
+    {
+      "file": "ahig/ahig/extraction/run.py",
+      "line": 365,
+      "source": "run.outcomes.append(RecordOutcome("
+    },
+    {
+      "file": "ahig/ahig/extraction/run.py",
+      "line": 369,
+      "source": "continue"
+    },
+    {
+      "file": "ahig/ahig/extraction/run.py",
+      "line": 372,
+      "source": "run.outcomes.append(RecordOutcome("
+    },
+    {
+      "file": "ahig/ahig/extraction/run.py",
+      "line": 375,
+      "source": "continue"
+    },
+    {
+      "file": "ahig/ahig/extraction/run.py",
+      "line": 381,
+      "source": "run.outcomes.append(RecordOutcome("
+    },
+    {
+      "file": "ahig/ahig/extraction/run.py",
+      "line": 385,
+      "source": "continue"
+    },
+    {
+      "file": "ahig/ahig/extraction/store.py",
+      "line": 42,
+      "source": "raise StoreError(f\"不是可用的雜湊：{digest!r}\")"
+    },
+    {
+      "file": "ahig/ahig/extraction/store.py",
+      "line": 96,
+      "source": "raise StoreError(f\"{path.name} 讀不出來：{error}\") from error"
+    },
+    {
+      "file": "ahig/ahig/extraction/store.py",
+      "line": 122,
+      "source": "raise StoreError(\"批次紀錄缺 batchId\")"
+    },
+    {
+      "file": "ahig/ahig/extraction/worksheet.py",
+      "line": 72,
+      "source": "raise WorksheetError(\"page_chars 必須為正整數\")"
+    },
+    {
+      "file": "ahig/ahig/extraction/worksheet.py",
+      "line": 170,
+      "source": "raise WorksheetError(f\"清冊[{i}] 必須是物件\")"
+    },
+    {
+      "file": "ahig/ahig/extraction/worksheet.py",
+      "line": 209,
+      "source": "raise WorksheetError(\"drafts.json 的 entries 必須是陣列\")"
+    }
+  ],
+  "guardsThatMustBeExercised": [
+    "每一篇都有下落（送進來的與交回來的要對得上）",
+    "每一篇都有下落",
+    "每一篇都有下落",
+    "不默默挑第一份全文",
+    "指得出被讀的是哪一份",
+    "清冊要有綁定才存得進去",
+    "批次 id 由內容導出",
+    "空工作單與沒有論文要分得出來",
+    "工作單上沒有的那一篇不得收"
+  ],
+  "whyTheRestAreLeft": "🚫 「一行都不剩」不是本支的標的。⚠️ 逼每一個防禦性 raise 都被觸發，會逼出一堆為了覆蓋率而寫的測試，🚨 而那些測試不保護任何主張。✅ 留下的多是型別／格式類的防呆（例如「必須是物件」、「必須是陣列」），它們壞掉會當場拋錯，🚫 不會安靜地錯。",
+  "whatThisDoesNotMeasure": [
+    "🚨 分支：函式被走過 ≠ 每個 if 都被走過。⚠️ 第 551 輪那個缺陷剛好是整條路沒走過，🚫 下一個未必是。",
+    "🚨 斷言：走過 ≠ 驗過。⚠️ 第 549 輪那個沒接上的計數器就是走過而沒驗到。"
+  ],
+  "controlProbes": [
+    {
+      "probe": "測試全部跑得起來",
+      "passed": true,
+      "detail": "🚨 有測試在這裡跑不起來的話，未走到的清單會偏大；失敗 0：[]"
+    },
+    {
+      "probe": "追蹤器真的有記到東西（必觸發）",
+      "passed": true,
+      "detail": "🚨 若一個函式都沒記到，「全部沒走過」會是假的；實得走過 49 個"
+    },
+    {
+      "probe": "護住主張的那幾道守衛，全部觸發過",
+      "passed": true,
+      "detail": "🚨 一道從沒觸發過的守衛，與一道不存在的守衛，在紀錄上分不出來；仍未觸發：無"
+    },
+    {
+      "probe": "沒有任何函式整段沒被走過",
+      "passed": true,
+      "detail": "未走過 0 個：[]"
+    }
+  ],
+  "auditHash": "sha256:7b9ffe6a82133a8900862463dd1be7d3aee431050d9a86ff340fd506c4f289be"
+}

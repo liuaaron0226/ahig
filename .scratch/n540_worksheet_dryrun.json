@@ -1,0 +1,96 @@
+{
+  "schemaVersion": 1,
+  "documentType": "worksheet-dryrun",
+  "ruling": "ADR-0009 裁定①之萃取版：工作單那條路在真語料上整條走一次",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "readerIsAStub": true,
+  "stubMarker": "REHEARSAL-NOT-A-REAL-INVENTORY",
+  "storeDisabled": "🚨 store=None——替身的清冊一份都不落盤",
+  "worksheetRemoved": true,
+  "population": "私有根 fulltext/ 內所有 acquired",
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "paging": {
+    "records": 41,
+    "pageChars": 120000,
+    "pageCount": 18,
+    "totalChars": 2039858,
+    "largestItemChars": 355929,
+    "itemsPerPage": {
+      "min": 1,
+      "max": 5
+    }
+  },
+  "roundTrip": {
+    "draftsLoaded": 41,
+    "succeeded": 41,
+    "failed": 0
+  },
+  "correction": {
+    "boardSaid": "第 536 輪報出「遞增 19 頁｜遞減 19 頁｜交錯 21 頁」，並以 19 為結論",
+    "actual": 18,
+    "why": "🚨 n535 的 records 是按字元數**遞增排序**寫出去的，而第 536 輪就拿那個順序算頁數。⚠️ 語料的真實順序既不是遞增也不是遞減，🚨 故那三個數沒有一個是實際會發生的頁數。",
+    "lesson": "⚠️ 又是同一型：量到的東西不是主張所依賴的東西——🚨 我量了三種我自己排出來的順序，而該量的是 build_worksheet 實際會用的那一種。",
+    "recomputedFromSortedOrder": 19
+  },
+  "notProven": [
+    "🚨 抽得準不準：替身編造（同 n537）。",
+    "🚨 一頁 120,000 字元對真的 session 讀不讀得完——⚠️ 要真的讀才知道。"
+  ],
+  "controlProbes": [
+    {
+      "probe": "工作單自己量到的總字元數等於 n535 所量",
+      "passed": true,
+      "detail": "build_worksheet 2039858｜n535 2039858"
+    },
+    {
+      "probe": "build_worksheet 與 paginate 在同一順序下一致",
+      "passed": true,
+      "detail": "build_worksheet 18 頁｜paginate 同序重算 18 頁"
+    },
+    {
+      "probe": "第 536 輪報出去的頁數需更正（本探針以「需更正」為通過）",
+      "passed": true,
+      "detail": "🚨 看板 19 頁係以 n535 之**排序後**順序算得；⚠️ 語料真實順序為 18 頁——正確的是 18"
+    },
+    {
+      "probe": "超出整頁預算的那一篇自己一頁（必觸發）",
+      "passed": true,
+      "detail": "最大一篇 355929 字元 > 預算 120000，且該頁只有 1 篇；🚨 若它與別人同頁，代表分頁沒有守住「不切開」那條"
+    },
+    {
+      "probe": "逐頁一檔，且頁數對得上",
+      "passed": true,
+      "detail": "檔案 18 個｜pageCount 18"
+    },
+    {
+      "probe": "索引不帶全文，而逐頁帶",
+      "passed": true,
+      "detail": "🚨 索引若帶全文，逐頁一檔就沒有意義；逐頁合計 2039858 字元"
+    },
+    {
+      "probe": "逐頁字元合計等於總字元數",
+      "passed": true,
+      "detail": "逐頁 2039858｜索引 2039858"
+    },
+    {
+      "probe": "收回來的清冊每一篇都有、且綁定驗得過",
+      "passed": true,
+      "detail": "收回 41／41，未收回 0"
+    },
+    {
+      "probe": "由工作單收回的 reader 能把整批跑完",
+      "passed": true,
+      "detail": "成功 41｜失敗 0"
+    },
+    {
+      "probe": "用完的工作單已刪除",
+      "passed": true,
+      "detail": "🚨 留著等於私有根裡多一份語料副本；🚫 只刪本支自己建的那一個（目錄內容與預期相符）"
+    }
+  ],
+  "auditHash": "sha256:bbe390de4ab5be70b6ed7c9b6d9e91445673d251abc1a01e7053374b1a14f1f6"
+}

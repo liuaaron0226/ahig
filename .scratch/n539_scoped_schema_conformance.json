@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "documentType": "scoped-schema-conformance",
+  "ruling": "n+183 之「scoped → family/gates（既有）」：本鏈的產出下游收不收",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）；與 n+184、n535、n537、n538 同類",
+  "readerIsAStub": true,
+  "stubMarker": "REHEARSAL-NOT-A-REAL-INVENTORY",
+  "storeDisabled": "🚨 本支不寫任何清冊（與 n537 同一理由）",
+  "schema": "ahig/schema/outcome-inventory.schema.json",
+  "schemaAdditionalProperties": false,
+  "population": "私有根 fulltext/ 內所有 acquired",
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "counts": {
+    "records": 41,
+    "draftFailures": 0,
+    "scopedFailures": 0,
+    "distinctSectionTitles": 591,
+    "untitledScanned": 20,
+    "maxSectionsInOneRecord": 160
+  },
+  "notProven": [
+    "🚨 抽得準不準：draft 的 reportedOutcomes 是替身編造的。",
+    "🚨 SHACL 那一層：本機缺 pyshacl，該測試檔未被收集。"
+  ],
+  "controlProbes": [
+    {
+      "probe": "41 篇的 scoped 全部通過下游 schema",
+      "passed": true,
+      "detail": "不通過 0／41"
+    },
+    {
+      "probe": "41 篇的 draft 也通過同一份 schema",
+      "passed": true,
+      "detail": "🚨 若 draft 過不了，代表本鏈的驗收與下游的驗收有縫；不通過 0／41"
+    },
+    {
+      "probe": "驗證器真的會擋（必觸發）",
+      "passed": true,
+      "detail": "🚨 加一個 schema 沒宣告的欄位，additionalProperties:false 應當拒絕；實得 1 條錯誤"
+    },
+    {
+      "probe": "真的章節標題確實被餵進去了",
+      "passed": true,
+      "detail": "相異標題 591 個｜其中 Untitled 被掃描 20 次｜單篇最多 160 節；⚠️ 若這些數字很小，代表撞 schema 的仍是合成值"
+    }
+  ],
+  "records": [],
+  "recordsNote": "🚫 只列出有錯的；全數通過時此陣列為空——⚠️ 空陣列與「沒有跑」由 counts.records 區分。",
+  "auditHash": "sha256:1c18b4620147ff40b1cff7bec319de7107d35000bb591115d4ce003f30f3445a"
+}

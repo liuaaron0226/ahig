@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "documentType": "handoff-drift-check",
+  "ruling": "n+151(1)／n+160：executor_cells.json 是協調者 n154 逐格讀入的檔",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "comparedAgainst": "git HEAD 版之 .scratch/executor_cells.json",
+  "committedRound": 503,
+  "currentRound": 542,
+  "cellsChanged": [],
+  "topLevelChanged": [],
+  "volatileChanged": [
+    "producedAt",
+    "producedAtRound"
+  ],
+  "roundFieldFix": "🚨 重跑時發現 `ROUND` 是寫死的 503：`producedAt` 會更新而它不會，⚠️ 於是交付日重跑產出的檔會宣稱一個它不是在那時產出的輪次。✅ 已改為必須由呼叫端指明，未指明即 exit 2。",
+  "whatThisDoesNotProve": [
+    "🚨 不證明那 18 格的**值本身**是對的——⚠️ 只證明它沒有變。",
+    "🚨 不證明受阻的 3 格之阻礙仍然存在（那要看裁定，不看資料）。"
+  ],
+  "controlProbes": [
+    {
+      "probe": "18 格一格都沒漂",
+      "passed": true,
+      "detail": "有變者：無"
+    },
+    {
+      "probe": "格數與分類未變",
+      "passed": true,
+      "detail": "格數 18→18｜可量測 14→14｜可給界 1→1"
+    },
+    {
+      "probe": "其餘欄位未變",
+      "passed": true,
+      "detail": "有變者：無"
+    },
+    {
+      "probe": "時戳確實變了（必觸發）",
+      "passed": true,
+      "detail": "🚨 時戳沒變代表比的是同一份檔案，「沒漂」就沒有意義；實際變動的必變欄位：['producedAt', 'producedAtRound']"
+    }
+  ],
+  "auditHash": "sha256:3e3195eb6717ba3c07f04a62aeb840a6b1df530600d1e7a1f966f52dc807cf78"
+}
