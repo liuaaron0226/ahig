@@ -21,12 +21,35 @@
 **✅ 但受試者的年齡、體重、身高、VO₂max 不會逐字相同**——即使只差 0.4 歲也不同。
 
 🚫 **不看全文**：⚠️ 結果段落裡也有幾百個 `±`，那些是**結果**不是**受試者**，
-🚨 拿來比會製造大量假的相同。**✅ 只讀 `Participants`／`Subjects` 段落。**
+🚨 拿來比會製造大量假的相同。
+**✅ 只讀 `Participants`／`Subjects` 段落，外加 `Table 1`**（第 583 輪加，見下）。
+
+## 🚨 第 583 輪：加了 Table 1，而它一度把判準弄壞
+
+⚠️ 12 篇的受試者特徵**寫在表格裡**，文字段落一個 `±` 都沒有，故加 `Table 1`。
+**🚨 但有一篇的 Table 1 有 84 個 `±`——那不是受試者表，是結果表。**
+⚠️ 數值一多，純靠巧合撞到 2 個的機會就大，**實測當場生出 4 對假的「同一批」。**
+
+> ✅ **兩個修法，缺一不可**：
+> ① 一張表超過 20 個數值就**整張不用**（🚫 不從裡面挑——挑等於本室替論文
+> 決定哪幾個是特徵）；
+> ② 判定改看**比例**而非個數：**較小那一方要有一半以上的特徵中**。
+> 🚨 修完假陽性從 6 對回到 1 對，而**那一對是 100%**——⚠️ 次高者只有 50%
+> 且只共用 1 個值。
 
 ## 🚨 而「零相同」要能被相信，得先量巧合率
 
 ⚠️ 若隨便兩篇不相干的論文也常常「相同 2 個數值」，這個判準就沒有分辨力。
-**✅ 實測 820 對裡只有 3 對是巧合式的「相同 1 個」，🚨 而那一對是相同 6 個。**
+**✅ 實測 820 對裡有重疊卻比例不足者僅 4 對，🚨 而那一對是 6／6 全中。**
+
+## 🚨 本輪的第二個坑：同一個控制字元又來了
+
+⚠️ 改 `Table 1` 那條樣式時，word boundary **又被塌成 0x08（backspace）**，
+🚫 於是它對 `Table 1` 永遠不命中，**而畫面上「判不了 442 對」一個字都沒變**——
+🚨 看起來像是「表格裡根本沒東西」。
+**✅ 第 576 輪已在 n576 立過同一道探針，本支當時沒裝，於是同一個坑踩第二次；已補。**
+⚠️ 成因是**寫檔的方式**：經 shell 傳遞的 Python 字面會把 `\\b` 塌成 `\b`（backspace），
+**✅ 故含反斜線的樣式一律改用檔案編輯工具寫，🚫 不經 shell。**
 
 ## 🚫 本支不入輪次閘門，且不把數值寫進 repo
 
@@ -58,34 +81,63 @@ VALUE = re.compile(r'(\d+(?:\.\d+)?)\s*(?:±|\+/-|\+-)\s*(\d+(?:\.\d+)?)')
 # 🚨 只取受試者段落——⚠️ 標題是自由文字故比對寬鬆，
 # **🚫 但不退回全文**：退回去等於拿結果數值來比。
 PARTICIPANT = re.compile(r'participant|subject|volunteer', re.I)
+# 🚨 第 583 輪加：12 篇的受試者特徵**寫在表格裡**，文字段落一個 ± 都沒有。
+# ⚠️ 而慣例上 Table 1 就是受試者特徵表。**🚫 但那只是慣例，不是保證**——
+# ✅ 故第二來源獨立記帳，且**由巧合率探針當守門員**：
+# 🚨 若加了它之後「只相同 1 個值」的配對暴增，就代表它抓進來的是結果不是受試者。
+# 🚨 「(1|i) 後面不接數字」是為了不讓 Table 1 吃到 Table 10／Table 12。
+TABLE_ONE = re.compile(r'^\s*table\s*(1|i)(?![0-9])', re.I)
+TABLE_VALUE_CAP = 20    # 🚨 超過就判定那張不是受試者特徵表
 MIN_COMPARABLE = 2      # 兩邊各至少要有這麼多個值，「零相同」才說得出「不同批」
 
 
 def cohort_values(candidate):
     doc = corpus.load_document(candidate)
-    text = ' '.join(
-        (section.text or '') for section in doc.sections
-        if PARTICIPANT.search(str(section.title or '')))
-    return {'%s±%s' % pair for pair in VALUE.findall(text)}, bool(text)
+
+    def values_of(match):
+        text = ' '.join((section.text or '') for section in doc.sections
+                        if match(str(section.title or '')))
+        return {'%s±%s' % pair for pair in VALUE.findall(text)}, bool(text)
+
+    from_text, had_section = values_of(lambda t: bool(PARTICIPANT.search(t)))
+    from_table, _ = values_of(lambda t: bool(TABLE_ONE.match(t)))
+    # 🚨 受試者特徵表只有幾個數值（年齡、身高、體重、VO₂max…）。
+    # ⚠️ 實測有一篇的 Table 1 有 **84 個** ±——**那不是受試者表，是結果表。**
+    # ✅ 故超過上限就整張不用，🚫 不從裡面挑——挑就等於本室在替論文決定哪幾個是特徵。
+    if len(from_table) > TABLE_VALUE_CAP:
+        return from_text, set(), had_section, len(from_table)
+    return from_text, from_table, had_section, 0
 
 
 def verdict(values_a, values_b):
-    """✅ 這個判準**擅長排除**，🚫 不擅長證明。"""
+    """✅ 這個判準**擅長排除**，🚫 不擅長證明。
+
+    🚨 第 583 輪改為看**比例**而非個數。⚠️ 加進 Table 1 之後，
+    有的論文一張表就有 84 個數值，**而數值愈多，純靠巧合撞到 2 個的機會愈大**——
+    實測那樣會生出 4 對「相同 2 個」的假陽性。
+    **✅ 同一批人的特徵，較小那一方應該幾乎全中**（本 run 找到的那一對是 6／6）。
+    """
     both = len(values_a & values_b)
-    if both >= 2:
-        return 'possible-same-cohort', both
+    smaller = min(len(values_a), len(values_b))
+    ratio = both / smaller if smaller else 0.0
+    if both >= 2 and ratio >= 0.5:
+        return 'possible-same-cohort', both, ratio
     if len(values_a) >= MIN_COMPARABLE and len(values_b) >= MIN_COMPARABLE:
-        return ('coincidental-single-match' if both else 'different-cohort'), both
-    return 'undetermined-too-few-values', both
+        return (('partial-overlap-not-same-cohort' if both
+                 else 'different-cohort'), both, ratio)
+    return 'undetermined-too-few-values', both, ratio
 
 
 def main():
     ids, _ = corpus.acquired_roster()
 
-    values, no_section = {}, []
+    values, sources, no_section = {}, {}, []
     for candidate in ids:
-        found, had_section = cohort_values(candidate)
-        values[candidate[-16:]] = found
+        from_text, from_table, had_section, rejected = cohort_values(candidate)
+        values[candidate[-16:]] = from_text | from_table
+        sources[candidate[-16:]] = {'text': len(from_text),
+                                    'table1': len(from_table),
+                                    'table1RejectedAsTooLarge': rejected}
         if not had_section:
             no_section.append(candidate[-16:])
 
@@ -95,13 +147,14 @@ def main():
 
     rows, counts = [], {}
     for a, b in combinations(sorted(values), 2):
-        call, both = verdict(values[a], values[b])
+        call, both, ratio = verdict(values[a], values[b])
         counts[call] = counts.get(call, 0) + 1
         # ⚠️ 只列出「有相同」或「署名篩選有標」的，🚫 820 對全列沒有用。
         if both or (a, b) in flagged:
             item = flagged.get((a, b))
             rows.append({
-                'pair': [a, b], 'identicalValues': both, 'verdict': call,
+                'pair': [a, b], 'identicalValues': both,
+                'matchedFractionOfSmaller': round(ratio, 3), 'verdict': call,
                 'valuesAvailable': [len(values[a]), len(values[b])],
                 'inAuthorScreen': item is not None,
                 'sharedAuthors': item['sharedAuthors'] if item else 0,
@@ -112,7 +165,7 @@ def main():
 
     findings = [r for r in rows if r['verdict'] == 'possible-same-cohort']
     missed = [r for r in findings if not r['inAuthorScreen']]
-    coincidental = counts.get('coincidental-single-match', 0)
+    coincidental = counts.get('partial-overlap-not-same-cohort', 0)
 
     probes = []
 
@@ -125,6 +178,18 @@ def main():
           '🚨 抽不到的話，「零相同」只是沒東西可比；'
           '實得 %d／%d 篇有數值，%d 篇連受試者段落都沒認出來'
           % (with_values, len(ids), len(no_section)))
+    # 🚨 第 583 輪加，而且是**本輪自己觸發的第二次**：改 Table 1 那條樣式時，
+    # word boundary 又被塌成 0x08（backspace），⚠️ 於是它對 'Table 1' 永遠不命中，
+    # **🚫 而畫面上「判不了 442 對」一個字都沒變——看起來像是這個來源沒東西。**
+    # ✅ 第 576 輪已在 n576 立過同一道探針；🚨 本支當時沒裝，於是同一個坑踩第二次。
+    malformed = [(name, repr(rx.pattern)) for name, rx in
+                 (('VALUE', VALUE), ('PARTICIPANT', PARTICIPANT),
+                  ('TABLE_ONE', TABLE_ONE))
+                 if any(ord(c) < 32 for c in rx.pattern)]
+    probe('樣式字面裡沒有控制字元（必觸發之反向）', not malformed,
+          '🚨 控制字元會讓樣式永遠不命中，⚠️ 而「沒命中」看起來像是「沒東西」；'
+          '實得壞掉的樣式 %d 條%s'
+          % (len(malformed), ''.join('｜%s %s' % m for m in malformed)))
     probe('判準抓得到相同（必觸發之反向）',
           len({'30.3±6.5', '78.2±10.5'} & {'30.3±6.5', '78.2±10.5'}) == 2,
           '🚨 以兩組相同的合成數值試比對；⚠️ 抓不到的話，'
@@ -136,8 +201,8 @@ def main():
           '✅ 實得判為「不同批」者 %d 對；🚨 若為零，代表它只會說「不知道」'
           % counts.get('different-cohort', 0))
     # ⚠️ 巧合率：只共用 1 個數值的配對有多少。🚨 這個數字大，「相同 2 個」就沒意義。
-    probe('巧合率低（只相同 1 個數值的配對很少）', coincidental <= 10,
-          '⚠️ 820 對裡只相同 1 個數值者 %d 對；'
+    probe('巧合率低（有部分重疊但判為不同批者很少）', coincidental <= 15,
+          '⚠️ 820 對裡有重疊卻比例不足者 %d 對；'
           '🚨 若這個數字大，「相同 ≥2 個」就不代表同一批人' % coincidental)
 
     DETAIL.parent.mkdir(parents=True, exist_ok=True)
@@ -157,6 +222,8 @@ def main():
         'reportsWithValues': with_values,
         'reportsWithoutParticipantSection': no_section,
         'verdictCounts': counts,
+        'valueSources': sources,
+        'tableValueCap': TABLE_VALUE_CAP,
         'possibleSameCohort': len(findings),
         'missedByAuthorScreen': len(missed),
         'headline': (
@@ -186,10 +253,12 @@ def main():
     print('   🚨 可能同一批：%d 對，其中署名篩選漏掉 %d 對'
           % (len(findings), len(missed)))
     for r in rows[:14]:
-        print('   %s %s ↔ %s：相同 %d（可比 %d／%d）｜%s｜署名共同 %d%s%s'
+        print('   %s %s ↔ %s：相同 %d（可比 %d／%d，佔小者 %.0f%%）'
+              '｜%s｜署名共同 %d%s%s'
               % ('🚨' if r['verdict'] == 'possible-same-cohort' else '  ',
                  r['pair'][0], r['pair'][1], r['identicalValues'],
                  r['valuesAvailable'][0], r['valuesAvailable'][1],
+                 100 * r['matchedFractionOfSmaller'],
                  r['verdict'], r['sharedAuthors'],
                  '＋同第一' if r['sameFirstAuthor'] else '',
                  '＋同末位' if r['sameLastAuthor'] else ''))
