@@ -1,0 +1,169 @@
+{
+  "schemaVersion": 1,
+  "documentType": "recoverable-from-tables",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "readOnly": "🚫 未改解析器、未重新產生任何 sections。",
+  "reports": 15,
+  "totals": {
+    "tables": 50,
+    "outcomeTables": 12,
+    "vocab:exogenous-cho-oxidation-peak": 2,
+    "vocab:muscle-glycogen-post-exercise": 6,
+    "vocab:gi-symptom": 2,
+    "vocab:tt-completion-time": 1,
+    "vocab:time-to-exhaustion": 2
+  },
+  "rows": [
+    {
+      "report": "7902e3ec54370729",
+      "tables": 1,
+      "tablesWithOutcomeTerms": 0,
+      "terms": {},
+      "contributesZeroInScope": false
+    },
+    {
+      "report": "48da8a7f2f35af1f",
+      "tables": 2,
+      "tablesWithOutcomeTerms": 1,
+      "terms": {
+        "exogenous-cho-oxidation-peak": 1,
+        "muscle-glycogen-post-exercise": 1
+      },
+      "contributesZeroInScope": false
+    },
+    {
+      "report": "6b7320d74cdda857",
+      "tables": 0,
+      "tablesWithOutcomeTerms": 0,
+      "terms": {},
+      "contributesZeroInScope": false
+    },
+    {
+      "report": "7a6ac1559c740fd6",
+      "tables": 3,
+      "tablesWithOutcomeTerms": 0,
+      "terms": {},
+      "contributesZeroInScope": true
+    },
+    {
+      "report": "3f34fc92d4f4b70d",
+      "tables": 1,
+      "tablesWithOutcomeTerms": 1,
+      "terms": {
+        "exogenous-cho-oxidation-peak": 1
+      },
+      "contributesZeroInScope": false
+    },
+    {
+      "report": "c3028a8a7b1ae2a1",
+      "tables": 2,
+      "tablesWithOutcomeTerms": 1,
+      "terms": {
+        "gi-symptom": 1
+      },
+      "contributesZeroInScope": true
+    },
+    {
+      "report": "a9012191142e7e02",
+      "tables": 1,
+      "tablesWithOutcomeTerms": 0,
+      "terms": {},
+      "contributesZeroInScope": false
+    },
+    {
+      "report": "ad7c0004c386f31c",
+      "tables": 2,
+      "tablesWithOutcomeTerms": 0,
+      "terms": {},
+      "contributesZeroInScope": true
+    },
+    {
+      "report": "c4128a6f6dd2c0b5",
+      "tables": 4,
+      "tablesWithOutcomeTerms": 0,
+      "terms": {},
+      "contributesZeroInScope": true
+    },
+    {
+      "report": "65dd82a89b2c5340",
+      "tables": 2,
+      "tablesWithOutcomeTerms": 1,
+      "terms": {
+        "gi-symptom": 1
+      },
+      "contributesZeroInScope": false
+    },
+    {
+      "report": "82cbc04b68c38e79",
+      "tables": 1,
+      "tablesWithOutcomeTerms": 0,
+      "terms": {},
+      "contributesZeroInScope": true
+    },
+    {
+      "report": "1105537918c174c9",
+      "tables": 1,
+      "tablesWithOutcomeTerms": 0,
+      "terms": {},
+      "contributesZeroInScope": false
+    },
+    {
+      "report": "307c0dd5b141caed",
+      "tables": 27,
+      "tablesWithOutcomeTerms": 8,
+      "terms": {
+        "muscle-glycogen-post-exercise": 5,
+        "tt-completion-time": 1,
+        "time-to-exhaustion": 2
+      },
+      "contributesZeroInScope": false
+    },
+    {
+      "report": "eac2b5fd6bb06843",
+      "tables": 3,
+      "tablesWithOutcomeTerms": 0,
+      "terms": {},
+      "contributesZeroInScope": false
+    },
+    {
+      "report": "298c326024d22835",
+      "tables": 0,
+      "tablesWithOutcomeTerms": 0,
+      "terms": {},
+      "contributesZeroInScope": false
+    }
+  ],
+  "zeroContributionWithOutcomeTables": [
+    "c3028a8a7b1ae2a1"
+  ],
+  "whatThisCanSay": "✅ 「該去看的表」有多少。🚫 不是「可以直接抽的結局」——⚠️ 表格文字被攤平後很難判讀。",
+  "whyItMattersForD17": "🚨 第 612 輪說修 parse_tei 會製造新的版本分歧。⚠️ 而值不值得，取決於那些表裡有沒有我們要的結局——✅ 本支把那個數字算出來了。",
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "controlProbes": [
+    {
+      "probe": "讀到了 15 篇的表格（必觸發）",
+      "passed": true,
+      "detail": "🚨 少一篇就低估了代價；實得 15 篇／50 張表"
+    },
+    {
+      "probe": "結局詞彙在表格裡確實命中（必觸發之反向）",
+      "passed": true,
+      "detail": "✅ 12／50 張表同時含數字與結局詞彙；🚨 若為零，代表這些表與結局無關——那樣 D17 就不值得修"
+    },
+    {
+      "probe": "詞彙沒有寬到每張表都命中",
+      "passed": true,
+      "detail": "⚠️ 實得 12／50；🚨 若全部命中，代表詞彙沒有分辨力"
+    },
+    {
+      "probe": "沒有「貢獻為零卻有結局表」的論文",
+      "passed": false,
+      "detail": "🚨 實得 1 篇：[('c3028a8a7b1ae2a1', 1)]；⚠️ 它們現在被記為沒有可用結局，而它們的表裡有結局詞彙與數字——🚫 讀的人看不到那些表"
+    }
+  ],
+  "auditHash": "sha256:05b7da310541bbdf48a6a25008ad1ba03cef3ed10161ca95641c0e6326d85792"
+}
