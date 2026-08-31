@@ -1,0 +1,147 @@
+{
+  "schemaVersion": 1,
+  "documentType": "default-only-when-absent-audit",
+  "question": "`.get(鍵, 預設)` 這一類在判定裡有幾處，明寫 null 會怎樣",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "sites": [
+    {
+      "owner": "reported",
+      "key": "hasNumericResult",
+      "default": "True",
+      "schemaAllowsNull": false
+    },
+    {
+      "owner": "reported",
+      "key": "statisticalModel",
+      "default": "\"unadjusted\"",
+      "schemaAllowsNull": true
+    },
+    {
+      "owner": "self.policy",
+      "key": "subgroupPolicy",
+      "default": "\"prespecified-only\"",
+      "schemaAllowsNull": false
+    },
+    {
+      "owner": "self.policy",
+      "key": "sensitivityAnalysisPolicy",
+      "default": "\"exclude\"",
+      "schemaAllowsNull": false
+    },
+    {
+      "owner": "self.policy",
+      "key": "maxStudyResultsPerStudy",
+      "default": "12",
+      "schemaAllowsNull": false
+    },
+    {
+      "owner": "self.policy",
+      "key": "onExceedMax",
+      "default": "\"escalate\"",
+      "schemaAllowsNull": false
+    },
+    {
+      "owner": "self.policy",
+      "key": "maxStudyResultsPerStudy",
+      "default": "12",
+      "schemaAllowsNull": false
+    },
+    {
+      "owner": "self.policy",
+      "key": "onExceedMax",
+      "default": "\"escalate\"",
+      "schemaAllowsNull": false
+    }
+  ],
+  "baselineSensitivityAnalysis": {
+    "inScope": false,
+    "reasonCode": "notExtracted-sensitivity-analysis-excluded-by-policy"
+  },
+  "demonstrations": {
+    "reported.statisticalModel=null": {
+      "inScope": false,
+      "reasonCode": "notExtracted-model-not-in-scope"
+    },
+    "policy.sensitivityAnalysisPolicy=null": {
+      "inScope": true,
+      "reasonCode": "in-scope"
+    },
+    "policy.subgroupPolicy=null": {
+      "inScope": false,
+      "reasonCode": "notExtracted-subgroup-excluded-by-policy"
+    }
+  },
+  "loosensWhenNull": [
+    "policy.sensitivityAnalysisPolicy=null"
+  ],
+  "tightensWhenNull": [
+    "reported.statisticalModel=null",
+    "policy.subgroupPolicy=null"
+  ],
+  "coverage": {
+    "distinctKeys": [
+      "hasNumericResult",
+      "maxStudyResultsPerStudy",
+      "onExceedMax",
+      "sensitivityAnalysisPolicy",
+      "statisticalModel",
+      "subgroupPolicy"
+    ],
+    "demonstratedWithMatcher": [
+      "statisticalModel",
+      "sensitivityAnalysisPolicy",
+      "subgroupPolicy"
+    ],
+    "notDemonstrated": [
+      "hasNumericResult",
+      "maxStudyResultsPerStudy",
+      "onExceedMax"
+    ],
+    "why": "⚠️ 未實測的三處要另外佈置情境（超過 12 筆的研究、缺席而非 null 的欄位）。🚨 故本支對它們只說「同一個寫法」，🚫 不宣稱已驗證方向。"
+  },
+  "currentExposure": {
+    "readerFields": {
+      "statisticalModel": {
+        "absent": 878,
+        "null": 0,
+        "value": 5
+      },
+      "hasNumericResult": {
+        "absent": 0,
+        "null": 0,
+        "value": 883
+      }
+    },
+    "policyKeysWrittenAsNull": [],
+    "note": "✅ 目前一處都沒有觸發。🚨 但每一格的安全都來自「碰巧沒有人寫 null」，🚫 不是來自任何規則。⚠️ 而 schema 對 statisticalModel 明文允許 null。"
+  },
+  "permissiveDefault": "🚨 `reported.get(\"hasNumericResult\", True)`：鍵缺席就當作有數值結果。⚠️ 而那一格正是把關 notExtracted-no-numeric-result 的地方——**漏填的後果是被收進來，不是被擋下。**",
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "controlProbes": [
+    {
+      "probe": "真的掃到帶預設值的呼叫（必觸發）",
+      "passed": true,
+      "detail": "🚨 若掃不到，本支對「這一類」的說法就沒有根據；實得 8 處：['hasNumericResult', 'statisticalModel', 'subgroupPolicy', 'sensitivityAnalysisPolicy', 'maxStudyResultsPerStudy', 'onExceedMax', 'maxStudyResultsPerStudy', 'onExceedMax']"
+    },
+    {
+      "probe": "契約原樣時敏感度分析確實被排除（正對照，必觸發）",
+      "passed": true,
+      "detail": "✅ 實得 inScope=False／notExtracted-sensitivity-analysis-excluded-by-policy；🚨 若它本來就不排除，「改成 null 就放進來」便無從比較"
+    },
+    {
+      "probe": "policy 寫成 null 之後，那條排除規則確實消失（必觸發之反向）",
+      "passed": true,
+      "detail": "🚨 實得 inScope=True；⚠️ 契約寫的是 \"exclude\"，而預設值 \"exclude\" 一次都沒有生效的機會"
+    },
+    {
+      "probe": "同一個寫法在所有位置的方向一致",
+      "passed": false,
+      "detail": "🚨 放寬 ['policy.sensitivityAnalysisPolicy=null']；收緊 ['reported.statisticalModel=null', 'policy.subgroupPolicy=null']。⚠️ 那不是「有一個 bug」，是**沒有人決定過 null 該代表什麼**"
+    }
+  ],
+  "auditHash": "sha256:159b36c7f0dbfe83462799fa44330f1d1412a053ef9075e52f7db7bbaba0e26d"
+}
