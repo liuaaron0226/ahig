@@ -111,6 +111,7 @@ def main():
     ids, unnameable = corpus.acquired_roster()
     mans = manifests()
 
+    thin = []
     reports, coverage, detail = [], {'registry': 0, 'doi': 0, 'authors': 0,
                                      'year': 0, 'jats': 0, 'tei': 0,
                                      'noFrontMatter': 0}, []
@@ -146,6 +147,7 @@ def main():
 
         reports.append(Report(work_id=key, registry_id=registry, doi=doi,
                               authors=names, publication_year=year))
+        thin.append(key) if 0 < len(names) <= 2 else None
         detail.append({'report': key, 'registryIds': found, 'doi': doi,
                        'authorCount': len(names), 'year': year,
                        'sourceType': doc.get('sourceType')})
@@ -200,6 +202,14 @@ def main():
     def probe(name, ok, detail_text):
         probes.append({'probe': name, 'passed': bool(ok), 'detail': detail_text})
 
+    # 🚨 第 582 輪加：本支原本只數「有沒有作者」，⚠️ 而那不是篩選需要的東西。
+    # 實測 4 篇（皆為 GROBID）只抽得到 1–2 位作者——**🚫 它們等於沒被篩選過**，
+    # 🚨 而 n582 用受試者數值找到的那一對，正好其中一篇就在這 4 篇裡。
+    # ⚠️ 「作者涵蓋率 41／41」量的是**有沒有**，不是**完不完整**。
+    probe('作者清單看起來是完整的',
+          not thin,
+          '🚨 作者數 ≤2 的有 %d 篇 %s——⚠️ 它們的「共有 ≥2 位作者」永遠不可能成立，'
+          '🚫 故它們實際上沒有被這個篩選看過' % (len(thin), thin))
     probe('41 篇全部進了 family.py（必觸發）',
           len(reports) == len(ids) == 41,
           '🚨 少一篇，成群判定就是在一個較小的語料上做的，'
@@ -235,6 +245,7 @@ def main():
         'tier1Edges': len(families['tier1Edges']),
         'suspectedPairs': len(families['suspectedPairs']),
         'signalCoverage': coverage,
+        'thinAuthorLists': thin,
         'verdict': (
             '🚨 tier1 回報 0 個成群，**而那句話答不了問題**：'
             '⚠️ 唯一會讓不同論文成群的訊號是試驗登錄號，41 篇裡只有 %d 篇有；'

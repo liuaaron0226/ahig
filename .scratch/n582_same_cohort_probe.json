@@ -1,0 +1,395 @@
+{
+  "schemaVersion": 1,
+  "documentType": "same-cohort-probe",
+  "question": "哪兩篇報告的是同一批受試者",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "method": "✅ 只比對 Participants／Subjects 段落裡的「平均 ± 標準差」字串。🚫 不看全文——⚠️ 結果段落裡也有幾百個 ±。",
+  "corpusSize": 41,
+  "reportsWithValues": 29,
+  "reportsWithoutParticipantSection": [
+    "65dd82a89b2c5340",
+    "82cbc04b68c38e79",
+    "1105537918c174c9",
+    "0cfceb6c8a86f78b"
+  ],
+  "verdictCounts": {
+    "undetermined-too-few-values": 442,
+    "different-cohort": 374,
+    "possible-same-cohort": 1,
+    "coincidental-single-match": 3
+  },
+  "possibleSameCohort": 1,
+  "missedByAuthorScreen": 1,
+  "headline": "🚨 找到一對報告同一批受試者的論文，⚠️ 而第 581 輪的署名篩選看不見它：該對其中一篇只抽得到 1 位作者（GROBID 未解出作者清單），故「共有 ≥2 位作者」永遠不可能成立。🚨 第 581 輪報的「作者涵蓋率 41／41」量的是有沒有，不是完不完整。",
+  "rows": [
+    {
+      "pair": [
+        "307c0dd5b141caed",
+        "7a6ac1559c740fd6"
+      ],
+      "identicalValues": 6,
+      "verdict": "possible-same-cohort",
+      "valuesAvailable": [
+        11,
+        6
+      ],
+      "inAuthorScreen": false,
+      "sharedAuthors": 0,
+      "sameFirstAuthor": false,
+      "sameLastAuthor": false
+    },
+    {
+      "pair": [
+        "3f34fc92d4f4b70d",
+        "ad7c0004c386f31c"
+      ],
+      "identicalValues": 1,
+      "verdict": "coincidental-single-match",
+      "valuesAvailable": [
+        3,
+        8
+      ],
+      "inAuthorScreen": false,
+      "sharedAuthors": 0,
+      "sameFirstAuthor": false,
+      "sameLastAuthor": false
+    },
+    {
+      "pair": [
+        "54d4200c1c5e2b64",
+        "7902e3ec54370729"
+      ],
+      "identicalValues": 1,
+      "verdict": "coincidental-single-match",
+      "valuesAvailable": [
+        3,
+        6
+      ],
+      "inAuthorScreen": false,
+      "sharedAuthors": 0,
+      "sameFirstAuthor": false,
+      "sameLastAuthor": false
+    },
+    {
+      "pair": [
+        "7902e3ec54370729",
+        "834de4d822dfb3cd"
+      ],
+      "identicalValues": 1,
+      "verdict": "coincidental-single-match",
+      "valuesAvailable": [
+        6,
+        9
+      ],
+      "inAuthorScreen": false,
+      "sharedAuthors": 0,
+      "sameFirstAuthor": false,
+      "sameLastAuthor": false
+    },
+    {
+      "pair": [
+        "48da8a7f2f35af1f",
+        "d4251685a43792ff"
+      ],
+      "identicalValues": 0,
+      "verdict": "different-cohort",
+      "valuesAvailable": [
+        4,
+        5
+      ],
+      "inAuthorScreen": true,
+      "sharedAuthors": 5,
+      "sameFirstAuthor": true,
+      "sameLastAuthor": false
+    },
+    {
+      "pair": [
+        "501bb474ac4704fa",
+        "d4251685a43792ff"
+      ],
+      "identicalValues": 0,
+      "verdict": "different-cohort",
+      "valuesAvailable": [
+        2,
+        5
+      ],
+      "inAuthorScreen": true,
+      "sharedAuthors": 5,
+      "sameFirstAuthor": false,
+      "sameLastAuthor": true
+    },
+    {
+      "pair": [
+        "3f34fc92d4f4b70d",
+        "48da8a7f2f35af1f"
+      ],
+      "identicalValues": 0,
+      "verdict": "different-cohort",
+      "valuesAvailable": [
+        3,
+        4
+      ],
+      "inAuthorScreen": true,
+      "sharedAuthors": 4,
+      "sameFirstAuthor": false,
+      "sameLastAuthor": false
+    },
+    {
+      "pair": [
+        "48da8a7f2f35af1f",
+        "501bb474ac4704fa"
+      ],
+      "identicalValues": 0,
+      "verdict": "different-cohort",
+      "valuesAvailable": [
+        4,
+        2
+      ],
+      "inAuthorScreen": true,
+      "sharedAuthors": 4,
+      "sameFirstAuthor": false,
+      "sameLastAuthor": false
+    },
+    {
+      "pair": [
+        "48da8a7f2f35af1f",
+        "65d459b9129da800"
+      ],
+      "identicalValues": 0,
+      "verdict": "different-cohort",
+      "valuesAvailable": [
+        4,
+        4
+      ],
+      "inAuthorScreen": true,
+      "sharedAuthors": 4,
+      "sameFirstAuthor": true,
+      "sameLastAuthor": false
+    },
+    {
+      "pair": [
+        "501bb474ac4704fa",
+        "65d459b9129da800"
+      ],
+      "identicalValues": 0,
+      "verdict": "different-cohort",
+      "valuesAvailable": [
+        2,
+        4
+      ],
+      "inAuthorScreen": true,
+      "sharedAuthors": 4,
+      "sameFirstAuthor": false,
+      "sameLastAuthor": true
+    },
+    {
+      "pair": [
+        "65d459b9129da800",
+        "d4251685a43792ff"
+      ],
+      "identicalValues": 0,
+      "verdict": "different-cohort",
+      "valuesAvailable": [
+        4,
+        5
+      ],
+      "inAuthorScreen": true,
+      "sharedAuthors": 4,
+      "sameFirstAuthor": true,
+      "sameLastAuthor": true
+    },
+    {
+      "pair": [
+        "7a97713bf254fa26",
+        "e8d48c04f919dbb0"
+      ],
+      "identicalValues": 0,
+      "verdict": "different-cohort",
+      "valuesAvailable": [
+        5,
+        5
+      ],
+      "inAuthorScreen": true,
+      "sharedAuthors": 4,
+      "sameFirstAuthor": true,
+      "sameLastAuthor": true
+    },
+    {
+      "pair": [
+        "081d147cd92dee14",
+        "d4149a8bac287851"
+      ],
+      "identicalValues": 0,
+      "verdict": "undetermined-too-few-values",
+      "valuesAvailable": [
+        0,
+        10
+      ],
+      "inAuthorScreen": true,
+      "sharedAuthors": 3,
+      "sameFirstAuthor": true,
+      "sameLastAuthor": true
+    },
+    {
+      "pair": [
+        "1105537918c174c9",
+        "a9012191142e7e02"
+      ],
+      "identicalValues": 0,
+      "verdict": "undetermined-too-few-values",
+      "valuesAvailable": [
+        0,
+        3
+      ],
+      "inAuthorScreen": true,
+      "sharedAuthors": 3,
+      "sameFirstAuthor": true,
+      "sameLastAuthor": false
+    },
+    {
+      "pair": [
+        "6b7320d74cdda857",
+        "7902e3ec54370729"
+      ],
+      "identicalValues": 0,
+      "verdict": "different-cohort",
+      "valuesAvailable": [
+        8,
+        6
+      ],
+      "inAuthorScreen": true,
+      "sharedAuthors": 3,
+      "sameFirstAuthor": false,
+      "sameLastAuthor": true
+    },
+    {
+      "pair": [
+        "081d147cd92dee14",
+        "834de4d822dfb3cd"
+      ],
+      "identicalValues": 0,
+      "verdict": "undetermined-too-few-values",
+      "valuesAvailable": [
+        0,
+        9
+      ],
+      "inAuthorScreen": true,
+      "sharedAuthors": 2,
+      "sameFirstAuthor": false,
+      "sameLastAuthor": true
+    },
+    {
+      "pair": [
+        "1105537918c174c9",
+        "ad7c0004c386f31c"
+      ],
+      "identicalValues": 0,
+      "verdict": "undetermined-too-few-values",
+      "valuesAvailable": [
+        0,
+        8
+      ],
+      "inAuthorScreen": true,
+      "sharedAuthors": 2,
+      "sameFirstAuthor": false,
+      "sameLastAuthor": false
+    },
+    {
+      "pair": [
+        "6b7320d74cdda857",
+        "7a6ac1559c740fd6"
+      ],
+      "identicalValues": 0,
+      "verdict": "different-cohort",
+      "valuesAvailable": [
+        8,
+        6
+      ],
+      "inAuthorScreen": true,
+      "sharedAuthors": 2,
+      "sameFirstAuthor": false,
+      "sameLastAuthor": false
+    },
+    {
+      "pair": [
+        "834de4d822dfb3cd",
+        "d4149a8bac287851"
+      ],
+      "identicalValues": 0,
+      "verdict": "different-cohort",
+      "valuesAvailable": [
+        9,
+        10
+      ],
+      "inAuthorScreen": true,
+      "sharedAuthors": 2,
+      "sameFirstAuthor": false,
+      "sameLastAuthor": true
+    },
+    {
+      "pair": [
+        "9a3b03b4fb24cf65",
+        "e4871d50d0001e66"
+      ],
+      "identicalValues": 0,
+      "verdict": "undetermined-too-few-values",
+      "valuesAvailable": [
+        0,
+        4
+      ],
+      "inAuthorScreen": true,
+      "sharedAuthors": 2,
+      "sameFirstAuthor": true,
+      "sameLastAuthor": false
+    },
+    {
+      "pair": [
+        "a9012191142e7e02",
+        "ad7c0004c386f31c"
+      ],
+      "identicalValues": 0,
+      "verdict": "different-cohort",
+      "valuesAvailable": [
+        3,
+        8
+      ],
+      "inAuthorScreen": true,
+      "sharedAuthors": 2,
+      "sameFirstAuthor": false,
+      "sameLastAuthor": false
+    }
+  ],
+  "whatThisCannotDo": [
+    "🚨 證明兩篇**是**同一批人——⚠️ 數值相同也可能是巧合或抄寫；✅ 但它能**排除**：數字不同就不是同一批。",
+    "⚠️ 只看受試者段落；🚨 若一篇把特徵寫在表格而非文字裡本支看不到，🚫 那時「零相同」不代表不同批（已另立 undetermined 一類）。"
+  ],
+  "detailKeptPrivate": "C:\\Users\\User\\Desktop\\claude\\ahig-private\\extraction\\n582-cohort-values.json",
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "controlProbes": [
+    {
+      "probe": "多數論文真的抽得到受試者數值（必觸發）",
+      "passed": true,
+      "detail": "🚨 抽不到的話，「零相同」只是沒東西可比；實得 29／41 篇有數值，4 篇連受試者段落都沒認出來"
+    },
+    {
+      "probe": "判準抓得到相同（必觸發之反向）",
+      "passed": true,
+      "detail": "🚨 以兩組相同的合成數值試比對；⚠️ 抓不到的話，所有「零相同」都只是比對沒動"
+    },
+    {
+      "probe": "判準在真實資料上排除得掉（必觸發）",
+      "passed": true,
+      "detail": "✅ 實得判為「不同批」者 374 對；🚨 若為零，代表它只會說「不知道」"
+    },
+    {
+      "probe": "巧合率低（只相同 1 個數值的配對很少）",
+      "passed": true,
+      "detail": "⚠️ 820 對裡只相同 1 個數值者 3 對；🚨 若這個數字大，「相同 ≥2 個」就不代表同一批人"
+    }
+  ],
+  "auditHash": "sha256:2eb32bdde5f77130adf008baa7563e608ca3c194a51778d011689b9ef88505e8"
+}

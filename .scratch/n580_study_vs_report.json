@@ -16,6 +16,12 @@
     "tei": 15,
     "noFrontMatter": 0
   },
+  "thinAuthorLists": [
+    "c4128a6f6dd2c0b5",
+    "65dd82a89b2c5340",
+    "307c0dd5b141caed",
+    "eac2b5fd6bb06843"
+  ],
   "verdict": "🚨 tier1 回報 0 個成群，**而那句話答不了問題**：⚠️ 唯一會讓不同論文成群的訊號是試驗登錄號，41 篇裡只有 3 篇有；DOI 依建構每篇各異，試驗簡稱無處可取。🚫 故本支不得被引用為「沒有重複計數」。",
   "correctionToRound580": "🚨 第 580 輪本支報「15 篇只留下 PDF，連作者都取不到」——⚠️ 那是錯的。TEI 一直都在，存在 manifest 的 teiFile 而非 rawFile；✅ 作者涵蓋率實為 41／41，🚫 不是 26／41。",
   "authorOverlapScreen": {
@@ -238,6 +244,11 @@
   },
   "controlProbes": [
     {
+      "probe": "作者清單看起來是完整的",
+      "passed": false,
+      "detail": "🚨 作者數 ≤2 的有 4 篇 ['c4128a6f6dd2c0b5', '65dd82a89b2c5340', '307c0dd5b141caed', 'eac2b5fd6bb06843']——⚠️ 它們的「共有 ≥2 位作者」永遠不可能成立，🚫 故它們實際上沒有被這個篩選看過"
+    },
+    {
       "probe": "41 篇全部進了 family.py（必觸發）",
       "passed": true,
       "detail": "🚨 少一篇，成群判定就是在一個較小的語料上做的，⚠️ 而較小的語料看起來跟完整的一樣；實得 41 篇"
@@ -253,5 +264,5 @@
       "detail": "🚨 tier1 唯一會成群的訊號是登錄號，而 41 篇裡只有 3 篇有；⚠️ 故「0 個成群」等於 38 篇沒被看過，🚫 不是「沒有重複」"
     }
   ],
-  "auditHash": "sha256:5b64069af1a56282c15c8392cdd69c2a62c5bb3d7ba977d003d8f7ac9249796d"
+  "auditHash": "sha256:ab4f27cc52b38e19b2704e3680070ce56d4a57ba49ae7cee4b94450633bdee39"
 }
