@@ -1,0 +1,73 @@
+{
+  "schemaVersion": 1,
+  "documentType": "p3-step1h-coverage-check",
+  "assignment": "n+195：P3 第一步（驗證自己的答案）",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "totalCandidates": 420,
+  "screenedBefore": 52,
+  "neverScreened": 368,
+  "neverScreenedRecent": 112,
+  "keywordHits": 37,
+  "newlyFoundOnTopic": {
+    "39489689": {
+      "side": "stress-eating",
+      "what": "正念介入對肥胖性進食行為（2025）",
+      "statedCutoff": "June 2023",
+      "source": "full-text methods：search was completed in June 2023"
+    },
+    "38784136": {
+      "side": "deficit-adherence",
+      "what": "CBT 減重之中途退出（2024）",
+      "statedCutoff": null,
+      "source": "⚠️ 開放取用，但兩種樣式讀全文皆找不到檢索日期；🚨 依 protocol 二之 2 記為「無法接續」。🚫 本室不排除是樣式漏看——但兩遍都沒有。"
+    },
+    "39228092": {
+      "side": "deficit-adherence",
+      "what": "地中海飲食介入之依從與留存（2024）",
+      "statedCutoff": null,
+      "source": "🚫 非開放取用，讀不到方法段。"
+    }
+  },
+  "answerUpdate": {
+    "stress-eating": {
+      "was": "31 April 2023",
+      "now": "June 2023",
+      "evidence": "39489689 方法段逐字"
+    },
+    "deficit-adherence": {
+      "was": "July 2023",
+      "now": "July 2023",
+      "evidence": "38246879 方法段逐字（第 605 輪）"
+    },
+    "conclusion": "✅ 「搜尋從 2023 年年中補起」仍成立；⚠️ 甲半邊的確切日期由四月改為六月。"
+  },
+  "whatRemains": "🚨 仍有 368 份從未篩過主題（75 份為 2024 年以後但未命中關鍵字）。⚠️ 關鍵字前篩會漏掉題名不含那些詞的切題回顧——🚫 故本輪不宣稱已窮盡。",
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "controlProbes": [
+    {
+      "probe": "候選與已篩數對得上（必觸發）",
+      "passed": true,
+      "detail": "🚨 對不上就代表本支看的不是同一批；實得候選 420／已篩 52／未篩 368"
+    },
+    {
+      "probe": "關鍵字確實縮小了範圍（必觸發之反向）",
+      "passed": true,
+      "detail": "✅ 2024 年以後未篩 112 份 → 命中 37 份；🚨 若等於全部或為零，這個前篩就沒有作用"
+    },
+    {
+      "probe": "先前的答案涵蓋了全部候選",
+      "passed": false,
+      "detail": "🚨 實得 368／420 份從未篩過主題（其中 112 份是 2024 年以後）；⚠️ 而「沒去看」與「看過而沒有」在報告上長得一樣"
+    },
+    {
+      "probe": "甲半邊的截止日未因本輪而改變",
+      "passed": false,
+      "detail": "🚨 自 31 April 2023 更新為 **June 2023**（39489689，方法段逐字）；✅ 結論「2023 年年中」仍站得住，⚠️ 但它會動是因為本室去驗了自己的答案"
+    }
+  ],
+  "auditHash": "sha256:be189aac30e8a15dd8d27d3a9de1917e6415edac2d18291204212b378472ef95"
+}
