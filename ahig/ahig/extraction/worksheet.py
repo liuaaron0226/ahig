@@ -207,6 +207,59 @@ def _require_readable_agent(read_by: object) -> None:
             "🚫 來源記載不可能為真的清冊不得收下")
 
 
+def _page_draft_files(out_dir: Path) -> list[Path]:
+    return sorted((out_dir / "drafts").glob("page-*.json"))
+
+
+def write_page_drafts(out_dir: Path, page: int, entries: Sequence[dict], *,
+                      read_by: dict) -> dict:
+    """一頁的清冊寫成**自己的檔**：`drafts/page-NNN.json`。
+
+    ## 🚨 為什麼要有這一支
+
+    `append_drafts` 是「讀 `drafts.json` → 改 → 整份寫回」。⚠️ 一個視窗跑的時候
+    沒事；**🚨 兩個視窗同時跑，後寫的那份會把先寫的整個蓋掉，而且不出任何錯**
+    ——⚠️ 蓋掉之後的檔案結構完全正常，只是少了一頁。
+
+    擁有者要開多個終端機同時讀，**故並行必須先變成安全的**：
+    ✅ 一頁一個檔，兩個視窗寫的是不同檔案，🚫 沒有共用的東西被改。
+
+    **同名而內容不同 → 丟錯，🚫 不覆寫**（與清冊存放處同一條規矩）：
+    ⚠️ 那代表同一頁被讀了兩次而結果不同，**🚨 是要有人看一眼的事，
+    不是後寫的自動贏。**
+    """
+    out_dir = _require_private(Path(out_dir))
+    sheet = json.loads((out_dir / "worksheet.json").read_text(encoding="utf-8"))
+    index = {it["report"]: it for it in sheet["items"]}
+    _require_readable_agent(read_by)
+
+    on_page = {it["report"] for it in sheet["items"] if it["page"] == page}
+    if not on_page:
+        raise WorksheetError(f"工作單沒有第 {page} 頁")
+    validated = [_validate_entry(i, item, index, set())
+                 for i, item in enumerate(entries)]
+    stray = sorted({e["report"] for e in validated} - on_page)
+    if stray:
+        raise WorksheetError(
+            f"這些不在第 {page} 頁上：{stray}——⚠️ 寫進別頁的檔案，"
+            "會讓兩個視窗各自登錄同一篇而彼此看不見")
+
+    doc = {"documentType": "extraction-drafts-page", "adr": "ADR-0009",
+           "source": sheet["source"], "page": page,
+           "readBy": read_by, "entries": validated}
+    path = out_dir / "drafts" / f"page-{page:03d}.json"
+    if path.exists():
+        existing = json.loads(path.read_text(encoding="utf-8"))
+        if existing == doc:
+            return {"page": page, "written": 0, "reason": "與既有內容相同"}
+        raise WorksheetError(
+            f"第 {page} 頁已有清冊且內容不同：{path.name}——"
+            "🚫 不覆寫；同一頁被讀了兩次而結果不同，要有人看一眼")
+    path.parent.mkdir(parents=True, exist_ok=True)
+    atomic_write_json(path, doc)
+    return {"page": page, "written": len(validated)}
+
+
 def load_drafts(out_dir: Path, *, require_complete: bool = True) -> dict:
     """讀回清冊檔並檢查結構與綁定。
 
@@ -236,6 +289,21 @@ def load_drafts(out_dir: Path, *, require_complete: bool = True) -> dict:
     read_by = doc.get("readBy")
     if entries:
         _require_readable_agent(read_by)
+
+    # 逐頁的清冊檔一併收進來。⚠️ `seen` 是同一個，故同一篇出現在兩處會被擋下
+    # ——🚨 兩個視窗都讀了同一頁時，那是唯一看得見它的地方。
+    read_by_pages: dict[str, dict] = {}
+    for path in _page_draft_files(out_dir):
+        page_doc = json.loads(path.read_text(encoding="utf-8"))
+        page_entries = page_doc.get("entries")
+        if not isinstance(page_entries, list):
+            raise WorksheetError(f"{path.name} 的 entries 必須是陣列")
+        if page_entries:
+            _require_readable_agent(page_doc.get("readBy"))
+        read_by_pages[str(page_doc.get("page"))] = page_doc.get("readBy")
+        entries += [_validate_entry(f"{path.name}[{i}]", item, index, seen)
+                    for i, item in enumerate(page_entries)]
+
     remaining = sorted(set(index) - seen)
     if require_complete and remaining:
         raise WorksheetError(
@@ -246,6 +314,9 @@ def load_drafts(out_dir: Path, *, require_complete: bool = True) -> dict:
         "draftedCount": len(entries),
         "remaining": remaining,
         "readBy": read_by,
+        # ⚠️ 18 頁由 18 個視窗讀時，「誰讀的」本來就不只一個——
+        # 🚫 硬塞成一個會把其中 17 個記錯。
+        "readByPages": read_by_pages,
         "drafts": {entry["report"]: entry for entry in entries},
     }
 

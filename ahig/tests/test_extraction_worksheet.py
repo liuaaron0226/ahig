@@ -209,6 +209,116 @@ def test_drafts_without_a_named_reader_are_refused():
     _in_corpus(body)
 
 
+SECOND_ID = "ahig:candidate:publication:00112233445566778899aabb"
+
+
+def _two_page_sheet(root, candidate_id):
+    """兩篇各自成頁的工作單——並行讀的最小情形。"""
+    second = _publish(str(root), candidate_id=SECOND_ID)["candidateId"]
+    requests = [reading_request_for(candidate_id, CONTRACT),
+                reading_request_for(second, CONTRACT)]
+    out = root / "extraction-worksheet"
+    worksheet.write_worksheet(out, requests, source="test", page_chars=1)
+    return out, requests
+
+
+def test_two_windows_reading_different_pages_do_not_overwrite_each_other():
+    """🚨 `append_drafts` 是整份讀回、整份寫回。
+
+    ⚠️ 兩個視窗同時跑，**後寫的會把先寫的整個蓋掉且不出任何錯**——蓋掉之後
+    的檔案結構完全正常，只是少了一頁。故並行要走逐頁一檔。
+    """
+    def body(root, candidate_id):
+        out, requests = _two_page_sheet(root, candidate_id)
+        for page, request in enumerate(requests, start=1):
+            worksheet.write_page_drafts(
+                out, page, [_draft_for(request)],
+                read_by={"agentClass": "model", "window": page})
+
+        got = worksheet.load_drafts(out)
+        assert got["draftedCount"] == 2 and got["remaining"] == []
+        # 誰讀的是逐頁記的——18 頁 18 個視窗時，硬塞成一個會記錯 17 個。
+        assert sorted(got["readByPages"]) == ["1", "2"]
+        assert got["readByPages"]["2"]["window"] == 2
+
+    _in_corpus(body)
+
+
+def test_writing_a_page_touches_no_shared_file():
+    """✅ 並行安全靠的就是這一條：**兩個視窗寫的是不同檔案。**
+
+    🚨 若逐頁那一支仍動到 `drafts.json`，前面那條「兩頁都在」的測試照樣會綠
+    ——⚠️ 因為它是循序跑的。**這一條才是真的在測並行的那個性質。**
+    """
+    def body(root, candidate_id):
+        out, requests = _two_page_sheet(root, candidate_id)
+        before = (out / "drafts.json").read_bytes()
+        for page, request in enumerate(requests, start=1):
+            worksheet.write_page_drafts(out, page, [_draft_for(request)],
+                                        read_by={"agentClass": "model"})
+        assert (out / "drafts.json").read_bytes() == before
+        assert sorted(p.name for p in (out / "drafts").glob("*.json")) == [
+            "page-001.json", "page-002.json"]
+
+    _in_corpus(body)
+
+
+def test_the_same_page_read_twice_with_different_results_is_refused():
+    """⚠️ 同一頁被兩個視窗都讀到，🚫 不是後寫的自動贏。"""
+    def body(root, candidate_id):
+        out, requests = _two_page_sheet(root, candidate_id)
+        read_by = {"agentClass": "model"}
+        worksheet.write_page_drafts(out, 1, [_draft_for(requests[0])],
+                                    read_by=read_by)
+        # 一模一樣的重寫是無害的，不該擋。
+        again = worksheet.write_page_drafts(out, 1, [_draft_for(requests[0])],
+                                            read_by=read_by)
+        assert again["written"] == 0
+
+        other = _draft_for(requests[0], inventoryId="inv:different")
+        try:
+            worksheet.write_page_drafts(out, 1, [other], read_by=read_by)
+        except worksheet.WorksheetError as error:
+            assert "不覆寫" in str(error)
+        else:
+            raise AssertionError("同一頁兩種結果不該悄悄覆寫")
+
+    _in_corpus(body)
+
+
+def test_a_draft_written_into_the_wrong_page_is_refused():
+    """🚨 寫進別頁，會讓兩個視窗各自登錄同一篇而彼此看不見。"""
+    def body(root, candidate_id):
+        out, requests = _two_page_sheet(root, candidate_id)
+        try:
+            worksheet.write_page_drafts(out, 2, [_draft_for(requests[0])],
+                                        read_by={"agentClass": "model"})
+        except worksheet.WorksheetError as error:
+            assert "不在第 2 頁" in str(error)
+        else:
+            raise AssertionError("寫錯頁不該收")
+
+    _in_corpus(body)
+
+
+def test_the_same_paper_in_both_the_shared_file_and_a_page_file_is_caught():
+    """⚠️ 舊的共用檔與新的逐頁檔並存時，同一篇可能被登錄兩次。"""
+    def body(root, candidate_id):
+        out, requests = _two_page_sheet(root, candidate_id)
+        worksheet.append_drafts(out, [_draft_for(requests[0])],
+                                read_by={"agentClass": "model"})
+        worksheet.write_page_drafts(out, 1, [_draft_for(requests[0])],
+                                    read_by={"agentClass": "model"})
+        try:
+            worksheet.load_drafts(out, require_complete=False)
+        except worksheet.WorksheetError as error:
+            assert "重複 report" in str(error)
+        else:
+            raise AssertionError("同一篇登錄兩次不該通過")
+
+    _in_corpus(body)
+
+
 def test_a_reader_who_could_not_have_read_it_is_refused():
     """記下誰讀的還不夠——**有些記載在這個專案裡不可能為真**。
 

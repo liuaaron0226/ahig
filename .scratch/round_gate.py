@@ -401,7 +401,14 @@ PYTEST_IGNORE = 'tests/test_shacl_gates.py'
 # ✅ 併過去的只有一項執行室沒有的守衛：readBy 記為 human-self 或 deterministic
 #    時要擋——⚠️ 那兩種來源記載在本專案不可能為真（ADR-0009）。
 #    新增兩條（load_drafts 一條含正向對照、append_drafts 一條）。淨增量恰為 2。
-BASE_PASSED, BASE_FAILED = 798, 0
+# 第 487 輪：798 → 803。前後對照（n+113 四）：
+#   改動前  798 passed／0 failed
+#   改動後  803 passed／0 failed
+# 新增五條，測「多個視窗同時讀」（n+187）：兩頁各自寫互不覆蓋且逐頁記下誰讀的、
+# 🚨 寫一頁不得動到任何共用檔（**這一條才是在測並行的那個性質**，前一條循序跑
+# 照樣會綠）、同一頁兩種結果不得悄悄覆寫（相同內容則為無害重寫）、寫進別頁要擋、
+# 同一篇同時出現在共用檔與逐頁檔要抓到。增量恰為 5。
+BASE_PASSED, BASE_FAILED = 803, 0
 KNOWN_FAIL = '無（原 test_clopper_pearson_matches_closed_forms 已於第 437 輪依 n+113 四修正）'
 # 第 544 輪更正：先前只寫「缺 pyshacl」。⚠️ 操作上沒錯（裝 pyshacl 會帶 rdflib），
 # 🚨 但那句話讓人以為只差一個套件，而實測 rdflib 也不在——
