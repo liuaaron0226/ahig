@@ -1,0 +1,194 @@
+{
+  "schemaVersion": 1,
+  "documentType": "p3-step1f-screen-new-pool",
+  "assignment": "n+195：P3 第一步（篩新池之有截止日者）",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "reasonVocabulary": {
+    "on-topic": "✅ 直接回答 protocol 一的問題",
+    "adjacent-adherence": "⚠️ 與依從性相鄰，✅ 可留但要註記差異",
+    "off-topic": "🚫 是「某種介入能不能減重／治某病」，非本 protocol 之問題",
+    "wrong-population": "🚫 族群為兒童或青少年（protocol 二之 3 要成人）",
+    "excluded-by-protocol-drugs": "🚫 protocol 一明文不回答藥物"
+  },
+  "screened": {
+    "38246879": {
+      "reason": "on-topic",
+      "note": "✅ 計畫性暫停 vs 持續能量限制，結局含**失訪**——🚨 正是「撐不撐得住赤字」",
+      "statedCutoff": "July 2023"
+    },
+    "37475687": {
+      "reason": "adjacent-adherence",
+      "note": "⚠️ 暴食症族群之行為減重結果；🚨 暴食≠壓力性進食（protocol 五）",
+      "statedCutoff": "December 2022"
+    },
+    "35765718": {
+      "reason": "adjacent-adherence",
+      "note": "⚠️ 個別 vs 團體之遞送形式",
+      "statedCutoff": "May 2021"
+    },
+    "32027072": {
+      "reason": "adjacent-adherence",
+      "note": "⚠️ 重度肥胖之長期非手術介入",
+      "statedCutoff": "October 2018"
+    },
+    "28695579": {
+      "reason": "adjacent-adherence",
+      "note": "⚠️ 第三層體重管理服務",
+      "statedCutoff": "March 2016"
+    },
+    "30622090": {
+      "reason": "adjacent-adherence",
+      "note": "⚠️ 網路數位介入之遞送形式",
+      "statedCutoff": "July 2018"
+    },
+    "21552423": {
+      "reason": "adjacent-adherence",
+      "note": "⚠️ 網路行為介入",
+      "statedCutoff": "March 2010"
+    },
+    "19754633": {
+      "reason": "adjacent-adherence",
+      "note": "⚠️ 網路介入",
+      "statedCutoff": "April 2008"
+    },
+    "25134692": {
+      "reason": "adjacent-adherence",
+      "note": "⚠️ 基層醫療之科技輔助介入",
+      "statedCutoff": "March 2014"
+    },
+    "24739257": {
+      "reason": "adjacent-adherence",
+      "note": "🚨 減重**後**維持——⚠️ 正是第 601 輪查明的那個不同構念",
+      "statedCutoff": "2008"
+    },
+    "27108215": {
+      "reason": "wrong-population",
+      "note": "🚫 兒童體重管理之依從性",
+      "statedCutoff": "March 2014"
+    },
+    "25512008": {
+      "reason": "wrong-population",
+      "note": "🚫 兒童與青少年",
+      "statedCutoff": "December 2013"
+    },
+    "29679513": {
+      "reason": "off-topic",
+      "note": "🚫 飲食疾患治療中的體重抑制",
+      "statedCutoff": "2017"
+    },
+    "18006966": {
+      "reason": "excluded-by-protocol-drugs",
+      "note": "🚫 長期藥物治療",
+      "statedCutoff": "December 2006"
+    },
+    "15674929": {
+      "reason": "excluded-by-protocol-drugs",
+      "note": "🚫 藥物",
+      "statedCutoff": "May 2004"
+    },
+    "39625083": {
+      "reason": "off-topic",
+      "note": "🚫 膝骨關節炎之運動",
+      "statedCutoff": "4 January 2024"
+    },
+    "35082903": {
+      "reason": "off-topic",
+      "note": "🚫 中草藥對血脂",
+      "statedCutoff": "April 2021"
+    },
+    "33441384": {
+      "reason": "off-topic",
+      "note": "🚫 低碳水與第二型糖尿病緩解",
+      "statedCutoff": "25 August 2020"
+    },
+    "32983422": {
+      "reason": "off-topic",
+      "note": "🚫 抗發炎飲食與關節炎",
+      "statedCutoff": "July 2019"
+    },
+    "35349233": {
+      "reason": "off-topic",
+      "note": "🚫 飲料攝取與生長／肥胖風險",
+      "statedCutoff": "June 2019"
+    },
+    "32588435": {
+      "reason": "off-topic",
+      "note": "🚫 生酮飲食與難治型癲癇",
+      "statedCutoff": "26 April 2019"
+    },
+    "31305905": {
+      "reason": "off-topic",
+      "note": "🚫 高蛋白飲食與第二型糖尿病",
+      "statedCutoff": "1 February 2018"
+    },
+    "31309536": {
+      "reason": "off-topic",
+      "note": "🚫 乾癬之生活型態",
+      "statedCutoff": "July 2018"
+    },
+    "31425606": {
+      "reason": "off-topic",
+      "note": "🚫 腎病症候群之白蛋白輸注",
+      "statedCutoff": "23 June 2019"
+    },
+    "30480770": {
+      "reason": "off-topic",
+      "note": "🚫 職場政策之推行策略",
+      "statedCutoff": "September 2017"
+    },
+    "18700873": {
+      "reason": "off-topic",
+      "note": "🚫 低碳水 vs 低脂之減重效果",
+      "statedCutoff": "March 2007"
+    },
+    "12704397": {
+      "reason": "off-topic",
+      "note": "🚫 代餐策略之減重效果",
+      "statedCutoff": "January 2001"
+    }
+  },
+  "tally": {
+    "on-topic": 1,
+    "adjacent-adherence": 9,
+    "wrong-population": 2,
+    "off-topic": 13,
+    "excluded-by-protocol-drugs": 2
+  },
+  "onTopic": [
+    "38246879"
+  ],
+  "onTopicCutoffs": {
+    "38246879": "July 2023"
+  },
+  "provisionalAnswerToProtocolFour2": "✅ 目前唯一直接切題的回顧檢索到 **July 2023**。🚨 故我們自己的搜尋要從 2023 年 7 月起算，約兩年。⚠️ 仍為暫定：🚫 尚未讀其方法段，且甲組 91 份未篩。",
+  "answerToProtocolFour3": "⚠️ 目前跡象：**「既有回顧已回答、本領域到此為止」不成立**。🚨 而 protocol 四之 3 說那個結果最好——✅ 不成立不是失敗，🚫 只是我們知道要補哪一段了。",
+  "whyMostFail": "🚨 多數落選者是「某種介入能不能減重／治某病」。⚠️ 而 protocol 一問的是**減少壓力性進食**或**提高赤字維持率**——🚫 「這個飲食法能減幾公斤」不回答那兩件事的任何一件。",
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "controlProbes": [
+    {
+      "probe": "篩的正是那 27 份（必觸發）",
+      "passed": true,
+      "detail": "🚨 篩錯對象與篩對的長得一樣；額外 無，漏掉 無"
+    },
+    {
+      "probe": "理由都在固定詞彙裡（必觸發之反向）",
+      "passed": true,
+      "detail": "🚨 自創理由等於沒有分類；實得 無"
+    },
+    {
+      "probe": "至少有一份直接切題（必觸發）",
+      "passed": true,
+      "detail": "✅ 實得 ['38246879']；🚨 若一份都沒有，本輪就沒有可用的截止日，⚠️ 而那也要據實說"
+    },
+    {
+      "probe": "存在 2024 年以後截止的切題回顧",
+      "passed": false,
+      "detail": "🚨 切題者的截止日為 {'38246879': 'July 2023'}——⚠️ 故我們的搜尋要從那之後補起，🚫 「不必做」不成立"
+    }
+  ],
+  "auditHash": "sha256:7a53a4ec3ba0c149ed853fb979ccdfa0e65e59578f561b877886aa750d3bc651"
+}
