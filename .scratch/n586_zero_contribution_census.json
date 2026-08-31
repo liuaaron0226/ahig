@@ -1,0 +1,523 @@
+{
+  "schemaVersion": 1,
+  "documentType": "zero-contribution-census",
+  "question": "41 篇裡有幾篇其實一項證據都沒貢獻，為什麼",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "inventories": 38,
+  "inScopeTotal": 98,
+  "contributingReports": 25,
+  "zeroContributionReports": 13,
+  "zeroBecauseNothingDeclared": 5,
+  "zeroReasonFamilies": {
+    "nothing-declared": 5,
+    "notExtracted-dose-outside-bands+notExtracted-no-numeric-result": 1,
+    "notExtracted-instrument-not-in-allowlist": 1,
+    "notExtracted-effect-measure-not-in-scope": 2,
+    "notExtracted-dose-outside-bands": 4
+  },
+  "vocabularyScreen": {
+    "whatItIs": "✅ 去全文找在範圍內結局的詞彙。🚫 不是判定——⚠️ 本 run 立過的六種「差一點」，每一種都會讓一篇滿是那些字的論文**正當地**貢獻 0 項。",
+    "controlHitsAmongContributing": 25,
+    "contributingReports": 25,
+    "flagged": 5,
+    "flaggedWithMatchingSectionTitles": 4,
+    "baseRateFullTextHits": "41/41",
+    "baseRateSectionTitleHits": "30/41",
+    "howToReadThis": "🚨 全文詞彙是 41／41——⚠️ 故「五篇全部命中」本身幾乎沒有訊息量。⚠️ 段落標題是 30／41，也不算罕見。✅ 真正該看一眼的理由是那個**組合**：讀的人為這篇記了 10–37 個結局，🚨 卻一個契約結局都沒對應。🚫 本支分不出「正當地零」與「漏掉了」——⚠️ 本 run 立過的六種「差一點」每一種都會造成正當的零。"
+  },
+  "zeroRows": [
+    {
+      "report": "c97d2ed84b0d1057",
+      "inScope": 0,
+      "declared": 0,
+      "outcomes": 17,
+      "reasons": {},
+      "vocabularyHits": {
+        "tt-completion-time": 11,
+        "exogenous-cho-oxidation-peak": 1,
+        "muscle-glycogen-post-exercise": 2
+      },
+      "sectionTitlesMatching": 1
+    },
+    {
+      "report": "0eea079e79bf7913",
+      "inScope": 0,
+      "declared": 2,
+      "outcomes": 9,
+      "reasons": {
+        "notExtracted-dose-outside-bands": 1,
+        "notExtracted-no-numeric-result": 1
+      }
+    },
+    {
+      "report": "44243ac624c9b5e0",
+      "inScope": 0,
+      "declared": 0,
+      "outcomes": 10,
+      "reasons": {},
+      "vocabularyHits": {
+        "tt-completion-time": 8,
+        "time-to-exhaustion": 1,
+        "muscle-glycogen-post-exercise": 1,
+        "gi-symptom": 1
+      },
+      "sectionTitlesMatching": 0
+    },
+    {
+      "report": "7a6ac1559c740fd6",
+      "inScope": 0,
+      "declared": 6,
+      "outcomes": 45,
+      "reasons": {
+        "notExtracted-instrument-not-in-allowlist": 6
+      }
+    },
+    {
+      "report": "b9ab2f27317a6a2b",
+      "inScope": 0,
+      "declared": 0,
+      "outcomes": 37,
+      "reasons": {},
+      "vocabularyHits": {
+        "muscle-glycogen-post-exercise": 31
+      },
+      "sectionTitlesMatching": 2
+    },
+    {
+      "report": "c3028a8a7b1ae2a1",
+      "inScope": 0,
+      "declared": 6,
+      "outcomes": 33,
+      "reasons": {
+        "notExtracted-effect-measure-not-in-scope": 6
+      }
+    },
+    {
+      "report": "ad7c0004c386f31c",
+      "inScope": 0,
+      "declared": 5,
+      "outcomes": 30,
+      "reasons": {
+        "notExtracted-dose-outside-bands": 5
+      }
+    },
+    {
+      "report": "c4128a6f6dd2c0b5",
+      "inScope": 0,
+      "declared": 1,
+      "outcomes": 24,
+      "reasons": {
+        "notExtracted-effect-measure-not-in-scope": 1
+      }
+    },
+    {
+      "report": "54d4200c1c5e2b64",
+      "inScope": 0,
+      "declared": 2,
+      "outcomes": 8,
+      "reasons": {
+        "notExtracted-dose-outside-bands": 2
+      }
+    },
+    {
+      "report": "82cbc04b68c38e79",
+      "inScope": 0,
+      "declared": 2,
+      "outcomes": 13,
+      "reasons": {
+        "notExtracted-dose-outside-bands": 2
+      }
+    },
+    {
+      "report": "4103c4b52bbf21e6",
+      "inScope": 0,
+      "declared": 0,
+      "outcomes": 10,
+      "reasons": {},
+      "vocabularyHits": {
+        "tt-completion-time": 26,
+        "time-to-exhaustion": 2,
+        "exogenous-cho-oxidation-peak": 1,
+        "muscle-glycogen-post-exercise": 1
+      },
+      "sectionTitlesMatching": 1
+    },
+    {
+      "report": "97c2233f7e60c801",
+      "inScope": 0,
+      "declared": 0,
+      "outcomes": 20,
+      "reasons": {},
+      "vocabularyHits": {
+        "time-to-exhaustion": 3,
+        "exogenous-cho-oxidation-peak": 7,
+        "muscle-glycogen-post-exercise": 2,
+        "gi-symptom": 2
+      },
+      "sectionTitlesMatching": 1
+    },
+    {
+      "report": "a6ce9c92c7454a7c",
+      "inScope": 0,
+      "declared": 1,
+      "outcomes": 11,
+      "reasons": {
+        "notExtracted-dose-outside-bands": 1
+      }
+    }
+  ],
+  "allRows": [
+    {
+      "report": "86e6a580108fd94b",
+      "inScope": 5,
+      "declared": 5,
+      "outcomes": 17,
+      "reasons": {}
+    },
+    {
+      "report": "081d147cd92dee14",
+      "inScope": 2,
+      "declared": 2,
+      "outcomes": 17,
+      "reasons": {}
+    },
+    {
+      "report": "59b4558a37f28bc9",
+      "inScope": 6,
+      "declared": 6,
+      "outcomes": 25,
+      "reasons": {}
+    },
+    {
+      "report": "7902e3ec54370729",
+      "inScope": 3,
+      "declared": 3,
+      "outcomes": 20,
+      "reasons": {}
+    },
+    {
+      "report": "dbdb6ea55c9667c3",
+      "inScope": 2,
+      "declared": 2,
+      "outcomes": 11,
+      "reasons": {}
+    },
+    {
+      "report": "c97d2ed84b0d1057",
+      "inScope": 0,
+      "declared": 0,
+      "outcomes": 17,
+      "reasons": {},
+      "vocabularyHits": {
+        "tt-completion-time": 11,
+        "exogenous-cho-oxidation-peak": 1,
+        "muscle-glycogen-post-exercise": 2
+      },
+      "sectionTitlesMatching": 1
+    },
+    {
+      "report": "0eea079e79bf7913",
+      "inScope": 0,
+      "declared": 2,
+      "outcomes": 9,
+      "reasons": {
+        "notExtracted-dose-outside-bands": 1,
+        "notExtracted-no-numeric-result": 1
+      }
+    },
+    {
+      "report": "48da8a7f2f35af1f",
+      "inScope": 4,
+      "declared": 4,
+      "outcomes": 18,
+      "reasons": {}
+    },
+    {
+      "report": "358bbf2c1886ac4b",
+      "inScope": 3,
+      "declared": 3,
+      "outcomes": 16,
+      "reasons": {}
+    },
+    {
+      "report": "6b7320d74cdda857",
+      "inScope": 4,
+      "declared": 4,
+      "outcomes": 21,
+      "reasons": {}
+    },
+    {
+      "report": "44243ac624c9b5e0",
+      "inScope": 0,
+      "declared": 0,
+      "outcomes": 10,
+      "reasons": {},
+      "vocabularyHits": {
+        "tt-completion-time": 8,
+        "time-to-exhaustion": 1,
+        "muscle-glycogen-post-exercise": 1,
+        "gi-symptom": 1
+      },
+      "sectionTitlesMatching": 0
+    },
+    {
+      "report": "e4871d50d0001e66",
+      "inScope": 2,
+      "declared": 2,
+      "outcomes": 16,
+      "reasons": {}
+    },
+    {
+      "report": "501bb474ac4704fa",
+      "inScope": 1,
+      "declared": 1,
+      "outcomes": 21,
+      "reasons": {}
+    },
+    {
+      "report": "d4251685a43792ff",
+      "inScope": 2,
+      "declared": 2,
+      "outcomes": 19,
+      "reasons": {}
+    },
+    {
+      "report": "8a62d501f88c7d04",
+      "inScope": 3,
+      "declared": 6,
+      "outcomes": 18,
+      "reasons": {
+        "notExtracted-dose-outside-bands": 3
+      }
+    },
+    {
+      "report": "66e16f089f1522d1",
+      "inScope": 2,
+      "declared": 2,
+      "outcomes": 17,
+      "reasons": {}
+    },
+    {
+      "report": "7a6ac1559c740fd6",
+      "inScope": 0,
+      "declared": 6,
+      "outcomes": 45,
+      "reasons": {
+        "notExtracted-instrument-not-in-allowlist": 6
+      }
+    },
+    {
+      "report": "7a97713bf254fa26",
+      "inScope": 5,
+      "declared": 5,
+      "outcomes": 29,
+      "reasons": {}
+    },
+    {
+      "report": "b9ab2f27317a6a2b",
+      "inScope": 0,
+      "declared": 0,
+      "outcomes": 37,
+      "reasons": {},
+      "vocabularyHits": {
+        "muscle-glycogen-post-exercise": 31
+      },
+      "sectionTitlesMatching": 2
+    },
+    {
+      "report": "c3028a8a7b1ae2a1",
+      "inScope": 0,
+      "declared": 6,
+      "outcomes": 33,
+      "reasons": {
+        "notExtracted-effect-measure-not-in-scope": 6
+      }
+    },
+    {
+      "report": "e8d48c04f919dbb0",
+      "inScope": 8,
+      "declared": 8,
+      "outcomes": 40,
+      "reasons": {}
+    },
+    {
+      "report": "a9012191142e7e02",
+      "inScope": 6,
+      "declared": 6,
+      "outcomes": 24,
+      "reasons": {}
+    },
+    {
+      "report": "ad7c0004c386f31c",
+      "inScope": 0,
+      "declared": 5,
+      "outcomes": 30,
+      "reasons": {
+        "notExtracted-dose-outside-bands": 5
+      }
+    },
+    {
+      "report": "c4128a6f6dd2c0b5",
+      "inScope": 0,
+      "declared": 1,
+      "outcomes": 24,
+      "reasons": {
+        "notExtracted-effect-measure-not-in-scope": 1
+      }
+    },
+    {
+      "report": "9a3b03b4fb24cf65",
+      "inScope": 3,
+      "declared": 4,
+      "outcomes": 27,
+      "reasons": {
+        "notExtracted-instrument-not-in-allowlist": 1
+      }
+    },
+    {
+      "report": "65dd82a89b2c5340",
+      "inScope": 7,
+      "declared": 7,
+      "outcomes": 23,
+      "reasons": {}
+    },
+    {
+      "report": "54d4200c1c5e2b64",
+      "inScope": 0,
+      "declared": 2,
+      "outcomes": 8,
+      "reasons": {
+        "notExtracted-dose-outside-bands": 2
+      }
+    },
+    {
+      "report": "82cbc04b68c38e79",
+      "inScope": 0,
+      "declared": 2,
+      "outcomes": 13,
+      "reasons": {
+        "notExtracted-dose-outside-bands": 2
+      }
+    },
+    {
+      "report": "1105537918c174c9",
+      "inScope": 9,
+      "declared": 9,
+      "outcomes": 21,
+      "reasons": {}
+    },
+    {
+      "report": "0cfceb6c8a86f78b",
+      "inScope": 1,
+      "declared": 2,
+      "outcomes": 6,
+      "reasons": {
+        "notExtracted-dose-outside-bands": 1
+      }
+    },
+    {
+      "report": "307c0dd5b141caed",
+      "inScope": 4,
+      "declared": 8,
+      "outcomes": 46,
+      "reasons": {
+        "notExtracted-dose-outside-bands": 4
+      }
+    },
+    {
+      "report": "d4149a8bac287851",
+      "inScope": 5,
+      "declared": 5,
+      "outcomes": 25,
+      "reasons": {}
+    },
+    {
+      "report": "4103c4b52bbf21e6",
+      "inScope": 0,
+      "declared": 0,
+      "outcomes": 10,
+      "reasons": {},
+      "vocabularyHits": {
+        "tt-completion-time": 26,
+        "time-to-exhaustion": 2,
+        "exogenous-cho-oxidation-peak": 1,
+        "muscle-glycogen-post-exercise": 1
+      },
+      "sectionTitlesMatching": 1
+    },
+    {
+      "report": "eac2b5fd6bb06843",
+      "inScope": 4,
+      "declared": 4,
+      "outcomes": 15,
+      "reasons": {}
+    },
+    {
+      "report": "97c2233f7e60c801",
+      "inScope": 0,
+      "declared": 0,
+      "outcomes": 20,
+      "reasons": {},
+      "vocabularyHits": {
+        "time-to-exhaustion": 3,
+        "exogenous-cho-oxidation-peak": 7,
+        "muscle-glycogen-post-exercise": 2,
+        "gi-symptom": 2
+      },
+      "sectionTitlesMatching": 1
+    },
+    {
+      "report": "834de4d822dfb3cd",
+      "inScope": 5,
+      "declared": 5,
+      "outcomes": 17,
+      "reasons": {}
+    },
+    {
+      "report": "298c326024d22835",
+      "inScope": 2,
+      "declared": 4,
+      "outcomes": 14,
+      "reasons": {
+        "notExtracted-instrument-not-in-allowlist": 2
+      }
+    },
+    {
+      "report": "a6ce9c92c7454a7c",
+      "inScope": 0,
+      "declared": 1,
+      "outcomes": 11,
+      "reasons": {
+        "notExtracted-dose-outside-bands": 1
+      }
+    }
+  ],
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "controlProbes": [
+    {
+      "probe": "清冊與在範圍內總數與既有紀錄相符（必觸發）",
+      "passed": true,
+      "detail": "🚨 對不上就代表本支讀到的不是同一批資料；實得清冊 38 份／在範圍內 98 項"
+    },
+    {
+      "probe": "詞彙樣式在有貢獻的論文上打得中（正對照，必觸發）",
+      "passed": true,
+      "detail": "✅ 有貢獻的 25 篇裡 25 篇也命中；🚨 若為零，代表樣式壞了，而「五篇都命中」會是假的"
+    },
+    {
+      "probe": "段落標題這個較強的訊號，確實比全文詞彙少見",
+      "passed": true,
+      "detail": "⚠️ 41 篇中全文命中 41 篇、段落標題命中 30 篇。🚨 若兩者相同，標題這一條就沒有增添任何分辨力，✅ 而本支的結論正是靠它"
+    },
+    {
+      "probe": "沒有「零宣告卻滿是結局詞彙」的論文",
+      "passed": false,
+      "detail": "🚨 實得 5 篇零宣告者全部命中結局詞彙，其中 4 篇的**段落標題**本身就是在範圍內的結局；⚠️ 這個組合不該沒人問過"
+    }
+  ],
+  "auditHash": "sha256:44c3140327eda7bf96e8963937dd25341e514e8e97deed178c715f89f9ab49e1"
+}
