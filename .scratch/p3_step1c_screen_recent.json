@@ -1,0 +1,116 @@
+{
+  "schemaVersion": 1,
+  "documentType": "p3-step1c-screen-recent",
+  "assignment": "n+195：P3 第一步（篩選最新的一批）",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "reasonVocabulary": {
+    "off-topic": "主題不在本 protocol 的問題範圍內",
+    "excluded-by-protocol-drugs": "protocol 一明文不回答藥物",
+    "protocol-not-a-review": "是系統性回顧的計畫書，🚫 沒有結果",
+    "adjacent-adherence": "⚠️ 與「赤字維持」相鄰，✅ 可留但要註記差異"
+  },
+  "screened": {
+    "42498599": {
+      "reason": "off-topic",
+      "note": "試驗方法學效應，族群為乳糜瀉"
+    },
+    "40864442": {
+      "reason": "off-topic",
+      "note": "皮膚科族群之飲食失調盛行，🚫 非介入、非赤字"
+    },
+    "41344801": {
+      "reason": "adjacent-adherence",
+      "note": "⚠️ 限時進食之質性經驗綜合；✅ 與依從性相鄰，🚨 但結局是「感受與看法」，🚫 不是赤字維持率"
+    },
+    "42440372": {
+      "reason": "protocol-not-a-review",
+      "note": "🚨 這正是第 600 輪那個「最新截止日 July 2026」——⚠️ 它是計畫書，🚫 沒有結果"
+    },
+    "40577090": {
+      "reason": "off-topic",
+      "note": "飲食型態與憂鬱之傘狀回顧"
+    },
+    "42394382": {
+      "reason": "off-topic",
+      "note": "肝醣儲積症之連續血糖監測"
+    },
+    "42666688": {
+      "reason": "excluded-by-protocol-drugs",
+      "note": "GLP-1 受體促效劑"
+    },
+    "42165996": {
+      "reason": "off-topic",
+      "note": "⚠️ 虛擬實境介入，族群為肥胖與飲食疾患，🚫 結局為生物標記，非壓力性進食或赤字維持"
+    },
+    "40861630": {
+      "reason": "adjacent-adherence",
+      "note": "⚠️ 長期減重維持之**預測因子**（行為＋基因）；🚨 是預測因子不是介入，且「減重維持」≠「赤字維持」"
+    },
+    "42426361": {
+      "reason": "excluded-by-protocol-drugs",
+      "note": "抗肥胖藥物"
+    },
+    "42514369": {
+      "reason": "off-topic",
+      "note": "飲食與鼻竇炎"
+    },
+    "42654169": {
+      "reason": "off-topic",
+      "note": "地中海飲食與心血管事件"
+    }
+  },
+  "tally": {
+    "off-topic": 7,
+    "adjacent-adherence": 2,
+    "protocol-not-a-review": 1,
+    "excluded-by-protocol-drugs": 2
+  },
+  "adjacentKept": [
+    "41344801",
+    "40861630"
+  ],
+  "directlyOnTopic": 0,
+  "withdrawnHeadline": "🚨 第 600 輪報的「最新自述截止日 July 2026」**撤回**：⚠️ 該筆是系統性回顧的**計畫書**，🚫 沒有結果。✅ 當時已標為暫定，而暫定的理由正是「尚未篩選」。",
+  "constructMismatch": "🚨 查詢乙用 weight loss maintenance 問「赤字維持得住嗎」——⚠️ 問錯了構念。文獻裡它指的是「減完之後把體重維持住」，🚫 不是「減脂期間把赤字維持住」。✅ 建議改問 dietary adherence／caloric restriction adherence／attrition／dropout／compliance ＋ 能量限制情境。",
+  "nextSearchSuggestion": [
+    "dietary adherence",
+    "caloric restriction adherence",
+    "energy restriction adherence",
+    "attrition",
+    "dropout",
+    "compliance"
+  ],
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "controlProbes": [
+    {
+      "probe": "篩的正是那 12 份（必觸發）",
+      "passed": true,
+      "detail": "🚨 篩錯對象的結果與篩對的長得一樣；實得 12 份，額外 無，漏掉 無"
+    },
+    {
+      "probe": "每一筆的理由都在固定詞彙裡（必觸發之反向）",
+      "passed": true,
+      "detail": "🚨 自創理由等於沒有分類；實得不在詞彙內者 無"
+    },
+    {
+      "probe": "四種理由都真的用到了（必觸發之反向）",
+      "passed": true,
+      "detail": "⚠️ 沒用到的理由代表那一條從未被驗證；實得 {'off-topic': 7, 'adjacent-adherence': 2, 'protocol-not-a-review': 1, 'excluded-by-protocol-drugs': 2}，缺 無"
+    },
+    {
+      "probe": "第 600 輪那個暫定的最新截止日，經篩選後仍成立",
+      "passed": false,
+      "detail": "🚨 該筆（42440372）被判為 protocol-not-a-review——⚠️ 它是計畫書，🚫 沒有結果，故「最新截止日 July 2026」撤回"
+    },
+    {
+      "probe": "最新的那批裡有直接切題的回顧",
+      "passed": false,
+      "detail": "🚨 12 份中直接切題者 0 份（相鄰 2 份、離題 7 份、藥物 2 份、計畫書 1 份）；⚠️ 而成因見查詢構念那一條"
+    }
+  ],
+  "auditHash": "sha256:d574d5230a0b0e0174e321412222aa6fabe1cfa4e7b8fbe02177cc89b8ad29bd"
+}
