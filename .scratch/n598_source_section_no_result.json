@@ -1,0 +1,113 @@
+{
+  "schemaVersion": 1,
+  "documentType": "source-section-has-no-result",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "inScopeScanned": 98,
+  "naivePassFlagged": 11,
+  "resultMarkerPassFlagged": 7,
+  "withdrawnAsFalsePositive": [
+    {
+      "report": "081d147cd92dee14",
+      "section": "Physiological and Perceptual Characteristics of Exercise Bouts",
+      "sectionChars": 394,
+      "outcomeId": "gi-symptom-severity"
+    },
+    {
+      "report": "081d147cd92dee14",
+      "section": "Physiological and Perceptual Characteristics of Exercise Bouts",
+      "sectionChars": 394,
+      "outcomeId": "gi-symptom-severity"
+    },
+    {
+      "report": "eac2b5fd6bb06843",
+      "section": "Gastrointestinal discomfort and ratings of perceived exertion",
+      "sectionChars": 673,
+      "outcomeId": "gi-symptom-incidence"
+    },
+    {
+      "report": "eac2b5fd6bb06843",
+      "section": "Gastrointestinal discomfort and ratings of perceived exertion",
+      "sectionChars": 673,
+      "outcomeId": "gi-symptom-incidence"
+    }
+  ],
+  "flagged": [
+    {
+      "report": "65dd82a89b2c5340",
+      "section": "Gastrointestinal discomfort",
+      "sectionChars": 199,
+      "outcomeId": "gi-symptom-severity"
+    },
+    {
+      "report": "65dd82a89b2c5340",
+      "section": "Gastrointestinal discomfort",
+      "sectionChars": 199,
+      "outcomeId": "gi-symptom-severity"
+    },
+    {
+      "report": "65dd82a89b2c5340",
+      "section": "Gastrointestinal discomfort",
+      "sectionChars": 199,
+      "outcomeId": "gi-symptom-severity"
+    },
+    {
+      "report": "65dd82a89b2c5340",
+      "section": "Gastrointestinal discomfort",
+      "sectionChars": 199,
+      "outcomeId": "gi-symptom-severity"
+    },
+    {
+      "report": "65dd82a89b2c5340",
+      "section": "Gastrointestinal discomfort",
+      "sectionChars": 199,
+      "outcomeId": "gi-symptom-severity"
+    },
+    {
+      "report": "65dd82a89b2c5340",
+      "section": "Gastrointestinal discomfort",
+      "sectionChars": 199,
+      "outcomeId": "gi-symptom-severity"
+    },
+    {
+      "report": "65dd82a89b2c5340",
+      "section": "Gastrointestinal discomfort",
+      "sectionChars": 199,
+      "outcomeId": "gi-symptom-severity"
+    }
+  ],
+  "flaggedByReport": {
+    "65dd82a89b2c5340": 7
+  },
+  "firstPassWasWrong": "🚨 第一版問「段落裡有沒有數字」，flag 了 11 項，其中 4 項是偽陽性：⚠️ 本室的樣式漏掉整數配括號的標準差（12 (1)）與中點小數（11•7）。🚨 而更根本的是問錯了——**方法段也有數字**（100mm visual analogue scale 就是一個）。✅ 該問的是有沒有結果標記。",
+  "notTheSameAsRound597": "⚠️ 第 597 輪那 4 項是「該症狀在整份文件裡沒有數字」；🚨 本輪這 7 項是「結果存在，但座標指向方法段」。🚫 兩者性質不同，不可相加。",
+  "evidence": "✅ 該篇的 GI 結果在 Interaction effects (time x treatment) 段，⚠️ 而 7 項的座標寫的是 Gastrointestinal discomfort——那一段整段只是「以 100 mm 視覺類比量表評分」的方法描述。",
+  "relationToRound590": "⚠️ 第 590 輪已驗「來源段落確實存在」（790／790）。✅ 存在，🚫 但不保證它是結果段。",
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "controlProbes": [
+    {
+      "probe": "掃到的是那 98 項（必觸發）",
+      "passed": true,
+      "detail": "🚨 對不上就代表本支看的不是同一批；實得 98 項"
+    },
+    {
+      "probe": "結果標記在絕大多數來源段落裡找得到（正對照，必觸發）",
+      "passed": true,
+      "detail": "✅ 找不到者 7／98；🚨 若過半找不到，代表樣式壞了，而「這幾項有問題」會是假的"
+    },
+    {
+      "probe": "第二版確實收回了第一版的偽陽性（必觸發之反向）",
+      "passed": true,
+      "detail": "🚨 第一版 flag 11 項、第二版 7 項，收回 4 項；⚠️ 若收回為零，代表本室宣稱的偽陽性並不存在"
+    },
+    {
+      "probe": "每一項在範圍內的結局，其來源段落都含結果",
+      "passed": false,
+      "detail": "🚨 實得 7 項，集中在 {'65dd82a89b2c5340': 7}；⚠️ 它們指向的是方法段——🚫 照那個座標去查會看到量表怎麼評，而不是要驗的數字"
+    }
+  ],
+  "auditHash": "sha256:fb733c8787ba4f3f33789c2c13502cfcf17e7ab9400188962fd17af1403ad348"
+}
