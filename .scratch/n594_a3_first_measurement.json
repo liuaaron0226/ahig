@@ -1,0 +1,65 @@
+{
+  "schemaVersion": 1,
+  "documentType": "a3-first-measurement",
+  "gate": "A3：同一篇由不同會話讀兩次，契約結局集合須相同",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "agreement": {
+    "comparedReports": 1,
+    "labelsBoth": 0,
+    "labelsOnlyPrimary": 41,
+    "labelsOnlySecond": 18,
+    "refsBoth": 2,
+    "refsOnlyPrimary": 0,
+    "refsOnlySecond": 0,
+    "reportsFullyAgreed": 1,
+    "caveat": "逐字比標籤。同一個結局被叫成不同名字時會算成兩邊各有一個，故「只有一邊有」是待人看的清單，不是錯誤數。契約結局那一組（refs*）不受顆粒度影響，一致性看那一組。"
+  },
+  "refsBothOnThatReport": [
+    "muscle-glycogen-post-exercise",
+    "time-to-exhaustion"
+  ],
+  "verdict": "✅ 本篇 A3 成立：標籤零逐字重疊（41 對 18），而契約結局集合完全相同。🚨 但 n＝1——這是證據，🚫 不是證明。",
+  "granularityConfirmed": "✅ n+192 四所稱「換一個單位就可比」已被實測證實：⚠️ 標籤層兩邊都有 0，契約結局層兩邊都有 2。",
+  "answersN585Question": {
+    "question": "acid-hydrolysis-freeze-dried-biopsy 該不該改名為 needle-biopsy-vastus-lateralis",
+    "answer": "🚫 不該。✅ 第二位讀者記載取樣器械為 Weil-Blakesley conchotome，🚨 不是 Bergstrom needle。⚠️ 改名會把一件事實寫錯——✅ 那 3 項應從「改名待裁定」移到「契約缺口」。",
+    "evidencePresent": {
+      "mentionsConchotome": true,
+      "mentionsNeedle": true
+    },
+    "selfCriticism": "🚨 這份證據從第 572 輪就在 second／ 裡。⚠️ 本室問了一個自己讀一下就能答的問題。"
+  },
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "controlProbes": [
+    {
+      "probe": "確實比到了那一篇（必觸發）",
+      "passed": true,
+      "detail": "🚨 若為零，「一致」只是沒有東西可比；實得 1 篇"
+    },
+    {
+      "probe": "比對機制說得出「不一致」（必觸發之反向）",
+      "passed": true,
+      "detail": "🚨 把第二位的一個 outcomeId 換掉後，實得 only=1／1；⚠️ 若仍為 0，refsOnly*=0 就可能只是它永遠回 0"
+    },
+    {
+      "probe": "標籤層與契約結局層給的答案不同（必觸發之反向）",
+      "passed": true,
+      "detail": "✅ 標籤兩邊都有 0、契約結局兩邊都有 2；🚨 若兩層答案相同，n+192 四所稱的「換個單位就可比」便未被驗證"
+    },
+    {
+      "probe": "A3 於本篇成立：兩位讀者的契約結局集合相同",
+      "passed": true,
+      "detail": "✅ refsBoth=2、只有一邊有 0／0、逐篇一致 1／1"
+    },
+    {
+      "probe": "雙讀的篇數足以支撐 A3",
+      "passed": false,
+      "detail": "🚨 實得 1 篇。⚠️ 一篇通過是證據，🚫 不是證明；A3 要成立需要更多篇雙讀"
+    }
+  ],
+  "auditHash": "sha256:f23cf556a8e2a8c2b15859154305a1dd9cc5d66a94ce9317217ae18f9775d984"
+}
