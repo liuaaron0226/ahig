@@ -1,0 +1,86 @@
+{
+  "schemaVersion": 1,
+  "documentType": "fourth-double-read",
+  "report": "65dd82a89b2c5340",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "refs": {
+    "primary": {
+      "gi-symptom-severity": 7
+    },
+    "second": {
+      "gi-symptom-severity": 4
+    },
+    "setsEqual": true
+  },
+  "sourceSections": {
+    "primary": {
+      "Gastrointestinal discomfort": 7
+    },
+    "second": {
+      "Interaction effects (time x treatment)": 4
+    }
+  },
+  "effectMeasures": {
+    "primary": [
+      "mean"
+    ],
+    "second": [
+      "MD"
+    ]
+  },
+  "doses": {
+    "primary": [
+      60,
+      90
+    ],
+    "second": [
+      90
+    ]
+  },
+  "contractEffectMeasures": [
+    "MD",
+    "SMD",
+    "RR",
+    "RD",
+    "mean",
+    "proportion"
+  ],
+  "confirmsN598": "✅ 一位獨立讀者去拿 GI 數字時，去的是 Interaction effects 段，🚨 而正式那道的 7 項全部指向 199 字的方法段。⚠️ 那一段只描述量表，🚫 沒有任何結果。",
+  "newContractGap": "🚨 該篇把 GI 差異報成**條件間的百分比差**，⚠️ 而契約的效應量詞彙沒有一個是它。🚫 兩位讀者各填了 mean 與 MD，兩者都不精確而都通過了判定——✅ 那一軸把一個表達不出來的東西安靜地吸收掉了。",
+  "doseConventionDiffers": "⚠️ 正式那道逐臂記（60 與 90 g/h），本室記暴露臂（90）並註明對照臂。✅ 兩者都說得通，🚨 但合成時它們不是同一種東西。",
+  "guardBlockedLegitimateAppend": "🚨 write_page_drafts 拒絕同頁異容——⚠️ 而本次是新增第二篇，既有那一筆逐位元組未動。🚫 守衛分不出「新增」與「改寫」，而第二線本來就是一次讀一篇、一頁最多五篇。✅ 本室不繞過，讀出來的那份暫存待裁定。",
+  "pendingFile": "C:\\Users\\User\\Desktop\\claude\\ahig-private\\extraction-worksheet\\second-pending\\page-014-with-65dd82a89b2c5340.json",
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "controlProbes": [
+    {
+      "probe": "兩份都讀到了同一篇（必觸發）",
+      "passed": true,
+      "detail": "🚨 少一邊就沒有比較；實得正式 7 項、第二位 4 項"
+    },
+    {
+      "probe": "A3 於本篇成立：契約結局集合相同",
+      "passed": true,
+      "detail": "✅ 正式 {'gi-symptom-severity': 7}｜第二位 {'gi-symptom-severity': 4}"
+    },
+    {
+      "probe": "兩位讀者的來源段落一致",
+      "passed": false,
+      "detail": "🚨 正式全部指向 ['Gastrointestinal discomfort']（方法段），第二位全部指向 ['Interaction effects (time x treatment)']（結果段）；⚠️ 一位獨立的讀者去拿數字時，去的是另一個地方——✅ 這獨立證實了 n598"
+    },
+    {
+      "probe": "論文所報的效應量在契約詞彙裡有對應",
+      "passed": false,
+      "detail": "🚨 該篇報的是「條件間的百分比差」，而契約收的是 ['MD', 'SMD', 'RR', 'RD', 'mean', 'proportion']——⚠️ 沒有一個詞是它。正式那道填 ['mean']、本室填 ['MD']，🚫 兩者都不精確而兩者都通過了判定"
+    },
+    {
+      "probe": "第二線的讀已交回",
+      "passed": false,
+      "detail": "🚨 write_page_drafts 拒絕同頁異容，⚠️ 而本次是**新增一篇**、既有那一筆逐位元組未動；🚫 本室不繞過守衛，✅ 暫存於 second-pending"
+    }
+  ],
+  "auditHash": "sha256:055f56c777517b8c1596cfa33f114bfa824909290618a6acffbec6ec0d1681df"
+}
