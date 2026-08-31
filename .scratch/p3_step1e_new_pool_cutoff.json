@@ -1,0 +1,131 @@
+{
+  "schemaVersion": 1,
+  "documentType": "p3-step1e-new-pool-cutoff",
+  "assignment": "n+195：P3 第一步（修正後的池子）",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "contactEmail": "l**********2@gmail.com",
+  "requests": {
+    "totalRequests": 6,
+    "perRequestedHost": {
+      "www.ebi.ac.uk": 6
+    },
+    "perFinalHost": {
+      "www.ebi.ac.uk": 6
+    },
+    "redirectHops": 0,
+    "blockedHosts": {},
+    "distinctUrls": 6,
+    "minIntervalSeconds": 1.0,
+    "note": "Per-execution counters. totalRequests counts every hop actually sent, including redirect hops, because each hop is a real outbound request. Requested and final hosts are kept apart: a redirector such as doi.org appears in the first and the publisher it lands on in the second, and blocking keys on the second. State does not survive the process, so the no-retry guarantee holds within one run only."
+  },
+  "poolSize": 134,
+  "abstractsScanned": 128,
+  "statedCutoffFound": 27,
+  "statedCutoffByRecord": {
+    "19754633": "April 2008",
+    "18700873": "March 2007",
+    "18006966": "December 2006",
+    "15674929": "May 2004",
+    "12704397": "January 2001",
+    "25512008": "December 2013",
+    "25134692": "March 2014",
+    "24739257": "2008",
+    "21552423": "March 2010",
+    "31305905": "1 February 2018",
+    "30622090": "July 2018",
+    "30480770": "September 2017",
+    "29679513": "2017",
+    "28695579": "March 2016",
+    "27108215": "March 2014",
+    "35082903": "April 2021",
+    "33441384": "25 August 2020",
+    "32983422": "July 2019",
+    "35349233": "June 2019",
+    "32588435": "26 April 2019",
+    "32027072": "October 2018",
+    "31309536": "July 2018",
+    "31425606": "23 June 2019",
+    "39625083": "4 January 2024",
+    "38246879": "July 2023",
+    "37475687": "December 2022",
+    "35765718": "May 2021"
+  },
+  "newPoolCutoffYears": {
+    "2024": 1,
+    "2023": 1,
+    "2022": 1,
+    "2021": 2,
+    "2020": 1,
+    "2019": 4,
+    "2018": 4,
+    "2017": 2,
+    "2016": 1,
+    "2014": 2,
+    "2013": 1,
+    "2010": 1,
+    "2008": 2,
+    "2007": 1,
+    "2006": 1,
+    "2004": 1,
+    "2001": 1
+  },
+  "oldPoolCutoffYears": {
+    "2026": 4,
+    "2025": 8,
+    "2024": 12,
+    "2023": 4,
+    "2022": 7,
+    "2021": 4,
+    "2020": 5,
+    "2019": 3,
+    "2018": 1,
+    "2017": 2,
+    "2016": 2,
+    "2015": 2,
+    "2014": 2,
+    "2013": 2,
+    "2012": 1,
+    "2010": 2,
+    "2008": 5
+  },
+  "recentShare": {
+    "newPool": "1/27 (4%)",
+    "oldPool": "24/66 (36%)",
+    "definition": "截止日為 2024 年以後者所佔比例"
+  },
+  "latestStatedCutoff": {
+    "value": "4 January 2024",
+    "record": "39625083"
+  },
+  "latestIsProvisional": "🚨 未篩選。⚠️ 第 601 輪的教訓：上一個「最新截止日」是一份計畫書。🚫 篩過之前不得當成答案。",
+  "failures": {},
+  "titlesKeptPrivate": "C:\\Users\\User\\Desktop\\claude\\ahig-private\\p3-stress-eating\\step1e-new-pool.json",
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "controlProbes": [
+    {
+      "probe": "新池子的摘要真的讀到了（必觸發）",
+      "passed": true,
+      "detail": "🚨 若為零，「新池子裡沒有截止日」只是沒讀到；實得 128／128 份"
+    },
+    {
+      "probe": "截止日樣式在新池子上也打得中（必觸發之反向）",
+      "passed": true,
+      "detail": "✅ 實得 27 份；🚨 若為零，代表樣式對這個池子失效，而「多半不寫」會是假的"
+    },
+    {
+      "probe": "新舊兩個池子的截止日分布都算得出來（必觸發）",
+      "passed": true,
+      "detail": "⚠️ 新池 1／27 份為 2024 年以後（4%）；舊池 24／66 份（36%）"
+    },
+    {
+      "probe": "新池子已篩選並填好截止日",
+      "passed": false,
+      "detail": "🚨 本支只讀摘要。🚫 未篩選、未讀方法段——⚠️ 摘要不是權威來源"
+    }
+  ],
+  "auditHash": "sha256:c544ddca9bb99e9da6aff288dea3b01d34d9cb4b0f0edd24d12eeddd2a02e7d2"
+}
