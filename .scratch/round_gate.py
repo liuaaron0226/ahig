@@ -328,7 +328,14 @@ PYTEST_IGNORE = 'tests/test_shacl_gates.py'
 # 換了契約不算做過、同鍵不同內容拒絕覆寫。增量恰為 3。
 # 同一輪另修兩處測試自身之缺陷（不改變條數）：本檔的樁契約殘缺，
 # ScopeMatcher 收不下，於是「混合結果」那條其實兩筆都失敗仍照樣通過。
-BASE_PASSED, BASE_FAILED = 756, 0
+# 第 485 輪：756 → 764。前後對照（n+113 四）：
+#   改動前  756 passed／0 failed
+#   改動後  764 passed／0 failed
+# 新增八條，測不花錢那條讀論文路線（n+185）：放置目錄落在版控樹裡要擋、
+# 沒填的骨架不得算讀過、填好的收得下、「還沒讀」與「讀壞了」型別分開、
+# 自稱人讀的要擋、status 要指名哪幾篇沒讀、換 content 不算讀過、
+# 重發骨架不覆寫已填的。增量恰為 8。
+BASE_PASSED, BASE_FAILED = 764, 0
 KNOWN_FAIL = '無（原 test_clopper_pearson_matches_closed_forms 已於第 437 輪依 n+113 四修正）'
 UNCOLLECTABLE = '%s（缺 pyshacl，pyproject 第 15 行已宣告）' % PYTEST_IGNORE
 
