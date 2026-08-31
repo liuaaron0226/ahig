@@ -6,8 +6,11 @@
 擁有者想請另一個模型審視「有沒有照原計畫走、哪裡該改」。
 **⚠️ 上一次他一次丟太多東西，週用量直接歸零。**
 
-> **🚨 而看板現在是 4.2 MB**（約一百萬 token 以上）。
+> **🚨 而看板現在有兩百多萬字元**（約 150–220 萬 token）。
 > **⚠️ 貼它一次就會燒光任何人的額度，而且審的人會淹死在細節裡。**
+>
+> ⚠️ 本檔第一版把資料包的**字元數**拿去比看板的**位元組數**——
+> 🚨 中文差三倍，**那正是本 run 一路在抓的那一族**。現已兩邊都用字元。
 
 **✅ 故本支產出一份自足的小資料包**：計畫是什麼、現在到哪、已知的問題、
 以及**要對方回答什麼**。🚨 數字一律現算，🚫 不從記憶抄。
@@ -35,20 +38,24 @@ try:
 except (AttributeError, ValueError):
     pass
 
-OUT = Path(".scratch/review-packet.md")
+# 路徑一律由本檔位置推出，🚫 不靠工作目錄。
+# ⚠️ 擁有者第一次跑就是在家目錄下跑的，得到 file not found——
+# 🚨 而那個錯誤訊息看起來像「檔案不存在」，實情是「你不在那個資料夾」。
+REPO = Path(__file__).resolve().parents[1]
+OUT = REPO / ".scratch" / "review-packet.md"
 
 
 def _measured():
     m = {}
-    gate = Path(".scratch/round_gate.py").read_text(encoding="utf-8")
+    gate = (REPO / ".scratch" / "round_gate.py").read_text(encoding="utf-8")
     m["tests"] = int(re.search(r"BASE_PASSED, BASE_FAILED = (\d+),", gate).group(1))
 
-    audit = json.loads(Path(".scratch/n498_sections_integrity.json")
+    audit = json.loads((REPO / ".scratch" / "n498_sections_integrity.json")
                        .read_text(encoding="utf-8"))
     m["papers"] = len(audit["records"])
     m["chars"] = audit["totals"]["chars"]
 
-    board = io.open("COORDINATION.md", encoding="utf-8").read()
+    board = io.open(REPO / "COORDINATION.md", encoding="utf-8").read()
     m["board_bytes"] = len(board.encode("utf-8"))
     # 🚨 中文一個字約三個位元組，故「位元組」與「字元」差三倍。
     #    ⚠️ 拿資料包的字元數去比看板的位元組數，就是本 run 一路在抓的那一族。
@@ -57,11 +64,11 @@ def _measured():
     m["read"] = int(hits[-1][1]) if hits else 0
     m["rulings"] = len(set(re.findall(r"協調者裁定 n\+(\d+)", board)))
 
-    m["modules"] = len(list(Path("ahig/ahig").rglob("*.py")))
-    m["adrs"] = len(list(Path("docs/adr").glob("*.md"))) + \
-        len(list(Path("ahig/docs/adr").glob("*.md")))
-    log = subprocess.run(["git", "log", "--format=%cs"], capture_output=True,
-                         text=True).stdout.split()
+    m["modules"] = len(list((REPO / "ahig" / "ahig").rglob("*.py")))
+    m["adrs"] = len(list((REPO / "docs" / "adr").glob("*.md"))) + \
+        len(list((REPO / "ahig" / "docs" / "adr").glob("*.md")))
+    log = subprocess.run(["git", "log", "--format=%cs"], cwd=REPO,
+                         capture_output=True, text=True).stdout.split()
     m["commits"], m["from"], m["to"] = len(log), log[-1], log[0]
     return m
 
