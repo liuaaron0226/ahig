@@ -614,3 +614,66 @@ def test_a_draft_for_a_paper_not_on_the_worksheet_is_refused():
             raise AssertionError("工作單上沒有的那一篇不該被收")
 
     _in_corpus(body)
+
+
+def test_agreement_on_contract_outcomes_is_immune_to_granularity():
+    """🚨 實測：兩位讀者的標籤零逐字重疊（41 對 18），而兩邊都不算錯。
+
+    ⚠️ 差在顆粒度——一邊拆十筆、一邊記一筆。**故標籤不可比。**
+    ✅ 契約結局清單是固定的，「這篇有沒有報告結局 X」與顆粒度無關。
+    """
+    def body(root, candidate_id):
+        out, requests = _two_page_sheet(root, candidate_id)
+        request = requests[0]
+        fine = _draft_for(request)
+        fine["reportedOutcomes"] = [
+            {"localLabel": "plasma glucose", "normalisedOutcomeRef": "o1",
+             "sourceLocation": {"section": "Results"}},
+            {"localLabel": "plasma lactate", "normalisedOutcomeRef": "o1",
+             "sourceLocation": {"section": "Results"}}]
+        coarse = _draft_for(request, inventoryId="inv:second")
+        coarse["reportedOutcomes"] = [
+            {"localLabel": "plasma metabolites", "normalisedOutcomeRef": "o1",
+             "sourceLocation": {"section": "Results"}}]
+        worksheet.write_page_drafts(out, 1, [fine],
+                                    read_by={"agentClass": "model"})
+        worksheet.write_page_drafts(out, 1, [coarse], lane="second",
+                                    read_by={"agentClass": "model"})
+
+        got = worksheet.agreement(
+            worksheet.load_drafts(out, require_complete=False)["drafts"],
+            worksheet.load_lane(out, "second")["drafts"])
+        # 標籤那一組：完全不重疊——而那個 0 說的是顆粒度，不是不同意。
+        assert got["labelsBoth"] == 0
+        # 契約結局那一組：完全一致。
+        assert got["refsBoth"] == 1
+        assert got["refsOnlyPrimary"] == 0 and got["refsOnlySecond"] == 0
+        assert got["reportsFullyAgreed"] == 1
+
+    _in_corpus(body)
+
+
+def test_a_real_disagreement_on_contract_outcomes_still_shows():
+    """✅ 反向：顆粒度免疫**不等於**什麼都算一致。"""
+    def body(root, candidate_id):
+        out, requests = _two_page_sheet(root, candidate_id)
+        request = requests[0]
+        a = _draft_for(request)
+        a["reportedOutcomes"] = [
+            {"localLabel": "x", "normalisedOutcomeRef": "o1",
+             "sourceLocation": {"section": "Results"}}]
+        b = _draft_for(request, inventoryId="inv:second")
+        b["reportedOutcomes"] = [
+            {"localLabel": "x", "normalisedOutcomeRef": None,
+             "sourceLocation": {"section": "Results"}}]
+        worksheet.write_page_drafts(out, 1, [a], read_by={"agentClass": "model"})
+        worksheet.write_page_drafts(out, 1, [b], lane="second",
+                                    read_by={"agentClass": "model"})
+
+        got = worksheet.agreement(
+            worksheet.load_drafts(out, require_complete=False)["drafts"],
+            worksheet.load_lane(out, "second")["drafts"])
+        assert got["refsOnlyPrimary"] == 1 and got["refsBoth"] == 0
+        assert got["reportsFullyAgreed"] == 0
+
+    _in_corpus(body)

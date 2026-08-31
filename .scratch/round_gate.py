@@ -422,7 +422,13 @@ PYTEST_IGNORE = 'tests/test_shacl_gates.py'
 # 🚨 改寫過的儀器名要當場擋（🚫 不得留到判定那步變成「不在允許清單」，
 # ⚠️ 那個理由與「這篇真的用了別的儀器」分不開）、null 收得下（兩個理由因此
 # 分得開）、範圍外的那些照樣用論文的用詞。增量恰為 4。
-BASE_PASSED, BASE_FAILED = 810, 0
+# 第 490 輪：810 → 812。前後對照（n+113 四）：
+#   改動前  810 passed／0 failed
+#   改動後  812 passed／0 failed
+# 新增兩條，測「以契約結局為單位的一致性」（n+190）：🚨 顆粒度不同（一邊拆
+# 十筆、一邊記一筆）時標籤零重疊而契約結局完全一致、⚠️ 反向——顆粒度免疫
+# 不等於什麼都算一致，真的指向不同就要顯示出來。增量恰為 2。
+BASE_PASSED, BASE_FAILED = 812, 0
 KNOWN_FAIL = '無（原 test_clopper_pearson_matches_closed_forms 已於第 437 輪依 n+113 四修正）'
 # 第 544 輪更正：先前只寫「缺 pyshacl」。⚠️ 操作上沒錯（裝 pyshacl 會帶 rdflib），
 # 🚨 但那句話讓人以為只差一個套件，而實測 rdflib 也不在——

@@ -409,35 +409,61 @@ def _labels(draft: dict) -> dict[str, str]:
     return out
 
 
+def _refs(draft: dict) -> set:
+    """該筆清冊指向了契約裡的哪幾個結局。**🚨 這才是可比的單位。**"""
+    return {o["normalisedOutcomeRef"]
+            for o in draft.get("reportedOutcomes") or []
+            if o.get("normalisedOutcomeRef")}
+
+
 def agreement(primary: dict, second: dict) -> dict:
-    """兩位讀者對**同一批論文**各自登錄了什麼，逐篇比。
+    """兩位讀者對**同一批論文**各自登錄了什麼，逐篇比。**兩種單位各算一次。**
 
-    ## 🚨 這個數字量的是什麼，以及**不是**什麼
+    ## 🚨 為什麼要有兩種單位
 
-    ✅ 量的是：兩邊都登錄了、只有一邊登錄了的**標籤**（正規化後逐字比）。
+    第一次實測：兩位讀者的標籤**零逐字重疊**（41 對 18），⚠️ 而兩邊都不算錯
+    ——**差在顆粒度**：一邊把血漿代謝物拆成十筆，一邊記成一筆。
 
-    > **🚫 它不是正確率。** ⚠️ 兩位讀者可能把同一個結局叫成不同名字
-    > （「fat-free mass」對「lean body mass」），**那會被算成兩邊各有一個**。
-    > **🚨 故「只有一邊有」是一份要人看的清單，不是錯誤數。**
+    > **🚨 故「這篇論文報告了幾個結局」完全取決於誰讀的，不能拿來比。**
+    > **✅ 而契約裡的結局清單是固定的**：兩位讀者指向的是同一份 `outcomeId`，
+    > 於是「這篇有沒有報告結局 X」**與顆粒度無關**，兩邊可比。
 
-    🚫 亦不比 `sourceLocation`、不比數值——⚠️ 那些要逐欄對，而逐欄對之前
-    得先確定兩邊講的是同一個結局，**🚨 那正是這一步還沒做到的事**。
+    | 單位 | 可比性 | 用途 |
+    |---|---|---|
+    | `labels*`：自由文字標籤 | 🚨 **不可比**（顆粒度） | ⚠️ 只能當待看清單 |
+    | `refs*`：契約結局 `outcomeId` | ✅ **可比** | ✅ **一致性就看這個** |
+
+    🚫 兩者都不比 `sourceLocation`、不比數值——⚠️ 那要逐欄對，
+    而逐欄對之前得先確定兩邊講的是同一個結局。
     """
     shared = sorted(set(primary) & set(second))
     rows = []
     both = only_a = only_b = 0
+    r_both = r_only_a = r_only_b = 0
+    agreed_reports = 0
     for report in shared:
         a, b = _labels(primary[report]), _labels(second[report])
         common = sorted(a.keys() & b.keys())
+        ra, rb = _refs(primary[report]), _refs(second[report])
         rows.append({
             "report": report,
             "both": len(common),
             "onlyPrimary": sorted(a[k] for k in a.keys() - b.keys()),
             "onlySecond": sorted(b[k] for k in b.keys() - a.keys()),
+            "refsBoth": sorted(ra & rb),
+            "refsOnlyPrimary": sorted(ra - rb),
+            "refsOnlySecond": sorted(rb - ra),
         })
         both += len(common)
         only_a += len(a) - len(common)
         only_b += len(b) - len(common)
+        r_both += len(ra & rb)
+        r_only_a += len(ra - rb)
+        r_only_b += len(rb - ra)
+        # 🚨 「這篇兩位讀者指向同一組契約結局」——⚠️ 這是逐篇的是／否，
+        #    🚫 不是把結局數加總後相除，那會讓結局多的論文說了算。
+        if ra == rb:
+            agreed_reports += 1
     return {
         "comparedReports": len(shared),
         "primaryOnlyReports": sorted(set(primary) - set(second)),
@@ -445,9 +471,15 @@ def agreement(primary: dict, second: dict) -> dict:
         "labelsBoth": both,
         "labelsOnlyPrimary": only_a,
         "labelsOnlySecond": only_b,
+        # ✅ 契約結局為單位：與顆粒度無關，故這一組才可比。
+        "refsBoth": r_both,
+        "refsOnlyPrimary": r_only_a,
+        "refsOnlySecond": r_only_b,
+        "reportsFullyAgreed": agreed_reports,
         "rows": rows,
         "caveat": ("逐字比標籤。同一個結局被叫成不同名字時會算成兩邊各有一個，"
-                   "故「只有一邊有」是待人看的清單，不是錯誤數。"),
+                   "故「只有一邊有」是待人看的清單，不是錯誤數。"
+                   "契約結局那一組（refs*）不受顆粒度影響，一致性看那一組。"),
     }
 
 
