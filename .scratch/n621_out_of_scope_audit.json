@@ -1,0 +1,219 @@
+{
+  "schemaVersion": 1,
+  "documentType": "out-of-scope-audit",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "outOfScopeScanned": 656,
+  "rawSignalHits": 106,
+  "flaggedAfterRescue": 32,
+  "byOutcome": {
+    "time-to-exhaustion": 1,
+    "gi-symptom-severity": 10,
+    "muscle-glycogen-post-exercise": 1,
+    "exogenous-cho-oxidation-peak": 4,
+    "tt-completion-time": 16
+  },
+  "byReport": {
+    "9a3b03b4fb24cf65": 5,
+    "4103c4b52bbf21e6": 4,
+    "c3028a8a7b1ae2a1": 3,
+    "e8d48c04f919dbb0": 3,
+    "b9ab2f27317a6a2b": 2,
+    "82cbc04b68c38e79": 2,
+    "1105537918c174c9": 2,
+    "307c0dd5b141caed": 2,
+    "d4149a8bac287851": 2,
+    "97c2233f7e60c801": 2
+  },
+  "flagged": [
+    {
+      "report": "7902e3ec54370729",
+      "outcomeId": "time-to-exhaustion",
+      "label": "Total exercise duration (180-min steady state plus the exercise capacity test)"
+    },
+    {
+      "report": "dbdb6ea55c9667c3",
+      "outcomeId": "gi-symptom-severity",
+      "label": "Correlation of gastrointestinal distress with change in mean sprint performance, and performance adjusted for gastrointe"
+    },
+    {
+      "report": "48da8a7f2f35af1f",
+      "outcomeId": "gi-symptom-severity",
+      "label": "Correlation between gastrointestinal symptom scores and time-trial performance"
+    },
+    {
+      "report": "b9ab2f27317a6a2b",
+      "outcomeId": "muscle-glycogen-post-exercise",
+      "label": "Net decline in muscle glycogen content after exercise, CHO versus control, reported as 38 +/- 19% and 57 +/- 22% greater"
+    },
+    {
+      "report": "b9ab2f27317a6a2b",
+      "outcomeId": "exogenous-cho-oxidation-peak",
+      "label": "Plasma glucose oxidation rate during exercise, derived from the [6,6-2H2] glucose tracer (13.2 +/- 2.1 versus 6.7 +/- 1."
+    },
+    {
+      "report": "c3028a8a7b1ae2a1",
+      "outcomeId": "gi-symptom-severity",
+      "label": "Total gastrointestinal symptom score (sum across symptom items)"
+    },
+    {
+      "report": "c3028a8a7b1ae2a1",
+      "outcomeId": "gi-symptom-severity",
+      "label": "Upper-gastrointestinal symptom score (including bloating and urge to regurgitate)"
+    },
+    {
+      "report": "c3028a8a7b1ae2a1",
+      "outcomeId": "gi-symptom-severity",
+      "label": "Lower-gastrointestinal symptom score"
+    },
+    {
+      "report": "e8d48c04f919dbb0",
+      "outcomeId": "tt-completion-time",
+      "label": "Muscle glycogen content after the 15-min time trial, at the start of the SPRINT (KE 52 +/- 24 versus CON 52 +/- 21 mmol/"
+    },
+    {
+      "report": "e8d48c04f919dbb0",
+      "outcomeId": "tt-completion-time",
+      "label": "Net muscle glycogen breakdown during the 3-h intermittent cycle (KE -78 +/- 30 versus CON -60 +/- 22 mmol/kg wet weight)"
+    },
+    {
+      "report": "e8d48c04f919dbb0",
+      "outcomeId": "tt-completion-time",
+      "label": "Number of participants correctly identifying their experimental conditions (7 of 12, 58%) and their best time-trial perf"
+    },
+    {
+      "report": "9a3b03b4fb24cf65",
+      "outcomeId": "tt-completion-time",
+      "label": "Blood glucose concentration 3 min after the time trial"
+    },
+    {
+      "report": "9a3b03b4fb24cf65",
+      "outcomeId": "tt-completion-time",
+      "label": "Blood lactate concentration 3 min after the time trial"
+    },
+    {
+      "report": "9a3b03b4fb24cf65",
+      "outcomeId": "tt-completion-time",
+      "label": "Level of digestive comfort immediately after the time trial (mean 14.3 in both trials)"
+    },
+    {
+      "report": "9a3b03b4fb24cf65",
+      "outcomeId": "exogenous-cho-oxidation-peak",
+      "label": "Sex comparison (female vs male) of exogenous carbohydrate oxidation over the last 60 min - a stated aim of the study"
+    },
+    {
+      "report": "9a3b03b4fb24cf65",
+      "outcomeId": "gi-symptom-severity",
+      "label": "Sex comparisons (female vs male) for RER, total/endogenous carbohydrate and fat oxidation, blood glucose and lactate, RP"
+    },
+    {
+      "report": "54d4200c1c5e2b64",
+      "outcomeId": "tt-completion-time",
+      "label": "Ad libitum water intake during the first 20 km time trial, recorded and replicated in the second trial"
+    },
+    {
+      "report": "82cbc04b68c38e79",
+      "outcomeId": "tt-completion-time",
+      "label": "Maximal voluntary isometric quadriceps contraction force at 60 degrees knee flexion, measured pre-ride, post time-trial "
+    },
+    {
+      "report": "82cbc04b68c38e79",
+      "outcomeId": "tt-completion-time",
+      "label": "Blood glucose by finger stick pre-exercise, after 1 hour of cycling, within 1 minute of the end of the time trial, and a"
+    },
+    {
+      "report": "1105537918c174c9",
+      "outcomeId": "tt-completion-time",
+      "label": "Blood glucose concentration at rest, every 20 min during steady-state and after the time trial"
+    },
+    {
+      "report": "1105537918c174c9",
+      "outcomeId": "tt-completion-time",
+      "label": "Blood lactate concentration at rest, every 20 min during steady-state and after the time trial"
+    },
+    {
+      "report": "0cfceb6c8a86f78b",
+      "outcomeId": "tt-completion-time",
+      "label": "Peripheral oxygen saturation (SpO2) by finger pulse oximetry during the 2-mile time trial, at baseline and half-mile int"
+    },
+    {
+      "report": "307c0dd5b141caed",
+      "outcomeId": "gi-symptom-severity",
+      "label": "Study 5: the rider's own account after Stage 19 of high gut fullness and minor feelings to vomit at a 100 g/h intake - t"
+    },
+    {
+      "report": "307c0dd5b141caed",
+      "outcomeId": "gi-symptom-severity",
+      "label": "Global gastrointestinal symptoms on a 10-point scale adapted from Pfeiffer et al. (2009), covering bloating, urge to def"
+    },
+    {
+      "report": "d4149a8bac287851",
+      "outcomeId": "exogenous-cho-oxidation-peak",
+      "label": "Subsidiary comparison of background-correction methods: exogenous carbohydrate oxidation calculated with a water correct"
+    },
+    {
+      "report": "d4149a8bac287851",
+      "outcomeId": "gi-symptom-severity",
+      "label": "Integrated OTHER symptom score (nausea, dizziness, headache, urge to urinate) summed 30-150 min: lactose 91, sucrose 104"
+    },
+    {
+      "report": "4103c4b52bbf21e6",
+      "outcomeId": "tt-completion-time",
+      "label": "Distance travelled (km) during the 15-min all-out time trial; front-loading was significantly greater than continual loa"
+    },
+    {
+      "report": "4103c4b52bbf21e6",
+      "outcomeId": "tt-completion-time",
+      "label": "Venous blood glucose concentration at 15-min intervals through the 2-h feeding stage and after the time trial, and its a"
+    },
+    {
+      "report": "4103c4b52bbf21e6",
+      "outcomeId": "tt-completion-time",
+      "label": "Venous blood lactate concentration at 15-min intervals and after the time trial, and its area under the curve"
+    },
+    {
+      "report": "4103c4b52bbf21e6",
+      "outcomeId": "tt-completion-time",
+      "label": "Oxygen uptake during the 2-h feeding stage and the time trial"
+    },
+    {
+      "report": "97c2233f7e60c801",
+      "outcomeId": "exogenous-cho-oxidation-peak",
+      "label": "Exogenous carbohydrate oxidation rate every 15 min during the 2-h ride, 39 g/h arm (0.13 g/min higher than 20 g/h) - rep"
+    },
+    {
+      "report": "97c2233f7e60c801",
+      "outcomeId": "gi-symptom-severity",
+      "label": "Tolerability: this report states only that all treatments were tolerated well by participants, with no symptom instrumen"
+    }
+  ],
+  "whatThisIsNot": "🚫 不是「排錯了」的清單——⚠️ 這種掃描一定有偽陽性：「muscle glycogen oxidation」含 glycogen 卻不是那個結局（第六型），「mean exogenous oxidation」含 exogenous 卻不是峰值（第一型）。✅ 六型的救援詞已掛上，🚨 而剩下的仍要人看。",
+  "whyItMatters": "🚨 本 run 稽核過進來的 98 項、排除的理由碼、零貢獻的論文，🚫 但從未問過那 692 項有沒有該宣告而沒宣告的。⚠️ 漏掉一個和多收一個一樣糟——**而漏掉的那個不會叫。**",
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "controlProbes": [
+    {
+      "probe": "掃到的是「完全未宣告」那 656 項（必觸發）",
+      "passed": true,
+      "detail": "🚨 對不上就代表本支看的不是同一批；實得 656 項（⚠️ 692 ＝ 656 未宣告 ＋ 36 宣告後被排除）"
+    },
+    {
+      "probe": "特徵詞在未宣告的標籤上打得中（必觸發之反向）",
+      "passed": true,
+      "detail": "✅ 未套救援詞前命中 106 次；🚨 若為零，代表詞彙壞了，而「沒有漏掉」會是假的"
+    },
+    {
+      "probe": "救援詞確實擋掉了一部分（必觸發之反向）",
+      "passed": true,
+      "detail": "⚠️ 命中 106 次 → 救援後剩 32 項；🚨 若一項都沒擋掉，代表那六型的救援詞沒有生效"
+    },
+    {
+      "probe": "沒有「未宣告卻帶著契約結局特徵詞」的項目",
+      "passed": false,
+      "detail": "🚨 實得 32 項，分布 15 篇；按結局：{'time-to-exhaustion': 1, 'gi-symptom-severity': 10, 'muscle-glycogen-post-exercise': 1, 'exogenous-cho-oxidation-peak': 4, 'tt-completion-time': 16}；⚠️ 這是**待人看**的清單，🚫 不是「排錯了」的清單"
+    }
+  ],
+  "auditHash": "sha256:e65692decf7a352e81ab31ccf008f81cdc7077375c770a74eba2f103cebf4076"
+}
