@@ -1,0 +1,128 @@
+{
+  "schemaVersion": 1,
+  "documentType": "table-recovery-qualified",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "classified": {
+    "own-results": 8,
+    "literature-summary": 4
+  },
+  "rows": [
+    {
+      "report": "48da8a7f2f35af1f",
+      "kind": "own-results",
+      "numbers": 25,
+      "citations": 0,
+      "reportContributesZero": false
+    },
+    {
+      "report": "3f34fc92d4f4b70d",
+      "kind": "own-results",
+      "numbers": 3,
+      "citations": 0,
+      "reportContributesZero": false
+    },
+    {
+      "report": "c3028a8a7b1ae2a1",
+      "kind": "own-results",
+      "numbers": 17,
+      "citations": 0,
+      "reportContributesZero": true
+    },
+    {
+      "report": "65dd82a89b2c5340",
+      "kind": "own-results",
+      "numbers": 206,
+      "citations": 0,
+      "reportContributesZero": false
+    },
+    {
+      "report": "307c0dd5b141caed",
+      "kind": "literature-summary",
+      "numbers": 19,
+      "citations": 8,
+      "reportContributesZero": false
+    },
+    {
+      "report": "307c0dd5b141caed",
+      "kind": "literature-summary",
+      "numbers": 11,
+      "citations": 11,
+      "reportContributesZero": false
+    },
+    {
+      "report": "307c0dd5b141caed",
+      "kind": "literature-summary",
+      "numbers": 19,
+      "citations": 8,
+      "reportContributesZero": false
+    },
+    {
+      "report": "307c0dd5b141caed",
+      "kind": "literature-summary",
+      "numbers": 29,
+      "citations": 8,
+      "reportContributesZero": false
+    },
+    {
+      "report": "307c0dd5b141caed",
+      "kind": "own-results",
+      "numbers": 12,
+      "citations": 1,
+      "reportContributesZero": false
+    },
+    {
+      "report": "307c0dd5b141caed",
+      "kind": "own-results",
+      "numbers": 3,
+      "citations": 0,
+      "reportContributesZero": false
+    },
+    {
+      "report": "307c0dd5b141caed",
+      "kind": "own-results",
+      "numbers": 10,
+      "citations": 0,
+      "reportContributesZero": false
+    },
+    {
+      "report": "307c0dd5b141caed",
+      "kind": "own-results",
+      "numbers": 16,
+      "citations": 0,
+      "reportContributesZero": false
+    }
+  ],
+  "correctsRound613": "🚨 第 613 輪報「12 張帶著結局」——⚠️ 講得太寬。✅ 其中 4 張是那本論文的文獻整理表（別人的研究），🚫 救回來會把別的試驗數字混進來。",
+  "flattenedTablesAreReadable": "✅ 實測某篇的表攤平成「Exogenous CHO oxidation 63.4 ± 8.1 / 68.6 ± 10.8 p = 0.003」——**可以直接抽**。🚫 故第 613 輪「很難判讀」那句對這一張是錯的。",
+  "cleanRecoveries": "✅ c3028a8a7b1ae2a1 的「嚴重腸胃道症狀發生率」表——🚨 該篇目前貢獻 0 項；✅ 65dd82a89b2c5340 的 206 數字表——🚨 正是 n598 那 7 項被指向方法段的同一篇。",
+  "caveatOnGlycogen": "⚠️ 那張氧化表寫的是肝醣**氧化**，🚫 不是運動後**濃度**——🚨 第 568 輪之第六型。故第 613 輪「肝醣 6 張」的收益要打折。",
+  "revisedRecommendation": "✅ 仍建議修 D17，⚠️ 但必須附一條：🚨 那本論文的文獻整理表不得當成它自己的結果。🚫 沒有這條，修好之後會把別人的試驗數字讀進來。",
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "controlProbes": [
+    {
+      "probe": "分類到的是第 613 輪那 12 張（必觸發）",
+      "passed": true,
+      "detail": "🚨 對不上就代表本支看的不是同一批；實得 12 張"
+    },
+    {
+      "probe": "分類器分得出不只一類（必觸發之反向）",
+      "passed": true,
+      "detail": "⚠️ 實得 {'own-results': 8, 'literature-summary': 4}；🚨 若只有一類，這個分類什麼都沒說"
+    },
+    {
+      "probe": "被丟掉的表全部是該篇自己的結果",
+      "passed": false,
+      "detail": "🚨 實得 4 張是**別人的研究**（文獻整理表，引註 [8, 8, 8, 11] 次），⚠️ 全在那本博士論文；🚫 救回來會把別的試驗數字混進本語料——✅ 這是「參考文獻陷阱」第三次出現，這次是整張表"
+    },
+    {
+      "probe": "有乾淨的救援對象（必觸發）",
+      "passed": true,
+      "detail": "✅ 自有結果的表 8 張，其中 1 張屬於**目前貢獻 0 項**的論文"
+    }
+  ],
+  "auditHash": "sha256:8f64576747639f3561f18a47d37aafb3278fe3ee868c223002f4b93ce5eaaea4"
+}
