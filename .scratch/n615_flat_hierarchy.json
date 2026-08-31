@@ -1,0 +1,275 @@
+{
+  "schemaVersion": 1,
+  "documentType": "flat-hierarchy",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "depthBySource": {
+    "europe-pmc-jats": {
+      "2": 5,
+      "3": 16,
+      "4": 5
+    },
+    "grobid-tei": {
+      "1": 15
+    }
+  },
+  "perReport": {
+    "86e6a580108fd94b": {
+      "sourceType": "europe-pmc-jats",
+      "maxDepth": 4,
+      "sections": 29
+    },
+    "081d147cd92dee14": {
+      "sourceType": "europe-pmc-jats",
+      "maxDepth": 3,
+      "sections": 20
+    },
+    "59b4558a37f28bc9": {
+      "sourceType": "europe-pmc-jats",
+      "maxDepth": 3,
+      "sections": 26
+    },
+    "7902e3ec54370729": {
+      "sourceType": "grobid-tei",
+      "maxDepth": 1,
+      "sections": 28
+    },
+    "dbdb6ea55c9667c3": {
+      "sourceType": "europe-pmc-jats",
+      "maxDepth": 2,
+      "sections": 16
+    },
+    "c97d2ed84b0d1057": {
+      "sourceType": "europe-pmc-jats",
+      "maxDepth": 3,
+      "sections": 17
+    },
+    "0eea079e79bf7913": {
+      "sourceType": "europe-pmc-jats",
+      "maxDepth": 3,
+      "sections": 20
+    },
+    "48da8a7f2f35af1f": {
+      "sourceType": "grobid-tei",
+      "maxDepth": 1,
+      "sections": 18
+    },
+    "358bbf2c1886ac4b": {
+      "sourceType": "europe-pmc-jats",
+      "maxDepth": 2,
+      "sections": 16
+    },
+    "6b7320d74cdda857": {
+      "sourceType": "grobid-tei",
+      "maxDepth": 1,
+      "sections": 21
+    },
+    "44243ac624c9b5e0": {
+      "sourceType": "europe-pmc-jats",
+      "maxDepth": 3,
+      "sections": 21
+    },
+    "e4871d50d0001e66": {
+      "sourceType": "europe-pmc-jats",
+      "maxDepth": 3,
+      "sections": 33
+    },
+    "501bb474ac4704fa": {
+      "sourceType": "europe-pmc-jats",
+      "maxDepth": 3,
+      "sections": 20
+    },
+    "d4251685a43792ff": {
+      "sourceType": "europe-pmc-jats",
+      "maxDepth": 3,
+      "sections": 25
+    },
+    "8a62d501f88c7d04": {
+      "sourceType": "europe-pmc-jats",
+      "maxDepth": 3,
+      "sections": 24
+    },
+    "66e16f089f1522d1": {
+      "sourceType": "europe-pmc-jats",
+      "maxDepth": 4,
+      "sections": 21
+    },
+    "7a6ac1559c740fd6": {
+      "sourceType": "grobid-tei",
+      "maxDepth": 1,
+      "sections": 24
+    },
+    "7a97713bf254fa26": {
+      "sourceType": "europe-pmc-jats",
+      "maxDepth": 4,
+      "sections": 24
+    },
+    "b9ab2f27317a6a2b": {
+      "sourceType": "europe-pmc-jats",
+      "maxDepth": 3,
+      "sections": 28
+    },
+    "65d459b9129da800": {
+      "sourceType": "europe-pmc-jats",
+      "maxDepth": 3,
+      "sections": 24
+    },
+    "3f34fc92d4f4b70d": {
+      "sourceType": "grobid-tei",
+      "maxDepth": 1,
+      "sections": 18
+    },
+    "c3028a8a7b1ae2a1": {
+      "sourceType": "grobid-tei",
+      "maxDepth": 1,
+      "sections": 21
+    },
+    "f6a82302d7fe9adf": {
+      "sourceType": "europe-pmc-jats",
+      "maxDepth": 3,
+      "sections": 29
+    },
+    "e8d48c04f919dbb0": {
+      "sourceType": "europe-pmc-jats",
+      "maxDepth": 3,
+      "sections": 27
+    },
+    "a9012191142e7e02": {
+      "sourceType": "grobid-tei",
+      "maxDepth": 1,
+      "sections": 11
+    },
+    "ad7c0004c386f31c": {
+      "sourceType": "grobid-tei",
+      "maxDepth": 1,
+      "sections": 19
+    },
+    "c4128a6f6dd2c0b5": {
+      "sourceType": "grobid-tei",
+      "maxDepth": 1,
+      "sections": 12
+    },
+    "9a3b03b4fb24cf65": {
+      "sourceType": "europe-pmc-jats",
+      "maxDepth": 4,
+      "sections": 31
+    },
+    "65dd82a89b2c5340": {
+      "sourceType": "grobid-tei",
+      "maxDepth": 1,
+      "sections": 14
+    },
+    "54d4200c1c5e2b64": {
+      "sourceType": "europe-pmc-jats",
+      "maxDepth": 2,
+      "sections": 10
+    },
+    "82cbc04b68c38e79": {
+      "sourceType": "grobid-tei",
+      "maxDepth": 1,
+      "sections": 15
+    },
+    "1105537918c174c9": {
+      "sourceType": "grobid-tei",
+      "maxDepth": 1,
+      "sections": 5
+    },
+    "0cfceb6c8a86f78b": {
+      "sourceType": "europe-pmc-jats",
+      "maxDepth": 2,
+      "sections": 8
+    },
+    "307c0dd5b141caed": {
+      "sourceType": "grobid-tei",
+      "maxDepth": 1,
+      "sections": 160
+    },
+    "d4149a8bac287851": {
+      "sourceType": "europe-pmc-jats",
+      "maxDepth": 4,
+      "sections": 16
+    },
+    "4103c4b52bbf21e6": {
+      "sourceType": "europe-pmc-jats",
+      "maxDepth": 2,
+      "sections": 15
+    },
+    "eac2b5fd6bb06843": {
+      "sourceType": "grobid-tei",
+      "maxDepth": 1,
+      "sections": 15
+    },
+    "97c2233f7e60c801": {
+      "sourceType": "europe-pmc-jats",
+      "maxDepth": 3,
+      "sections": 30
+    },
+    "834de4d822dfb3cd": {
+      "sourceType": "europe-pmc-jats",
+      "maxDepth": 3,
+      "sections": 20
+    },
+    "298c326024d22835": {
+      "sourceType": "grobid-tei",
+      "maxDepth": 1,
+      "sections": 21
+    },
+    "a6ce9c92c7454a7c": {
+      "sourceType": "europe-pmc-jats",
+      "maxDepth": 3,
+      "sections": 16
+    }
+  },
+  "whoFlattened": "⚠️ `parse_tei` 的 visit() 會遞迴進巢狀 <div>，🚨 故深度為 1 代表 GROBID 產出的 div 本身就是平的——🚫 不是解析器壓平的。⚠️ 但對讀的人而言後果一樣。",
+  "consequence": "🚨 那本博士論文有第二章文獻回顧與自己的研究章節，⚠️ 而所有段落在 path 上都是同一層——🚫 讀的人無從知道一段屬於哪一章。",
+  "attributionWasLucky": "✅ 實測那 4 項在範圍內的結局，兩段都確實是它自己的結果（有自己的數據，並引用 Figure 5.7 定位在第五章）。🚨 但那個定位來自內文碰巧寫了圖號，🚫 不是來自結構——⚠️ 那是運氣。",
+  "twoGapsTogether": "⚠️ 讀者拿得到表格：JATS 77%、GROBID 7%；段落層級深度：JATS 2–4、GROBID 1。🚨 「讀過」對那 15 篇是另一件事——而 A1 問的只是「同一版請求」，**這比版本更深**。",
+  "d5Instance": {
+    "items": [
+      {
+        "report": "307c0dd5b141caed",
+        "outcomeId": "time-to-exhaustion"
+      },
+      {
+        "report": "307c0dd5b141caed",
+        "outcomeId": "time-to-exhaustion"
+      },
+      {
+        "report": "307c0dd5b141caed",
+        "outcomeId": "time-to-exhaustion"
+      },
+      {
+        "report": "307c0dd5b141caed",
+        "outcomeId": "muscle-glycogen-post-exercise"
+      }
+    ],
+    "why": "🚨 該論文 Study 2 的力竭時間有 0／45／90 g/h 三臂，而 0 g/h 那一臂被判 dose-outside-bands——✅ 它是對照組，🚫 不是劑量不合格。"
+  },
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "controlProbes": [
+    {
+      "probe": "兩種來源都量到了（必觸發）",
+      "passed": true,
+      "detail": "🚨 少一種就沒有對照；實得 JATS 26 篇、TEI 15 篇"
+    },
+    {
+      "probe": "這條管線記得住段落層級（正對照，必觸發）",
+      "passed": true,
+      "detail": "✅ JATS 各篇最大深度分布 {2: 5, 3: 16, 4: 5}；🚨 若全是 1，那就是「本來就不記層級」，而不是這 15 篇被壓平"
+    },
+    {
+      "probe": "全語料的段落結構深度可比",
+      "passed": false,
+      "detail": "🚨 JATS {2: 5, 3: 16, 4: 5} 對 TEI {1: 15}——⚠️ 那 15 篇全部只有一層，🚫 讀的人無從知道一段屬於哪一章"
+    },
+    {
+      "probe": "沒有把對照組判成劑量不合格的情形",
+      "passed": false,
+      "detail": "🚨 實得 4 項 dose=0 被判 dose-outside-bands：['307c0dd5b141caed']；⚠️ 它們是對照組，🚫 不是劑量不合格——✅ D5 的實例"
+    }
+  ],
+  "auditHash": "sha256:c99b8dffc6021258aaddd685877e0086749a29ac9fc470b062db2f8f27d4e436"
+}
