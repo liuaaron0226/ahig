@@ -1,0 +1,74 @@
+{
+  "schemaVersion": 1,
+  "documentType": "cap-paths-divergence",
+  "question": "第 592 輪未實測的三個鍵，以及上限在兩條路徑上是否一致",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "capInContract": 12,
+  "onExceedMaxInContract": "escalate",
+  "itemsUsed": 13,
+  "results": {
+    "as-written|decide_inventory": {
+      "escalated": true,
+      "inScopeCount": 0,
+      "itemsSayingInScope": 0
+    },
+    "as-written|scope_inventory": {
+      "escalated": true,
+      "inScopeCount": 0,
+      "itemsSayingInScope": 0
+    },
+    "onExceedMax=null|decide_inventory": {
+      "escalated": true,
+      "inScopeCount": 0,
+      "itemsSayingInScope": 13
+    },
+    "onExceedMax=null|scope_inventory": {
+      "escalated": false,
+      "inScopeCount": 13,
+      "itemsSayingInScope": 13
+    },
+    "maxStudyResultsPerStudy=null|decide_inventory": {
+      "raised": "TypeError: '>' not supported between instances of 'int' and 'NoneType'"
+    }
+  },
+  "hasNumericResultAbsent": {
+    "inScope": true,
+    "reasonCode": "in-scope"
+  },
+  "threeOutcomesOfOneConstruct": "⚠️ 同一個 `.get(鍵, 預設)` 寫法，三種後果：🚨 `maxStudyResultsPerStudy=null` 當場炸開（✅ 最好）、`hasNumericResult` 缺席就放寬、🚨 `onExceedMax=null` 產出一份自相矛盾的文件（最糟）。",
+  "divergence": "🚨 `decide_inventory` 算的是 `exceeded = in_scope > cap`，`onExceedMax` 只影響要不要標記；而 `scope_inventory` 算的是 `exceeded = (in_scope > cap and onExceedMax == \"escalate\")`。⚠️ 括號位置不同，故「有沒有超過上限」在兩條路徑上不是同一個問題。",
+  "noLiveHarm": "✅ 現行契約 onExceedMax=\"escalate\"，兩條路徑一致；🚨 而那是契約值剛好對，🚫 不是程式一致。",
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "controlProbes": [
+    {
+      "probe": "契約原樣時兩條路徑一致且都升級（正對照，必觸發）",
+      "passed": true,
+      "detail": "✅ 實得 {'escalated': True, 'inScopeCount': 0, 'itemsSayingInScope': 0}／{'escalated': True, 'inScopeCount': 0, 'itemsSayingInScope': 0}；🚨 若原樣就不一致，後面的比較無從說起"
+    },
+    {
+      "probe": "上限為 null 時當場炸開（必觸發之反向）",
+      "passed": true,
+      "detail": "✅ 實得 TypeError: '>' not supported between instances of 'int' and 'NoneType'；⚠️ 這是三種後果裡**最好**的一種——🚨 吵的失敗看得見，安靜的看不見"
+    },
+    {
+      "probe": "hasNumericResult 缺席時是放寬方向（必觸發之反向）",
+      "passed": true,
+      "detail": "🚨 實得 inScope=True；⚠️ 而那一格正是把關 no-numeric-result 的地方，🚫 漏填的後果是被收進來"
+    },
+    {
+      "probe": "decide_inventory 的輸出不會自相矛盾",
+      "passed": false,
+      "detail": "🚨 實得 escalated=True、inScopeCount=0，而逐項有 13 項說自己在範圍內；⚠️ 下游讀 decisions 會抽出 13 項，讀 inScopeCount 會抽出 0 項"
+    },
+    {
+      "probe": "兩條路徑對「有沒有升級」給相同答案",
+      "passed": false,
+      "detail": "🚨 decide_inventory=True、scope_inventory=False；⚠️ 成因是兩行程式的括號位置不同——🚫 「有沒有超過上限」在兩條路徑上不是同一個問題"
+    }
+  ],
+  "auditHash": "sha256:0f69940113a68710035c4fd2b990fac63069155b86bdaf4890c935da1752f02b"
+}
