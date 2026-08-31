@@ -18,7 +18,7 @@
 ## ⚠️ 本檔抓不到什麼
 
 - 🚫 **不驗契約內容對不對**：族群、劑量帶、可比性分類是否合理，⚠️ 要領域專家讀。
-- 🚫 **不驗那三項 schema 容不下的判準有沒有被遵守**——
+- 🚫 **不驗那幾項 schema 容不下的判準有沒有被遵守**——
   🚨 它們根本不在 JSON 裡（見 `scope-extensions-required.md`），
   **⚠️ 目前只存在於散文，沒有任何東西在強制。**
 
@@ -46,7 +46,11 @@ EXPECTED = [
 ]
 
 # 🚨 schema 容不下而移出 JSON 之判準——⚠️ 登記檔中必須逐項留有其名。
-UNEXPRESSIBLE = ["stratifyDoNotPool", "doseUnitPolicy", "requireMatchedDeficit"]
+# 🚨 第 491 輪增列第四、第五項（ADR-0012 決策 1，外部審視指出）：
+#    ⚠️ 納入條件已要求「有赤字、有阻力訓練」，但那只擋掉「完全沒有」，
+#    🚫 擋不掉「合併不同程度」——而現行 schema 只表達得出納入，不表達分層。
+UNEXPRESSIBLE = ["stratifyDoNotPool", "doseUnitPolicy", "requireMatchedDeficit",
+                 "stratifyByDeficitMagnitude", "stratifyByTrainingDose"]
 
 
 def main():
@@ -77,22 +81,23 @@ def main():
         problems.append(f"🚨 `status` 已非 draft（現為 {draft.get('status')!r}）"
                         "——⚠️ 凍結屬契約級動作，🚫 非協調者可為（ADR-0010 四）")
 
-    # 🚨 三項 schema 容不下者，登記檔須逐項留名——⚠️ 否則它們會安靜消失。
+    # 🚨 schema 容不下者，登記檔須逐項留名（數量由 UNEXPRESSIBLE 決定）——⚠️ 否則它們會安靜消失。
     ext = EXT.read_text(encoding="utf-8") if EXT.exists() else ""
     missing = [k for k in UNEXPRESSIBLE if k not in ext]
     if missing:
         problems.append(f"🚨 登記檔未提及之不可表達判準：{missing}"
-                        "——⚠️ 那三項不在 JSON 裡，**登記檔是它們唯一的存放處**")
+                        "——⚠️ 那些不在 JSON 裡，**登記檔是它們唯一的存放處**")
 
     if problems:
         for p in problems:
             print(f"  {p}")
     else:
         print("  ✅ 恰為預期之兩處未完成（搜尋契約未起草／擁有者未核准），"
-              "且三項不可表達之判準皆已登記")
+              "且 %d 項不可表達之判準皆已登記" % len(UNEXPRESSIBLE))
     print()
     print("⚠️ **本檔不驗契約內容是否合理**——🚫 那要領域專家讀；"
-          "🚨 亦不驗那三項判準有沒有被遵守，**它們目前沒有任何機器在看**。")
+          "🚨 亦不驗那 %d 項判準有沒有被遵守，**它們目前沒有任何機器在看**。"
+          % len(UNEXPRESSIBLE))
 
     # ── 🚨 反向對照：把空的核准欄填掉，本檔必須叫 ────────────────
     import copy
