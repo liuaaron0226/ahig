@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "documentType": "mapping-scan-null",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "seed": 20260902,
+  "trials": 400,
+  "inScopeItems": 98,
+  "rules": 8,
+  "observedFlags": 0,
+  "nullMean": 6.08,
+  "nullRange": [
+    1,
+    12
+  ],
+  "nullZeroTrials": 0,
+  "nullPercentiles": {
+    "p50": 6,
+    "p95": 9
+  },
+  "whatThisTests": "✅ 只問一件事：第 576 輪那個「0 項矛盾」，🚨 是資料乾淨，還是規則根本不會亮。⚠️ 做法是保持標籤與結局代碼不變，只洗牌兩者的對應關係。",
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "controlProbes": [
+    {
+      "probe": "掃到的是那 98 項（必觸發）",
+      "passed": true,
+      "detail": "🚨 對不上就代表本支看的不是同一批；實得 98 項"
+    },
+    {
+      "probe": "規則取自 n576 憑證（必觸發）",
+      "passed": true,
+      "detail": "✅ 取到 8 條規則；🚨 重打一份規則等於換了一把尺"
+    },
+    {
+      "probe": "觀察值與 n576 一致（必觸發）",
+      "passed": true,
+      "detail": "🚨 對不上代表本支重跑的不是同一件事；實得 0 項"
+    },
+    {
+      "probe": "規則在隨機配對下會亮（必觸發之反向）",
+      "passed": true,
+      "detail": "⚠️ 虛無平均 6.1 次、範圍 1–12，0／400 次為零；🚨 若隨機也幾乎不亮，那個「零矛盾」只代表規則太窄，🚫 不代表資料乾淨"
+    }
+  ],
+  "auditHash": "sha256:67ac9099b55942ad6e415d63bc3c2413f56fde5bf0fdeb6bf059ff3b97df0f13"
+}
