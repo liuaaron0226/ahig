@@ -1,0 +1,1789 @@
+{
+  "schemaVersion": 1,
+  "documentType": "p3-step1-survey",
+  "assignment": "n+195：依 review-of-reviews.md 執行 P3 第一步",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "contactEmail": "l**********2@gmail.com",
+  "requests": {
+    "totalRequests": 2,
+    "perRequestedHost": {
+      "www.ebi.ac.uk": 2
+    },
+    "perFinalHost": {
+      "www.ebi.ac.uk": 2
+    },
+    "redirectHops": 0,
+    "blockedHosts": {},
+    "distinctUrls": 2,
+    "minIntervalSeconds": 1.0,
+    "note": "Per-execution counters. totalRequests counts every hop actually sent, including redirect hops, because each hop is a real outbound request. Requested and final hosts are kept apart: a redirector such as doi.org appears in the first and the publisher it lands on in the second, and blocking keys on the second. State does not survive the process, so the no-retry guarantee holds within one run only."
+  },
+  "queries": {
+    "stress-eating": "(TITLE_ABS:\"emotional eating\" OR TITLE_ABS:\"stress eating\" OR TITLE_ABS:\"stress-induced eating\" OR TITLE_ABS:\"disinhibited eating\") AND (PUB_TYPE:\"systematic review\" OR PUB_TYPE:\"meta-analysis\" OR TITLE:\"systematic review\" OR TITLE:\"meta-analysis\")",
+    "deficit-adherence": "(TITLE_ABS:\"dietary adherence\" OR TITLE_ABS:\"diet adherence\" OR TITLE_ABS:\"weight loss maintenance\" OR TITLE_ABS:\"adherence to energy restriction\") AND (PUB_TYPE:\"systematic review\" OR PUB_TYPE:\"meta-analysis\" OR TITLE:\"systematic review\" OR TITLE:\"meta-analysis\")"
+  },
+  "sets": {
+    "stress-eating": {
+      "hitCount": 91,
+      "returned": 91,
+      "records": [
+        {
+          "id": "41940509",
+          "source": "MED",
+          "pmid": "41940509",
+          "doi": "10.1111/bjhp.70070",
+          "pubYear": "2026",
+          "isOpenAccess": "N",
+          "pubType": "meta-analysis; systematic review; journal article"
+        },
+        {
+          "id": "PPR1257261",
+          "source": "PPR",
+          "pmid": null,
+          "doi": "10.64898/2026.06.11.26355007",
+          "pubYear": "2026",
+          "isOpenAccess": "N",
+          "pubType": "preprint"
+        },
+        {
+          "id": "42582035",
+          "source": "MED",
+          "pmid": "42582035",
+          "doi": "10.3389/fnut.2026.1874656",
+          "pubYear": "2026",
+          "isOpenAccess": "N",
+          "pubType": "systematic review; journal article"
+        },
+        {
+          "id": "42184553",
+          "source": "MED",
+          "pmid": "42184553",
+          "doi": "10.1016/j.cpr.2026.102750",
+          "pubYear": "2026",
+          "isOpenAccess": "N",
+          "pubType": "meta-analysis; research-article; systematic review; journal article"
+        },
+        {
+          "id": "41643943",
+          "source": "MED",
+          "pmid": "41643943",
+          "doi": "10.1016/j.appet.2026.108490",
+          "pubYear": "2026",
+          "isOpenAccess": "N",
+          "pubType": "meta-analysis; systematic review; journal article"
+        },
+        {
+          "id": "42666688",
+          "source": "MED",
+          "pmid": "42666688",
+          "doi": "10.1016/j.eclinm.2026.104007",
+          "pubYear": "2026",
+          "isOpenAccess": "N",
+          "pubType": "journal article"
+        },
+        {
+          "id": "39915169",
+          "source": "MED",
+          "pmid": "39915169",
+          "doi": "10.1016/j.pedn.2025.01.029",
+          "pubYear": "2025",
+          "isOpenAccess": "N",
+          "pubType": "meta-analysis; systematic review; journal article"
+        },
+        {
+          "id": "39815661",
+          "source": "MED",
+          "pmid": "39815661",
+          "doi": "10.1111/bjop.12768",
+          "pubYear": "2025",
+          "isOpenAccess": "Y",
+          "pubType": "meta-analysis; research-article; systematic review; journal article"
+        },
+        {
+          "id": "40089115",
+          "source": "MED",
+          "pmid": "40089115",
+          "doi": "10.1016/j.appet.2025.107966",
+          "pubYear": "2025",
+          "isOpenAccess": "N",
+          "pubType": "meta-analysis; systematic review; journal article"
+        },
+        {
+          "id": "42303103",
+          "source": "MED",
+          "pmid": "42303103",
+          "doi": "10.1016/j.appet.2026.108688",
+          "pubYear": "2026",
+          "isOpenAccess": "N",
+          "pubType": "systematic review; journal article"
+        },
+        {
+          "id": "40366681",
+          "source": "MED",
+          "pmid": "40366681",
+          "doi": "10.1001/jamapsychiatry.2025.0679",
+          "pubYear": "2025",
+          "isOpenAccess": "N",
+          "pubType": "meta-analysis; research-article; systematic review; journal article"
+        },
+        {
+          "id": "41220708",
+          "source": "MED",
+          "pmid": "41220708",
+          "doi": "10.3389/fnut.2025.1680872",
+          "pubYear": "2025",
+          "isOpenAccess": "Y",
+          "pubType": "systematic review; systematic-review; journal article"
+        },
+        {
+          "id": "39489689",
+          "source": "MED",
+          "pmid": "39489689",
+          "doi": "10.1111/obr.13860",
+          "pubYear": "2025",
+          "isOpenAccess": "Y",
+          "pubType": "meta-analysis; systematic review; review-article; journal article"
+        },
+        {
+          "id": "39763344",
+          "source": "MED",
+          "pmid": "39763344",
+          "doi": "10.1111/jhn.13410",
+          "pubYear": "2025",
+          "isOpenAccess": "Y",
+          "pubType": "meta-analysis; systematic review; review-article; journal article"
+        },
+        {
+          "id": "38788931",
+          "source": "MED",
+          "pmid": "38788931",
+          "doi": "10.1016/j.appet.2024.107511",
+          "pubYear": "2024",
+          "isOpenAccess": "N",
+          "pubType": "meta-analysis; research support, non-u.s. gov't; systematic review; journal article"
+        },
+        {
+          "id": "40899275",
+          "source": "MED",
+          "pmid": "40899275",
+          "doi": "10.1177/00207640251360286",
+          "pubYear": "2025",
+          "isOpenAccess": "N",
+          "pubType": "meta-analysis; journal article"
+        },
+        {
+          "id": "40884840",
+          "source": "MED",
+          "pmid": "40884840",
+          "doi": "10.47626/1516-4446-2025-4164",
+          "pubYear": "2026",
+          "isOpenAccess": "N",
+          "pubType": "systematic review; journal article"
+        },
+        {
+          "id": "41351136",
+          "source": "MED",
+          "pmid": "41351136",
+          "doi": "10.1186/s40337-025-01476-8",
+          "pubYear": "2025",
+          "isOpenAccess": "Y",
+          "pubType": "research-article; journal article"
+        },
+        {
+          "id": "42061315",
+          "source": "MED",
+          "pmid": "42061315",
+          "doi": "10.1016/j.psychres.2026.117192",
+          "pubYear": "2026",
+          "isOpenAccess": "N",
+          "pubType": "systematic review; review; journal article"
+        },
+        {
+          "id": "39299797",
+          "source": "MED",
+          "pmid": "39299797",
+          "doi": "10.1111/obr.13839",
+          "pubYear": "2025",
+          "isOpenAccess": "Y",
+          "pubType": "meta-analysis; systematic review; review-article; journal article"
+        },
+        {
+          "id": "36293963",
+          "source": "MED",
+          "pmid": "36293963",
+          "doi": "10.3390/ijerph192013384",
+          "pubYear": "2022",
+          "isOpenAccess": "Y",
+          "pubType": "meta-analysis; systematic review; review-article; journal article"
+        },
+        {
+          "id": "39572922",
+          "source": "MED",
+          "pmid": "39572922",
+          "doi": "10.1111/obr.13871",
+          "pubYear": "2025",
+          "isOpenAccess": "Y",
+          "pubType": "meta-analysis; research support, non-u.s. gov't; systematic review; review-article; journal article"
+        },
+        {
+          "id": "40493004",
+          "source": "MED",
+          "pmid": "40493004",
+          "doi": "10.1016/j.jneb.2025.05.193",
+          "pubYear": "2025",
+          "isOpenAccess": "N",
+          "pubType": "meta-analysis; journal article"
+        },
+        {
+          "id": "39447648",
+          "source": "MED",
+          "pmid": "39447648",
+          "doi": "10.1016/j.appet.2024.107727",
+          "pubYear": "2024",
+          "isOpenAccess": "N",
+          "pubType": "meta-analysis; systematic review; journal article"
+        },
+        {
+          "id": "41418451",
+          "source": "MED",
+          "pmid": "41418451",
+          "doi": "10.1016/j.jpsychires.2025.12.030",
+          "pubYear": "2026",
+          "isOpenAccess": "N",
+          "pubType": "research support, non-u.s. gov't; systematic review; journal article"
+        },
+        {
+          "id": "40864442",
+          "source": "MED",
+          "pmid": "40864442",
+          "doi": "10.1001/jamadermatol.2025.2889",
+          "pubYear": "2025",
+          "isOpenAccess": "N",
+          "pubType": "systematic review; journal article"
+        },
+        {
+          "id": "37012653",
+          "source": "MED",
+          "pmid": "37012653",
+          "doi": "10.1111/jhn.13176",
+          "pubYear": "2023",
+          "isOpenAccess": "N",
+          "pubType": "meta-analysis; systematic review; journal article"
+        },
+        {
+          "id": "41813322",
+          "source": "MED",
+          "pmid": "41813322",
+          "doi": "10.2196/88572",
+          "pubYear": "2026",
+          "isOpenAccess": "Y",
+          "pubType": "systematic review; review-article; journal article"
+        },
+        {
+          "id": "40451242",
+          "source": "MED",
+          "pmid": "40451242",
+          "doi": "10.1093/abm/kaaf039",
+          "pubYear": "2025",
+          "isOpenAccess": "Y",
+          "pubType": "meta-analysis; review-article; journal article"
+        },
+        {
+          "id": "36768088",
+          "source": "MED",
+          "pmid": "36768088",
+          "doi": "10.3390/ijerph20032722",
+          "pubYear": "2023",
+          "isOpenAccess": "Y",
+          "pubType": "meta-analysis; systematic review; review-article; journal article"
+        },
+        {
+          "id": "37310550",
+          "source": "MED",
+          "pmid": "37310550",
+          "doi": "10.1007/s11154-023-09814-4",
+          "pubYear": "2023",
+          "isOpenAccess": "Y",
+          "pubType": "research support, non-u.s. gov't; systematic review; review-article; journal article"
+        },
+        {
+          "id": "41344801",
+          "source": "MED",
+          "pmid": "41344801",
+          "doi": "10.1111/obr.70061",
+          "pubYear": "2026",
+          "isOpenAccess": "Y",
+          "pubType": "research support, non-u.s. gov't; systematic review; review-article; journal article"
+        },
+        {
+          "id": "40211060",
+          "source": "MED",
+          "pmid": "40211060",
+          "doi": "10.1038/s41366-025-01759-9",
+          "pubYear": "2025",
+          "isOpenAccess": "Y",
+          "pubType": "meta-analysis; research support, non-u.s. gov't; research-article; journal article"
+        },
+        {
+          "id": "35460323",
+          "source": "MED",
+          "pmid": "35460323",
+          "doi": "10.1002/erv.2906",
+          "pubYear": "2022",
+          "isOpenAccess": "Y",
+          "pubType": "meta-analysis; systematic review; review-article; journal article"
+        },
+        {
+          "id": "36763199",
+          "source": "MED",
+          "pmid": "36763199",
+          "doi": "10.1007/s40519-023-01535-6",
+          "pubYear": "2023",
+          "isOpenAccess": "Y",
+          "pubType": "meta-analysis; systematic review; review-article; journal article"
+        },
+        {
+          "id": "40112924",
+          "source": "MED",
+          "pmid": "40112924",
+          "doi": "10.1016/j.clnesp.2025.03.016",
+          "pubYear": "2025",
+          "isOpenAccess": "N",
+          "pubType": "systematic review; journal article"
+        },
+        {
+          "id": "36235642",
+          "source": "MED",
+          "pmid": "36235642",
+          "doi": "10.3390/nu14193989",
+          "pubYear": "2022",
+          "isOpenAccess": "Y",
+          "pubType": "systematic review; review-article; journal article"
+        },
+        {
+          "id": "42323682",
+          "source": "MED",
+          "pmid": "42323682",
+          "doi": "10.1186/s40337-026-01604-y",
+          "pubYear": "2026",
+          "isOpenAccess": "N",
+          "pubType": "review; journal article"
+        },
+        {
+          "id": "36612554",
+          "source": "MED",
+          "pmid": "36612554",
+          "doi": "10.3390/ijerph20010232",
+          "pubYear": "2022",
+          "isOpenAccess": "Y",
+          "pubType": "meta-analysis; research support, non-u.s. gov't; research-article; systematic review; journal article"
+        },
+        {
+          "id": "PPR589803",
+          "source": "PPR",
+          "pmid": null,
+          "doi": "10.21203/rs.3.rs-2410410/v1",
+          "pubYear": "2022",
+          "isOpenAccess": "N",
+          "pubType": "preprint"
+        },
+        {
+          "id": "37242168",
+          "source": "MED",
+          "pmid": "37242168",
+          "doi": "10.3390/nu15102286",
+          "pubYear": "2023",
+          "isOpenAccess": "Y",
+          "pubType": "systematic review; review-article; journal article"
+        },
+        {
+          "id": "38604382",
+          "source": "MED",
+          "pmid": "38604382",
+          "doi": "10.1016/j.appet.2024.107343",
+          "pubYear": "2024",
+          "isOpenAccess": "N",
+          "pubType": "meta-analysis; review; journal article"
+        },
+        {
+          "id": "36087827",
+          "source": "MED",
+          "pmid": "36087827",
+          "doi": "10.1016/j.appet.2022.106279",
+          "pubYear": "2023",
+          "isOpenAccess": "N",
+          "pubType": "systematic review; journal article"
+        },
+        {
+          "id": "33913377",
+          "source": "MED",
+          "pmid": "33913377",
+          "doi": "10.1080/17437199.2021.1923406",
+          "pubYear": "2022",
+          "isOpenAccess": "N",
+          "pubType": "meta-analysis; systematic review; journal article"
+        },
+        {
+          "id": "35032613",
+          "source": "MED",
+          "pmid": "35032613",
+          "doi": "10.1016/j.appet.2022.105929",
+          "pubYear": "2022",
+          "isOpenAccess": "N",
+          "pubType": "meta-analysis; research support, non-u.s. gov't; systematic review; journal article"
+        },
+        {
+          "id": "IND608169655",
+          "source": "AGR",
+          "pmid": null,
+          "doi": null,
+          "pubYear": "2024",
+          "isOpenAccess": "N",
+          "pubType": "journal article"
+        },
+        {
+          "id": "40507032",
+          "source": "MED",
+          "pmid": "40507032",
+          "doi": "10.3390/nu17111763",
+          "pubYear": "2025",
+          "isOpenAccess": "Y",
+          "pubType": "systematic review; review-article; journal article"
+        },
+        {
+          "id": "40889238",
+          "source": "MED",
+          "pmid": "40889238",
+          "doi": "10.1159/000547592",
+          "pubYear": "2025",
+          "isOpenAccess": "N",
+          "pubType": "systematic review; journal article"
+        },
+        {
+          "id": "35565862",
+          "source": "MED",
+          "pmid": "35565862",
+          "doi": "10.3390/nu14091896",
+          "pubYear": "2022",
+          "isOpenAccess": "Y",
+          "pubType": "meta-analysis; systematic review; review-article; journal article"
+        },
+        {
+          "id": "36678165",
+          "source": "MED",
+          "pmid": "36678165",
+          "doi": "10.3390/nu15020295",
+          "pubYear": "2023",
+          "isOpenAccess": "Y",
+          "pubType": "systematic review; review-article; journal article"
+        },
+        {
+          "id": "35634585",
+          "source": "MED",
+          "pmid": "35634585",
+          "doi": "10.1155/2022/4243868",
+          "pubYear": "2022",
+          "isOpenAccess": "Y",
+          "pubType": "systematic review; review-article; journal article"
+        },
+        {
+          "id": "33103340",
+          "source": "MED",
+          "pmid": "33103340",
+          "doi": "10.1111/obr.13150",
+          "pubYear": "2021",
+          "isOpenAccess": "N",
+          "pubType": "meta-analysis; research support, non-u.s. gov't; research-article; systematic review; journal article"
+        },
+        {
+          "id": "39940059",
+          "source": "MED",
+          "pmid": "39940059",
+          "doi": "10.1186/s40337-025-01197-y",
+          "pubYear": "2025",
+          "isOpenAccess": "Y",
+          "pubType": "review-article; review; journal article"
+        },
+        {
+          "id": "33498603",
+          "source": "MED",
+          "pmid": "33498603",
+          "doi": "10.3390/ijerph18030991",
+          "pubYear": "2021",
+          "isOpenAccess": "Y",
+          "pubType": "systematic review; review-article; journal article"
+        },
+        {
+          "id": "32839895",
+          "source": "MED",
+          "pmid": "32839895",
+          "doi": "10.1007/s40615-020-00849-w",
+          "pubYear": "2021",
+          "isOpenAccess": "N",
+          "pubType": "research-article; systematic review; journal article"
+        },
+        {
+          "id": "35577107",
+          "source": "MED",
+          "pmid": "35577107",
+          "doi": "10.1016/j.physbeh.2022.113843",
+          "pubYear": "2022",
+          "isOpenAccess": "N",
+          "pubType": "systematic review; journal article"
+        },
+        {
+          "id": "38346847",
+          "source": "MED",
+          "pmid": "38346847",
+          "doi": "10.1111/obr.13720",
+          "pubYear": "2024",
+          "isOpenAccess": "N",
+          "pubType": "research support, non-u.s. gov't; systematic review; journal article"
+        },
+        {
+          "id": "35069340",
+          "source": "MED",
+          "pmid": "35069340",
+          "doi": "10.3389/fpsyg.2021.766827",
+          "pubYear": "2021",
+          "isOpenAccess": "Y",
+          "pubType": "systematic review; systematic-review; journal article"
+        },
+        {
+          "id": "32671964",
+          "source": "MED",
+          "pmid": "32671964",
+          "doi": "10.1002/bjs5.50318",
+          "pubYear": "2020",
+          "isOpenAccess": "Y",
+          "pubType": "review-article; review; journal article"
+        },
+        {
+          "id": "33996871",
+          "source": "MED",
+          "pmid": "33996871",
+          "doi": "10.3389/fnut.2021.609012",
+          "pubYear": "2021",
+          "isOpenAccess": "Y",
+          "pubType": "systematic review; systematic-review; journal article"
+        },
+        {
+          "id": "31131531",
+          "source": "MED",
+          "pmid": "31131531",
+          "doi": "10.1111/obr.12866",
+          "pubYear": "2019",
+          "isOpenAccess": "Y",
+          "pubType": "meta-analysis; research support, non-u.s. gov't; systematic review; review-article; journal article"
+        },
+        {
+          "id": "35750289",
+          "source": "MED",
+          "pmid": "35750289",
+          "doi": "10.1016/j.appet.2022.106134",
+          "pubYear": "2022",
+          "isOpenAccess": "N",
+          "pubType": "systematic review; journal article"
+        },
+        {
+          "id": "38345771",
+          "source": "MED",
+          "pmid": "38345771",
+          "doi": null,
+          "pubYear": "2023",
+          "isOpenAccess": "N",
+          "pubType": "systematic review; journal article"
+        },
+        {
+          "id": "PPR320605",
+          "source": "PPR",
+          "pmid": null,
+          "doi": "10.31234/osf.io/fjqsd",
+          "pubYear": "2021",
+          "isOpenAccess": "N",
+          "pubType": "preprint"
+        },
+        {
+          "id": "PMC8181298",
+          "source": "PMC",
+          "pmid": null,
+          "doi": null,
+          "pubYear": "2021",
+          "isOpenAccess": "N",
+          "pubType": "abstract"
+        },
+        {
+          "id": "35801968",
+          "source": "MED",
+          "pmid": "35801968",
+          "doi": "10.1002/erv.2936",
+          "pubYear": "2023",
+          "isOpenAccess": "Y",
+          "pubType": "systematic review; review-article; journal article"
+        },
+        {
+          "id": "32067355",
+          "source": "MED",
+          "pmid": "32067355",
+          "doi": "10.1111/obr.13010",
+          "pubYear": "2020",
+          "isOpenAccess": "N",
+          "pubType": "research support, u.s. gov't, p.h.s.; systematic review; journal article"
+        },
+        {
+          "id": "39138656",
+          "source": "MED",
+          "pmid": "39138656",
+          "doi": "10.1515/hmbci-2023-0049",
+          "pubYear": "2024",
+          "isOpenAccess": "N",
+          "pubType": "review; journal article"
+        },
+        {
+          "id": "39595441",
+          "source": "MED",
+          "pmid": "39595441",
+          "doi": "10.3390/healthcare12222243",
+          "pubYear": "2024",
+          "isOpenAccess": "Y",
+          "pubType": "review-article; review; journal article"
+        },
+        {
+          "id": "34998836",
+          "source": "MED",
+          "pmid": "34998836",
+          "doi": "10.1016/j.neubiorev.2022.104525",
+          "pubYear": "2022",
+          "isOpenAccess": "N",
+          "pubType": "research support, non-u.s. gov't; systematic review; journal article"
+        },
+        {
+          "id": "37140408",
+          "source": "MED",
+          "pmid": "37140408",
+          "doi": "10.1002/oby.23749",
+          "pubYear": "2023",
+          "isOpenAccess": "N",
+          "pubType": "meta-analysis; research support, non-u.s. gov't; journal article; research support, n.i.h., extramural"
+        },
+        {
+          "id": "33650001",
+          "source": "MED",
+          "pmid": "33650001",
+          "doi": "10.1007/s00464-021-08329-w",
+          "pubYear": "2021",
+          "isOpenAccess": "N",
+          "pubType": "systematic review; journal article"
+        },
+        {
+          "id": "34350324",
+          "source": "MED",
+          "pmid": "34350324",
+          "doi": "10.1016/j.ijpam.2021.04.002",
+          "pubYear": "2021",
+          "isOpenAccess": "Y",
+          "pubType": "review-article; review; journal article"
+        },
+        {
+          "id": "32903693",
+          "source": "MED",
+          "pmid": "32903693",
+          "doi": "10.3389/fpsyg.2020.01451",
+          "pubYear": "2020",
+          "isOpenAccess": "Y",
+          "pubType": "systematic review; systematic-review; journal article"
+        },
+        {
+          "id": "33249085",
+          "source": "MED",
+          "pmid": "33249085",
+          "doi": "10.1016/j.soard.2020.10.016",
+          "pubYear": "2021",
+          "isOpenAccess": "N",
+          "pubType": "systematic review; journal article"
+        },
+        {
+          "id": "29698017",
+          "source": "MED",
+          "pmid": "29698017",
+          "doi": "10.1037/hea0000576",
+          "pubYear": "2018",
+          "isOpenAccess": "N",
+          "pubType": "meta-analysis; review; journal article"
+        },
+        {
+          "id": "31970925",
+          "source": "MED",
+          "pmid": "31970925",
+          "doi": "10.1111/obr.12926",
+          "pubYear": "2020",
+          "isOpenAccess": "N",
+          "pubType": "systematic review; journal article"
+        },
+        {
+          "id": "32551798",
+          "source": "MED",
+          "pmid": "32551798",
+          "doi": "10.1089/acm.2019.0163",
+          "pubYear": "2020",
+          "isOpenAccess": "N",
+          "pubType": "systematic review; journal article"
+        },
+        {
+          "id": "32476253",
+          "source": "MED",
+          "pmid": "32476253",
+          "doi": "10.1111/obr.13047",
+          "pubYear": "2020",
+          "isOpenAccess": "N",
+          "pubType": "research support, non-u.s. gov't; systematic review; journal article"
+        },
+        {
+          "id": "31024868",
+          "source": "MED",
+          "pmid": "31024868",
+          "doi": "10.3389/fped.2019.00123",
+          "pubYear": "2019",
+          "isOpenAccess": "Y",
+          "pubType": "systematic review; systematic-review; journal article"
+        },
+        {
+          "id": "29860103",
+          "source": "MED",
+          "pmid": "29860103",
+          "doi": "10.1016/j.neubiorev.2018.05.028",
+          "pubYear": "2018",
+          "isOpenAccess": "N",
+          "pubType": "meta-analysis; review; journal article"
+        },
+        {
+          "id": "23446890",
+          "source": "MED",
+          "pmid": "23446890",
+          "doi": "10.3945/ajcn.112.045245",
+          "pubYear": "2013",
+          "isOpenAccess": "N",
+          "pubType": "meta-analysis; research support, non-u.s. gov't; research-article; systematic review; journal article"
+        },
+        {
+          "id": "33477932",
+          "source": "MED",
+          "pmid": "33477932",
+          "doi": "10.3390/bs11010011",
+          "pubYear": "2021",
+          "isOpenAccess": "Y",
+          "pubType": "review-article; review; journal article"
+        },
+        {
+          "id": "24854804",
+          "source": "MED",
+          "pmid": "24854804",
+          "doi": "10.1016/j.eatbeh.2014.01.005",
+          "pubYear": "2014",
+          "isOpenAccess": "N",
+          "pubType": "systematic review; journal article"
+        },
+        {
+          "id": "PMC8771725",
+          "source": "PMC",
+          "pmid": null,
+          "doi": null,
+          "pubYear": "2021",
+          "isOpenAccess": "Y",
+          "pubType": "abstract"
+        },
+        {
+          "id": "28810437",
+          "source": "MED",
+          "pmid": "28810437",
+          "doi": "10.1177/1359105317697813",
+          "pubYear": "2019",
+          "isOpenAccess": "N",
+          "pubType": "systematic review; journal article"
+        },
+        {
+          "id": "27296934",
+          "source": "MED",
+          "pmid": "27296934",
+          "doi": "10.1111/obr.12425",
+          "pubYear": "2016",
+          "isOpenAccess": "N",
+          "pubType": "systematic review; journal article"
+        },
+        {
+          "id": "25982390",
+          "source": "MED",
+          "pmid": "25982390",
+          "doi": "10.1002/erv.2366",
+          "pubYear": "2015",
+          "isOpenAccess": "N",
+          "pubType": "research support, non-u.s. gov't; systematic review; journal article"
+        },
+        {
+          "id": "29183700",
+          "source": "MED",
+          "pmid": "29183700",
+          "doi": "10.1016/j.appet.2017.10.043",
+          "pubYear": "2018",
+          "isOpenAccess": "N",
+          "pubType": "meta-analysis; review; journal article"
+        },
+        {
+          "id": "22709702",
+          "source": "MED",
+          "pmid": "22709702",
+          "doi": "10.1016/j.jand.2011.12.001",
+          "pubYear": "2012",
+          "isOpenAccess": "N",
+          "pubType": "research support, non-u.s. gov't; systematic review; journal article"
+        },
+        {
+          "id": "23913029",
+          "source": "MED",
+          "pmid": "23913029",
+          "doi": "10.1038/ijo.2013.142",
+          "pubYear": "2014",
+          "isOpenAccess": "N",
+          "pubType": "research-article; systematic review; journal article; research support, n.i.h., extramural"
+        }
+      ]
+    },
+    "deficit-adherence": {
+      "hitCount": 228,
+      "returned": 100,
+      "records": [
+        {
+          "id": "42654169",
+          "source": "MED",
+          "pmid": "42654169",
+          "doi": "10.3390/nu18162589",
+          "pubYear": "2026",
+          "isOpenAccess": "N",
+          "pubType": "meta-analysis; systematic review; review; journal article"
+        },
+        {
+          "id": "42553401",
+          "source": "MED",
+          "pmid": "42553401",
+          "doi": "10.1017/jns.2026.10125",
+          "pubYear": "2026",
+          "isOpenAccess": "N",
+          "pubType": "meta-analysis; systematic review; journal article"
+        },
+        {
+          "id": "42498599",
+          "source": "MED",
+          "pmid": "42498599",
+          "doi": "10.1016/j.dld.2026.06.014",
+          "pubYear": "2026",
+          "isOpenAccess": "N",
+          "pubType": "meta-analysis; systematic review; review; journal article"
+        },
+        {
+          "id": "42432828",
+          "source": "MED",
+          "pmid": "42432828",
+          "doi": "10.1111/obr.70195",
+          "pubYear": "2026",
+          "isOpenAccess": "N",
+          "pubType": "meta-analysis; systematic review; journal article"
+        },
+        {
+          "id": "40644461",
+          "source": "MED",
+          "pmid": "40644461",
+          "doi": "10.1093/nutrit/nuaf121",
+          "pubYear": "2026",
+          "isOpenAccess": "N",
+          "pubType": "meta-analysis; systematic review; journal article"
+        },
+        {
+          "id": "42306796",
+          "source": "MED",
+          "pmid": "42306796",
+          "doi": "10.3389/fonc.2026.1823812",
+          "pubYear": "2026",
+          "isOpenAccess": "Y",
+          "pubType": "systematic review; systematic-review; journal article"
+        },
+        {
+          "id": "42043636",
+          "source": "MED",
+          "pmid": "42043636",
+          "doi": "10.1007/s12020-026-04616-5",
+          "pubYear": "2026",
+          "isOpenAccess": "N",
+          "pubType": "systematic review; network meta-analysis; journal article"
+        },
+        {
+          "id": "40760917",
+          "source": "MED",
+          "pmid": "40760917",
+          "doi": "10.1093/nutrit/nuaf139",
+          "pubYear": "2026",
+          "isOpenAccess": "N",
+          "pubType": "research-article; systematic review; journal article"
+        },
+        {
+          "id": "41470877",
+          "source": "MED",
+          "pmid": "41470877",
+          "doi": "10.3390/nu17243932",
+          "pubYear": "2025",
+          "isOpenAccess": "Y",
+          "pubType": "meta-analysis; research-article; systematic review; journal article"
+        },
+        {
+          "id": "39311875",
+          "source": "MED",
+          "pmid": "39311875",
+          "doi": "10.1093/nutrit/nuae128",
+          "pubYear": "2025",
+          "isOpenAccess": "N",
+          "pubType": "meta-analysis; systematic review; journal article"
+        },
+        {
+          "id": "41419630",
+          "source": "MED",
+          "pmid": "41419630",
+          "doi": "10.1038/s41430-025-01697-9",
+          "pubYear": "2026",
+          "isOpenAccess": "N",
+          "pubType": "meta-analysis; systematic review; review; journal article"
+        },
+        {
+          "id": "41094311",
+          "source": "MED",
+          "pmid": "41094311",
+          "doi": "10.1007/s00394-025-03820-9",
+          "pubYear": "2025",
+          "isOpenAccess": "N",
+          "pubType": "meta-analysis; systematic review; journal article"
+        },
+        {
+          "id": "40994060",
+          "source": "MED",
+          "pmid": "40994060",
+          "doi": "10.1111/jebm.70078",
+          "pubYear": "2025",
+          "isOpenAccess": "N",
+          "pubType": "systematic review; network meta-analysis; journal article"
+        },
+        {
+          "id": "42331977",
+          "source": "MED",
+          "pmid": "42331977",
+          "doi": "10.1038/s41598-026-57804-8",
+          "pubYear": "2026",
+          "isOpenAccess": "N",
+          "pubType": "journal article"
+        },
+        {
+          "id": "40902850",
+          "source": "MED",
+          "pmid": "40902850",
+          "doi": "10.1016/j.clnesp.2025.08.030",
+          "pubYear": "2025",
+          "isOpenAccess": "N",
+          "pubType": "meta-analysis; systematic review; journal article"
+        },
+        {
+          "id": "40186344",
+          "source": "MED",
+          "pmid": "40186344",
+          "doi": "10.1111/obr.13929",
+          "pubYear": "2025",
+          "isOpenAccess": "N",
+          "pubType": "meta-analysis; systematic review; journal article"
+        },
+        {
+          "id": "39932196",
+          "source": "MED",
+          "pmid": "39932196",
+          "doi": "10.1093/jpepsy/jsae109",
+          "pubYear": "2025",
+          "isOpenAccess": "N",
+          "pubType": "systematic review; journal article"
+        },
+        {
+          "id": "42514369",
+          "source": "MED",
+          "pmid": "42514369",
+          "doi": "10.3390/nu18142299",
+          "pubYear": "2026",
+          "isOpenAccess": "N",
+          "pubType": "systematic review; journal article"
+        },
+        {
+          "id": "41796744",
+          "source": "MED",
+          "pmid": "41796744",
+          "doi": "10.1016/j.clnesp.2026.103109",
+          "pubYear": "2026",
+          "isOpenAccess": "N",
+          "pubType": "systematic review; review; journal article"
+        },
+        {
+          "id": "41773976",
+          "source": "MED",
+          "pmid": "41773976",
+          "doi": "10.14309/ajg.0000000000003985",
+          "pubYear": "2026",
+          "isOpenAccess": "N",
+          "pubType": "journal article"
+        },
+        {
+          "id": "41882786",
+          "source": "MED",
+          "pmid": "41882786",
+          "doi": "10.1186/s13643-026-03080-6",
+          "pubYear": "2026",
+          "isOpenAccess": "Y",
+          "pubType": "research-article; journal article"
+        },
+        {
+          "id": "42394382",
+          "source": "MED",
+          "pmid": "42394382",
+          "doi": "10.1002/edm2.70274",
+          "pubYear": "2026",
+          "isOpenAccess": "N",
+          "pubType": "systematic review; journal article"
+        },
+        {
+          "id": "40140982",
+          "source": "MED",
+          "pmid": "40140982",
+          "doi": "10.1080/0886022x.2025.2482885",
+          "pubYear": "2025",
+          "isOpenAccess": "Y",
+          "pubType": "meta-analysis; systematic review; review-article; journal article"
+        },
+        {
+          "id": "39558192",
+          "source": "MED",
+          "pmid": "39558192",
+          "doi": "10.1186/s12872-024-04340-w",
+          "pubYear": "2024",
+          "isOpenAccess": "Y",
+          "pubType": "meta-analysis; systematic review; review-article; journal article"
+        },
+        {
+          "id": "40369662",
+          "source": "MED",
+          "pmid": "40369662",
+          "doi": "10.1111/jocn.17782",
+          "pubYear": "2025",
+          "isOpenAccess": "N",
+          "pubType": "meta-analysis; research support, non-u.s. gov't; systematic review; journal article"
+        },
+        {
+          "id": "39125309",
+          "source": "MED",
+          "pmid": "39125309",
+          "doi": "10.3390/nu16152428",
+          "pubYear": "2024",
+          "isOpenAccess": "Y",
+          "pubType": "meta-analysis; comparative study; systematic review; review-article; journal article"
+        },
+        {
+          "id": "42426361",
+          "source": "MED",
+          "pmid": "42426361",
+          "doi": "10.1111/dom.71083",
+          "pubYear": "2026",
+          "isOpenAccess": "N",
+          "pubType": "journal article"
+        },
+        {
+          "id": "41451746",
+          "source": "MED",
+          "pmid": "41451746",
+          "doi": "10.26719/2025.31.10.590",
+          "pubYear": "2025",
+          "isOpenAccess": "N",
+          "pubType": "systematic review; journal article"
+        },
+        {
+          "id": "41793569",
+          "source": "MED",
+          "pmid": "41793569",
+          "doi": "10.1007/s11306-026-02416-6",
+          "pubYear": "2026",
+          "isOpenAccess": "Y",
+          "pubType": "systematic review; review-article; journal article"
+        },
+        {
+          "id": "39839289",
+          "source": "MED",
+          "pmid": "39839289",
+          "doi": "10.3389/fnut.2024.1457768",
+          "pubYear": "2024",
+          "isOpenAccess": "Y",
+          "pubType": "systematic review; systematic-review; journal article"
+        },
+        {
+          "id": "41803962",
+          "source": "MED",
+          "pmid": "41803962",
+          "doi": "10.1186/s13098-026-02138-8",
+          "pubYear": "2026",
+          "isOpenAccess": "Y",
+          "pubType": "review-article; review; journal article"
+        },
+        {
+          "id": "39693849",
+          "source": "MED",
+          "pmid": "39693849",
+          "doi": "10.1016/j.jnha.2024.100451",
+          "pubYear": "2025",
+          "isOpenAccess": "Y",
+          "pubType": "meta-analysis; research support, non-u.s. gov't; systematic review; review-article; journal article"
+        },
+        {
+          "id": "42186269",
+          "source": "MED",
+          "pmid": "42186269",
+          "doi": "10.1093/nutrit/nuaf300",
+          "pubYear": "2026",
+          "isOpenAccess": "Y",
+          "pubType": "meta-analysis; review-article; review; journal article"
+        },
+        {
+          "id": "41664064",
+          "source": "MED",
+          "pmid": "41664064",
+          "doi": "10.1186/s12889-025-25973-2",
+          "pubYear": "2026",
+          "isOpenAccess": "Y",
+          "pubType": "systematic review; review-article; journal article"
+        },
+        {
+          "id": "40644764",
+          "source": "MED",
+          "pmid": "40644764",
+          "doi": "10.1016/j.jnha.2025.100630",
+          "pubYear": "2025",
+          "isOpenAccess": "Y",
+          "pubType": "systematic review; review-article; journal article"
+        },
+        {
+          "id": "39813198",
+          "source": "MED",
+          "pmid": "39813198",
+          "doi": "10.1371/journal.pone.0314685",
+          "pubYear": "2025",
+          "isOpenAccess": "Y",
+          "pubType": "meta-analysis; research-article; systematic review; journal article"
+        },
+        {
+          "id": "42310647",
+          "source": "MED",
+          "pmid": "42310647",
+          "doi": "10.1186/s12889-026-27904-1",
+          "pubYear": "2026",
+          "isOpenAccess": "N",
+          "pubType": "systematic review; journal article"
+        },
+        {
+          "id": "37513679",
+          "source": "MED",
+          "pmid": "37513679",
+          "doi": "10.3390/nu15143261",
+          "pubYear": "2023",
+          "isOpenAccess": "Y",
+          "pubType": "meta-analysis; systematic review; review-article; journal article"
+        },
+        {
+          "id": "39170303",
+          "source": "MED",
+          "pmid": "39170303",
+          "doi": "10.1016/j.heliyon.2024.e35633",
+          "pubYear": "2024",
+          "isOpenAccess": "Y",
+          "pubType": "research-article; journal article"
+        },
+        {
+          "id": "41238162",
+          "source": "MED",
+          "pmid": "41238162",
+          "doi": "10.1053/j.ajkd.2025.09.011",
+          "pubYear": "2026",
+          "isOpenAccess": "N",
+          "pubType": "systematic review; journal article"
+        },
+        {
+          "id": "40861630",
+          "source": "MED",
+          "pmid": "40861630",
+          "doi": "10.7759/cureus.88571",
+          "pubYear": "2025",
+          "isOpenAccess": "Y",
+          "pubType": "review-article; review; journal article"
+        },
+        {
+          "id": "39339717",
+          "source": "MED",
+          "pmid": "39339717",
+          "doi": "10.3390/nu16183119",
+          "pubYear": "2024",
+          "isOpenAccess": "Y",
+          "pubType": "systematic review; review-article; journal article"
+        },
+        {
+          "id": "36929538",
+          "source": "MED",
+          "pmid": "36929538",
+          "doi": "10.1111/jnu.12882",
+          "pubYear": "2023",
+          "isOpenAccess": "N",
+          "pubType": "meta-analysis; systematic review; journal article"
+        },
+        {
+          "id": "38813365",
+          "source": "MED",
+          "pmid": "38813365",
+          "doi": "10.25122/jml-2023-0356",
+          "pubYear": "2024",
+          "isOpenAccess": "Y",
+          "pubType": "systematic review; review-article; journal article"
+        },
+        {
+          "id": "39521477",
+          "source": "MED",
+          "pmid": "39521477",
+          "doi": "10.1136/bmjopen-2023-082946",
+          "pubYear": "2024",
+          "isOpenAccess": "Y",
+          "pubType": "research-article; journal article; research support, n.i.h., extramural"
+        },
+        {
+          "id": "40588047",
+          "source": "MED",
+          "pmid": "40588047",
+          "doi": "10.1053/j.jrn.2025.06.002",
+          "pubYear": "2026",
+          "isOpenAccess": "N",
+          "pubType": "systematic review; journal article"
+        },
+        {
+          "id": "40491808",
+          "source": "MED",
+          "pmid": "40491808",
+          "doi": "10.7759/cureus.85587",
+          "pubYear": "2025",
+          "isOpenAccess": "Y",
+          "pubType": "review-article; review; journal article"
+        },
+        {
+          "id": "41328816",
+          "source": "MED",
+          "pmid": "41328816",
+          "doi": "10.2196/78220",
+          "pubYear": "2025",
+          "isOpenAccess": "Y",
+          "pubType": "systematic review; review-article; journal article"
+        },
+        {
+          "id": "37506751",
+          "source": "MED",
+          "pmid": "37506751",
+          "doi": "10.1016/j.ajog.2023.05.030",
+          "pubYear": "2023",
+          "isOpenAccess": "N",
+          "pubType": "meta-analysis; research support, non-u.s. gov't; systematic review; journal article"
+        },
+        {
+          "id": "42165996",
+          "source": "MED",
+          "pmid": "42165996",
+          "doi": "10.1007/s11154-026-10046-5",
+          "pubYear": "2026",
+          "isOpenAccess": "N",
+          "pubType": "review; journal article"
+        },
+        {
+          "id": "35686875",
+          "source": "MED",
+          "pmid": "35686875",
+          "doi": "10.1111/obr.13483",
+          "pubYear": "2022",
+          "isOpenAccess": "N",
+          "pubType": "meta-analysis; research support, non-u.s. gov't; systematic review; journal article"
+        },
+        {
+          "id": "41227599",
+          "source": "MED",
+          "pmid": "41227599",
+          "doi": "10.3390/foods14213625",
+          "pubYear": "2025",
+          "isOpenAccess": "Y",
+          "pubType": "review-article; review; journal article"
+        },
+        {
+          "id": "42279685",
+          "source": "MED",
+          "pmid": "42279685",
+          "doi": "10.3390/foods15111899",
+          "pubYear": "2026",
+          "isOpenAccess": "Y",
+          "pubType": "review-article; review; journal article"
+        },
+        {
+          "id": "41204153",
+          "source": "MED",
+          "pmid": "41204153",
+          "doi": "10.1186/s12889-025-24721-w",
+          "pubYear": "2025",
+          "isOpenAccess": "Y",
+          "pubType": "systematic review; review-article; journal article"
+        },
+        {
+          "id": "41915577",
+          "source": "MED",
+          "pmid": "41915577",
+          "doi": "10.2174/0115748871444112260226045508",
+          "pubYear": "2026",
+          "isOpenAccess": "N",
+          "pubType": "journal article"
+        },
+        {
+          "id": "39861466",
+          "source": "MED",
+          "pmid": "39861466",
+          "doi": "10.3390/nu17020336",
+          "pubYear": "2025",
+          "isOpenAccess": "Y",
+          "pubType": "systematic review; review-article; journal article"
+        },
+        {
+          "id": "42440372",
+          "source": "MED",
+          "pmid": "42440372",
+          "doi": "10.2196/98958",
+          "pubYear": "2026",
+          "isOpenAccess": "N",
+          "pubType": "journal article"
+        },
+        {
+          "id": "37672008",
+          "source": "MED",
+          "pmid": "37672008",
+          "doi": "10.1093/nutrit/nuad107",
+          "pubYear": "2024",
+          "isOpenAccess": "N",
+          "pubType": "meta-analysis; systematic review; journal article"
+        },
+        {
+          "id": "36918266",
+          "source": "MED",
+          "pmid": "36918266",
+          "doi": "10.1136/heartjnl-2022-321930",
+          "pubYear": "2023",
+          "isOpenAccess": "N",
+          "pubType": "meta-analysis; research support, non-u.s. gov't; systematic review; journal article"
+        },
+        {
+          "id": "40334987",
+          "source": "MED",
+          "pmid": "40334987",
+          "doi": "10.1016/j.advnut.2025.100438",
+          "pubYear": "2025",
+          "isOpenAccess": "Y",
+          "pubType": "systematic review; review-article; journal article"
+        },
+        {
+          "id": "40710538",
+          "source": "MED",
+          "pmid": "40710538",
+          "doi": "10.3390/metabo15070438",
+          "pubYear": "2025",
+          "isOpenAccess": "Y",
+          "pubType": "research-article; journal article"
+        },
+        {
+          "id": "40688869",
+          "source": "MED",
+          "pmid": "40688869",
+          "doi": "10.7759/cureus.86309",
+          "pubYear": "2025",
+          "isOpenAccess": "Y",
+          "pubType": "review-article; review; journal article"
+        },
+        {
+          "id": "39167591",
+          "source": "MED",
+          "pmid": "39167591",
+          "doi": "10.1371/journal.pone.0301564",
+          "pubYear": "2024",
+          "isOpenAccess": "Y",
+          "pubType": "research-article; systematic review; journal article"
+        },
+        {
+          "id": "42353892",
+          "source": "MED",
+          "pmid": "42353892",
+          "doi": "10.3390/children13060722",
+          "pubYear": "2026",
+          "isOpenAccess": "Y",
+          "pubType": "review-article; review; journal article"
+        },
+        {
+          "id": "36102824",
+          "source": "MED",
+          "pmid": "36102824",
+          "doi": "10.1093/nutrit/nuac063",
+          "pubYear": "2023",
+          "isOpenAccess": "N",
+          "pubType": "meta-analysis; systematic review; journal article"
+        },
+        {
+          "id": "39064625",
+          "source": "MED",
+          "pmid": "39064625",
+          "doi": "10.3390/nu16142181",
+          "pubYear": "2024",
+          "isOpenAccess": "Y",
+          "pubType": "systematic review; review-article; journal article"
+        },
+        {
+          "id": "36852627",
+          "source": "MED",
+          "pmid": "36852627",
+          "doi": "10.1177/00469580231155716",
+          "pubYear": "2023",
+          "isOpenAccess": "Y",
+          "pubType": "meta-analysis; systematic review; review-article; journal article"
+        },
+        {
+          "id": "36215272",
+          "source": "MED",
+          "pmid": "36215272",
+          "doi": "10.1371/journal.pone.0271378",
+          "pubYear": "2022",
+          "isOpenAccess": "Y",
+          "pubType": "meta-analysis; research-article; systematic review; journal article"
+        },
+        {
+          "id": "39935104",
+          "source": "MED",
+          "pmid": "39935104",
+          "doi": "10.1111/dom.16240",
+          "pubYear": "2025",
+          "isOpenAccess": "Y",
+          "pubType": "meta-analysis; research-article; randomized controlled trial; journal article"
+        },
+        {
+          "id": "36504462",
+          "source": "MED",
+          "pmid": "36504462",
+          "doi": "10.1111/jhn.13125",
+          "pubYear": "2023",
+          "isOpenAccess": "N",
+          "pubType": "meta-analysis; research support, non-u.s. gov't; systematic review; journal article"
+        },
+        {
+          "id": "38454737",
+          "source": "MED",
+          "pmid": "38454737",
+          "doi": "10.1111/ijpo.13113",
+          "pubYear": "2024",
+          "isOpenAccess": "N",
+          "pubType": "meta-analysis; research support, non-u.s. gov't; systematic review; journal article"
+        },
+        {
+          "id": "PPR1088597",
+          "source": "PPR",
+          "pmid": null,
+          "doi": "10.1101/2025.09.20.25336205",
+          "pubYear": "2025",
+          "isOpenAccess": "N",
+          "pubType": "preprint"
+        },
+        {
+          "id": "40431464",
+          "source": "MED",
+          "pmid": "40431464",
+          "doi": "10.3390/nu17101723",
+          "pubYear": "2025",
+          "isOpenAccess": "Y",
+          "pubType": "systematic review; review-article; journal article"
+        },
+        {
+          "id": "35334917",
+          "source": "MED",
+          "pmid": "35334917",
+          "doi": "10.3390/nu14061259",
+          "pubYear": "2022",
+          "isOpenAccess": "Y",
+          "pubType": "meta-analysis; systematic review; review-article; journal article"
+        },
+        {
+          "id": "41921500",
+          "source": "MED",
+          "pmid": "41921500",
+          "doi": "10.1093/nutrit/nuag041",
+          "pubYear": "2026",
+          "isOpenAccess": "N",
+          "pubType": "journal article"
+        },
+        {
+          "id": "37097263",
+          "source": "MED",
+          "pmid": "37097263",
+          "doi": "10.1016/j.jneb.2023.03.004",
+          "pubYear": "2023",
+          "isOpenAccess": "N",
+          "pubType": "research support, non-u.s. gov't; systematic review; journal article"
+        },
+        {
+          "id": "IND609289011",
+          "source": "AGR",
+          "pmid": null,
+          "doi": null,
+          "pubYear": "2025",
+          "isOpenAccess": "N",
+          "pubType": "journal article"
+        },
+        {
+          "id": "40577090",
+          "source": "MED",
+          "pmid": "40577090",
+          "doi": "10.1093/nutrit/nuaf073",
+          "pubYear": "2026",
+          "isOpenAccess": "Y",
+          "pubType": "systematic review; review-article; journal article"
+        },
+        {
+          "id": "37519095",
+          "source": "MED",
+          "pmid": "37519095",
+          "doi": "10.1111/obr.13608",
+          "pubYear": "2023",
+          "isOpenAccess": "N",
+          "pubType": "research support, non-u.s. gov't; systematic review; journal article"
+        },
+        {
+          "id": "34607347",
+          "source": "MED",
+          "pmid": "34607347",
+          "doi": "10.1093/advances/nmab086",
+          "pubYear": "2022",
+          "isOpenAccess": "N",
+          "pubType": "meta-analysis; systematic review; review-article; journal article"
+        },
+        {
+          "id": "32852121",
+          "source": "MED",
+          "pmid": "32852121",
+          "doi": "10.1111/nep.13778",
+          "pubYear": "2020",
+          "isOpenAccess": "N",
+          "pubType": "meta-analysis; systematic review; journal article"
+        },
+        {
+          "id": "37439029",
+          "source": "MED",
+          "pmid": "37439029",
+          "doi": "10.1177/02601060231187511",
+          "pubYear": "2024",
+          "isOpenAccess": "N",
+          "pubType": "systematic review; review-article; journal article"
+        },
+        {
+          "id": "41080197",
+          "source": "MED",
+          "pmid": "41080197",
+          "doi": "10.1093/nop/npaf049",
+          "pubYear": "2025",
+          "isOpenAccess": "N",
+          "pubType": "research-article; journal article"
+        },
+        {
+          "id": "39405277",
+          "source": "MED",
+          "pmid": "39405277",
+          "doi": "10.1371/journal.pone.0305860",
+          "pubYear": "2024",
+          "isOpenAccess": "Y",
+          "pubType": "research-article; systematic review; journal article"
+        },
+        {
+          "id": "40885616",
+          "source": "MED",
+          "pmid": "40885616",
+          "doi": "10.1016/j.jvoice.2025.07.027",
+          "pubYear": "2025",
+          "isOpenAccess": "N",
+          "pubType": "review; journal article"
+        },
+        {
+          "id": "37837556",
+          "source": "MED",
+          "pmid": "37837556",
+          "doi": "10.1007/s13679-023-00530-3",
+          "pubYear": "2023",
+          "isOpenAccess": "Y",
+          "pubType": "published erratum; correction"
+        },
+        {
+          "id": "41060498",
+          "source": "MED",
+          "pmid": "41060498",
+          "doi": "10.1007/s00520-025-09910-y",
+          "pubYear": "2025",
+          "isOpenAccess": "N",
+          "pubType": "systematic review; journal article"
+        },
+        {
+          "id": "34352891",
+          "source": "MED",
+          "pmid": "34352891",
+          "doi": "10.1093/advances/nmab092",
+          "pubYear": "2022",
+          "isOpenAccess": "N",
+          "pubType": "meta-analysis; research support, non-u.s. gov't; systematic review; review-article; journal article"
+        },
+        {
+          "id": "34153553",
+          "source": "MED",
+          "pmid": "34153553",
+          "doi": "10.1016/j.arr.2021.101395",
+          "pubYear": "2021",
+          "isOpenAccess": "N",
+          "pubType": "meta-analysis; systematic review; journal article"
+        },
+        {
+          "id": "39412049",
+          "source": "MED",
+          "pmid": "39412049",
+          "doi": "10.1002/14651858.cd015033.pub2",
+          "pubYear": "2024",
+          "isOpenAccess": "Y",
+          "pubType": "meta-analysis; systematic review; systematic-review; journal article"
+        },
+        {
+          "id": "38325135",
+          "source": "MED",
+          "pmid": "38325135",
+          "doi": "10.1016/j.maturitas.2024.107923",
+          "pubYear": "2024",
+          "isOpenAccess": "N",
+          "pubType": "systematic review; journal article"
+        },
+        {
+          "id": "35044076",
+          "source": "MED",
+          "pmid": "35044076",
+          "doi": "10.1111/wvn.12561",
+          "pubYear": "2022",
+          "isOpenAccess": "N",
+          "pubType": "systematic review; journal article"
+        },
+        {
+          "id": "37354334",
+          "source": "MED",
+          "pmid": "37354334",
+          "doi": "10.1007/s13679-023-00515-2",
+          "pubYear": "2023",
+          "isOpenAccess": "Y",
+          "pubType": "review-article; review; journal article"
+        },
+        {
+          "id": "38311314",
+          "source": "MED",
+          "pmid": "38311314",
+          "doi": "10.1016/j.advnut.2024.100184",
+          "pubYear": "2024",
+          "isOpenAccess": "Y",
+          "pubType": "systematic review; review-article; journal article"
+        },
+        {
+          "id": "PPR826705",
+          "source": "PPR",
+          "pmid": null,
+          "doi": "10.1101/2024.03.24.24304597",
+          "pubYear": "2024",
+          "isOpenAccess": "N",
+          "pubType": "preprint"
+        },
+        {
+          "id": "37034934",
+          "source": "MED",
+          "pmid": "37034934",
+          "doi": "10.3389/fpsyg.2023.1107022",
+          "pubYear": "2023",
+          "isOpenAccess": "Y",
+          "pubType": "review-article; review; journal article"
+        },
+        {
+          "id": "38971015",
+          "source": "MED",
+          "pmid": "38971015",
+          "doi": "10.1016/j.schres.2024.06.056",
+          "pubYear": "2024",
+          "isOpenAccess": "N",
+          "pubType": "systematic review; journal article"
+        },
+        {
+          "id": "37375576",
+          "source": "MED",
+          "pmid": "37375576",
+          "doi": "10.3390/nu15122673",
+          "pubYear": "2023",
+          "isOpenAccess": "Y",
+          "pubType": "systematic review; review-article; journal article"
+        },
+        {
+          "id": "40542360",
+          "source": "MED",
+          "pmid": "40542360",
+          "doi": "10.1186/s13023-025-03830-0",
+          "pubYear": "2025",
+          "isOpenAccess": "Y",
+          "pubType": "systematic review; review-article; journal article"
+        },
+        {
+          "id": "40878607",
+          "source": "MED",
+          "pmid": "40878607",
+          "doi": "10.2478/enr-2025-0009",
+          "pubYear": "2025",
+          "isOpenAccess": "N",
+          "pubType": "journal article"
+        }
+      ]
+    }
+  },
+  "failures": {},
+  "whatIsNotDoneYet": "🚨 本支只做搜尋。🚫 尚未讀任何一份回顧，故**搜尋截止日一欄全部是空的**——⚠️ 而那是 protocol 說的最重要的一欄。🚫 不得用「大概是那幾年」補（n+195 三之 3）。",
+  "titlesKeptPrivate": "C:\\Users\\User\\Desktop\\claude\\ahig-private\\p3-stress-eating\\step1-candidates.json",
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "controlProbes": [
+    {
+      "probe": "兩組查詢都拿到結果（必觸發）",
+      "passed": true,
+      "detail": "🚨 少一組就代表盤點不完整，⚠️ 而不完整的盤點看起來跟完整的一樣；實得 2／2，失敗 無"
+    },
+    {
+      "probe": "兩個問題確實問到不同的東西（必觸發之反向）",
+      "passed": true,
+      "detail": "🚨 若兩組回傳的是同一批文獻，protocol 所稱「兩件事」就沒有分開；⚠️ 實得聯集 191 筆、單組最大 100 筆"
+    },
+    {
+      "probe": "本支沒有把逐字題名寫進 repo",
+      "passed": true,
+      "detail": "✅ 題名與摘要只寫私有根 step1-candidates.json；🚫 本 repo 只收識別碼與計數"
+    },
+    {
+      "probe": "每一份候選回顧都已填入搜尋截止日",
+      "passed": false,
+      "detail": "🚨 本支只做搜尋，🚫 一份都還沒讀；⚠️ 截止日要逐份讀方法段才填得出來，**🚫 不得用「大概是那幾年」補上去**（n+195 三之 3）"
+    }
+  ],
+  "auditHash": "sha256:0132fa2dc44850015d023d93a50f38d3c1e76a4d31b037aad8418f5686e88055"
+}
