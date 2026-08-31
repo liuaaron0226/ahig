@@ -1,0 +1,102 @@
+{
+  "schemaVersion": 1,
+  "documentType": "second-read-and-invisible-inconsistency",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "agreement": {
+    "comparedReports": 2,
+    "labelsBoth": 0,
+    "labelsOnlyPrimary": 62,
+    "labelsOnlySecond": 40,
+    "refsBoth": 5,
+    "refsOnlyPrimary": 0,
+    "refsOnlySecond": 0,
+    "reportsFullyAgreed": 2,
+    "caveat": "逐字比標籤。同一個結局被叫成不同名字時會算成兩邊各有一個，故「只有一邊有」是待人看的清單，不是錯誤數。契約結局那一組（refs*）不受顆粒度影響，一致性看那一組。"
+  },
+  "perReport": [
+    {
+      "report": "1105537918c174c9",
+      "refsBoth": [
+        "gi-symptom-incidence",
+        "gi-symptom-severity",
+        "tt-completion-time"
+      ],
+      "labelsBoth": 0,
+      "labelsOnlyPrimary": 21,
+      "labelsOnlySecond": 22
+    },
+    {
+      "report": "7a6ac1559c740fd6",
+      "refsBoth": [
+        "muscle-glycogen-post-exercise",
+        "time-to-exhaustion"
+      ],
+      "labelsBoth": 0,
+      "labelsOnlyPrimary": 41,
+      "labelsOnlySecond": 18
+    }
+  ],
+  "allocation": {
+    "report": "1105537918c174c9",
+    "primary": {
+      "tt-completion-time": 2,
+      "gi-symptom-severity": 6,
+      "gi-symptom-incidence": 1
+    },
+    "second": {
+      "tt-completion-time": 2,
+      "gi-symptom-severity": 2,
+      "gi-symptom-incidence": 5
+    },
+    "differs": {
+      "gi-symptom-incidence": [
+        1,
+        5
+      ],
+      "gi-symptom-severity": [
+        6,
+        2
+      ]
+    }
+  },
+  "adjudicationQueue": {
+    "disagreements": 0,
+    "byCause": {},
+    "measures": "可靠度",
+    "doesNotMeasure": "正確性——兩個模型可以高度一致地讀錯同一句話；且兩邊都是模型，不得稱為兩位獨立人工審查者，據實名稱為雙模型獨立抽取＋衝突裁決"
+  },
+  "blindSpot": "🚨 adjudicate() 只收「一邊宣告了某契約結局，另一邊沒有」的項目。⚠️ 本例兩邊都宣告了 gi-symptom-severity 與 gi-symptom-incidence，故 refsOnly* 皆為 0，裁決佇列是空的——🚫 而配置差異（6＋1 對 2＋5）確實存在且無人判。⚠️ 這兩個結局合起來佔在範圍內 98 項的 61%。",
+  "proposedCause": {
+    "cause": "contract-ambiguous",
+    "why": "⚠️ 契約沒有說清楚「把嚴重評分計次」該算發生率還是嚴重度。✅ 論文自己用的字是 incidence；🚨 且其分母是**時點**（8 人 × 6 時點 ＝ 48），🚫 不是人數。🚫 本室不逕自判自己是對的。"
+  },
+  "independence": "✅ 本室動筆前未看正式那道的清冊。🚨 否則這次比對沒有意義。",
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "controlProbes": [
+    {
+      "probe": "雙讀已到 2 篇（必觸發）",
+      "passed": true,
+      "detail": "🚨 若仍是 1 篇，本輪的第二次讀沒有交回；實得 2 篇"
+    },
+    {
+      "probe": "A3 於兩篇皆成立",
+      "passed": true,
+      "detail": "✅ refsBoth=5、只有一邊有 0／0、逐篇一致 2／2"
+    },
+    {
+      "probe": "裁決機制在真有 refs 差異時會動（必觸發之反向）",
+      "passed": true,
+      "detail": "🚨 把第二位的一個 outcomeId 換掉後，adjudicate 確實要求判成因；⚠️ 若不會動，「沒有不一致」就可能只是它從不觸發"
+    },
+    {
+      "probe": "兩位讀者把同一批句子配到相同的結局上",
+      "passed": false,
+      "detail": "🚨 實得配置差異 {'gi-symptom-incidence': [1, 5], 'gi-symptom-severity': [6, 2]}（severity 對 incidence）；⚠️ 而兩邊的契約結局集合完全相同，故 refsOnly*=0，🚫 adjudicate() 的佇列是空的——**這處不一致它看不見**"
+    }
+  ],
+  "auditHash": "sha256:5dcbe3125cb348a376f9960a8b4694e3da02a6b6bf796e0ca0149666152b64ff"
+}
