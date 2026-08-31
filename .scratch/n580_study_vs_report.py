@@ -23,14 +23,19 @@
 
 ## ✅ 能補的那一半：作者重疊篩選（🚨 不是 family.py 的任何一層）
 
-⚠️ 41 篇中 **26 篇是 JATS**，作者可從 `<front>` 確定性取出；
-🚨 另 **15 篇只留下 PDF**（GROBID 的 TEI 沒留），**連作者都取不到**。
+✅ **41 篇全部取得出作者**：26 篇 JATS 取 `<front>`，15 篇 GROBID 取 `<teiHeader>`。
+
+> **🚨 第 580 輪本支在這裡說錯過一次**：當時寫「那 15 篇只留下 PDF、連作者都取不到」。
+> ⚠️ 實情是 TEI 一直都在，只是存在 manifest 的 `teiFile` 而非 `rawFile`——
+> **🚨 本室只看了 rawFile 就下結論，而「檔案不存在」與「我查錯欄位」長得一樣。**
 
 > ✅ 故本支另跑一個**自算的**篩選：兩篇共有 ≥2 位正規化後相同的作者，
 > 且出版年相差 ≤ 4 年 → 列為**待人看**。
 > **🚫 它不是 family.py 的 tier，也不是判定**；⚠️ 它只是把「值得看一眼的配對」
-> 從 325 對縮到少數幾對。
-> **🚨 而那 15 篇不在這個篩選的涵蓋範圍內——它們什麼篩選都沒過。**
+> 從 820 對（41 取 2）縮到少數幾對。
+> **🚨 而這個領域同一實驗室互相掛名極常見，故偽陽性率高**——
+> ✅ 每一對另記「第一作者是否相同」「末位作者是否相同」，🚫 讓人不必逐對重查。
+> ✅ **涵蓋率 41／41**（🚨 第 580 輪誤報為 26／41，見上）。
 
 ## 🚫 本支不入輪次閘門，且不把識別碼寫進 repo
 
@@ -63,12 +68,22 @@ REGISTRY = re.compile(
     r'|UMIN\d{9}|CTRI/\d{4}/\d{2,3}/\d{6}|PACTR\d{12,16}|IRCT\d{11,18}N\d+)')
 AUTHOR = re.compile(r'<surname>([^<]{1,60})</surname>\s*'
                     r'(?:<given-names>([^<]{0,60})</given-names>)?')
-DOI = re.compile(r'<article-id pub-id-type="doi">([^<]+)</article-id>')
-YEAR = re.compile(r'<year[^>]*>(\d{4})</year>')
+JATS_DOI = re.compile(r'<article-id pub-id-type="doi">([^<]+)</article-id>')
+JATS_YEAR = re.compile(r'<year[^>]*>(\d{4})</year>')
+TEI_DOI = re.compile(r'<idno type="DOI">([^<]+)</idno>')
+TEI_YEAR = re.compile(r'<date type="published" when="(\d{4})')
+
+# 🚨 第 581 輪更正：第 580 輪本支寫「GROBID 的 TEI 未留存，那 15 篇連作者都取不到」。
+# **⚠️ 那句話是錯的。** TEI 一直都在，只是存在 manifest 的 `teiFile` 而不是 `rawFile`
+# （`rawFile` 是 PDF）。🚨 本室當時只看了 rawFile 就下了結論，
+# **而「檔案不存在」與「我查錯欄位」在畫面上長得一樣。**
+# ✅ 15 篇的 TEI 全在，作者、DOI、出版日期都在 `<teiHeader>` 裡，涵蓋率因此是 41／41。
+FRONT_CUT = {'europe-pmc-jats': ('rawFile', '</front>'),
+             'grobid-tei': ('teiFile', '</teiHeader>')}
 
 
 def manifests():
-    """report 短碼 → 取得清單（含 rawFile 位置）。"""
+    """report 短碼 → 取得清單（含檔案位置）。"""
     out = {}
     for path in sorted((ROOT / 'fulltext').rglob('manifest.json')):
         doc = json.loads(path.read_text(encoding='utf-8'))
@@ -78,43 +93,48 @@ def manifests():
 
 
 def front_matter(doc, folder):
-    """🚨 只取 <front>：⚠️ 參考文獻裡也有一大堆 surname，取全文等於亂抓。"""
-    name = doc.get('rawFile')
-    if not name or doc.get('sourceType') != 'europe-pmc-jats':
-        return None
-    path = folder / name
-    if not path.exists():
-        return None
+    """🚨 只取前置資料：⚠️ 參考文獻裡也有一大堆 surname，取全文等於亂抓。"""
+    kind = doc.get('sourceType')
+    if kind not in FRONT_CUT or folder is None:
+        return None, kind
+    field_name, closing = FRONT_CUT[kind]
+    name = doc.get(field_name)
+    path = folder / name if name else None
+    if not path or not path.exists():
+        return None, kind
     text = path.read_text(encoding='utf-8', errors='ignore')
-    cut = text.find('</front>')
-    return text[:cut] if cut > 0 else None
+    cut = text.find(closing)
+    return (text[:cut] if cut > 0 else None), kind
 
 
 def main():
     ids, unnameable = corpus.acquired_roster()
     mans = manifests()
 
+    thin = []
     reports, coverage, detail = [], {'registry': 0, 'doi': 0, 'authors': 0,
-                                     'year': 0, 'jats': 0, 'pdfOnly': 0}, []
+                                     'year': 0, 'jats': 0, 'tei': 0,
+                                     'noFrontMatter': 0}, []
     for candidate in ids:
         key = candidate[-16:]
         doc, folder = mans.get(key, ({}, None))
         content = corpus.load_document(candidate).content
         found = sorted({normalise_registry_id(m) for m in REGISTRY.findall(content)}
                        - {None})
-        front = front_matter(doc, folder) if folder else None
-        if doc.get('sourceType') == 'europe-pmc-jats':
-            coverage['jats'] += 1
-        else:
-            coverage['pdfOnly'] += 1
+        front, kind = front_matter(doc, folder)
+        coverage['jats' if kind == 'europe-pmc-jats'
+                 else 'tei' if kind == 'grobid-tei' else 'noFrontMatter'] += 1
 
         names, doi, year = [], None, None
         if front:
             names = [normalise_author((given + ' ' + surname).strip())
                      for surname, given in AUTHOR.findall(front)]
-            hit = DOI.search(front)
+            doi_re, year_re = ((JATS_DOI, JATS_YEAR)
+                               if kind == 'europe-pmc-jats'
+                               else (TEI_DOI, TEI_YEAR))
+            hit = doi_re.search(front)
             doi = hit.group(1) if hit else None
-            hit = YEAR.search(front)
+            hit = year_re.search(front)
             year = int(hit.group(1)) if hit else None
 
         # 🚨 一篇找到兩個以上登錄號時**不用**：⚠️ 多半是引用了別的試驗，
@@ -127,6 +147,7 @@ def main():
 
         reports.append(Report(work_id=key, registry_id=registry, doi=doi,
                               authors=names, publication_year=year))
+        thin.append(key) if 0 < len(names) <= 2 else None
         detail.append({'report': key, 'registryIds': found, 'doi': doi,
                        'authorCount': len(names), 'year': year,
                        'sourceType': doc.get('sourceType')})
@@ -142,15 +163,53 @@ def main():
         span = (abs(a.publication_year - b.publication_year)
                 if a.publication_year and b.publication_year else None)
         if len(shared) >= 2 and (span is None or span <= 4):
+            # 🚨 這個領域同一實驗室互相掛名極常見，⚠️「共有 2 位作者」的偽陽性很高。
+            # ✅ 故一併記下**第一作者**與**末位作者**是否也相同——
+            # ⚠️ 同一試驗的姊妹論文通常共用資深（末位）作者，🚫 而純掛名通常不會。
             screen.append({'pair': [a.work_id, b.work_id],
-                           'sharedAuthors': len(shared), 'yearSpan': span})
+                           'sharedAuthors': len(shared), 'yearSpan': span,
+                           'sameFirstAuthor': a.first_author == b.first_author,
+                           'sameLastAuthor': (a.last_author is not None
+                                              and a.last_author == b.last_author)})
     screen.sort(key=lambda s: -s['sharedAuthors'])
+    # 🚨 出版年取不到時，本篩選一律**放行**（span is None）。
+    # ⚠️ 故 17 對裡有一部分是靠「不知道」進來的，🚫 那不是「年份接近」。
+    unknown_year = sum(1 for s in screen if s['yearSpan'] is None)
+
+    # ✅ 把邊併成連通群組——📮 要人看的是「這幾篇是不是同一個試驗」，
+    # ⚠️ 而那是群組層次的問題，🚫 不是一對一對看得完的。
+    parent = {}
+
+    def find(x):
+        parent.setdefault(x, x)
+        while parent[x] != x:
+            parent[x] = parent[parent[x]]
+            x = parent[x]
+        return x
+
+    for edge in screen:
+        a, b = (find(x) for x in edge['pair'])
+        if a != b:
+            parent[a] = b
+    groups = {}
+    for node in list(parent):
+        groups.setdefault(find(node), []).append(node)
+    clusters = sorted((sorted(v) for v in groups.values() if len(v) > 1),
+                      key=lambda g: -len(g))
 
     probes = []
 
     def probe(name, ok, detail_text):
         probes.append({'probe': name, 'passed': bool(ok), 'detail': detail_text})
 
+    # 🚨 第 582 輪加：本支原本只數「有沒有作者」，⚠️ 而那不是篩選需要的東西。
+    # 實測 4 篇（皆為 GROBID）只抽得到 1–2 位作者——**🚫 它們等於沒被篩選過**，
+    # 🚨 而 n582 用受試者數值找到的那一對，正好其中一篇就在這 4 篇裡。
+    # ⚠️ 「作者涵蓋率 41／41」量的是**有沒有**，不是**完不完整**。
+    probe('作者清單看起來是完整的',
+          not thin,
+          '🚨 作者數 ≤2 的有 %d 篇 %s——⚠️ 它們的「共有 ≥2 位作者」永遠不可能成立，'
+          '🚫 故它們實際上沒有被這個篩選看過' % (len(thin), thin))
     probe('41 篇全部進了 family.py（必觸發）',
           len(reports) == len(ids) == 41,
           '🚨 少一篇，成群判定就是在一個較小的語料上做的，'
@@ -186,14 +245,16 @@ def main():
         'tier1Edges': len(families['tier1Edges']),
         'suspectedPairs': len(families['suspectedPairs']),
         'signalCoverage': coverage,
+        'thinAuthorLists': thin,
         'verdict': (
             '🚨 tier1 回報 0 個成群，**而那句話答不了問題**：'
             '⚠️ 唯一會讓不同論文成群的訊號是試驗登錄號，41 篇裡只有 %d 篇有；'
             'DOI 依建構每篇各異，試驗簡稱無處可取。'
             '🚫 故本支不得被引用為「沒有重複計數」。' % coverage['registry']),
-        'whyCoverageIsLow': (
-            '⚠️ 41 篇中 26 篇為 JATS、15 篇只留下 PDF（GROBID 的 TEI 未留存），'
-            '🚨 那 15 篇連作者都取不到，故它們連下面那個篩選也過不了。'),
+        'correctionToRound580': (
+            '🚨 第 580 輪本支報「15 篇只留下 PDF，連作者都取不到」——⚠️ 那是錯的。'
+            'TEI 一直都在，存在 manifest 的 teiFile 而非 rawFile；'
+            '✅ 作者涵蓋率實為 41／41，🚫 不是 26／41。'),
         'authorOverlapScreen': {
             'whatItIs': ('✅ 本支自算：共有 ≥2 位正規化後相同的作者且出版年相差 ≤4。'
                          '🚫 不是 family.py 的 tier，🚫 不是判定，'
@@ -201,6 +262,10 @@ def main():
             'eligibleReports': coverage['authors'],
             'pairsConsidered': len([1 for _ in combinations(
                 [r for r in reports if r.authors], 2)]),
+            'flaggedPairs': len(screen),
+            'flaggedWithUnknownYear': unknown_year,
+            'clusters': clusters,
+            'largestCluster': max((len(c) for c in clusters), default=0),
             'flagged': screen,
         },
         'detailKeptPrivate': str(DETAIL),
@@ -212,8 +277,9 @@ def main():
                    encoding='utf-8')
 
     print('=== n580 研究 vs 論文：tier1 成群判定 ===')
-    print('   語料 %d 篇｜JATS %d／只有 PDF %d'
-          % (len(ids), coverage['jats'], coverage['pdfOnly']))
+    print('   語料 %d 篇｜JATS %d／TEI %d／無前置資料 %d'
+          % (len(ids), coverage['jats'], coverage['tei'],
+             coverage['noFrontMatter']))
     print('   訊號涵蓋：登錄號 %d｜DOI %d｜作者 %d｜年份 %d'
           % (coverage['registry'], coverage['doi'], coverage['authors'],
              coverage['year']))
@@ -221,10 +287,17 @@ def main():
           % (len(grouped), len(families['tier1Edges']),
              len(families['suspectedPairs'])))
     print('   ── 作者重疊篩選（🚫 非 family.py 之層級）──')
-    print('   可篩選 %d 篇｜待人看 %d 對' % (coverage['authors'], len(screen)))
+    print('   可篩選 %d 篇｜待人看 %d 對（其中 %d 對是年份不明而放行）'
+          % (coverage['authors'], len(screen), unknown_year))
+    print('   🚨 併成連通群組後：%d 群，最大一群 %d 篇'
+          % (len(clusters), max((len(c) for c in clusters), default=0)))
+    for c in clusters:
+        print('      %d 篇：%s' % (len(c), ' '.join(c)))
     for s in screen[:12]:
-        print('      %s ↔ %s：共同作者 %d 位，年差 %s'
-              % (s['pair'][0], s['pair'][1], s['sharedAuthors'], s['yearSpan']))
+        print('      %s ↔ %s：共同 %d 位，年差 %s%s%s'
+              % (s['pair'][0], s['pair'][1], s['sharedAuthors'], s['yearSpan'],
+                 '，🚨 同第一作者' if s['sameFirstAuthor'] else '',
+                 '，🚨 同末位作者' if s['sameLastAuthor'] else ''))
     print('   控制探針：')
     for p in probes:
         print('     %s %s — %s' % ('✅' if p['passed'] else '🚨',

@@ -9,26 +9,110 @@
   "suspectedPairs": 0,
   "signalCoverage": {
     "registry": 3,
-    "doi": 26,
-    "authors": 26,
-    "year": 26,
+    "doi": 34,
+    "authors": 41,
+    "year": 31,
     "jats": 26,
-    "pdfOnly": 15
+    "tei": 15,
+    "noFrontMatter": 0
   },
+  "thinAuthorLists": [
+    "c4128a6f6dd2c0b5",
+    "65dd82a89b2c5340",
+    "307c0dd5b141caed",
+    "eac2b5fd6bb06843"
+  ],
   "verdict": "🚨 tier1 回報 0 個成群，**而那句話答不了問題**：⚠️ 唯一會讓不同論文成群的訊號是試驗登錄號，41 篇裡只有 3 篇有；DOI 依建構每篇各異，試驗簡稱無處可取。🚫 故本支不得被引用為「沒有重複計數」。",
-  "whyCoverageIsLow": "⚠️ 41 篇中 26 篇為 JATS、15 篇只留下 PDF（GROBID 的 TEI 未留存），🚨 那 15 篇連作者都取不到，故它們連下面那個篩選也過不了。",
+  "correctionToRound580": "🚨 第 580 輪本支報「15 篇只留下 PDF，連作者都取不到」——⚠️ 那是錯的。TEI 一直都在，存在 manifest 的 teiFile 而非 rawFile；✅ 作者涵蓋率實為 41／41，🚫 不是 26／41。",
   "authorOverlapScreen": {
     "whatItIs": "✅ 本支自算：共有 ≥2 位正規化後相同的作者且出版年相差 ≤4。🚫 不是 family.py 的 tier，🚫 不是判定，⚠️ 只是把值得看一眼的配對縮小。",
-    "eligibleReports": 26,
-    "pairsConsidered": 325,
+    "eligibleReports": 41,
+    "pairsConsidered": 820,
+    "flaggedPairs": 17,
+    "flaggedWithUnknownYear": 9,
+    "clusters": [
+      [
+        "3f34fc92d4f4b70d",
+        "48da8a7f2f35af1f",
+        "501bb474ac4704fa",
+        "65d459b9129da800",
+        "d4251685a43792ff"
+      ],
+      [
+        "081d147cd92dee14",
+        "834de4d822dfb3cd",
+        "d4149a8bac287851"
+      ],
+      [
+        "6b7320d74cdda857",
+        "7902e3ec54370729",
+        "7a6ac1559c740fd6"
+      ],
+      [
+        "1105537918c174c9",
+        "a9012191142e7e02",
+        "ad7c0004c386f31c"
+      ],
+      [
+        "7a97713bf254fa26",
+        "e8d48c04f919dbb0"
+      ],
+      [
+        "9a3b03b4fb24cf65",
+        "e4871d50d0001e66"
+      ]
+    ],
+    "largestCluster": 5,
     "flagged": [
+      {
+        "pair": [
+          "48da8a7f2f35af1f",
+          "d4251685a43792ff"
+        ],
+        "sharedAuthors": 5,
+        "yearSpan": null,
+        "sameFirstAuthor": true,
+        "sameLastAuthor": false
+      },
       {
         "pair": [
           "501bb474ac4704fa",
           "d4251685a43792ff"
         ],
         "sharedAuthors": 5,
-        "yearSpan": 2
+        "yearSpan": 2,
+        "sameFirstAuthor": false,
+        "sameLastAuthor": true
+      },
+      {
+        "pair": [
+          "48da8a7f2f35af1f",
+          "501bb474ac4704fa"
+        ],
+        "sharedAuthors": 4,
+        "yearSpan": null,
+        "sameFirstAuthor": false,
+        "sameLastAuthor": false
+      },
+      {
+        "pair": [
+          "48da8a7f2f35af1f",
+          "65d459b9129da800"
+        ],
+        "sharedAuthors": 4,
+        "yearSpan": null,
+        "sameFirstAuthor": true,
+        "sameLastAuthor": false
+      },
+      {
+        "pair": [
+          "48da8a7f2f35af1f",
+          "3f34fc92d4f4b70d"
+        ],
+        "sharedAuthors": 4,
+        "yearSpan": null,
+        "sameFirstAuthor": false,
+        "sameLastAuthor": false
       },
       {
         "pair": [
@@ -36,7 +120,9 @@
           "65d459b9129da800"
         ],
         "sharedAuthors": 4,
-        "yearSpan": 1
+        "yearSpan": 1,
+        "sameFirstAuthor": false,
+        "sameLastAuthor": true
       },
       {
         "pair": [
@@ -44,7 +130,9 @@
           "65d459b9129da800"
         ],
         "sharedAuthors": 4,
-        "yearSpan": 1
+        "yearSpan": 1,
+        "sameFirstAuthor": true,
+        "sameLastAuthor": true
       },
       {
         "pair": [
@@ -52,7 +140,9 @@
           "e8d48c04f919dbb0"
         ],
         "sharedAuthors": 4,
-        "yearSpan": 0
+        "yearSpan": 0,
+        "sameFirstAuthor": true,
+        "sameLastAuthor": true
       },
       {
         "pair": [
@@ -60,7 +150,29 @@
           "d4149a8bac287851"
         ],
         "sharedAuthors": 3,
-        "yearSpan": 2
+        "yearSpan": 2,
+        "sameFirstAuthor": true,
+        "sameLastAuthor": true
+      },
+      {
+        "pair": [
+          "7902e3ec54370729",
+          "6b7320d74cdda857"
+        ],
+        "sharedAuthors": 3,
+        "yearSpan": null,
+        "sameFirstAuthor": false,
+        "sameLastAuthor": true
+      },
+      {
+        "pair": [
+          "a9012191142e7e02",
+          "1105537918c174c9"
+        ],
+        "sharedAuthors": 3,
+        "yearSpan": null,
+        "sameFirstAuthor": true,
+        "sameLastAuthor": false
       },
       {
         "pair": [
@@ -68,7 +180,19 @@
           "834de4d822dfb3cd"
         ],
         "sharedAuthors": 2,
-        "yearSpan": 0
+        "yearSpan": 0,
+        "sameFirstAuthor": false,
+        "sameLastAuthor": true
+      },
+      {
+        "pair": [
+          "6b7320d74cdda857",
+          "7a6ac1559c740fd6"
+        ],
+        "sharedAuthors": 2,
+        "yearSpan": null,
+        "sameFirstAuthor": false,
+        "sameLastAuthor": false
       },
       {
         "pair": [
@@ -76,7 +200,29 @@
           "9a3b03b4fb24cf65"
         ],
         "sharedAuthors": 2,
-        "yearSpan": 1
+        "yearSpan": 1,
+        "sameFirstAuthor": true,
+        "sameLastAuthor": false
+      },
+      {
+        "pair": [
+          "a9012191142e7e02",
+          "ad7c0004c386f31c"
+        ],
+        "sharedAuthors": 2,
+        "yearSpan": null,
+        "sameFirstAuthor": false,
+        "sameLastAuthor": false
+      },
+      {
+        "pair": [
+          "ad7c0004c386f31c",
+          "1105537918c174c9"
+        ],
+        "sharedAuthors": 2,
+        "yearSpan": null,
+        "sameFirstAuthor": false,
+        "sameLastAuthor": false
       },
       {
         "pair": [
@@ -84,7 +230,9 @@
           "834de4d822dfb3cd"
         ],
         "sharedAuthors": 2,
-        "yearSpan": 2
+        "yearSpan": 2,
+        "sameFirstAuthor": false,
+        "sameLastAuthor": true
       }
     ]
   },
@@ -95,6 +243,11 @@
     "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
   },
   "controlProbes": [
+    {
+      "probe": "作者清單看起來是完整的",
+      "passed": false,
+      "detail": "🚨 作者數 ≤2 的有 4 篇 ['c4128a6f6dd2c0b5', '65dd82a89b2c5340', '307c0dd5b141caed', 'eac2b5fd6bb06843']——⚠️ 它們的「共有 ≥2 位作者」永遠不可能成立，🚫 故它們實際上沒有被這個篩選看過"
+    },
     {
       "probe": "41 篇全部進了 family.py（必觸發）",
       "passed": true,
@@ -111,5 +264,5 @@
       "detail": "🚨 tier1 唯一會成群的訊號是登錄號，而 41 篇裡只有 3 篇有；⚠️ 故「0 個成群」等於 38 篇沒被看過，🚫 不是「沒有重複」"
     }
   ],
-  "auditHash": "sha256:716b19438586c3a979a50b3b04a2ad113b6fcb78adae51c6705af4018793e274"
+  "auditHash": "sha256:ab4f27cc52b38e19b2704e3680070ce56d4a57ba49ae7cee4b94450633bdee39"
 }
