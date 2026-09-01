@@ -101,6 +101,34 @@ HYPOTHESES = [
 ]
 
 
+# ✅ 第 661 輪：**診斷完成**。🚨 下面三件是實證，不是推論。
+DIAGNOSIS = {
+    'failingAssertion': "assert errors == []  →  ['sweep:PermissionError']",
+    'location': 'tests/test_fulltext.py:441',
+    'cheapRepro': (
+        '✅ **9.5 秒的重現配方**：只跑字母序前 16 個測試檔'
+        '（`ls tests/test_*.py | sed -n "1,16p"`，含 test_fulltext.py）——'
+        '🚨 實測 30 回合紅 1 次，而整套要 54 秒。'),
+    'whatIsRuledOut': (
+        '🚫 單獨跑那一條：260 回合全綠｜🚫 加壓下單獨跑：150 回合全綠｜'
+        '🚫 全蒐集但只跑那一條（模組全部匯入）：120 回合全綠。'
+        '**🚨 故觸發條件是「前面的測試真的執行過」，'
+        '🚫 不是時序壓力、也不是匯入期的狀態。**'),
+    'mechanismMostLikely': (
+        '⚠️ `_sweep_orphans_locked` 對未被 manifest 引用的 staged 檔做 '
+        '`path.unlink()`；🚨 **而 Windows 上刪除「正被開啟」的檔案會拋 '
+        'PermissionError**（POSIX 不會——程式碼註解裡正好寫著那個假設）。'
+        '⚠️ 掃除者**是持鎖之後**才 unlink 的，故最合理的解釋是'
+        '**寫入者的檔案控制代碼在釋放鎖之後仍未關閉**。'
+        '**🚫 但這是推論，不是實證**——本室未再往下驗。'),
+    'notMyCallToFix': (
+        '📮 這是產品程式：**要讓掃除容忍 PermissionError（重試／略過），'
+        '還是視為測試在 Windows 上的脆弱**，是裁定，🚫 不是本室的判斷。'
+        '⚠️ 而它不是純測試問題：`sweep_orphans` 是產品的對外入口，'
+        '🚨 產線上同樣可能在別的寫入者尚未收手時撞上這個例外。'),
+}
+
+
 def run_once():
     result = subprocess.run(
         [sys.executable, '-X', 'utf8', '-m', 'pytest', '-q', '-rf',
@@ -186,6 +214,7 @@ def main():
             '🚫 拿它去比對 auditHash 沒有意義（第 648 輪那支掃描應略過它）。'),
         'seed': SEED,
         'hypothesesTested': HYPOTHESES,
+        'diagnosis': DIAGNOSIS,
         'whereTheTriggerIsNot': (
             '✅ 第 660 輪：名字有了之後直接對**那一條**下手——'
             '單獨跑 **260 回合**全綠、19 個負載行程下再跑 **150 回合**全綠。'
@@ -233,6 +262,9 @@ def main():
     print('   累計 %d 回合｜紅 %d 次｜約 %.0f%%'
           % (total, failures, 100 * failures / max(1, total)))
     print('   已抓到的測試名：%s' % (named or '（尚無）'))
+    print('   ✅ 診斷：%s（%s）' % (DIAGNOSIS['failingAssertion'],
+                                    DIAGNOSIS['location']))
+    print('   ✅ 便宜重現：%s' % DIAGNOSIS['cheapRepro'])
     print('   已否證的假設：')
     for h in HYPOTHESES:
         print('      🚫 %s → %s' % (h['hypothesis'], h['result']))
