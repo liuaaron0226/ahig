@@ -1,0 +1,93 @@
+{
+  "schemaVersion": 1,
+  "documentType": "dose-gate-by-outcome",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "creditsPriorRounds": "✅ 三分法（沒報 12／帶外 3／對照組 4）是**第 588 輪**的發現，⚠️ 第 589 輪追過那 12 項的可救回性（只有 1 篇在方法段寫明速率）。**🚫 本支不重複宣稱它們**；🚨 本支新加的只有一件：**逐結局的分布**。",
+  "blockedByKind": {
+    "沒有記劑量": 12,
+    "真的在帶外": 3,
+    "對照組（0）": 4
+  },
+  "missingDoseByOutcome": {
+    "tt-completion-time": 7,
+    "time-to-exhaustion": 2,
+    "gi-symptom-severity": 2,
+    "gi-symptom-incidence": 1
+  },
+  "comparison": [
+    {
+      "outcome": "tt-completion-time",
+      "inScopeItems": 6,
+      "inScopePapers": 5,
+      "blockedForMissingDose": 7,
+      "blockedPapers": 5,
+      "blockedExceedsInScope": true
+    },
+    {
+      "outcome": "time-to-exhaustion",
+      "inScopeItems": 10,
+      "inScopePapers": 5,
+      "blockedForMissingDose": 2,
+      "blockedPapers": 2,
+      "blockedExceedsInScope": false
+    },
+    {
+      "outcome": "gi-symptom-severity",
+      "inScopeItems": 47,
+      "inScopePapers": 19,
+      "blockedForMissingDose": 2,
+      "blockedPapers": 1,
+      "blockedExceedsInScope": false
+    },
+    {
+      "outcome": "gi-symptom-incidence",
+      "inScopeItems": 13,
+      "inScopePapers": 8,
+      "blockedForMissingDose": 1,
+      "blockedPapers": 1,
+      "blockedExceedsInScope": false
+    },
+    {
+      "outcome": "exogenous-cho-oxidation-peak",
+      "inScopeItems": 18,
+      "inScopePapers": 13,
+      "blockedForMissingDose": 0,
+      "blockedPapers": 0,
+      "blockedExceedsInScope": false
+    },
+    {
+      "outcome": "muscle-glycogen-post-exercise",
+      "inScopeItems": 4,
+      "inScopePapers": 2,
+      "blockedForMissingDose": 0,
+      "blockedPapers": 0,
+      "blockedExceedsInScope": false
+    }
+  ],
+  "headline": "🚨 那 12 項沒有劑量的，有 **7 項是 `tt-completion-time`**——⚠️ 而該結局目前在範圍內只有 6 項（5 篇）。**🚨 即卡在門外的計時賽項目比進得來的還多。**",
+  "whyItMatters": "⚠️ 第 628／632 輪量出計時賽是最薄的結局（5 篇、最大可比組 2 篇）。🚨 本支顯示：**薄的地方不只是薄，還有一批同樣的結局卡在門外**，而擋住它們的不是文獻沒有做，是**清冊裡那一格沒有填**。✅ 第 589 輪查過：其中 1 篇的方法段寫著 1.8 g/min（＝108 g/h），⚠️ 讀的人留空——**🚫 而那一篇正是計時賽。**",
+  "whatThisCannotAnswer": "🚫 本支不判斷那 12 項該不該救回——⚠️ 第 589 輪已說明：單位換算與濃度×體積推算不是同一件事，🚨 本室不逕自換算。",
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "controlProbes": [
+    {
+      "probe": "三分法與第 588 輪相符（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 實得 {'沒有記劑量': 12, '真的在帶外': 3, '對照組（0）': 4}；⚠️ 與第 588 輪（12／3／4）對不上就代表資料變了，而本支的新數字也就不能信"
+    },
+    {
+      "probe": "在範圍內那側數得出來（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 在範圍內合計 98 項；⚠️ 不是 98 就代表本支讀的不是同一批"
+    },
+    {
+      "probe": "沒有結局「卡在門外的比進來的還多」",
+      "passed": false,
+      "detail": "🚨 實得 [('tt-completion-time', '門外 7 項 vs 在內 6 項（5 篇 vs 5 篇）')]"
+    }
+  ],
+  "auditHash": "sha256:a6163d14f863eda73d27e24a0d2ae48b5e007f967ae7efac05e00600d62e256c"
+}
