@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 1,
+  "documentType": "probe-shape-scan",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "probesScanned": 278,
+  "artefactsScanned": 59,
+  "flaggedCount": 4,
+  "deliberateRedFlags": [
+    {
+      "artefact": "n608_fourth_double_read.py",
+      "probe": "論文所報的效應量在契約詞彙裡有對應"
+    },
+    {
+      "artefact": "n608_fourth_double_read.py",
+      "probe": "第二線的讀已交回"
+    },
+    {
+      "artefact": "n612_parse_tei_root_cause.py",
+      "probe": "修好之後語料仍是同一版"
+    }
+  ],
+  "asymmetryNote": "✅ 恆假的探針（刻意紅旗）不列為缺陷——🚨 永遠亮紅不會掩蓋問題，⚠️ 永遠綠才會。🚨 本支第一版沒分這兩者，把 n608／n612 三道刻意的紅旗誤標成假控制。",
+  "byShape": {
+    "丙": [
+      "n622_attestation_audit.py｜段落存在查核說得出「不存在」（必觸發之反向）",
+      "n624_corpus_denominator.py｜以不存在的 status 查，計數為零（必觸發之反向）",
+      "n625_corpus_era_bias.py｜以不存在的 opinion 查，計數為零（必觸發之反向）",
+      "n628_evidence_thinness.py｜以不存在的結局查，查無此鍵（必觸發之反向）"
+    ]
+  },
+  "unprovenSentinelProbes": [],
+  "provenByMutation": [
+    "n622_attestation_audit.py",
+    "n624_corpus_denominator.py",
+    "n625_corpus_era_bias.py",
+    "n626_missing_era_dose_space.py",
+    "n627_dose_proxy_validation.py",
+    "n628_evidence_thinness.py"
+  ],
+  "mutationRunThisRound": [
+    {
+      "artefact": "n622_attestation_audit.py",
+      "fault": "讓段落標題集合含有那個哨兵，🚨 該探針必須說「它存在」而變紅",
+      "faultApplied": true,
+      "probeFired": true
+    }
+  ],
+  "limits": "🚨 本支只認得本室**已經犯過**的三種形狀——⚠️ 它證明不了「沒有別種恆真」。✅ 丙一律標成「待證明」而非缺陷：哨兵探針**可能**是真控制，要證明就照第 629 輪讓它亮一次。",
+  "whyItExists": "⚠️ 第 628 輪記了 errata，🚨 第 630 輪本室又寫了一次同族的恆真控制。**✅ 故改形狀而非改習慣：交給工具認，不要交給記性。**",
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "controlProbes": [
+    {
+      "probe": "三種壞形狀都認得出來（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 自驗樣本判定：{'甲': '甲', '丁': '丁', '乙': '乙', '丙': '丙', '好的': '✅ 未觸及已知壞形狀'}；⚠️ 少認一種，本支的「乾淨」就是假的"
+    },
+    {
+      "probe": "好的探針不會被誤判（必觸發之反向）",
+      "passed": true,
+      "detail": "🚨 樣本裡那道 len(data) == 38 判為 ✅ 未觸及已知壞形狀；⚠️ 若它也被標紅，本支只是在亂噴"
+    },
+    {
+      "probe": "真的掃到東西（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 掃出 278 道探針、59 支憑證；⚠️ 若很少，代表掃描器沒認出呼叫點"
+    },
+    {
+      "probe": "沒有甲、乙兩種確定恆真的形狀",
+      "passed": true,
+      "detail": "🚨 實得：無"
+    },
+    {
+      "probe": "所有哨兵探針都已被證明會亮",
+      "passed": true,
+      "detail": "🚨 尚未證明會亮的哨兵探針 0 道：[]"
+    }
+  ],
+  "auditHash": "sha256:169ee849088e18477e8c3d85add91957c63558e5dc6d5e6ca7f05308a9468200"
+}
