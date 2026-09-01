@@ -58,7 +58,10 @@ OUT = S / 'n648_artefact_reproducibility.json'
 # ⚠️ 本支自己不重跑自己（會遞迴），🚫 也不跑閘門與非憑證工具。
 SKIP = {'n648_artefact_reproducibility.py', 'round_gate.py',
         'private_root.py', 'n629_probe_mutation_test.py',
-        'n631_probe_shape_scanner.py'}
+        'n631_probe_shape_scanner.py',
+        # ⚠️ n656 是**紀錄**不是量測：🚨 它每跑一次就多幾筆，
+        # 拿它比對 auditHash 只會每次都報「結果變了」。
+        'n656_flake_watch.py'}
 
 TIMEOUT = 240
 

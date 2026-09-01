@@ -1,0 +1,60 @@
+{
+  "schemaVersion": 1,
+  "documentType": "flake-watch-log",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "isALogNotAMeasurement": "⚠️ 本檔是**紀錄**，內容本來就會隨每次執行增長——🚫 拿它去比對 auditHash 沒有意義（第 648 輪那支掃描應略過它）。",
+  "seed": {
+    "observedRuns": 20,
+    "observedFailures": 1,
+    "note": "🚨 本輪三批追獵合計 20 次、紅 1 次（第一批的第 9 次）。⚠️ 那一次的測試名**沒有被記下來**——腳本沒去色，`grep \"^FAILED\"` 接不到帶 ANSI 的那行。"
+  },
+  "runsThisInvocation": 3,
+  "cumulativeRuns": 23,
+  "cumulativeFailures": 1,
+  "observedRate": 0.0435,
+  "failedTestNames": [],
+  "history": [
+    {
+      "summary": "840 passed, 15 warnings in 51.88s",
+      "passed": 840,
+      "failedTests": [],
+      "returncode": 0
+    },
+    {
+      "summary": "840 passed, 15 warnings in 54.01s",
+      "passed": 840,
+      "failedTests": [],
+      "returncode": 0
+    },
+    {
+      "summary": "840 passed, 15 warnings in 54.79s",
+      "passed": 840,
+      "failedTests": [],
+      "returncode": 0
+    }
+  ],
+  "whyItMatters": "⚠️ 閘門紅過四次，其中三次沒重現、也沒留下名字。✅ 本輪證明它**是真的**（20 次裡重現 1 次）；🚨 但只要名字沒抓到，就無從判斷是哪一條測試、**也無從判斷它是不是與負載有關**。",
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "controlProbes": [
+    {
+      "probe": "本次真的跑了測試（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 本次 3 回合的 passed 數：[840, 840, 840]；⚠️ 若讀不到，本紀錄就是空的"
+    },
+    {
+      "probe": "去色之後抓得到 FAILED 行（必觸發之反向）",
+      "passed": true,
+      "detail": "🚨 以帶 ANSI 的字串試；⚠️ **第一批追獵就是敗在這裡**——紅了卻沒留下測試名"
+    },
+    {
+      "probe": "那個間歇性失敗的測試名已經抓到",
+      "passed": false,
+      "detail": "🚨 至今累計 23 回合、紅 1 次（約 4%），而**測試名仍未抓到**：（尚無）；⚠️ 本支每次只跑 3 回合並累積——🚫 不再每輪重跑二十次"
+    }
+  ],
+  "auditHash": "sha256:38c939b8d413d636b47623f12a0c8603e1b96223b9632eca30afa51757aa5f7f"
+}
