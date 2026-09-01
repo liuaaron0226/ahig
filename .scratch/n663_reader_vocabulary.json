@@ -1,0 +1,82 @@
+{
+  "schemaVersion": 1,
+  "documentType": "reader-vocabulary-scope-effect",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "report": "7a6ac1559c740fd6",
+  "asIsPrimary": {
+    "inScopeCount": 0,
+    "candidateCount": 0,
+    "escalated": false,
+    "outOfScopeReasons": {
+      "notExtracted-instrument-not-in-allowlist": 6,
+      "notExtracted-no-numeric-result": 1,
+      "notExtracted-outcome-not-in-scope": 38
+    }
+  },
+  "asIsSecond": {
+    "inScopeCount": 4,
+    "candidateCount": 4,
+    "escalated": false,
+    "outOfScopeReasons": {
+      "notExtracted-outcome-not-in-scope": 14
+    }
+  },
+  "counterfactualInstrumentSwapped": {
+    "inScopeCount": 4,
+    "candidateCount": 4,
+    "escalated": false,
+    "outOfScopeReasons": {
+      "notExtracted-dose-outside-bands": 2,
+      "notExtracted-no-numeric-result": 1,
+      "notExtracted-outcome-not-in-scope": 38
+    }
+  },
+  "counterfactualControlArmDropped": {
+    "inScopeCount": 0,
+    "candidateCount": 0,
+    "escalated": false,
+    "outOfScopeReasons": {
+      "notExtracted-instrument-not-in-allowlist": 4,
+      "notExtracted-no-numeric-result": 1,
+      "notExtracted-outcome-not-in-scope": 38
+    }
+  },
+  "instrumentSwaps": {
+    "cycling-time-to-exhaustion-fixed-power": "cycling-tte-fixed-intensity",
+    "acid-hydrolysis-freeze-dried-biopsy": "needle-biopsy-vastus-lateralis"
+  },
+  "instrumentSwapsMade": 6,
+  "controlArmItemsDropped": 2,
+  "instrumentEffect": 4,
+  "controlArmEffect": 0,
+  "whatThisShows": "🚨 兩位讀者對**同一篇的同一個結局**，寫出不同的儀器名稱，✅ 而契約用的是**逐字比對的允許清單**——⚠️ 故「讀者挑哪個字」會直接進到範圍判定裡。🚫 本支不主張這一篇的結果就是全體的結果：**樣本是 1 篇**。",
+  "methodLimit": "⚠️ 反事實是在**記憶體副本**上做的，🚫 磁碟上的清冊一字未改。🚨 且本支只證得了「換字之後判定會不會變」，🚫 證不出「哪一位讀者寫的才是對的」——那要回到全文，而那是讀論文的視窗的事（n+187）。",
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "controlProbes": [
+    {
+      "probe": "判定器在別篇上真的判得出「在範圍內」（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 正對照篇 86e6a580108fd94b 判出 5 項在範圍內；⚠️ 若一篇都判不出，本支的「0」就只是判定器壞了"
+    },
+    {
+      "probe": "把命中的名字改成不存在的名字後，必須掉出範圍（必觸發之負對照）",
+      "passed": true,
+      "detail": "🚨 反事實 4 項 → 亂改名字後 0 項；⚠️ 若沒掉，代表儀器根本沒被檢查，本支的因果歸屬就不成立"
+    },
+    {
+      "probe": "反事實真的動到了東西（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 換掉 6 個儀器名稱、丟掉 2 個對照臂項；⚠️ 若是 0，反事實就只是把原件重判一次"
+    },
+    {
+      "probe": "儀器名稱的用字，🚫 不足以單獨改變在不在範圍內",
+      "passed": false,
+      "detail": "🚨 只換儀器名稱：0 項 → 4 項（差 +4）；⚠️ 只丟對照臂：0 項 → 0 項（差 +0）"
+    }
+  ],
+  "auditHash": "sha256:c6f864a0dc968a6f4f7f4f325d7317e3b227815232f70a0ae14f35aeda073780"
+}

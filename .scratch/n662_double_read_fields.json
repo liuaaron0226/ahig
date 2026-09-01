@@ -1,0 +1,140 @@
+{
+  "schemaVersion": 1,
+  "documentType": "double-read-field-agreement",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "comparedReports": 3,
+  "fields": [
+    "dose",
+    "doseUnit",
+    "instrument",
+    "effectMeasure",
+    "analysisSet",
+    "timepointDays",
+    "hasNumericResult"
+  ],
+  "cellsCompared": 56,
+  "rows": [
+    {
+      "report": "7a6ac1559c740fd6",
+      "commonRefs": [
+        "muscle-glycogen-post-exercise",
+        "time-to-exhaustion"
+      ],
+      "refsOnlyPrimary": [],
+      "refsOnlySecond": []
+    },
+    {
+      "report": "a9012191142e7e02",
+      "commonRefs": [
+        "exogenous-cho-oxidation-peak",
+        "gi-symptom-incidence",
+        "gi-symptom-severity"
+      ],
+      "refsOnlyPrimary": [],
+      "refsOnlySecond": []
+    },
+    {
+      "report": "1105537918c174c9",
+      "commonRefs": [
+        "gi-symptom-incidence",
+        "gi-symptom-severity",
+        "tt-completion-time"
+      ],
+      "refsOnlyPrimary": [],
+      "refsOnlySecond": []
+    }
+  ],
+  "disagreements": [
+    {
+      "report": "7a6ac1559c740fd6",
+      "outcome": "muscle-glycogen-post-exercise",
+      "field": "dose",
+      "primary": [
+        "0",
+        "45",
+        "90"
+      ],
+      "second": [
+        "45",
+        "90"
+      ]
+    },
+    {
+      "report": "7a6ac1559c740fd6",
+      "outcome": "muscle-glycogen-post-exercise",
+      "field": "instrument",
+      "primary": [
+        "'acid-hydrolysis-freeze-dried-biopsy'"
+      ],
+      "second": [
+        "'needle-biopsy-vastus-lateralis'"
+      ]
+    },
+    {
+      "report": "7a6ac1559c740fd6",
+      "outcome": "time-to-exhaustion",
+      "field": "dose",
+      "primary": [
+        "0",
+        "45",
+        "90"
+      ],
+      "second": [
+        "45",
+        "90"
+      ]
+    },
+    {
+      "report": "7a6ac1559c740fd6",
+      "outcome": "time-to-exhaustion",
+      "field": "instrument",
+      "primary": [
+        "'cycling-time-to-exhaustion-fixed-power'"
+      ],
+      "second": [
+        "'cycling-tte-fixed-intensity'"
+      ]
+    },
+    {
+      "report": "a9012191142e7e02",
+      "outcome": "gi-symptom-severity",
+      "field": "hasNumericResult",
+      "primary": [
+        "True"
+      ],
+      "second": [
+        "False"
+      ]
+    }
+  ],
+  "byField": {
+    "dose": 2,
+    "instrument": 2,
+    "hasNumericResult": 1
+  },
+  "whyThisGoesBeyondN641": "⚠️ 第 641 輪比的是「兩位讀者是否指向同一組契約結局」，✅ 而那是 3/3 全一致。🚨 本支往下一層：**同意有這個結局之後，欄位也一致嗎**——而**劑量正是決定它在不在範圍內的那一欄**（第 645 輪：12 項因劑量空白被擋在門外）。",
+  "methodLimit": "🚨 同一篇可能對同一結局宣告多項（不同劑量臂），⚠️ 而兩邊的項目順序沒有可靠對應（第 641 輪已證標籤零逐字重疊）。✅ 故本支比的是**欄位值的集合**，🚫 不是逐項配對——⚠️ 這會讓「兩邊都有 60 與 90，只是配到不同項」被判為一致。",
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "controlProbes": [
+    {
+      "probe": "三篇雙讀都讀得到、且有共同的契約結局（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 共同篇 3 篇；各篇的共同結局：{'7a6ac1559c740fd6': ['muscle-glycogen-post-exercise', 'time-to-exhaustion'], 'a9012191142e7e02': ['exogenous-cho-oxidation-peak', 'gi-symptom-incidence', 'gi-symptom-severity'], '1105537918c174c9': ['gi-symptom-incidence', 'gi-symptom-severity', 'tt-completion-time']}；⚠️ 若沒有共同結局，逐欄位比就無從比起"
+    },
+    {
+      "probe": "比對真的走過夠多格（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 比了 56 格（共同結局數 × 7 個欄位）；⚠️ 太少就沒有份量"
+    },
+    {
+      "probe": "兩位讀者在欄位層級也一致",
+      "passed": false,
+      "detail": "🚨 不一致 5 處，分布於：{'dose': 2, 'instrument': 2, 'hasNumericResult': 1}"
+    }
+  ],
+  "auditHash": "sha256:cd03e12a92bb603edff5e5752a9b1437f79a0fe058baa77544440eae24696383"
+}

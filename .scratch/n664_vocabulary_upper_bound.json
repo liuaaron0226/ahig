@@ -1,0 +1,461 @@
+{
+  "schemaVersion": 1,
+  "documentType": "instrument-vocabulary-upper-bound",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "inventories": 38,
+  "zeroContributionPapers": 13,
+  "zeroContributionWithInstrumentBlock": 1,
+  "zeroContributionWithInstrumentBlockIds": [
+    "7a6ac1559c740fd6"
+  ],
+  "mappedButBlockedByReason": {
+    "notExtracted-dose-outside-bands": 19,
+    "notExtracted-instrument-not-in-allowlist": 9,
+    "notExtracted-effect-measure-not-in-scope": 7,
+    "notExtracted-no-numeric-result": 1
+  },
+  "upperBoundExtraCandidates": 7,
+  "upperBoundPapersUnblocked": [
+    "7a6ac1559c740fd6"
+  ],
+  "newlyEscalatedIfRelaxed": [],
+  "rows": [
+    {
+      "report": "86e6a580108fd94b",
+      "strictInScope": 5,
+      "strictCandidates": 5,
+      "relaxedCandidates": 5,
+      "relaxedEscalated": false,
+      "strictEscalated": false,
+      "instrumentBlocked": 0,
+      "mappedBlocked": {}
+    },
+    {
+      "report": "081d147cd92dee14",
+      "strictInScope": 2,
+      "strictCandidates": 2,
+      "relaxedCandidates": 2,
+      "relaxedEscalated": false,
+      "strictEscalated": false,
+      "instrumentBlocked": 0,
+      "mappedBlocked": {}
+    },
+    {
+      "report": "59b4558a37f28bc9",
+      "strictInScope": 6,
+      "strictCandidates": 6,
+      "relaxedCandidates": 6,
+      "relaxedEscalated": false,
+      "strictEscalated": false,
+      "instrumentBlocked": 0,
+      "mappedBlocked": {}
+    },
+    {
+      "report": "7902e3ec54370729",
+      "strictInScope": 3,
+      "strictCandidates": 3,
+      "relaxedCandidates": 3,
+      "relaxedEscalated": false,
+      "strictEscalated": false,
+      "instrumentBlocked": 0,
+      "mappedBlocked": {}
+    },
+    {
+      "report": "dbdb6ea55c9667c3",
+      "strictInScope": 2,
+      "strictCandidates": 2,
+      "relaxedCandidates": 2,
+      "relaxedEscalated": false,
+      "strictEscalated": false,
+      "instrumentBlocked": 0,
+      "mappedBlocked": {}
+    },
+    {
+      "report": "c97d2ed84b0d1057",
+      "strictInScope": 0,
+      "strictCandidates": 0,
+      "relaxedCandidates": 0,
+      "relaxedEscalated": false,
+      "strictEscalated": false,
+      "instrumentBlocked": 0,
+      "mappedBlocked": {}
+    },
+    {
+      "report": "0eea079e79bf7913",
+      "strictInScope": 0,
+      "strictCandidates": 0,
+      "relaxedCandidates": 0,
+      "relaxedEscalated": false,
+      "strictEscalated": false,
+      "instrumentBlocked": 0,
+      "mappedBlocked": {
+        "notExtracted-dose-outside-bands": 1,
+        "notExtracted-no-numeric-result": 1
+      }
+    },
+    {
+      "report": "48da8a7f2f35af1f",
+      "strictInScope": 4,
+      "strictCandidates": 4,
+      "relaxedCandidates": 4,
+      "relaxedEscalated": false,
+      "strictEscalated": false,
+      "instrumentBlocked": 0,
+      "mappedBlocked": {}
+    },
+    {
+      "report": "358bbf2c1886ac4b",
+      "strictInScope": 3,
+      "strictCandidates": 3,
+      "relaxedCandidates": 3,
+      "relaxedEscalated": false,
+      "strictEscalated": false,
+      "instrumentBlocked": 0,
+      "mappedBlocked": {}
+    },
+    {
+      "report": "6b7320d74cdda857",
+      "strictInScope": 4,
+      "strictCandidates": 4,
+      "relaxedCandidates": 4,
+      "relaxedEscalated": false,
+      "strictEscalated": false,
+      "instrumentBlocked": 0,
+      "mappedBlocked": {}
+    },
+    {
+      "report": "44243ac624c9b5e0",
+      "strictInScope": 0,
+      "strictCandidates": 0,
+      "relaxedCandidates": 0,
+      "relaxedEscalated": false,
+      "strictEscalated": false,
+      "instrumentBlocked": 0,
+      "mappedBlocked": {}
+    },
+    {
+      "report": "e4871d50d0001e66",
+      "strictInScope": 2,
+      "strictCandidates": 2,
+      "relaxedCandidates": 2,
+      "relaxedEscalated": false,
+      "strictEscalated": false,
+      "instrumentBlocked": 0,
+      "mappedBlocked": {}
+    },
+    {
+      "report": "501bb474ac4704fa",
+      "strictInScope": 1,
+      "strictCandidates": 1,
+      "relaxedCandidates": 1,
+      "relaxedEscalated": false,
+      "strictEscalated": false,
+      "instrumentBlocked": 0,
+      "mappedBlocked": {}
+    },
+    {
+      "report": "d4251685a43792ff",
+      "strictInScope": 2,
+      "strictCandidates": 2,
+      "relaxedCandidates": 2,
+      "relaxedEscalated": false,
+      "strictEscalated": false,
+      "instrumentBlocked": 0,
+      "mappedBlocked": {}
+    },
+    {
+      "report": "8a62d501f88c7d04",
+      "strictInScope": 3,
+      "strictCandidates": 3,
+      "relaxedCandidates": 3,
+      "relaxedEscalated": false,
+      "strictEscalated": false,
+      "instrumentBlocked": 0,
+      "mappedBlocked": {
+        "notExtracted-dose-outside-bands": 3
+      }
+    },
+    {
+      "report": "66e16f089f1522d1",
+      "strictInScope": 2,
+      "strictCandidates": 2,
+      "relaxedCandidates": 2,
+      "relaxedEscalated": false,
+      "strictEscalated": false,
+      "instrumentBlocked": 0,
+      "mappedBlocked": {}
+    },
+    {
+      "report": "7a6ac1559c740fd6",
+      "strictInScope": 0,
+      "strictCandidates": 0,
+      "relaxedCandidates": 4,
+      "relaxedEscalated": false,
+      "strictEscalated": false,
+      "instrumentBlocked": 6,
+      "mappedBlocked": {
+        "notExtracted-instrument-not-in-allowlist": 6
+      }
+    },
+    {
+      "report": "7a97713bf254fa26",
+      "strictInScope": 5,
+      "strictCandidates": 5,
+      "relaxedCandidates": 5,
+      "relaxedEscalated": false,
+      "strictEscalated": false,
+      "instrumentBlocked": 0,
+      "mappedBlocked": {}
+    },
+    {
+      "report": "b9ab2f27317a6a2b",
+      "strictInScope": 0,
+      "strictCandidates": 0,
+      "relaxedCandidates": 0,
+      "relaxedEscalated": false,
+      "strictEscalated": false,
+      "instrumentBlocked": 0,
+      "mappedBlocked": {}
+    },
+    {
+      "report": "c3028a8a7b1ae2a1",
+      "strictInScope": 0,
+      "strictCandidates": 0,
+      "relaxedCandidates": 0,
+      "relaxedEscalated": false,
+      "strictEscalated": false,
+      "instrumentBlocked": 0,
+      "mappedBlocked": {
+        "notExtracted-effect-measure-not-in-scope": 6
+      }
+    },
+    {
+      "report": "e8d48c04f919dbb0",
+      "strictInScope": 8,
+      "strictCandidates": 8,
+      "relaxedCandidates": 8,
+      "relaxedEscalated": false,
+      "strictEscalated": false,
+      "instrumentBlocked": 0,
+      "mappedBlocked": {}
+    },
+    {
+      "report": "a9012191142e7e02",
+      "strictInScope": 6,
+      "strictCandidates": 6,
+      "relaxedCandidates": 6,
+      "relaxedEscalated": false,
+      "strictEscalated": false,
+      "instrumentBlocked": 0,
+      "mappedBlocked": {}
+    },
+    {
+      "report": "ad7c0004c386f31c",
+      "strictInScope": 0,
+      "strictCandidates": 0,
+      "relaxedCandidates": 0,
+      "relaxedEscalated": false,
+      "strictEscalated": false,
+      "instrumentBlocked": 0,
+      "mappedBlocked": {
+        "notExtracted-dose-outside-bands": 5
+      }
+    },
+    {
+      "report": "c4128a6f6dd2c0b5",
+      "strictInScope": 0,
+      "strictCandidates": 0,
+      "relaxedCandidates": 0,
+      "relaxedEscalated": false,
+      "strictEscalated": false,
+      "instrumentBlocked": 0,
+      "mappedBlocked": {
+        "notExtracted-effect-measure-not-in-scope": 1
+      }
+    },
+    {
+      "report": "9a3b03b4fb24cf65",
+      "strictInScope": 3,
+      "strictCandidates": 3,
+      "relaxedCandidates": 4,
+      "relaxedEscalated": false,
+      "strictEscalated": false,
+      "instrumentBlocked": 1,
+      "mappedBlocked": {
+        "notExtracted-instrument-not-in-allowlist": 1
+      }
+    },
+    {
+      "report": "65dd82a89b2c5340",
+      "strictInScope": 7,
+      "strictCandidates": 7,
+      "relaxedCandidates": 7,
+      "relaxedEscalated": false,
+      "strictEscalated": false,
+      "instrumentBlocked": 0,
+      "mappedBlocked": {}
+    },
+    {
+      "report": "54d4200c1c5e2b64",
+      "strictInScope": 0,
+      "strictCandidates": 0,
+      "relaxedCandidates": 0,
+      "relaxedEscalated": false,
+      "strictEscalated": false,
+      "instrumentBlocked": 0,
+      "mappedBlocked": {
+        "notExtracted-dose-outside-bands": 2
+      }
+    },
+    {
+      "report": "82cbc04b68c38e79",
+      "strictInScope": 0,
+      "strictCandidates": 0,
+      "relaxedCandidates": 0,
+      "relaxedEscalated": false,
+      "strictEscalated": false,
+      "instrumentBlocked": 0,
+      "mappedBlocked": {
+        "notExtracted-dose-outside-bands": 2
+      }
+    },
+    {
+      "report": "1105537918c174c9",
+      "strictInScope": 9,
+      "strictCandidates": 9,
+      "relaxedCandidates": 9,
+      "relaxedEscalated": false,
+      "strictEscalated": false,
+      "instrumentBlocked": 0,
+      "mappedBlocked": {}
+    },
+    {
+      "report": "0cfceb6c8a86f78b",
+      "strictInScope": 1,
+      "strictCandidates": 1,
+      "relaxedCandidates": 1,
+      "relaxedEscalated": false,
+      "strictEscalated": false,
+      "instrumentBlocked": 0,
+      "mappedBlocked": {
+        "notExtracted-dose-outside-bands": 1
+      }
+    },
+    {
+      "report": "307c0dd5b141caed",
+      "strictInScope": 4,
+      "strictCandidates": 4,
+      "relaxedCandidates": 4,
+      "relaxedEscalated": false,
+      "strictEscalated": false,
+      "instrumentBlocked": 0,
+      "mappedBlocked": {
+        "notExtracted-dose-outside-bands": 4
+      }
+    },
+    {
+      "report": "d4149a8bac287851",
+      "strictInScope": 5,
+      "strictCandidates": 5,
+      "relaxedCandidates": 5,
+      "relaxedEscalated": false,
+      "strictEscalated": false,
+      "instrumentBlocked": 0,
+      "mappedBlocked": {}
+    },
+    {
+      "report": "4103c4b52bbf21e6",
+      "strictInScope": 0,
+      "strictCandidates": 0,
+      "relaxedCandidates": 0,
+      "relaxedEscalated": false,
+      "strictEscalated": false,
+      "instrumentBlocked": 0,
+      "mappedBlocked": {}
+    },
+    {
+      "report": "eac2b5fd6bb06843",
+      "strictInScope": 4,
+      "strictCandidates": 4,
+      "relaxedCandidates": 4,
+      "relaxedEscalated": false,
+      "strictEscalated": false,
+      "instrumentBlocked": 0,
+      "mappedBlocked": {}
+    },
+    {
+      "report": "97c2233f7e60c801",
+      "strictInScope": 0,
+      "strictCandidates": 0,
+      "relaxedCandidates": 0,
+      "relaxedEscalated": false,
+      "strictEscalated": false,
+      "instrumentBlocked": 0,
+      "mappedBlocked": {}
+    },
+    {
+      "report": "834de4d822dfb3cd",
+      "strictInScope": 5,
+      "strictCandidates": 5,
+      "relaxedCandidates": 5,
+      "relaxedEscalated": false,
+      "strictEscalated": false,
+      "instrumentBlocked": 0,
+      "mappedBlocked": {}
+    },
+    {
+      "report": "298c326024d22835",
+      "strictInScope": 2,
+      "strictCandidates": 2,
+      "relaxedCandidates": 4,
+      "relaxedEscalated": false,
+      "strictEscalated": false,
+      "instrumentBlocked": 2,
+      "mappedBlocked": {
+        "notExtracted-instrument-not-in-allowlist": 2
+      }
+    },
+    {
+      "report": "a6ce9c92c7454a7c",
+      "strictInScope": 0,
+      "strictCandidates": 0,
+      "relaxedCandidates": 0,
+      "relaxedEscalated": false,
+      "strictEscalated": false,
+      "instrumentBlocked": 0,
+      "mappedBlocked": {
+        "notExtracted-dose-outside-bands": 1
+      }
+    }
+  ],
+  "whatThisIs": "✅ 這是**上界**：關掉儀器檢查最多能放進來多少。🚫 不是可回收量——⚠️ 關掉檢查會連真的量錯東西的也放進來，🚨 而契約設允許清單正是為了擋那些。✅ 真正的問題是：**被擋的那些，是「讀者寫了別的字」還是「真的量了別的東西」**——🚫 而那要回到全文才分得出來（n+187 的視窗）。",
+  "methodLimit": "⚠️ 本支用「已對上契約結局」當過濾條件，🚨 故完全漏掉「讀者連結局都沒對上」的那些——那一族第 643 輪已另計。⚠️ 且放寬版契約只在記憶體裡，🚫 磁碟上的契約一字未改。",
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "controlProbes": [
+    {
+      "probe": "放寬版契約真的清掉了允許清單（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 清空了 4 個結局的 allowedInstruments；⚠️ 若是 0，「放寬」那一跑就只是嚴格版重跑一次"
+    },
+    {
+      "probe": "嚴格版真的擋過人（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 已對上結局卻被擋的項目：{'notExtracted-dose-outside-bands': 19, 'notExtracted-instrument-not-in-allowlist': 9, 'notExtracted-effect-measure-not-in-scope': 7, 'notExtracted-no-numeric-result': 1}；⚠️ 若儀器那一格是 0，本支就沒有可談的現象"
+    },
+    {
+      "probe": "放寬只會放進來、🚫 不會擠掉既有的（以 candidateCount 比）",
+      "passed": true,
+      "detail": "🚨 放寬後候選變少的篇：無；⚠️ 若有，代表放寬還動到了別的東西，因果歸屬不成立"
+    },
+    {
+      "probe": "儀器用字 🚫 沒有擋住任何項目",
+      "passed": false,
+      "detail": "🚨 關掉儀器檢查後多出 7 項候選、1 篇從零貢獻變成有貢獻（['7a6ac1559c740fd6']）；⚠️ 另有 0 篇因此衝破上限被 escalate（無）"
+    }
+  ],
+  "auditHash": "sha256:f6f68efd6ea565f95723274eb97e68060774aadc6c28d3e9be9dd9d999248ebd"
+}
