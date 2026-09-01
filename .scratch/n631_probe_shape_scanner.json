@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "documentType": "probe-shape-scan",
   "notAGate": "🚫 不入輪次閘門（n+181 三）",
-  "probesScanned": 327,
-  "artefactsScanned": 69,
+  "probesScanned": 332,
+  "artefactsScanned": 70,
   "flaggedCount": 4,
   "deliberateRedFlags": [
     {
@@ -17,6 +17,10 @@
     {
       "artefact": "n612_parse_tei_root_cause.py",
       "probe": "修好之後語料仍是同一版"
+    },
+    {
+      "artefact": "n642_double_read_sample.py",
+      "probe": "3/3 一致足以支撐「不一致率很低」"
     }
   ],
   "asymmetryNote": "✅ 恆假的探針（刻意紅旗）不列為缺陷——🚨 永遠亮紅不會掩蓋問題，⚠️ 永遠綠才會。🚨 本支第一版沒分這兩者，把 n608／n612 三道刻意的紅旗誤標成假控制。",
@@ -66,7 +70,7 @@
     {
       "probe": "真的掃到東西（必觸發之正對照）",
       "passed": true,
-      "detail": "🚨 掃出 327 道探針、69 支憑證；⚠️ 若很少，代表掃描器沒認出呼叫點"
+      "detail": "🚨 掃出 332 道探針、70 支憑證；⚠️ 若很少，代表掃描器沒認出呼叫點"
     },
     {
       "probe": "沒有甲、乙兩種確定恆真的形狀",
@@ -79,5 +83,5 @@
       "detail": "🚨 尚未證明會亮的哨兵探針 0 道：[]"
     }
   ],
-  "auditHash": "sha256:ee549098bdc7328c502ae812218971e4180783ae3e5a601c4ba9df8a92c1737b"
+  "auditHash": "sha256:34897aea5bef749e7f69dac26f69c0724dca5c31d0d71a5f3179c77aa38f3be9"
 }

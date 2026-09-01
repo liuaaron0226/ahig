@@ -1,0 +1,91 @@
+{
+  "schemaVersion": 1,
+  "documentType": "double-read-sample-quality",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "sampled": [
+    "1105537918c174c9",
+    "7a6ac1559c740fd6",
+    "a9012191142e7e02"
+  ],
+  "sampledCount": 3,
+  "restCount": 35,
+  "axes": {
+    "宣告的結局數": {
+      "sampledMean": 30,
+      "restMean": 20,
+      "pValue": 0.0777
+    },
+    "在範圍內項數": {
+      "sampledMean": 5,
+      "restMean": 2.37,
+      "pValue": 0.1042
+    },
+    "掃過的段落數": {
+      "sampledMean": 13.33,
+      "restMean": 19.23,
+      "pValue": 0.1929
+    }
+  },
+  "sourceTypeMix": {
+    "sampled": {
+      "grobid-tei": 3
+    },
+    "rest": {
+      "europe-pmc-jats": 24,
+      "grobid-tei": 11
+    }
+  },
+  "sourceTypeSkew": {
+    "sampledAllGrobid": true,
+    "grobidInCorpus": "14/38",
+    "probabilityIfRandom": 0.0431,
+    "consequence": "🚨 24 篇 europe-pmc-jats **從未被雙讀過**——⚠️ 而那是語料的多數。"
+  },
+  "ruleOfThree": {
+    "n": 3,
+    "ruleOfThreeUpperBound": 1.0,
+    "ruleOfThreeIsDegenerateHere": "🚨 3/n 在 n=3 時等於 1.0——**⚠️ 那個上界什麼都沒說**；✅ 故本支改用精確二項上界。",
+    "exactUpperBound95": 0.632,
+    "reading": "✅ 精確上界：(1-p)^3 = 0.05 ⇒ 真實不一致率的 95% 單側上界 ≈ **63%**。⚠️ 即現有證據容得下相當高的不一致率——🚫 不是說結果不好，是說 n=3 撐不起「很低」這個詞。"
+  },
+  "permutation": {
+    "trials": 20000,
+    "seed": 20260901,
+    "note": "✅ 池子先排序，故可重現。"
+  },
+  "whatThisIsNot": "🚫 本支不是說第 641 輪的 3/3 有錯——⚠️ 那個數字是對的。🚨 本支說的是它**能撐多重**：✅ 抽樣在三個數值軸上不特別，🚨 但在**來源型別**上明顯偏斜（3 篇全是 grobid-tei，機率 0.043），⚠️ 且 n=3 這個量體本身就限制了結論的強度。",
+  "whatThisCannotAnswer": "🚫 「可量的軸」只有三個——⚠️ 論文的難讀程度（表格複雜度、報告品質）本支量不到；🚨 故「抽樣不特別」只在這三軸上成立。",
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "controlProbes": [
+    {
+      "probe": "抽樣與其餘都數得出來（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 抽樣 3 篇、其餘 35 篇；⚠️ 對不上代表本支讀的不是同一批"
+    },
+    {
+      "probe": "置換檢定可重現（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 三個軸都算得出 p；⚠️ 池子先排序過，故同一份資料每次同一個 p"
+    },
+    {
+      "probe": "抽到的三篇在三個**數值**軸上不特別",
+      "passed": true,
+      "detail": "✅ 與其餘 35 篇有顯著差異的數值軸：無；明細：{\"宣告的結局數\": {\"sampledMean\": 30, \"restMean\": 20, \"pValue\": 0.0777}, \"在範圍內項數\": {\"sampledMean\": 5, \"restMean\": 2.37, \"pValue\": 0.1042}, \"掃過的段落數\": {\"sampledMean\": 13.33, \"restMean\": 19.23, \"pValue\": 0.1929}}"
+    },
+    {
+      "probe": "抽樣在**來源型別**上也不特別",
+      "passed": false,
+      "detail": "🚨 抽到的 3 篇**全是 grobid-tei**，而全庫 14/38 是 grobid；⚠️ 隨機抽到這種組合的機率 **0.043**——**🚨 即 24 篇 europe-pmc-jats 從未被雙讀過。**⚠️ 本支第一版只測數值軸，那道探針因此**為了錯的理由判綠**"
+    },
+    {
+      "probe": "3/3 一致足以支撐「不一致率很低」",
+      "passed": false,
+      "detail": "🚨 **三法則在 n=3 退化成 3/3 ＝ 100%，等於什麼都沒說**——⚠️ 故改用精確二項上界：(1-p)^3 = 0.05 ⇒ 真實不一致率的 95% 單側上界 ≈ **63%**。🚫 這不是說結果不好，✅ 是說 n=3 撐不起「很低」這個詞"
+    }
+  ],
+  "auditHash": "sha256:b07a28877193ea9833b862954cd62bbb647b74dd3d33255c4fbfc247eb043314"
+}
