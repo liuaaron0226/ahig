@@ -1,0 +1,170 @@
+{
+  "schemaVersion": 1,
+  "documentType": "scale-identity-elsewhere",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "inScopeWithoutInstrument": 60,
+  "inScopeWithInstrument": 38,
+  "papersAffected": {
+    "65dd82a89b2c5340": 7,
+    "1105537918c174c9": 7,
+    "59b4558a37f28bc9": 6,
+    "e8d48c04f919dbb0": 4,
+    "a9012191142e7e02": 4,
+    "86e6a580108fd94b": 3,
+    "d4149a8bac287851": 3,
+    "834de4d822dfb3cd": 3,
+    "081d147cd92dee14": 2,
+    "7902e3ec54370729": 2,
+    "dbdb6ea55c9667c3": 2,
+    "48da8a7f2f35af1f": 2,
+    "358bbf2c1886ac4b": 2,
+    "6b7320d74cdda857": 2,
+    "8a62d501f88c7d04": 2,
+    "9a3b03b4fb24cf65": 2,
+    "eac2b5fd6bb06843": 2,
+    "298c326024d22835": 2,
+    "e4871d50d0001e66": 1,
+    "66e16f089f1522d1": 1,
+    "7a97713bf254fa26": 1
+  },
+  "profileWithoutInstrument": {
+    "localLabel": {
+      "filled": 60,
+      "of": 60,
+      "fillRate": 1.0,
+      "distinct": 59
+    },
+    "unitAsReported": {
+      "filled": 20,
+      "of": 60,
+      "fillRate": 0.333,
+      "distinct": 4
+    },
+    "outcomeRoleAsStated": {
+      "filled": 60,
+      "of": 60,
+      "fillRate": 1.0,
+      "distinct": 1
+    },
+    "sourceLocation": {
+      "filled": 60,
+      "of": 60,
+      "fillRate": 1.0,
+      "distinct": 23
+    },
+    "effectMeasure": {
+      "filled": 60,
+      "of": 60,
+      "fillRate": 1.0,
+      "distinct": 2
+    },
+    "analysisSet": {
+      "filled": 60,
+      "of": 60,
+      "fillRate": 1.0,
+      "distinct": 1
+    },
+    "reportedTimepoints": {
+      "filled": 0,
+      "of": 60,
+      "fillRate": 0.0,
+      "distinct": 0
+    },
+    "instrument": {
+      "filled": 0,
+      "of": 60,
+      "fillRate": 0.0,
+      "distinct": 0
+    }
+  },
+  "profileWithInstrument": {
+    "localLabel": {
+      "filled": 38,
+      "of": 38,
+      "fillRate": 1.0,
+      "distinct": 38
+    },
+    "unitAsReported": {
+      "filled": 7,
+      "of": 38,
+      "fillRate": 0.184,
+      "distinct": 4
+    },
+    "outcomeRoleAsStated": {
+      "filled": 6,
+      "of": 38,
+      "fillRate": 0.158,
+      "distinct": 1
+    },
+    "sourceLocation": {
+      "filled": 38,
+      "of": 38,
+      "fillRate": 1.0,
+      "distinct": 24
+    },
+    "effectMeasure": {
+      "filled": 38,
+      "of": 38,
+      "fillRate": 1.0,
+      "distinct": 1
+    },
+    "analysisSet": {
+      "filled": 38,
+      "of": 38,
+      "fillRate": 1.0,
+      "distinct": 1
+    },
+    "reportedTimepoints": {
+      "filled": 0,
+      "of": 38,
+      "fillRate": 0.0,
+      "distinct": 0
+    },
+    "instrument": {
+      "filled": 38,
+      "of": 38,
+      "fillRate": 1.0,
+      "distinct": 6
+    }
+  },
+  "criterion": {
+    "fillRate": 0.5,
+    "distinct": 5
+  },
+  "possibleCarriers": [
+    "localLabel",
+    "sourceLocation"
+  ],
+  "criterionFalsePositive": "🚨 本支的判準是**純結構的**（填答率＋相異值），⚠️ 分不出「描述欄位」與「定位欄位」——`sourceLocation` 會入選，但它是頁碼／章節／表號，**🚫 它說得出去哪裡找，說不出量的是什麼**。✅ 真正的候選只有 `localLabel` 一個。",
+  "locatorCoverage": "✅ 而 `sourceLocation` 100% 填答這件事本身有用：**要補那 60 項的儀器，🚫 不必重讀 21 篇全文，✅ 只要跳到那 23 個定位點。**",
+  "whyThisMatters": "⚠️ 第 667 輪指出 60／98 沒有儀器紀錄。🚨 若量表身分其實在別欄，要補的是**對映**；🚫 若哪裡都沒有，要補的是**回去把 60 項重讀一遍**——✅ 成本差一個數量級，而裁定需要知道是哪一種。",
+  "methodLimit": "🚨 本支只算**填答率與相異值數**，🚫 一個欄位值都沒有輸出，⚠️ 也**證不出那些相異值裡面就是量表名稱**——✅ 高相異度的自由文字欄位「可能」承載它，🚫 但要確認得讀，而讀是 n+187 的視窗。",
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "controlProbes": [
+    {
+      "probe": "抓到的正是第 667 輪那 60 項（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 無儀器 60 項／有儀器 38 項；⚠️ 對不上就與上一輪不一致"
+    },
+    {
+      "probe": "那 60 項的 instrument 欄必須是 0 填答（必觸發之反向・恆等）",
+      "passed": true,
+      "detail": "🚨 無儀器組的 instrument 填答 0；有儀器組 38／38；⚠️ 若無儀器組不是 0，代表本支分組分錯了"
+    },
+    {
+      "probe": "判準真的會篩掉低相異度的欄位（必觸發之反向）",
+      "passed": true,
+      "detail": "🚨 analysisSet 填答 100%／相異 1，判為「不可能承載量表身分」；⚠️ 若它也入選，代表判準只是在挑「填得多的欄位」"
+    },
+    {
+      "probe": "量表身分 🚫 沒有記在任何其他欄位",
+      "passed": false,
+      "detail": "🚨 可能承載量表身分的欄位（填答率 ≥ 50% 且相異值 ≥ 5）：['localLabel', 'sourceLocation']；⚠️ 若有，補的是**對映**；🚫 若沒有，補的是**回去重讀 60 項**"
+    }
+  ],
+  "auditHash": "sha256:c0b0dbb2dad752c4abea31a32189d5f55b768812f9314ea540f558f4b897d679"
+}
