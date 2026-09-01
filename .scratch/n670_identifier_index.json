@@ -2,8 +2,8 @@
   "schemaVersion": 2,
   "documentType": "identifier-index",
   "notAGate": "🚫 不入輪次閘門（n+181 三）",
-  "identifiers": 471,
-  "artefactsIndexed": 185,
+  "identifiers": 472,
+  "artefactsIndexed": 186,
   "index": {
     "0000000000000000": [
       "n538_tei_crlf_monitor.json",
@@ -764,7 +764,8 @@
       "n664_vocabulary_upper_bound.json",
       "n665_blocked_gate_depth.json",
       "n669_decision_register_v3.json",
-      "n670_identifier_index.json"
+      "n670_identifier_index.json",
+      "n671_retro_suite.json"
     ],
     "7a97713bf254fa26": [
       "n548_incremental_rounds.json",
@@ -1153,7 +1154,8 @@
       "n662_double_read_fields.json",
       "n663_reader_vocabulary.json",
       "n669_decision_register_v3.json",
-      "n670_identifier_index.json"
+      "n670_identifier_index.json",
+      "n671_retro_suite.json"
     ],
     "acquired-corpus-verification": [
       "n496_corpus_verify.json",
@@ -1733,7 +1735,8 @@
       "n664_vocabulary_upper_bound.json",
       "n665_blocked_gate_depth.json",
       "n669_decision_register_v3.json",
-      "n670_identifier_index.json"
+      "n670_identifier_index.json",
+      "n671_retro_suite.json"
     ],
     "dose-proxy-validation": [
       "n627_dose_proxy_validation.json",
@@ -1853,7 +1856,8 @@
       "n664_vocabulary_upper_bound.json",
       "n665_blocked_gate_depth.json",
       "n669_decision_register_v3.json",
-      "n670_identifier_index.json"
+      "n670_identifier_index.json",
+      "n671_retro_suite.json"
     ],
     "errata-originals-check": [
       "n670_identifier_index.json",
@@ -2089,7 +2093,8 @@
       "n666_blank_field_provenance.json",
       "n667_inscope_without_instrument.json",
       "n669_decision_register_v3.json",
-      "n670_identifier_index.json"
+      "n670_identifier_index.json",
+      "n671_retro_suite.json"
     ],
     "gi-symptom-severity": [
       "n51_all.json",
@@ -2115,7 +2120,8 @@
       "n666_blank_field_provenance.json",
       "n667_inscope_without_instrument.json",
       "n669_decision_register_v3.json",
-      "n670_identifier_index.json"
+      "n670_identifier_index.json",
+      "n671_retro_suite.json"
     ],
     "glycogen-utilisation-not-concentration": [
       "n587_zero_declared_adjudication.json",
@@ -2324,7 +2330,8 @@
       "n665_blocked_gate_depth.json",
       "n667_inscope_without_instrument.json",
       "n669_decision_register_v3.json",
-      "n670_identifier_index.json"
+      "n670_identifier_index.json",
+      "n671_retro_suite.json"
     ],
     "n49-abstract-availability-result": [
       "n49_result.json",
@@ -2363,7 +2370,8 @@
       "n662_double_read_fields.json",
       "n663_reader_vocabulary.json",
       "n669_decision_register_v3.json",
-      "n670_identifier_index.json"
+      "n670_identifier_index.json",
+      "n671_retro_suite.json"
     ],
     "no-numbers-yet": [
       "n659_no_numbers_yet.json",
@@ -2448,7 +2456,8 @@
       "n664_vocabulary_upper_bound.json",
       "n665_blocked_gate_depth.json",
       "n669_decision_register_v3.json",
-      "n670_identifier_index.json"
+      "n670_identifier_index.json",
+      "n671_retro_suite.json"
     ],
     "notExtracted-effect-measure-not-in-scope": [
       "n586_zero_contribution_census.json",
@@ -2460,7 +2469,8 @@
       "n664_vocabulary_upper_bound.json",
       "n665_blocked_gate_depth.json",
       "n669_decision_register_v3.json",
-      "n670_identifier_index.json"
+      "n670_identifier_index.json",
+      "n671_retro_suite.json"
     ],
     "notExtracted-instrument-not-in-allowlist": [
       "n574_instrument_exclusions.json",
@@ -2701,6 +2711,9 @@
     "retraction-live-recheck": [
       "n501_retraction_recheck.json",
       "n670_identifier_index.json"
+    ],
+    "retro-lookup-suite": [
+      "n671_retro_suite.json"
     ],
     "review-source-review": [
       "n670_identifier_index.json",
@@ -3175,7 +3188,7 @@
     },
     "top": [
       {
-        "artefact": "n574_instrument_exclusions.json",
+        "artefact": "n585_blocked_drafts_errata.json",
         "score": 11.27,
         "matched": [
           "7a6ac1559c740fd6",
@@ -3195,7 +3208,7 @@
         ]
       },
       {
-        "artefact": "n585_blocked_drafts_errata.json",
+        "artefact": "n574_instrument_exclusions.json",
         "score": 11.27,
         "matched": [
           "7a6ac1559c740fd6",
@@ -3214,7 +3227,7 @@
         ]
       },
       {
-        "artefact": "n615_flat_hierarchy.json",
+        "artefact": "n595_second_read_invisible.json",
         "score": 4.1,
         "matched": [
           "7a6ac1559c740fd6",
@@ -3232,15 +3245,15 @@
     "n662_double_read_fields.json": {
       "queriedWith": [
         "double-read-field-agreement",
-        "cycling-tte-fixed-intensity",
         "cycling-time-to-exhaustion-fixed-power",
+        "cycling-tte-fixed-intensity",
         "acid-hydrolysis-freeze-dried-biopsy",
         "needle-biopsy-vastus-lateralis"
       ],
       "rarestIdentifier": "double-read-field-agreement",
       "rarestWeight": 4.53,
       "closestEarlierArtefact": "n585_blocked_drafts_errata.json",
-      "closestScore": 13.2,
+      "closestScore": 12.9,
       "itsDecisions": [
         "D2"
       ]
@@ -3248,9 +3261,9 @@
     "n663_reader_vocabulary.json": {
       "queriedWith": [
         "reader-vocabulary-scope-effect",
-        "cycling-tte-fixed-intensity",
         "notExtracted-outcome-not-in-scope",
         "cycling-time-to-exhaustion-fixed-power",
+        "cycling-tte-fixed-intensity",
         "outcome-not-in-scope"
       ],
       "rarestIdentifier": "reader-vocabulary-scope-effect",
@@ -3264,29 +3277,29 @@
     "n664_vocabulary_upper_bound.json": {
       "queriedWith": [
         "instrument-vocabulary-upper-bound",
-        "notExtracted-effect-measure-not-in-scope",
+        "notExtracted-instrument-not-in-allowlist",
         "notExtracted-dose-outside-bands",
-        "effect-measure-not-in-scope",
-        "notExtracted-instrument-not-in-allowlist"
+        "notExtracted-no-numeric-result",
+        "notExtracted-effect-measure-not-in-scope"
       ],
       "rarestIdentifier": "instrument-vocabulary-upper-bound",
       "rarestWeight": 4.53,
-      "closestEarlierArtefact": "n636_headline_reconciliation.json",
-      "closestScore": 11.7,
+      "closestEarlierArtefact": "n643_corpus_to_evidence_funnel.json",
+      "closestScore": 11.4,
       "itsDecisions": []
     },
     "n665_blocked_gate_depth.json": {
       "queriedWith": [
         "blocked-item-gate-depth",
-        "effect-measure-not-in-scope",
+        "notExtracted-instrument-not-in-allowlist",
+        "notExtracted-no-numeric-result",
         "notExtracted-effect-measure-not-in-scope",
-        "notExtracted-dose-outside-bands",
-        "notExtracted-instrument-not-in-allowlist"
+        "notExtracted-dose-outside-bands"
       ],
       "rarestIdentifier": "blocked-item-gate-depth",
       "rarestWeight": 4.53,
-      "closestEarlierArtefact": "n636_headline_reconciliation.json",
-      "closestScore": 11.7,
+      "closestEarlierArtefact": "n643_corpus_to_evidence_funnel.json",
+      "closestScore": 11.4,
       "itsDecisions": []
     },
     "n666_blank_field_provenance.json": {
@@ -3299,7 +3312,7 @@
       ],
       "rarestIdentifier": "blank-field-provenance",
       "rarestWeight": 4.53,
-      "closestEarlierArtefact": "n615_flat_hierarchy.json",
+      "closestEarlierArtefact": "n646_loss_ledger_by_outcome.json",
       "closestScore": 9.4,
       "itsDecisions": []
     },
@@ -3309,12 +3322,12 @@
         "358bbf2c1886ac4b",
         "e4871d50d0001e66",
         "66e16f089f1522d1",
-        "59b4558a37f28bc9"
+        "7a97713bf254fa26"
       ],
       "rarestIdentifier": "in-scope-without-instrument",
       "rarestWeight": 4.53,
-      "closestEarlierArtefact": "n615_flat_hierarchy.json",
-      "closestScore": 10.3,
+      "closestEarlierArtefact": "n622_attestation_audit.json",
+      "closestScore": 10.4,
       "itsDecisions": []
     },
     "n668_scale_identity_elsewhere.json": {
@@ -3323,26 +3336,26 @@
         "358bbf2c1886ac4b",
         "e4871d50d0001e66",
         "66e16f089f1522d1",
-        "59b4558a37f28bc9"
+        "7a97713bf254fa26"
       ],
       "rarestIdentifier": "scale-identity-elsewhere",
       "rarestWeight": 4.53,
-      "closestEarlierArtefact": "n615_flat_hierarchy.json",
-      "closestScore": 10.3,
+      "closestEarlierArtefact": "n622_attestation_audit.json",
+      "closestScore": 10.4,
       "itsDecisions": []
     },
     "n669_decision_register_v3.json": {
       "queriedWith": [
         "pending-decision-register",
-        "cycling-time-to-exhaustion-fixed-power",
         "cycling-tte-fixed-intensity",
+        "cycling-time-to-exhaustion-fixed-power",
         "acid-hydrolysis-freeze-dried-biopsy",
         "needle-biopsy-vastus-lateralis"
       ],
       "rarestIdentifier": "pending-decision-register",
       "rarestWeight": 4.53,
       "closestEarlierArtefact": "n585_blocked_drafts_errata.json",
-      "closestScore": 13.2,
+      "closestScore": 12.9,
       "itsDecisions": [
         "D2"
       ]
@@ -3350,6 +3363,7 @@
   },
   "firstVersionWasWrong": "🚨 本支第一版用「報告代號 ＋ 契約結局**都要命中**」查，**查不到 n594——因為 n594 裡根本沒有報告代號**。✅ 真正該當鑰匙的是稀有的**儀器名稱**。⚠️ 那一版的「舊地重遊率」也每一支都是 100%%，**🚨 全滿的指標沒有鑑別力**，已整支換掉。",
   "howToUse": "✅ 開一輪之前，把手上的識別字丟進 `search`，**🚨 看前五名有沒有掛著決策的舊憑證——有就先讀它。**",
+  "correctedBy": "🚨 `n671_retro_suite.json`（第 671 輪）驗過底下那句 methodLimit：**⚠️ 它一半是錯的**。✅ 實測：D6 那次只要查詢帶上**理由碼**就查得到 n588，並連得到 D5／D6。**🚨 而 D4 那次若只用報告代號與結局代號，名次是 18／32、連不到任何決策**——✅ 故真正的規矩是「查詢必須帶爭點的識別字」，🚫 不是「識別字救不了 D6 那類」。",
   "methodLimit": "🚨 本支只索引**識別字**，🚫 索引不到「同一件事用不同識別字談」——⚠️ 第 667 輪的「GI 佔六成」與 D6 沒有共同的稀有識別字，**故這支救得了 D4 那次，救不了 D6 那次**。✅ 寫在這裡，🚫 免得下次高估它。",
   "privateRoot": {
     "privateRootVerified": true,
@@ -3360,7 +3374,7 @@
     {
       "probe": "索引真的建起來了（必觸發之正對照）",
       "passed": true,
-      "detail": "🚨 識別字 471 個、憑證 185 支；⚠️ 太少代表樣式沒抓到東西"
+      "detail": "🚨 識別字 472 個、憑證 186 支；⚠️ 太少代表樣式沒抓到東西"
     },
     {
       "probe": "查捏造的識別字必須查無（必觸發之反向）",
@@ -3370,12 +3384,12 @@
     {
       "probe": "稀有度權重真的分得開（必觸發之反向）",
       "passed": true,
-      "detail": "🚨 最普遍者 `7a6ac1559c740fd6` 出現 31／185 支、權重 1.79；最稀有者出現 2 支、權重 4.53；倍率 2.5；⚠️ 倍率接近 1 就代表排序只是在數命中次數"
+      "detail": "🚨 最普遍者 `7a6ac1559c740fd6` 出現 32／186 支、權重 1.76；最稀有者出現 1 支、權重 5.23；倍率 3.0；⚠️ 倍率接近 1 就代表排序只是在數命中次數"
     },
     {
       "probe": "只用第 663 輪之前的憑證，n594 排得進前 5 且連得到 D4（必觸發之回溯）",
       "passed": true,
-      "detail": "🚨 前 5 名：[('n574_instrument_exclusions.json', 11.3), ('n662_double_read_fields.json', 11.3), ('n585_blocked_drafts_errata.json', 11.3), ('n594_a3_first_measurement.json', 9.4), ('n615_flat_hierarchy.json', 4.1)]；n594 名次 4；連到的決策 ['D2', 'D4']；⚠️ 排不進去就代表這支索引蓋不到真正發生過的失誤"
+      "detail": "🚨 前 5 名：[('n585_blocked_drafts_errata.json', 11.3), ('n662_double_read_fields.json', 11.3), ('n574_instrument_exclusions.json', 11.3), ('n594_a3_first_measurement.json', 9.4), ('n595_second_read_invisible.json', 4.1)]；n594 名次 4；連到的決策 ['D2', 'D4']；⚠️ 排不進去就代表這支索引蓋不到真正發生過的失誤"
     },
     {
       "probe": "這一串沒有任何一支「早該先讀某支已掛決策的舊憑證」",
@@ -3383,5 +3397,5 @@
       "detail": "🚨 3／8 支的最近舊憑證掛著決策：{'n662_double_read_fields.json': \"n585_blocked_drafts_errata.json → ['D2']\", 'n663_reader_vocabulary.json': \"n585_blocked_drafts_errata.json → ['D2']\", 'n669_decision_register_v3.json': \"n585_blocked_drafts_errata.json → ['D2']\"}；⚠️ 這正是第 669 輪發現的那件事，現在指得出是哪一支"
     }
   ],
-  "auditHash": "sha256:bcb6424e7069ef614b3de1e0487572e7ccb68bee58fa93d1e0a8ab02519f6047"
+  "auditHash": "sha256:53ab7646362d201ffdbad9738d1f1a5d4111d18d86bb51fee0372290641cf685"
 }

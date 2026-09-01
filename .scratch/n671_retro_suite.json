@@ -1,0 +1,213 @@
+{
+  "schemaVersion": 1,
+  "documentType": "retro-lookup-suite",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "corrects": "🚨 第 670 輪本室寫「這支救得了 D4 那次，救不了 D6 那次」——**⚠️ 那句話沒驗過，而且太滿**。✅ 實測：D6 那次只用實體識別字確實查不到（n588 得 0 分），🚨 但**加上理由碼就查得到，且連得到 D5／D6**。",
+  "refinedLimit": "✅ 真正的限制不是「識別字 vs 散文」，**🚨 是「查詢帶不帶爭點的識別字」**——⚠️ 實體識別字（誰、哪個結局）不夠，**必須帶上這一題真正在吵的那個記號**（儀器名稱、理由碼）。",
+  "cases": [
+    {
+      "case": "D4 那次（切片器械）",
+      "cutoffRound": 663,
+      "target": "n594_a3_first_measurement.json",
+      "decision": "D4",
+      "corpusSize": 177,
+      "targetIndexed": true,
+      "entityOnly": {
+        "query": [
+          "7a6ac1559c740fd6",
+          "muscle-glycogen-post-exercise"
+        ],
+        "queryWeights": {
+          "7a6ac1559c740fd6": 1.92,
+          "muscle-glycogen-post-exercise": 2.18
+        },
+        "candidates": 32,
+        "top": [
+          {
+            "artefact": "n628_evidence_thinness.json",
+            "score": 4.1
+          },
+          {
+            "artefact": "n647_recovery_ledger.json",
+            "score": 4.1
+          },
+          {
+            "artefact": "n574_instrument_exclusions.json",
+            "score": 4.1
+          },
+          {
+            "artefact": "n644_screening_vs_extraction.json",
+            "score": 4.1
+          },
+          {
+            "artefact": "n641_double_read_state.json",
+            "score": 4.1
+          }
+        ],
+        "rankOfTarget": 18,
+        "targetScore": 2.18,
+        "decisionsReached": []
+      },
+      "entityPlusIssue": {
+        "query": [
+          "7a6ac1559c740fd6",
+          "muscle-glycogen-post-exercise",
+          "needle-biopsy-vastus-lateralis",
+          "acid-hydrolysis-freeze-dried-biopsy"
+        ],
+        "queryWeights": {
+          "7a6ac1559c740fd6": 1.92,
+          "muscle-glycogen-post-exercise": 2.18,
+          "needle-biopsy-vastus-lateralis": 3.38,
+          "acid-hydrolysis-freeze-dried-biopsy": 3.79
+        },
+        "candidates": 34,
+        "top": [
+          {
+            "artefact": "n574_instrument_exclusions.json",
+            "score": 11.27
+          },
+          {
+            "artefact": "n662_double_read_fields.json",
+            "score": 11.27
+          },
+          {
+            "artefact": "n585_blocked_drafts_errata.json",
+            "score": 11.27
+          },
+          {
+            "artefact": "n594_a3_first_measurement.json",
+            "score": 9.35
+          },
+          {
+            "artefact": "n628_evidence_thinness.json",
+            "score": 4.1
+          }
+        ],
+        "rankOfTarget": 4,
+        "targetScore": 9.35,
+        "decisionsReached": [
+          "D2",
+          "D4"
+        ]
+      }
+    },
+    {
+      "case": "D6 那次（median 與 GI 家族）",
+      "cutoffRound": 664,
+      "target": "n588_reason_code_conflation.json",
+      "decision": "D6",
+      "corpusSize": 178,
+      "targetIndexed": true,
+      "entityOnly": {
+        "query": [
+          "gi-symptom-severity",
+          "gi-symptom-incidence"
+        ],
+        "queryWeights": {
+          "gi-symptom-severity": 2.24,
+          "gi-symptom-incidence": 2.35
+        },
+        "candidates": 21,
+        "top": [
+          {
+            "artefact": "n628_evidence_thinness.json",
+            "score": 4.59
+          },
+          {
+            "artefact": "n647_recovery_ledger.json",
+            "score": 4.59
+          },
+          {
+            "artefact": "n645_dose_gate_by_outcome.json",
+            "score": 4.59
+          },
+          {
+            "artefact": "n51_all.json",
+            "score": 4.59
+          },
+          {
+            "artefact": "n644_screening_vs_extraction.json",
+            "score": 4.59
+          }
+        ],
+        "rankOfTarget": null,
+        "targetScore": 0.0,
+        "decisionsReached": []
+      },
+      "entityPlusIssue": {
+        "query": [
+          "gi-symptom-severity",
+          "gi-symptom-incidence",
+          "notExtracted-effect-measure-not-in-scope",
+          "notExtracted-dose-outside-bands"
+        ],
+        "queryWeights": {
+          "gi-symptom-severity": 2.24,
+          "gi-symptom-incidence": 2.35,
+          "notExtracted-effect-measure-not-in-scope": 3.39,
+          "notExtracted-dose-outside-bands": 3.39
+        },
+        "candidates": 28,
+        "top": [
+          {
+            "artefact": "n639_decision_space_coverage.json",
+            "score": 6.78
+          },
+          {
+            "artefact": "n586_zero_contribution_census.json",
+            "score": 6.78
+          },
+          {
+            "artefact": "n643_corpus_to_evidence_funnel.json",
+            "score": 6.78
+          },
+          {
+            "artefact": "n636_headline_reconciliation.json",
+            "score": 6.78
+          },
+          {
+            "artefact": "n588_reason_code_conflation.json",
+            "score": 6.78
+          }
+        ],
+        "rankOfTarget": 5,
+        "targetScore": 6.78,
+        "decisionsReached": [
+          "D5",
+          "D6"
+        ]
+      }
+    }
+  ],
+  "howToUse": "✅ 開一輪之前，把手上的識別字丟進 n670 的索引查，**🚨 而查詢一定要包含爭點的識別字（理由碼、儀器名稱），🚫 不要只丟報告代號與結局代號。**",
+  "methodLimit": "⚠️ 本支只有 **2** 個回溯案例，🚫 不足以說「這個規矩永遠成立」；✅ 但它足以說「上一輪那句話講得太滿」——🚨 因為只要一個反例就夠了，而 D6 那次正是反例。",
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "controlProbes": [
+    {
+      "probe": "兩個目標憑證都在各自的截止語料裡（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 {'D4 那次（切片器械）': True, 'D6 那次（median 與 GI 家族）': True}；⚠️ 不在的話「查不到」只是因為它還沒存在，🚫 不是查法的問題"
+    },
+    {
+      "probe": "D6 那次「只用實體識別字」必須查不到（必觸發之反向）",
+      "passed": true,
+      "detail": "🚨 只用實體：n588 得分 0.00、名次 未進榜、連到 無；⚠️ 若這樣就查得到，兩種查法沒有差別，本支等於沒說話"
+    },
+    {
+      "probe": "加上爭點識別字之後，兩次都連得到對應決策（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 {'D4 那次（切片器械）': ['D2', 'D4'], 'D6 那次（median 與 GI 家族）': ['D5', 'D6']}；⚠️ 連不到就代表這個查法也救不了"
+    },
+    {
+      "probe": "只用實體識別字就查得到——🚫 不必特別帶爭點",
+      "passed": false,
+      "detail": "🚨 只用實體時連到的決策：{'D4 那次（切片器械）': '無', 'D6 那次（median 與 GI 家族）': '無'}；⚠️ 有一次連不到，就代表「查詢必須帶爭點的識別字」是硬規矩"
+    }
+  ],
+  "auditHash": "sha256:283b35d85a1a69f8a976cea29564a1b670e41549aba3ce91469ff98556b5cc99"
+}
