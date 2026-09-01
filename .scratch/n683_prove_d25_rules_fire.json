@@ -1,0 +1,163 @@
+{
+  "schemaVersion": 1,
+  "documentType": "prove-d25-rules-fire",
+  "canaryClassInstances": {
+    "QuantitativeStudyResult": 0,
+    "StudyResult": 4
+  },
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "followsFrom": "n682（53 條規則從未被點亮，其中 21 條是 D25 要踩的）",
+  "baselineConforms": true,
+  "rulesUnderTest": [
+    "PS-pointEstimate",
+    "PS-uncertaintyInterval",
+    "PS-exactQuote",
+    "PS-uniqueMatch",
+    "PS-citationAnchor",
+    "PS-deterministicCheckReport",
+    "PS-sourceManifestation"
+  ],
+  "rows": [
+    {
+      "rule": "PS-pointEstimate",
+      "path": "pointEstimate",
+      "targetClass": "QuantitativeStudyResult",
+      "addedTypeDeclaration": true,
+      "mutationKind": "補上型別宣告",
+      "triplesRemoved": 0,
+      "conformsAfterMutation": false,
+      "firedShapes": [
+        "PS-pointEstimate",
+        "PS-uncertaintyInterval"
+      ],
+      "expectedFired": true
+    },
+    {
+      "rule": "PS-uncertaintyInterval",
+      "path": "uncertaintyInterval",
+      "targetClass": "QuantitativeStudyResult",
+      "addedTypeDeclaration": true,
+      "mutationKind": "補上型別宣告",
+      "triplesRemoved": 0,
+      "conformsAfterMutation": false,
+      "firedShapes": [
+        "PS-pointEstimate",
+        "PS-uncertaintyInterval"
+      ],
+      "expectedFired": true
+    },
+    {
+      "rule": "PS-exactQuote",
+      "path": "exactQuote",
+      "targetClass": "CitationAnchor",
+      "addedTypeDeclaration": false,
+      "mutationKind": "拿掉屬性",
+      "triplesRemoved": 1,
+      "conformsAfterMutation": false,
+      "firedShapes": [
+        "PS-exactQuote"
+      ],
+      "expectedFired": true
+    },
+    {
+      "rule": "PS-uniqueMatch",
+      "path": "uniqueMatch",
+      "targetClass": "CitationAnchor",
+      "addedTypeDeclaration": false,
+      "mutationKind": "拿掉屬性",
+      "triplesRemoved": 1,
+      "conformsAfterMutation": false,
+      "firedShapes": [
+        "CitationAnchorUniqueMatchShape",
+        "PS-uniqueMatch"
+      ],
+      "expectedFired": true
+    },
+    {
+      "rule": "PS-citationAnchor",
+      "path": "citationAnchor",
+      "targetClass": "StudyResult",
+      "addedTypeDeclaration": false,
+      "mutationKind": "拿掉屬性",
+      "triplesRemoved": 1,
+      "conformsAfterMutation": false,
+      "firedShapes": [
+        "PS-citationAnchor"
+      ],
+      "expectedFired": true
+    },
+    {
+      "rule": "PS-deterministicCheckReport",
+      "path": "deterministicCheckReport",
+      "targetClass": "StudyResult",
+      "addedTypeDeclaration": false,
+      "mutationKind": "拿掉屬性",
+      "triplesRemoved": 1,
+      "conformsAfterMutation": false,
+      "firedShapes": [
+        "PS-deterministicCheckReport"
+      ],
+      "expectedFired": true
+    },
+    {
+      "rule": "PS-sourceManifestation",
+      "path": "sourceManifestation",
+      "targetClass": "CitationAnchor",
+      "addedTypeDeclaration": false,
+      "mutationKind": "拿掉屬性",
+      "triplesRemoved": 1,
+      "conformsAfterMutation": false,
+      "firedShapes": [
+        "PS-sourceManifestation"
+      ],
+      "expectedFired": true
+    }
+  ],
+  "provenToFire": [
+    "PS-pointEstimate",
+    "PS-uncertaintyInterval",
+    "PS-exactQuote",
+    "PS-uniqueMatch",
+    "PS-citationAnchor",
+    "PS-deterministicCheckReport",
+    "PS-sourceManifestation"
+  ],
+  "notProven": [],
+  "method": "✅ 從**已知合法**的正向對照出發，**一次只拿掉一個屬性**，🚨 要求（一）不再 conforms（二）亮的是**預期那一條**。⚠️ 與第 640 輪對產品判定器做的突變是同一套。",
+  "honestNote": "⚠️ `QuantitativeStudyResult` 的兩條規則在原對照上不會觸發（那個節點只宣告成 `StudyResult`），✅ 故本支對它們**先補上型別宣告**——🚨 這一步已逐條記在 `addedTypeDeclaration` 裡，🚫 不藏。",
+  "whatThisChanges": "✅ 這幾條從「**沒人看過它亮**」變成「**看過它亮**」。🚫 本支不宣稱其餘 14 條也沒問題——⚠️ 它們仍未被觀測過。",
+  "contentDiscipline": "✅ 資料全部來自 repo 內的對照檔與本支的刪除操作，🚫 不含任何文獻內容（n+195 一）。",
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "controlProbes": [
+    {
+      "probe": "未改動的正向對照必須通過（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 未改動時 conforms=True；⚠️ 若它自己就過不了，底下每一條突變都測不到自己想測的東西"
+    },
+    {
+      "probe": "每一次突變都真的動到了資料（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 突變方式：{'PS-pointEstimate': '補上型別宣告（刪 0）', 'PS-uncertaintyInterval': '補上型別宣告（刪 0）', 'PS-exactQuote': '拿掉屬性（刪 1）', 'PS-uniqueMatch': '拿掉屬性（刪 1）', 'PS-citationAnchor': '拿掉屬性（刪 1）', 'PS-deterministicCheckReport': '拿掉屬性（刪 1）', 'PS-sourceManifestation': '拿掉屬性（刪 1）'}；⚠️ 什麼都沒動的話，那次突變等於沒做"
+    },
+    {
+      "probe": "突變之後必須不再 conforms（必觸發之反向）",
+      "passed": true,
+      "detail": "🚨 突變後仍 conforms 的：無；⚠️ 仍通過就代表那條規則沒在擋"
+    },
+    {
+      "probe": "每一條受測規則都被證明會亮，且亮的是它自己",
+      "passed": true,
+      "detail": "🚨 證明會亮 7 條；未證明的 0 條：無；⚠️ 只是「不 conforms」不夠——**必須是預期的那一條擋下來的**，🚫 否則規則改壞了也測不出來"
+    },
+    {
+      "probe": "對照組裡有量化結果的實例（必觸發之正對照）",
+      "passed": false,
+      "detail": "🚨 對照組裡 `StudyResult` 實例 4 個、**`QuantitativeStudyResult` 實例 0 個**；⚠️ 後者為 0 代表 **D25 要產出的那個類別，正負向對照都沒有**——✅ 而前者不為 0 證明本支數得到東西，🚫 不是計數壞了"
+    }
+  ],
+  "auditHash": "sha256:2d54e514733bd7a15015fa564a556429561d89d516e26fec7e4f44df5a87eb9f"
+}
