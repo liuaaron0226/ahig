@@ -1,0 +1,1098 @@
+{
+  "schemaVersion": 1,
+  "documentType": "screening-vs-extraction",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "contentDiscipline": "✅ 只輸出結局代號與計數；🚫 不輸出判詞文字。",
+  "corpus": 41,
+  "contributing": 25,
+  "zeroContribution": 13,
+  "withoutInventory": 3,
+  "clueHitRate": {
+    "有貢獻的篇": 0.96,
+    "零貢獻的篇": 0.923
+  },
+  "screeningLevelContradictions": [
+    {
+      "report": "c97d2ed84b0d1057",
+      "hasScreeningReason": true,
+      "screeningClues": [
+        "tt-completion-time"
+      ],
+      "labelClues": [
+        "exogenous-cho-oxidation-peak",
+        "tt-completion-time"
+      ],
+      "declared": 17,
+      "inScope": 0,
+      "contractRefsUsed": []
+    },
+    {
+      "report": "0eea079e79bf7913",
+      "hasScreeningReason": true,
+      "screeningClues": [
+        "exogenous-cho-oxidation-peak",
+        "time-to-exhaustion"
+      ],
+      "labelClues": [
+        "exogenous-cho-oxidation-peak",
+        "gi-symptom",
+        "time-to-exhaustion"
+      ],
+      "declared": 9,
+      "inScope": 0,
+      "contractRefsUsed": [
+        "gi-symptom-incidence",
+        "time-to-exhaustion"
+      ]
+    },
+    {
+      "report": "7a6ac1559c740fd6",
+      "hasScreeningReason": true,
+      "screeningClues": [
+        "muscle-glycogen-post-exercise"
+      ],
+      "labelClues": [
+        "exogenous-cho-oxidation-peak",
+        "muscle-glycogen-post-exercise"
+      ],
+      "declared": 45,
+      "inScope": 0,
+      "contractRefsUsed": [
+        "muscle-glycogen-post-exercise",
+        "time-to-exhaustion"
+      ]
+    },
+    {
+      "report": "b9ab2f27317a6a2b",
+      "hasScreeningReason": true,
+      "screeningClues": [
+        "exogenous-cho-oxidation-peak",
+        "muscle-glycogen-post-exercise"
+      ],
+      "labelClues": [
+        "exogenous-cho-oxidation-peak",
+        "muscle-glycogen-post-exercise"
+      ],
+      "declared": 37,
+      "inScope": 0,
+      "contractRefsUsed": []
+    },
+    {
+      "report": "c3028a8a7b1ae2a1",
+      "hasScreeningReason": true,
+      "screeningClues": [
+        "gi-symptom"
+      ],
+      "labelClues": [
+        "gi-symptom"
+      ],
+      "declared": 33,
+      "inScope": 0,
+      "contractRefsUsed": [
+        "gi-symptom-incidence",
+        "gi-symptom-severity"
+      ]
+    },
+    {
+      "report": "ad7c0004c386f31c",
+      "hasScreeningReason": true,
+      "screeningClues": [
+        "gi-symptom",
+        "tt-completion-time"
+      ],
+      "labelClues": [
+        "gi-symptom"
+      ],
+      "declared": 30,
+      "inScope": 0,
+      "contractRefsUsed": [
+        "gi-symptom-incidence",
+        "gi-symptom-severity",
+        "tt-completion-time"
+      ]
+    },
+    {
+      "report": "c4128a6f6dd2c0b5",
+      "hasScreeningReason": true,
+      "screeningClues": [
+        "tt-completion-time"
+      ],
+      "labelClues": [
+        "exogenous-cho-oxidation-peak",
+        "tt-completion-time"
+      ],
+      "declared": 24,
+      "inScope": 0,
+      "contractRefsUsed": [
+        "tt-completion-time"
+      ]
+    },
+    {
+      "report": "54d4200c1c5e2b64",
+      "hasScreeningReason": true,
+      "screeningClues": [
+        "tt-completion-time"
+      ],
+      "labelClues": [
+        "tt-completion-time"
+      ],
+      "declared": 8,
+      "inScope": 0,
+      "contractRefsUsed": [
+        "tt-completion-time"
+      ]
+    },
+    {
+      "report": "82cbc04b68c38e79",
+      "hasScreeningReason": true,
+      "screeningClues": [
+        "time-to-exhaustion",
+        "tt-completion-time"
+      ],
+      "labelClues": [
+        "time-to-exhaustion",
+        "tt-completion-time"
+      ],
+      "declared": 13,
+      "inScope": 0,
+      "contractRefsUsed": [
+        "time-to-exhaustion",
+        "tt-completion-time"
+      ]
+    },
+    {
+      "report": "4103c4b52bbf21e6",
+      "hasScreeningReason": true,
+      "screeningClues": [
+        "tt-completion-time"
+      ],
+      "labelClues": [
+        "tt-completion-time"
+      ],
+      "declared": 10,
+      "inScope": 0,
+      "contractRefsUsed": []
+    },
+    {
+      "report": "97c2233f7e60c801",
+      "hasScreeningReason": true,
+      "screeningClues": [
+        "exogenous-cho-oxidation-peak",
+        "tt-completion-time"
+      ],
+      "labelClues": [
+        "exogenous-cho-oxidation-peak",
+        "gi-symptom",
+        "muscle-glycogen-post-exercise"
+      ],
+      "declared": 20,
+      "inScope": 0,
+      "contractRefsUsed": []
+    },
+    {
+      "report": "a6ce9c92c7454a7c",
+      "hasScreeningReason": true,
+      "screeningClues": [
+        "tt-completion-time"
+      ],
+      "labelClues": [
+        "tt-completion-time"
+      ],
+      "declared": 11,
+      "inScope": 0,
+      "contractRefsUsed": [
+        "tt-completion-time"
+      ]
+    }
+  ],
+  "labelLevelContradictions": [
+    {
+      "report": "c97d2ed84b0d1057",
+      "hasScreeningReason": true,
+      "screeningClues": [
+        "tt-completion-time"
+      ],
+      "labelClues": [
+        "exogenous-cho-oxidation-peak",
+        "tt-completion-time"
+      ],
+      "declared": 17,
+      "inScope": 0,
+      "contractRefsUsed": []
+    },
+    {
+      "report": "0eea079e79bf7913",
+      "hasScreeningReason": true,
+      "screeningClues": [
+        "exogenous-cho-oxidation-peak",
+        "time-to-exhaustion"
+      ],
+      "labelClues": [
+        "exogenous-cho-oxidation-peak",
+        "gi-symptom",
+        "time-to-exhaustion"
+      ],
+      "declared": 9,
+      "inScope": 0,
+      "contractRefsUsed": [
+        "gi-symptom-incidence",
+        "time-to-exhaustion"
+      ]
+    },
+    {
+      "report": "7a6ac1559c740fd6",
+      "hasScreeningReason": true,
+      "screeningClues": [
+        "muscle-glycogen-post-exercise"
+      ],
+      "labelClues": [
+        "exogenous-cho-oxidation-peak",
+        "muscle-glycogen-post-exercise"
+      ],
+      "declared": 45,
+      "inScope": 0,
+      "contractRefsUsed": [
+        "muscle-glycogen-post-exercise",
+        "time-to-exhaustion"
+      ]
+    },
+    {
+      "report": "b9ab2f27317a6a2b",
+      "hasScreeningReason": true,
+      "screeningClues": [
+        "exogenous-cho-oxidation-peak",
+        "muscle-glycogen-post-exercise"
+      ],
+      "labelClues": [
+        "exogenous-cho-oxidation-peak",
+        "muscle-glycogen-post-exercise"
+      ],
+      "declared": 37,
+      "inScope": 0,
+      "contractRefsUsed": []
+    },
+    {
+      "report": "c3028a8a7b1ae2a1",
+      "hasScreeningReason": true,
+      "screeningClues": [
+        "gi-symptom"
+      ],
+      "labelClues": [
+        "gi-symptom"
+      ],
+      "declared": 33,
+      "inScope": 0,
+      "contractRefsUsed": [
+        "gi-symptom-incidence",
+        "gi-symptom-severity"
+      ]
+    },
+    {
+      "report": "ad7c0004c386f31c",
+      "hasScreeningReason": true,
+      "screeningClues": [
+        "gi-symptom",
+        "tt-completion-time"
+      ],
+      "labelClues": [
+        "gi-symptom"
+      ],
+      "declared": 30,
+      "inScope": 0,
+      "contractRefsUsed": [
+        "gi-symptom-incidence",
+        "gi-symptom-severity",
+        "tt-completion-time"
+      ]
+    },
+    {
+      "report": "c4128a6f6dd2c0b5",
+      "hasScreeningReason": true,
+      "screeningClues": [
+        "tt-completion-time"
+      ],
+      "labelClues": [
+        "exogenous-cho-oxidation-peak",
+        "tt-completion-time"
+      ],
+      "declared": 24,
+      "inScope": 0,
+      "contractRefsUsed": [
+        "tt-completion-time"
+      ]
+    },
+    {
+      "report": "54d4200c1c5e2b64",
+      "hasScreeningReason": true,
+      "screeningClues": [
+        "tt-completion-time"
+      ],
+      "labelClues": [
+        "tt-completion-time"
+      ],
+      "declared": 8,
+      "inScope": 0,
+      "contractRefsUsed": [
+        "tt-completion-time"
+      ]
+    },
+    {
+      "report": "82cbc04b68c38e79",
+      "hasScreeningReason": true,
+      "screeningClues": [
+        "time-to-exhaustion",
+        "tt-completion-time"
+      ],
+      "labelClues": [
+        "time-to-exhaustion",
+        "tt-completion-time"
+      ],
+      "declared": 13,
+      "inScope": 0,
+      "contractRefsUsed": [
+        "time-to-exhaustion",
+        "tt-completion-time"
+      ]
+    },
+    {
+      "report": "4103c4b52bbf21e6",
+      "hasScreeningReason": true,
+      "screeningClues": [
+        "tt-completion-time"
+      ],
+      "labelClues": [
+        "tt-completion-time"
+      ],
+      "declared": 10,
+      "inScope": 0,
+      "contractRefsUsed": []
+    },
+    {
+      "report": "97c2233f7e60c801",
+      "hasScreeningReason": true,
+      "screeningClues": [
+        "exogenous-cho-oxidation-peak",
+        "tt-completion-time"
+      ],
+      "labelClues": [
+        "exogenous-cho-oxidation-peak",
+        "gi-symptom",
+        "muscle-glycogen-post-exercise"
+      ],
+      "declared": 20,
+      "inScope": 0,
+      "contractRefsUsed": []
+    },
+    {
+      "report": "a6ce9c92c7454a7c",
+      "hasScreeningReason": true,
+      "screeningClues": [
+        "tt-completion-time"
+      ],
+      "labelClues": [
+        "tt-completion-time"
+      ],
+      "declared": 11,
+      "inScope": 0,
+      "contractRefsUsed": [
+        "tt-completion-time"
+      ]
+    }
+  ],
+  "mappedThenRejected": [
+    {
+      "report": "0eea079e79bf7913",
+      "declared": 9,
+      "contractRefsUsed": [
+        "gi-symptom-incidence",
+        "time-to-exhaustion"
+      ]
+    },
+    {
+      "report": "7a6ac1559c740fd6",
+      "declared": 45,
+      "contractRefsUsed": [
+        "muscle-glycogen-post-exercise",
+        "time-to-exhaustion"
+      ]
+    },
+    {
+      "report": "c3028a8a7b1ae2a1",
+      "declared": 33,
+      "contractRefsUsed": [
+        "gi-symptom-incidence",
+        "gi-symptom-severity"
+      ]
+    },
+    {
+      "report": "ad7c0004c386f31c",
+      "declared": 30,
+      "contractRefsUsed": [
+        "gi-symptom-incidence",
+        "gi-symptom-severity",
+        "tt-completion-time"
+      ]
+    },
+    {
+      "report": "c4128a6f6dd2c0b5",
+      "declared": 24,
+      "contractRefsUsed": [
+        "tt-completion-time"
+      ]
+    },
+    {
+      "report": "54d4200c1c5e2b64",
+      "declared": 8,
+      "contractRefsUsed": [
+        "tt-completion-time"
+      ]
+    },
+    {
+      "report": "82cbc04b68c38e79",
+      "declared": 13,
+      "contractRefsUsed": [
+        "time-to-exhaustion",
+        "tt-completion-time"
+      ]
+    },
+    {
+      "report": "a6ce9c92c7454a7c",
+      "declared": 11,
+      "contractRefsUsed": [
+        "tt-completion-time"
+      ]
+    }
+  ],
+  "neverMappedToAnyContractRef": [
+    "c97d2ed84b0d1057",
+    "44243ac624c9b5e0",
+    "b9ab2f27317a6a2b",
+    "4103c4b52bbf21e6",
+    "97c2233f7e60c801"
+  ],
+  "theRealSplit": "🚨 零貢獻的 13 篇**不是同一種東西**：✅ 8 篇的讀者其實有把結局對到契約 ref，⚠️ 那些項目是在**後面的關卡**（劑量帶／效應量／儀器／無數值）被擋掉的——**🚫 它們不是離題**；🚨 另 5 篇則一項都沒對到任何契約 ref。**⚠️ 把這兩種混成「零貢獻」會讓前者看起來像後者。**",
+  "keywordApproachFailed": "🚨 本支原本要用關鍵字分辨「離題」與「映射失敗」。⚠️ 實測命中率：判詞層級 96%%／92%%，標籤層級 96%%／92%%——**兩種問法都沒有鑑別力**（語料本來就全是這個主題）。**✅ 故那條路答不出這個問題，本室把它記下來而不是硬套。**",
+  "discriminationNote": "🚨 判詞層級的規則命中率：有貢獻 96%、零貢獻 92%——**幾乎一樣**。⚠️ 即那條規則沒有鑑別力，**🚫 本支第一版差點把 12 篇報成映射失敗**。✅ 有意義的是標籤層級：有貢獻 96%、零貢獻 92%。",
+  "rows": [
+    {
+      "report": "86e6a580108fd94b",
+      "hasScreeningReason": true,
+      "screeningClues": [
+        "exogenous-cho-oxidation-peak",
+        "tt-completion-time"
+      ],
+      "labelClues": [
+        "exogenous-cho-oxidation-peak",
+        "gi-symptom",
+        "tt-completion-time"
+      ],
+      "declared": 17,
+      "inScope": 5
+    },
+    {
+      "report": "081d147cd92dee14",
+      "hasScreeningReason": true,
+      "screeningClues": [
+        "exogenous-cho-oxidation-peak"
+      ],
+      "labelClues": [
+        "exogenous-cho-oxidation-peak",
+        "gi-symptom"
+      ],
+      "declared": 17,
+      "inScope": 2
+    },
+    {
+      "report": "59b4558a37f28bc9",
+      "hasScreeningReason": true,
+      "screeningClues": [],
+      "labelClues": [
+        "exogenous-cho-oxidation-peak",
+        "gi-symptom"
+      ],
+      "declared": 25,
+      "inScope": 6
+    },
+    {
+      "report": "7902e3ec54370729",
+      "hasScreeningReason": true,
+      "screeningClues": [
+        "exogenous-cho-oxidation-peak",
+        "time-to-exhaustion"
+      ],
+      "labelClues": [
+        "exogenous-cho-oxidation-peak",
+        "gi-symptom",
+        "time-to-exhaustion"
+      ],
+      "declared": 20,
+      "inScope": 3
+    },
+    {
+      "report": "dbdb6ea55c9667c3",
+      "hasScreeningReason": true,
+      "screeningClues": [
+        "gi-symptom"
+      ],
+      "labelClues": [
+        "exogenous-cho-oxidation-peak",
+        "gi-symptom"
+      ],
+      "declared": 11,
+      "inScope": 2
+    },
+    {
+      "report": "c97d2ed84b0d1057",
+      "hasScreeningReason": true,
+      "screeningClues": [
+        "tt-completion-time"
+      ],
+      "labelClues": [
+        "exogenous-cho-oxidation-peak",
+        "tt-completion-time"
+      ],
+      "declared": 17,
+      "inScope": 0,
+      "contractRefsUsed": []
+    },
+    {
+      "report": "0eea079e79bf7913",
+      "hasScreeningReason": true,
+      "screeningClues": [
+        "exogenous-cho-oxidation-peak",
+        "time-to-exhaustion"
+      ],
+      "labelClues": [
+        "exogenous-cho-oxidation-peak",
+        "gi-symptom",
+        "time-to-exhaustion"
+      ],
+      "declared": 9,
+      "inScope": 0,
+      "contractRefsUsed": [
+        "gi-symptom-incidence",
+        "time-to-exhaustion"
+      ]
+    },
+    {
+      "report": "48da8a7f2f35af1f",
+      "hasScreeningReason": true,
+      "screeningClues": [
+        "exogenous-cho-oxidation-peak",
+        "gi-symptom",
+        "tt-completion-time"
+      ],
+      "labelClues": [
+        "exogenous-cho-oxidation-peak",
+        "gi-symptom",
+        "tt-completion-time"
+      ],
+      "declared": 18,
+      "inScope": 4
+    },
+    {
+      "report": "358bbf2c1886ac4b",
+      "hasScreeningReason": true,
+      "screeningClues": [
+        "exogenous-cho-oxidation-peak"
+      ],
+      "labelClues": [
+        "exogenous-cho-oxidation-peak",
+        "gi-symptom"
+      ],
+      "declared": 16,
+      "inScope": 3
+    },
+    {
+      "report": "6b7320d74cdda857",
+      "hasScreeningReason": true,
+      "screeningClues": [
+        "exogenous-cho-oxidation-peak",
+        "gi-symptom",
+        "time-to-exhaustion"
+      ],
+      "labelClues": [
+        "exogenous-cho-oxidation-peak",
+        "gi-symptom",
+        "time-to-exhaustion"
+      ],
+      "declared": 21,
+      "inScope": 4
+    },
+    {
+      "report": "44243ac624c9b5e0",
+      "hasScreeningReason": true,
+      "screeningClues": [],
+      "labelClues": [],
+      "declared": 10,
+      "inScope": 0,
+      "contractRefsUsed": []
+    },
+    {
+      "report": "e4871d50d0001e66",
+      "hasScreeningReason": true,
+      "screeningClues": [
+        "exogenous-cho-oxidation-peak"
+      ],
+      "labelClues": [
+        "exogenous-cho-oxidation-peak",
+        "gi-symptom"
+      ],
+      "declared": 16,
+      "inScope": 2
+    },
+    {
+      "report": "501bb474ac4704fa",
+      "hasScreeningReason": true,
+      "screeningClues": [
+        "exogenous-cho-oxidation-peak"
+      ],
+      "labelClues": [
+        "exogenous-cho-oxidation-peak",
+        "muscle-glycogen-post-exercise"
+      ],
+      "declared": 21,
+      "inScope": 1
+    },
+    {
+      "report": "d4251685a43792ff",
+      "hasScreeningReason": true,
+      "screeningClues": [
+        "exogenous-cho-oxidation-peak",
+        "muscle-glycogen-post-exercise",
+        "tt-completion-time"
+      ],
+      "labelClues": [
+        "exogenous-cho-oxidation-peak",
+        "muscle-glycogen-post-exercise",
+        "tt-completion-time"
+      ],
+      "declared": 19,
+      "inScope": 2
+    },
+    {
+      "report": "8a62d501f88c7d04",
+      "hasScreeningReason": true,
+      "screeningClues": [
+        "exogenous-cho-oxidation-peak",
+        "gi-symptom"
+      ],
+      "labelClues": [
+        "exogenous-cho-oxidation-peak",
+        "gi-symptom"
+      ],
+      "declared": 18,
+      "inScope": 3
+    },
+    {
+      "report": "66e16f089f1522d1",
+      "hasScreeningReason": true,
+      "screeningClues": [
+        "tt-completion-time"
+      ],
+      "labelClues": [
+        "exogenous-cho-oxidation-peak",
+        "gi-symptom",
+        "tt-completion-time"
+      ],
+      "declared": 17,
+      "inScope": 2
+    },
+    {
+      "report": "7a6ac1559c740fd6",
+      "hasScreeningReason": true,
+      "screeningClues": [
+        "muscle-glycogen-post-exercise"
+      ],
+      "labelClues": [
+        "exogenous-cho-oxidation-peak",
+        "muscle-glycogen-post-exercise"
+      ],
+      "declared": 45,
+      "inScope": 0,
+      "contractRefsUsed": [
+        "muscle-glycogen-post-exercise",
+        "time-to-exhaustion"
+      ]
+    },
+    {
+      "report": "7a97713bf254fa26",
+      "hasScreeningReason": true,
+      "screeningClues": [
+        "tt-completion-time"
+      ],
+      "labelClues": [
+        "gi-symptom",
+        "time-to-exhaustion",
+        "tt-completion-time"
+      ],
+      "declared": 29,
+      "inScope": 5
+    },
+    {
+      "report": "b9ab2f27317a6a2b",
+      "hasScreeningReason": true,
+      "screeningClues": [
+        "exogenous-cho-oxidation-peak",
+        "muscle-glycogen-post-exercise"
+      ],
+      "labelClues": [
+        "exogenous-cho-oxidation-peak",
+        "muscle-glycogen-post-exercise"
+      ],
+      "declared": 37,
+      "inScope": 0,
+      "contractRefsUsed": []
+    },
+    {
+      "report": "65d459b9129da800",
+      "hasScreeningReason": true,
+      "screeningClues": [
+        "exogenous-cho-oxidation-peak",
+        "muscle-glycogen-post-exercise",
+        "tt-completion-time"
+      ],
+      "labelClues": [],
+      "declared": null,
+      "inScope": null
+    },
+    {
+      "report": "3f34fc92d4f4b70d",
+      "hasScreeningReason": true,
+      "screeningClues": [
+        "exogenous-cho-oxidation-peak",
+        "tt-completion-time"
+      ],
+      "labelClues": [],
+      "declared": null,
+      "inScope": null
+    },
+    {
+      "report": "c3028a8a7b1ae2a1",
+      "hasScreeningReason": true,
+      "screeningClues": [
+        "gi-symptom"
+      ],
+      "labelClues": [
+        "gi-symptom"
+      ],
+      "declared": 33,
+      "inScope": 0,
+      "contractRefsUsed": [
+        "gi-symptom-incidence",
+        "gi-symptom-severity"
+      ]
+    },
+    {
+      "report": "f6a82302d7fe9adf",
+      "hasScreeningReason": true,
+      "screeningClues": [
+        "gi-symptom",
+        "time-to-exhaustion"
+      ],
+      "labelClues": [],
+      "declared": null,
+      "inScope": null
+    },
+    {
+      "report": "e8d48c04f919dbb0",
+      "hasScreeningReason": true,
+      "screeningClues": [
+        "muscle-glycogen-post-exercise",
+        "tt-completion-time"
+      ],
+      "labelClues": [
+        "gi-symptom",
+        "muscle-glycogen-post-exercise",
+        "time-to-exhaustion",
+        "tt-completion-time"
+      ],
+      "declared": 40,
+      "inScope": 8
+    },
+    {
+      "report": "a9012191142e7e02",
+      "hasScreeningReason": true,
+      "screeningClues": [
+        "exogenous-cho-oxidation-peak",
+        "gi-symptom"
+      ],
+      "labelClues": [
+        "exogenous-cho-oxidation-peak",
+        "gi-symptom"
+      ],
+      "declared": 24,
+      "inScope": 6
+    },
+    {
+      "report": "ad7c0004c386f31c",
+      "hasScreeningReason": true,
+      "screeningClues": [
+        "gi-symptom",
+        "tt-completion-time"
+      ],
+      "labelClues": [
+        "gi-symptom"
+      ],
+      "declared": 30,
+      "inScope": 0,
+      "contractRefsUsed": [
+        "gi-symptom-incidence",
+        "gi-symptom-severity",
+        "tt-completion-time"
+      ]
+    },
+    {
+      "report": "c4128a6f6dd2c0b5",
+      "hasScreeningReason": true,
+      "screeningClues": [
+        "tt-completion-time"
+      ],
+      "labelClues": [
+        "exogenous-cho-oxidation-peak",
+        "tt-completion-time"
+      ],
+      "declared": 24,
+      "inScope": 0,
+      "contractRefsUsed": [
+        "tt-completion-time"
+      ]
+    },
+    {
+      "report": "9a3b03b4fb24cf65",
+      "hasScreeningReason": true,
+      "screeningClues": [
+        "exogenous-cho-oxidation-peak",
+        "gi-symptom",
+        "tt-completion-time"
+      ],
+      "labelClues": [
+        "exogenous-cho-oxidation-peak",
+        "gi-symptom",
+        "tt-completion-time"
+      ],
+      "declared": 27,
+      "inScope": 3
+    },
+    {
+      "report": "65dd82a89b2c5340",
+      "hasScreeningReason": true,
+      "screeningClues": [
+        "gi-symptom"
+      ],
+      "labelClues": [],
+      "declared": 23,
+      "inScope": 7
+    },
+    {
+      "report": "54d4200c1c5e2b64",
+      "hasScreeningReason": true,
+      "screeningClues": [
+        "tt-completion-time"
+      ],
+      "labelClues": [
+        "tt-completion-time"
+      ],
+      "declared": 8,
+      "inScope": 0,
+      "contractRefsUsed": [
+        "tt-completion-time"
+      ]
+    },
+    {
+      "report": "82cbc04b68c38e79",
+      "hasScreeningReason": true,
+      "screeningClues": [
+        "time-to-exhaustion",
+        "tt-completion-time"
+      ],
+      "labelClues": [
+        "time-to-exhaustion",
+        "tt-completion-time"
+      ],
+      "declared": 13,
+      "inScope": 0,
+      "contractRefsUsed": [
+        "time-to-exhaustion",
+        "tt-completion-time"
+      ]
+    },
+    {
+      "report": "1105537918c174c9",
+      "hasScreeningReason": true,
+      "screeningClues": [
+        "exogenous-cho-oxidation-peak",
+        "gi-symptom",
+        "tt-completion-time"
+      ],
+      "labelClues": [
+        "exogenous-cho-oxidation-peak",
+        "gi-symptom",
+        "tt-completion-time"
+      ],
+      "declared": 21,
+      "inScope": 9
+    },
+    {
+      "report": "0cfceb6c8a86f78b",
+      "hasScreeningReason": true,
+      "screeningClues": [
+        "tt-completion-time"
+      ],
+      "labelClues": [
+        "tt-completion-time"
+      ],
+      "declared": 6,
+      "inScope": 1
+    },
+    {
+      "report": "307c0dd5b141caed",
+      "hasScreeningReason": true,
+      "screeningClues": [
+        "muscle-glycogen-post-exercise",
+        "time-to-exhaustion"
+      ],
+      "labelClues": [
+        "exogenous-cho-oxidation-peak",
+        "gi-symptom",
+        "muscle-glycogen-post-exercise",
+        "time-to-exhaustion"
+      ],
+      "declared": 46,
+      "inScope": 4
+    },
+    {
+      "report": "d4149a8bac287851",
+      "hasScreeningReason": true,
+      "screeningClues": [
+        "exogenous-cho-oxidation-peak"
+      ],
+      "labelClues": [
+        "exogenous-cho-oxidation-peak",
+        "gi-symptom"
+      ],
+      "declared": 25,
+      "inScope": 5
+    },
+    {
+      "report": "4103c4b52bbf21e6",
+      "hasScreeningReason": true,
+      "screeningClues": [
+        "tt-completion-time"
+      ],
+      "labelClues": [
+        "tt-completion-time"
+      ],
+      "declared": 10,
+      "inScope": 0,
+      "contractRefsUsed": []
+    },
+    {
+      "report": "eac2b5fd6bb06843",
+      "hasScreeningReason": true,
+      "screeningClues": [
+        "exogenous-cho-oxidation-peak"
+      ],
+      "labelClues": [
+        "exogenous-cho-oxidation-peak",
+        "gi-symptom"
+      ],
+      "declared": 15,
+      "inScope": 4
+    },
+    {
+      "report": "97c2233f7e60c801",
+      "hasScreeningReason": true,
+      "screeningClues": [
+        "exogenous-cho-oxidation-peak",
+        "tt-completion-time"
+      ],
+      "labelClues": [
+        "exogenous-cho-oxidation-peak",
+        "gi-symptom",
+        "muscle-glycogen-post-exercise"
+      ],
+      "declared": 20,
+      "inScope": 0,
+      "contractRefsUsed": []
+    },
+    {
+      "report": "834de4d822dfb3cd",
+      "hasScreeningReason": true,
+      "screeningClues": [
+        "exogenous-cho-oxidation-peak"
+      ],
+      "labelClues": [
+        "exogenous-cho-oxidation-peak",
+        "gi-symptom"
+      ],
+      "declared": 17,
+      "inScope": 5
+    },
+    {
+      "report": "298c326024d22835",
+      "hasScreeningReason": true,
+      "screeningClues": [
+        "gi-symptom",
+        "tt-completion-time"
+      ],
+      "labelClues": [
+        "exogenous-cho-oxidation-peak",
+        "gi-symptom",
+        "tt-completion-time"
+      ],
+      "declared": 14,
+      "inScope": 2
+    },
+    {
+      "report": "a6ce9c92c7454a7c",
+      "hasScreeningReason": true,
+      "screeningClues": [
+        "tt-completion-time"
+      ],
+      "labelClues": [
+        "tt-completion-time"
+      ],
+      "declared": 11,
+      "inScope": 0,
+      "contractRefsUsed": [
+        "tt-completion-time"
+      ]
+    }
+  ],
+  "howToReadThis": "⚠️ 「篩選判詞提到某個結局」**不等於**「那篇真的報告了該結局的可抽數值」——🚨 判詞是讀摘要時寫的，而摘要常提到方法卻不報數字。**✅ 故本支的產出是「待人看」，🚫 不是「抽取端漏了」。**",
+  "whyItMatters": "🚨 若篩選與抽取對同一篇的判斷相反，那是本 run **自己兩個階段矛盾**，⚠️ 而矛盾若沒被指出來，最後只會以「那篇不相關」的形式沉默地消失。",
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "controlProbes": [
+    {
+      "probe": "每一篇都找得到篩選判詞（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 沒有判詞的 0 篇：[]；⚠️ 沒有判詞就無從比較"
+    },
+    {
+      "probe": "線索規則在**有貢獻的 25 篇**上打得中（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 有貢獻者的命中率 96%（24/25）；⚠️ 若這裡就打不中，**本支的結論一律作廢——那代表規則本身沒有鑑別力**"
+    },
+    {
+      "probe": "線索規則有鑑別力（🚨 本支第一版守錯方向的那一道）",
+      "passed": false,
+      "detail": "🚨 判詞層級命中率：有貢獻 96%、零貢獻 92%——**幾乎一樣**。⚠️ 一條打中 95% 樣本的規則什麼也分不出來，**🚫 故「12 篇判詞有線索」不能當成 12 個映射失敗**"
+    },
+    {
+      "probe": "標籤層級的問法有鑑別力（🚨 本室原本以為它更緊）",
+      "passed": false,
+      "detail": "🚨 標籤層級命中率：有貢獻 96%、零貢獻 92%——**一樣沒有鑑別力**。⚠️ **即關鍵字這條路答不出「離題還是映射失敗」**，🚫 本支不拿它下結論"
+    },
+    {
+      "probe": "零貢獻的 13 篇是同一種東西",
+      "passed": false,
+      "detail": "🚨 它們是**兩種**：8 篇其實有對到契約結局（共 14 個 ref），只是那些項目在後面的關卡被擋掉——**⚠️ 它們不是離題**；另 5 篇一項都沒對到任何契約結局。明細：[('0eea079e79bf7913', ['gi-symptom-incidence', 'time-to-exhaustion']), ('7a6ac1559c740fd6', ['muscle-glycogen-post-exercise', 'time-to-exhaustion']), ('c3028a8a7b1ae2a1', ['gi-symptom-incidence', 'gi-symptom-severity']), ('ad7c0004c386f31c', ['gi-symptom-incidence', 'gi-symptom-severity', 'tt-completion-time']), ('c4128a6f6dd2c0b5', ['tt-completion-time']), ('54d4200c1c5e2b64', ['tt-completion-time']), ('82cbc04b68c38e79', ['time-to-exhaustion', 'tt-completion-time']), ('a6ce9c92c7454a7c', ['tt-completion-time'])]"
+    }
+  ],
+  "auditHash": "sha256:5ee4b3c262778e92b00cc08a80ca687a0c5c2f0f4acb91aad29de1a59f36f80b"
+}
