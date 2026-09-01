@@ -1,0 +1,73 @@
+{
+  "schemaVersion": 1,
+  "documentType": "no-numbers-yet",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "inScopeOutcomes": 98,
+  "fieldsPresent": {
+    "localLabel": 98,
+    "normalisedOutcomeRef": 98,
+    "effectMeasure": 98,
+    "analysisSet": 98,
+    "dose": 98,
+    "hasNumericResult": 98
+  },
+  "valueFieldsInData": {
+    "effectSize": 0,
+    "pointEstimate": 0,
+    "variance": 0,
+    "standardError": 0,
+    "sd": 0,
+    "ci95": 0,
+    "ciLow": 0,
+    "ciHigh": 0,
+    "sampleSize": 0,
+    "n": 0
+  },
+  "valueFieldsInSchema": {
+    "effectSize": 0,
+    "pointEstimate": 0,
+    "variance": 0,
+    "standardError": 0,
+    "sd": 0,
+    "ci95": 0,
+    "ciLow": 0,
+    "ciHigh": 0,
+    "sampleSize": 0,
+    "n": 0
+  },
+  "studyResultSchema": [],
+  "studyResultDocs": [],
+  "gradeModuleRuns": true,
+  "headline": "🚨 那 98 項是**「哪些結果」**，🚫 不是「結果是多少」。⚠️ 清冊的結局紀錄裡沒有效應量的值、沒有變異數、沒有信賴區間、沒有樣本數——`hasNumericResult` 只是一個布林。",
+  "consequence": "🚨 **GRADE 與統合分析今天跑不起來**——✅ 而本支以合成資料實跑證明：**卡的是資料，🚫 不是程式**。⚠️ 擁有者要的劑量-反應，也無法從現有產物回答。",
+  "correctionToMyOwnRounds": "⚠️ 本室在第 628／632／646 輪談「可合併性」與「損失帳」時，🚨 讀起來像是那 98 項已經是可以合併的資料。**✅ 更精確的說法是：那些是「合併的前提條件」**——🚫 前提成立與否是一回事，數字有沒有抽出來是另一回事。",
+  "whatThisIsNot": "🚫 本支不主張該不該做下一層——⚠️ 那是裁定；🚨 也不說這是缺陷：清冊本來就可能是刻意的中間產物。✅ 它只把「現在手上有什麼」說清楚。",
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "controlProbes": [
+    {
+      "probe": "98 項讀得到，且該在的欄位都在（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 實得 98 項；該在的欄位計數 {'localLabel': 98, 'normalisedOutcomeRef': 98, 'effectMeasure': 98, 'analysisSet': 98, 'dose': 98, 'hasNumericResult': 98}；⚠️ 若讀不到，下面「某些欄位不在」就沒有意義"
+    },
+    {
+      "probe": "GRADE 的統合函式本身跑得動（必觸發之正對照）",
+      "passed": true,
+      "detail": "✅ 以合成的 effects／variances 實跑 `meta_analyse_dl`，回傳 ['I2', 'Q', 'Q_df', 'Q_p', 'ci']；**🚨 故卡住的不是程式**"
+    },
+    {
+      "probe": "清冊裡帶得動統合分析所需的數值欄位",
+      "passed": false,
+      "detail": "🚨 這些欄位在 98 項裡各出現：{'effectSize': 0, 'pointEstimate': 0, 'variance': 0, 'standardError': 0, 'sd': 0, 'ci95': 0, 'ciLow': 0, 'ciHigh': 0, 'sampleSize': 0, 'n': 0}——**全部為 0**；⚠️ 而 schema 裡的出現次數：{'effectSize': 0, 'pointEstimate': 0, 'variance': 0, 'standardError': 0, 'sd': 0, 'ci95': 0, 'ciLow': 0, 'ciHigh': 0, 'sampleSize': 0, 'n': 0}。**🚨 即 `hasNumericResult` 只是布林，🚫 值本身從未被抽出來**"
+    },
+    {
+      "probe": "承載數值的 StudyResult 那一層已經存在",
+      "passed": false,
+      "detail": "🚨 schema 目錄裡的 result 相關檔：（無）；私有根裡的 study-result 文件：（無）——⚠️ `matcher.py` 的說明提到「候選 StudyResult 的軸值」，**🚫 而那一層目前只存在於敘述裡**"
+    }
+  ],
+  "auditHash": "sha256:e89fc15f7afa0dbdd03e42d87aac1a159f3a4dc12fb2dd244aab289c3647b950"
+}

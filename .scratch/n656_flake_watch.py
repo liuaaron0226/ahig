@@ -75,6 +75,16 @@ HYPOTHESES = [
      'result': '🚫 未獲支持：60 回合全綠',
      'power': '🚨 **但「單獨跑」不等於「在整套裡跑」**——'
               '⚠️ 只在完整套件情境下才發生的失敗，這樣測不出來'},
+    # ✅ 第 659 輪：🚨 閘門新加的 traceback 擷取**第一次實戰就抓到了**。
+    {'hypothesis': '⭐ 它就在「發布 vs 掃除」那組並行測試裡'
+                   '（第 658 輪加的 traceback 擷取實戰命中）',
+     'test': '閘門第 5 次紅時擷取到的失敗段落，內容為 '
+             '`publish()`／`sweep()`／`staged.wait(timeout=30)`',
+     'result': '✅ **獲支持**：那正是 test_fulltext.py 裡'
+               '「掃除者與發布者並行時不得毀掉已提交證據」那一族',
+     'power': '🚨 **而確切的斷言仍未知——本室又把輸出截斷了（第三次）**；'
+              '⚠️ 且單獨跑 test_fulltext.py 25 回合（每次 1 秒、40 條）全綠，'
+              '**故它需要完整套件的情境**'},
 ]
 
 
@@ -90,10 +100,22 @@ def run_once():
     failed = [l.strip() for l in text.splitlines()
               if l.strip().startswith('FAILED')]
     passed = re.search(r'(\d+) passed', summary[-1] if summary else '')
+    # 🚨 第 659 輪：⚠️ 有名字仍不夠——**四個斷言都在同一段**
+    # （`_verify_committed_artifacts`／`errors == []`／`status`／殘留鎖檔），
+    # 🚫 不知道是哪一個失敗就查不出成因。✅ 故連失敗段落一起存。
+    traceback_lines = []
+    if failed:
+        lines = text.splitlines()
+        start = next((i for i, l in enumerate(lines)
+                      if 'FAILURES' in l and l.strip().startswith('=')), None)
+        if start is not None:
+            traceback_lines = [l.rstrip() for l in lines[start:start + 60]
+                               if l.strip()]
     return {
         'summary': summary[-1] if summary else '（無摘要行）',
         'passed': int(passed.group(1)) if passed else None,
         'failedTests': failed,
+        'traceback': traceback_lines,
         'returncode': result.returncode,
     }
 
@@ -129,13 +151,18 @@ def main():
           '🚨 以帶 ANSI 的字串試；⚠️ **第一批追獵就是敗在這裡**——'
           '紅了卻沒留下測試名')
     # 🚨 這一道是狀態：⚠️ 它會一直紅，直到那個名字被抓到為止。
+    # 🚨 這道探針的說明原本只為「還沒抓到」寫，抓到之後仍印著
+    # 「測試名仍未抓到」而後面接著名字——⚠️ **自相矛盾的一行**。
+    # ✅ 兩種情況分開寫。
     probe('那個間歇性失敗的測試名已經抓到',
           bool(named),
-          '🚨 至今累計 %d 回合、紅 %d 次（約 %.0f%%），'
-          '而**測試名仍未抓到**：%s；'
-          '⚠️ 本支每次只跑 %d 回合並累積——🚫 不再每輪重跑二十次'
-          % (total, failures, 100 * failures / max(1, total),
-             named or '（尚無）', RUNS_PER_INVOCATION))
+          ('✅ **已抓到**：%s（累計 %d 回合、紅 %d 次，約 %.0f%%）'
+           % (named, total, failures, 100 * failures / max(1, total)))
+          if named else
+          ('🚨 至今累計 %d 回合、紅 %d 次（約 %.0f%%），'
+           '而**測試名仍未抓到**；⚠️ 本支每次只跑 %d 回合並累積'
+           % (total, failures, 100 * failures / max(1, total),
+              RUNS_PER_INVOCATION)))
 
     doc = {
         'schemaVersion': 1,
@@ -146,6 +173,14 @@ def main():
             '🚫 拿它去比對 auditHash 沒有意義（第 648 輪那支掃描應略過它）。'),
         'seed': SEED,
         'hypothesesTested': HYPOTHESES,
+        'localisation': (
+            '✅ 第 659 輪：閘門第 5 次紅時，第 658 輪新加的 traceback 擷取'
+            '**第一次實戰就抓到了**——內容為 `publish()`／`sweep()`／'
+            '`staged.wait(timeout=30)`，即 test_fulltext.py 裡'
+            '「掃除者與發布者並行時不得毀掉已提交證據」那一族。'
+            '🚨 **而確切的斷言仍未知：本室又把閘門輸出截斷了（第三次）。**'
+            '⚠️ 另：單獨跑 test_fulltext.py 25 回合全綠（每次 1 秒、40 條），'
+            '**故它需要完整套件的情境**；本輪再跑 10 次整套亦全綠。'),
         'extraRunsOutsideThisLog': (
             '⚠️ 另有 3 回合（加壓）＋10 回合（固定種子）＋60 回合'
             '（單獨跑並行測試）全綠，🚫 未計入下方累計——'
