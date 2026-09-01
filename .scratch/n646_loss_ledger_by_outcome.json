@@ -1,0 +1,234 @@
+{
+  "schemaVersion": 1,
+  "documentType": "loss-ledger-by-outcome",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "population": "✅ 只含「讀的人已對到契約結局」的項目；🚫 `outcome-not-in-scope` 不在表內（647 項）——⚠️ 那些項目從來就不屬於任何契約結局。",
+  "admittedTotal": 98,
+  "blockedTotal": 36,
+  "rows": [
+    {
+      "outcome": "gi-symptom-severity",
+      "admitted": 47,
+      "admittedPapers": 19,
+      "blocked": 6,
+      "byGate": {
+        "劑量": 3,
+        "效應量": 3
+      },
+      "blockedPapersByGate": {
+        "劑量": 2,
+        "效應量": 1
+      },
+      "lossRate": 0.113
+    },
+    {
+      "outcome": "exogenous-cho-oxidation-peak",
+      "admitted": 18,
+      "admittedPapers": 13,
+      "blocked": 1,
+      "byGate": {
+        "劑量": 1
+      },
+      "blockedPapersByGate": {
+        "劑量": 1
+      },
+      "lossRate": 0.053
+    },
+    {
+      "outcome": "gi-symptom-incidence",
+      "admitted": 13,
+      "admittedPapers": 8,
+      "blocked": 6,
+      "byGate": {
+        "效應量": 3,
+        "劑量": 2,
+        "無數值": 1
+      },
+      "blockedPapersByGate": {
+        "無數值": 1,
+        "劑量": 2,
+        "效應量": 1
+      },
+      "lossRate": 0.316
+    },
+    {
+      "outcome": "time-to-exhaustion",
+      "admitted": 10,
+      "admittedPapers": 5,
+      "blocked": 8,
+      "byGate": {
+        "劑量": 5,
+        "儀器": 3
+      },
+      "blockedPapersByGate": {
+        "劑量": 3,
+        "儀器": 1
+      },
+      "lossRate": 0.444
+    },
+    {
+      "outcome": "tt-completion-time",
+      "admitted": 6,
+      "admittedPapers": 5,
+      "blocked": 11,
+      "byGate": {
+        "劑量": 7,
+        "儀器": 3,
+        "效應量": 1
+      },
+      "blockedPapersByGate": {
+        "劑量": 5,
+        "效應量": 1,
+        "儀器": 2
+      },
+      "lossRate": 0.647
+    },
+    {
+      "outcome": "muscle-glycogen-post-exercise",
+      "admitted": 4,
+      "admittedPapers": 2,
+      "blocked": 4,
+      "byGate": {
+        "儀器": 3,
+        "劑量": 1
+      },
+      "blockedPapersByGate": {
+        "儀器": 1,
+        "劑量": 1
+      },
+      "lossRate": 0.5
+    }
+  ],
+  "blockedItemAttribution": {
+    "tt-completion-time": {
+      "劑量": {
+        "papers": [
+          "0cfceb6c8a86f78b",
+          "54d4200c1c5e2b64",
+          "82cbc04b68c38e79",
+          "a6ce9c92c7454a7c",
+          "ad7c0004c386f31c"
+        ],
+        "allFromKnownDuplicatePair": false
+      },
+      "效應量": {
+        "papers": [
+          "c4128a6f6dd2c0b5"
+        ],
+        "allFromKnownDuplicatePair": false
+      },
+      "儀器": {
+        "papers": [
+          "298c326024d22835",
+          "9a3b03b4fb24cf65"
+        ],
+        "allFromKnownDuplicatePair": false
+      }
+    },
+    "time-to-exhaustion": {
+      "劑量": {
+        "papers": [
+          "0eea079e79bf7913",
+          "307c0dd5b141caed",
+          "82cbc04b68c38e79"
+        ],
+        "allFromKnownDuplicatePair": false
+      },
+      "儀器": {
+        "papers": [
+          "7a6ac1559c740fd6"
+        ],
+        "allFromKnownDuplicatePair": true
+      }
+    },
+    "exogenous-cho-oxidation-peak": {
+      "劑量": {
+        "papers": [
+          "8a62d501f88c7d04"
+        ],
+        "allFromKnownDuplicatePair": false
+      }
+    },
+    "gi-symptom-incidence": {
+      "無數值": {
+        "papers": [
+          "0eea079e79bf7913"
+        ],
+        "allFromKnownDuplicatePair": false
+      },
+      "劑量": {
+        "papers": [
+          "8a62d501f88c7d04",
+          "ad7c0004c386f31c"
+        ],
+        "allFromKnownDuplicatePair": false
+      },
+      "效應量": {
+        "papers": [
+          "c3028a8a7b1ae2a1"
+        ],
+        "allFromKnownDuplicatePair": false
+      }
+    },
+    "gi-symptom-severity": {
+      "劑量": {
+        "papers": [
+          "8a62d501f88c7d04",
+          "ad7c0004c386f31c"
+        ],
+        "allFromKnownDuplicatePair": false
+      },
+      "效應量": {
+        "papers": [
+          "c3028a8a7b1ae2a1"
+        ],
+        "allFromKnownDuplicatePair": false
+      }
+    },
+    "muscle-glycogen-post-exercise": {
+      "儀器": {
+        "papers": [
+          "7a6ac1559c740fd6"
+        ],
+        "allFromKnownDuplicatePair": true
+      },
+      "劑量": {
+        "papers": [
+          "307c0dd5b141caed"
+        ],
+        "allFromKnownDuplicatePair": true
+      }
+    }
+  },
+  "attributionNote": "🚨 儀器那一關擋下的 9 項並不對稱：⚠️ `time-to-exhaustion` 與 `muscle-glycogen-post-exercise` 的 6 項**全部來自 7a6ac1559c740fd6**——即已知同群重複對的期刊那半，**🚫 救回來只增加項數，不增加獨立研究**（第 628 輪已警告重複計數）；✅ 而 `tt-completion-time` 的 3 項來自**另外兩篇不同的論文**，**🚨 那才是真的補得到獨立證據的地方。**",
+  "headline": "🚨 損失率最高的是 **tt-completion-time**：6 項進來、11 項被擋（65%）。",
+  "whatThisCannotSay": "🚫 本表不主張那些被擋的項目「應該」放行——⚠️ 每一關都有理由；✅ 它只回答「若某一關放行，該結局會多出幾項」。",
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "controlProbes": [
+    {
+      "probe": "進來的那側等於 98（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 實得 98；⚠️ 不是 98 就代表本支讀的不是同一批"
+    },
+    {
+      "probe": "本表確實排除了「對不到契約結局」的項目（必觸發之反向）",
+      "passed": true,
+      "detail": "🚨 表外的 outcome-not-in-scope 有 647 項，而表內 0 項；⚠️ 若它們混進來，每一列都會膨脹"
+    },
+    {
+      "probe": "六個結局都有項目被關卡擋下（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 有被擋項目的結局 6／6；⚠️ 若幾乎沒有，這張表就沒有內容"
+    },
+    {
+      "probe": "沒有結局在關卡上損失過半",
+      "passed": false,
+      "detail": "🚨 損失率 ≥50% 的結局：[('tt-completion-time', '6 進／11 擋（65%）'), ('muscle-glycogen-post-exercise', '4 進／4 擋（50%）')]"
+    }
+  ],
+  "auditHash": "sha256:fa770c667bd53bd24fabcfdcda021f74ebc37ea7bb4dd73d2b5f890be96ffea3"
+}
