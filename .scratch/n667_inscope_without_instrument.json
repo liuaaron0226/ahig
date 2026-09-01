@@ -1,0 +1,91 @@
+{
+  "schemaVersion": 1,
+  "documentType": "in-scope-without-instrument",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "inScopeTotal": 98,
+  "inScopeByOutcome": {
+    "gi-symptom-severity": 47,
+    "exogenous-cho-oxidation-peak": 18,
+    "gi-symptom-incidence": 13,
+    "time-to-exhaustion": 10,
+    "tt-completion-time": 6,
+    "muscle-glycogen-post-exercise": 4
+  },
+  "inScopeWithoutInstrument": 60,
+  "withoutInstrumentByOutcome": {
+    "gi-symptom-severity": 47,
+    "gi-symptom-incidence": 13
+  },
+  "papersAffected": {
+    "gi-symptom-incidence": [
+      "1105537918c174c9",
+      "48da8a7f2f35af1f",
+      "59b4558a37f28bc9",
+      "86e6a580108fd94b",
+      "8a62d501f88c7d04",
+      "a9012191142e7e02",
+      "d4149a8bac287851",
+      "eac2b5fd6bb06843"
+    ],
+    "gi-symptom-severity": [
+      "081d147cd92dee14",
+      "1105537918c174c9",
+      "298c326024d22835",
+      "358bbf2c1886ac4b",
+      "48da8a7f2f35af1f",
+      "59b4558a37f28bc9",
+      "65dd82a89b2c5340",
+      "66e16f089f1522d1",
+      "6b7320d74cdda857",
+      "7902e3ec54370729",
+      "7a97713bf254fa26",
+      "834de4d822dfb3cd",
+      "8a62d501f88c7d04",
+      "9a3b03b4fb24cf65",
+      "a9012191142e7e02",
+      "d4149a8bac287851",
+      "dbdb6ea55c9667c3",
+      "e4871d50d0001e66",
+      "e8d48c04f919dbb0"
+    ]
+  },
+  "outcomesWithEmptyAllowlist": [
+    "gi-symptom-incidence",
+    "gi-symptom-severity"
+  ],
+  "counterfactualLostIfAllowlistNonEmpty": {
+    "gi-symptom-incidence": 13,
+    "gi-symptom-severity": 47
+  },
+  "whatThisMeans": "🚨 在範圍內的證據裡有 60／98 項**完全沒有記錄用什麼量的**，✅ 而它們能進來不是因為通過了檢查，**是因為契約對那兩個結局根本沒設檢查**（空清單＝門全開，第 665 輪已實測）。⚠️ 而那兩個正好是 GI 症狀——**各家量表各自為政的那一族**（第 633 輪）。",
+  "whatThisIsNot": "🚫 本支不主張這些項目應該被排除，也不主張契約錯了——⚠️ 「GI 症狀不設儀器限制」可能是刻意的決定。📮 本支只指出：**那個決定的後果是 60 項證據沒有儀器資訊**，而可合併性要靠這一欄。",
+  "methodLimit": "⚠️ 「沒有儀器紀錄」指的是清冊裡這一欄為空，🚫 不代表論文沒寫——**可能是讀者沒填**（第 666 輪同一族）。🚨 分不出這兩者要看全文（n+187 的視窗）。",
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "controlProbes": [
+    {
+      "probe": "判定器真的判出了在範圍內的項目（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 在範圍內 98 項，分佈 {'gi-symptom-severity': 47, 'exogenous-cho-oxidation-peak': 18, 'gi-symptom-incidence': 13, 'time-to-exhaustion': 10, 'tt-completion-time': 6, 'muscle-glycogen-post-exercise': 4}；⚠️ 若是 0，本支的比例沒有分母"
+    },
+    {
+      "probe": "留空清單的結局就是 GI 那兩個（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 實得留空者：['gi-symptom-incidence', 'gi-symptom-severity']；⚠️ 若對不上，本支後面的歸因就是錯的"
+    },
+    {
+      "probe": "把空清單改成非空之後，那些項目必須掉出範圍（必觸發之反向）",
+      "passed": true,
+      "detail": "🚨 改了 2 個結局；掉出範圍的分佈：{'gi-symptom-incidence': 13, 'gi-symptom-severity': 47}；⚠️ 若沒掉，代表放行不是空清單造成的，本支的因果歸屬不成立"
+    },
+    {
+      "probe": "在範圍內的項目都有儀器紀錄",
+      "passed": false,
+      "detail": "🚨 在範圍內卻沒有儀器紀錄的有 60／98 項（61%），分佈 {'gi-symptom-severity': 47, 'gi-symptom-incidence': 13}；⚠️ 它們能進來，是因為契約對那兩個結局沒設允許清單"
+    }
+  ],
+  "auditHash": "sha256:729dc7127945c3e66889067b724b2af4e52b88b4c3a48b7bb651bdc350cdb8d6"
+}

@@ -1,0 +1,172 @@
+{
+  "schemaVersion": 1,
+  "documentType": "blank-field-provenance",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "blankBlockedItems": 16,
+  "verdicts": {
+    "整篇該欄全空": 12,
+    "同篇別的結局填得出來": 3,
+    "同結局內別項填得出來": 1
+  },
+  "rows": [
+    {
+      "report": "0eea079e79bf7913",
+      "ref": "time-to-exhaustion",
+      "field": "dose",
+      "verdict": "整篇該欄全空"
+    },
+    {
+      "report": "c3028a8a7b1ae2a1",
+      "ref": "gi-symptom-incidence",
+      "field": "effectMeasure",
+      "verdict": "同篇別的結局填得出來"
+    },
+    {
+      "report": "c3028a8a7b1ae2a1",
+      "ref": "gi-symptom-incidence",
+      "field": "effectMeasure",
+      "verdict": "同篇別的結局填得出來"
+    },
+    {
+      "report": "c3028a8a7b1ae2a1",
+      "ref": "gi-symptom-incidence",
+      "field": "effectMeasure",
+      "verdict": "同篇別的結局填得出來"
+    },
+    {
+      "report": "ad7c0004c386f31c",
+      "ref": "tt-completion-time",
+      "field": "dose",
+      "verdict": "整篇該欄全空"
+    },
+    {
+      "report": "ad7c0004c386f31c",
+      "ref": "tt-completion-time",
+      "field": "dose",
+      "verdict": "整篇該欄全空"
+    },
+    {
+      "report": "ad7c0004c386f31c",
+      "ref": "gi-symptom-severity",
+      "field": "dose",
+      "verdict": "整篇該欄全空"
+    },
+    {
+      "report": "ad7c0004c386f31c",
+      "ref": "gi-symptom-severity",
+      "field": "dose",
+      "verdict": "整篇該欄全空"
+    },
+    {
+      "report": "ad7c0004c386f31c",
+      "ref": "gi-symptom-incidence",
+      "field": "dose",
+      "verdict": "整篇該欄全空"
+    },
+    {
+      "report": "c4128a6f6dd2c0b5",
+      "ref": "tt-completion-time",
+      "field": "effectMeasure",
+      "verdict": "整篇該欄全空"
+    },
+    {
+      "report": "54d4200c1c5e2b64",
+      "ref": "tt-completion-time",
+      "field": "dose",
+      "verdict": "整篇該欄全空"
+    },
+    {
+      "report": "54d4200c1c5e2b64",
+      "ref": "tt-completion-time",
+      "field": "dose",
+      "verdict": "整篇該欄全空"
+    },
+    {
+      "report": "82cbc04b68c38e79",
+      "ref": "time-to-exhaustion",
+      "field": "dose",
+      "verdict": "整篇該欄全空"
+    },
+    {
+      "report": "82cbc04b68c38e79",
+      "ref": "tt-completion-time",
+      "field": "dose",
+      "verdict": "整篇該欄全空"
+    },
+    {
+      "report": "0cfceb6c8a86f78b",
+      "ref": "tt-completion-time",
+      "field": "dose",
+      "verdict": "同結局內別項填得出來"
+    },
+    {
+      "report": "a6ce9c92c7454a7c",
+      "ref": "tt-completion-time",
+      "field": "dose",
+      "verdict": "整篇該欄全空"
+    }
+  ],
+  "blankRateByGroup": {
+    "mapped": {
+      "dose": "15/134",
+      "doseUnit": "15/134",
+      "instrument": "68/134",
+      "effectMeasure": "5/134",
+      "analysisSet": "0/134",
+      "timepointDays": "0/134",
+      "hasNumericResult": "0/134"
+    },
+    "unmapped": {
+      "dose": "645/656",
+      "doseUnit": "645/656",
+      "instrument": "623/656",
+      "effectMeasure": "615/656",
+      "analysisSet": "629/656",
+      "timepointDays": "629/656",
+      "hasNumericResult": "0/656"
+    }
+  },
+  "papersWithFieldFilledSomewhere": {
+    "hasNumericResult": 38,
+    "effectMeasure": 36,
+    "analysisSet": 36,
+    "timepointDays": 36,
+    "dose": 30,
+    "doseUnit": 30,
+    "instrument": 28
+  },
+  "totals": {
+    "mapped": 134,
+    "unmapped": 656
+  },
+  "whyThisMatters": "⚠️ 第 665 輪說「16 項純因欄位沒填被擋」，🚨 但那句話沒分清楚「這一項漏填」與「整篇該欄全空」——✅ 只有前者是**回全文補一格就好**的東西。",
+  "methodLimit": "🚨 本支只用**結構**分辨，🚫 分不出「整篇該欄全空」是「論文真的沒報」還是「整篇漏填」——⚠️ 那要看全文（n+187 的視窗）。✅ 而「同篇填得出來」是**比較強**的漏填訊號，🚫 仍不是證明：同一篇的不同結局本來就可能報法不同。",
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "controlProbes": [
+    {
+      "probe": "真的抓到第 665 輪那 16 項空白（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 抓到 16 項（劑量 12／效應量測 4）；⚠️ 不是 16 就與上一輪對不上"
+    },
+    {
+      "probe": "把空白放進一篇填得出劑量的清冊，必須判為「填得出來」（必觸發之反向）",
+      "passed": true,
+      "detail": "🚨 偽造樣本判為「同結局內別項填得出來」；⚠️ 若判成「整篇該欄全空」，代表分類沒有真的在看同一篇"
+    },
+    {
+      "probe": "母體的空白率算得出來（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 有對上契約結局 134 項／沒對上 656 項；⚠️ 任一為 0，比例尺就沒有意義"
+    },
+    {
+      "probe": "那些空白都是「整篇該欄全空」，🚫 沒有一項是同篇漏填",
+      "passed": false,
+      "detail": "🚨 同篇填得出來的有 4 項（{'整篇該欄全空': 12, '同篇別的結局填得出來': 3, '同結局內別項填得出來': 1}）；⚠️ 這些**最像漏填**，也最可能回收得到"
+    }
+  ],
+  "auditHash": "sha256:369da1e4b89bbed487971ff6c2e75a20373530eccd2fdbb649b66bc0ed4aecfc"
+}
