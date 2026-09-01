@@ -1,0 +1,333 @@
+{
+  "schemaVersion": 1,
+  "documentType": "pending-decisions-register-v2",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "supersedes": "n610_pending_decisions.json（🚫 不改寫該檔）",
+  "addsNothingNew": "🚫 本支不新增待裁定項目——✅ 只承接、補登第 611／624 輪已提的三件，並替第 624–633 輪查出的事實掛回對應的決定。",
+  "counts": {
+    "total": 20,
+    "open": 18,
+    "withNewEvidence": 5
+  },
+  "openByBlocking": {
+    "A1": [
+      "D1"
+    ],
+    "A4": [
+      "D2",
+      "D3"
+    ],
+    "報表可信度": [
+      "D5"
+    ],
+    "GI 家族（61%）": [
+      "D6"
+    ],
+    "1 項結局": [
+      "D7"
+    ],
+    "判定一致性": [
+      "D8",
+      "D9"
+    ],
+    "A2": [
+      "D10",
+      "D12"
+    ],
+    "GI 家族": [
+      "D11"
+    ],
+    "A2／A3 產能": [
+      "D14"
+    ],
+    "契約表達力": [
+      "D15"
+    ],
+    "P3 下一步": [
+      "D16"
+    ],
+    "語料完整性": [
+      "D18",
+      "D19"
+    ],
+    "無（整潔）": [
+      "D20"
+    ],
+    "酬載品質": [
+      "D17"
+    ]
+  },
+  "decisionsUpdatedThisChain": [
+    "D2",
+    "D3",
+    "D17",
+    "D18",
+    "D19"
+  ],
+  "items": [
+    {
+      "id": "D1",
+      "round": 579,
+      "status": "open",
+      "blocks": "A1",
+      "ask": "A1「全語料同一版請求」指的是「同版」還是「都看過儀器清單」？",
+      "evidence": "n579_request_version_split.json",
+      "recommend": "⚠️ 兩種讀法差 41 篇重讀。✅ 本室建議取「同版」：🚨 因為實測損害只有 6 項／1 篇，而重讀 41 篇的成本遠高於此。"
+    },
+    {
+      "id": "D2",
+      "round": 585,
+      "status": "open",
+      "blocks": "A4",
+      "ask": "更正表：15 項改名、5 項撤回，是否施行？（🚨 須與 D3 一起決定）",
+      "evidence": "n585_blocked_drafts_errata.json",
+      "recommend": "✅ 建議施行。⚠️ 撤回那 5 項是「平均功率當成完成時間」，🚫 改名救不了。",
+      "newEvidenceSince610": [
+        {
+          "label": "低劑量端撐住表現類結局的篇數",
+          "value": 1,
+          "from": "n628_evidence_thinness.json → lowEndPerformanceSupport"
+        }
+      ]
+    },
+    {
+      "id": "D3",
+      "round": 584,
+      "status": "open",
+      "blocks": "A4",
+      "ask": "博士論文與期刊論文那一對，是否合併為一個 study？",
+      "evidence": "n584_thesis_and_hidden_duplicate.json",
+      "recommend": "🚨 建議合併。⚠️ 改名會讓期刊那篇拿回 9 項，而其中的肌肉肝醣正是論文 Study 2 的同一批 8 人。",
+      "newEvidenceSince610": [
+        {
+          "label": "低劑量端撐住表現類結局的篇數——🚨 那一篇正是這一對的論文那半",
+          "value": 1,
+          "from": "n628_evidence_thinness.json → lowEndPerformanceSupport"
+        }
+      ]
+    },
+    {
+      "id": "D4",
+      "round": 594,
+      "status": "self-resolved",
+      "blocks": "A4",
+      "ask": "切片器械是否改名為 needle-biopsy-vastus-lateralis？",
+      "evidence": "n594_a3_first_measurement.json",
+      "recommend": "🚫 不改。✅ 第二位讀者記載取樣器械為 Weil-Blakesley conchotome——⚠️ 那 3 項移到「契約缺口」。"
+    },
+    {
+      "id": "D5",
+      "round": 588,
+      "status": "open",
+      "blocks": "報表可信度",
+      "ask": "兩個理由碼各要拆成幾碼？",
+      "evidence": "n588_reason_code_conflation.json",
+      "recommend": "⚠️ 劑量是 3 種、效應量是 2 種。🚨 而 dose=0 那一種建議**根本不走排除路徑**——它是對照組。"
+    },
+    {
+      "id": "D6",
+      "round": 588,
+      "status": "open",
+      "blocks": "GI 家族（61%）",
+      "ask": "inScopeEffectMeasures 要不要收 median？",
+      "evidence": "n588_reason_code_conflation.json",
+      "recommend": "✅ 建議收。⚠️ GI 嚴重度是次序尺度，median 配 IQR 是自然寫法；🚨 不收的話那個佔六成的家族實質上收不到。"
+    },
+    {
+      "id": "D7",
+      "round": 589,
+      "status": "open",
+      "blocks": "1 項結局",
+      "ask": "g/min → g/h 的單位換算算不算「換算論文沒寫的東西」？",
+      "evidence": "n589_dose_not_reported_audit.json",
+      "recommend": "✅ 建議不算。⚠️ 那與「6% 溶液 × 284 ml」推出 g/h 不同——前者只是換單位。"
+    },
+    {
+      "id": "D8",
+      "round": 591,
+      "status": "open",
+      "blocks": "判定一致性",
+      "ask": "明寫 null 與鍵缺席應否等價？policy 層的 null 該不該拒絕載入？",
+      "evidence": "n592_default_only_when_absent.json",
+      "recommend": "✅ 建議等價，且理由碼須說「論文未陳述 X」，🚫 不得說「X 不在範圍內」。⚠️ policy 層的 null 應直接拒絕載入。"
+    },
+    {
+      "id": "D9",
+      "round": 593,
+      "status": "open",
+      "blocks": "判定一致性",
+      "ask": "兩條路徑的上限判斷應否合為同一段程式？",
+      "evidence": "n593_cap_paths_diverge.json",
+      "recommend": "✅ 建議合一。🚨 且 decide_inventory 不得產出「摘要說 0、逐項說在範圍內」的自我矛盾文件。"
+    },
+    {
+      "id": "D10",
+      "round": 596,
+      "status": "open",
+      "blocks": "A2",
+      "ask": "adjudicate() 應否比對「配置」而不只是「集合成員」？",
+      "evidence": "n596_allocation_replicates.json",
+      "recommend": "✅ 建議要。⚠️ 實測三篇雙讀全部有配置差異而佇列為 0，🚨 其中兩篇的成因（granularity）清單裡早就有名字。"
+    },
+    {
+      "id": "D11",
+      "round": 596,
+      "status": "open",
+      "blocks": "GI 家族",
+      "ask": "gi-symptom-incidence 的分母是人數還是時點？",
+      "evidence": "n596_allocation_replicates.json",
+      "recommend": "🚨 必須定義。⚠️ 實測兩篇論文一篇用時點（8×6＝48）、一篇用人數（12），🚫 兩種分母合成在一起沒有意義。"
+    },
+    {
+      "id": "D12",
+      "round": 597,
+      "status": "open",
+      "blocks": "A2",
+      "ask": "宣稱有數值而文件裡沒有那個數字的 4 項，要不要撤回？",
+      "evidence": "n597_numeric_result_unsupported.json",
+      "recommend": "⚠️ 本室不判成因（🚫 不定罪另一個視窗）。✅ 但那 4 項的症狀在全文裡各只出現一次且無數字。"
+    },
+    {
+      "id": "D13",
+      "round": 598,
+      "status": "amended",
+      "blocks": "A2",
+      "ask": "座標指向方法段的 7 項要不要請該視窗改指；要不要立機檢？",
+      "evidence": "n609_methods_title_check.json",
+      "recommend": "✅ 第 609 輪修正：若要立機檢，須**兩條並列**（標題式＋內容式）並分開記——🚨 任一條單獨跑都會回報「沒事」。"
+    },
+    {
+      "id": "D14",
+      "round": 608,
+      "status": "open",
+      "blocks": "A2／A3 產能",
+      "ask": "write_page_drafts 是否該區分「新增一篇」與「改寫既有」？",
+      "evidence": "n608_fourth_double_read.json",
+      "recommend": "✅ 建議區分。⚠️ 現況讓多篇頁面的第二線實質上只能讀一篇；🚫 本室未繞過，該份讀暫存於私有根。"
+    },
+    {
+      "id": "D15",
+      "round": 608,
+      "status": "open",
+      "blocks": "契約表達力",
+      "ask": "契約要不要收「條件間的百分比差」這種效應量？",
+      "evidence": "n608_fourth_double_read.json",
+      "recommend": "⚠️ 實測兩位讀者各填 mean 與 MD，兩者都不精確而都通過。🚨 不收的話，那一軸會繼續安靜地吸收它。"
+    },
+    {
+      "id": "D16",
+      "round": 607,
+      "status": "open",
+      "blocks": "P3 下一步",
+      "ask": "既有回顧沒回答問題，P3 是否進入補 2023 年年中以後的原始研究？",
+      "evidence": "p3_step1i_table.json",
+      "recommend": "⚠️ 那會用到 B.11 那台機器，🚨 而它的內容門檻 A1／A2／A4 尚未過。"
+    },
+    {
+      "id": "D17",
+      "round": 611,
+      "status": "open",
+      "blocks": "酬載品質",
+      "ask": "要不要修 parse_tei 漏掉表格的缺陷？",
+      "evidence": "n612_parse_tei_root_cause.json",
+      "recommend": "⚠️ 建議修，🚨 但論文那篇的文獻整理表不得當成它自己的結果。",
+      "newEvidenceSince610": [
+        {
+          "label": "會失效的清冊份數",
+          "value": 14,
+          "from": "n630_binding_integrity.json → d17Cost/inventoriesBoundToGrobidSections"
+        },
+        {
+          "label": "受影響的在範圍內結局數",
+          "value": 43,
+          "from": "n630_binding_integrity.json → d17Cost/inScopeOutcomesAffected"
+        },
+        {
+          "label": "佔全體百分比",
+          "value": 43.9,
+          "from": "n630_binding_integrity.json → d17Cost/shareOfAllInScope"
+        }
+      ]
+    },
+    {
+      "id": "D18",
+      "round": 624,
+      "status": "open",
+      "blocks": "語料完整性",
+      "ask": "那 18 篇「判定可得卻未取」要不要補取？",
+      "evidence": "n624_corpus_denominator.json",
+      "recommend": "⚠️ 建議補取，且**先做 2000 年前那批**——🚨 它們位置已知、零次新查詢。🚫 需外部請求，本室不自行開跑。",
+      "newEvidenceSince610": [
+        {
+          "label": "2000 年前「位置已知、只差去取」的篇數",
+          "value": 10,
+          "from": "n625_corpus_era_bias.json → eraBlockers/≤1999/位置已知未取"
+        }
+      ]
+    },
+    {
+      "id": "D19",
+      "round": 624,
+      "status": "open",
+      "blocks": "語料完整性",
+      "ask": "卡在 unpaywall=blocked 的那批要不要用現有信箱重問？",
+      "evidence": "n624_corpus_denominator.json",
+      "recommend": "⚠️ 建議重問，優先 2000 年前那批——🚨 那是打開該年代的唯一鑰匙。🚫 需大量外部請求，須照 n+146（三）／n+150（三）節流。",
+      "newEvidenceSince610": [
+        {
+          "label": "2000 年前從未被問過 Unpaywall 的篇數",
+          "value": 67,
+          "from": "n625_corpus_era_bias.json → eraBlockers/≤1999/Unpaywall 從未被問"
+        },
+        {
+          "label": "全體卡在同一個關卡的份數",
+          "value": 144,
+          "from": "n624_corpus_denominator.json → singleBlocker/count"
+        }
+      ]
+    },
+    {
+      "id": "D20",
+      "round": 624,
+      "status": "open",
+      "blocks": "無（整潔）",
+      "ask": "4 個舊命名的孤兒目錄怎麼處置？",
+      "evidence": "n624_corpus_denominator.json",
+      "recommend": "✅ 建議記 errata、**不刪**——🚫 刪檔本室一律不自行動手。"
+    }
+  ],
+  "howToUse": "✅ 每一項都附證據檔與本室建議；⚠️ 引用的數字是**執行時從憑證取的**，🚫 不是手打的——故登記簿不會跟證據脫節。",
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "controlProbes": [
+    {
+      "probe": "承接得到第 610 輪的登記（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 前一版 16 項、本版 20 項；⚠️ 少於前一版就代表本支弄丟了東西"
+    },
+    {
+      "probe": "每一個新引用都取得到值（必觸發）",
+      "passed": true,
+      "detail": "🚨 取不到的引用 0 筆：[]；⚠️ **取不到的引用比沒有引用更糟——它看起來有根據**"
+    },
+    {
+      "probe": "每一項都指得到真的證據檔（必觸發）",
+      "passed": true,
+      "detail": "🚨 實得指不到者：[]"
+    },
+    {
+      "probe": "每一項都有本室的建議（必觸發）",
+      "passed": true,
+      "detail": "🚨 只提問而不建議，等於把工作原封退回去；實得缺建議：[]"
+    },
+    {
+      "probe": "沒有待裁定卡著內容關卡",
+      "passed": false,
+      "detail": "🚨 卡著內容關卡的待裁定 6 件：['D1', 'D2', 'D3', 'D10', 'D12', 'D14']"
+    }
+  ],
+  "auditHash": "sha256:ef853a81adb7b3527a28eb401223c29f86dd7822967e15a1f058107e36d045d9"
+}
