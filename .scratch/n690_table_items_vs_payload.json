@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "documentType": "table-items-vs-payload",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "checksAssumptionOf": "n689（先做帶表格指標的 14 個工作組）",
+  "notMyFinding": "⚠️ 「GROBID 酬載沒有表格」🚫 不是本支的發現——✅ 那是第 611／612 輪（`D17`）的；本支只做交叉。",
+  "inScopeTotal": 98,
+  "papers": 25,
+  "tablePointerBySource": {
+    "europe-pmc-jats": 11,
+    "grobid-tei": 12
+  },
+  "proseOnlyBySource": {
+    "europe-pmc-jats": 44,
+    "grobid-tei": 31
+  },
+  "tableWorkGroups": 14,
+  "tableWorkGroupsOnGrobid": 6,
+  "unmappedReports": [],
+  "suggestedOrder": [
+    {
+      "tier": 1,
+      "what": "JATS ＋ 表格指標",
+      "items": 11,
+      "why": "✅ 表格在酬載裡，數字最可能一次到手"
+    },
+    {
+      "tier": 2,
+      "what": "JATS ／ GROBID ＋ 只有段落",
+      "items": 75,
+      "why": "⚠️ 段落本來就在酬載裡（GROBID 漏的是表格，🚫 不是內文），但讀的人要自己在段落裡找"
+    },
+    {
+      "tier": 3,
+      "what": "GROBID ＋ 表格指標",
+      "items": 12,
+      "why": "🚨 **卡在 `D17`**——⚠️ 指到的那張表不在酬載裡，🚫 修好之前做不動"
+    }
+  ],
+  "correctsPreviousRoundAdvice": "🚨 第 689 輪說「先做那 14 個帶表格指標的工作組」。**⚠️ 其中 6 個（12 項）的酬載是 GROBID，表格不在裡面。**✅ 修正為：**先做 JATS ＋ 表格那 11 項**，🚫 GROBID ＋ 表格那 12 項要等 `D17`。",
+  "whatThisMeansForOrdering": "🚨 若帶表格指標的項目多半落在 GROBID 酬載，**⚠️ 第 689 輪那句「先做帶表格的那批」就得反過來**——✅ 先做 JATS 那批，🚫 GROBID 那批要等 `D17`。",
+  "methodLimit": "⚠️ 本支用 `manifest.json` 的 `sourceType` 判酬載，🚫 沒有逐篇去確認「這一張表到底在不在檔案裡」——🚨 那要讀酬載，而第 611 輪已做過那件事。✅ 本支只回答「有多少項目**踩在那個已知缺陷上**」。",
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "controlProbes": [
+    {
+      "probe": "每一篇有貢獻的論文都對得到酬載型別（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 貢獻篇數 25；對不到酬載型別的：無；⚠️ 對不到的話下面的交叉就有缺口"
+    },
+    {
+      "probe": "捏造的報告代號對不到任何酬載（必觸發之反向）",
+      "passed": true,
+      "detail": "🚨 捏造代號查無；⚠️ 若查得到，代表這張對照表是在亂配"
+    },
+    {
+      "probe": "兩種酬載型別都出現了（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 交叉裡出現的酬載型別：['europe-pmc-jats', 'grobid-tei']；⚠️ 只有一種的話，這個交叉沒有分辨力"
+    },
+    {
+      "probe": "帶表格指標的項目，表格都在拿得到的酬載裡",
+      "passed": false,
+      "detail": "🚨 帶表格指標且酬載為 `grobid-tei` 的有 12／23 項；⚠️ 而 `D17`（第 611／612 輪）查出 `parse_tei` **會漏掉表格**——**故「先做帶表格的那批」對這些項目是先做拿不到的**"
+    }
+  ],
+  "auditHash": "sha256:f824e02ff45bc1f1789beb2277d55502d3d826355c7adac9971070011cd21a0d"
+}
