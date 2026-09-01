@@ -1,0 +1,356 @@
+{
+  "schemaVersion": 1,
+  "documentType": "single-profile-leak-count",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "closesLimitDeclaredBy": "n679 → methodLimit（只比類別層級）",
+  "strengthensDecision": "📮 D26（第 680 輪登記）。⚠️ 本支**不新增決策**——🚨 它給的是 D26 需要的那個數字：只跑一份會放過幾個。✅ 下一版登記簿會把本支掛進 D26 的證據；⚠️ 本室把這句寫在這裡，🚫 免得它變成沒人接的紅燈。",
+  "negativeCanaries": 21,
+  "positiveCanaries": 6,
+  "leakIfOnlyOneProfile": {
+    "core": 4,
+    "sparql": 2
+  },
+  "leakedCanaries": {
+    "core": [
+      "grade-egger-below-k10",
+      "grade-model-override-approved",
+      "monitor-sla-grace-exceeded",
+      "quality-gate-rule-of-three-violation"
+    ],
+    "sparql": [
+      "quality-gate-wrong-statistic",
+      "studyresult-missing-scope-contract"
+    ]
+  },
+  "blockedByNeither": [],
+  "stillConformingUnderCombined": [],
+  "rows": [
+    {
+      "canary": "citation-anchor-fuzzy-unconfirmed",
+      "declaredProfiles": [
+        "core",
+        "sparql"
+      ],
+      "blockedBy": {
+        "core": true,
+        "sparql": true
+      },
+      "blockedByCombined": true
+    },
+    {
+      "canary": "citation-anchor-multiple-match-approved",
+      "declaredProfiles": [
+        "core",
+        "sparql"
+      ],
+      "blockedBy": {
+        "core": true,
+        "sparql": true
+      },
+      "blockedByCombined": true
+    },
+    {
+      "canary": "citation-anchor-notebook-leak",
+      "declaredProfiles": [
+        "core",
+        "sparql"
+      ],
+      "blockedBy": {
+        "core": true,
+        "sparql": true
+      },
+      "blockedByCombined": true
+    },
+    {
+      "canary": "duplicate-evidence-high-certainty",
+      "declaredProfiles": [
+        "core",
+        "sparql"
+      ],
+      "blockedBy": {
+        "core": true,
+        "sparql": true
+      },
+      "blockedByCombined": true
+    },
+    {
+      "canary": "grade-domains-missing-one",
+      "declaredProfiles": [
+        "core",
+        "sparql"
+      ],
+      "blockedBy": {
+        "core": true,
+        "sparql": true
+      },
+      "blockedByCombined": true
+    },
+    {
+      "canary": "grade-domains-not-distinct",
+      "declaredProfiles": [
+        "core",
+        "sparql"
+      ],
+      "blockedBy": {
+        "core": true,
+        "sparql": true
+      },
+      "blockedByCombined": true
+    },
+    {
+      "canary": "grade-egger-below-k10",
+      "declaredProfiles": [
+        "sparql"
+      ],
+      "blockedBy": {
+        "core": false,
+        "sparql": true
+      },
+      "blockedByCombined": true
+    },
+    {
+      "canary": "grade-model-override-approved",
+      "declaredProfiles": [
+        "sparql"
+      ],
+      "blockedBy": {
+        "core": false,
+        "sparql": true
+      },
+      "blockedByCombined": true
+    },
+    {
+      "canary": "monitor-missing-age",
+      "declaredProfiles": [
+        "core",
+        "sparql"
+      ],
+      "blockedBy": {
+        "core": true,
+        "sparql": true
+      },
+      "blockedByCombined": true
+    },
+    {
+      "canary": "monitor-missing-maxage",
+      "declaredProfiles": [
+        "core",
+        "sparql"
+      ],
+      "blockedBy": {
+        "core": true,
+        "sparql": true
+      },
+      "blockedByCombined": true
+    },
+    {
+      "canary": "monitor-safety-critical-blocks-false",
+      "declaredProfiles": [
+        "core",
+        "sparql"
+      ],
+      "blockedBy": {
+        "core": true,
+        "sparql": true
+      },
+      "blockedByCombined": true
+    },
+    {
+      "canary": "monitor-safety-critical-missing-blocks",
+      "declaredProfiles": [
+        "core",
+        "sparql"
+      ],
+      "blockedBy": {
+        "core": true,
+        "sparql": true
+      },
+      "blockedByCombined": true
+    },
+    {
+      "canary": "monitor-sla-grace-exceeded",
+      "declaredProfiles": [
+        "sparql"
+      ],
+      "blockedBy": {
+        "core": false,
+        "sparql": true
+      },
+      "blockedByCombined": true
+    },
+    {
+      "canary": "outcome-switching-missing-decider",
+      "declaredProfiles": [
+        "core",
+        "sparql"
+      ],
+      "blockedBy": {
+        "core": true,
+        "sparql": true
+      },
+      "blockedByCombined": true
+    },
+    {
+      "canary": "outcome-switching-real-relation",
+      "declaredProfiles": [
+        "core",
+        "sparql"
+      ],
+      "blockedBy": {
+        "core": true,
+        "sparql": true
+      },
+      "blockedByCombined": true
+    },
+    {
+      "canary": "quality-gate-rule-of-three-violation",
+      "declaredProfiles": [
+        "sparql"
+      ],
+      "blockedBy": {
+        "core": false,
+        "sparql": true
+      },
+      "blockedByCombined": true
+    },
+    {
+      "canary": "quality-gate-wrong-statistic",
+      "declaredProfiles": [
+        "core"
+      ],
+      "blockedBy": {
+        "core": true,
+        "sparql": false
+      },
+      "blockedByCombined": true
+    },
+    {
+      "canary": "safety-critical-approved-missing-adjudication",
+      "declaredProfiles": [
+        "core",
+        "sparql"
+      ],
+      "blockedBy": {
+        "core": true,
+        "sparql": true
+      },
+      "blockedByCombined": true
+    },
+    {
+      "canary": "safety-critical-approved-self-adjudicated",
+      "declaredProfiles": [
+        "core",
+        "sparql"
+      ],
+      "blockedBy": {
+        "core": true,
+        "sparql": true
+      },
+      "blockedByCombined": true
+    },
+    {
+      "canary": "study-family-model-resolved",
+      "declaredProfiles": [
+        "core",
+        "sparql"
+      ],
+      "blockedBy": {
+        "core": true,
+        "sparql": true
+      },
+      "blockedByCombined": true
+    },
+    {
+      "canary": "studyresult-missing-scope-contract",
+      "declaredProfiles": [
+        "core"
+      ],
+      "blockedBy": {
+        "core": true,
+        "sparql": false
+      },
+      "blockedByCombined": true
+    }
+  ],
+  "positives": [
+    {
+      "canary": "claim-expert-adjudicated-complete",
+      "conforms": {
+        "core": true,
+        "sparql": true
+      },
+      "combined": true
+    },
+    {
+      "canary": "claim-general-tier-self-adjudicated",
+      "conforms": {
+        "core": true,
+        "sparql": true
+      },
+      "combined": true
+    },
+    {
+      "canary": "monitor-within-grace",
+      "conforms": {
+        "core": true,
+        "sparql": true
+      },
+      "combined": true
+    },
+    {
+      "canary": "quality-gate-adequately-powered",
+      "conforms": {
+        "core": true,
+        "sparql": true
+      },
+      "combined": true
+    },
+    {
+      "canary": "study-family-human-resolved",
+      "conforms": {
+        "core": true,
+        "sparql": true
+      },
+      "combined": true
+    },
+    {
+      "canary": "studyresult-complete",
+      "conforms": {
+        "core": true,
+        "sparql": true
+      },
+      "combined": true
+    }
+  ],
+  "whyCurrentTestsCannotSeeThis": "⚠️ `test_every_negative_canary_is_blocked` 只跑**每個對照自己宣告的 profile**；🚨 故「某個對照在另一份 profile 下會通過」這件事，**現行測試看不到**。✅ 本支對每一個都跑**兩份**，才量得出這個數字。",
+  "readingNote": "🚨 「只跑 core 放過 N 個」🚫 不等於 Core 有缺陷——⚠️ 那些規則本來就設計成住在 SPARQL 那一份（跨實體稽核）。**✅ 本支要說的是：驗收流程若只跑一份，就會漏掉這 N 個。**",
+  "methodLimit": "⚠️ 本支量的是**對照組覆蓋得到的那些規則**，🚫 量不到「沒有對照組的規則」——🚨 一條沒有 canary 的規則，兩份 profile 都不會在這裡現形。",
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "controlProbes": [
+    {
+      "probe": "對照組載得進來、兩份 profile 也載得進來（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 負向 21 個、正向 6 個；⚠️ 太少代表本支沒讀到 canary"
+    },
+    {
+      "probe": "正向對照在合併形狀下必須全部通過（必觸發之反向）",
+      "passed": true,
+      "detail": "🚨 被誤擋的正向對照：無；⚠️ 若正向也被擋，「擋得住」就只是因為什麼都擋"
+    },
+    {
+      "probe": "兩份都跑時，每個負向對照都擋得住（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 合併形狀下仍通過的負向對照：無；兩份都擋不住的：無；⚠️ 有的話就是真的破洞，🚫 不只是「該跑哪一份」的問題"
+    },
+    {
+      "probe": "只跑一份 profile 就擋得住全部負向對照",
+      "passed": false,
+      "detail": "🚨 只跑 core 放過 4 個：['grade-egger-below-k10', 'grade-model-override-approved', 'monitor-sla-grace-exceeded', 'quality-gate-rule-of-three-violation']；只跑 sparql 放過 2 個：['quality-gate-wrong-statistic', 'studyresult-missing-scope-contract']；⚠️ 這就是「只驗一份形狀會放東西過去」的**數字版本**"
+    }
+  ],
+  "auditHash": "sha256:4c74e176418d8f2daa9d58cc89ce5a5f71ac04744e88eb0e88ca3a6b95dca284"
+}
