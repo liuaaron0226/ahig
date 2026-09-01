@@ -1,0 +1,166 @@
+{
+  "schemaVersion": 1,
+  "documentType": "corpus-to-evidence-funnel",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "unit": "論文（🚫 不是結局——結局層級的漏斗在第 639 輪）",
+  "funnel": [
+    {
+      "stage": "已取得全文",
+      "papers": 41,
+      "lost": 0,
+      "why": "—"
+    },
+    {
+      "stage": "有清冊",
+      "papers": 38,
+      "lost": 3,
+      "why": "🚨 草稿被守衛擋下（第 585 輪 blockedReports）"
+    },
+    {
+      "stage": "清冊裡宣告了結局",
+      "papers": 38,
+      "lost": 0,
+      "why": "⚠️ 讀完後一個結局都沒宣告"
+    },
+    {
+      "stage": "至少一項進到範圍內",
+      "papers": 25,
+      "lost": 13,
+      "why": "⚠️ 宣告了，但全部被判在範圍外"
+    }
+  ],
+  "inScopeOutcomes": 98,
+  "papersContributingNothing": 16,
+  "noInventory": [
+    "65d459b9129da800",
+    "3f34fc92d4f4b70d",
+    "f6a82302d7fe9adf"
+  ],
+  "declaredNothing": [],
+  "declaredAllRejected": [
+    "c97d2ed84b0d1057",
+    "0eea079e79bf7913",
+    "44243ac624c9b5e0",
+    "7a6ac1559c740fd6",
+    "b9ab2f27317a6a2b",
+    "c3028a8a7b1ae2a1",
+    "ad7c0004c386f31c",
+    "c4128a6f6dd2c0b5",
+    "54d4200c1c5e2b64",
+    "82cbc04b68c38e79",
+    "4103c4b52bbf21e6",
+    "97c2233f7e60c801",
+    "a6ce9c92c7454a7c"
+  ],
+  "rejectionProfileOfThoseWhoDeclared": {
+    "c97d2ed84b0d1057": {
+      "notExtracted-outcome-not-in-scope": 17
+    },
+    "0eea079e79bf7913": {
+      "notExtracted-outcome-not-in-scope": 7,
+      "notExtracted-dose-outside-bands": 1,
+      "notExtracted-no-numeric-result": 1
+    },
+    "44243ac624c9b5e0": {
+      "notExtracted-outcome-not-in-scope": 10
+    },
+    "7a6ac1559c740fd6": {
+      "notExtracted-outcome-not-in-scope": 38,
+      "notExtracted-instrument-not-in-allowlist": 6,
+      "notExtracted-no-numeric-result": 1
+    },
+    "b9ab2f27317a6a2b": {
+      "notExtracted-outcome-not-in-scope": 37
+    },
+    "c3028a8a7b1ae2a1": {
+      "notExtracted-outcome-not-in-scope": 27,
+      "notExtracted-effect-measure-not-in-scope": 6
+    },
+    "ad7c0004c386f31c": {
+      "notExtracted-outcome-not-in-scope": 25,
+      "notExtracted-dose-outside-bands": 5
+    },
+    "c4128a6f6dd2c0b5": {
+      "notExtracted-outcome-not-in-scope": 22,
+      "notExtracted-effect-measure-not-in-scope": 1,
+      "notExtracted-no-numeric-result": 1
+    },
+    "54d4200c1c5e2b64": {
+      "notExtracted-outcome-not-in-scope": 6,
+      "notExtracted-dose-outside-bands": 2
+    },
+    "82cbc04b68c38e79": {
+      "notExtracted-outcome-not-in-scope": 11,
+      "notExtracted-dose-outside-bands": 2
+    },
+    "4103c4b52bbf21e6": {
+      "notExtracted-outcome-not-in-scope": 10
+    },
+    "97c2233f7e60c801": {
+      "notExtracted-outcome-not-in-scope": 18,
+      "notExtracted-no-numeric-result": 2
+    },
+    "a6ce9c92c7454a7c": {
+      "notExtracted-outcome-not-in-scope": 10,
+      "notExtracted-dose-outside-bands": 1
+    }
+  },
+  "blockedMatchesN585": true,
+  "n586Reconciliation": {
+    "n586Label": "zeroBecauseNothingDeclared: 5",
+    "recomputedDeclaredNothing": 0,
+    "papersMatchingN586Family": [
+      {
+        "report": "c97d2ed84b0d1057",
+        "declaredOutcomes": 17
+      },
+      {
+        "report": "44243ac624c9b5e0",
+        "declaredOutcomes": 10
+      },
+      {
+        "report": "b9ab2f27317a6a2b",
+        "declaredOutcomes": 37
+      },
+      {
+        "report": "4103c4b52bbf21e6",
+        "declaredOutcomes": 10
+      },
+      {
+        "report": "97c2233f7e60c801",
+        "declaredOutcomes": 20
+      }
+    ],
+    "diagnosis": "✅ 兩邊對得起來：第 586 輪分家族時**排除了** outcome-not-in-scope 與 no-numeric-result 兩個碼，於是「其餘理由碼為空」的 5 篇被標成 nothing-declared。**🚨 而那個標籤名不副實**——那幾篇各自宣告了 17／10／37／10／20 個結局，⚠️ 不是「什麼都沒宣告」，是**「宣告了一堆、一個都沒對上契約」**。🚨 這正是本 run 反覆抓到的同一族：**一種失敗長得像另一種。**🚫 n586 不就地改寫（已上看板），本條即其 errata。"
+  },
+  "readingNote": "⚠️ 第 586 輪的「13 篇零貢獻」分母是 **38 份清冊**；🚨 本支的 16 篇分母是 **41 篇語料**——**✅ 兩個都對，差在那 3 篇連清冊都沒有。**⚠️ 這正是第 636 輪查出的同一種定義落差。",
+  "whatThisIsNot": "🚫 本支不判斷那 16 篇「應該」有貢獻——⚠️ 一篇論文與本題無關而零貢獻是正常的；🚨 但把「無清冊」「宣告了零個」「全被排除」混成一個數字，會讓三種很不一樣的成因看起來像同一件事。",
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "controlProbes": [
+    {
+      "probe": "漏斗每一跳都結算得回去（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 41 ＝ 25 有貢獻 ＋ 16 沒貢獻？True；⚠️ 對不上代表本支漏了一種掉法"
+    },
+    {
+      "probe": "沒有清冊指向名冊外的論文（必觸發之反向）",
+      "passed": true,
+      "detail": "🚨 清冊有而名冊無者：[]；⚠️ 若有，代表兩邊的「這批」不是同一批"
+    },
+    {
+      "probe": "那 3 篇無清冊者，正是第 585 輪記下的 blockedReports",
+      "passed": true,
+      "detail": "✅ 無清冊 ['3f34fc92d4f4b70d', '65d459b9129da800', 'f6a82302d7fe9adf'] vs 第 585 輪 ['3f34fc92d4f4b70d', '65d459b9129da800', 'f6a82302d7fe9adf']；⚠️ 本室**對一次**而不是憑記憶說它們一樣"
+    },
+    {
+      "probe": "語料裡每一篇都對證據有貢獻",
+      "passed": false,
+      "detail": "🚨 16／41 篇（39%）什麼都沒給：無清冊 3、宣告了零個結局 0、宣告後全被排除 13"
+    }
+  ],
+  "auditHash": "sha256:10e1f4555a5d3f8f65140d2aeb70efb6eac984703e021cd388a651cc31b475bb"
+}
