@@ -8,10 +8,31 @@
     "observedFailures": 1,
     "note": "🚨 本輪三批追獵合計 20 次、紅 1 次（第一批的第 9 次）。⚠️ 那一次的測試名**沒有被記下來**——腳本沒去色，`grep \"^FAILED\"` 接不到帶 ANSI 的那行。"
   },
+  "hypothesesTested": [
+    {
+      "hypothesis": "與並行負載有關",
+      "test": "開 19 個燒 CPU 的行程，加壓下跑 3 回合",
+      "result": "🚫 未獲支持：3 回合全綠，且**跑得比閒置時還快**（46–51s vs 52–56s）",
+      "power": "⚠️ 3 回合在 4% 下只有約一成機會，**不足以否證**"
+    },
+    {
+      "hypothesis": "與雜湊種子（集合迭代順序）有關",
+      "test": "固定 PYTHONHASHSEED=0..9 各跑一次",
+      "result": "🚫 未獲支持：10 個種子全綠",
+      "power": "⚠️ 若有 4% 的種子會敗，10 個約有三成機會撞到"
+    },
+    {
+      "hypothesis": "是 test_fulltext.py 裡那幾條並行測試",
+      "test": "單獨密集重跑那幾條 60 回合",
+      "result": "🚫 未獲支持：60 回合全綠",
+      "power": "🚨 **但「單獨跑」不等於「在整套裡跑」**——⚠️ 只在完整套件情境下才發生的失敗，這樣測不出來"
+    }
+  ],
+  "extraRunsOutsideThisLog": "⚠️ 另有 3 回合（加壓）＋10 回合（固定種子）＋60 回合（單獨跑並行測試）全綠，🚫 未計入下方累計——✅ 因為它們跑的條件與本紀錄不同。",
   "runsThisInvocation": 3,
-  "cumulativeRuns": 23,
+  "cumulativeRuns": 26,
   "cumulativeFailures": 1,
-  "observedRate": 0.0435,
+  "observedRate": 0.0385,
   "failedTestNames": [],
   "history": [
     {
@@ -28,6 +49,24 @@
     },
     {
       "summary": "840 passed, 15 warnings in 54.79s",
+      "passed": 840,
+      "failedTests": [],
+      "returncode": 0
+    },
+    {
+      "summary": "840 passed, 15 warnings in 46.69s",
+      "passed": 840,
+      "failedTests": [],
+      "returncode": 0
+    },
+    {
+      "summary": "840 passed, 15 warnings in 52.22s",
+      "passed": 840,
+      "failedTests": [],
+      "returncode": 0
+    },
+    {
+      "summary": "840 passed, 15 warnings in 54.07s",
       "passed": 840,
       "failedTests": [],
       "returncode": 0
@@ -53,8 +92,8 @@
     {
       "probe": "那個間歇性失敗的測試名已經抓到",
       "passed": false,
-      "detail": "🚨 至今累計 23 回合、紅 1 次（約 4%），而**測試名仍未抓到**：（尚無）；⚠️ 本支每次只跑 3 回合並累積——🚫 不再每輪重跑二十次"
+      "detail": "🚨 至今累計 26 回合、紅 1 次（約 4%），而**測試名仍未抓到**：（尚無）；⚠️ 本支每次只跑 3 回合並累積——🚫 不再每輪重跑二十次"
     }
   ],
-  "auditHash": "sha256:38c939b8d413d636b47623f12a0c8603e1b96223b9632eca30afa51757aa5f7f"
+  "auditHash": "sha256:ad1cc29a83dc6f7a0ded90dfd55bc26ace40fc964cd2e2c1f59d08bfd6a713e1"
 }

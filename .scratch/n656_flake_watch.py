@@ -59,6 +59,25 @@ SEED = {
 }
 
 
+# ⚠️ 第 657 輪：三個假設各被測過一次，🚨 三個都沒被支持。
+# ✅ 記在這裡，🚫 免得下一輪又從頭猜一遍。
+HYPOTHESES = [
+    {'hypothesis': '與並行負載有關',
+     'test': '開 19 個燒 CPU 的行程，加壓下跑 3 回合',
+     'result': '🚫 未獲支持：3 回合全綠，且**跑得比閒置時還快**（46–51s vs 52–56s）',
+     'power': '⚠️ 3 回合在 4% 下只有約一成機會，**不足以否證**'},
+    {'hypothesis': '與雜湊種子（集合迭代順序）有關',
+     'test': '固定 PYTHONHASHSEED=0..9 各跑一次',
+     'result': '🚫 未獲支持：10 個種子全綠',
+     'power': '⚠️ 若有 4% 的種子會敗，10 個約有三成機會撞到'},
+    {'hypothesis': '是 test_fulltext.py 裡那幾條並行測試',
+     'test': '單獨密集重跑那幾條 60 回合',
+     'result': '🚫 未獲支持：60 回合全綠',
+     'power': '🚨 **但「單獨跑」不等於「在整套裡跑」**——'
+              '⚠️ 只在完整套件情境下才發生的失敗，這樣測不出來'},
+]
+
+
 def run_once():
     result = subprocess.run(
         [sys.executable, '-X', 'utf8', '-m', 'pytest', '-q', '-rf',
@@ -126,6 +145,11 @@ def main():
             '⚠️ 本檔是**紀錄**，內容本來就會隨每次執行增長——'
             '🚫 拿它去比對 auditHash 沒有意義（第 648 輪那支掃描應略過它）。'),
         'seed': SEED,
+        'hypothesesTested': HYPOTHESES,
+        'extraRunsOutsideThisLog': (
+            '⚠️ 另有 3 回合（加壓）＋10 回合（固定種子）＋60 回合'
+            '（單獨跑並行測試）全綠，🚫 未計入下方累計——'
+            '✅ 因為它們跑的條件與本紀錄不同。'),
         'runsThisInvocation': len(fresh),
         'cumulativeRuns': total,
         'cumulativeFailures': failures,
@@ -153,6 +177,9 @@ def main():
     print('   累計 %d 回合｜紅 %d 次｜約 %.0f%%'
           % (total, failures, 100 * failures / max(1, total)))
     print('   已抓到的測試名：%s' % (named or '（尚無）'))
+    print('   已否證的假設：')
+    for h in HYPOTHESES:
+        print('      🚫 %s → %s' % (h['hypothesis'], h['result']))
     print('   控制探針：')
     for p in probes:
         print('     %s %s' % ('✅' if p['passed'] else '🚨', p['probe']))
