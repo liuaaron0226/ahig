@@ -1,0 +1,158 @@
+{
+  "schemaVersion": 1,
+  "documentType": "dose-proxy-validation",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "unit": "g/h",
+  "truthPapers": 25,
+  "inScopeDoseValues": 98,
+  "inScopeDoseSummary": {
+    "min": 24.0,
+    "median": 70.0,
+    "max": 144.0,
+    "below60": 10,
+    "atOrAbove90": 44
+  },
+  "perPaperMinDose": [
+    24.0,
+    30.0,
+    45.0,
+    48.0,
+    60.0,
+    60.0,
+    60.0,
+    60.0,
+    60.0,
+    60.0,
+    68.0,
+    70.0,
+    72.0,
+    72.0,
+    80.0,
+    90.0,
+    90.0,
+    95.0,
+    102.0,
+    108.0,
+    108.0,
+    108.0,
+    120.0,
+    120.0,
+    132.0
+  ],
+  "papersAnchoringLowEnd": 4,
+  "thresholdSensitivity": {
+    "strictlyBelow60": 4,
+    "atOrBelow60": 10,
+    "papersExactlyAt60": 6,
+    "note": "🚨 60 g/h 這個門檻是本室自己選的，⚠️ 而它正好壓在資料的眾數上——有 6 篇的最低劑量**恰為 60.0**（60 g/h 是這個領域的經典劑量）。**🚨 故「撐住低端的只有 4 篇」對門檻極度敏感**：改成 ≤60 就變 10 篇。⚠️ 兩個數都要看。"
+  },
+  "comparedPapers": 22,
+  "proxyAgreement": {
+    "lowSideAgreement": "20/22",
+    "within10gPerHour": "17/22",
+    "medianMinDiff": 0.0,
+    "largestMinDiff": -72.0
+  },
+  "worstPairs": [
+    {
+      "report": "501bb474ac4704fa",
+      "truthMin": 108.0,
+      "truthMax": 108.0,
+      "proxyMin": 36.0,
+      "proxyMax": 108.0,
+      "minDiff": -72.0,
+      "lowSideAgrees": false
+    },
+    {
+      "report": "59b4558a37f28bc9",
+      "truthMin": 60.0,
+      "truthMax": 120.0,
+      "proxyMin": 120.0,
+      "proxyMax": 150.0,
+      "minDiff": 60.0,
+      "lowSideAgrees": true
+    },
+    {
+      "report": "65dd82a89b2c5340",
+      "truthMin": 60.0,
+      "truthMax": 90.0,
+      "proxyMin": 30.0,
+      "proxyMax": 90.0,
+      "minDiff": -30.0,
+      "lowSideAgrees": false
+    },
+    {
+      "report": "081d147cd92dee14",
+      "truthMin": 24.0,
+      "truthMax": 48.0,
+      "proxyMin": 48.0,
+      "proxyMax": 48.0,
+      "minDiff": 24.0,
+      "lowSideAgrees": true
+    },
+    {
+      "report": "d4251685a43792ff",
+      "truthMin": 80.0,
+      "truthMax": 100.0,
+      "proxyMin": 100.0,
+      "proxyMax": 150.0,
+      "minDiff": 20.0,
+      "lowSideAgrees": true
+    },
+    {
+      "report": "86e6a580108fd94b",
+      "truthMin": 102.0,
+      "truthMax": 102.0,
+      "proxyMin": 102.0,
+      "proxyMax": 102.0,
+      "minDiff": 0.0,
+      "lowSideAgrees": true
+    }
+  ],
+  "proxyErrorDirections": {
+    "代理說低・真值不低": 2,
+    "代理說不低・真值低": 0
+  },
+  "n626RobustnessBound": {
+    "observedLowSideErrorRate": 9.1,
+    "n626Gap": 28.0,
+    "worstCaseGapIfAllErrorsAlign": 9.8,
+    "errorIsOneSided": "🚨 兩處誤判方向一致——**代理都是「把不低的說成低」**（反向 0 篇）。⚠️ 那正是會**誇大**第 626 輪結論的方向。✅ 但該偏移對兩組應同等作用，故差距本身多半仍在；🚫 本室不宣稱它精確等於 28.7。",
+    "note": "⚠️ 把觀察到的誤判率**全部往同一個方向**推，看第 626 輪那個 28.7 個百分點的差距還剩多少。🚫 這是上界推算，不是精確修正。"
+  },
+  "whatThisMeansForN626": "⚠️ 第 626 輪拿判詞當尺去量那 107 篇沒取到的文獻。✅ 本支在語料這 22 篇上驗過那把尺：**中位偏差 0.0 g/h（無系統性偏移）**，🚨 但低端判斷有 2 篇不一致、5 篇偏差超過 10 g/h——⚠️ 故第 626 輪的數字應讀成「群體層級的粗略比較」，**🚫 不可拿去斷任何單篇。**",
+  "whatThisCannotAnswer": "🚫 沒取到的那些沒有真值可比——⚠️ 本支只能說「這把尺在語料上準不準」，🚨 不能保證它在那個年代一樣準。",
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "controlProbes": [
+    {
+      "probe": "兩邊都有的篇夠多，比得出東西（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 實得 22 篇兩邊都有（真值 25 篇、其中有判詞劑量者 22）；⚠️ 若太少，本支說什麼都是軼事"
+    },
+    {
+      "probe": "真值的單位只有一種（必觸發之反向）",
+      "passed": true,
+      "detail": "🚨 實得單位集合 ['g/h']；⚠️ 若混了 g/min，**這場比較就是拿兩把不同的尺在量**"
+    },
+    {
+      "probe": "代理沒有把「沒抽到」當成低劑量（必觸發之反向）",
+      "passed": true,
+      "detail": "🚨 代理的最小值不會小於可信域下界 5.0 g/h"
+    },
+    {
+      "probe": "⚠️ 代理與真值在**低端與否**上一致",
+      "passed": false,
+      "detail": "🚨 20/22 篇一致；⚠️ 這一格才是第 626 輪真正倚賴的判斷"
+    },
+    {
+      "probe": "⚠️ 代理的最低劑量與真值相差在 10 g/h 內",
+      "passed": false,
+      "detail": "🚨 17/22 篇相差 ≤10 g/h；中位偏差 0.0 g/h；⚠️ 最大偏差 -72.0 g/h"
+    }
+  ],
+  "auditHash": "sha256:9de4b67852c82d9c29dc7af74ed6370252ab445647bcad2bc0e3f6f34858c1c1"
+}

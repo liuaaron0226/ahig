@@ -516,9 +516,15 @@ def run_tests():
 
 print()
 print('=== 測試（🚨 數字須來自實跑）===')
+# 🚨 第 627 輪：⚠️ 測試那格第二次一次性地紅，而本室**又**用 tail 截斷了輸出，
+# 診斷行**又**被切掉——第 622 輪記下的教訓（不要截斷）本室隔幾輪自己違反。
+# **✅ 故改形狀而不是改習慣：截斷保留的是尾巴，就把診斷印在尾巴。**
+# ⚠️ 底下這個 list 收集所有紅燈細節，於分隔線**之後**再印一次。
+verdict_detail = []
 tr = run_tests()
 if tr is None:
     print('   🚨 找不到裝有 pytest 的直譯器，🚫 本輪不得回報任何測試數字。')
+    verdict_detail.append('🚨 找不到裝有 pytest 的直譯器。')
     t_ok = False
 else:
     passed, failed, exe, line = tr
@@ -530,9 +536,15 @@ else:
     if unreadable:
         print('   🚨 本輪**沒有測試數字**——⚠️ 不得把它讀成「測試通過」，'
               '🚫 也不得讀成「某條測試壞了」。')
+        verdict_detail.append(
+            '🚨 讀不到 pytest 摘要行（不是測試失敗）：%s' % line)
     else:
         print('   基線 %d passed／%d failed  %s'
               % (BASE_PASSED, BASE_FAILED, '✅ 相同' if t_ok else '🚨 偏離'))
+        if not t_ok:
+            verdict_detail.append(
+                '🚨 測試數字偏離基線：實得「%s」，基線 %d passed／%d failed。'
+                % (line, BASE_PASSED, BASE_FAILED))
     print('   已知失敗：%s' % KNOWN_FAIL)
     print('   ⚠️ 未收集：%s' % UNCOLLECTABLE)
     print('   🚨 故本閘門不得聲稱「743/743」——⚠️ 743 是協調者環境之數，非此處實測。')
@@ -544,4 +556,7 @@ print('n+48 第一道 %s｜第二道 %s｜n+54 三道 %s｜測試 %s'
       % ('✅' if p1_ok else '🚨', '✅' if p2_ok else '🚨',
          '✅' if p3_ok else '🚨', '✅' if t_ok else '🚨'))
 print('⚠️ 本檔通過只代表三組已知樣式無新增；🚨 未加標記之英文題名不在涵蓋範圍內。')
+# 🚨 診斷印在最後：⚠️ 截斷保留尾巴，故這幾行連 tail -3 都躲不掉。
+for detail in verdict_detail:
+    print('🚨 紅燈細節｜%s' % detail)
 sys.exit(0 if ok else 1)
