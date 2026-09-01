@@ -1,0 +1,74 @@
+{
+  "schemaVersion": 1,
+  "documentType": "p3-chained-pair-errata",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "correctsButDoesNotEdit": "🚨 `p3_step1i_table.json` 是凍結產物——✅ 本支**另存更正**，🚫 不就地改它。",
+  "chainedPair": [
+    "36768088",
+    "39763344"
+  ],
+  "keptVersion": "39763344",
+  "keptBecause": "⚠️ 較新的那一版自述為 update，✅ 對「搜尋接續」也是它有效。",
+  "asStored": {
+    "rows": 6,
+    "countsBySide": {
+      "stress-eating": 5,
+      "deficit-adherence": 1
+    },
+    "countsByDirection": {
+      "favourable": 3,
+      "mixed": 2,
+      "null": 1
+    }
+  },
+  "afterCollapsing": {
+    "rows": 5,
+    "countsBySide": {
+      "stress-eating": 4,
+      "deficit-adherence": 1
+    },
+    "countsByDirection": {
+      "favourable": 2,
+      "mixed": 2,
+      "null": 1
+    }
+  },
+  "headlineChange": "⚠️ 原表：`favourable 3／mixed 2／null 1`；🚨 收合後：`favourable 2／mixed 2／null 1`——**⚠️ 從「有利方向是多數」變成「平手，另有一筆無差別」。**",
+  "impossibleDatesAsWritten": {
+    "39763344": {
+      "asWritten": "31 April 2023",
+      "monthMaxDays": 30
+    }
+  },
+  "dateNote": "🚨 `31 April 2023` 四月沒有 31 日。✅ 本支**照原文記下並標記**，🚫 不自行更正——⚠️ 那是逐字轉錄，改了就變成本室的推測（n+195）。",
+  "doesNotChange": "✅ 搜尋接續點**不受影響**：接續點由最新的截止日決定（June 2023／July 2023），🚫 不是那一對。",
+  "whatThisIsNot": "🚫 本支不重新判讀任何一篇回顧的方向，⚠️ 只是把**同一條線的兩版收成一筆**再數一次。",
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "controlProbes": [
+    {
+      "probe": "那一對真的都在表裡（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 chainedPair=['36768088', '39763344']，都在 rows 裡：True；⚠️ 不在的話就沒有東西可收合"
+    },
+    {
+      "probe": "不收合時，本支重算的數字與原表完全相同（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 重算 side={'stress-eating': 5, 'deficit-adherence': 1}／dir={'favourable': 3, 'mixed': 2, 'null': 1}；原表 side={'stress-eating': 5, 'deficit-adherence': 1}／dir={'favourable': 3, 'mixed': 2, 'null': 1}；⚠️ 對不上代表差異來自本支算錯，🚫 不是原表的問題"
+    },
+    {
+      "probe": "收合真的少掉一列（必觸發之反向）",
+      "passed": true,
+      "detail": "🚨 原 6 列 → 收合後 5 列；⚠️ 沒少的話收合等於沒做"
+    },
+    {
+      "probe": "原表的計數已經把同一條線的兩版算成一筆",
+      "passed": false,
+      "detail": "🚨 原表 dir={'favourable': 3, 'mixed': 2, 'null': 1}；收合後 dir={'favourable': 2, 'mixed': 2, 'null': 1}；⚠️ 兩者不同就代表**原表的警語沒有套用到它自己的計數上**"
+    }
+  ],
+  "auditHash": "sha256:1f87fd630475a2307b75c150792aa117e7944f4650165ec4832a0640acef7497"
+}
