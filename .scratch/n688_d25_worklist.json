@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 1,
+  "documentType": "d25-worklist-summary",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "notAnAuthorisation": "🚨 **本支不代表 D25 已裁**，也不代表本室認為它會過。✅ 它只把「若裁了要抽，第一天從哪裡開始」先算好。",
+  "strengthensDecision": "📮 D25。⚠️ 本支**沒有紅燈**、也不新增決策——✅ 它是 D25 落地時的工作清單。⚠️ 下一次登記簿改版會與其他待掛的一起掛入（🚫 本室不每輪都出一版登記簿，那是噪音）。",
+  "inScopeItems": 98,
+  "papers": 25,
+  "workGroups": 50,
+  "groupSizeMax": 7,
+  "groupSizeMedian": 2,
+  "itemsWithoutLocator": 0,
+  "perOutcome": {
+    "gi-symptom-severity": 47,
+    "exogenous-cho-oxidation-peak": 18,
+    "gi-symptom-incidence": 13,
+    "time-to-exhaustion": 10,
+    "tt-completion-time": 6,
+    "muscle-glycogen-post-exercise": 4
+  },
+  "fieldsToFill": [
+    "pointEstimate",
+    "ciLow",
+    "ciHigh",
+    "nSubjects"
+  ],
+  "worklistWrittenTo": "C:\\Users\\User\\Desktop\\claude\\ahig-private\\extraction-worksheet\\d25-numeric-worklist.json",
+  "contentDiscipline": "🚨 清單本體（含出處字串）寫進**私有根**；✅ repo 這一支只留計數與結構，🚫 不含標籤或出處文字（n+195 一）。",
+  "methodLimit": "⚠️ 「有定位點」🚫 不等於「那個位置真的有數字」——🚨 第 597／635 輪已看過「出處指到方法段」與「宣稱有數值卻找不到數字」兩種情形。**✅ 本支只保證讀的人知道先跳去哪裡，🚫 不保證跳過去就有東西。**",
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "controlProbes": [
+    {
+      "probe": "清單涵蓋全部在範圍內的項目（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 在範圍內 98 項、寫入 98 項、來自 25 篇；⚠️ 對不上就代表清單漏了東西"
+    },
+    {
+      "probe": "每一項都有可據以定位的出處（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 沒有定位點的 0 項；⚠️ 沒有定位點的項目，讀的人只能重讀全文"
+    },
+    {
+      "probe": "repo 這一支不含任何標籤或出處文字（必觸發之反向）",
+      "passed": true,
+      "detail": "🚨 疑似外洩的鍵：無；⚠️ 出處字串屬文獻衍生內容，只能留私有根"
+    },
+    {
+      "probe": "工作清單已可照著跳定位點做（🚫 不代表 D25 已裁）",
+      "passed": true,
+      "detail": "🚨 分成 50 個「同篇同定位點」的工作組；最大的組 7 項、中位數 2 項；⚠️ 組數越少代表越省來回翻閱"
+    }
+  ],
+  "auditHash": "sha256:06d272ebcea1d5f4d79d61ad2d762be8bde48c76e879cb2a6800b045169d580e"
+}
