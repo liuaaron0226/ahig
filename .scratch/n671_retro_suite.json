@@ -24,15 +24,15 @@
         "candidates": 32,
         "top": [
           {
-            "artefact": "n628_evidence_thinness.json",
+            "artefact": "n615_flat_hierarchy.json",
             "score": 4.1
           },
           {
-            "artefact": "n647_recovery_ledger.json",
+            "artefact": "n613_recoverable_from_tables.json",
             "score": 4.1
           },
           {
-            "artefact": "n574_instrument_exclusions.json",
+            "artefact": "n641_double_read_state.json",
             "score": 4.1
           },
           {
@@ -40,11 +40,11 @@
             "score": 4.1
           },
           {
-            "artefact": "n641_double_read_state.json",
+            "artefact": "n574_instrument_exclusions.json",
             "score": 4.1
           }
         ],
-        "rankOfTarget": 18,
+        "rankOfTarget": 16,
         "targetScore": 2.18,
         "decisionsReached": []
       },
@@ -68,11 +68,11 @@
             "score": 11.27
           },
           {
-            "artefact": "n662_double_read_fields.json",
+            "artefact": "n585_blocked_drafts_errata.json",
             "score": 11.27
           },
           {
-            "artefact": "n585_blocked_drafts_errata.json",
+            "artefact": "n662_double_read_fields.json",
             "score": 11.27
           },
           {
@@ -80,7 +80,7 @@
             "score": 9.35
           },
           {
-            "artefact": "n628_evidence_thinness.json",
+            "artefact": "n615_flat_hierarchy.json",
             "score": 4.1
           }
         ],
@@ -111,11 +111,15 @@
         "candidates": 21,
         "top": [
           {
-            "artefact": "n628_evidence_thinness.json",
+            "artefact": "n641_double_read_state.json",
             "score": 4.59
           },
           {
-            "artefact": "n647_recovery_ledger.json",
+            "artefact": "n644_screening_vs_extraction.json",
+            "score": 4.59
+          },
+          {
+            "artefact": "n598_source_section_no_result.json",
             "score": 4.59
           },
           {
@@ -124,10 +128,6 @@
           },
           {
             "artefact": "n51_all.json",
-            "score": 4.59
-          },
-          {
-            "artefact": "n644_screening_vs_extraction.json",
             "score": 4.59
           }
         ],
@@ -151,7 +151,7 @@
         "candidates": 28,
         "top": [
           {
-            "artefact": "n639_decision_space_coverage.json",
+            "artefact": "n588_reason_code_conflation.json",
             "score": 6.78
           },
           {
@@ -167,11 +167,11 @@
             "score": 6.78
           },
           {
-            "artefact": "n588_reason_code_conflation.json",
+            "artefact": "n639_decision_space_coverage.json",
             "score": 6.78
           }
         ],
-        "rankOfTarget": 5,
+        "rankOfTarget": 1,
         "targetScore": 6.78,
         "decisionsReached": [
           "D5",
@@ -209,5 +209,5 @@
       "detail": "🚨 只用實體時連到的決策：{'D4 那次（切片器械）': '無', 'D6 那次（median 與 GI 家族）': '無'}；⚠️ 有一次連不到，就代表「查詢必須帶爭點的識別字」是硬規矩"
     }
   ],
-  "auditHash": "sha256:283b35d85a1a69f8a976cea29564a1b670e41549aba3ce91469ff98556b5cc99"
+  "auditHash": "sha256:fa4f328bc023747662bf8580a93106b727ab8ab6855952415ce3267ae91efcba"
 }

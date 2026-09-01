@@ -56,6 +56,9 @@ REASON_RE = re.compile(r'\b(?:notExtracted|escalated)-[a-z0-9-]+\b')
 # 🚨 三段以上的 kebab 記號＝受控詞彙（結局代號、儀器名稱……），
 # ⚠️ 這是**結構**樣式，🚫 不是關鍵字清單。
 KEBAB_RE = re.compile(r'\b[a-z][a-z0-9]*(?:-[a-z0-9]+){2,}\b')
+# 🚨 第 673 輪發現的破口：登記簿的決策代號 D1–D24 本來不在詞彙裡，
+# ⚠️ 也就是「這個決策之前討論過嗎」根本查不動。
+DECISION_RE = re.compile(r'\bD[1-9][0-9]?\b')
 
 CHAIN = range(662, 670)
 RETRO_CUTOFF = 663
@@ -77,7 +80,7 @@ def artefacts():
 
 def identifiers(text):
     return (set(REPORT_RE.findall(text)) | set(REASON_RE.findall(text))
-            | set(KEBAB_RE.findall(text)))
+            | set(KEBAB_RE.findall(text)) | set(DECISION_RE.findall(text)))
 
 
 def build(max_round=None):

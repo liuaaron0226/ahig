@@ -1,0 +1,951 @@
+{
+  "schemaVersion": 1,
+  "documentType": "orphan-finding-scan",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "artefactsScanned": 183,
+  "withFailedProbes": 64,
+  "orphanCandidates": [],
+  "linkStrength": {
+    "citedByDecision": 16,
+    "onlyMentionedLater": 48,
+    "neither": 0
+  },
+  "rows": [
+    {
+      "artefact": "n496_corpus_verify.json",
+      "round": 496,
+      "failedProbes": 9,
+      "firstFailed": "正向甲：正確之 JATS artifact",
+      "citedByDecisions": [],
+      "followedUpBy": [
+        "n504_executor_suite.json",
+        "n506_failclosed_acceptance.json",
+        "n517_temporal_order_check.json",
+        "n525_id_key_conventions.json"
+      ],
+      "followerCount": 7
+    },
+    {
+      "artefact": "n498_sections_integrity.json",
+      "round": 498,
+      "failedProbes": 7,
+      "firstFailed": "正向：合成之正確 sections",
+      "citedByDecisions": [],
+      "followedUpBy": [
+        "n504_executor_suite.json",
+        "n506_failclosed_acceptance.json",
+        "n525_id_key_conventions.json",
+        "n648_artefact_reproducibility.json"
+      ],
+      "followerCount": 6
+    },
+    {
+      "artefact": "n499_calibration_redraw.json",
+      "round": 499,
+      "failedProbes": 6,
+      "firstFailed": "正向：忠實重抽之紀錄",
+      "citedByDecisions": [],
+      "followedUpBy": [
+        "n504_executor_suite.json",
+        "n506_failclosed_acceptance.json",
+        "n648_artefact_reproducibility.json",
+        "n670_identifier_index.json"
+      ],
+      "followerCount": 5
+    },
+    {
+      "artefact": "n504_executor_suite.json",
+      "round": 504,
+      "failedProbes": 2,
+      "firstFailed": "必然成功之命令",
+      "citedByDecisions": [],
+      "followedUpBy": [
+        "n506_failclosed_acceptance.json",
+        "n648_artefact_reproducibility.json",
+        "n670_identifier_index.json",
+        "n673_orphan_findings.json"
+      ],
+      "followerCount": 4
+    },
+    {
+      "artefact": "n512_source_host_provenance.json",
+      "round": 512,
+      "failedProbes": 9,
+      "firstFailed": null,
+      "citedByDecisions": [],
+      "followedUpBy": [
+        "n525_id_key_conventions.json",
+        "n648_artefact_reproducibility.json",
+        "n670_identifier_index.json",
+        "n673_orphan_findings.json"
+      ],
+      "followerCount": 4
+    },
+    {
+      "artefact": "n517_temporal_order_check.json",
+      "round": 517,
+      "failedProbes": 3,
+      "firstFailed": null,
+      "citedByDecisions": [],
+      "followedUpBy": [
+        "n648_artefact_reproducibility.json",
+        "n670_identifier_index.json",
+        "n673_orphan_findings.json"
+      ],
+      "followerCount": 3
+    },
+    {
+      "artefact": "n580_study_vs_report.json",
+      "round": 580,
+      "failedProbes": 2,
+      "firstFailed": "作者清單看起來是完整的",
+      "citedByDecisions": [],
+      "followedUpBy": [
+        "n648_artefact_reproducibility.json",
+        "n670_identifier_index.json",
+        "n673_orphan_findings.json"
+      ],
+      "followerCount": 3
+    },
+    {
+      "artefact": "n584_thesis_and_hidden_duplicate.json",
+      "round": 584,
+      "failedProbes": 1,
+      "firstFailed": "這兩筆已被記錄為同一個 study",
+      "citedByDecisions": [
+        "D3"
+      ],
+      "followedUpBy": [
+        "n585_blocked_drafts_errata.json",
+        "n610_pending_decisions.json",
+        "n628_evidence_thinness.json",
+        "n634_decision_register_v2.json"
+      ],
+      "followerCount": 8
+    },
+    {
+      "artefact": "n586_zero_contribution_census.json",
+      "round": 586,
+      "failedProbes": 1,
+      "firstFailed": "沒有「零宣告卻滿是結局詞彙」的論文",
+      "citedByDecisions": [],
+      "followedUpBy": [
+        "n587_zero_declared_adjudication.json",
+        "n617_findings_by_source.json",
+        "n636_headline_reconciliation.json",
+        "n643_corpus_to_evidence_funnel.json"
+      ],
+      "followerCount": 8
+    },
+    {
+      "artefact": "n588_reason_code_conflation.json",
+      "round": 588,
+      "failedProbes": 2,
+      "firstFailed": "notExtracted-dose-outside-bands 只對應一種實情",
+      "citedByDecisions": [
+        "D5",
+        "D6"
+      ],
+      "followedUpBy": [
+        "n589_dose_not_reported_audit.json",
+        "n591_absent_vs_null_axis.json",
+        "n610_pending_decisions.json",
+        "n634_decision_register_v2.json"
+      ],
+      "followerCount": 10
+    },
+    {
+      "artefact": "n590_source_location_audit.json",
+      "round": 590,
+      "failedProbes": 1,
+      "firstFailed": "沒有任何契約結局的出處是導論／討論類段落",
+      "citedByDecisions": [],
+      "followedUpBy": [
+        "n598_source_section_no_result.json",
+        "n617_findings_by_source.json",
+        "n648_artefact_reproducibility.json",
+        "n670_identifier_index.json"
+      ],
+      "followerCount": 5
+    },
+    {
+      "artefact": "n591_absent_vs_null_axis.json",
+      "round": 591,
+      "failedProbes": 1,
+      "firstFailed": "同一份讀法不會因為寫法不同而得到相反結果",
+      "citedByDecisions": [],
+      "followedUpBy": [
+        "n648_artefact_reproducibility.json",
+        "n670_identifier_index.json",
+        "n673_orphan_findings.json"
+      ],
+      "followerCount": 3
+    },
+    {
+      "artefact": "n592_default_only_when_absent.json",
+      "round": 592,
+      "failedProbes": 1,
+      "firstFailed": "同一個寫法在所有位置的方向一致",
+      "citedByDecisions": [
+        "D8"
+      ],
+      "followedUpBy": [
+        "n593_cap_paths_diverge.json",
+        "n610_pending_decisions.json",
+        "n634_decision_register_v2.json",
+        "n648_artefact_reproducibility.json"
+      ],
+      "followerCount": 7
+    },
+    {
+      "artefact": "n593_cap_paths_diverge.json",
+      "round": 593,
+      "failedProbes": 2,
+      "firstFailed": "decide_inventory 的輸出不會自相矛盾",
+      "citedByDecisions": [
+        "D9"
+      ],
+      "followedUpBy": [
+        "n597_numeric_result_unsupported.json",
+        "n610_pending_decisions.json",
+        "n634_decision_register_v2.json",
+        "n637_prose_numbers.json"
+      ],
+      "followerCount": 9
+    },
+    {
+      "artefact": "n594_a3_first_measurement.json",
+      "round": 594,
+      "failedProbes": 1,
+      "firstFailed": "雙讀的篇數足以支撐 A3",
+      "citedByDecisions": [
+        "D4"
+      ],
+      "followedUpBy": [
+        "n610_pending_decisions.json",
+        "n634_decision_register_v2.json",
+        "n648_artefact_reproducibility.json",
+        "n669_decision_register_v3.json"
+      ],
+      "followerCount": 7
+    },
+    {
+      "artefact": "n595_second_read_invisible.json",
+      "round": 595,
+      "failedProbes": 1,
+      "firstFailed": "兩位讀者把同一批句子配到相同的結局上",
+      "citedByDecisions": [],
+      "followedUpBy": [
+        "n648_artefact_reproducibility.json",
+        "n670_identifier_index.json",
+        "n673_orphan_findings.json"
+      ],
+      "followerCount": 3
+    },
+    {
+      "artefact": "n596_allocation_replicates.json",
+      "round": 596,
+      "failedProbes": 1,
+      "firstFailed": "兩位讀者的配置一致",
+      "citedByDecisions": [
+        "D10",
+        "D11"
+      ],
+      "followedUpBy": [
+        "n597_numeric_result_unsupported.json",
+        "n610_pending_decisions.json",
+        "n634_decision_register_v2.json",
+        "n648_artefact_reproducibility.json"
+      ],
+      "followerCount": 7
+    },
+    {
+      "artefact": "n597_numeric_result_unsupported.json",
+      "round": 597,
+      "failedProbes": 1,
+      "firstFailed": "每一項在範圍內的嚴重度，其症狀在文件中都有數值",
+      "citedByDecisions": [
+        "D12"
+      ],
+      "followedUpBy": [
+        "n598_source_section_no_result.json",
+        "n610_pending_decisions.json",
+        "n611_tables_missing.json",
+        "n617_findings_by_source.json"
+      ],
+      "followerCount": 11
+    },
+    {
+      "artefact": "n598_source_section_no_result.json",
+      "round": 598,
+      "failedProbes": 1,
+      "firstFailed": "每一項在範圍內的結局，其來源段落都含結果",
+      "citedByDecisions": [],
+      "followedUpBy": [
+        "n608_fourth_double_read.json",
+        "n609_methods_title_check.json",
+        "n614_table_recovery_qualified.json",
+        "n617_findings_by_source.json"
+      ],
+      "followerCount": 7
+    },
+    {
+      "artefact": "n608_fourth_double_read.json",
+      "round": 608,
+      "failedProbes": 3,
+      "firstFailed": "兩位讀者的來源段落一致",
+      "citedByDecisions": [
+        "D14",
+        "D15"
+      ],
+      "followedUpBy": [
+        "n610_pending_decisions.json",
+        "n631_probe_shape_scanner.json",
+        "n634_decision_register_v2.json",
+        "n648_artefact_reproducibility.json"
+      ],
+      "followerCount": 7
+    },
+    {
+      "artefact": "n609_methods_title_check.json",
+      "round": 609,
+      "failedProbes": 1,
+      "firstFailed": "標題式檢查抓得到 n598 那一批",
+      "citedByDecisions": [
+        "D13"
+      ],
+      "followedUpBy": [
+        "n610_pending_decisions.json",
+        "n634_decision_register_v2.json",
+        "n648_artefact_reproducibility.json",
+        "n669_decision_register_v3.json"
+      ],
+      "followerCount": 6
+    },
+    {
+      "artefact": "n610_pending_decisions.json",
+      "round": 610,
+      "failedProbes": 1,
+      "firstFailed": "沒有待裁定積壓",
+      "citedByDecisions": [],
+      "followedUpBy": [
+        "n634_decision_register_v2.json",
+        "n648_artefact_reproducibility.json",
+        "n670_identifier_index.json",
+        "n673_orphan_findings.json"
+      ],
+      "followerCount": 4
+    },
+    {
+      "artefact": "n611_tables_missing.json",
+      "round": 611,
+      "failedProbes": 1,
+      "firstFailed": "每一位讀者都看得到論文引用的表格",
+      "citedByDecisions": [],
+      "followedUpBy": [
+        "n648_artefact_reproducibility.json",
+        "n670_identifier_index.json",
+        "n673_orphan_findings.json"
+      ],
+      "followerCount": 3
+    },
+    {
+      "artefact": "n612_parse_tei_root_cause.json",
+      "round": 612,
+      "failedProbes": 2,
+      "firstFailed": "TEI 那一支有處理表格的分支",
+      "citedByDecisions": [
+        "D17"
+      ],
+      "followedUpBy": [
+        "n613_recoverable_from_tables.json",
+        "n631_probe_shape_scanner.json",
+        "n634_decision_register_v2.json",
+        "n648_artefact_reproducibility.json"
+      ],
+      "followerCount": 7
+    },
+    {
+      "artefact": "n613_recoverable_from_tables.json",
+      "round": 613,
+      "failedProbes": 1,
+      "firstFailed": "沒有「貢獻為零卻有結局表」的論文",
+      "citedByDecisions": [],
+      "followedUpBy": [
+        "n614_table_recovery_qualified.json",
+        "n648_artefact_reproducibility.json",
+        "n670_identifier_index.json",
+        "n673_orphan_findings.json"
+      ],
+      "followerCount": 4
+    },
+    {
+      "artefact": "n614_table_recovery_qualified.json",
+      "round": 614,
+      "failedProbes": 1,
+      "firstFailed": "被丟掉的表全部是該篇自己的結果",
+      "citedByDecisions": [],
+      "followedUpBy": [
+        "n648_artefact_reproducibility.json",
+        "n670_identifier_index.json",
+        "n673_orphan_findings.json"
+      ],
+      "followerCount": 3
+    },
+    {
+      "artefact": "n615_flat_hierarchy.json",
+      "round": 615,
+      "failedProbes": 2,
+      "firstFailed": "全語料的段落結構深度可比",
+      "citedByDecisions": [],
+      "followedUpBy": [
+        "n648_artefact_reproducibility.json",
+        "n670_identifier_index.json",
+        "n673_orphan_findings.json"
+      ],
+      "followerCount": 3
+    },
+    {
+      "artefact": "n616_text_coverage.json",
+      "round": 616,
+      "failedProbes": 1,
+      "firstFailed": "讀者看到了原文的全部",
+      "citedByDecisions": [],
+      "followedUpBy": [
+        "n648_artefact_reproducibility.json",
+        "n670_identifier_index.json",
+        "n673_orphan_findings.json"
+      ],
+      "followerCount": 3
+    },
+    {
+      "artefact": "n617_findings_by_source.json",
+      "round": 617,
+      "failedProbes": 1,
+      "firstFailed": "沒有任何發現不成比例地集中在 GROBID",
+      "citedByDecisions": [],
+      "followedUpBy": [
+        "n648_artefact_reproducibility.json",
+        "n670_identifier_index.json",
+        "n673_orphan_findings.json"
+      ],
+      "followerCount": 3
+    },
+    {
+      "artefact": "n621_out_of_scope_audit.json",
+      "round": 621,
+      "failedProbes": 1,
+      "firstFailed": "沒有「未宣告卻帶著契約結局特徵詞」的項目",
+      "citedByDecisions": [],
+      "followedUpBy": [
+        "n636_headline_reconciliation.json",
+        "n648_artefact_reproducibility.json",
+        "n670_identifier_index.json",
+        "n673_orphan_findings.json"
+      ],
+      "followerCount": 4
+    },
+    {
+      "artefact": "n624_corpus_denominator.json",
+      "round": 624,
+      "failedProbes": 3,
+      "firstFailed": "判定可得者全部都進了語料",
+      "citedByDecisions": [
+        "D18",
+        "D19",
+        "D20"
+      ],
+      "followedUpBy": [
+        "n628_evidence_thinness.json",
+        "n629_probe_mutation_test.json",
+        "n631_probe_shape_scanner.json",
+        "n634_decision_register_v2.json"
+      ],
+      "followerCount": 9
+    },
+    {
+      "artefact": "n625_corpus_era_bias.json",
+      "round": 625,
+      "failedProbes": 3,
+      "firstFailed": "語料涵蓋各年代",
+      "citedByDecisions": [],
+      "followedUpBy": [
+        "n628_evidence_thinness.json",
+        "n629_probe_mutation_test.json",
+        "n631_probe_shape_scanner.json",
+        "n634_decision_register_v2.json"
+      ],
+      "followerCount": 8
+    },
+    {
+      "artefact": "n626_missing_era_dose_space.json",
+      "round": 626,
+      "failedProbes": 2,
+      "firstFailed": "⚠️ 語料與缺掉那個年代的**中位劑量**沒有差異",
+      "citedByDecisions": [],
+      "followedUpBy": [
+        "n627_dose_proxy_validation.json",
+        "n629_probe_mutation_test.json",
+        "n631_probe_shape_scanner.json",
+        "n648_artefact_reproducibility.json"
+      ],
+      "followerCount": 6
+    },
+    {
+      "artefact": "n627_dose_proxy_validation.json",
+      "round": 627,
+      "failedProbes": 2,
+      "firstFailed": "⚠️ 代理與真值在**低端與否**上一致",
+      "citedByDecisions": [],
+      "followedUpBy": [
+        "n628_evidence_thinness.json",
+        "n629_probe_mutation_test.json",
+        "n631_probe_shape_scanner.json",
+        "n636_headline_reconciliation.json"
+      ],
+      "followerCount": 7
+    },
+    {
+      "artefact": "n628_evidence_thinness.json",
+      "round": 628,
+      "failedProbes": 3,
+      "firstFailed": "每一種契約結局都有 ≥3 篇支撐",
+      "citedByDecisions": [],
+      "followedUpBy": [
+        "n629_probe_mutation_test.json",
+        "n631_probe_shape_scanner.json",
+        "n632_poolability.json",
+        "n634_decision_register_v2.json"
+      ],
+      "followerCount": 10
+    },
+    {
+      "artefact": "n632_poolability.json",
+      "round": 632,
+      "failedProbes": 3,
+      "firstFailed": "允許清單為空時，儀器關卡仍然擋得住",
+      "citedByDecisions": [],
+      "followedUpBy": [
+        "n633_gi_scale_heterogeneity.json",
+        "n636_headline_reconciliation.json",
+        "n648_artefact_reproducibility.json",
+        "n670_identifier_index.json"
+      ],
+      "followerCount": 5
+    },
+    {
+      "artefact": "n633_gi_scale_heterogeneity.json",
+      "round": 633,
+      "failedProbes": 2,
+      "firstFailed": "腸胃症狀的量表型別是單一的",
+      "citedByDecisions": [],
+      "followedUpBy": [
+        "n636_headline_reconciliation.json",
+        "n648_artefact_reproducibility.json",
+        "n667_inscope_without_instrument.json",
+        "n670_identifier_index.json"
+      ],
+      "followerCount": 5
+    },
+    {
+      "artefact": "n634_decision_register_v2.json",
+      "round": 634,
+      "failedProbes": 1,
+      "firstFailed": "沒有待裁定卡著內容關卡",
+      "citedByDecisions": [],
+      "followedUpBy": [
+        "n648_artefact_reproducibility.json",
+        "n669_decision_register_v3.json",
+        "n670_identifier_index.json",
+        "n673_orphan_findings.json"
+      ],
+      "followerCount": 4
+    },
+    {
+      "artefact": "n635_d12_recoverability.json",
+      "round": 635,
+      "failedProbes": 2,
+      "firstFailed": "那張表裡有腸胃症狀內容（必觸發之正對照）",
+      "citedByDecisions": [],
+      "followedUpBy": [
+        "n648_artefact_reproducibility.json",
+        "n670_identifier_index.json",
+        "n673_orphan_findings.json"
+      ],
+      "followerCount": 3
+    },
+    {
+      "artefact": "n637_prose_numbers.json",
+      "round": 637,
+      "failedProbes": 1,
+      "firstFailed": "建議文字裡可查證的數字都正確",
+      "citedByDecisions": [],
+      "followedUpBy": [
+        "n648_artefact_reproducibility.json",
+        "n670_identifier_index.json",
+        "n673_orphan_findings.json"
+      ],
+      "followerCount": 3
+    },
+    {
+      "artefact": "n638_cap_paths_executed.json",
+      "round": 638,
+      "failedProbes": 2,
+      "firstFailed": "換掉 onExceedMax 之後兩條路仍一致",
+      "citedByDecisions": [],
+      "followedUpBy": [
+        "n639_decision_space_coverage.json",
+        "n648_artefact_reproducibility.json",
+        "n670_identifier_index.json",
+        "n673_orphan_findings.json"
+      ],
+      "followerCount": 4
+    },
+    {
+      "artefact": "n639_decision_space_coverage.json",
+      "round": 639,
+      "failedProbes": 1,
+      "firstFailed": "每一條判定分支都被真實資料走過",
+      "citedByDecisions": [],
+      "followedUpBy": [
+        "n643_corpus_to_evidence_funnel.json",
+        "n648_artefact_reproducibility.json",
+        "n670_identifier_index.json",
+        "n671_retro_suite.json"
+      ],
+      "followerCount": 6
+    },
+    {
+      "artefact": "n640_branch_reachability.json",
+      "round": 640,
+      "failedProbes": 1,
+      "firstFailed": "SCOPE-002b 在通得過前置檢查的契約下到得了",
+      "citedByDecisions": [],
+      "followedUpBy": [
+        "n648_artefact_reproducibility.json",
+        "n670_identifier_index.json",
+        "n672_mutation_pairs.json",
+        "n673_orphan_findings.json"
+      ],
+      "followerCount": 4
+    },
+    {
+      "artefact": "n641_double_read_state.json",
+      "round": 641,
+      "failedProbes": 3,
+      "firstFailed": "雙讀涵蓋率達到語料的一成",
+      "citedByDecisions": [],
+      "followedUpBy": [
+        "n642_double_read_sample.json",
+        "n648_artefact_reproducibility.json",
+        "n662_double_read_fields.json",
+        "n670_identifier_index.json"
+      ],
+      "followerCount": 6
+    },
+    {
+      "artefact": "n642_double_read_sample.json",
+      "round": 642,
+      "failedProbes": 2,
+      "firstFailed": "抽樣在**來源型別**上也不特別",
+      "citedByDecisions": [],
+      "followedUpBy": [
+        "n648_artefact_reproducibility.json",
+        "n670_identifier_index.json",
+        "n673_orphan_findings.json"
+      ],
+      "followerCount": 3
+    },
+    {
+      "artefact": "n643_corpus_to_evidence_funnel.json",
+      "round": 643,
+      "failedProbes": 1,
+      "firstFailed": "語料裡每一篇都對證據有貢獻",
+      "citedByDecisions": [],
+      "followedUpBy": [
+        "n648_artefact_reproducibility.json",
+        "n664_vocabulary_upper_bound.json",
+        "n670_identifier_index.json",
+        "n671_retro_suite.json"
+      ],
+      "followerCount": 5
+    },
+    {
+      "artefact": "n644_screening_vs_extraction.json",
+      "round": 644,
+      "failedProbes": 3,
+      "firstFailed": "線索規則有鑑別力（🚨 本支第一版守錯方向的那一道）",
+      "citedByDecisions": [],
+      "followedUpBy": [
+        "n648_artefact_reproducibility.json",
+        "n655_publication_bias_attempt.json",
+        "n670_identifier_index.json",
+        "n671_retro_suite.json"
+      ],
+      "followerCount": 5
+    },
+    {
+      "artefact": "n645_dose_gate_by_outcome.json",
+      "round": 645,
+      "failedProbes": 1,
+      "firstFailed": "沒有結局「卡在門外的比進來的還多」",
+      "citedByDecisions": [],
+      "followedUpBy": [
+        "n648_artefact_reproducibility.json",
+        "n662_double_read_fields.json",
+        "n670_identifier_index.json",
+        "n671_retro_suite.json"
+      ],
+      "followerCount": 5
+    },
+    {
+      "artefact": "n646_loss_ledger_by_outcome.json",
+      "round": 646,
+      "failedProbes": 1,
+      "firstFailed": "沒有結局在關卡上損失過半",
+      "citedByDecisions": [],
+      "followedUpBy": [
+        "n648_artefact_reproducibility.json",
+        "n670_identifier_index.json",
+        "n673_orphan_findings.json"
+      ],
+      "followerCount": 3
+    },
+    {
+      "artefact": "n647_recovery_ledger.json",
+      "round": 647,
+      "failedProbes": 2,
+      "firstFailed": "每一件待裁定都至少多帶回一篇獨立研究",
+      "citedByDecisions": [],
+      "followedUpBy": [
+        "n648_artefact_reproducibility.json",
+        "n670_identifier_index.json",
+        "n671_retro_suite.json",
+        "n673_orphan_findings.json"
+      ],
+      "followerCount": 4
+    },
+    {
+      "artefact": "n648_artefact_reproducibility.json",
+      "round": 648,
+      "failedProbes": 2,
+      "firstFailed": "每一支憑證今天都還跑得起來",
+      "citedByDecisions": [],
+      "followedUpBy": [
+        "n653_invisible_checks.json",
+        "n656_flake_watch.json",
+        "n673_orphan_findings.json"
+      ],
+      "followerCount": 3
+    },
+    {
+      "artefact": "n654_registry_linkage.json",
+      "round": 654,
+      "failedProbes": 3,
+      "firstFailed": "靠 PMID 就連得起來",
+      "citedByDecisions": [],
+      "followedUpBy": [
+        "n670_identifier_index.json",
+        "n673_orphan_findings.json"
+      ],
+      "followerCount": 2
+    },
+    {
+      "artefact": "n655_publication_bias_attempt.json",
+      "round": 655,
+      "failedProbes": 2,
+      "firstFailed": "關鍵字判準有鑑別力",
+      "citedByDecisions": [],
+      "followedUpBy": [
+        "n670_identifier_index.json",
+        "n673_orphan_findings.json"
+      ],
+      "followerCount": 2
+    },
+    {
+      "artefact": "n659_no_numbers_yet.json",
+      "round": 659,
+      "failedProbes": 2,
+      "firstFailed": "清冊裡帶得動統合分析所需的數值欄位",
+      "citedByDecisions": [],
+      "followedUpBy": [
+        "n670_identifier_index.json",
+        "n673_orphan_findings.json"
+      ],
+      "followerCount": 2
+    },
+    {
+      "artefact": "n662_double_read_fields.json",
+      "round": 662,
+      "failedProbes": 1,
+      "firstFailed": "兩位讀者在欄位層級也一致",
+      "citedByDecisions": [],
+      "followedUpBy": [
+        "n669_decision_register_v3.json",
+        "n670_identifier_index.json",
+        "n671_retro_suite.json",
+        "n673_orphan_findings.json"
+      ],
+      "followerCount": 4
+    },
+    {
+      "artefact": "n663_reader_vocabulary.json",
+      "round": 663,
+      "failedProbes": 1,
+      "firstFailed": "儀器名稱的用字，🚫 不足以單獨改變在不在範圍內",
+      "citedByDecisions": [
+        "D24"
+      ],
+      "followedUpBy": [
+        "n669_decision_register_v3.json",
+        "n670_identifier_index.json",
+        "n673_orphan_findings.json"
+      ],
+      "followerCount": 3
+    },
+    {
+      "artefact": "n664_vocabulary_upper_bound.json",
+      "round": 664,
+      "failedProbes": 1,
+      "firstFailed": "儀器用字 🚫 沒有擋住任何項目",
+      "citedByDecisions": [],
+      "followedUpBy": [
+        "n665_blocked_gate_depth.json",
+        "n669_decision_register_v3.json",
+        "n670_identifier_index.json",
+        "n673_orphan_findings.json"
+      ],
+      "followerCount": 4
+    },
+    {
+      "artefact": "n665_blocked_gate_depth.json",
+      "round": 665,
+      "failedProbes": 2,
+      "firstFailed": "留空的設定，四道門的意思一致",
+      "citedByDecisions": [
+        "D22",
+        "D23",
+        "D24"
+      ],
+      "followedUpBy": [
+        "n666_blank_field_provenance.json",
+        "n667_inscope_without_instrument.json",
+        "n669_decision_register_v3.json",
+        "n670_identifier_index.json"
+      ],
+      "followerCount": 5
+    },
+    {
+      "artefact": "n666_blank_field_provenance.json",
+      "round": 666,
+      "failedProbes": 1,
+      "firstFailed": "那些空白都是「整篇該欄全空」，🚫 沒有一項是同篇漏填",
+      "citedByDecisions": [
+        "D23"
+      ],
+      "followedUpBy": [
+        "n667_inscope_without_instrument.json",
+        "n669_decision_register_v3.json",
+        "n670_identifier_index.json",
+        "n673_orphan_findings.json"
+      ],
+      "followerCount": 4
+    },
+    {
+      "artefact": "n667_inscope_without_instrument.json",
+      "round": 667,
+      "failedProbes": 1,
+      "firstFailed": "在範圍內的項目都有儀器紀錄",
+      "citedByDecisions": [
+        "D21"
+      ],
+      "followedUpBy": [
+        "n668_scale_identity_elsewhere.json",
+        "n669_decision_register_v3.json",
+        "n670_identifier_index.json",
+        "n673_orphan_findings.json"
+      ],
+      "followerCount": 4
+    },
+    {
+      "artefact": "n668_scale_identity_elsewhere.json",
+      "round": 668,
+      "failedProbes": 1,
+      "firstFailed": "量表身分 🚫 沒有記在任何其他欄位",
+      "citedByDecisions": [
+        "D21"
+      ],
+      "followedUpBy": [
+        "n669_decision_register_v3.json",
+        "n670_identifier_index.json",
+        "n673_orphan_findings.json"
+      ],
+      "followerCount": 3
+    },
+    {
+      "artefact": "n669_decision_register_v3.json",
+      "round": 669,
+      "failedProbes": 1,
+      "firstFailed": "沒有待裁定卡著內容關卡",
+      "citedByDecisions": [],
+      "followedUpBy": [
+        "n670_identifier_index.json",
+        "n673_orphan_findings.json"
+      ],
+      "followerCount": 2
+    },
+    {
+      "artefact": "n670_identifier_index.json",
+      "round": 670,
+      "failedProbes": 1,
+      "firstFailed": "這一串沒有任何一支「早該先讀某支已掛決策的舊憑證」",
+      "citedByDecisions": [],
+      "followedUpBy": [
+        "n671_retro_suite.json",
+        "n673_orphan_findings.json"
+      ],
+      "followerCount": 2
+    },
+    {
+      "artefact": "n671_retro_suite.json",
+      "round": 671,
+      "failedProbes": 1,
+      "firstFailed": "只用實體識別字就查得到——🚫 不必特別帶爭點",
+      "citedByDecisions": [],
+      "followedUpBy": [
+        "n673_orphan_findings.json"
+      ],
+      "followerCount": 1
+    }
+  ],
+  "whatThisIsNot": "🚨 本支產出的是**候選清單**，🚫 不是缺陷數。⚠️ 很多支的紅燈是**設計上就該紅**——答案探針本來就是用來說「答案是否定的」——✅ 其中有些根本不需要裁定。🚫 故本支不宣稱這些都是漏掉的東西。",
+  "methodLimit": "⚠️ 「有人接手」是用**檔名出現在更後面的憑證裡**判斷的，🚨 那只證明有人提過它，**🚫 不證明那個發現真的被處理了**。⚠️ 反過來也一樣：一支沒被提到，可能只是因為它的結論就是「沒事」。",
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "controlProbes": [
+    {
+      "probe": "真的有憑證亮著紅燈（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 掃過 183 支憑證，其中 64 支有失敗探針；⚠️ 若很少，本支沒有可對帳的對象"
+    },
+    {
+      "probe": "已知被決策引用的那支不得判成孤兒（必觸發之反向）",
+      "passed": true,
+      "detail": "🚨 n588_reason_code_conflation.json：引用它的決策 ['D5', 'D6']；⚠️ 若判成孤兒，代表引用關係沒接上"
+    },
+    {
+      "probe": "已知被後續憑證接手的那支不得判成孤兒（必觸發之反向）",
+      "passed": true,
+      "detail": "🚨 n670_identifier_index.json：後續提到它的有 ['n671_retro_suite.json', 'n673_orphan_findings.json']；⚠️ 若判成孤兒，代表「接手」判不出來"
+    },
+    {
+      "probe": "每一支亮紅燈的憑證都有人接手（決策或後續憑證）",
+      "passed": true,
+      "detail": "🚨 候選孤兒 0 支：無；⚠️ 這是**候選清單**，🚫 不是缺陷數——本室須逐一過目"
+    }
+  ],
+  "auditHash": "sha256:718cd0034c17e71417656db9646067126dce7371c6ffecc163135de05a0f1486"
+}
