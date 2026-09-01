@@ -1,0 +1,59 @@
+{
+  "schemaVersion": 1,
+  "documentType": "owner-briefing-recheck",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "why": "🚨 第 650 輪查明 n521 因措辭改寫而抽取失敗——✅ 而它**拒絕回報「無不符」**，正是設計時寫明的行為。⚠️ 追下去是好消息：簡報已自行把兩個分母講清楚，**🚨 但後果是那三個數字現在沒有任何東西在核對。**",
+  "briefing": "docs/m1-owner-briefing.md",
+  "statedInBriefing": {
+    "sampled": 15,
+    "obtained": 3,
+    "inHand": 7
+  },
+  "computedFromData": {
+    "sampled": 15,
+    "obtained": 3,
+    "inHand": 7
+  },
+  "giPools": [
+    "S5+S6-gi-merged"
+  ],
+  "quota": 15,
+  "myOwnBugFirstTime": "🚨 本支第一版把抽籤紀錄裡任何字串清單都當成候選，⚠️ 於是把 `strata` 的兩個層別名稱也算進去，得出 17——**🚫 差點把簡報正確的 15 報成錯的**。✅ 改成只讀 `candidateIds`（欄位名就寫在那裡，不必猜）。",
+  "mismatches": [],
+  "unextractable": [],
+  "supersedes": "⚠️ n521 的抽取器對的是舊句式，🚫 本支不改寫 n521（已上看板）；✅ 本支是對著**現行措辭**的新守衛。",
+  "whatThisCannotSay": "🚫 本支不判斷簡報**該不該**用這三個數——⚠️ 那是協調者與擁有者的事；✅ 它只回答「寫上去的那三個數，跟資料算出來的一不一樣」。",
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "controlProbes": [
+    {
+      "probe": "🚨 注入版必須抓得到（必觸發之反向）",
+      "passed": true,
+      "detail": "🚨 把 15 改成 99 後抽取器抓到；⚠️ **一個抓不到句子的抽取器會安靜地回報「無不符」**——抓不到即拒絕報告（n521 的教訓）"
+    },
+    {
+      "probe": "三句都抽得到（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 抽不到的：[]；⚠️ 若抽不到，代表措辭又改了——**🚫 那時候不得當成「無不符」**"
+    },
+    {
+      "probe": "GI 層的抽出集合非空（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 GI 池 ['S5+S6-gi-merged']、抽出 15 篇；⚠️ 若為零，下面三個實算都沒有意義"
+    },
+    {
+      "probe": "抽出篇數等於配額（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 candidateIds 15 筆 vs quota 15；⚠️ 對不上就代表本支又讀錯欄位——**本支第一版把 `strata` 那兩個層別名稱也算成候選，得出 17**"
+    },
+    {
+      "probe": "簡報所寫的三個數與實算相符",
+      "passed": true,
+      "detail": "✅ 不符：無；明細 簡報={'sampled': 15, 'obtained': 3, 'inHand': 7}／實算={'sampled': 15, 'obtained': 3, 'inHand': 7}"
+    }
+  ],
+  "auditHash": "sha256:e7ef6c07256a058a51dccdf062963da27abb8e6f8bd820f28982c1cbe1e5814b"
+}
