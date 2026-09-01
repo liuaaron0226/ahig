@@ -519,14 +519,31 @@ def run_tests():
                     '⚠️ 這不是「測試失敗」，是本閘門沒看到結果。'
                     '\n      stdout 末幾行：%s\n      stderr 末幾行：%s'
                     % (r.returncode, evidence, [s for s in stderr if s]),
-                    failed_names)
+                    failed_names, [])
         # 🚨 第 655 輪：⚠️ 失敗的測試名必須**回傳出去**——
         # 本室第一版把它留在函式裡，而使用它的地方在模組層，
         # **於是新分支根本執行不到（NameError）**；
         # ✅ 而那是「拿假基線實證它會亮」當場抓到的。
+        #
+        # 🚨 第 658 輪再加一項：⚠️ 有名字仍不夠——**沒有 traceback 就查不出成因**。
+        # ✅ 而閘門每輪本來就跑一次套件，故不必額外重跑：
+        # 偏離基線時把輸出末段一併帶出去（🚫 平時不帶，免得每輪洗版）。
+        if (gp and int(gp.group(1)) != BASE_PASSED) or (gf and int(gf.group(1))):
+            # 🚨 第一版取「末 30 行」——⚠️ 而那多半只有進度點與 warnings：
+            # **pytest 的 traceback 印在更前面**，於是節錄對查成因沒用。
+            # ✅ 改成優先從 FAILURES 那一段起算。
+            lines = txt.splitlines()
+            start = next((i for i, l in enumerate(lines)
+                          if 'FAILURES' in l and l.strip().startswith('=')),
+                         None)
+            chosen = (lines[start:start + 40] if start is not None
+                      else lines[-30:])
+            excerpt = [l.rstrip() for l in chosen if l.strip()]
+        else:
+            excerpt = []
         return (int(gp.group(1)) if gp else 0,
                 int(gf.group(1)) if gf else 0, exe, line.strip(),
-                failed_names)
+                failed_names, excerpt)
     return None
 
 
@@ -543,7 +560,7 @@ if tr is None:
     verdict_detail.append('🚨 找不到裝有 pytest 的直譯器。')
     t_ok = False
 else:
-    passed, failed, exe, line, failed_names = tr
+    passed, failed, exe, line, failed_names, excerpt = tr
     # 🚨 passed 為 None ＝ 讀不到摘要行。⚠️ 那不是「測試失敗」，
     # 🚫 而本閘門先前把兩者印成同一種樣子（一個空行加一個紅字）。
     unreadable = passed is None
@@ -564,6 +581,9 @@ else:
             # 🚨 第 655 輪加：⚠️ 沒有測試名就分辨不出「哪一條在飄」。
             verdict_detail.append(
                 '🚨 失敗的測試：%s' % (failed_names or ['（pytest 未列出）']))
+            # 🚨 第 658 輪：⚠️ 有名字仍不夠，沒有 traceback 就查不出成因。
+            for excerpt_line in excerpt:
+                verdict_detail.append('   │ %s' % excerpt_line)
     print('   已知失敗：%s' % KNOWN_FAIL)
     print('   ⚠️ 未收集：%s' % UNCOLLECTABLE)
     print('   🚨 故本閘門不得聲稱「743/743」——⚠️ 743 是協調者環境之數，非此處實測。')
