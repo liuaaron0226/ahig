@@ -1,0 +1,169 @@
+{
+  "schemaVersion": 1,
+  "documentType": "headline-reconciliation",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "recomputedFromPrivateRoot": {
+    "語料篇數": 41,
+    "相異候選數": 311,
+    "未宣告（不在範圍內）": 656,
+    "零貢獻篇數（清冊為分母）": 13,
+    "在範圍內有劑量者": 98,
+    "清冊份數": 38,
+    "結局總數": 790,
+    "在範圍內": 98,
+    "不在範圍內": 692,
+    "有貢獻的篇數": 25,
+    "零貢獻的篇數": 16,
+    "腸胃症狀項數": 60,
+    "腸胃症狀篇數": 21
+  },
+  "comparisons": [
+    {
+      "metric": "語料篇數",
+      "recomputedNow": 41,
+      "recordedInArtefact": 41,
+      "from": "n624_corpus_denominator.json → rosterTotal",
+      "agrees": true
+    },
+    {
+      "metric": "清冊份數",
+      "recomputedNow": 38,
+      "recordedInArtefact": 38,
+      "from": "n630_binding_integrity.json → inventories",
+      "agrees": true
+    },
+    {
+      "metric": "在範圍內",
+      "recomputedNow": 98,
+      "recordedInArtefact": 98,
+      "from": "n632_poolability.json → inScopeOutcomes",
+      "agrees": true
+    },
+    {
+      "metric": "腸胃症狀項數",
+      "recomputedNow": 60,
+      "recordedInArtefact": 60,
+      "from": "n633_gi_scale_heterogeneity.json → giOutcomesExamined",
+      "agrees": true
+    },
+    {
+      "metric": "腸胃症狀篇數",
+      "recomputedNow": 21,
+      "recordedInArtefact": 21,
+      "from": "n633_gi_scale_heterogeneity.json → papers",
+      "agrees": true
+    },
+    {
+      "metric": "有貢獻的篇數",
+      "recomputedNow": 25,
+      "recordedInArtefact": 25,
+      "from": "n627_dose_proxy_validation.json → truthPapers",
+      "agrees": true
+    },
+    {
+      "metric": "相異候選數",
+      "recomputedNow": 311,
+      "recordedInArtefact": 311,
+      "from": "n624_corpus_denominator.json → distinctCandidates",
+      "agrees": true
+    },
+    {
+      "metric": "未宣告（不在範圍內）",
+      "recomputedNow": 656,
+      "recordedInArtefact": 656,
+      "from": "n621_out_of_scope_audit.json → outOfScopeScanned",
+      "agrees": true
+    },
+    {
+      "metric": "零貢獻篇數（清冊為分母）",
+      "recomputedNow": 13,
+      "recordedInArtefact": 13,
+      "from": "n586_zero_contribution_census.json → zeroContributionReports",
+      "agrees": true
+    },
+    {
+      "metric": "在範圍內有劑量者",
+      "recomputedNow": 98,
+      "recordedInArtefact": 98,
+      "from": "n627_dose_proxy_validation.json → inScopeDoseValues",
+      "agrees": true
+    }
+  ],
+  "arithmetic": [
+    {
+      "check": "在範圍內 ＋ 不在範圍內 ＝ 結局總數",
+      "left": 790,
+      "right": 790,
+      "holds": true
+    },
+    {
+      "check": "有貢獻 ＋ 零貢獻 ＝ 語料篇數",
+      "left": 41,
+      "right": 41,
+      "holds": true
+    },
+    {
+      "check": "清冊份數 ≤ 語料篇數",
+      "left": 38,
+      "right": 41,
+      "operator": "<=",
+      "holds": true
+    },
+    {
+      "check": "未宣告 ＋ 其餘理由碼 ＝ 不在範圍內",
+      "left": 692,
+      "right": 692,
+      "holds": true
+    }
+  ],
+  "unreadableReferences": [],
+  "declaredThenExcluded": 692,
+  "reasonCodeCounts": {
+    "notExtracted-outcome-not-in-scope": 647,
+    "notExtracted-dose-outside-bands": 19,
+    "notExtracted-no-numeric-result": 10,
+    "notExtracted-instrument-not-in-allowlist": 9,
+    "notExtracted-effect-measure-not-in-scope": 7
+  },
+  "twoDenominatorsForZeroContribution": {
+    "語料 41 篇為分母": 16,
+    "清冊 38 份為分母（第 586 輪用的）": 13,
+    "note": "⚠️ 兩個都對，🚨 差在有 3 篇語料沒有清冊。✅ 這正是第 618 輪那種「定義不同、不是誰錯」。"
+  },
+  "myOwnRuleWasWrong": "🚨 本支第一版把「未宣告」定義成「理由碼為空」，⚠️ 而每一列其實都有碼——於是重算必然得 0，看起來像憑證飄了 656。**✅ 錯的是本輪的重算規則，🚫 不是第 621 輪。**⚠️ 一份對帳表若把自己的錯誤報成別人的漂移，比不對帳更糟。",
+  "whyItMatters": "⚠️ 協調者正在讀幾十個分別報出的數字。🚨 一個飄掉的數字不會叫——它會被引用、被拿去算別的數，**而下游沒有人會發現它跟上游對不起來。**",
+  "whatThisDoesNotDo": "🚫 不改任何憑證；🚫 不判斷哪一邊對——⚠️ 差異可能是定義不同（第 618 輪那次就是），不是錯。",
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "controlProbes": [
+    {
+      "probe": "真的對到夠多項（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 實得可比對 10 項、取不到 0 項；⚠️ 太少的話「全部相符」沒有份量"
+    },
+    {
+      "probe": "弄壞一個重算值，比對器必須抓到（必觸發之反向）",
+      "passed": true,
+      "detail": "🚨 竄改一項後，不符數 0 → 1；⚠️ 若沒變，「全部相符」不代表任何事"
+    },
+    {
+      "probe": "每一個引用都取得到（必觸發）",
+      "passed": true,
+      "detail": "🚨 取不到者 0：[]；⚠️ **取不到的引用比沒有引用更糟**"
+    },
+    {
+      "probe": "重算值與憑證所記一致",
+      "passed": true,
+      "detail": "✅ 不一致 0 項：[]"
+    },
+    {
+      "probe": "內部算術站得住",
+      "passed": true,
+      "detail": "✅ 不成立 0 項：[]"
+    }
+  ],
+  "auditHash": "sha256:e893b63480b64ecf5550fd9eeb27bea5159b70aa010dd1689e8924093c0b0854"
+}
