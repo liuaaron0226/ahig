@@ -1,0 +1,292 @@
+{
+  "schemaVersion": 1,
+  "documentType": "double-read-state",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "inventories": 38,
+  "secondLanePages": [
+    "page-008.json",
+    "page-012.json",
+    "page-014.json"
+  ],
+  "secondLaneReports": [
+    "7a6ac1559c740fd6",
+    "a9012191142e7e02",
+    "1105537918c174c9"
+  ],
+  "pendingSubmission": [
+    "page-014-with-65dd82a89b2c5340.json"
+  ],
+  "comparedReports": 3,
+  "refsBoth": 8,
+  "refsOnlyPrimary": 0,
+  "refsOnlySecond": 0,
+  "reportsFullyAgreed": 3,
+  "labelsBoth": 0,
+  "labelsOnlyPrimary": 86,
+  "labelsOnlySecond": 62,
+  "rows": [
+    {
+      "report": "ahig:candidate:publication:7eef56b17a6ac1559c740fd6",
+      "both": 0,
+      "onlyPrimary": [
+        "Crossover point, i.e. the time at which lipid provided the largest contribution to total energy expenditure",
+        "Cycling cadence during the 180 min submaximal cycle, recorded at 30 min intervals",
+        "Exercise capacity test: time cycling at 150% of lactate threshold (312 +/- 15 W) to volitional exhaustion",
+        "Exercise capacity time analysed for a trial order effect (familiarisation vs. first experimental trial and subsequent pairwise comparisons)",
+        "Exercise-induced change in IMTG content within the peripheral and the central subcellular region of type I and type IIa fibres",
+        "Fibre type-specific IMTG content, expressed as BODIPY 493/503 positively stained area relative to total fibre area, in type I and type IIa fibres",
+        "Fibre type-specific muscle glycogen content (PAS stain optical density) in type I and type II fibres, before and after the 180 min submaximal cycle",
+        "Heart rate during the 180 min submaximal cycle, recorded at 30 min intervals",
+        "Lipid droplet number, calculated as the number of IMTG objects relative to area, by fibre type and subcellular region",
+        "Lipid droplet size, taken as the mean area of individual IMTG objects, by fibre type and subcellular region",
+        "Net breakdown of absolute IMTG content during exercise, compared between fibre types, subcellular regions and CHO feeding conditions",
+        "Oxygen uptake during the 180 min submaximal cycle",
+        "Phosphorylation of AMPKalpha Thr172 in whole-muscle homogenate, before and after the 180 min submaximal cycle, normalised to total protein loaded",
+        "Phosphorylation of CREB Ser133 in whole-muscle homogenate, before and after the 180 min submaximal cycle, normalised to total protein loaded",
+        "Phosphorylation of CaMKII Thr286 in whole-muscle homogenate, before and after the 180 min submaximal cycle, normalised to total protein loaded",
+        "Phosphorylation of p38 MAPK Thr180/Tyr182 in whole-muscle homogenate, before and after the 180 min submaximal cycle, normalised to total protein loaded",
+        "Phosphorylation of p53 Ser15 in whole-muscle homogenate, before and after the 180 min submaximal cycle, normalised to total protein loaded",
+        "Plasma beta-hydroxybutyrate (beta-OHB) concentration at the point of exhaustion in the exercise capacity test",
+        "Plasma beta-hydroxybutyrate (beta-OHB) concentration during the 180 min submaximal cycle, sampled at 30 min intervals",
+        "Plasma glucose concentration at the point of exhaustion in the exercise capacity test",
+        "Plasma glucose concentration during the 180 min submaximal cycle, sampled at 30 min intervals",
+        "Plasma glycerol concentration at the point of exhaustion in the exercise capacity test",
+        "Plasma glycerol concentration during the 180 min submaximal cycle, sampled at 30 min intervals",
+        "Plasma lactate concentration at the point of exhaustion in the exercise capacity test",
+        "Plasma lactate concentration during the 180 min submaximal cycle, sampled at 30 min intervals",
+        "Plasma non-esterified fatty acid (NEFA) concentration at the point of exhaustion in the exercise capacity test",
+        "Plasma non-esterified fatty acid (NEFA) concentration during the 180 min submaximal cycle, sampled at 30 min intervals",
+        "Pre-exercise (0 min) whole-muscle glycogen concentration, used to verify the 36 h CHO loading protocol produced comparable substrate availability between trials",
+        "Pre-exercise IMTG content compared between type I and type IIa fibres and between peripheral (2 um from cell border) and central subcellular regions",
+        "Rate of total energy expenditure during exercise",
+        "Rating of perceived exertion (RPE) during the 180 min submaximal cycle, recorded at 30 min intervals",
+        "Relative contribution of carbohydrate versus fat to total energy expenditure, compared separately within the first, second and third hour of exercise",
+        "Relative distribution of IMTG content between the peripheral and central subcellular regions within each fibre type, before and after exercise",
+        "Relative percentage reduction in muscle glycogen content during exercise within type I and within type II fibres",
+        "Respiratory exchange ratio (RER) during exercise",
+        "Semi-quantitative relative scale of fibre glycogen depletion, classified into four optical-density bands (empty, partially empty, partially full, full)",
+        "Total carbohydrate oxidation over the exercise bout",
+        "Total fat oxidation over the exercise bout",
+        "Whole-body carbohydrate oxidation rate during the 180 min submaximal cycle, calculated from expired gas collected at 30 min intervals",
+        "Whole-body fat oxidation rate during the 180 min submaximal cycle",
+        "Whole-muscle glycogen concentration immediately after the 180 min submaximal cycle, by acid hydrolysis of freeze-dried muscle"
+      ],
+      "onlySecond": [
+        "Exercise capacity: time to exhaustion at 150% of lactate threshold, 45 g/h condition",
+        "Exercise capacity: time to exhaustion at 150% of lactate threshold, 90 g/h condition",
+        "Fat oxidation",
+        "Fibre-type specific muscle glycogen content and utilisation (type I and type II)",
+        "Heart rate",
+        "Intramuscular triglyceride content by fibre type and subcellular region",
+        "Lipid droplet number and size by fibre type",
+        "Net intramuscular triglyceride breakdown during exercise",
+        "Oxygen uptake (VO2)",
+        "Phosphorylation of AMPK, CaMKII, p53, p38 MAPK and CREB",
+        "Plasma glucose, lactate, NEFA, glycerol and beta-hydroxybutyrate concentrations",
+        "Plasma metabolite concentrations at exhaustion",
+        "Pre-exercise (0 min) whole-muscle glycogen concentration — before exercise, NOT post-exercise",
+        "Rate of whole-body carbohydrate oxidation and total carbohydrate oxidation",
+        "Rating of perceived exertion",
+        "Trial order effect on exercise capacity",
+        "Whole-muscle glycogen concentration immediately after the 180-min submaximal cycle, dry weight basis (mmol/kg DW), 45 g/h condition [sampled by Weil-Blakesley conchotome, not a Bergstrom needle; see attestation note]",
+        "Whole-muscle glycogen concentration immediately after the 180-min submaximal cycle, dry weight basis (mmol/kg DW), 90 g/h condition [sampled by Weil-Blakesley conchotome, not a Bergstrom needle; see attestation note]"
+      ],
+      "refsBoth": [
+        "muscle-glycogen-post-exercise",
+        "time-to-exhaustion"
+      ],
+      "refsOnlyPrimary": [],
+      "refsOnlySecond": []
+    },
+    {
+      "report": "ahig:candidate:publication:8dd0f644a9012191142e7e02",
+      "both": 0,
+      "onlyPrimary": [
+        "Average endogenous carbohydrate oxidation rate during exercise",
+        "Average exogenous carbohydrate oxidation rate across the whole 100-min exercise period, and separately for the early (20-60 min) and late (60-100 min) phases - means, NOT the peak reported alongside them; 23% higher in CHO-20 than CHO-5",
+        "Change in plasma volume from resting values during exercise (approximately -10.0 to -12.5%)",
+        "Exogenous carbohydrate oxidation efficiency, a minimum estimate of 38% in CHO-20 versus 31% in CHO-5",
+        "Heart rate, recorded every 10 min during the run",
+        "Mean carbon dioxide production (VCO2) during exercise",
+        "Mean fat oxidation rate during exercise",
+        "Mean oxygen uptake (VO2) during exercise",
+        "Nude body mass before the trials (CHO-20 67.5 +/- 6.5 versus CHO-5 67.4 +/- 6.5 kg)",
+        "Number of participants reporting a gastrointestinal comfort score of 5 or above: four in both trials, one further in CHO-20, and two reporting a 6 at single timepoints in CHO-5",
+        "Number of participants reporting a stomach bloatedness score of 5 or above: three in both trials and one further in CHO-5",
+        "Peak exogenous carbohydrate oxidation rate, reached at the 100-min timepoint in the CHO-20 arm (200 mL every 20 min): 0.68 +/- 0.14 g/min. The paper states these 100-min values represent the peak rates for each trial",
+        "Peak exogenous carbohydrate oxidation rate, reached at the 100-min timepoint in the CHO-5 arm (50 mL every 5 min): 0.61 +/- 0.14 g/min",
+        "Rating of perceived exertion, recorded every 10 min during the run",
+        "Respiratory exchange ratio (RER) during exercise",
+        "Resting 13C breath enrichment in the water, CHO-20 and CHO-5 trials, as a background check",
+        "Serum glucose concentration at rest and every 20 min during exercise",
+        "Serum insulin concentration during exercise (CHO-20 42.9 +/- 21.5 versus CHO-5 38.2 +/- 16.2 pmol/L)",
+        "Subjective feelings of thirst on a 0-10 scale during exercise",
+        "Subjective gastrointestinal comfort on a 0-10 scale, recorded every 10 min during the 100-min run and on completion; scores >= 5 classed as severe. Reported as a time course with no difference between drinking patterns",
+        "Subjective stomach bloatedness on a 0-10 scale, recorded every 10 min during the run and on completion",
+        "Sweat losses, listed among the measured single-factor variables and analysed by one-way ANOVA; body mass was measured before and after the run, but no sweat loss values are reported anywhere in the text",
+        "Total carbohydrate oxidation rate during exercise",
+        "Urine osmolality on arrival (CHO-20 319 +/- 193 versus CHO-5 398 +/- 265 mOsmol/kg H2O)"
+      ],
+      "onlySecond": [
+        "Average exogenous carbohydrate oxidation rate across the whole exercise period, 23 percent higher in CHO-20 - this is the AVERAGE, not the peak, so it is deliberately not mapped",
+        "Endogenous carbohydrate oxidation rate",
+        "Exogenous carbohydrate oxidation early (20-60 min) and late (60-100 min) in exercise",
+        "Exogenous carbohydrate oxidation efficiency, minimum estimate 38 percent in CHO-20 versus 31 percent in CHO-5",
+        "Fat oxidation rate",
+        "Gastrointestinal comfort, CHO-20: 5 of 12 subjects reported a score of 5 (four in both trials plus one further in CHO-20). NONE reached above 5, which is the paper's own threshold for severe. Denominator is subjects.",
+        "Gastrointestinal comfort, CHO-5: 4 of 12 subjects reported a score of 5, and 2 of 12 reported a score of 6 at single timepoints. Those two are the ONLY ratings in the study meeting the paper's own severe threshold of above 5.",
+        "Gastrointestinal discomfort score over the exercise period - the paper reports a time effect and shows the course in a figure, with NO values in the text.",
+        "Heart rate and rating of perceived exertion",
+        "Oxygen uptake, carbon dioxide output and respiratory exchange ratio during exercise",
+        "Peak exogenous carbohydrate oxidation rate, CHO-20 (200 mL every 20 min): 0.68 +/- 0.14 g/min at the 100 min timepoint. The paper states in its own words that these values are the PEAK rates, which is why this is the peak and not the whole-period average (that average is recorded separately and NOT mapped).",
+        "Peak exogenous carbohydrate oxidation rate, CHO-5 (50 mL every 5 min): 0.61 +/- 0.14 g/min at the 100 min timepoint, stated by the paper as the peak rate for that trial.",
+        "Peak oxygen uptake from the preliminary test",
+        "Plasma volume change from baseline",
+        "Serum glucose concentration",
+        "Serum insulin concentration",
+        "Stomach bloatedness score over the exercise period - time effect reported, course shown in a figure, NO values in the text.",
+        "Stomach bloatedness, CHO-20: 3 of 12 subjects reported a score of 5; none above 5.",
+        "Stomach bloatedness, CHO-5: 4 of 12 subjects reported a score of 5 (three in both trials plus one further in CHO-5); none above 5.",
+        "Thirst rating - reported only as a trial effect P value, with no values in the text.",
+        "Total carbohydrate oxidation rate",
+        "Urine osmolality, sweat loss and body mass change"
+      ],
+      "refsBoth": [
+        "exogenous-cho-oxidation-peak",
+        "gi-symptom-incidence",
+        "gi-symptom-severity"
+      ],
+      "refsOnlyPrimary": [],
+      "refsOnlySecond": []
+    },
+    {
+      "report": "ahig:candidate:publication:bf4f8f5a1105537918c174c9",
+      "both": 0,
+      "onlyPrimary": [
+        "Blood glucose concentration at rest, every 20 min during steady-state and after the time trial",
+        "Blood lactate concentration at rest, every 20 min during steady-state and after the time trial",
+        "Carbon dioxide production (VCO2) during steady-state exercise",
+        "Gastrointestinal comfort on a 0-10 scale at rest, every 20 min during the 120 min steady-state cycle and after the time trial",
+        "Headache on a 0-10 scale",
+        "Heart rate during steady-state exercise and the time trial",
+        "Nausea on a 0-10 scale",
+        "Number of participants perceiving a difference between the drinks (4 of 8) and their reports of which trial felt fuller (4 no difference, 1 control, 3 hydrogel) - a blinding check",
+        "Number of timepoints at which a symptom was rated severe (above 5 out of 10) during steady-state exercise: thirst 27 of 48 (hydrogel) versus 22 of 48 (control); stomach fullness 9 of 48 versus 3 of 48; stomach bloating 0 versus 2 of 48",
+        "Oxygen uptake (VO2) during steady-state exercise",
+        "Rating of perceived exertion during steady-state exercise; slightly increased in the hydrogel arm",
+        "Respiratory exchange ratio during steady-state exercise",
+        "Stomach bloating on a 0-10 scale",
+        "Stomach cramp on a 0-10 scale",
+        "Stomach fullness on a 0-10 scale; higher in the hydrogel arm (3.2 +/- 1.2 versus 2.8 +/- 0.9)",
+        "Thirst on a 0-10 scale",
+        "Time to complete each 25% segment of the time trial (pacing)",
+        "Time to complete the fixed-work time trial after 120 min of steady-state cycling, hydrogel (sodium alginate and pectin) arm: 1219 +/- 84 s. The trial is a fixed amount of work completed as quickly as possible, not a fixed distance",
+        "Time to complete the fixed-work time trial after 120 min of steady-state cycling, matched carbohydrate control arm: 1267 +/- 102 s",
+        "Whole-body carbohydrate oxidation rate during steady-state exercise",
+        "Whole-body fat oxidation rate during steady-state exercise"
+      ],
+      "onlySecond": [
+        "Blood glucose concentration during steady state",
+        "Blood lactate concentration during steady state and after the time trial",
+        "Carbon dioxide output during steady state",
+        "Headache, nausea, gastrointestinal comfort and stomach cramp ratings - reported as not different, with no values given in the text",
+        "Heart rate during steady state",
+        "Oxygen uptake during steady state",
+        "Pacing across each 25 percent segment of the time trial",
+        "Peak oxygen uptake and maximal power output from the preliminary test",
+        "Rating of perceived exertion during steady state",
+        "Respiratory exchange ratio during steady state",
+        "Stomach bloating rated severe (above 5 of 10) at CHO during the 120 min steady state (2 of 48 timepoints condition). NOTE the denominator is timepoints, not participants: 8 subjects x 6 timepoints = 48.",
+        "Stomach fullness rated 0-10 during the 120 min steady state (CHO): 2.8 +/- 0.9. This is a mean rating on the symptom scale, not a count of affected participants.",
+        "Stomach fullness rated 0-10 during the 120 min steady state (CHO-ALG): 3.2 +/- 1.2. This is a mean rating on the symptom scale, not a count of affected participants.",
+        "Stomach fullness rated severe (above 5 of 10) at CHO during the 120 min steady state (3 of 48 timepoints condition). NOTE the denominator is timepoints, not participants: 8 subjects x 6 timepoints = 48.",
+        "Stomach fullness rated severe (above 5 of 10) at CHO-ALG during the 120 min steady state (9 of 48 timepoints condition). NOTE the denominator is timepoints, not participants: 8 subjects x 6 timepoints = 48.",
+        "Thirst rated severe (above 5 of 10) at CHO during the 120 min steady state (22 of 48 timepoints condition). NOTE the denominator is timepoints, not participants: 8 subjects x 6 timepoints = 48.",
+        "Thirst rated severe (above 5 of 10) at CHO-ALG during the 120 min steady state (27 of 48 timepoints condition). NOTE the denominator is timepoints, not participants: 8 subjects x 6 timepoints = 48.",
+        "Time to complete the fixed-work time trial (CHO, matched carbohydrate condition): 1267 +/- 102 s. The trial fixes the amount of work and asks for it as fast as possible, so the outcome is a completion time, not power or work.",
+        "Time to complete the fixed-work time trial (CHO-ALG, alginate and pectin condition): 1219 +/- 84 s. The trial fixes the amount of work and asks for it as fast as possible, so the outcome is a completion time, not power or work.",
+        "Whether subjects perceived a difference between the drinks, which trial felt fuller, and which they believed they performed better on",
+        "Whole-body carbohydrate oxidation rate during steady state - no tracer was used, so this is not exogenous oxidation",
+        "Whole-body fat oxidation rate during steady state"
+      ],
+      "refsBoth": [
+        "gi-symptom-incidence",
+        "gi-symptom-severity",
+        "tt-completion-time"
+      ],
+      "refsOnlyPrimary": [],
+      "refsOnlySecond": []
+    }
+  ],
+  "adjudicationCauses": {},
+  "unusedCauses": [
+    "contract-ambiguous",
+    "granularity",
+    "misread-source",
+    "model-fabricated",
+    "schema-cannot-express",
+    "source-unclear",
+    "wrong-table-or-arm"
+  ],
+  "causesInMyArtefactsOnly": {
+    "granularity": 4,
+    "contract-ambiguous": 2,
+    "model-fabricated": 2,
+    "misread-source": 1,
+    "wrong-table-or-arm": 1,
+    "schema-cannot-express": 1,
+    "source-unclear": 1
+  },
+  "discussedButNotRecorded": [
+    "contract-ambiguous",
+    "granularity",
+    "misread-source",
+    "model-fabricated",
+    "schema-cannot-express",
+    "source-unclear",
+    "wrong-table-or-arm"
+  ],
+  "theGapThatMatters": "🚨 七種成因在**本室的憑證**裡都出現過（granularity 4 份、model-fabricated 2 份……），**⚠️ 而工作簿裡一次都沒有**。**🚨 即 `adjudicate()` 從未被真的呼叫過**——⚠️ 成因分析做了，但它停在憑證裡，沒有進到系統的紀錄。✅ A2 要的是後者。",
+  "filesMentioningCauses": [],
+  "whyLabelsAreNotTheAnswer": "逐字比標籤。同一個結局被叫成不同名字時會算成兩邊各有一個，故「只有一邊有」是待人看的清單，不是錯誤數。契約結局那一組（refs*）不受顆粒度影響，一致性看那一組。",
+  "coverageStatement": "⚠️ 雙讀 3 篇／清冊 38 份。🚨 A2 要的是「抽樣」雙讀，而抽多少是裁定的事——**✅ 本支只把現況放上來，🚫 不宣稱夠或不夠。**",
+  "pendingNote": "⚠️ 另有 1 份第二線的讀**未送出**，暫存在 second-pending／——🚨 那是 D14 卡著的那一份（`write_page_drafts` 拒絕同頁異容），🚫 本室未繞過守衛。",
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "controlProbes": [
+    {
+      "probe": "第二線的讀讀得到、且對得上第一線（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 第二線 3 篇、與第一線共有 3 篇；⚠️ 對不上代表有篇只有一邊讀過"
+    },
+    {
+      "probe": "比較有真的產出東西（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 契約結局層級：兩邊都有 8／只有第一線 0／只有第二線 0；⚠️ 全為 0 代表本支根本沒比到東西"
+    },
+    {
+      "probe": "雙讀涵蓋率達到語料的一成",
+      "passed": false,
+      "detail": "🚨 雙讀 3 篇／清冊 38 份＝7.9%；⚠️ A2 要的是抽樣，🚫 但抽樣多少是裁定的事，本室只把數字放上來"
+    },
+    {
+      "probe": "雙讀過的篇在契約結局層級全部一致",
+      "passed": true,
+      "detail": "🚨 有不一致的 0 篇：[]"
+    },
+    {
+      "probe": "七種裁決成因都被用過（在工作簿裡）",
+      "passed": false,
+      "detail": "🚨 工作簿裡從未出現的成因 7 種：['contract-ambiguous', 'granularity', 'misread-source', 'model-fabricated', 'schema-cannot-express', 'source-unclear', 'wrong-table-or-arm']；⚠️ 工作簿裡用過的：{}"
+    },
+    {
+      "probe": "討論過的成因都有進到系統的紀錄",
+      "passed": false,
+      "detail": "🚨 只出現在本室憑證、卻沒進工作簿的成因 7 種：['contract-ambiguous', 'granularity', 'misread-source', 'model-fabricated', 'schema-cannot-express', 'source-unclear', 'wrong-table-or-arm']（憑證裡的次數：{'granularity': 4, 'contract-ambiguous': 2, 'model-fabricated': 2, 'misread-source': 1, 'wrong-table-or-arm': 1, 'schema-cannot-express': 1, 'source-unclear': 1}）；⚠️ **A2 要的是系統的紀錄，🚫 不是本室的分析**"
+    }
+  ],
+  "auditHash": "sha256:8bcb48c98029363f97e6b9e3df54f3a5b60829f22fa63fd8bb0bb3024f2bcdcc"
+}
