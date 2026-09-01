@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 1,
+  "documentType": "registry-linkage",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "registryRecordsInHand": 212,
+  "recordsWithLinkedPmids": 87,
+  "distinctLinkedPmids": 432,
+  "corpusWithPmid": 40,
+  "linkedViaPmid": [],
+  "linkedViaFullTextNct": {
+    "66e16f089f1522d1": [
+      "NCT03294642"
+    ],
+    "f6a82302d7fe9adf": [
+      "NCT06165393"
+    ],
+    "0cfceb6c8a86f78b": [
+      "NCT02731066"
+    ]
+  },
+  "nctRecordsAlreadyInHand": {
+    "66e16f089f1522d1": [
+      "NCT03294642"
+    ],
+    "f6a82302d7fe9adf": [],
+    "0cfceb6c8a86f78b": []
+  },
+  "comparisons": [
+    {
+      "report": "66e16f089f1522d1",
+      "nct": "NCT03294642",
+      "registeredPrimary": 1,
+      "registeredSecondary": 0,
+      "declaredInInventory": 17,
+      "inScope": 2,
+      "inScopeRefs": {
+        "tt-completion-time": 1,
+        "gi-symptom-severity": 1
+      },
+      "hasResultsInRegistry": false
+    }
+  ],
+  "headline": "🚨 靠 PMID 連結：**交集 0**（語料 40/41 有 PMID，註冊紀錄引用 432 個 PMID，一個都不是）。✅ 靠全文裡的 NCT：**3 篇**（正是 n+192 記的 3/41）——⚠️ 而其中**只有 1 篇**的註冊紀錄已在手，**🚨 故本 run 今天做得成的選擇性報告比對，是 1／41。**",
+  "whatThisCannotSay": "🚫 「主要結局有報」不等於「沒有選擇性報告」——⚠️ 註冊登記本身可能不完整，且本支只比得了一篇。🚨 而「論文報得比註冊多」是**另一個方向**的訊號（未預先登記的結局），🚫 本支不判它是不是問題。",
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "controlProbes": [
+    {
+      "probe": "註冊紀錄與語料都讀得到（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 註冊紀錄 212 筆、語料 41 篇；⚠️ 任一為零，本支說什麼都沒有意義"
+    },
+    {
+      "probe": "假的 NCT 不得對上任何紀錄（必觸發之反向）",
+      "passed": true,
+      "detail": "🚨 以 NCT00000000 試；⚠️ 若它也對得上，「對上 N 篇」就沒有意義"
+    },
+    {
+      "probe": "全文裡真的抓得到 NCT（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 抓到 3 篇；⚠️ 若為零，路徑乙就沒有被測到"
+    },
+    {
+      "probe": "靠 PMID 就連得起來",
+      "passed": false,
+      "detail": "🚨 語料 40／41 篇有 PMID，而註冊紀錄引用的 432 個 PMID 裡**一個都不是**——⚠️ 即這條路徑在本語料上完全無效"
+    },
+    {
+      "probe": "全文寫了 NCT 的那幾篇，註冊紀錄都已在手",
+      "passed": false,
+      "detail": "🚨 3 篇寫了 NCT，其中 1 篇的紀錄已在抓回的 212 筆內；⚠️ 其餘要取得就得送外部請求，🚫 本室不自行開跑"
+    },
+    {
+      "probe": "每一篇語料都做得成選擇性報告比對",
+      "passed": false,
+      "detail": "🚨 做得成的 1／41 篇——⚠️ 而 38 份清冊的 registryComparison 至今全是 pending"
+    }
+  ],
+  "auditHash": "sha256:d01b30fe8a87bb4b216d5bace5323e385b1ba60e7641f1b198cc6b38bf3871bf"
+}
