@@ -1,0 +1,96 @@
+{
+  "schemaVersion": 1,
+  "documentType": "shacl-v21-anchor-spec",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "closesLimitDeclaredBy": "n677 → methodLimit（未讀 v2.1 形狀）",
+  "v21ConstraintsOnStudyResultAndAnchor": [
+    {
+      "targetClass": "CitationAnchor",
+      "shape": "NotebookIsolationShape",
+      "message": "CitationAnchor 直接引用 NotebookLM 執行期座標。這些只能存在於 RetrievalHint。"
+    },
+    {
+      "targetClass": "CitationAnchor",
+      "shape": "CitationAnchorShape",
+      "message": "fuzzy anchor 未經人工確認即支撐 Approved Claim。"
+    },
+    {
+      "targetClass": "CitationAnchor",
+      "shape": "CitationAnchorShape",
+      "message": "來源 manifestation hash 已變更但 anchor 未標記 requiresReanchoring。"
+    },
+    {
+      "targetClass": "CitationAnchor",
+      "shape": "CitationAnchorShape",
+      "message": "多重命中卻建立正式 anchor。多重命中不得取第一筆。"
+    },
+    {
+      "targetClass": "StudyResult",
+      "shape": "OutcomeSwitchingShape",
+      "message": "偵測到 outcome switching flag，但該 StudyResult 的 prespecificationStatus 未經人類裁決即標為 prespecified（含裁決者缺漏）。"
+    }
+  ],
+  "positiveCanary": {
+    "file": "studyresult-complete.ttl",
+    "core": true,
+    "v21": true
+  },
+  "anchorNegativeCanaries": [
+    {
+      "canary": "citation-anchor-fuzzy-unconfirmed.ttl",
+      "v21Conforms": false,
+      "firstMessage": "fuzzy anchor 未經人工確認即支撐 Approved Claim。"
+    },
+    {
+      "canary": "citation-anchor-multiple-match-approved.ttl",
+      "v21Conforms": false,
+      "firstMessage": "多重命中卻建立正式 anchor。多重命中不得取第一筆。"
+    },
+    {
+      "canary": "citation-anchor-notebook-leak.ttl",
+      "v21Conforms": false,
+      "firstMessage": "CitationAnchor 直接引用 NotebookLM 執行期座標。這些只能存在於 RetrievalHint。"
+    }
+  ],
+  "crossGraphDemo": {
+    "canary": "studyresult-missing-scope-contract.ttl",
+    "coreConforms": false,
+    "coreMessages": [
+      "StudyResult 必須連回 OutcomeInventory；否則無法區分『未抽取』與『不存在』。",
+      "每個 StudyResult 必須記錄產生它的 ExtractionScopeContract hash。",
+      "必須記錄判定其在範圍內的具名規則 ID。"
+    ],
+    "v21Conforms": true,
+    "reading": "⚠️ 同一份資料在 core 驗不過、在 v2.1 卻通過——🚨 **兩份形狀檢查的不是同一組東西，驗收時必須兩份都跑。**"
+  },
+  "whatThisMeansForD25": "🚨 n677 已證每個 StudyResult 必須帶 `CitationAnchor`；⚠️ 而 v2.1 又規定 anchor **不得多重命中取第一筆**、**fuzzy 未經人工確認不得支撐已核可主張**、**來源 hash 變了要標重新錨定**、**不得引用 NotebookLM 座標**。✅ 換句話說：D25 那一輪抽的每一個數字，**都要配一段在原文中唯一命中的逐字引文**——🚨 命中不唯一就得走人工確認，🚫 不能自己挑一個。",
+  "methodLimit": "⚠️ 本支只驗了 5 個對照檔，🚫 不是全部的 canary；🚨 且「通過」只代表**這些**約束沒被違反，**🚫 不代表資料是對的**——形狀管的是結構，不是內容真偽。",
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "controlProbes": [
+    {
+      "probe": "v2.1 裡真的抽得到這兩個類別的約束（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 抽到 5 條具名約束：['CitationAnchor', 'StudyResult']；⚠️ 太少代表本支讀錯了圖"
+    },
+    {
+      "probe": "正向對照對**兩份**形狀都必須通過（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 studyresult-complete.ttl：core=True／v2.1=True；⚠️ 任一不過，本支讀的形狀就不是有在執行的"
+    },
+    {
+      "probe": "三個 anchor 負向對照對 v2.1 都必須驗不過（必觸發之反向）",
+      "passed": true,
+      "detail": "🚨 3 個負向對照，通過的（＝沒被擋住）：無；⚠️ 若有通過的，代表那條約束沒有在擋任何東西"
+    },
+    {
+      "probe": "只驗一份形狀就夠了",
+      "passed": false,
+      "detail": "🚨 `studyresult-missing-scope-contract.ttl` 對 core 驗不過（訊息 3 條）、**對 v2.1 卻是 conforms=True**；⚠️ 那不是 v2.1 壞掉——那條約束住在 core；**🚨 但它代表只驗一份形狀會把該擋的放過去。**"
+    }
+  ],
+  "auditHash": "sha256:a49834f17e8f2d87be460e9f66c8fcd429e6aa12d34668a07008cabcd5ff2296"
+}
