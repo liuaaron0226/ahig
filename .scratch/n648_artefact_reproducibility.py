@@ -9,10 +9,20 @@
 > **⚠️ 一支跑不起來的憑證，看起來跟一支還好好的一模一樣**——
 > **🚨 因為看的是它留下的 JSON，不是它現在還算不算得出那個 JSON。**
 
-## ✅ 作法：整個 `.scratch` 複製到暫存目錄跑，🚫 完全不動 repo 裡的憑證
+## 🚨 本支的前兩版都錯了，而第二版造成了實際損害——先記在這裡
 
-⚠️ 每支憑證的輸出路徑都是 `Path(__file__).parent`，
-✅ 故副本跑出來的 JSON 會落在暫存目錄，**🚫 不會覆蓋任何已回報的結果**。
+| 版本 | 作法 | 後果 |
+|---|---|---|
+| 第一版 | `cwd` ＝ `.scratch` 副本 | 🚨 用 `.scratch/xxx.json` 相對路徑**讀**的憑證全部找不到檔，**87 支被誤判成「跑不起來」** |
+| 第二版 | `cwd` ＝ repo 根 | **🚨 用相對路徑寫的憑證寫進了真正的 repo**：26 份憑證 JSON、**產品程式 `statistical_termination.py`、10 份 docs 全被改動**，測試從 840 掉到 839＋1 失敗 |
+
+> **🚨 而本室當時在憑證裡寫著「repo 裡的憑證一個字都沒動」——那句話是假的。**
+> ✅ 損害已用 `git checkout` 全部還原，測試回到 **840 passed**。
+
+## ✅ 第三版：搭一個**假的 repo 根**，讓寫入無處可去
+
+暫存目錄裡放 `.scratch/`、`ahig/`、`docs/` 的副本，`cwd` 指向那個假根。
+⚠️ 於是**讀**得到（相對路徑解析得到副本），**🚨 而寫也只寫得進副本**。
 
 比對三件事：**跑不跑得起來｜`auditHash` 還一不一樣｜哪些欄位變了**。
 
@@ -52,14 +62,26 @@ SKIP = {'n648_artefact_reproducibility.py', 'round_gate.py',
 TIMEOUT = 240
 
 
+def stage_fake_root():
+    """搭一個假的 repo 根：🚨 讓任何寫入都只落在副本裡。"""
+    root = Path(tempfile.mkdtemp(prefix='ahig-repro-'))
+    shutil.copytree(S, root / '.scratch')
+    for relative in ('ahig/ahig', 'ahig/calibration', 'ahig/schema', 'docs'):
+        source = REPO / relative
+        if source.is_dir():
+            shutil.copytree(source, root / relative)
+    if (REPO / 'COORDINATION.md').is_file():
+        shutil.copy2(REPO / 'COORDINATION.md', root / 'COORDINATION.md')
+    return root
+
+
 def main():
-    workdir = Path(tempfile.mkdtemp(prefix='ahig-repro-'))
-    shutil.copytree(S, workdir / 'scratch')
-    stage = workdir / 'scratch'
+    workdir = stage_fake_root()
+    stage = workdir / '.scratch'
 
     env = dict(os.environ)
     env['PYTHONPATH'] = os.pathsep.join(
-        [str(REPO / 'ahig'), env.get('PYTHONPATH', '')])
+        [str(workdir / 'ahig'), env.get('PYTHONPATH', '')])
     env['PYTHONIOENCODING'] = 'utf-8'
     env['AHIG_PRIVATE_ROOT'] = str(ROOT)
 
@@ -80,12 +102,12 @@ def main():
             fresh_path.unlink()
         try:
             result = subprocess.run(
-                # 🚨 第一版把 cwd 設在暫存副本裡——⚠️ 而許多憑證用
-                # `.scratch/xxx.json` 這種**相對於 repo 根**的路徑讀輸入，
-                # 於是 87 支被誤判成「跑不起來」。**🚨 錯的是本支的工具。**
-                # ✅ 改成 cwd=repo 根：輸入照舊讀得到，
-                # 而輸出仍走 `Path(__file__).parent`＝暫存目錄，🚫 不會覆蓋。
-                [sys.executable, '-X', 'utf8', str(target)], cwd=str(REPO),
+                # 🚨 第一版 cwd 在副本裡 ⇒ 相對路徑**讀**不到，87 支誤判；
+                # 🚨 第二版 cwd 在 repo 根 ⇒ 相對路徑**寫**進了真正的 repo，
+                #    改動了產品程式與 10 份 docs（已還原）。
+                # ✅ 第三版：cwd 指向**假的 repo 根**——讀得到、而寫也只寫得進副本。
+                [sys.executable, '-X', 'utf8', str(target)],
+                cwd=str(workdir),
                 capture_output=True, text=True, encoding='utf-8',
                 errors='ignore', env=env, timeout=TIMEOUT)
             crashed = result.returncode not in (0, 1)
@@ -158,12 +180,18 @@ def main():
         'schemaVersion': 1,
         'documentType': 'artefact-reproducibility',
         'notAGate': '🚫 不入輪次閘門（n+181 三）',
-        'method': ('✅ 整個 .scratch 複製到暫存目錄，'
-                   '**以 repo 根為工作目錄**執行副本：'
-                   '⚠️ 輸入（`.scratch/...` 相對路徑）照舊讀得到，'
-                   '✅ 而輸出走 `Path(__file__).parent`＝暫存目錄，'
-                   '🚫 repo 裡的憑證一個字都沒動。'
-                   '🚨 第一版把 cwd 設在副本裡，害 87 支被誤判成跑不起來。'),
+        'method': (
+            '✅ 在暫存目錄搭一個**假的 repo 根**'
+            '（`.scratch`／`ahig`／`docs` 副本），cwd 指向那裡：'
+            '⚠️ 相對路徑讀得到，**🚨 而寫也只寫得進副本**。'),
+        'twoBrokenVersionsBefore': (
+            '🚨 第一版 cwd 在 .scratch 副本裡 ⇒ 相對路徑讀不到，'
+            '**87 支被誤判成「跑不起來」**。'
+            '**🚨 第二版 cwd 在 repo 根 ⇒ 相對路徑的寫入落進了真正的 repo**：'
+            '26 份憑證 JSON、產品程式 `statistical_termination.py`、'
+            '10 份 docs 全被改動，測試從 840 掉到 839＋1 失敗。'
+            '⚠️ 而本室當時在憑證裡寫著「repo 裡的憑證一個字都沒動」——**那是假的**。'
+            '✅ 已用 `git checkout` 全部還原，測試回到 840 passed。'),
         'scanned': len(rows),
         'identical': len(same),
         'drifted': len(drifted),
