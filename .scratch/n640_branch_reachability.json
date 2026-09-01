@@ -1,0 +1,105 @@
+{
+  "schemaVersion": 1,
+  "documentType": "branch-reachability",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "templateFrom": "語料裡第一筆在範圍內的紀錄（🚫 非手刻）",
+  "baseline": {
+    "inScope": true,
+    "ruleId": "SCOPE-999-in-scope"
+  },
+  "cases": [
+    {
+      "targetRule": "SCOPE-002-timepoint",
+      "mutation": "時點推到所有窗之外",
+      "gotRuleId": "SCOPE-002-timepoint",
+      "gotReasonCode": "notExtracted-timepoint-outside-window",
+      "inScope": false,
+      "error": null,
+      "verdict": "✅ 亮對了"
+    },
+    {
+      "targetRule": "SCOPE-002c-multiple-measurements",
+      "mutation": "同一時窗內有多個測量點",
+      "gotRuleId": "SCOPE-002c-multiple-measurements",
+      "gotReasonCode": "escalated-multiple-matches-in-window",
+      "inScope": false,
+      "error": null,
+      "verdict": "✅ 亮對了"
+    },
+    {
+      "targetRule": "SCOPE-003-analysis-set",
+      "mutation": "分析集換成契約沒收的值",
+      "gotRuleId": "SCOPE-003-analysis-set",
+      "gotReasonCode": "notExtracted-analysis-set-not-in-scope",
+      "inScope": false,
+      "error": null,
+      "verdict": "✅ 亮對了"
+    },
+    {
+      "targetRule": "SCOPE-005-model",
+      "mutation": "統計模型換成契約沒收的值",
+      "gotRuleId": "SCOPE-005-model",
+      "gotReasonCode": "notExtracted-model-not-in-scope",
+      "inScope": false,
+      "error": null,
+      "verdict": "✅ 亮對了"
+    },
+    {
+      "targetRule": "SCOPE-006-subgroup",
+      "mutation": "標成次群分析",
+      "gotRuleId": "SCOPE-006-subgroup",
+      "gotReasonCode": "notExtracted-subgroup-excluded-by-policy",
+      "inScope": false,
+      "error": null,
+      "verdict": "✅ 亮對了"
+    },
+    {
+      "targetRule": "SCOPE-007-sensitivity",
+      "mutation": "標成敏感度分析",
+      "gotRuleId": "SCOPE-007-sensitivity",
+      "gotReasonCode": "notExtracted-sensitivity-analysis-excluded-by-policy",
+      "inScope": false,
+      "error": null,
+      "verdict": "✅ 亮對了"
+    }
+  ],
+  "timepointWindowOverlaps": [],
+  "preflightRefusesOverlap": true,
+  "preflightMessage": "契約未通過凍結前置檢查（1 項）：[{'kind': 'overlapping-window', 'axis': 'time', 'timepoints': ['ZZ-重疊窗-ZZ', 'during-exercise'], 'spans': [[0.0, 0.0375], [0.0, 0.0375]]}]",
+  "ruleWhenPreflightBypassed": "SCOPE-002b-multiple-timepoint-match",
+  "scope002bNote": "🚨 `SCOPE-002b-multiple-timepoint-match` 只有在**時窗重疊**時才到得了，⚠️ 而 `freeze.py` 的凍結前檢查明文擋掉重疊時窗（且 ScopeMatcher 只收 status=frozen 的契約）。**🚨 故在任何通得過凍結前置檢查的契約裡它都到不了。**⚠️ 說得更精確：擋它的是**前置檢查**，🚨 若有人手寫一份 status=frozen 的契約繞過去，這條分支就到得了（本支實跑：那時同一筆紀錄判成 SCOPE-002b-multiple-timepoint-match）——**✅ 即它不是壞的，是到不了的。**✅ 這不是缺陷指控——⚠️ 它是刻意的防禦；🚨 但「防禦」與「永遠不會執行的程式」長得一樣，**而後者沒有人會發現它壞了。**",
+  "whatThisCannotAnswer": "🚫 本支只驅動單一欄位的突變——⚠️ 多欄位交互（例如次群＋敏感度同時成立）未受檢；🚨 亮得對也不表示它在真實文獻上會亮對。",
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "controlProbes": [
+    {
+      "probe": "模板本身仍判為在範圍內（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 未改動的模板判定 in_scope=True／rule=SCOPE-999-in-scope；⚠️ 若模板本身就過不了，下面每一條都測不到自己想測的東西"
+    },
+    {
+      "probe": "每個案例都真的改動了模板（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 仍判為在範圍內的案例：[]；⚠️ 那代表突變沒生效"
+    },
+    {
+      "probe": "每一條沒走過的分支都驅動得起來、且亮的是自己那一條",
+      "passed": true,
+      "detail": "🚨 未如預期者 0 條：[]"
+    },
+    {
+      "probe": "凍結前置檢查真的擋得住重疊時窗（必觸發之反向）",
+      "passed": true,
+      "detail": "🚨 造一份含重疊時窗的契約丟給 assert_freezable：契約未通過凍結前置檢查（1 項）：[{'kind': 'overlapping-window', 'axis': 'time', 'timepoints': ['ZZ-重疊窗-ZZ', 'during-exercise'], 'spans': [[0.0, 0.0375], [0.0, 0.0375]]}]；⚠️ 若它不擋，「死碼」這句就不成立"
+    },
+    {
+      "probe": "SCOPE-002b 在通得過前置檢查的契約下到得了",
+      "passed": false,
+      "detail": "🚨 現行契約的時窗兩兩重疊者：（無）；⚠️ 而前置檢查擋掉重疊——**🚨 故在任何通得過凍結前置檢查的契約裡，這條分支到不了。**✅ 但它本身健全：繞過前置檢查、手寫一份 status=frozen 的契約，同一筆紀錄就判成 SCOPE-002b-multiple-timepoint-match——⚠️ 即**它不是壞的，是到不了的**"
+    }
+  ],
+  "auditHash": "sha256:4d841d45d20b1d3a54c6055fdd4cf57db9dd4fc3cabf5e733540f29c61fd4e92"
+}
