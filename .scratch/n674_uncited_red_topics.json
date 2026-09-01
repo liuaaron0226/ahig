@@ -1,0 +1,913 @@
+{
+  "schemaVersion": 1,
+  "documentType": "uncited-red-topic-overlap",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "uncitedReds": 48,
+  "lowOverlapThreshold": 6.0,
+  "lowOverlap": [
+    {
+      "artefact": "n496_corpus_verify.json",
+      "round": 496,
+      "firstFailed": "正向甲：正確之 JATS artifact",
+      "closestDecision": null,
+      "overlapScore": 0.0,
+      "sharedRareIdentifiers": []
+    },
+    {
+      "artefact": "n498_sections_integrity.json",
+      "round": 498,
+      "firstFailed": "正向：合成之正確 sections",
+      "closestDecision": null,
+      "overlapScore": 0.0,
+      "sharedRareIdentifiers": []
+    },
+    {
+      "artefact": "n499_calibration_redraw.json",
+      "round": 499,
+      "firstFailed": "正向：忠實重抽之紀錄",
+      "closestDecision": null,
+      "overlapScore": 0.0,
+      "sharedRareIdentifiers": []
+    },
+    {
+      "artefact": "n504_executor_suite.json",
+      "round": 504,
+      "firstFailed": "必然成功之命令",
+      "closestDecision": null,
+      "overlapScore": 0.0,
+      "sharedRareIdentifiers": []
+    },
+    {
+      "artefact": "n512_source_host_provenance.json",
+      "round": 512,
+      "firstFailed": null,
+      "closestDecision": null,
+      "overlapScore": 0.0,
+      "sharedRareIdentifiers": []
+    },
+    {
+      "artefact": "n517_temporal_order_check.json",
+      "round": 517,
+      "firstFailed": null,
+      "closestDecision": null,
+      "overlapScore": 0.0,
+      "sharedRareIdentifiers": []
+    },
+    {
+      "artefact": "n617_findings_by_source.json",
+      "round": 617,
+      "firstFailed": "沒有任何發現不成比例地集中在 GROBID",
+      "closestDecision": null,
+      "overlapScore": 0.0,
+      "sharedRareIdentifiers": []
+    },
+    {
+      "artefact": "n626_missing_era_dose_space.json",
+      "round": 626,
+      "firstFailed": "⚠️ 語料與缺掉那個年代的**中位劑量**沒有差異",
+      "closestDecision": null,
+      "overlapScore": 0.0,
+      "sharedRareIdentifiers": []
+    },
+    {
+      "artefact": "n648_artefact_reproducibility.json",
+      "round": 648,
+      "firstFailed": "每一支憑證今天都還跑得起來",
+      "closestDecision": null,
+      "overlapScore": 0.0,
+      "sharedRareIdentifiers": []
+    },
+    {
+      "artefact": "n655_publication_bias_attempt.json",
+      "round": 655,
+      "firstFailed": "關鍵字判準有鑑別力",
+      "closestDecision": null,
+      "overlapScore": 0.0,
+      "sharedRareIdentifiers": []
+    },
+    {
+      "artefact": "n659_no_numbers_yet.json",
+      "round": 659,
+      "firstFailed": "清冊裡帶得動統合分析所需的數值欄位",
+      "closestDecision": null,
+      "overlapScore": 0.0,
+      "sharedRareIdentifiers": []
+    },
+    {
+      "artefact": "n635_d12_recoverability.json",
+      "round": 635,
+      "firstFailed": "那張表裡有腸胃症狀內容（必觸發之正對照）",
+      "closestDecision": "D1",
+      "overlapScore": 2.02,
+      "sharedRareIdentifiers": [
+        "1105537918c174c9"
+      ]
+    },
+    {
+      "artefact": "n638_cap_paths_executed.json",
+      "round": 638,
+      "firstFailed": "換掉 onExceedMax 之後兩條路仍一致",
+      "closestDecision": "D1",
+      "overlapScore": 2.02,
+      "sharedRareIdentifiers": [
+        "1105537918c174c9"
+      ]
+    },
+    {
+      "artefact": "n637_prose_numbers.json",
+      "round": 637,
+      "firstFailed": "建議文字裡可查證的數字都正確",
+      "closestDecision": "D3",
+      "overlapScore": 2.75,
+      "sharedRareIdentifiers": [
+        "instrument-not-in-allowlist"
+      ]
+    },
+    {
+      "artefact": "n642_double_read_sample.json",
+      "round": 642,
+      "firstFailed": "抽樣在**來源型別**上也不特別",
+      "closestDecision": "D1",
+      "overlapScore": 4.21,
+      "sharedRareIdentifiers": [
+        "1105537918c174c9",
+        "a9012191142e7e02"
+      ]
+    },
+    {
+      "artefact": "n625_corpus_era_bias.json",
+      "round": 625,
+      "firstFailed": "語料涵蓋各年代",
+      "closestDecision": "D1",
+      "overlapScore": 4.25,
+      "sharedRareIdentifiers": [
+        "298c326024d22835",
+        "c3028a8a7b1ae2a1"
+      ]
+    },
+    {
+      "artefact": "n633_gi_scale_heterogeneity.json",
+      "round": 633,
+      "firstFailed": "腸胃症狀的量表型別是單一的",
+      "closestDecision": "D1",
+      "overlapScore": 4.45,
+      "sharedRareIdentifiers": [
+        "298c326024d22835",
+        "7902e3ec54370729"
+      ]
+    },
+    {
+      "artefact": "n610_pending_decisions.json",
+      "round": 610,
+      "firstFailed": "沒有待裁定積壓",
+      "closestDecision": "D24",
+      "overlapScore": 5.03,
+      "sharedRareIdentifiers": [
+        "gi-symptom-incidence",
+        "needle-biopsy-vastus-lateralis"
+      ]
+    },
+    {
+      "artefact": "n634_decision_register_v2.json",
+      "round": 634,
+      "firstFailed": "沒有待裁定卡著內容關卡",
+      "closestDecision": "D24",
+      "overlapScore": 5.03,
+      "sharedRareIdentifiers": [
+        "gi-symptom-incidence",
+        "needle-biopsy-vastus-lateralis"
+      ]
+    }
+  ],
+  "rows": [
+    {
+      "artefact": "n496_corpus_verify.json",
+      "round": 496,
+      "firstFailed": "正向甲：正確之 JATS artifact",
+      "closestDecision": null,
+      "overlapScore": 0.0,
+      "sharedRareIdentifiers": []
+    },
+    {
+      "artefact": "n498_sections_integrity.json",
+      "round": 498,
+      "firstFailed": "正向：合成之正確 sections",
+      "closestDecision": null,
+      "overlapScore": 0.0,
+      "sharedRareIdentifiers": []
+    },
+    {
+      "artefact": "n499_calibration_redraw.json",
+      "round": 499,
+      "firstFailed": "正向：忠實重抽之紀錄",
+      "closestDecision": null,
+      "overlapScore": 0.0,
+      "sharedRareIdentifiers": []
+    },
+    {
+      "artefact": "n504_executor_suite.json",
+      "round": 504,
+      "firstFailed": "必然成功之命令",
+      "closestDecision": null,
+      "overlapScore": 0.0,
+      "sharedRareIdentifiers": []
+    },
+    {
+      "artefact": "n512_source_host_provenance.json",
+      "round": 512,
+      "firstFailed": null,
+      "closestDecision": null,
+      "overlapScore": 0.0,
+      "sharedRareIdentifiers": []
+    },
+    {
+      "artefact": "n517_temporal_order_check.json",
+      "round": 517,
+      "firstFailed": null,
+      "closestDecision": null,
+      "overlapScore": 0.0,
+      "sharedRareIdentifiers": []
+    },
+    {
+      "artefact": "n617_findings_by_source.json",
+      "round": 617,
+      "firstFailed": "沒有任何發現不成比例地集中在 GROBID",
+      "closestDecision": null,
+      "overlapScore": 0.0,
+      "sharedRareIdentifiers": []
+    },
+    {
+      "artefact": "n626_missing_era_dose_space.json",
+      "round": 626,
+      "firstFailed": "⚠️ 語料與缺掉那個年代的**中位劑量**沒有差異",
+      "closestDecision": null,
+      "overlapScore": 0.0,
+      "sharedRareIdentifiers": []
+    },
+    {
+      "artefact": "n648_artefact_reproducibility.json",
+      "round": 648,
+      "firstFailed": "每一支憑證今天都還跑得起來",
+      "closestDecision": null,
+      "overlapScore": 0.0,
+      "sharedRareIdentifiers": []
+    },
+    {
+      "artefact": "n655_publication_bias_attempt.json",
+      "round": 655,
+      "firstFailed": "關鍵字判準有鑑別力",
+      "closestDecision": null,
+      "overlapScore": 0.0,
+      "sharedRareIdentifiers": []
+    },
+    {
+      "artefact": "n659_no_numbers_yet.json",
+      "round": 659,
+      "firstFailed": "清冊裡帶得動統合分析所需的數值欄位",
+      "closestDecision": null,
+      "overlapScore": 0.0,
+      "sharedRareIdentifiers": []
+    },
+    {
+      "artefact": "n635_d12_recoverability.json",
+      "round": 635,
+      "firstFailed": "那張表裡有腸胃症狀內容（必觸發之正對照）",
+      "closestDecision": "D1",
+      "overlapScore": 2.02,
+      "sharedRareIdentifiers": [
+        "1105537918c174c9"
+      ]
+    },
+    {
+      "artefact": "n638_cap_paths_executed.json",
+      "round": 638,
+      "firstFailed": "換掉 onExceedMax 之後兩條路仍一致",
+      "closestDecision": "D1",
+      "overlapScore": 2.02,
+      "sharedRareIdentifiers": [
+        "1105537918c174c9"
+      ]
+    },
+    {
+      "artefact": "n637_prose_numbers.json",
+      "round": 637,
+      "firstFailed": "建議文字裡可查證的數字都正確",
+      "closestDecision": "D3",
+      "overlapScore": 2.75,
+      "sharedRareIdentifiers": [
+        "instrument-not-in-allowlist"
+      ]
+    },
+    {
+      "artefact": "n642_double_read_sample.json",
+      "round": 642,
+      "firstFailed": "抽樣在**來源型別**上也不特別",
+      "closestDecision": "D1",
+      "overlapScore": 4.21,
+      "sharedRareIdentifiers": [
+        "1105537918c174c9",
+        "a9012191142e7e02"
+      ]
+    },
+    {
+      "artefact": "n625_corpus_era_bias.json",
+      "round": 625,
+      "firstFailed": "語料涵蓋各年代",
+      "closestDecision": "D1",
+      "overlapScore": 4.25,
+      "sharedRareIdentifiers": [
+        "298c326024d22835",
+        "c3028a8a7b1ae2a1"
+      ]
+    },
+    {
+      "artefact": "n633_gi_scale_heterogeneity.json",
+      "round": 633,
+      "firstFailed": "腸胃症狀的量表型別是單一的",
+      "closestDecision": "D1",
+      "overlapScore": 4.45,
+      "sharedRareIdentifiers": [
+        "298c326024d22835",
+        "7902e3ec54370729"
+      ]
+    },
+    {
+      "artefact": "n610_pending_decisions.json",
+      "round": 610,
+      "firstFailed": "沒有待裁定積壓",
+      "closestDecision": "D24",
+      "overlapScore": 5.03,
+      "sharedRareIdentifiers": [
+        "gi-symptom-incidence",
+        "needle-biopsy-vastus-lateralis"
+      ]
+    },
+    {
+      "artefact": "n634_decision_register_v2.json",
+      "round": 634,
+      "firstFailed": "沒有待裁定卡著內容關卡",
+      "closestDecision": "D24",
+      "overlapScore": 5.03,
+      "sharedRareIdentifiers": [
+        "gi-symptom-incidence",
+        "needle-biopsy-vastus-lateralis"
+      ]
+    },
+    {
+      "artefact": "n590_source_location_audit.json",
+      "round": 590,
+      "firstFailed": "沒有任何契約結局的出處是導論／討論類段落",
+      "closestDecision": "D22",
+      "overlapScore": 7.82,
+      "sharedRareIdentifiers": [
+        "c4128a6f6dd2c0b5",
+        "effect-measure-not-in-scope",
+        "notExtracted-effect-measure-not-in-scope"
+      ]
+    },
+    {
+      "artefact": "n654_registry_linkage.json",
+      "round": 654,
+      "firstFailed": "靠 PMID 就連得起來",
+      "closestDecision": "D1",
+      "overlapScore": 7.88,
+      "sharedRareIdentifiers": [
+        "0cfceb6c8a86f78b",
+        "66e16f089f1522d1",
+        "f6a82302d7fe9adf"
+      ]
+    },
+    {
+      "artefact": "n595_second_read_invisible.json",
+      "round": 595,
+      "firstFailed": "兩位讀者把同一批句子配到相同的結局上",
+      "closestDecision": "D10",
+      "overlapScore": 8.15,
+      "sharedRareIdentifiers": [
+        "1105537918c174c9",
+        "gi-symptom-incidence",
+        "gi-symptom-severity",
+        "muscle-glycogen-post-exercise"
+      ]
+    },
+    {
+      "artefact": "n591_absent_vs_null_axis.json",
+      "round": 591,
+      "firstFailed": "同一份讀法不會因為寫法不同而得到相反結果",
+      "closestDecision": "D10",
+      "overlapScore": 8.43,
+      "sharedRareIdentifiers": [
+        "exogenous-cho-oxidation-peak",
+        "gi-symptom-incidence",
+        "gi-symptom-severity",
+        "muscle-glycogen-post-exercise"
+      ]
+    },
+    {
+      "artefact": "n632_poolability.json",
+      "round": 632,
+      "firstFailed": "允許清單為空時，儀器關卡仍然擋得住",
+      "closestDecision": "D10",
+      "overlapScore": 8.43,
+      "sharedRareIdentifiers": [
+        "exogenous-cho-oxidation-peak",
+        "gi-symptom-incidence",
+        "gi-symptom-severity",
+        "muscle-glycogen-post-exercise"
+      ]
+    },
+    {
+      "artefact": "n645_dose_gate_by_outcome.json",
+      "round": 645,
+      "firstFailed": "沒有結局「卡在門外的比進來的還多」",
+      "closestDecision": "D10",
+      "overlapScore": 8.43,
+      "sharedRareIdentifiers": [
+        "exogenous-cho-oxidation-peak",
+        "gi-symptom-incidence",
+        "gi-symptom-severity",
+        "muscle-glycogen-post-exercise"
+      ]
+    },
+    {
+      "artefact": "n598_source_section_no_result.json",
+      "round": 598,
+      "firstFailed": "每一項在範圍內的結局，其來源段落都含結果",
+      "closestDecision": "D21",
+      "overlapScore": 10.97,
+      "sharedRareIdentifiers": [
+        "081d147cd92dee14",
+        "65dd82a89b2c5340",
+        "eac2b5fd6bb06843",
+        "gi-symptom-incidence",
+        "gi-symptom-severity"
+      ]
+    },
+    {
+      "artefact": "n614_table_recovery_qualified.json",
+      "round": 614,
+      "firstFailed": "被丟掉的表全部是該篇自己的結果",
+      "closestDecision": "D1",
+      "overlapScore": 11.27,
+      "sharedRareIdentifiers": [
+        "307c0dd5b141caed",
+        "3f34fc92d4f4b70d",
+        "48da8a7f2f35af1f",
+        "65dd82a89b2c5340",
+        "c3028a8a7b1ae2a1"
+      ]
+    },
+    {
+      "artefact": "n641_double_read_state.json",
+      "round": 641,
+      "firstFailed": "雙讀涵蓋率達到語料的一成",
+      "closestDecision": "D21",
+      "overlapScore": 14.74,
+      "sharedRareIdentifiers": [
+        "1105537918c174c9",
+        "65dd82a89b2c5340",
+        "a9012191142e7e02",
+        "exogenous-cho-oxidation-peak",
+        "gi-symptom-incidence",
+        "gi-symptom-severity"
+      ]
+    },
+    {
+      "artefact": "n627_dose_proxy_validation.json",
+      "round": 627,
+      "firstFailed": "⚠️ 代理與真值在**低端與否**上一致",
+      "closestDecision": "D1",
+      "overlapScore": 14.8,
+      "sharedRareIdentifiers": [
+        "081d147cd92dee14",
+        "501bb474ac4704fa",
+        "59b4558a37f28bc9",
+        "65dd82a89b2c5340",
+        "86e6a580108fd94b",
+        "d4251685a43792ff"
+      ]
+    },
+    {
+      "artefact": "n628_evidence_thinness.json",
+      "round": 628,
+      "firstFailed": "每一種契約結局都有 ≥3 篇支撐",
+      "closestDecision": "D21",
+      "overlapScore": 15.58,
+      "sharedRareIdentifiers": [
+        "081d147cd92dee14",
+        "d4149a8bac287851",
+        "dbdb6ea55c9667c3",
+        "exogenous-cho-oxidation-peak",
+        "gi-symptom-incidence",
+        "gi-symptom-severity"
+      ]
+    },
+    {
+      "artefact": "n662_double_read_fields.json",
+      "round": 662,
+      "firstFailed": "兩位讀者在欄位層級也一致",
+      "closestDecision": "D24",
+      "overlapScore": 21.41,
+      "sharedRareIdentifiers": [
+        "acid-hydrolysis-freeze-dried-biopsy",
+        "cycling-time-to-exhaustion-fixed-power",
+        "cycling-tte-fixed-intensity",
+        "exogenous-cho-oxidation-peak",
+        "gi-symptom-incidence",
+        "gi-symptom-severity"
+      ]
+    },
+    {
+      "artefact": "n640_branch_reachability.json",
+      "round": 640,
+      "firstFailed": "SCOPE-002b 在通得過前置檢查的契約下到得了",
+      "closestDecision": "D8",
+      "overlapScore": 22.65,
+      "sharedRareIdentifiers": [
+        "model-not-in-scope",
+        "notExtracted-model-not-in-scope",
+        "notExtracted-sensitivity-analysis-excluded-by-policy",
+        "notExtracted-subgroup-excluded-by-policy",
+        "sensitivity-analysis-excluded-by-policy",
+        "subgroup-excluded-by-policy"
+      ]
+    },
+    {
+      "artefact": "n671_retro_suite.json",
+      "round": 671,
+      "firstFailed": "只用實體識別字就查得到——🚫 不必特別帶爭點",
+      "closestDecision": "D24",
+      "overlapScore": 23.33,
+      "sharedRareIdentifiers": [
+        "acid-hydrolysis-freeze-dried-biopsy",
+        "dose-outside-bands",
+        "effect-measure-not-in-scope",
+        "gi-symptom-incidence",
+        "gi-symptom-severity",
+        "muscle-glycogen-post-exercise"
+      ]
+    },
+    {
+      "artefact": "n639_decision_space_coverage.json",
+      "round": 639,
+      "firstFailed": "每一條判定分支都被真實資料走過",
+      "closestDecision": "D24",
+      "overlapScore": 29.03,
+      "sharedRareIdentifiers": [
+        "dose-outside-bands",
+        "effect-measure-not-in-scope",
+        "instrument-not-in-allowlist",
+        "no-numeric-result",
+        "notExtracted-dose-outside-bands",
+        "notExtracted-effect-measure-not-in-scope"
+      ]
+    },
+    {
+      "artefact": "n613_recoverable_from_tables.json",
+      "round": 613,
+      "firstFailed": "沒有「貢獻為零卻有結局表」的論文",
+      "closestDecision": "D1",
+      "overlapScore": 31.42,
+      "sharedRareIdentifiers": [
+        "1105537918c174c9",
+        "298c326024d22835",
+        "307c0dd5b141caed",
+        "3f34fc92d4f4b70d",
+        "48da8a7f2f35af1f",
+        "65dd82a89b2c5340"
+      ]
+    },
+    {
+      "artefact": "n621_out_of_scope_audit.json",
+      "round": 621,
+      "firstFailed": "沒有「未宣告卻帶著契約結局特徵詞」的項目",
+      "closestDecision": "D1",
+      "overlapScore": 35.12,
+      "sharedRareIdentifiers": [
+        "0cfceb6c8a86f78b",
+        "1105537918c174c9",
+        "307c0dd5b141caed",
+        "4103c4b52bbf21e6",
+        "48da8a7f2f35af1f",
+        "54d4200c1c5e2b64"
+      ]
+    },
+    {
+      "artefact": "n647_recovery_ledger.json",
+      "round": 647,
+      "firstFailed": "每一件待裁定都至少多帶回一篇獨立研究",
+      "closestDecision": "D22",
+      "overlapScore": 35.45,
+      "sharedRareIdentifiers": [
+        "0cfceb6c8a86f78b",
+        "0eea079e79bf7913",
+        "298c326024d22835",
+        "307c0dd5b141caed",
+        "54d4200c1c5e2b64",
+        "82cbc04b68c38e79"
+      ]
+    },
+    {
+      "artefact": "n646_loss_ledger_by_outcome.json",
+      "round": 646,
+      "firstFailed": "沒有結局在關卡上損失過半",
+      "closestDecision": "D24",
+      "overlapScore": 38.74,
+      "sharedRareIdentifiers": [
+        "0cfceb6c8a86f78b",
+        "0eea079e79bf7913",
+        "298c326024d22835",
+        "307c0dd5b141caed",
+        "54d4200c1c5e2b64",
+        "82cbc04b68c38e79"
+      ]
+    },
+    {
+      "artefact": "n643_corpus_to_evidence_funnel.json",
+      "round": 643,
+      "firstFailed": "語料裡每一篇都對證據有貢獻",
+      "closestDecision": "D24",
+      "overlapScore": 44.9,
+      "sharedRareIdentifiers": [
+        "0eea079e79bf7913",
+        "54d4200c1c5e2b64",
+        "82cbc04b68c38e79",
+        "a6ce9c92c7454a7c",
+        "ad7c0004c386f31c",
+        "c3028a8a7b1ae2a1"
+      ]
+    },
+    {
+      "artefact": "n580_study_vs_report.json",
+      "round": 580,
+      "firstFailed": "作者清單看起來是完整的",
+      "closestDecision": "D1",
+      "overlapScore": 50.16,
+      "sharedRareIdentifiers": [
+        "081d147cd92dee14",
+        "1105537918c174c9",
+        "307c0dd5b141caed",
+        "3f34fc92d4f4b70d",
+        "48da8a7f2f35af1f",
+        "501bb474ac4704fa"
+      ]
+    },
+    {
+      "artefact": "n669_decision_register_v3.json",
+      "round": 669,
+      "firstFailed": "沒有待裁定卡著內容關卡",
+      "closestDecision": "D24",
+      "overlapScore": 73.13,
+      "sharedRareIdentifiers": [
+        "0cfceb6c8a86f78b",
+        "0eea079e79bf7913",
+        "298c326024d22835",
+        "307c0dd5b141caed",
+        "54d4200c1c5e2b64",
+        "82cbc04b68c38e79"
+      ]
+    },
+    {
+      "artefact": "n586_zero_contribution_census.json",
+      "round": 586,
+      "firstFailed": "沒有「零宣告卻滿是結局詞彙」的論文",
+      "closestDecision": "D1",
+      "overlapScore": 89.03,
+      "sharedRareIdentifiers": [
+        "081d147cd92dee14",
+        "0cfceb6c8a86f78b",
+        "0eea079e79bf7913",
+        "1105537918c174c9",
+        "298c326024d22835",
+        "307c0dd5b141caed"
+      ]
+    },
+    {
+      "artefact": "n664_vocabulary_upper_bound.json",
+      "round": 664,
+      "firstFailed": "儀器用字 🚫 沒有擋住任何項目",
+      "closestDecision": "D1",
+      "overlapScore": 89.03,
+      "sharedRareIdentifiers": [
+        "081d147cd92dee14",
+        "0cfceb6c8a86f78b",
+        "0eea079e79bf7913",
+        "1105537918c174c9",
+        "298c326024d22835",
+        "307c0dd5b141caed"
+      ]
+    },
+    {
+      "artefact": "n611_tables_missing.json",
+      "round": 611,
+      "firstFailed": "每一位讀者都看得到論文引用的表格",
+      "closestDecision": "D1",
+      "overlapScore": 97.38,
+      "sharedRareIdentifiers": [
+        "081d147cd92dee14",
+        "0cfceb6c8a86f78b",
+        "0eea079e79bf7913",
+        "1105537918c174c9",
+        "298c326024d22835",
+        "307c0dd5b141caed"
+      ]
+    },
+    {
+      "artefact": "n615_flat_hierarchy.json",
+      "round": 615,
+      "firstFailed": "全語料的段落結構深度可比",
+      "closestDecision": "D1",
+      "overlapScore": 97.38,
+      "sharedRareIdentifiers": [
+        "081d147cd92dee14",
+        "0cfceb6c8a86f78b",
+        "0eea079e79bf7913",
+        "1105537918c174c9",
+        "298c326024d22835",
+        "307c0dd5b141caed"
+      ]
+    },
+    {
+      "artefact": "n616_text_coverage.json",
+      "round": 616,
+      "firstFailed": "讀者看到了原文的全部",
+      "closestDecision": "D1",
+      "overlapScore": 97.38,
+      "sharedRareIdentifiers": [
+        "081d147cd92dee14",
+        "0cfceb6c8a86f78b",
+        "0eea079e79bf7913",
+        "1105537918c174c9",
+        "298c326024d22835",
+        "307c0dd5b141caed"
+      ]
+    },
+    {
+      "artefact": "n644_screening_vs_extraction.json",
+      "round": 644,
+      "firstFailed": "線索規則有鑑別力（🚨 本支第一版守錯方向的那一道）",
+      "closestDecision": "D1",
+      "overlapScore": 97.38,
+      "sharedRareIdentifiers": [
+        "081d147cd92dee14",
+        "0cfceb6c8a86f78b",
+        "0eea079e79bf7913",
+        "1105537918c174c9",
+        "298c326024d22835",
+        "307c0dd5b141caed"
+      ]
+    },
+    {
+      "artefact": "n670_identifier_index.json",
+      "round": 670,
+      "firstFailed": "這一串沒有任何一支「早該先讀某支已掛決策的舊憑證」",
+      "closestDecision": "D1",
+      "overlapScore": 101.93,
+      "sharedRareIdentifiers": [
+        "081d147cd92dee14",
+        "0cfceb6c8a86f78b",
+        "0eea079e79bf7913",
+        "1105537918c174c9",
+        "298c326024d22835",
+        "307c0dd5b141caed"
+      ]
+    }
+  ],
+  "decisionsWithFingerprint": [
+    "D1",
+    "D10",
+    "D11",
+    "D12",
+    "D13",
+    "D14",
+    "D15",
+    "D17",
+    "D18",
+    "D19",
+    "D2",
+    "D20",
+    "D21",
+    "D22",
+    "D23",
+    "D24",
+    "D3",
+    "D4",
+    "D5",
+    "D6",
+    "D7",
+    "D8",
+    "D9"
+  ],
+  "sanityCheck": [
+    {
+      "artefact": "n584_thesis_and_hidden_duplicate.json",
+      "decision": "D3",
+      "selfScore": 11.37
+    },
+    {
+      "artefact": "n588_reason_code_conflation.json",
+      "decision": "D5",
+      "selfScore": 29.27
+    },
+    {
+      "artefact": "n592_default_only_when_absent.json",
+      "decision": "D8",
+      "selfScore": 32.71
+    },
+    {
+      "artefact": "n593_cap_paths_diverge.json",
+      "decision": "D9",
+      "selfScore": 7.21
+    },
+    {
+      "artefact": "n594_a3_first_measurement.json",
+      "decision": "D4",
+      "selfScore": 12.65
+    },
+    {
+      "artefact": "n596_allocation_replicates.json",
+      "decision": "D10",
+      "selfScore": 17.18
+    },
+    {
+      "artefact": "n597_numeric_result_unsupported.json",
+      "decision": "D12",
+      "selfScore": 12.07
+    },
+    {
+      "artefact": "n608_fourth_double_read.json",
+      "decision": "D14",
+      "selfScore": 12.8
+    },
+    {
+      "artefact": "n609_methods_title_check.json",
+      "decision": "D13",
+      "selfScore": 22.73
+    },
+    {
+      "artefact": "n612_parse_tei_root_cause.json",
+      "decision": "D17",
+      "selfScore": 35.96
+    },
+    {
+      "artefact": "n624_corpus_denominator.json",
+      "decision": "D18",
+      "selfScore": 97.53
+    },
+    {
+      "artefact": "n663_reader_vocabulary.json",
+      "decision": "D24",
+      "selfScore": 43.28
+    },
+    {
+      "artefact": "n665_blocked_gate_depth.json",
+      "decision": "D22",
+      "selfScore": 62.29
+    },
+    {
+      "artefact": "n666_blank_field_provenance.json",
+      "decision": "D23",
+      "selfScore": 26.88
+    },
+    {
+      "artefact": "n667_inscope_without_instrument.json",
+      "decision": "D21",
+      "selfScore": 63.01
+    },
+    {
+      "artefact": "n668_scale_identity_elsewhere.json",
+      "decision": "D21",
+      "selfScore": 54.58
+    }
+  ],
+  "whyNotProse": "⚠️ 那 48 支的 `documentType` **48 個全都不一樣**——🚨 硬分類只會變成本室的主觀清單。✅ 故改用第 670／671 輪驗過的稀有度重疊。",
+  "methodLimit": "🚨 重疊高只代表**談的東西重疊**，🚫 不代表那個決策涵蓋了這支的發現；⚠️ 重疊低也可能只是因為那支憑證談的是**本室自己的工具**（索引、掃描器、重跑對帳），**那本來就不需要裁定**。✅ 故本支的產出是**待過目清單**，🚫 不是缺漏清單。",
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "controlProbes": [
+    {
+      "probe": "決策的題目指紋抽得出來（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 23／24 個決策有指紋（其餘的證據檔不在 .scratch 或無稀有識別字）；⚠️ 太少的話「重疊低」只是因為沒有東西可比"
+    },
+    {
+      "probe": "稀有度門檻真的篩掉了到處都有的識別字（必觸發之反向）",
+      "passed": true,
+      "detail": "🚨 識別字 498 個，權重 ≥ 2.0 的只有 495 個；⚠️ 若全部都留下，每一對看起來都會很像"
+    },
+    {
+      "probe": "被決策引用的憑證，對「引用它的那個決策」必須高分（必觸發之反向）",
+      "passed": true,
+      "detail": "🚨 16 支已被引用，其中對自己那個決策低於 6.0 分的有 0 支：無；⚠️ 若自己都比不高，這個相似度沒有意義"
+    },
+    {
+      "probe": "每一支無決策的紅燈都與某個決策高度重疊",
+      "passed": false,
+      "detail": "🚨 重疊低於 6.0 分的有 19／48 支：['n496_corpus_verify.json', 'n498_sections_integrity.json', 'n499_calibration_redraw.json', 'n504_executor_suite.json', 'n512_source_host_provenance.json', 'n517_temporal_order_check.json', 'n617_findings_by_source.json', 'n626_missing_era_dose_space.json', 'n648_artefact_reproducibility.json', 'n655_publication_bias_attempt.json', 'n659_no_numbers_yet.json', 'n635_d12_recoverability.json', 'n638_cap_paths_executed.json', 'n637_prose_numbers.json', 'n642_double_read_sample.json', 'n625_corpus_era_bias.json', 'n633_gi_scale_heterogeneity.json', 'n610_pending_decisions.json', 'n634_decision_register_v2.json']；⚠️ 這是**要本室逐一過目的候選**，🚫 不是「漏掉的決策」"
+    }
+  ],
+  "auditHash": "sha256:0918a1e14757a81fa6dff6ac29217335e866a88d4cb0546f503ce2be34803587"
+}
