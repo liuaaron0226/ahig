@@ -1,0 +1,60 @@
+{
+  "schemaVersion": 1,
+  "documentType": "publication-bias-attempt",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "registryRecords": 212,
+  "statusCounts": {
+    "COMPLETED": 155,
+    "UNKNOWN": 23,
+    "RECRUITING": 14,
+    "NOT_YET_RECRUITING": 9,
+    "WITHDRAWN": 3,
+    "TERMINATED": 3,
+    "ACTIVE_NOT_RECRUITING": 3,
+    "ENROLLING_BY_INVITATION": 2
+  },
+  "completed": 155,
+  "completedWithoutLinkedPublication": 84,
+  "keywordRelevantAmongThose": 75,
+  "keywordRelevantRateOverAll": 0.896,
+  "withRegistryPostedResults": [
+    "NCT01409382",
+    "NCT01681147",
+    "NCT02552355"
+  ],
+  "readByHand": {
+    "NCT01409382": "妊娠期：新生兒低血糖（走路＋限醣飲食）",
+    "NCT01681147": "產後：減重與糖尿病篩檢的衛教",
+    "NCT02552355": "二甲雙胍與粒線體功能（12 週）"
+  },
+  "verdict": "🚨 **這條路走不通，而本支把它證成否定的。**⚠️ 84 筆完成且無關聯論文——但註冊庫的參考文獻本來就常年失修，**🚫 那是「未發表」的上界，不是計數**。🚨 關鍵字判準在 212 筆裡命中 90%，沒有鑑別力；✅ 而唯一具體可查的 3 筆（有結果、無關聯論文），**本室逐筆讀過，全部離題**。",
+  "whatWouldBeNeeded": "📮 要真的查發表偏差，需要**逐筆判讀那 84 筆的主題**——⚠️ 那是判斷不是檢索，🚫 且本室不在此視窗讀大量文獻。",
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "controlProbes": [
+    {
+      "probe": "註冊紀錄讀得到且狀態欄有值（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 實得 212 筆、缺狀態 0 筆；⚠️ 任一不對，下面的分母就不成立"
+    },
+    {
+      "probe": "不可能出現的字串不得命中（必觸發之反向）",
+      "passed": true,
+      "detail": "🚨 若它也命中，關鍵字這條路本身就壞了"
+    },
+    {
+      "probe": "關鍵字判準有鑑別力",
+      "passed": false,
+      "detail": "🚨 全部 212 筆裡判為「相關」的佔 **90%**——⚠️ 一條打中九成樣本的規則什麼也分不出來，**🚫 故「75 筆相關」這個數不能用**（第 644 輪同一族）"
+    },
+    {
+      "probe": "那 3 筆「有結果且無關聯論文」是相關的未發表證據",
+      "passed": false,
+      "detail": "🚨 本室**逐筆讀過**那 3 筆：{\"NCT01409382\": \"妊娠期：新生兒低血糖（走路＋限醣飲食）\", \"NCT01681147\": \"產後：減重與糖尿病篩檢的衛教\", \"NCT02552355\": \"二甲雙胍與粒線體功能（12 週）\"}——⚠️ 全部離題，🚫 沒有一筆與「運動中攝取外源性醣類」有關。**✅ 即這條路找不出相關的未發表試驗，而本支用具體案例證明，🚫 不是用一個過濾後的數字宣稱。**"
+    }
+  ],
+  "auditHash": "sha256:8a2611dc5e533d96478c99fe7aae94ae1886a8d9d1cb7c94f04b5fb93728488f"
+}

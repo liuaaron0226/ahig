@@ -487,12 +487,22 @@ def run_tests():
                          if shacl else UNCOLLECTABLE_NOTE + '\n      🚨 實際失敗：'
                          + why)
         args = [] if shacl else ['--ignore=' + PYTEST_IGNORE]
-        r = subprocess.run([exe, '-X', 'utf8', '-m', 'pytest', '-q'] + args,
+        # 🚨 第 655 輪：⚠️ 測試那格第四次紅，而直接重跑又是 840 passed——
+        # **即它是間歇性的**。第 627 輪的修正給了本室數字，🚫 卻沒有給測試名，
+        # 而那正是分辨「哪一條在飄」所缺的東西。
+        # ✅ 加 `-rf`：偏離基線時把 `FAILED …` 那一行一起留下來。
+        r = subprocess.run([exe, '-X', 'utf8', '-m', 'pytest', '-q', '-rf']
+                           + args,
                            cwd=PYTEST_DIR, capture_output=True, text=True,
                            encoding='utf-8', errors='ignore')
         txt = re.sub(r'\x1b\[[0-9;]*m', '', r.stdout or '')
         tail = [l for l in txt.strip().split('\n') if 'passed' in l or 'failed' in l]
         line = tail[-1] if tail else ''
+        # 🚨 這一行第一次是用 shell heredoc 寫進來的，而 '\n' 被 shell 吃掉、
+        # 斷成了真正的換行——⚠️ **本室自己立的規矩就是「含反斜線的文字不經 shell」**，
+        # 這已是第三次違反。✅ 改用檔案編輯工具寫。
+        failed_names = [l.strip() for l in txt.splitlines()
+                        if l.strip().startswith('FAILED')]
         gp = re.search(r'(\d+) passed', line)
         gf = re.search(r'(\d+) failed', line)
         # 🚨 第 623 輪：⚠️ 原本讀不到摘要行時回 (0, 0, exe, '')——
@@ -508,9 +518,15 @@ def run_tests():
                     '🚨 讀不到 pytest 的摘要行（returncode=%s）——'
                     '⚠️ 這不是「測試失敗」，是本閘門沒看到結果。'
                     '\n      stdout 末幾行：%s\n      stderr 末幾行：%s'
-                    % (r.returncode, evidence, [s for s in stderr if s]))
+                    % (r.returncode, evidence, [s for s in stderr if s]),
+                    failed_names)
+        # 🚨 第 655 輪：⚠️ 失敗的測試名必須**回傳出去**——
+        # 本室第一版把它留在函式裡，而使用它的地方在模組層，
+        # **於是新分支根本執行不到（NameError）**；
+        # ✅ 而那是「拿假基線實證它會亮」當場抓到的。
         return (int(gp.group(1)) if gp else 0,
-                int(gf.group(1)) if gf else 0, exe, line.strip())
+                int(gf.group(1)) if gf else 0, exe, line.strip(),
+                failed_names)
     return None
 
 
@@ -527,7 +543,7 @@ if tr is None:
     verdict_detail.append('🚨 找不到裝有 pytest 的直譯器。')
     t_ok = False
 else:
-    passed, failed, exe, line = tr
+    passed, failed, exe, line, failed_names = tr
     # 🚨 passed 為 None ＝ 讀不到摘要行。⚠️ 那不是「測試失敗」，
     # 🚫 而本閘門先前把兩者印成同一種樣子（一個空行加一個紅字）。
     unreadable = passed is None
@@ -545,6 +561,9 @@ else:
             verdict_detail.append(
                 '🚨 測試數字偏離基線：實得「%s」，基線 %d passed／%d failed。'
                 % (line, BASE_PASSED, BASE_FAILED))
+            # 🚨 第 655 輪加：⚠️ 沒有測試名就分辨不出「哪一條在飄」。
+            verdict_detail.append(
+                '🚨 失敗的測試：%s' % (failed_names or ['（pytest 未列出）']))
     print('   已知失敗：%s' % KNOWN_FAIL)
     print('   ⚠️ 未收集：%s' % UNCOLLECTABLE)
     print('   🚨 故本閘門不得聲稱「743/743」——⚠️ 743 是協調者環境之數，非此處實測。')
