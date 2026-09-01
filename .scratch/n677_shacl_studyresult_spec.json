@@ -1,0 +1,245 @@
+{
+  "schemaVersion": 1,
+  "documentType": "shacl-studyresult-spec",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "closesLimitDeclaredBy": "n676 → methodLimit（未看 SHACL 形狀）",
+  "constrainedPaths": {
+    "analysisSet": {
+      "onShape": "StudyResultShape",
+      "targetClass": "StudyResult",
+      "minCount": "1",
+      "message": "原子 tuple 維度缺漏：analysisSet。"
+    },
+    "citationAnchor": {
+      "onShape": "StudyResultShape",
+      "targetClass": "StudyResult",
+      "minCount": "1",
+      "message": "每個 StudyResult 至少需一個穩定 CitationAnchor。"
+    },
+    "comparator": {
+      "onShape": "StudyResultShape",
+      "targetClass": "StudyResult",
+      "minCount": "1",
+      "message": "原子 tuple 維度缺漏：comparator。"
+    },
+    "derivedFromOutcomeInventory": {
+      "onShape": "StudyResultShape",
+      "targetClass": "StudyResult",
+      "minCount": "1",
+      "message": "StudyResult 必須連回 OutcomeInventory；否則無法區分『未抽取』與『不存在』。"
+    },
+    "deterministicCheckReport": {
+      "onShape": "StudyResultShape",
+      "targetClass": "StudyResult",
+      "minCount": "1",
+      "message": "必須附確定性統計檢查報告。"
+    },
+    "effectMeasure": {
+      "onShape": "StudyResultShape",
+      "targetClass": "StudyResult",
+      "minCount": "1",
+      "message": "原子 tuple 維度缺漏：effectMeasure。"
+    },
+    "intervention": {
+      "onShape": "StudyResultShape",
+      "targetClass": "StudyResult",
+      "minCount": "1",
+      "message": "原子 tuple 維度缺漏：intervention。"
+    },
+    "outcome": {
+      "onShape": "StudyResultShape",
+      "targetClass": "StudyResult",
+      "minCount": "1",
+      "message": "原子 tuple 維度缺漏：outcome。"
+    },
+    "pointEstimate": {
+      "onShape": "QuantitativeStudyResultShape",
+      "targetClass": "QuantitativeStudyResult",
+      "minCount": "1",
+      "message": "量化 StudyResult 必須有點估計。"
+    },
+    "population": {
+      "onShape": "StudyResultShape",
+      "targetClass": "StudyResult",
+      "minCount": "1",
+      "message": "原子 tuple 維度缺漏：population。"
+    },
+    "quantityKind": {
+      "onShape": "StudyResultShape",
+      "targetClass": "StudyResult",
+      "minCount": "1",
+      "message": "必須指向 QuantityKindRegistry；不得只寫自由文字單位。"
+    },
+    "scopeContractHash": {
+      "onShape": "StudyResultShape",
+      "targetClass": "StudyResult",
+      "minCount": "1",
+      "message": "每個 StudyResult 必須記錄產生它的 ExtractionScopeContract hash。"
+    },
+    "scopeRuleId": {
+      "onShape": "StudyResultShape",
+      "targetClass": "StudyResult",
+      "minCount": "1",
+      "message": "必須記錄判定其在範圍內的具名規則 ID。"
+    },
+    "sourceVersion": {
+      "onShape": "StudyResultShape",
+      "targetClass": "StudyResult",
+      "minCount": "1",
+      "message": "原子 tuple 維度缺漏：sourceVersion。"
+    },
+    "statisticalModel": {
+      "onShape": "StudyResultShape",
+      "targetClass": "StudyResult",
+      "minCount": "1",
+      "message": "原子 tuple 維度缺漏：statisticalModel。"
+    },
+    "study": {
+      "onShape": "StudyResultShape",
+      "targetClass": "StudyResult",
+      "minCount": "1",
+      "message": "原子 tuple 維度缺漏：study。"
+    },
+    "timepoint": {
+      "onShape": "StudyResultShape",
+      "targetClass": "StudyResult",
+      "minCount": "1",
+      "message": "原子 tuple 維度缺漏：timepoint。"
+    },
+    "uncertaintyInterval": {
+      "onShape": "QuantitativeStudyResultShape",
+      "targetClass": "QuantitativeStudyResult",
+      "minCount": "1",
+      "message": "量化 StudyResult 必須有不確定性區間；原文未提供時只能存為缺失事實，不得建立量化節點。"
+    }
+  },
+  "positiveCanaryPredicates": [
+    "analysisSet",
+    "citationAnchor",
+    "comparator",
+    "derivedFromOutcomeInventory",
+    "deterministicCheckReport",
+    "effectMeasure",
+    "intervention",
+    "outcome",
+    "population",
+    "prespecificationDecidedBy",
+    "prespecificationStatus",
+    "quantityKind",
+    "scopeContractHash",
+    "scopeRuleId",
+    "sourceVersion",
+    "statisticalModel",
+    "study",
+    "timepoint"
+  ],
+  "alsoRequiredByCode": [
+    "analysisSet",
+    "effectMeasure"
+  ],
+  "shaclOnlyNotSeenByRunAll": [
+    "citationAnchor",
+    "comparator",
+    "derivedFromOutcomeInventory",
+    "deterministicCheckReport",
+    "intervention",
+    "outcome",
+    "population",
+    "prespecificationDecidedBy",
+    "prespecificationStatus",
+    "quantityKind",
+    "scopeContractHash",
+    "scopeRuleId",
+    "sourceVersion",
+    "statisticalModel",
+    "study",
+    "timepoint",
+    "uncertaintyInterval"
+  ],
+  "inventoryMapDeclared": {
+    "analysisSet": "analysisSet",
+    "effectMeasure": "effectMeasure",
+    "statisticalModel": "statisticalModel",
+    "outcome": "normalisedOutcomeRef",
+    "timepoint": "timepointDays"
+  },
+  "alreadyOnHand": {
+    "filled": {
+      "analysisSet": 98,
+      "effectMeasure": 98,
+      "statisticalModel": 0,
+      "outcome": 98,
+      "timepoint": 98
+    },
+    "ofInScopeItems": 98
+  },
+  "stillNeedsSomethingElse": [
+    "citationAnchor",
+    "comparator",
+    "derivedFromOutcomeInventory",
+    "deterministicCheckReport",
+    "intervention",
+    "pointEstimate",
+    "population",
+    "quantityKind",
+    "scopeContractHash",
+    "scopeRuleId",
+    "sourceVersion",
+    "study",
+    "uncertaintyInterval"
+  ],
+  "validation": {
+    "positive": {
+      "file": "studyresult-complete.ttl",
+      "conforms": true
+    },
+    "negative": {
+      "file": "studyresult-missing-scope-contract.ttl",
+      "conforms": false,
+      "messages": [
+        "StudyResult 必須連回 OutcomeInventory；否則無法區分『未抽取』與『不存在』。",
+        "每個 StudyResult 必須記錄產生它的 ExtractionScopeContract hash。",
+        "必須記錄判定其在範圍內的具名規則 ID。"
+      ]
+    }
+  },
+  "twoHardConstraints": {
+    "量化節點": "🚨 「量化 StudyResult 必須有點估計」與「必須有不確定性區間；**原文未提供時只能存為缺失事實，🚫 不得建立量化節點**」——✅ 故第 676 輪那個最小集不只是方便，**是強制的**。",
+    "逐字引文": "🚨 「每個 StudyResult 至少需一個穩定 CitationAnchor」，而完整範例的 anchor 帶著 `exactQuote`。**⚠️ 那是逐字的原文——🚫 依 n+195 一不得進 repo，只能留在私有根。**✅ 這一條第 676 輪完全沒看到。"
+  },
+  "whatThisMeansForD25": "⚠️ 第 676 輪算的是「要抽哪些**數字**」。🚨 本支補上「一份合法的 StudyResult 還要帶什麼」——**可回溯性（範圍契約 hash、規則 ID）、連回清冊、逐字引文的 anchor、確定性檢查報告、預先指定狀態與裁決者**。✅ 換句話說：D25 那一輪的產出**不是一張數字表**，🚫 而是一組帶出處、可驗證的節點。",
+  "methodLimit": "🚨 本支只讀 `shapes/core`，🚫 沒讀 `shapes/sparql` 的 v2.1 形狀；⚠️ 也只驗了兩個對照——**通過不代表所有負向情境都擋得住**。",
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "controlProbes": [
+    {
+      "probe": "SHACL 裡真的抽得到 StudyResult 的約束（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 受約束屬性 18 個；完整範例帶了 18 個屬性；⚠️ 太少代表本支讀錯了圖"
+    },
+    {
+      "probe": "正向對照必須通過驗證（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 studyresult-complete.ttl → conforms=True；⚠️ 連完整範例都過不了，本支讀的形狀就不是有在執行的那份"
+    },
+    {
+      "probe": "負向對照必須驗不過、且說得出原因（必觸發之反向）",
+      "passed": true,
+      "detail": "🚨 studyresult-missing-scope-contract.ttl → conforms=False，訊息 3 條：['StudyResult 必須連回 OutcomeInventory；否則無法區分『未抽取』與『不存在』。', '每個 StudyResult 必須記錄產生它的 ExtractionScopeContract hash。', '必須記錄判定其在範圍內的具名規則 ID。']；⚠️ 若它也通過，代表這些約束沒有在擋任何東西"
+    },
+    {
+      "probe": "捏造的屬性不在抽出的清單裡（必觸發之反向）",
+      "passed": true,
+      "detail": "🚨 捏造屬性不在清單；⚠️ 若在，代表抽的不是真的約束"
+    },
+    {
+      "probe": "第 676 輪抽出的欄位已涵蓋 SHACL 要求的一切",
+      "passed": false,
+      "detail": "🚨 SHACL／完整範例要、而 `run_all` 完全沒碰的有 17 個：['citationAnchor', 'comparator', 'derivedFromOutcomeInventory', 'deterministicCheckReport', 'intervention', 'outcome', 'population', 'prespecificationDecidedBy', 'prespecificationStatus', 'quantityKind', 'scopeContractHash', 'scopeRuleId', 'sourceVersion', 'statisticalModel', 'study', 'timepoint', 'uncertaintyInterval']；⚠️ 每一個都是 D25 那一輪要一起產出的東西"
+    }
+  ],
+  "auditHash": "sha256:e2afb3b6a3f7ef70c498d8309d1987a784d8bddb7022be27881ba6bde5beb9e4"
+}

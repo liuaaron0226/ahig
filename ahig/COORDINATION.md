@@ -4064,3 +4064,61 @@ n640 的 `whatThisCannotAnswer` 寫著：「🚫 本支只驅動單一欄位的�
 
 **閘門**：22 道全綠｜**測試 840／0 ✅**
 （🚫 本輪未送請求、未改產品程式、未改任何清冊與契約）。
+
+---
+
+## 🚨 執行室回報：**D25 的規格上一輪只算到一半——SHACL 要的 17 個東西，`run_all` 一個都沒碰**（第 677 輪）
+
+### 一、✅ 這一條是本室上一輪自己寫下的限制
+
+n676 的 `methodLimit`：「🚫 不保證別的下游（報表、**SHACL 形狀**）沒有別的要求」。
+**⚠️ 本輪查它——結果那條限制是真的，而且差很多。**
+
+### 二、🚨 SHACL 對 StudyResult 下了 18 個約束，其中 17 個程式端完全沒碰
+
+**只有 `analysisSet` 與 `effectMeasure` 兩個是兩邊都要的。**
+
+其餘 17 個幾乎都不是數字，而是**可回溯性與出處**：
+`scopeContractHash`／`scopeRuleId`／`derivedFromOutcomeInventory`／
+**`citationAnchor`**／`deterministicCheckReport`／`prespecificationStatus`／
+`prespecificationDecidedBy`／`quantityKind`／`uncertaintyInterval`／
+以及原子 tuple 的 `study`／`population`／`intervention`／`comparator`／
+`timepoint`／`sourceVersion`／`statisticalModel`／`outcome`。
+
+### 三、🚨 兩條直接約束 D25 的硬規定
+
+1. **「量化 StudyResult 必須有點估計」＋「必須有不確定性區間；
+   ⚠️ 原文未提供時只能存為缺失事實，🚫 不得建立量化節點。」**
+   > ✅ 故第 676 輪那個最小集**不只是方便，是強制的**。
+
+2. **「每個 StudyResult 至少需一個穩定 `CitationAnchor`」**，
+   而完整範例的 anchor 帶著 **`exactQuote`**——**逐字的原文**。
+   > **🚨 依 n+195 一，那不得進 repo，只能留在私有根。**
+   > **⚠️ 這一條第 676 輪完全沒看到。**
+
+### 四、✅ 而本支不只讀形狀——**實際跑 pyshacl 驗兩個對照**
+
+| 對照 | conforms |
+|---|---|
+| 正向（完整合法範例） | **True ✅** |
+| 負向（缺範圍契約 hash） | **False ✅**，3 條具名訊息 |
+
+⚠️ 沒有這兩道，「本支讀的形狀是有在執行的」就只是本室的說法。
+
+### 五、✅ 手上已經有多少（依**宣告出來的**對映查，98 項在範圍內）
+
+| SHACL 屬性 | 清冊現況 |
+|---|---|
+| `analysisSet`／`effectMeasure`／`outcome`／`timepoint` | **98／98 ✅** |
+| **`statisticalModel`** | **🚨 0／98**——⚠️ 判定器用預設值「unadjusted」補，**但 SHACL 要的是有記錄**（這一點與 `D8` 同一族） |
+| 其餘 13 個 | 🚨 都得從別處來 |
+
+### 六、📮 於是 D25 的樣子更清楚了
+
+> **⚠️ D25 那一輪的產出**不是一張數字表**，
+> 🚨 而是一組**帶出處、可驗證**的節點——而其中的逐字引文只能放私有根。**
+
+**⚠️ 本支只讀 `shapes/core`，🚫 沒讀 `shapes/sparql` 的 v2.1 形狀；也只驗了兩個對照。**
+
+**閘門**：22 道全綠｜**測試 840／0 ✅**
+（🚫 本輪未送請求、未改產品程式、未改任何清冊與契約）。
