@@ -1,0 +1,82 @@
+{
+  "schemaVersion": 1,
+  "documentType": "locator-yield-shape",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "closesLimitDeclaredBy": "n688（有定位點不等於那裡有數字）",
+  "buildsOn": "n590（在範圍內 0 項取自導論／討論段）；n609（在範圍內 0 項引用方法段標題）",
+  "inScopeTotal": 98,
+  "inScopeByShape": {
+    "只有段落": 75,
+    "表／圖": 23
+  },
+  "outOfScopeByShape": {
+    "只有段落": 446,
+    "表／圖": 246
+  },
+  "byOutcome": {
+    "exogenous-cho-oxidation-peak": {
+      "只有段落": 10,
+      "表／圖": 8
+    },
+    "gi-symptom-incidence": {
+      "只有段落": 13
+    },
+    "gi-symptom-severity": {
+      "只有段落": 41,
+      "表／圖": 6
+    },
+    "muscle-glycogen-post-exercise": {
+      "表／圖": 4
+    },
+    "time-to-exhaustion": {
+      "只有段落": 8,
+      "表／圖": 2
+    },
+    "tt-completion-time": {
+      "只有段落": 3,
+      "表／圖": 3
+    }
+  },
+  "workGroups": 50,
+  "workGroupsWithTablePointer": 14,
+  "itemsInTablePointingGroups": 23,
+  "tablePointerRate": {
+    "inScope": 23.5,
+    "outOfScope": 35.5,
+    "note": "🚨 在範圍內的項目**比較不常**指到表——⚠️ 而這只是描述：範圍外那 692 項裡有 647 項**根本沒對上任何契約結局**，🚫 兩群不可比因果。"
+  },
+  "outcomesWithNoTablePointerAtAll": [
+    "gi-symptom-incidence"
+  ],
+  "howToUseThis": "✅ 先做**帶表／圖指標**的工作組——🚨 效應量、區間、樣本數通常落在表裡。⚠️ 只指到段落的那些留到後面，**因為讀的人得在段落裡自己找**。",
+  "whatThisIsNot": "🚫 本支**不判定那裡有沒有數字**——⚠️ 它只看定位點的**形狀**。🚨 一個指到表的項目也可能該表沒有它要的那一格；⚠️ 一個只指到段落的項目也可能段落裡就寫著數字。**✅ 這是排序訊號，🚫 不是判定。**",
+  "contentDiscipline": "✅ 只輸出形狀分類與計數，🚫 未輸出任何段落名或表號文字（n+195 一）。",
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "controlProbes": [
+    {
+      "probe": "掃到的正是那 98 項（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 在範圍內 98 項、範圍外 692 項；⚠️ 對不上就與前幾輪不一致"
+    },
+    {
+      "probe": "同一支分類器在範圍外那批上給出不同分佈（必觸發之反向）",
+      "passed": true,
+      "detail": "🚨 在範圍內 {'只有段落': 75, '表／圖': 23}；範圍外 {'只有段落': 446, '表／圖': 246}；⚠️ 兩者一模一樣的話，這支分類器可能只是在回傳常數"
+    },
+    {
+      "probe": "分類窮盡，沒有落到「無定位」的（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 在範圍內「無定位」0 項；⚠️ 與第 688 輪的 0 項須一致"
+    },
+    {
+      "probe": "在範圍內的項目，定位點都指得到表／圖",
+      "passed": false,
+      "detail": "🚨 指到表／圖的 23／98 項（23%）；⚠️ 其餘只指到頁或段落——**讀的人得自己在那一段裡找數字**"
+    }
+  ],
+  "auditHash": "sha256:8c358b584f71e9412c2825872d26f763ae8983ce4abe6d99441e4cc7d217346e"
+}
