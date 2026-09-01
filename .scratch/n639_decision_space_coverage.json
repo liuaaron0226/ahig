@@ -1,0 +1,193 @@
+{
+  "schemaVersion": 1,
+  "documentType": "decision-space-coverage",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "inventories": 38,
+  "decisionsCounted": 790,
+  "reasonCodesInCode": [
+    "escalated-exceeds-max-studyresults",
+    "escalated-multiple-matches-in-window",
+    "in-scope",
+    "notExtracted-analysis-set-not-in-scope",
+    "notExtracted-dose-outside-bands",
+    "notExtracted-effect-measure-not-in-scope",
+    "notExtracted-instrument-not-in-allowlist",
+    "notExtracted-model-not-in-scope",
+    "notExtracted-no-numeric-result",
+    "notExtracted-outcome-not-in-scope",
+    "notExtracted-sensitivity-analysis-excluded-by-policy",
+    "notExtracted-subgroup-excluded-by-policy",
+    "notExtracted-timepoint-outside-window"
+  ],
+  "ruleIdsInCode": [
+    "SCOPE-000-no-numeric-result",
+    "SCOPE-001-outcome",
+    "SCOPE-001b-instrument",
+    "SCOPE-002-timepoint",
+    "SCOPE-002b-multiple-timepoint-match",
+    "SCOPE-002c-multiple-measurements",
+    "SCOPE-003-analysis-set",
+    "SCOPE-004-effect-measure",
+    "SCOPE-005-model",
+    "SCOPE-006-subgroup",
+    "SCOPE-007-sensitivity",
+    "SCOPE-007b-sensitivity-conditional",
+    "SCOPE-008-dose",
+    "SCOPE-100-exceeds-max",
+    "SCOPE-999-in-scope"
+  ],
+  "exercisedReasonCodes": {
+    "notExtracted-outcome-not-in-scope": 647,
+    "in-scope": 98,
+    "notExtracted-dose-outside-bands": 19,
+    "notExtracted-no-numeric-result": 10,
+    "notExtracted-instrument-not-in-allowlist": 9,
+    "notExtracted-effect-measure-not-in-scope": 7
+  },
+  "exercisedRuleIds": {
+    "SCOPE-001-outcome": 647,
+    "SCOPE-999-in-scope": 98,
+    "SCOPE-008-dose": 19,
+    "SCOPE-000-no-numeric-result": 10,
+    "SCOPE-001b-instrument": 9,
+    "SCOPE-004-effect-measure": 7
+  },
+  "funnel": [
+    {
+      "gate": "有沒有數值結果",
+      "ruleId": "SCOPE-000-no-numeric-result",
+      "reached": 790,
+      "rejectedHere": 10,
+      "everFired": true
+    },
+    {
+      "gate": "結局在不在契約裡",
+      "ruleId": "SCOPE-001-outcome",
+      "reached": 780,
+      "rejectedHere": 647,
+      "everFired": true
+    },
+    {
+      "gate": "儀器在不在允許清單",
+      "ruleId": "SCOPE-001b-instrument",
+      "reached": 133,
+      "rejectedHere": 9,
+      "everFired": true
+    },
+    {
+      "gate": "時點落不落在窗內",
+      "ruleId": "SCOPE-002-timepoint",
+      "reached": 124,
+      "rejectedHere": 0,
+      "everFired": false
+    },
+    {
+      "gate": "分析集",
+      "ruleId": "SCOPE-003-analysis-set",
+      "reached": 124,
+      "rejectedHere": 0,
+      "everFired": false
+    },
+    {
+      "gate": "效應量",
+      "ruleId": "SCOPE-004-effect-measure",
+      "reached": 124,
+      "rejectedHere": 7,
+      "everFired": true
+    },
+    {
+      "gate": "統計模型",
+      "ruleId": "SCOPE-005-model",
+      "reached": 117,
+      "rejectedHere": 0,
+      "everFired": false
+    },
+    {
+      "gate": "次群政策",
+      "ruleId": "SCOPE-006-subgroup",
+      "reached": 117,
+      "rejectedHere": 0,
+      "everFired": false
+    },
+    {
+      "gate": "敏感度政策",
+      "ruleId": "SCOPE-007-sensitivity",
+      "reached": 117,
+      "rejectedHere": 0,
+      "everFired": false
+    },
+    {
+      "gate": "劑量落不落在帶內",
+      "ruleId": "SCOPE-008-dose",
+      "reached": 117,
+      "rejectedHere": 19,
+      "everFired": true
+    },
+    {
+      "gate": "全關通過（在範圍內）",
+      "ruleId": "SCOPE-999-in-scope",
+      "reached": 98,
+      "rejectedHere": 0,
+      "everFired": true
+    }
+  ],
+  "funnelNote": "⚠️ decide() 是逐關順序判定，🚨 故後面的關卡只看得到前面全過的項目。**✅ 「從未走過」要配著「有幾項走到那裡」讀**——例如時點那一關有 124 項走到、0 項被擋下，⚠️ 那是「這批文獻的時點都合格」，🚫 不是「沒有東西測過它」。",
+  "unexercisedReasonCodes": [
+    "escalated-exceeds-max-studyresults",
+    "escalated-multiple-matches-in-window",
+    "notExtracted-analysis-set-not-in-scope",
+    "notExtracted-model-not-in-scope",
+    "notExtracted-sensitivity-analysis-excluded-by-policy",
+    "notExtracted-subgroup-excluded-by-policy",
+    "notExtracted-timepoint-outside-window"
+  ],
+  "unexercisedRuleIds": [
+    "SCOPE-002-timepoint",
+    "SCOPE-002b-multiple-timepoint-match",
+    "SCOPE-002c-multiple-measurements",
+    "SCOPE-003-analysis-set",
+    "SCOPE-005-model",
+    "SCOPE-006-subgroup",
+    "SCOPE-007-sensitivity",
+    "SCOPE-007b-sensitivity-conditional",
+    "SCOPE-100-exceeds-max"
+  ],
+  "coverage": {
+    "reasonCodes": "6/13",
+    "ruleIds": "6/15"
+  },
+  "notAClaimOfDefect": "🚫 「沒走過」不等於「壞掉」——⚠️ 那些分支可能只是這批文獻沒觸發。**✅ 但第 638 輪剛示範過：沒走過的分支裡確實藏著自相矛盾的輸出。**",
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "controlProbes": [
+    {
+      "probe": "抽得到分支字面（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 抽出理由碼 13 種、規則 15 種；⚠️ 太少代表 AST 抽取失敗，那麼「幾條沒走過」就沒有分母"
+    },
+    {
+      "probe": "清冊裡真的數得到（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 38 份清冊、790 個判定；⚠️ 若很少，「沒走過」只是本支沒讀到"
+    },
+    {
+      "probe": "漏斗結算得回在範圍內的項數（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 漏斗走完剩 98、實際在範圍內 98；⚠️ 對不上代表本支漏了某一關，**而一張自己交代不完的表，讀者會以為中間有東西消失了**"
+    },
+    {
+      "probe": "清冊裡沒有產品程式以外的理由碼（必觸發之反向）",
+      "passed": true,
+      "detail": "🚨 清冊出現而程式裡抽不到的理由碼：[]；⚠️ 若有，代表本支的抽取漏了分支，或清冊寫進了非法值"
+    },
+    {
+      "probe": "每一條判定分支都被真實資料走過",
+      "passed": false,
+      "detail": "🚨 從未走過的理由碼 7 種：['escalated-exceeds-max-studyresults', 'escalated-multiple-matches-in-window', 'notExtracted-analysis-set-not-in-scope', 'notExtracted-model-not-in-scope', 'notExtracted-sensitivity-analysis-excluded-by-policy', 'notExtracted-subgroup-excluded-by-policy', 'notExtracted-timepoint-outside-window']；規則 9 種：['SCOPE-002-timepoint', 'SCOPE-002b-multiple-timepoint-match', 'SCOPE-002c-multiple-measurements', 'SCOPE-003-analysis-set', 'SCOPE-005-model', 'SCOPE-006-subgroup', 'SCOPE-007-sensitivity', 'SCOPE-007b-sensitivity-conditional', 'SCOPE-100-exceeds-max']"
+    }
+  ],
+  "auditHash": "sha256:d16f84f81f635a29739c6bbcbde12e586313d90694074484e87672fab4347a0f"
+}
