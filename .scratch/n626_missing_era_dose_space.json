@@ -1,0 +1,111 @@
+{
+  "schemaVersion": 1,
+  "documentType": "missing-era-dose-space",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "unit": "g/h（g/min 一律乘 60 換算）",
+  "plausibleRange": [
+    5.0,
+    250.0
+  ],
+  "groups": {
+    "語料（已取得）": {
+      "records": 39,
+      "recordsWithDose": 30,
+      "doseExtractionRate": 76.9,
+      "doseValuesRecordLevel": 30,
+      "medianGPerHour": 71.0,
+      "p10GPerHour": 36.0,
+      "p90GPerHour": 120.0,
+      "below60GPerHour": 8,
+      "atOrAbove90GPerHour": 13
+    },
+    "未取得・2000 年前": {
+      "records": 107,
+      "recordsWithDose": 65,
+      "doseExtractionRate": 60.7,
+      "doseValuesRecordLevel": 65,
+      "medianGPerHour": 50.0,
+      "p10GPerHour": 27.0,
+      "p90GPerHour": 100.0,
+      "below60GPerHour": 36,
+      "atOrAbove90GPerHour": 10
+    },
+    "未取得・2000 年後": {
+      "records": 164,
+      "recordsWithDose": 101,
+      "doseExtractionRate": 61.6,
+      "doseValuesRecordLevel": 101,
+      "medianGPerHour": 70.0,
+      "p10GPerHour": 46.0,
+      "p90GPerHour": 110.0,
+      "below60GPerHour": 21,
+      "atOrAbove90GPerHour": 38
+    }
+  },
+  "extractionCoverage": {
+    "語料（已取得）": {
+      "medianReasonLength": 196,
+      "withoutDose": 9,
+      "withoutDoseButStillCarbohydrate": 2,
+      "share": 22.2
+    },
+    "未取得・2000 年前": {
+      "medianReasonLength": 197,
+      "withoutDose": 42,
+      "withoutDoseButStillCarbohydrate": 22,
+      "share": 52.4
+    },
+    "未取得・2000 年後": {
+      "medianReasonLength": 200,
+      "withoutDose": 63,
+      "withoutDoseButStillCarbohydrate": 15,
+      "share": 23.8
+    }
+  },
+  "coverageLimit": "⚠️ 判詞長度三組幾乎相同（中位 196–200 字元），🚫 故抽取失敗不是「該組判詞比較短」造成的。🚨 但 2000 年前那組沒抽到劑量的 42 篇裡，**52% 的判詞仍寫著醣類**（另兩組只有 24–25%）——⚠️ 即該年代有較多「有做但判詞沒記劑量」者。**🚫 故本支的 65 篇樣本不等於該年代全貌。**",
+  "analysisUnit": "✅ 每篇一個值（該篇的最低攝取率）——🚨 第一版以「值」為單位，同一篇的多手臂會重複計票。",
+  "permutation": {
+    "trials": 5000,
+    "seed": 20260901,
+    "medianDiff": 21.0,
+    "medianDiffP": 0.0054,
+    "lowShareDiff": -0.2871794871794872,
+    "lowShareP": 0.0124,
+    "note": "✅ 真置換（固定種子的洗牌），故可重現；🚨 第一版用的是「旋轉」——⚠️ 那只走得到連續切分，零分布是假的。"
+  },
+  "contentDiscipline": "✅ 本支只輸出數字分布；🚫 不輸出判詞文字、不輸出題名（n+195 一）。",
+  "whatThisCannotAnswer": "🚫 判詞裡沒寫劑量的那些，本支一無所知——⚠️ 抽取率就是它的上限。🚫 也不判斷相關性：低劑量不等於不重要，⚠️ 它只是說「曲線的那一端目前由誰支撐」。",
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "controlProbes": [
+    {
+      "probe": "抽取器真的抽得到劑量（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 三組合計 196 筆判詞抽出劑量；⚠️ 若這個數很小，「分布不同」就是抽取器的失敗，不是資料的性質"
+    },
+    {
+      "probe": "抽不到的沒有被當成零（必觸發之反向）",
+      "passed": true,
+      "detail": "🚨 三組的值裡都沒有 0；⚠️ 若「沒抽到」被記成 0，低劑量端會憑空多出一堆"
+    },
+    {
+      "probe": "可信域真的擋掉了東西（必觸發）",
+      "passed": true,
+      "detail": "🚨 以 999 g/min 試：被 (5.0, 250.0) g/h 的可信域擋下；⚠️ 若擋不下，任何極端值都會混進中位數"
+    },
+    {
+      "probe": "⚠️ 語料與缺掉那個年代的**中位劑量**沒有差異",
+      "passed": false,
+      "detail": "語料中位 71.0 g/h、2000 年前未取得者中位 50.0 g/h，差 21.0；置換 5000 次之 **p=0.0054**"
+    },
+    {
+      "probe": "⚠️ 兩組落在**低端（<60 g/h）的比例**沒有差異",
+      "passed": false,
+      "detail": "🚨 語料 27% 的篇落在低端、2000 年前未取得者 55%，差 -28.7 個百分點；置換 5000 次之 **p=0.0124**"
+    }
+  ],
+  "auditHash": "sha256:c534d94ed8cc3581d060d9f388ad6b05779d0808ae159226992db6c24888f177"
+}
