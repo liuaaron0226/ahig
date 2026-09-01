@@ -1,0 +1,198 @@
+{
+  "schemaVersion": 1,
+  "documentType": "numeric-field-requirements",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "derivedFrom": "ahig/stats/deterministic.py → run_all（AST，🚫 非手打）",
+  "requiredTopLevelFields": [
+    "analysisReported",
+    "analysisSet",
+    "armAccounting",
+    "armDescriptives",
+    "armN",
+    "ciHigh",
+    "ciLow",
+    "claimType",
+    "descriptives",
+    "effectMeasure",
+    "events",
+    "hasConventionalStatistics",
+    "inferenceFramework",
+    "nSubjects",
+    "pValue",
+    "pointEstimate",
+    "rmAnova",
+    "smdType",
+    "studyDesign",
+    "testStatistic"
+  ],
+  "nestedFields": {
+    "armAccounting": [
+      "analysed",
+      "excluded",
+      "lostToFollowUp",
+      "randomised"
+    ],
+    "armDescriptives": [
+      "m1",
+      "m2",
+      "n1",
+      "n2",
+      "sd1",
+      "sd2"
+    ],
+    "descriptives": [
+      "isDiscreteIntegerScale",
+      "itemsPerSubject",
+      "mean",
+      "n",
+      "sd"
+    ],
+    "rmAnova": [
+      "correction",
+      "df1",
+      "df2",
+      "nLevels",
+      "nSubjects"
+    ],
+    "testStatistic": [
+      "df1",
+      "df2",
+      "type",
+      "value"
+    ]
+  },
+  "inScopeItems": 98,
+  "fieldsAlreadyInInventory": {
+    "analysisReported": 0,
+    "analysisSet": 98,
+    "armAccounting": 0,
+    "armDescriptives": 0,
+    "armN": 0,
+    "ciHigh": 0,
+    "ciLow": 0,
+    "claimType": 0,
+    "descriptives": 0,
+    "effectMeasure": 98,
+    "events": 0,
+    "hasConventionalStatistics": 0,
+    "inferenceFramework": 0,
+    "nSubjects": 0,
+    "pValue": 0,
+    "pointEstimate": 0,
+    "rmAnova": 0,
+    "smdType": 0,
+    "studyDesign": 0,
+    "testStatistic": 0
+  },
+  "alreadyPresent": [
+    "analysisSet",
+    "effectMeasure"
+  ],
+  "missing": [
+    "analysisReported",
+    "armAccounting",
+    "armDescriptives",
+    "armN",
+    "ciHigh",
+    "ciLow",
+    "claimType",
+    "descriptives",
+    "events",
+    "hasConventionalStatistics",
+    "inferenceFramework",
+    "nSubjects",
+    "pValue",
+    "pointEstimate",
+    "rmAnova",
+    "smdType",
+    "studyDesign",
+    "testStatistic"
+  ],
+  "minimalSetProven": [
+    "ciHigh",
+    "ciLow",
+    "effectMeasure",
+    "nSubjects",
+    "pointEstimate"
+  ],
+  "minimalSetRun": {
+    "checks": 5,
+    "verdict": "INCONCLUSIVE",
+    "seFromCi": 0.7653,
+    "metaAnalysis": {
+      "k": 3,
+      "pooled": 2.0,
+      "tau2": 0.0
+    }
+  },
+  "headline": "✅ 只要抽 **ciHigh／ciLow／effectMeasure／nSubjects／pointEstimate** 這幾欄，`run_all` 與 `meta_analyse_dl` 就跑得動——**🚨 變異數不必另外抽**，產品裡的 `se_from_ci` 從信賴區間推得出來。",
+  "twoTiers": {
+    "第一層・合併得動": {
+      "fields": [
+        "ciHigh",
+        "ciLow",
+        "effectMeasure",
+        "nSubjects",
+        "pointEstimate"
+      ],
+      "unlocks": "✅ `meta_analyse_dl` 與 `rate_imprecision` 跑得動",
+      "note": "🚨 變異數不必另抽——`se_from_ci` 從信賴區間推得出來"
+    },
+    "第二層・驗得動數字對不對": {
+      "fields": [
+        "analysisReported",
+        "analysisSet",
+        "armAccounting",
+        "armDescriptives",
+        "armN",
+        "claimType",
+        "descriptives",
+        "events",
+        "hasConventionalStatistics",
+        "inferenceFramework",
+        "pValue",
+        "rmAnova",
+        "smdType",
+        "studyDesign",
+        "testStatistic"
+      ],
+      "unlocks": "⚠️ `run_all` 的完整確定性檢查（信賴區間對稱、p 與區間相符、GRIM／GRIMMER、2×2 一致性）",
+      "note": "🚨 最小集實跑的判定是 `INCONCLUSIVE`——**那不是失敗，是資料不夠讓檢查下結論**。⚠️ 第二層的欄位只在論文有報時才抽得到，🚫 不是每一項都適用。"
+    }
+  },
+  "whatThisMeansForD25": "⚠️ D25 問「要不要開一輪數值抽取」。✅ 本支把它的**規格**先算出來：在範圍內 98 項，每一項要補的是 ['analysisReported', 'armAccounting', 'armDescriptives', 'armN', 'ciHigh', 'ciLow', 'claimType', 'descriptives', 'events', 'hasConventionalStatistics', 'inferenceFramework', 'nSubjects', 'pValue', 'pointEstimate', 'rmAnova', 'smdType', 'studyDesign', 'testStatistic']；🚫 其餘欄位（事件數、臂別描述、檢定統計量）**只在做得到時才加值**，🚨 不是跑統合分析的必要條件。",
+  "methodLimit": "🚨 本支只看 `run_all` 與 `grade` 這兩個消費端，🚫 不保證別的下游（報表、SHACL 形狀）沒有別的要求；⚠️ 也**不評估那些數字抽不抽得到**——**那要讀論文，而讀是 n+187 的視窗。**",
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "controlProbes": [
+    {
+      "probe": "從產品程式真的抽出了欄位（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 抽出 20 個頂層欄位、5 個有子欄位；⚠️ 太少代表 AST 抽取失敗"
+    },
+    {
+      "probe": "捏造的欄位名不在抽出的清單裡（必觸發之反向）",
+      "passed": true,
+      "detail": "🚨 捏造欄位不在清單；⚠️ 若在，代表抽的不是真的讀取點"
+    },
+    {
+      "probe": "只填最小集就跑得動（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 `run_all` 跑出 5 道檢查、判定 INCONCLUSIVE；`se_from_ci` 得 SE=0.7653；`meta_analyse_dl` 得 k=3、pooled=2.000；⚠️ 跑不動的話「最小集」只是本室的說法"
+    },
+    {
+      "probe": "拿掉信賴區間之後，檢查數必須變少（必觸發之反向）",
+      "passed": true,
+      "detail": "🚨 完整最小集 5 道 → 拿掉信賴區間 2 道；⚠️ 若沒變少，代表那三道檢查根本沒吃到信賴區間，本支的「最小集」就沒有根據"
+    },
+    {
+      "probe": "清冊現有的欄位已足以跑統合分析",
+      "passed": false,
+      "detail": "🚨 消費端要 20 個欄位，清冊已有 ['analysisSet', 'effectMeasure']，**缺 ['analysisReported', 'armAccounting', 'armDescriptives', 'armN', 'ciHigh', 'ciLow', 'claimType', 'descriptives', 'events', 'hasConventionalStatistics', 'inferenceFramework', 'nSubjects', 'pValue', 'pointEstimate', 'rmAnova', 'smdType', 'studyDesign', 'testStatistic']**；⚠️ 缺的每一個都得靠數值抽取那一輪補"
+    }
+  ],
+  "auditHash": "sha256:073f4c84dafc037945930644bc601f998dee1c9a5357e9903a0be12585f25698"
+}
