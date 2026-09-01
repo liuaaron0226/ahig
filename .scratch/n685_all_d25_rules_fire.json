@@ -1,0 +1,370 @@
+{
+  "schemaVersion": 1,
+  "documentType": "all-d25-rules-fire",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "closesLimitDeclaredBy": "n683（其餘 14 條仍未被觀測過）",
+  "strengthensDecision": "📮 D25。⚠️ 本支**不新增決策**，也**沒有紅燈**——✅ 它是把 D25 產出物要踩的那 21 條規則，從「沒人看過它亮」變成「21／21 看過它亮」。⚠️ 下一版登記簿會把本支掛進 D25 的證據。",
+  "baselineConforms": true,
+  "targets": [
+    "PS-analysisSet",
+    "PS-anchorMethod",
+    "PS-citationAnchor",
+    "PS-comparator",
+    "PS-deterministicCheckReport",
+    "PS-effectMeasure",
+    "PS-exactQuote",
+    "PS-intervention",
+    "PS-noNotebookCitationNumber",
+    "PS-noNotebookId",
+    "PS-outcome",
+    "PS-pointEstimate",
+    "PS-population",
+    "PS-quantityKind",
+    "PS-sourceManifestation",
+    "PS-sourceVersion",
+    "PS-statisticalModel",
+    "PS-study",
+    "PS-timepoint",
+    "PS-uncertaintyInterval",
+    "PS-uniqueMatch"
+  ],
+  "rows": [
+    {
+      "rule": "PS-analysisSet",
+      "strategy": "拿掉必填屬性",
+      "targetClass": "StudyResult",
+      "path": "analysisSet",
+      "graphChanged": true,
+      "addedTypeDeclaration": false,
+      "conformsAfter": false,
+      "expectedFired": true,
+      "firedShapes": [
+        "PS-analysisSet"
+      ]
+    },
+    {
+      "rule": "PS-anchorMethod",
+      "strategy": "拿掉必填屬性",
+      "targetClass": "CitationAnchor",
+      "path": "anchorMethod",
+      "graphChanged": true,
+      "addedTypeDeclaration": false,
+      "conformsAfter": false,
+      "expectedFired": true,
+      "firedShapes": [
+        "PS-anchorMethod"
+      ]
+    },
+    {
+      "rule": "PS-citationAnchor",
+      "strategy": "拿掉必填屬性",
+      "targetClass": "StudyResult",
+      "path": "citationAnchor",
+      "graphChanged": true,
+      "addedTypeDeclaration": false,
+      "conformsAfter": false,
+      "expectedFired": true,
+      "firedShapes": [
+        "PS-citationAnchor"
+      ]
+    },
+    {
+      "rule": "PS-comparator",
+      "strategy": "拿掉必填屬性",
+      "targetClass": "StudyResult",
+      "path": "comparator",
+      "graphChanged": true,
+      "addedTypeDeclaration": false,
+      "conformsAfter": false,
+      "expectedFired": true,
+      "firedShapes": [
+        "PS-comparator"
+      ]
+    },
+    {
+      "rule": "PS-deterministicCheckReport",
+      "strategy": "拿掉必填屬性",
+      "targetClass": "StudyResult",
+      "path": "deterministicCheckReport",
+      "graphChanged": true,
+      "addedTypeDeclaration": false,
+      "conformsAfter": false,
+      "expectedFired": true,
+      "firedShapes": [
+        "PS-deterministicCheckReport"
+      ]
+    },
+    {
+      "rule": "PS-effectMeasure",
+      "strategy": "拿掉必填屬性",
+      "targetClass": "StudyResult",
+      "path": "effectMeasure",
+      "graphChanged": true,
+      "addedTypeDeclaration": false,
+      "conformsAfter": false,
+      "expectedFired": true,
+      "firedShapes": [
+        "PS-effectMeasure"
+      ]
+    },
+    {
+      "rule": "PS-exactQuote",
+      "strategy": "拿掉必填屬性",
+      "targetClass": "CitationAnchor",
+      "path": "exactQuote",
+      "graphChanged": true,
+      "addedTypeDeclaration": false,
+      "conformsAfter": false,
+      "expectedFired": true,
+      "firedShapes": [
+        "PS-exactQuote"
+      ]
+    },
+    {
+      "rule": "PS-intervention",
+      "strategy": "拿掉必填屬性",
+      "targetClass": "StudyResult",
+      "path": "intervention",
+      "graphChanged": true,
+      "addedTypeDeclaration": false,
+      "conformsAfter": false,
+      "expectedFired": true,
+      "firedShapes": [
+        "PS-intervention"
+      ]
+    },
+    {
+      "rule": "PS-noNotebookCitationNumber",
+      "strategy": "加上被禁止的值",
+      "targetClass": "CitationAnchor",
+      "path": "notebookCitationNumber",
+      "graphChanged": true,
+      "addedTypeDeclaration": false,
+      "conformsAfter": false,
+      "expectedFired": true,
+      "firedShapes": [
+        "PS-noNotebookCitationNumber"
+      ]
+    },
+    {
+      "rule": "PS-noNotebookId",
+      "strategy": "加上被禁止的值",
+      "targetClass": "CitationAnchor",
+      "path": "notebookId",
+      "graphChanged": true,
+      "addedTypeDeclaration": false,
+      "conformsAfter": false,
+      "expectedFired": true,
+      "firedShapes": [
+        "PS-noNotebookId"
+      ]
+    },
+    {
+      "rule": "PS-outcome",
+      "strategy": "拿掉必填屬性",
+      "targetClass": "StudyResult",
+      "path": "outcome",
+      "graphChanged": true,
+      "addedTypeDeclaration": false,
+      "conformsAfter": false,
+      "expectedFired": true,
+      "firedShapes": [
+        "PS-outcome"
+      ]
+    },
+    {
+      "rule": "PS-pointEstimate",
+      "strategy": "拿掉必填屬性",
+      "targetClass": "QuantitativeStudyResult",
+      "path": "pointEstimate",
+      "graphChanged": true,
+      "addedTypeDeclaration": true,
+      "conformsAfter": false,
+      "expectedFired": true,
+      "firedShapes": [
+        "PS-pointEstimate",
+        "PS-uncertaintyInterval"
+      ]
+    },
+    {
+      "rule": "PS-population",
+      "strategy": "拿掉必填屬性",
+      "targetClass": "StudyResult",
+      "path": "population",
+      "graphChanged": true,
+      "addedTypeDeclaration": false,
+      "conformsAfter": false,
+      "expectedFired": true,
+      "firedShapes": [
+        "PS-population"
+      ]
+    },
+    {
+      "rule": "PS-quantityKind",
+      "strategy": "拿掉必填屬性",
+      "targetClass": "StudyResult",
+      "path": "quantityKind",
+      "graphChanged": true,
+      "addedTypeDeclaration": false,
+      "conformsAfter": false,
+      "expectedFired": true,
+      "firedShapes": [
+        "PS-quantityKind"
+      ]
+    },
+    {
+      "rule": "PS-sourceManifestation",
+      "strategy": "拿掉必填屬性",
+      "targetClass": "CitationAnchor",
+      "path": "sourceManifestation",
+      "graphChanged": true,
+      "addedTypeDeclaration": false,
+      "conformsAfter": false,
+      "expectedFired": true,
+      "firedShapes": [
+        "PS-sourceManifestation"
+      ]
+    },
+    {
+      "rule": "PS-sourceVersion",
+      "strategy": "拿掉必填屬性",
+      "targetClass": "StudyResult",
+      "path": "sourceVersion",
+      "graphChanged": true,
+      "addedTypeDeclaration": false,
+      "conformsAfter": false,
+      "expectedFired": true,
+      "firedShapes": [
+        "PS-sourceVersion"
+      ]
+    },
+    {
+      "rule": "PS-statisticalModel",
+      "strategy": "拿掉必填屬性",
+      "targetClass": "StudyResult",
+      "path": "statisticalModel",
+      "graphChanged": true,
+      "addedTypeDeclaration": false,
+      "conformsAfter": false,
+      "expectedFired": true,
+      "firedShapes": [
+        "PS-statisticalModel"
+      ]
+    },
+    {
+      "rule": "PS-study",
+      "strategy": "拿掉必填屬性",
+      "targetClass": "StudyResult",
+      "path": "study",
+      "graphChanged": true,
+      "addedTypeDeclaration": false,
+      "conformsAfter": false,
+      "expectedFired": true,
+      "firedShapes": [
+        "PS-study"
+      ]
+    },
+    {
+      "rule": "PS-timepoint",
+      "strategy": "拿掉必填屬性",
+      "targetClass": "StudyResult",
+      "path": "timepoint",
+      "graphChanged": true,
+      "addedTypeDeclaration": false,
+      "conformsAfter": false,
+      "expectedFired": true,
+      "firedShapes": [
+        "PS-timepoint"
+      ]
+    },
+    {
+      "rule": "PS-uncertaintyInterval",
+      "strategy": "拿掉必填屬性",
+      "targetClass": "QuantitativeStudyResult",
+      "path": "uncertaintyInterval",
+      "graphChanged": true,
+      "addedTypeDeclaration": true,
+      "conformsAfter": false,
+      "expectedFired": true,
+      "firedShapes": [
+        "PS-pointEstimate",
+        "PS-uncertaintyInterval"
+      ]
+    },
+    {
+      "rule": "PS-uniqueMatch",
+      "strategy": "拿掉必填屬性",
+      "targetClass": "CitationAnchor",
+      "path": "uniqueMatch",
+      "graphChanged": true,
+      "addedTypeDeclaration": false,
+      "conformsAfter": false,
+      "expectedFired": true,
+      "firedShapes": [
+        "CitationAnchorUniqueMatchShape",
+        "PS-uniqueMatch"
+      ]
+    }
+  ],
+  "provenToFire": [
+    "PS-analysisSet",
+    "PS-anchorMethod",
+    "PS-citationAnchor",
+    "PS-comparator",
+    "PS-deterministicCheckReport",
+    "PS-effectMeasure",
+    "PS-exactQuote",
+    "PS-intervention",
+    "PS-noNotebookCitationNumber",
+    "PS-noNotebookId",
+    "PS-outcome",
+    "PS-pointEstimate",
+    "PS-population",
+    "PS-quantityKind",
+    "PS-sourceManifestation",
+    "PS-sourceVersion",
+    "PS-statisticalModel",
+    "PS-study",
+    "PS-timepoint",
+    "PS-uncertaintyInterval",
+    "PS-uniqueMatch"
+  ],
+  "noStrategy": [],
+  "hadStrategyButDidNotFire": [],
+  "whyStrategyMatters": "🚨 n683 對 7 條都用「拿掉屬性」，⚠️ 但那只對**必填**規則有效；**禁止型的規則要靠「加上去」才會亮**。⚠️ 用同一招打所有規則，會把「觸發不了」誤讀成「規則壞了」——✅ 故本支照**形狀自己宣告的約束**決定怎麼突變。",
+  "methodLimit": "⚠️ 「亮對了」只證明那條規則在**這一種**違規下會亮，🚫 不證明它涵蓋所有違規樣態；🚨 且本支只在 core profile 上做，🚫 沒有跨 profile。",
+  "contentDiscipline": "✅ 資料來自 repo 內的對照檔與本支現造的佔位值，🚫 不含任何文獻內容（n+195 一）。",
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "controlProbes": [
+    {
+      "probe": "未改動的正向對照必須通過（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 未改動時 conforms=True；⚠️ 它自己過不了的話底下都測不準"
+    },
+    {
+      "probe": "受測的是第 682 輪點名的那 21 條（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 點名 21 條、實測 21 條；⚠️ 對不上就與上一輪不一致"
+    },
+    {
+      "probe": "每一次突變都真的動到了圖（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 沒動到的：無；⚠️ 沒動到就等於沒測"
+    },
+    {
+      "probe": "🚫 本支對每一條都有策略，沒有跳過的",
+      "passed": true,
+      "detail": "🚨 無策略而未測的 0 條：無；⚠️ 本室**不假裝測過**——那些仍是未觀測"
+    },
+    {
+      "probe": "那 21 條都被證明會亮，且亮的是它自己",
+      "passed": true,
+      "detail": "🚨 證明會亮 21 條；有策略卻沒亮對的 0 條：無；⚠️ 有策略卻不亮的才可能是**規則真的有問題**"
+    }
+  ],
+  "auditHash": "sha256:8a21bc8d295c36426e33701bae5ccf90daedcea7cec0939b8f9f16063279e3b4"
+}
