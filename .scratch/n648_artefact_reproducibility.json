@@ -10,12 +10,12 @@
     "repoUntouched": true
   },
   "repoUntouchedAfterSweep": true,
-  "scanned": 126,
-  "identical": 105,
-  "drifted": 10,
+  "scanned": 131,
+  "identical": 109,
+  "drifted": 11,
   "broken": 6,
-  "skippedBecauseNoRecordedJson": 128,
-  "scopeNote": "⚠️ 只跑「有已回報 JSON 可對」的憑證（126 支）；🚫 另 128 支沒有 JSON，無從比較故未執行——✅ 照實記下，🚫 不假裝它們不存在。",
+  "skippedBecauseNoRecordedJson": 124,
+  "scopeNote": "⚠️ 只跑「有已回報 JSON 可對」的憑證（131 支）；🚫 另 124 支沒有 JSON，無從比較故未執行——✅ 照實記下，🚫 不假裝它們不存在。",
   "refusedByDesign": 5,
   "refusedDetail": [
     [
@@ -40,7 +40,7 @@
     ]
   ],
   "whyRefusedIsNotBroken": "✅ 憑證因為「缺聯絡信箱不送請求」「外部服務沒開」「無待查者」而停下，**是紀律生效，🚫 不是缺陷**。🚨 本支第一版把它們和真的壞掉混成同一個「跑不起來」——⚠️ 又是本 run 反覆抓到的那一族：**一種失敗長得像另一種**。",
-  "withoutRecordedJson": 128,
+  "withoutRecordedJson": 124,
   "rows": [
     {
       "artefact": "n438_fulltext_route.py",
@@ -386,7 +386,7 @@
       "artefact": "n544_shacl_coverage.py",
       "verdict": "🚨 跑不起來",
       "changedFields": [],
-      "error": "FileNotFoundError: [Errno 2] No such file or directory: 'C:\\\\Users\\\\User\\\\AppData\\\\Local\\\\Temp\\\\ahig-repro-vm1kmn_n\\\\ahi"
+      "error": "FileNotFoundError: [Errno 2] No such file or directory: 'C:\\\\Users\\\\User\\\\AppData\\\\Local\\\\Temp\\\\ahig-repro-udqk11_a\\\\ahi"
     },
     {
       "artefact": "n545_downstream_edge.py",
@@ -527,7 +527,29 @@
       "error": ""
     },
     {
+      "artefact": "n595_second_read_invisible_inconsistency.py",
+      "verdict": "⚠️ 跑得起來但結果變了",
+      "changedFields": [
+        "agreement",
+        "controlProbes",
+        "perReport"
+      ],
+      "error": ""
+    },
+    {
+      "artefact": "n596_allocation_disagreement_replicates.py",
+      "verdict": "✅ 一模一樣",
+      "changedFields": [],
+      "error": ""
+    },
+    {
       "artefact": "n597_numeric_result_unsupported.py",
+      "verdict": "✅ 一模一樣",
+      "changedFields": [],
+      "error": ""
+    },
+    {
+      "artefact": "n598_source_section_has_no_result.py",
       "verdict": "✅ 一模一樣",
       "changedFields": [],
       "error": ""
@@ -546,6 +568,12 @@
     },
     {
       "artefact": "n610_pending_decisions.py",
+      "verdict": "✅ 一模一樣",
+      "changedFields": [],
+      "error": ""
+    },
+    {
+      "artefact": "n611_tables_missing_from_payload.py",
       "verdict": "✅ 一模一樣",
       "changedFields": [],
       "error": ""
@@ -603,11 +631,7 @@
       "verdict": "⚠️ 跑得起來但結果變了",
       "changedFields": [
         "controlProbes",
-        "nullMaxSharedDistribution",
-        "nullMean",
-        "nullZeroTrials",
-        "pValue",
-        "timesNullReachedObserved"
+        "nullMaxSharedDistribution"
       ],
       "error": ""
     },
@@ -762,6 +786,12 @@
       "error": ""
     },
     {
+      "artefact": "n651_owner_briefing_recheck.py",
+      "verdict": "✅ 一模一樣",
+      "changedFields": [],
+      "error": ""
+    },
+    {
       "artefact": "n78_tail_dec_000.py",
       "verdict": "✅ 一模一樣",
       "changedFields": [],
@@ -851,7 +881,7 @@
     {
       "probe": "真的跑了夠多支（必觸發之正對照）",
       "passed": true,
-      "detail": "🚨 實跑 126 支；⚠️ 太少的話「全部還活著」沒有份量"
+      "detail": "🚨 實跑 131 支；⚠️ 太少的話「全部還活著」沒有份量"
     },
     {
       "probe": "🚨 Canary：跑一支會寫檔的憑證後 repo 仍未被動（必觸發之反向）",
@@ -866,18 +896,18 @@
     {
       "probe": "至少有一支重跑後一模一樣（必觸發之正對照）",
       "passed": true,
-      "detail": "🚨 一模一樣者 105 支；⚠️ 若一支都沒有，代表本支的比較方式有問題"
+      "detail": "🚨 一模一樣者 109 支；⚠️ 若一支都沒有，代表本支的比較方式有問題"
     },
     {
       "probe": "每一支憑證今天都還跑得起來",
       "passed": false,
-      "detail": "🚨 跑不起來的 6 支：[('n508_section_g_crosscheck.py', \"FileNotFoundError: [Errno 2] No such file or directory: '.scratch/n477_alt_oa_locations.json'\"), ('n521_owner_briefing_crosscheck.py', '🚨 抽取失敗——⚠️ 措辭可能已改，🚫 不得當成「無不符」。'), ('n526_no_oa_locations_recheck.py', \"FileNotFoundError: [Errno 2] No such file or directory: '.scratch/n477_alt_oa_locations.json'\"), ('n542_handoff_drift.py', \"🚨 取不到版控裡的那一份：Command '['git', 'show', 'HEAD:.scratch/executor_cells.json']' returned non-zero exit status 128.\"), ('n544_shacl_coverage.py', \"FileNotFoundError: [Errno 2] No such file or directory: 'C:\\\\\\\\Users\\\\\\\\User\\\\\\\\AppData\\\\\\\\Local\\\\\\\\Temp\\\\\\\\ahig-repro-vm1kmn_n\\\\\\\\ahi\"), ('n552_untested_paths.py', \"ModuleNotFoundError: No module named 'test_extraction_corpus'\")]"
+      "detail": "🚨 跑不起來的 6 支：[('n508_section_g_crosscheck.py', \"FileNotFoundError: [Errno 2] No such file or directory: '.scratch/n477_alt_oa_locations.json'\"), ('n521_owner_briefing_crosscheck.py', '🚨 抽取失敗——⚠️ 措辭可能已改，🚫 不得當成「無不符」。'), ('n526_no_oa_locations_recheck.py', \"FileNotFoundError: [Errno 2] No such file or directory: '.scratch/n477_alt_oa_locations.json'\"), ('n542_handoff_drift.py', \"🚨 取不到版控裡的那一份：Command '['git', 'show', 'HEAD:.scratch/executor_cells.json']' returned non-zero exit status 128.\"), ('n544_shacl_coverage.py', \"FileNotFoundError: [Errno 2] No such file or directory: 'C:\\\\\\\\Users\\\\\\\\User\\\\\\\\AppData\\\\\\\\Local\\\\\\\\Temp\\\\\\\\ahig-repro-udqk11_a\\\\\\\\ahi\"), ('n552_untested_paths.py', \"ModuleNotFoundError: No module named 'test_extraction_corpus'\")]"
     },
     {
       "probe": "每一支憑證重跑後結論不變",
       "passed": false,
-      "detail": "⚠️ 結果變了的 10 支：[('n535_reading_payload.py', ['measured', 'records', 'versusN184']), ('n537_chain_rehearsal.py', ['controlProbes', 'run']), ('n540_worksheet_dryrun.py', ['controlProbes', 'paging']), ('n545_downstream_edge.py', ['identifierCensus']), ('n574_instrument_exclusions.py', ['inventories']), ('n579_request_version_split.py', ['controlProbes', 'timeline']), ('n594_a3_first_measurement.py', ['agreement', 'controlProbes', 'granularityConfirmed', 'refsBothOnThatReport']), ('n620_cohort_match_null.py', ['controlProbes', 'nullMaxSharedDistribution', 'nullMean', 'nullZeroTrials', 'pValue', 'timesNullReachedObserved'])]"
+      "detail": "⚠️ 結果變了的 11 支：[('n535_reading_payload.py', ['measured', 'records', 'versusN184']), ('n537_chain_rehearsal.py', ['controlProbes', 'run']), ('n540_worksheet_dryrun.py', ['controlProbes', 'paging']), ('n545_downstream_edge.py', ['identifierCensus']), ('n574_instrument_exclusions.py', ['inventories']), ('n579_request_version_split.py', ['controlProbes', 'timeline']), ('n594_a3_first_measurement.py', ['agreement', 'controlProbes', 'granularityConfirmed', 'refsBothOnThatReport']), ('n595_second_read_invisible_inconsistency.py', ['agreement', 'controlProbes', 'perReport'])]"
     }
   ],
-  "auditHash": "sha256:c1c22b341d917827c0d8cafa08ea185ff5fe7602170b205e61ea4864609b7105"
+  "auditHash": "sha256:e4af793b11ffc5ea3d5a514cd9bc4d6eebfbbaa69d1dc260614815d499d2e14c"
 }

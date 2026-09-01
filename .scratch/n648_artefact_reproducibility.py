@@ -35,6 +35,7 @@
 """
 import json
 import os
+import re
 import shutil
 import subprocess
 import sys
@@ -85,6 +86,25 @@ def stage_fake_root():
     return root
 
 
+OUT_LINE = re.compile(
+    r"OUT\s*=\s*Path\(__file__\)\.resolve\(\)\.parent\s*/\s*'([^']+)'")
+
+
+def output_name(script):
+    """該憑證實際寫到哪個檔名。
+
+    🚨 本支第一版假設「JSON 與 .py 同名」——⚠️ 而有 4 支寫的是別的名字
+    （例如 n611_tables_missing_from_payload.py → n611_tables_missing.json），
+    **於是它們被判成「沒有 JSON」而遭略過**，第 650 輪的 126／128 因此是錯的。
+    ✅ 改成從原始碼讀 `OUT =` 那一行，🚫 不猜。
+    """
+    try:
+        match = OUT_LINE.search(script.read_text(encoding='utf-8'))
+    except (UnicodeDecodeError, OSError):
+        match = None
+    return match.group(1) if match else script.stem + '.json'
+
+
 def repo_dirty():
     """repo 目前有哪些被改動的檔案——🚨 用來證明本支沒有動到它們。"""
     result = subprocess.run(['git', 'status', '--porcelain'], cwd=str(REPO),
@@ -128,11 +148,12 @@ def main():
     # 只會拉長時間。✅ 故本支只跑「有 JSON 可對」的那些，
     # 並把略過的數目照實記下來（🚨 不是假裝它們不存在）。
     all_scripts = [p for p in sorted(S.glob('n*.py')) if p.name not in SKIP]
-    scripts = [p for p in all_scripts if (S / (p.stem + '.json')).is_file()]
+    out_names = {p.name: output_name(p) for p in all_scripts}
+    scripts = [p for p in all_scripts if (S / out_names[p.name]).is_file()]
     skipped_no_json = [p.name for p in all_scripts if p not in scripts]
     rows = []
     for script in scripts:
-        recorded_path = S / (script.stem + '.json')
+        recorded_path = S / out_names[script.name]
         recorded = None
         if recorded_path.is_file():
             try:
@@ -141,7 +162,7 @@ def main():
             except json.JSONDecodeError:
                 recorded = None
         target = stage / script.name
-        fresh_path = stage / (script.stem + '.json')
+        fresh_path = stage / out_names[script.name]
         if fresh_path.exists():
             fresh_path.unlink()
         try:
