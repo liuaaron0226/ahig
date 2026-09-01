@@ -1,0 +1,164 @@
+{
+  "schemaVersion": 1,
+  "documentType": "invisible-checks-status",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "why": "⚠️ 第 652 輪查明 124 支憑證只印到標準輸出、不留 JSON，🚨 其中 19 支看起來是檢查。**⚠️ 一個沒有人讀的檢查，與一個不存在的檢查，效果完全一樣。**",
+  "excludedGenerators": [
+    "n154_cell_producer.py",
+    "n157_section_c_report.py",
+    "n159_section_g_report.py",
+    "n160_section_f_report.py",
+    "n161_section_d_report.py",
+    "n163_section_a_report.py",
+    "n164_section_b_report.py",
+    "n165_section_e_report.py"
+  ],
+  "checksRun": 11,
+  "passed": 11,
+  "red": 0,
+  "broken": 0,
+  "rows": [
+    {
+      "check": "n85_population_freeze.py",
+      "exitCode": 0,
+      "status": "✅ 通過",
+      "tail": [
+        "(2) seed == 2559117538934593219   : True  (實得 2559117538934593219)",
+        "✅ 兩道全過：抽樣現在可由版控內容完整重現。"
+      ],
+      "error": ""
+    },
+    {
+      "check": "n116_anchor_rules.py",
+      "exitCode": 0,
+      "status": "✅ 通過",
+      "tail": [
+        "條目 82｜重述 16｜**相異義務 66**",
+        "🚨 「N／N 涵蓋」之 N 是條目數，🚫 不得讀成相異義務數。"
+      ],
+      "error": ""
+    },
+    {
+      "check": "n116_obligation_crosscheck.py",
+      "exitCode": 0,
+      "status": "✅ 通過",
+      "tail": [
+        "✅ 無稀釋錨點（⚠️ 全域義務已另計）。惟仍請記得：有談到 ≠ 已辦。",
+        "✅ 本檔四道皆過（涵蓋、反向對照、改鍵、錨點鬆緊）。⚠️ 惟「有談到」仍不等於「已辦」。"
+      ],
+      "error": ""
+    },
+    {
+      "check": "n131_cross_consistency.py",
+      "exitCode": 0,
+      "status": "✅ 通過",
+      "tail": [
+        "反向對照（注入修正前之 82／10／72）：抓到 2 項 → ✅ 本項會失敗",
+        "反向對照：抓到 7 項，涵蓋五型 → ✅ 本檢查會失敗"
+      ],
+      "error": ""
+    },
+    {
+      "check": "n141_literal_numbers.py",
+      "exitCode": 0,
+      "status": "✅ 通過",
+      "tail": [
+        "反向對照：✅ 抓到注入之 9987",
+        "本輪範圍：甲／乙／丙／丁／己／庚／辛／壬／檢／審；**✅ 10 份全清。**"
+      ],
+      "error": ""
+    },
+    {
+      "check": "n153_wording_audit_check.py",
+      "exitCode": 0,
+      "status": "✅ 通過",
+      "tail": [
+        "🚨 壬節 0 格，應為 12 格",
+        "反向對照：抓到 5 項，涵蓋三型 → ✅ 本檢查會失敗"
+      ],
+      "error": ""
+    },
+    {
+      "check": "n158_report_lint.py",
+      "exitCode": 0,
+      "status": "✅ 通過",
+      "tail": [],
+      "error": ""
+    },
+    {
+      "check": "n166_report_cell_coverage.py",
+      "exitCode": 0,
+      "status": "✅ 通過",
+      "tail": [
+        "反向對照（注入清單外之格）：✅ 會被抓到",
+        "✅ 成稿所引用之格，全部在交付清單內（🚫 無來路不明的數字）"
+      ],
+      "error": ""
+    },
+    {
+      "check": "n172_root_population.py",
+      "exitCode": 0,
+      "status": "✅ 通過",
+      "tail": [
+        "🚨 `VER_UNKNOWN` 之定位欄未指名 `SRC_UNKNOWN`——⚠️ 只有一邊寫，讀另一邊的人就看不到",
+        "反向對照：未登記字根 ✅｜缺母體標記 ✅｜未登記跨字根配對 ✅｜缺互相指名 ✅"
+      ],
+      "error": ""
+    },
+    {
+      "check": "n174_generator_literals.py",
+      "exitCode": 0,
+      "status": "✅ 通過",
+      "tail": [
+        "· n163_section_a_report.py：四分類表之 169／52／47／19／10／3／79（未加粗，本檔掃不到）——🚨 第 425 輪影子批四分類之當時量測，看板行 1098 起；⚠️ 其合計 300 已改為由 `SHADOW_CONCORDANT ＋ SHADOW_QUEUED` 現算並設閉合式，**🚫 而逐格的四個分類數仍是打上去的**。",
+        "反向對照（注入未登記之打字數字）：✅ 會被抓到"
+      ],
+      "error": ""
+    },
+    {
+      "check": "n179_p1_contract_state.py",
+      "exitCode": 0,
+      "status": "✅ 通過",
+      "tail": [
+        "⚠️ **本檔不驗契約內容是否合理**——🚫 那要領域專家讀；🚨 亦不驗那 4 項判準有沒有被遵守，**它們目前沒有任何機器在看**。",
+        "反向對照（把 `approvedBy` 填成已核准）：✅ 會被抓到"
+      ],
+      "error": ""
+    }
+  ],
+  "selfNote": "✅ 本支自己**留 JSON**——🚨 否則它就是它所稽核的那個毛病的第 20 個案例。",
+  "whatThisCannotSay": "🚫 「今天通過」不等於「它問對了問題」——⚠️ 本支只轉述判定，🚨 不重新審查每一支檢查的設計。",
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "controlProbes": [
+    {
+      "probe": "每一支都真的被執行到（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 實跑 11／11；⚠️ 少一支就代表本支的總表不完整"
+    },
+    {
+      "probe": "整趟跑完 repo 一個檔都沒被改動（必觸發之反向）",
+      "passed": true,
+      "detail": "🚨 前後差異：[]；⚠️ 這些檢查裡有會寫檔的，**第 648 輪的損害正是那樣造成的**"
+    },
+    {
+      "probe": "至少有一支給出明確判定（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 通過 11／判紅 0；⚠️ 若全部都跑不起來，本支等於什麼也沒問到"
+    },
+    {
+      "probe": "沒有檢查今天是紅的",
+      "passed": true,
+      "detail": "🚨 判定為紅的 0 支：[]"
+    },
+    {
+      "probe": "沒有檢查今天跑不起來",
+      "passed": true,
+      "detail": "🚨 跑不起來的 0 支：[]"
+    }
+  ],
+  "auditHash": "sha256:170690e0de6f23eb98fe8de95aad1e23594aaf1693c74e181e4ab1ca271780d6"
+}

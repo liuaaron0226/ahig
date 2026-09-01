@@ -77,7 +77,9 @@ def stage_fake_root():
     """搭一個假的 repo 根：🚨 讓任何寫入都只落在副本裡。"""
     root = Path(tempfile.mkdtemp(prefix='ahig-repro-'))
     shutil.copytree(S, root / '.scratch')
-    for relative in ('ahig/ahig', 'ahig/calibration', 'ahig/schema', 'docs'):
+    # 🚨 挑目錄複製會漏東西——⚠️ 第 653 輪就因為漏掉 `ahig/domains`
+    # 讓一支檢查假性判紅。✅ 整個 ahig/ 與 docs/ 一起複製。
+    for relative in ('ahig', 'docs'):
         source = REPO / relative
         if source.is_dir():
             shutil.copytree(source, root / relative)
