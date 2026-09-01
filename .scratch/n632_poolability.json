@@ -1,0 +1,139 @@
+{
+  "schemaVersion": 1,
+  "documentType": "poolability-audit",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "inScopeOutcomes": 98,
+  "pooling": [
+    {
+      "outcome": "gi-symptom-severity",
+      "papers": 19,
+      "distinctCombinations": 1,
+      "largestComparableGroup": 19,
+      "instrumentRecorded": false
+    },
+    {
+      "outcome": "exogenous-cho-oxidation-peak",
+      "papers": 13,
+      "distinctCombinations": 1,
+      "largestComparableGroup": 13,
+      "instrumentRecorded": true
+    },
+    {
+      "outcome": "gi-symptom-incidence",
+      "papers": 8,
+      "distinctCombinations": 1,
+      "largestComparableGroup": 8,
+      "instrumentRecorded": false
+    },
+    {
+      "outcome": "tt-completion-time",
+      "papers": 5,
+      "distinctCombinations": 3,
+      "largestComparableGroup": 2,
+      "instrumentRecorded": true
+    },
+    {
+      "outcome": "time-to-exhaustion",
+      "papers": 5,
+      "distinctCombinations": 1,
+      "largestComparableGroup": 5,
+      "instrumentRecorded": true
+    },
+    {
+      "outcome": "muscle-glycogen-post-exercise",
+      "papers": 2,
+      "distinctCombinations": 1,
+      "largestComparableGroup": 2,
+      "instrumentRecorded": true
+    }
+  ],
+  "axes": {
+    "analysisSet": {
+      "allowed": [
+        "ITT",
+        "mITT",
+        "complete-case"
+      ],
+      "observed": [
+        "complete-case"
+      ]
+    },
+    "effectMeasure": {
+      "allowed": [
+        "MD",
+        "SMD",
+        "RR",
+        "RD",
+        "mean",
+        "proportion"
+      ],
+      "observed": [
+        "mean",
+        "proportion"
+      ]
+    },
+    "timepointWindow": {
+      "allowed": [
+        "during-exercise",
+        "immediate-post",
+        "next-day"
+      ],
+      "observed": [
+        "0"
+      ]
+    }
+  },
+  "allowedButNeverObserved": {
+    "analysisSet": [
+      "ITT",
+      "mITT"
+    ],
+    "effectMeasure": [
+      "MD",
+      "SMD",
+      "RR",
+      "RD"
+    ],
+    "note": "✅ 契約允許 ITT／mITT 而語料**一項都沒有**——🚨 故「全部 complete-case」是文獻的性質，🚫 不是本室過濾器造成的。⚠️ 同理，契約允許 MD／SMD／RR／RD 四種對比量度，**而語料只出現 mean 與 proportion**——🚨 即沒有任何一篇以可直接合併的對比形式回報。"
+  },
+  "emptyAllowlistOutcomes": [
+    "gi-symptom-incidence",
+    "gi-symptom-severity"
+  ],
+  "outcomesWithoutInstrument": 60,
+  "instrumentGateNote": "🚨 `matcher.py:83` 寫的是 `if allowed and reported… not in allowed`——⚠️ **空的允許清單等於不設限**，不是「什麼都不允許」。✅ 本支以產品匹配器實跑驗證（非推論）：空清單的結局，亂填的儀器也判為在範圍內。",
+  "erratumOnN628": "⚠️ 第 628 輪那張表的「儀器種類」欄，對腸胃症狀兩列顯示 **1**——🚨 而那個 1 是 `None` 被當成一種儀器數進去的。**⚠️ 正確的說法是「沒有記儀器」，不是「只用一種儀器」。**🚫 n628 不就地改寫（已上看板），本條即其 errata。",
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "controlProbes": [
+    {
+      "probe": "允許清單非空時，正當儀器過得了（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 以 tt-completion-time 的正當儀器試，結果 True；⚠️ 若過不了，下面兩道就沒有意義"
+    },
+    {
+      "probe": "允許清單非空時，亂填的儀器被擋（必觸發之反向）",
+      "passed": true,
+      "detail": "🚨 以亂填的儀器試 tt-completion-time，結果 False；⚠️ 若也過得了，整道儀器關卡都是空的"
+    },
+    {
+      "probe": "允許清單為空時，儀器關卡仍然擋得住",
+      "passed": false,
+      "detail": "🚨 gi-symptom-incidence 的 allowedInstruments 是空的；⚠️ 以亂填的儀器試，產品匹配器判定 in_scope=True——**空清單＝不設限**（matcher.py:83 的 `if allowed and …`）"
+    },
+    {
+      "probe": "每一項在範圍內結局都記了儀器",
+      "passed": false,
+      "detail": "🚨 實得 60 項（佔 98 的 61%）`instrument` 為 None，集中在 ['gi-symptom-incidence', 'gi-symptom-severity']；⚠️ 它們通過的是一道**對它們而言空的**關卡"
+    },
+    {
+      "probe": "每個結局的支持篇數都落在單一可比組合裡",
+      "passed": false,
+      "detail": "🚨 實得：[('tt-completion-time', '5 篇拆成 3 組，最大一組 2 篇')]"
+    }
+  ],
+  "auditHash": "sha256:44854df05f3852553a7a047767e306145c11ea5517be70532f7ef53b23e2ad80"
+}
