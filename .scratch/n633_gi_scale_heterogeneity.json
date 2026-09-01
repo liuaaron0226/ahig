@@ -1,0 +1,62 @@
+{
+  "schemaVersion": 1,
+  "documentType": "gi-scale-heterogeneity",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "contentDiscipline": "✅ 只輸出計數與型別名；🚫 不輸出任何標籤文字（n+195 一）。",
+  "giOutcomesExamined": 60,
+  "papers": 21,
+  "byScaleClass": {
+    "VAS": 16,
+    "未能分類": 14,
+    "數值範圍": 13,
+    "Likert／點量表": 9,
+    "具名問卷": 4,
+    "發生率／人數": 4
+  },
+  "classesPerPaper": {
+    "1": 12,
+    "2": 8,
+    "3": 1
+  },
+  "papersWithOnlyUnclassified": [
+    "298c326024d22835",
+    "7902e3ec54370729"
+  ],
+  "papersWithAnyUnclassified": 9,
+  "whyItMatters": "⚠️ 第 632 輪把腸胃症狀的可合併性寫成「未知」——🚨 因為那 60 項的 instrument 全是 None，關卡對它們是空的。✅ 本支從標籤把未知縮小：⚠️ 若型別散在好幾類，**那 19 篇量的就不是同一把尺**，🚫 而「19 篇」這個數在合併時不能照面額使用。",
+  "classifierIsOrdered": "⚠️ 本支的分類是**有序優先**：一個標籤先撞到哪一條規則就算哪一類。🚨 故型別之間可能重疊——例如「rated 0-10」被歸為數值範圍，而它在論文裡也可能其實是一支 VAS。**✅ 因此「幾類」這個數不精確；🚫 但「不是同一把尺」是穩的**：VAS、Likert 點量表與具名問卷是明確不同的家族。",
+  "whatThisCannotAnswer": "🚫 標籤沒寫量表，不代表論文沒寫——⚠️ 本支只讀清冊的標籤，不重讀全文；🚨 故「未能分類」是**清冊裡看不出來**，不是「該研究沒有量表」。",
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "controlProbes": [
+    {
+      "probe": "分類器認得出每一類樣本（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 驗身結果 {'VAS': True, '具名問卷': True, 'Likert／點量表': True, '數值範圍': True, '發生率／人數': True, '未能分類': True}；⚠️ 少認一類，「分得出幾類」就沒有意義"
+    },
+    {
+      "probe": "模糊的標籤會落入「未能分類」（必觸發之反向）",
+      "passed": true,
+      "detail": "🚨 以一個沒有量表資訊的樣本試；⚠️ 若它也被歸進某一類，本支只是在亂貼標籤"
+    },
+    {
+      "probe": "真的讀到腸胃症狀標籤（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 實得 60 項（第 632 輪數到 60）；⚠️ 對不上就代表本支讀的不是同一批"
+    },
+    {
+      "probe": "腸胃症狀的量表型別是單一的",
+      "passed": false,
+      "detail": "🚨 實得型別分布：{'VAS': 16, '未能分類': 14, '數值範圍': 13, 'Likert／點量表': 9, '具名問卷': 4, '發生率／人數': 4}"
+    },
+    {
+      "probe": "沒有篇是完全看不出量表的",
+      "passed": false,
+      "detail": "🚨 實得 2 篇的腸胃症狀標籤**完全看不出量表**：['298c326024d22835', '7902e3ec54370729']"
+    }
+  ],
+  "auditHash": "sha256:de77806e0813581cc4e4fcdf51101acc1eff46f55e974caa5663341c6f354023"
+}
