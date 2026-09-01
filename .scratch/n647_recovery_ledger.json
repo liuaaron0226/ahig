@@ -1,0 +1,196 @@
+{
+  "schemaVersion": 1,
+  "documentType": "recovery-ledger",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "howIndependenceIsCounted": "✅ 「多一篇獨立研究」＝該篇目前零貢獻、且不屬於已知同群重複對；🚨 若它是重複對的一半就不算——⚠️ 那不是新研究，是同一批受試者。",
+  "buckets": {
+    "D5：dose=0（對照組）不走排除路徑": {
+      "items": 4,
+      "papers": [
+        "307c0dd5b141caed"
+      ],
+      "newIndependentStudies": 0,
+      "newIndependentStudyIds": [],
+      "papersFromKnownDuplicatePair": [
+        "307c0dd5b141caed"
+      ],
+      "byOutcome": {
+        "time-to-exhaustion": 3,
+        "muscle-glycogen-post-exercise": 1
+      },
+      "newPapersPerOutcome": {
+        "muscle-glycogen-post-exercise": 0,
+        "time-to-exhaustion": 0
+      }
+    },
+    "D6：接受 median 這個效應量": {
+      "items": 3,
+      "papers": [
+        "c3028a8a7b1ae2a1"
+      ],
+      "newIndependentStudies": 1,
+      "newIndependentStudyIds": [
+        "c3028a8a7b1ae2a1"
+      ],
+      "papersFromKnownDuplicatePair": [],
+      "byOutcome": {
+        "gi-symptom-severity": 3
+      },
+      "newPapersPerOutcome": {
+        "gi-symptom-severity": 1
+      }
+    },
+    "D2／D3：儀器清單（改名／合併）": {
+      "items": 9,
+      "papers": [
+        "298c326024d22835",
+        "7a6ac1559c740fd6",
+        "9a3b03b4fb24cf65"
+      ],
+      "newIndependentStudies": 0,
+      "newIndependentStudyIds": [],
+      "papersFromKnownDuplicatePair": [
+        "7a6ac1559c740fd6"
+      ],
+      "byOutcome": {
+        "time-to-exhaustion": 3,
+        "muscle-glycogen-post-exercise": 3,
+        "tt-completion-time": 3
+      },
+      "newPapersPerOutcome": {
+        "muscle-glycogen-post-exercise": 1,
+        "time-to-exhaustion": 1,
+        "tt-completion-time": 2
+      }
+    },
+    "（未登記）讀的人沒填劑量": {
+      "items": 12,
+      "papers": [
+        "0cfceb6c8a86f78b",
+        "0eea079e79bf7913",
+        "54d4200c1c5e2b64",
+        "82cbc04b68c38e79",
+        "a6ce9c92c7454a7c",
+        "ad7c0004c386f31c"
+      ],
+      "newIndependentStudies": 5,
+      "newIndependentStudyIds": [
+        "0eea079e79bf7913",
+        "54d4200c1c5e2b64",
+        "82cbc04b68c38e79",
+        "a6ce9c92c7454a7c",
+        "ad7c0004c386f31c"
+      ],
+      "papersFromKnownDuplicatePair": [],
+      "byOutcome": {
+        "tt-completion-time": 7,
+        "time-to-exhaustion": 2,
+        "gi-symptom-severity": 2,
+        "gi-symptom-incidence": 1
+      },
+      "newPapersPerOutcome": {
+        "gi-symptom-severity": 1,
+        "time-to-exhaustion": 2,
+        "gi-symptom-incidence": 1,
+        "tt-completion-time": 4
+      }
+    },
+    "（未登記）讀的人沒填效應量": {
+      "items": 4,
+      "papers": [
+        "c3028a8a7b1ae2a1",
+        "c4128a6f6dd2c0b5"
+      ],
+      "newIndependentStudies": 2,
+      "newIndependentStudyIds": [
+        "c3028a8a7b1ae2a1",
+        "c4128a6f6dd2c0b5"
+      ],
+      "papersFromKnownDuplicatePair": [],
+      "byOutcome": {
+        "gi-symptom-incidence": 3,
+        "tt-completion-time": 1
+      },
+      "newPapersPerOutcome": {
+        "gi-symptom-incidence": 1,
+        "tt-completion-time": 1
+      }
+    },
+    "🚫 真的在帶外（180 g/h）": {
+      "items": 3,
+      "papers": [
+        "8a62d501f88c7d04"
+      ],
+      "newIndependentStudies": 0,
+      "newIndependentStudyIds": [],
+      "papersFromKnownDuplicatePair": [],
+      "byOutcome": {
+        "exogenous-cho-oxidation-peak": 1,
+        "gi-symptom-severity": 1,
+        "gi-symptom-incidence": 1
+      },
+      "newPapersPerOutcome": {
+        "gi-symptom-incidence": 0,
+        "gi-symptom-severity": 0,
+        "exogenous-cho-oxidation-peak": 0
+      }
+    },
+    "（未登記）宣稱無數值結果": {
+      "items": 1,
+      "papers": [
+        "0eea079e79bf7913"
+      ],
+      "newIndependentStudies": 1,
+      "newIndependentStudyIds": [
+        "0eea079e79bf7913"
+      ],
+      "papersFromKnownDuplicatePair": [],
+      "byOutcome": {
+        "gi-symptom-incidence": 1
+      },
+      "newPapersPerOutcome": {
+        "gi-symptom-incidence": 1
+      }
+    }
+  },
+  "totals": {
+    "items": 36,
+    "newIndependentStudies": 9,
+    "ttCompletionTimeItems": 11
+  },
+  "whatThisIsFor": "⚠️ 登記簿目前每一件都寫著「建議施行」，🚫 卻沒有附上「拿回多少」。✅ 本支補上價碼——🚫 但不主張任何一件該不該施行。",
+  "whatThisCannotSay": "🚫 「拿回幾項」不等於「那些項可以合併」——⚠️ 第 632／633 輪已量出可合併性另有問題（儀器沒記、量表不同）。",
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "controlProbes": [
+    {
+      "probe": "每一項被擋的都落進恰好一個桶（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 桶內合計 36／被擋合計 36；⚠️ 對不上代表有桶重疊或漏接"
+    },
+    {
+      "probe": "在範圍內那側等於 98（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 實得 98；⚠️ 不是 98 就代表本支讀的不是同一批"
+    },
+    {
+      "probe": "重複對的篇有被單獨標出（必觸發之反向）",
+      "passed": true,
+      "detail": "🚨 若一篇重複對的論文都沒出現在被擋項目裡，「不算新研究」這條規則就沒被測到"
+    },
+    {
+      "probe": "每一件待裁定都至少多帶回一篇獨立研究",
+      "passed": false,
+      "detail": "🚨 帶不回獨立研究的：['D5：dose=0（對照組）不走排除路徑', 'D2／D3：儀器清單（改名／合併）']"
+    },
+    {
+      "probe": "最薄的結局拿不回東西",
+      "passed": false,
+      "detail": "🚨 全部桶加起來，`tt-completion-time` 可拿回 11 項；⚠️ 而它目前在範圍內只有 6 項"
+    }
+  ],
+  "auditHash": "sha256:fd3b6941251319fb90eb37b43f9e67b76cfe5998bd57fd4cc4c796f481121fcd"
+}
