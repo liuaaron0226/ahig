@@ -1,0 +1,370 @@
+{
+  "schemaVersion": 1,
+  "documentType": "blocked-item-gate-depth",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "blockedMappedItems": 36,
+  "testable": 36,
+  "noDonorOutcome": [],
+  "gateDepth": {
+    "只卡一道門": 29,
+    "卡兩道以上": 7
+  },
+  "singleFieldFixDistribution": {
+    "劑量": 19,
+    "儀器": 7,
+    "效應量測": 3
+  },
+  "emptyConfigSemantics": {
+    "allowedInstruments": "門全開",
+    "doseBands": "門全開",
+    "inScopeEffectMeasures": "門全關",
+    "inScopeAnalysisSets": "門全關"
+  },
+  "rows": [
+    {
+      "report": "0eea079e79bf7913",
+      "ref": "time-to-exhaustion",
+      "firstBlock": "notExtracted-dose-outside-bands",
+      "singleFieldFixes": [
+        "劑量"
+      ],
+      "allFieldsDonatedPasses": true
+    },
+    {
+      "report": "0eea079e79bf7913",
+      "ref": "gi-symptom-incidence",
+      "firstBlock": "notExtracted-no-numeric-result",
+      "singleFieldFixes": [],
+      "allFieldsDonatedPasses": true
+    },
+    {
+      "report": "8a62d501f88c7d04",
+      "ref": "exogenous-cho-oxidation-peak",
+      "firstBlock": "notExtracted-dose-outside-bands",
+      "singleFieldFixes": [
+        "劑量"
+      ],
+      "allFieldsDonatedPasses": true
+    },
+    {
+      "report": "8a62d501f88c7d04",
+      "ref": "gi-symptom-severity",
+      "firstBlock": "notExtracted-dose-outside-bands",
+      "singleFieldFixes": [
+        "劑量"
+      ],
+      "allFieldsDonatedPasses": true
+    },
+    {
+      "report": "8a62d501f88c7d04",
+      "ref": "gi-symptom-incidence",
+      "firstBlock": "notExtracted-dose-outside-bands",
+      "singleFieldFixes": [
+        "劑量"
+      ],
+      "allFieldsDonatedPasses": true
+    },
+    {
+      "report": "7a6ac1559c740fd6",
+      "ref": "time-to-exhaustion",
+      "firstBlock": "notExtracted-instrument-not-in-allowlist",
+      "singleFieldFixes": [],
+      "allFieldsDonatedPasses": true
+    },
+    {
+      "report": "7a6ac1559c740fd6",
+      "ref": "time-to-exhaustion",
+      "firstBlock": "notExtracted-instrument-not-in-allowlist",
+      "singleFieldFixes": [
+        "儀器"
+      ],
+      "allFieldsDonatedPasses": true
+    },
+    {
+      "report": "7a6ac1559c740fd6",
+      "ref": "time-to-exhaustion",
+      "firstBlock": "notExtracted-instrument-not-in-allowlist",
+      "singleFieldFixes": [
+        "儀器"
+      ],
+      "allFieldsDonatedPasses": true
+    },
+    {
+      "report": "7a6ac1559c740fd6",
+      "ref": "muscle-glycogen-post-exercise",
+      "firstBlock": "notExtracted-instrument-not-in-allowlist",
+      "singleFieldFixes": [],
+      "allFieldsDonatedPasses": true
+    },
+    {
+      "report": "7a6ac1559c740fd6",
+      "ref": "muscle-glycogen-post-exercise",
+      "firstBlock": "notExtracted-instrument-not-in-allowlist",
+      "singleFieldFixes": [
+        "儀器"
+      ],
+      "allFieldsDonatedPasses": true
+    },
+    {
+      "report": "7a6ac1559c740fd6",
+      "ref": "muscle-glycogen-post-exercise",
+      "firstBlock": "notExtracted-instrument-not-in-allowlist",
+      "singleFieldFixes": [
+        "儀器"
+      ],
+      "allFieldsDonatedPasses": true
+    },
+    {
+      "report": "c3028a8a7b1ae2a1",
+      "ref": "gi-symptom-severity",
+      "firstBlock": "notExtracted-effect-measure-not-in-scope",
+      "singleFieldFixes": [
+        "效應量測"
+      ],
+      "allFieldsDonatedPasses": true
+    },
+    {
+      "report": "c3028a8a7b1ae2a1",
+      "ref": "gi-symptom-severity",
+      "firstBlock": "notExtracted-effect-measure-not-in-scope",
+      "singleFieldFixes": [],
+      "allFieldsDonatedPasses": true
+    },
+    {
+      "report": "c3028a8a7b1ae2a1",
+      "ref": "gi-symptom-severity",
+      "firstBlock": "notExtracted-effect-measure-not-in-scope",
+      "singleFieldFixes": [],
+      "allFieldsDonatedPasses": true
+    },
+    {
+      "report": "c3028a8a7b1ae2a1",
+      "ref": "gi-symptom-incidence",
+      "firstBlock": "notExtracted-effect-measure-not-in-scope",
+      "singleFieldFixes": [
+        "效應量測"
+      ],
+      "allFieldsDonatedPasses": true
+    },
+    {
+      "report": "c3028a8a7b1ae2a1",
+      "ref": "gi-symptom-incidence",
+      "firstBlock": "notExtracted-effect-measure-not-in-scope",
+      "singleFieldFixes": [],
+      "allFieldsDonatedPasses": true
+    },
+    {
+      "report": "c3028a8a7b1ae2a1",
+      "ref": "gi-symptom-incidence",
+      "firstBlock": "notExtracted-effect-measure-not-in-scope",
+      "singleFieldFixes": [],
+      "allFieldsDonatedPasses": true
+    },
+    {
+      "report": "ad7c0004c386f31c",
+      "ref": "tt-completion-time",
+      "firstBlock": "notExtracted-dose-outside-bands",
+      "singleFieldFixes": [
+        "劑量"
+      ],
+      "allFieldsDonatedPasses": true
+    },
+    {
+      "report": "ad7c0004c386f31c",
+      "ref": "tt-completion-time",
+      "firstBlock": "notExtracted-dose-outside-bands",
+      "singleFieldFixes": [
+        "劑量"
+      ],
+      "allFieldsDonatedPasses": true
+    },
+    {
+      "report": "ad7c0004c386f31c",
+      "ref": "gi-symptom-severity",
+      "firstBlock": "notExtracted-dose-outside-bands",
+      "singleFieldFixes": [
+        "劑量"
+      ],
+      "allFieldsDonatedPasses": true
+    },
+    {
+      "report": "ad7c0004c386f31c",
+      "ref": "gi-symptom-severity",
+      "firstBlock": "notExtracted-dose-outside-bands",
+      "singleFieldFixes": [
+        "劑量"
+      ],
+      "allFieldsDonatedPasses": true
+    },
+    {
+      "report": "ad7c0004c386f31c",
+      "ref": "gi-symptom-incidence",
+      "firstBlock": "notExtracted-dose-outside-bands",
+      "singleFieldFixes": [
+        "劑量"
+      ],
+      "allFieldsDonatedPasses": true
+    },
+    {
+      "report": "c4128a6f6dd2c0b5",
+      "ref": "tt-completion-time",
+      "firstBlock": "notExtracted-effect-measure-not-in-scope",
+      "singleFieldFixes": [
+        "效應量測"
+      ],
+      "allFieldsDonatedPasses": true
+    },
+    {
+      "report": "9a3b03b4fb24cf65",
+      "ref": "tt-completion-time",
+      "firstBlock": "notExtracted-instrument-not-in-allowlist",
+      "singleFieldFixes": [
+        "儀器"
+      ],
+      "allFieldsDonatedPasses": true
+    },
+    {
+      "report": "54d4200c1c5e2b64",
+      "ref": "tt-completion-time",
+      "firstBlock": "notExtracted-dose-outside-bands",
+      "singleFieldFixes": [
+        "劑量"
+      ],
+      "allFieldsDonatedPasses": true
+    },
+    {
+      "report": "54d4200c1c5e2b64",
+      "ref": "tt-completion-time",
+      "firstBlock": "notExtracted-dose-outside-bands",
+      "singleFieldFixes": [
+        "劑量"
+      ],
+      "allFieldsDonatedPasses": true
+    },
+    {
+      "report": "82cbc04b68c38e79",
+      "ref": "time-to-exhaustion",
+      "firstBlock": "notExtracted-dose-outside-bands",
+      "singleFieldFixes": [
+        "劑量"
+      ],
+      "allFieldsDonatedPasses": true
+    },
+    {
+      "report": "82cbc04b68c38e79",
+      "ref": "tt-completion-time",
+      "firstBlock": "notExtracted-dose-outside-bands",
+      "singleFieldFixes": [
+        "劑量"
+      ],
+      "allFieldsDonatedPasses": true
+    },
+    {
+      "report": "0cfceb6c8a86f78b",
+      "ref": "tt-completion-time",
+      "firstBlock": "notExtracted-dose-outside-bands",
+      "singleFieldFixes": [
+        "劑量"
+      ],
+      "allFieldsDonatedPasses": true
+    },
+    {
+      "report": "307c0dd5b141caed",
+      "ref": "time-to-exhaustion",
+      "firstBlock": "notExtracted-dose-outside-bands",
+      "singleFieldFixes": [
+        "劑量"
+      ],
+      "allFieldsDonatedPasses": true
+    },
+    {
+      "report": "307c0dd5b141caed",
+      "ref": "time-to-exhaustion",
+      "firstBlock": "notExtracted-dose-outside-bands",
+      "singleFieldFixes": [
+        "劑量"
+      ],
+      "allFieldsDonatedPasses": true
+    },
+    {
+      "report": "307c0dd5b141caed",
+      "ref": "time-to-exhaustion",
+      "firstBlock": "notExtracted-dose-outside-bands",
+      "singleFieldFixes": [
+        "劑量"
+      ],
+      "allFieldsDonatedPasses": true
+    },
+    {
+      "report": "307c0dd5b141caed",
+      "ref": "muscle-glycogen-post-exercise",
+      "firstBlock": "notExtracted-dose-outside-bands",
+      "singleFieldFixes": [
+        "劑量"
+      ],
+      "allFieldsDonatedPasses": true
+    },
+    {
+      "report": "298c326024d22835",
+      "ref": "tt-completion-time",
+      "firstBlock": "notExtracted-instrument-not-in-allowlist",
+      "singleFieldFixes": [
+        "儀器"
+      ],
+      "allFieldsDonatedPasses": true
+    },
+    {
+      "report": "298c326024d22835",
+      "ref": "tt-completion-time",
+      "firstBlock": "notExtracted-instrument-not-in-allowlist",
+      "singleFieldFixes": [
+        "儀器"
+      ],
+      "allFieldsDonatedPasses": true
+    },
+    {
+      "report": "a6ce9c92c7454a7c",
+      "ref": "tt-completion-time",
+      "firstBlock": "notExtracted-dose-outside-bands",
+      "singleFieldFixes": [
+        "劑量"
+      ],
+      "allFieldsDonatedPasses": true
+    }
+  ],
+  "whyThisCorrectsN664": "🚨 第 664 輪報的是**首擋分佈**——`decide` 依序短路，⚠️ 故「儀器擋 9 項」🚫 不等於「修好儀器就多 9 項」。✅ 本支改用單欄捐贈量「卡幾道門」，**只卡一道的才是修一欄就回收得到的**。",
+  "methodLimit": "⚠️ 捐贈者是**同結局的另一項**，🚫 不是這一篇的真實值——🚨 故本支證的是「這一欄的值若換成一個合格的值，門會不會開」，🚫 不是「這一項應該填什麼」。⚠️ 沒有任何在範圍內項目的結局沒有捐贈者，那些完全測不到。",
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "controlProbes": [
+    {
+      "probe": "真的有被擋的項目可以測（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 可測 36 項｜無捐贈者而測不了 0 項；⚠️ 若可測是 0，本支沒有內容"
+    },
+    {
+      "probe": "什麼都不換時，被擋的仍被擋（必觸發之反向・恆等）",
+      "passed": true,
+      "detail": "🚨 恆等重判與主判定一致：True；⚠️ 若不一致，本支換的東西以外還動到了別的"
+    },
+    {
+      "probe": "把整組欄位都捐過去之後，每一項都進得來（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 全捐後通過 36／36；⚠️ 若不是全部，代表還有本支沒捐到的欄位在擋，「卡兩道以上」的歸因就不完整"
+    },
+    {
+      "probe": "留空的設定，四道門的意思一致",
+      "passed": false,
+      "detail": "🚨 實測：{'allowedInstruments': '門全開', 'doseBands': '門全開', 'inScopeEffectMeasures': '門全關', 'inScopeAnalysisSets': '門全關'}；⚠️ 不一致代表「把一格留空」在同一份契約裡意思相反"
+    },
+    {
+      "probe": "被擋的項目都只卡一道門",
+      "passed": false,
+      "detail": "🚨 只卡一道 29 項｜卡兩道以上 7 項；⚠️ 後者不是「修一欄就回收得到」的"
+    }
+  ],
+  "auditHash": "sha256:84d2295ab39be77b3c5e90a7a5b1d91af1634432eb8c6000271695e3cafc875b"
+}
