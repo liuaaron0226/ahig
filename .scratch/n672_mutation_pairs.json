@@ -1,0 +1,522 @@
+{
+  "schemaVersion": 1,
+  "documentType": "mutation-pair-interaction",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "closesGapDeclaredBy": "n640_branch_reachability.json → whatThisCannotAnswer（多欄位交互未受檢）",
+  "foundByIndex": "✅ 本輪原訂的題目（哪幾道門從未擋過東西）被第 670／671 輪的索引擋下——**🚨 n639 與 n640 已經做過**。⚠️ 那是索引第一次在**真實情境**下擋下重工，🚫 不是回溯測試。",
+  "templateFrom": "86e6a580108fd94b",
+  "baseline": {
+    "inScope": true,
+    "ruleId": "SCOPE-999-in-scope"
+  },
+  "singles": {
+    "沒有數值": {
+      "expectedRule": "SCOPE-000-no-numeric-result",
+      "gotRule": "SCOPE-000-no-numeric-result",
+      "inScope": false,
+      "asExpected": true
+    },
+    "儀器不在清單": {
+      "expectedRule": "SCOPE-001b-instrument",
+      "gotRule": "SCOPE-001b-instrument",
+      "inScope": false,
+      "asExpected": true
+    },
+    "時點在窗外": {
+      "expectedRule": "SCOPE-002-timepoint",
+      "gotRule": "SCOPE-002-timepoint",
+      "inScope": false,
+      "asExpected": true
+    },
+    "同窗多測量點": {
+      "expectedRule": "SCOPE-002c-multiple-measurements",
+      "gotRule": "SCOPE-002c-multiple-measurements",
+      "inScope": false,
+      "asExpected": true
+    },
+    "分析集不在範圍": {
+      "expectedRule": "SCOPE-003-analysis-set",
+      "gotRule": "SCOPE-003-analysis-set",
+      "inScope": false,
+      "asExpected": true
+    },
+    "效應量測不在範圍": {
+      "expectedRule": "SCOPE-004-effect-measure",
+      "gotRule": "SCOPE-004-effect-measure",
+      "inScope": false,
+      "asExpected": true
+    },
+    "統計模型不在範圍": {
+      "expectedRule": "SCOPE-005-model",
+      "gotRule": "SCOPE-005-model",
+      "inScope": false,
+      "asExpected": true
+    },
+    "未預先指定的次群": {
+      "expectedRule": "SCOPE-006-subgroup",
+      "gotRule": "SCOPE-006-subgroup",
+      "inScope": false,
+      "asExpected": true
+    },
+    "敏感度分析": {
+      "expectedRule": "SCOPE-007-sensitivity",
+      "gotRule": "SCOPE-007-sensitivity",
+      "inScope": false,
+      "asExpected": true
+    },
+    "劑量在帶外": {
+      "expectedRule": "SCOPE-008-dose",
+      "gotRule": "SCOPE-008-dose",
+      "inScope": false,
+      "asExpected": true
+    }
+  },
+  "pairsTested": 45,
+  "pairs": [
+    {
+      "pair": [
+        "儀器不在清單",
+        "分析集不在範圍"
+      ],
+      "expectedRule": "SCOPE-001b-instrument",
+      "gotRule": "SCOPE-001b-instrument",
+      "inScope": false
+    },
+    {
+      "pair": [
+        "儀器不在清單",
+        "劑量在帶外"
+      ],
+      "expectedRule": "SCOPE-001b-instrument",
+      "gotRule": "SCOPE-001b-instrument",
+      "inScope": false
+    },
+    {
+      "pair": [
+        "儀器不在清單",
+        "同窗多測量點"
+      ],
+      "expectedRule": "SCOPE-001b-instrument",
+      "gotRule": "SCOPE-001b-instrument",
+      "inScope": false
+    },
+    {
+      "pair": [
+        "儀器不在清單",
+        "效應量測不在範圍"
+      ],
+      "expectedRule": "SCOPE-001b-instrument",
+      "gotRule": "SCOPE-001b-instrument",
+      "inScope": false
+    },
+    {
+      "pair": [
+        "儀器不在清單",
+        "敏感度分析"
+      ],
+      "expectedRule": "SCOPE-001b-instrument",
+      "gotRule": "SCOPE-001b-instrument",
+      "inScope": false
+    },
+    {
+      "pair": [
+        "儀器不在清單",
+        "時點在窗外"
+      ],
+      "expectedRule": "SCOPE-001b-instrument",
+      "gotRule": "SCOPE-001b-instrument",
+      "inScope": false
+    },
+    {
+      "pair": [
+        "儀器不在清單",
+        "未預先指定的次群"
+      ],
+      "expectedRule": "SCOPE-001b-instrument",
+      "gotRule": "SCOPE-001b-instrument",
+      "inScope": false
+    },
+    {
+      "pair": [
+        "儀器不在清單",
+        "沒有數值"
+      ],
+      "expectedRule": "SCOPE-000-no-numeric-result",
+      "gotRule": "SCOPE-000-no-numeric-result",
+      "inScope": false
+    },
+    {
+      "pair": [
+        "儀器不在清單",
+        "統計模型不在範圍"
+      ],
+      "expectedRule": "SCOPE-001b-instrument",
+      "gotRule": "SCOPE-001b-instrument",
+      "inScope": false
+    },
+    {
+      "pair": [
+        "分析集不在範圍",
+        "劑量在帶外"
+      ],
+      "expectedRule": "SCOPE-003-analysis-set",
+      "gotRule": "SCOPE-003-analysis-set",
+      "inScope": false
+    },
+    {
+      "pair": [
+        "分析集不在範圍",
+        "同窗多測量點"
+      ],
+      "expectedRule": "SCOPE-002c-multiple-measurements",
+      "gotRule": "SCOPE-002c-multiple-measurements",
+      "inScope": false
+    },
+    {
+      "pair": [
+        "分析集不在範圍",
+        "效應量測不在範圍"
+      ],
+      "expectedRule": "SCOPE-003-analysis-set",
+      "gotRule": "SCOPE-003-analysis-set",
+      "inScope": false
+    },
+    {
+      "pair": [
+        "分析集不在範圍",
+        "敏感度分析"
+      ],
+      "expectedRule": "SCOPE-003-analysis-set",
+      "gotRule": "SCOPE-003-analysis-set",
+      "inScope": false
+    },
+    {
+      "pair": [
+        "分析集不在範圍",
+        "時點在窗外"
+      ],
+      "expectedRule": "SCOPE-002-timepoint",
+      "gotRule": "SCOPE-002-timepoint",
+      "inScope": false
+    },
+    {
+      "pair": [
+        "分析集不在範圍",
+        "未預先指定的次群"
+      ],
+      "expectedRule": "SCOPE-003-analysis-set",
+      "gotRule": "SCOPE-003-analysis-set",
+      "inScope": false
+    },
+    {
+      "pair": [
+        "分析集不在範圍",
+        "沒有數值"
+      ],
+      "expectedRule": "SCOPE-000-no-numeric-result",
+      "gotRule": "SCOPE-000-no-numeric-result",
+      "inScope": false
+    },
+    {
+      "pair": [
+        "分析集不在範圍",
+        "統計模型不在範圍"
+      ],
+      "expectedRule": "SCOPE-003-analysis-set",
+      "gotRule": "SCOPE-003-analysis-set",
+      "inScope": false
+    },
+    {
+      "pair": [
+        "劑量在帶外",
+        "同窗多測量點"
+      ],
+      "expectedRule": "SCOPE-002c-multiple-measurements",
+      "gotRule": "SCOPE-002c-multiple-measurements",
+      "inScope": false
+    },
+    {
+      "pair": [
+        "劑量在帶外",
+        "效應量測不在範圍"
+      ],
+      "expectedRule": "SCOPE-004-effect-measure",
+      "gotRule": "SCOPE-004-effect-measure",
+      "inScope": false
+    },
+    {
+      "pair": [
+        "劑量在帶外",
+        "敏感度分析"
+      ],
+      "expectedRule": "SCOPE-007-sensitivity",
+      "gotRule": "SCOPE-007-sensitivity",
+      "inScope": false
+    },
+    {
+      "pair": [
+        "劑量在帶外",
+        "時點在窗外"
+      ],
+      "expectedRule": "SCOPE-002-timepoint",
+      "gotRule": "SCOPE-002-timepoint",
+      "inScope": false
+    },
+    {
+      "pair": [
+        "劑量在帶外",
+        "未預先指定的次群"
+      ],
+      "expectedRule": "SCOPE-006-subgroup",
+      "gotRule": "SCOPE-006-subgroup",
+      "inScope": false
+    },
+    {
+      "pair": [
+        "劑量在帶外",
+        "沒有數值"
+      ],
+      "expectedRule": "SCOPE-000-no-numeric-result",
+      "gotRule": "SCOPE-000-no-numeric-result",
+      "inScope": false
+    },
+    {
+      "pair": [
+        "劑量在帶外",
+        "統計模型不在範圍"
+      ],
+      "expectedRule": "SCOPE-005-model",
+      "gotRule": "SCOPE-005-model",
+      "inScope": false
+    },
+    {
+      "pair": [
+        "同窗多測量點",
+        "效應量測不在範圍"
+      ],
+      "expectedRule": "SCOPE-002c-multiple-measurements",
+      "gotRule": "SCOPE-002c-multiple-measurements",
+      "inScope": false
+    },
+    {
+      "pair": [
+        "同窗多測量點",
+        "敏感度分析"
+      ],
+      "expectedRule": "SCOPE-002c-multiple-measurements",
+      "gotRule": "SCOPE-002c-multiple-measurements",
+      "inScope": false
+    },
+    {
+      "pair": [
+        "同窗多測量點",
+        "時點在窗外"
+      ],
+      "expectedRule": "SCOPE-002-timepoint",
+      "gotRule": "SCOPE-002-timepoint",
+      "inScope": false
+    },
+    {
+      "pair": [
+        "同窗多測量點",
+        "未預先指定的次群"
+      ],
+      "expectedRule": "SCOPE-002c-multiple-measurements",
+      "gotRule": "SCOPE-002c-multiple-measurements",
+      "inScope": false
+    },
+    {
+      "pair": [
+        "同窗多測量點",
+        "沒有數值"
+      ],
+      "expectedRule": "SCOPE-000-no-numeric-result",
+      "gotRule": "SCOPE-000-no-numeric-result",
+      "inScope": false
+    },
+    {
+      "pair": [
+        "同窗多測量點",
+        "統計模型不在範圍"
+      ],
+      "expectedRule": "SCOPE-002c-multiple-measurements",
+      "gotRule": "SCOPE-002c-multiple-measurements",
+      "inScope": false
+    },
+    {
+      "pair": [
+        "效應量測不在範圍",
+        "敏感度分析"
+      ],
+      "expectedRule": "SCOPE-004-effect-measure",
+      "gotRule": "SCOPE-004-effect-measure",
+      "inScope": false
+    },
+    {
+      "pair": [
+        "效應量測不在範圍",
+        "時點在窗外"
+      ],
+      "expectedRule": "SCOPE-002-timepoint",
+      "gotRule": "SCOPE-002-timepoint",
+      "inScope": false
+    },
+    {
+      "pair": [
+        "效應量測不在範圍",
+        "未預先指定的次群"
+      ],
+      "expectedRule": "SCOPE-004-effect-measure",
+      "gotRule": "SCOPE-004-effect-measure",
+      "inScope": false
+    },
+    {
+      "pair": [
+        "效應量測不在範圍",
+        "沒有數值"
+      ],
+      "expectedRule": "SCOPE-000-no-numeric-result",
+      "gotRule": "SCOPE-000-no-numeric-result",
+      "inScope": false
+    },
+    {
+      "pair": [
+        "效應量測不在範圍",
+        "統計模型不在範圍"
+      ],
+      "expectedRule": "SCOPE-004-effect-measure",
+      "gotRule": "SCOPE-004-effect-measure",
+      "inScope": false
+    },
+    {
+      "pair": [
+        "敏感度分析",
+        "時點在窗外"
+      ],
+      "expectedRule": "SCOPE-002-timepoint",
+      "gotRule": "SCOPE-002-timepoint",
+      "inScope": false
+    },
+    {
+      "pair": [
+        "敏感度分析",
+        "未預先指定的次群"
+      ],
+      "expectedRule": "SCOPE-006-subgroup",
+      "gotRule": "SCOPE-006-subgroup",
+      "inScope": false
+    },
+    {
+      "pair": [
+        "敏感度分析",
+        "沒有數值"
+      ],
+      "expectedRule": "SCOPE-000-no-numeric-result",
+      "gotRule": "SCOPE-000-no-numeric-result",
+      "inScope": false
+    },
+    {
+      "pair": [
+        "敏感度分析",
+        "統計模型不在範圍"
+      ],
+      "expectedRule": "SCOPE-005-model",
+      "gotRule": "SCOPE-005-model",
+      "inScope": false
+    },
+    {
+      "pair": [
+        "時點在窗外",
+        "未預先指定的次群"
+      ],
+      "expectedRule": "SCOPE-002-timepoint",
+      "gotRule": "SCOPE-002-timepoint",
+      "inScope": false
+    },
+    {
+      "pair": [
+        "時點在窗外",
+        "沒有數值"
+      ],
+      "expectedRule": "SCOPE-000-no-numeric-result",
+      "gotRule": "SCOPE-000-no-numeric-result",
+      "inScope": false
+    },
+    {
+      "pair": [
+        "時點在窗外",
+        "統計模型不在範圍"
+      ],
+      "expectedRule": "SCOPE-002-timepoint",
+      "gotRule": "SCOPE-002-timepoint",
+      "inScope": false
+    },
+    {
+      "pair": [
+        "未預先指定的次群",
+        "沒有數值"
+      ],
+      "expectedRule": "SCOPE-000-no-numeric-result",
+      "gotRule": "SCOPE-000-no-numeric-result",
+      "inScope": false
+    },
+    {
+      "pair": [
+        "未預先指定的次群",
+        "統計模型不在範圍"
+      ],
+      "expectedRule": "SCOPE-005-model",
+      "gotRule": "SCOPE-005-model",
+      "inScope": false
+    },
+    {
+      "pair": [
+        "沒有數值",
+        "統計模型不在範圍"
+      ],
+      "expectedRule": "SCOPE-000-no-numeric-result",
+      "gotRule": "SCOPE-000-no-numeric-result",
+      "inScope": false
+    }
+  ],
+  "maskedPairs": [],
+  "unexpectedRulePairs": [],
+  "harmlessControl": {
+    "inScope": true,
+    "ruleId": "SCOPE-999-in-scope"
+  },
+  "whatThisCannotAnswer": "🚫 本支只跑**兩兩**配對，⚠️ 三個以上同時成立未受檢；🚨 且模板只有一筆——**亮得對不表示在別的紀錄上也亮得對**。⚠️ 又：`SCOPE-002b` 與 `SCOPE-100` 不在本支的突變表裡，前者要靠重疊時窗（n640 已證在合法契約裡到不了），後者要靠整份清冊而非單筆紀錄。",
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "controlProbes": [
+    {
+      "probe": "模板本身判為在範圍內（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 模板取自 86e6a580108fd94b，判定 in_scope=True／rule=SCOPE-999-in-scope；⚠️ 模板自己就過不了的話，底下每一條都測不到自己想測的東西"
+    },
+    {
+      "probe": "每個單一突變都擋得下、且亮的是自己那一條（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 10 個單一突變，未如預期者：無；⚠️ 單一都不準的話，配對的結果沒有意義"
+    },
+    {
+      "probe": "只改判定用不到的欄位時，必須仍在範圍內（必觸發之反向）",
+      "passed": true,
+      "detail": "🚨 只改 localLabel／sourceLocation：in_scope=True；⚠️ 若這樣也被擋，代表本支的「改動」本身就會讓它掉出去，配對結論全部作廢"
+    },
+    {
+      "probe": "🚨 沒有任何一對會互相遮蔽而讓它留在範圍內（必觸發之反向）",
+      "passed": true,
+      "detail": "🚨 配對 45 組，遮蔽者 0 組：無；⚠️ 這才是真缺陷——**兩個各自都該擋的條件湊在一起反而放行**"
+    },
+    {
+      "probe": "配對時亮的都是程式順序較早的那一道（可預測）",
+      "passed": true,
+      "detail": "🚨 0 組不如預期：無；⚠️ 不可預測代表「這一項為什麼被擋」在報表上說不清楚"
+    }
+  ],
+  "auditHash": "sha256:f6cb8e84991e69f51f53706b81a931eea8c704173f15fecd2a73164b9451a316"
+}
