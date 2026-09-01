@@ -1,0 +1,3387 @@
+{
+  "schemaVersion": 2,
+  "documentType": "identifier-index",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "identifiers": 471,
+  "artefactsIndexed": 185,
+  "index": {
+    "0000000000000000": [
+      "n538_tei_crlf_monitor.json",
+      "n670_identifier_index.json"
+    ],
+    "0000000000002552": [
+      "n49_sample.json",
+      "n670_identifier_index.json"
+    ],
+    "0000000000002764": [
+      "n477_alt_oa_locations.json",
+      "n670_identifier_index.json"
+    ],
+    "0007114518001873": [
+      "n49_sample.json",
+      "n670_identifier_index.json"
+    ],
+    "0123456789abcdef": [
+      "n496_corpus_verify.json",
+      "n670_identifier_index.json"
+    ],
+    "012d9a3486e6a580": [
+      "n487_version_and_licence.json",
+      "n488_pmcid_to_doi.json",
+      "n489_calibration_versions.json",
+      "n496_corpus_verify.json",
+      "n498_sections_integrity.json",
+      "n670_identifier_index.json"
+    ],
+    "02efae5809935bf7": [
+      "n535_reading_payload.json",
+      "n538_tei_crlf_monitor.json",
+      "n670_identifier_index.json"
+    ],
+    "049ac52f07d38cf9": [
+      "n535_reading_payload.json",
+      "n670_identifier_index.json"
+    ],
+    "07fb03ac90367aca": [
+      "n624_corpus_denominator.json",
+      "n670_identifier_index.json"
+    ],
+    "081d147cd92dee14": [
+      "n547_varied_shapes.json",
+      "n579_request_version_split.json",
+      "n580_study_vs_report.json",
+      "n582_same_cohort_probe.json",
+      "n586_zero_contribution_census.json",
+      "n598_source_section_no_result.json",
+      "n611_tables_missing.json",
+      "n615_flat_hierarchy.json",
+      "n616_text_coverage.json",
+      "n622_attestation_audit.json",
+      "n627_dose_proxy_validation.json",
+      "n628_evidence_thinness.json",
+      "n644_screening_vs_extraction.json",
+      "n664_vocabulary_upper_bound.json",
+      "n667_inscope_without_instrument.json",
+      "n668_scale_identity_elsewhere.json",
+      "n669_decision_register_v3.json",
+      "n670_identifier_index.json"
+    ],
+    "08f8b2c453c5fdb7": [
+      "n535_reading_payload.json",
+      "n538_tei_crlf_monitor.json",
+      "n541_untitled_reachability.json",
+      "n670_identifier_index.json"
+    ],
+    "09c665a709499ba1": [
+      "n624_corpus_denominator.json",
+      "n670_identifier_index.json"
+    ],
+    "0b013e31828af183": [
+      "n49_sample.json",
+      "n670_identifier_index.json"
+    ],
+    "0b68902a081d147c": [
+      "n487_version_and_licence.json",
+      "n488_pmcid_to_doi.json",
+      "n496_corpus_verify.json",
+      "n498_sections_integrity.json",
+      "n670_identifier_index.json"
+    ],
+    "0cfceb6c8a86f78b": [
+      "n579_request_version_split.json",
+      "n582_same_cohort_probe.json",
+      "n586_zero_contribution_census.json",
+      "n589_dose_not_reported_audit.json",
+      "n611_tables_missing.json",
+      "n615_flat_hierarchy.json",
+      "n616_text_coverage.json",
+      "n621_out_of_scope_audit.json",
+      "n622_attestation_audit.json",
+      "n644_screening_vs_extraction.json",
+      "n646_loss_ledger_by_outcome.json",
+      "n647_recovery_ledger.json",
+      "n654_registry_linkage.json",
+      "n664_vocabulary_upper_bound.json",
+      "n665_blocked_gate_depth.json",
+      "n666_blank_field_provenance.json",
+      "n669_decision_register_v3.json",
+      "n670_identifier_index.json"
+    ],
+    "0eea079e79bf7913": [
+      "n579_request_version_split.json",
+      "n582_same_cohort_probe.json",
+      "n586_zero_contribution_census.json",
+      "n589_dose_not_reported_audit.json",
+      "n611_tables_missing.json",
+      "n615_flat_hierarchy.json",
+      "n616_text_coverage.json",
+      "n622_attestation_audit.json",
+      "n643_corpus_to_evidence_funnel.json",
+      "n644_screening_vs_extraction.json",
+      "n646_loss_ledger_by_outcome.json",
+      "n647_recovery_ledger.json",
+      "n664_vocabulary_upper_bound.json",
+      "n665_blocked_gate_depth.json",
+      "n666_blank_field_provenance.json",
+      "n669_decision_register_v3.json",
+      "n670_identifier_index.json"
+    ],
+    "1105537918c174c9": [
+      "n579_request_version_split.json",
+      "n580_study_vs_report.json",
+      "n582_same_cohort_probe.json",
+      "n586_zero_contribution_census.json",
+      "n595_second_read_invisible.json",
+      "n596_allocation_replicates.json",
+      "n597_numeric_result_unsupported.json",
+      "n611_tables_missing.json",
+      "n612_parse_tei_root_cause.json",
+      "n613_recoverable_from_tables.json",
+      "n615_flat_hierarchy.json",
+      "n616_text_coverage.json",
+      "n621_out_of_scope_audit.json",
+      "n622_attestation_audit.json",
+      "n635_d12_recoverability.json",
+      "n638_cap_paths_executed.json",
+      "n641_double_read_state.json",
+      "n642_double_read_sample.json",
+      "n644_screening_vs_extraction.json",
+      "n662_double_read_fields.json",
+      "n664_vocabulary_upper_bound.json",
+      "n667_inscope_without_instrument.json",
+      "n668_scale_identity_elsewhere.json",
+      "n669_decision_register_v3.json",
+      "n670_identifier_index.json"
+    ],
+    "11f2906259b4558a": [
+      "n487_version_and_licence.json",
+      "n488_pmcid_to_doi.json",
+      "n496_corpus_verify.json",
+      "n498_sections_integrity.json",
+      "n670_identifier_index.json"
+    ],
+    "1453f568faf908fa": [
+      "n519_manifest_generation_drift.json",
+      "n670_identifier_index.json"
+    ],
+    "14e69e5285783b76": [
+      "n535_reading_payload.json",
+      "n670_identifier_index.json"
+    ],
+    "162b24db3f31aa6f": [
+      "n519_manifest_generation_drift.json",
+      "n670_identifier_index.json"
+    ],
+    "184a7f52879ea291": [
+      "n535_reading_payload.json",
+      "n538_tei_crlf_monitor.json",
+      "n670_identifier_index.json"
+    ],
+    "1d4b5acafe14e453": [
+      "n519_manifest_generation_drift.json",
+      "n670_identifier_index.json"
+    ],
+    "1de0f49f59fecb8b": [
+      "n624_corpus_denominator.json",
+      "n670_identifier_index.json"
+    ],
+    "1ded377dce2e28d5": [
+      "n625_corpus_era_bias.json",
+      "n670_identifier_index.json"
+    ],
+    "20de6fd9c68fa968": [
+      "n624_corpus_denominator.json",
+      "n670_identifier_index.json"
+    ],
+    "211950e67902e3ec": [
+      "n459_grobid_acceptance.json",
+      "n484_tei_registration_dryrun.json",
+      "n485_tei_registration.json",
+      "n487_version_and_licence.json",
+      "n496_corpus_verify.json",
+      "n498_sections_integrity.json",
+      "n670_identifier_index.json"
+    ],
+    "26f1d80935d787df": [
+      "n535_reading_payload.json",
+      "n541_untitled_reachability.json",
+      "n670_identifier_index.json"
+    ],
+    "275b6ac1759f5abf": [
+      "n519_manifest_generation_drift.json",
+      "n670_identifier_index.json"
+    ],
+    "27c035a3b867c853": [
+      "n535_reading_payload.json",
+      "n541_untitled_reachability.json",
+      "n670_identifier_index.json"
+    ],
+    "2871794871794872": [
+      "n626_missing_era_dose_space.json",
+      "n670_identifier_index.json"
+    ],
+    "2922534c821c9127": [
+      "n535_reading_payload.json",
+      "n541_untitled_reachability.json",
+      "n670_identifier_index.json"
+    ],
+    "298c326024d22835": [
+      "n548_incremental_rounds.json",
+      "n574_instrument_exclusions.json",
+      "n579_request_version_split.json",
+      "n582_same_cohort_probe.json",
+      "n585_blocked_drafts_errata.json",
+      "n586_zero_contribution_census.json",
+      "n611_tables_missing.json",
+      "n612_parse_tei_root_cause.json",
+      "n613_recoverable_from_tables.json",
+      "n615_flat_hierarchy.json",
+      "n616_text_coverage.json",
+      "n622_attestation_audit.json",
+      "n625_corpus_era_bias.json",
+      "n633_gi_scale_heterogeneity.json",
+      "n644_screening_vs_extraction.json",
+      "n646_loss_ledger_by_outcome.json",
+      "n647_recovery_ledger.json",
+      "n664_vocabulary_upper_bound.json",
+      "n665_blocked_gate_depth.json",
+      "n667_inscope_without_instrument.json",
+      "n668_scale_identity_elsewhere.json",
+      "n669_decision_register_v3.json",
+      "n670_identifier_index.json"
+    ],
+    "2a20a5f4e2163324": [
+      "n493_unprobed_available.json",
+      "n494_alt_oa_round2.json",
+      "n670_identifier_index.json"
+    ],
+    "2bcf407b20de6fd9": [
+      "n493_unprobed_available.json",
+      "n494_alt_oa_round2.json",
+      "n670_identifier_index.json"
+    ],
+    "2cc49e0ddbdb6ea5": [
+      "n487_version_and_licence.json",
+      "n488_pmcid_to_doi.json",
+      "n489_calibration_versions.json",
+      "n496_corpus_verify.json",
+      "n498_sections_integrity.json",
+      "n670_identifier_index.json"
+    ],
+    "2ff74175627c1a85": [
+      "n535_reading_payload.json",
+      "n541_untitled_reachability.json",
+      "n670_identifier_index.json"
+    ],
+    "307c0dd5b141caed": [
+      "n548_incremental_rounds.json",
+      "n579_request_version_split.json",
+      "n580_study_vs_report.json",
+      "n582_same_cohort_probe.json",
+      "n584_thesis_and_hidden_duplicate.json",
+      "n586_zero_contribution_census.json",
+      "n609_methods_title_check.json",
+      "n611_tables_missing.json",
+      "n612_parse_tei_root_cause.json",
+      "n613_recoverable_from_tables.json",
+      "n614_table_recovery_qualified.json",
+      "n615_flat_hierarchy.json",
+      "n616_text_coverage.json",
+      "n620_cohort_match_null.json",
+      "n621_out_of_scope_audit.json",
+      "n622_attestation_audit.json",
+      "n628_evidence_thinness.json",
+      "n644_screening_vs_extraction.json",
+      "n646_loss_ledger_by_outcome.json",
+      "n647_recovery_ledger.json",
+      "n664_vocabulary_upper_bound.json",
+      "n665_blocked_gate_depth.json",
+      "n669_decision_register_v3.json",
+      "n670_identifier_index.json"
+    ],
+    "31daa098b403a574": [
+      "n624_corpus_denominator.json",
+      "n670_identifier_index.json"
+    ],
+    "358bbf2c1886ac4b": [
+      "n579_request_version_split.json",
+      "n582_same_cohort_probe.json",
+      "n586_zero_contribution_census.json",
+      "n611_tables_missing.json",
+      "n615_flat_hierarchy.json",
+      "n616_text_coverage.json",
+      "n622_attestation_audit.json",
+      "n644_screening_vs_extraction.json",
+      "n664_vocabulary_upper_bound.json",
+      "n667_inscope_without_instrument.json",
+      "n668_scale_identity_elsewhere.json",
+      "n669_decision_register_v3.json",
+      "n670_identifier_index.json"
+    ],
+    "35b1c315c88cd653": [
+      "n535_reading_payload.json",
+      "n541_untitled_reachability.json",
+      "n670_identifier_index.json"
+    ],
+    "38c6412fc97d2ed8": [
+      "n487_version_and_licence.json",
+      "n488_pmcid_to_doi.json",
+      "n496_corpus_verify.json",
+      "n498_sections_integrity.json",
+      "n670_identifier_index.json"
+    ],
+    "38d538c00eea079e": [
+      "n487_version_and_licence.json",
+      "n488_pmcid_to_doi.json",
+      "n496_corpus_verify.json",
+      "n498_sections_integrity.json",
+      "n670_identifier_index.json"
+    ],
+    "39079e90850b4f2b": [
+      "n624_corpus_denominator.json",
+      "n670_identifier_index.json"
+    ],
+    "3ecdcbd448da8a7f": [
+      "n456_pdf_textlayer.json",
+      "n459_grobid_acceptance.json",
+      "n484_tei_registration_dryrun.json",
+      "n485_tei_registration.json",
+      "n486_licence_gap.json",
+      "n489_calibration_versions.json",
+      "n490_published_version_availability.json",
+      "n496_corpus_verify.json",
+      "n498_sections_integrity.json",
+      "n670_identifier_index.json"
+    ],
+    "3f34fc92d4f4b70d": [
+      "n579_request_version_split.json",
+      "n580_study_vs_report.json",
+      "n582_same_cohort_probe.json",
+      "n585_blocked_drafts_errata.json",
+      "n611_tables_missing.json",
+      "n612_parse_tei_root_cause.json",
+      "n613_recoverable_from_tables.json",
+      "n614_table_recovery_qualified.json",
+      "n615_flat_hierarchy.json",
+      "n616_text_coverage.json",
+      "n643_corpus_to_evidence_funnel.json",
+      "n644_screening_vs_extraction.json",
+      "n670_identifier_index.json"
+    ],
+    "40cec6ae96a1d3de": [
+      "n625_corpus_era_bias.json",
+      "n670_identifier_index.json"
+    ],
+    "4103c4b52bbf21e6": [
+      "n579_request_version_split.json",
+      "n582_same_cohort_probe.json",
+      "n586_zero_contribution_census.json",
+      "n587_zero_declared_adjudication.json",
+      "n611_tables_missing.json",
+      "n615_flat_hierarchy.json",
+      "n616_text_coverage.json",
+      "n621_out_of_scope_audit.json",
+      "n622_attestation_audit.json",
+      "n643_corpus_to_evidence_funnel.json",
+      "n644_screening_vs_extraction.json",
+      "n664_vocabulary_upper_bound.json",
+      "n670_identifier_index.json"
+    ],
+    "421064824769eeab": [
+      "n535_reading_payload.json",
+      "n670_identifier_index.json"
+    ],
+    "438c64ce77621b70": [
+      "n493_unprobed_available.json",
+      "n494_alt_oa_round2.json",
+      "n670_identifier_index.json"
+    ],
+    "44243ac624c9b5e0": [
+      "n548_incremental_rounds.json",
+      "n579_request_version_split.json",
+      "n582_same_cohort_probe.json",
+      "n586_zero_contribution_census.json",
+      "n587_zero_declared_adjudication.json",
+      "n611_tables_missing.json",
+      "n615_flat_hierarchy.json",
+      "n616_text_coverage.json",
+      "n622_attestation_audit.json",
+      "n643_corpus_to_evidence_funnel.json",
+      "n644_screening_vs_extraction.json",
+      "n664_vocabulary_upper_bound.json",
+      "n670_identifier_index.json"
+    ],
+    "44ebb4f2358bbf2c": [
+      "n487_version_and_licence.json",
+      "n488_pmcid_to_doi.json",
+      "n496_corpus_verify.json",
+      "n498_sections_integrity.json",
+      "n670_identifier_index.json"
+    ],
+    "48da8a7f2f35af1f": [
+      "n548_incremental_rounds.json",
+      "n579_request_version_split.json",
+      "n580_study_vs_report.json",
+      "n582_same_cohort_probe.json",
+      "n586_zero_contribution_census.json",
+      "n611_tables_missing.json",
+      "n612_parse_tei_root_cause.json",
+      "n613_recoverable_from_tables.json",
+      "n614_table_recovery_qualified.json",
+      "n615_flat_hierarchy.json",
+      "n616_text_coverage.json",
+      "n621_out_of_scope_audit.json",
+      "n622_attestation_audit.json",
+      "n644_screening_vs_extraction.json",
+      "n664_vocabulary_upper_bound.json",
+      "n667_inscope_without_instrument.json",
+      "n668_scale_identity_elsewhere.json",
+      "n669_decision_register_v3.json",
+      "n670_identifier_index.json"
+    ],
+    "4b2be78f294f6d26": [
+      "n535_reading_payload.json",
+      "n541_untitled_reachability.json",
+      "n670_identifier_index.json"
+    ],
+    "4b6ad68ee97e51f4": [
+      "n519_manifest_generation_drift.json",
+      "n670_identifier_index.json"
+    ],
+    "4e70637cdd8a4319": [
+      "n535_reading_payload.json",
+      "n670_identifier_index.json"
+    ],
+    "4e748522828a7cb4": [
+      "n535_reading_payload.json",
+      "n538_tei_crlf_monitor.json",
+      "n541_untitled_reachability.json",
+      "n670_identifier_index.json"
+    ],
+    "4eccbfc6dd5b5237": [
+      "n493_unprobed_available.json",
+      "n494_alt_oa_round2.json",
+      "n670_identifier_index.json"
+    ],
+    "501bb474ac4704fa": [
+      "n548_incremental_rounds.json",
+      "n579_request_version_split.json",
+      "n580_study_vs_report.json",
+      "n582_same_cohort_probe.json",
+      "n586_zero_contribution_census.json",
+      "n611_tables_missing.json",
+      "n615_flat_hierarchy.json",
+      "n616_text_coverage.json",
+      "n622_attestation_audit.json",
+      "n627_dose_proxy_validation.json",
+      "n644_screening_vs_extraction.json",
+      "n664_vocabulary_upper_bound.json",
+      "n670_identifier_index.json"
+    ],
+    "50808c703c1c7c73": [
+      "n535_reading_payload.json",
+      "n538_tei_crlf_monitor.json",
+      "n670_identifier_index.json"
+    ],
+    "50a0233f2bb867b0": [
+      "n535_reading_payload.json",
+      "n538_tei_crlf_monitor.json",
+      "n670_identifier_index.json"
+    ],
+    "5138c93e07fb03ac": [
+      "n493_unprobed_available.json",
+      "n494_alt_oa_round2.json",
+      "n670_identifier_index.json"
+    ],
+    "521c5d3359712b22": [
+      "n624_corpus_denominator.json",
+      "n670_identifier_index.json"
+    ],
+    "54d4200c1c5e2b64": [
+      "n579_request_version_split.json",
+      "n582_same_cohort_probe.json",
+      "n586_zero_contribution_census.json",
+      "n589_dose_not_reported_audit.json",
+      "n609_methods_title_check.json",
+      "n611_tables_missing.json",
+      "n615_flat_hierarchy.json",
+      "n616_text_coverage.json",
+      "n621_out_of_scope_audit.json",
+      "n622_attestation_audit.json",
+      "n643_corpus_to_evidence_funnel.json",
+      "n644_screening_vs_extraction.json",
+      "n646_loss_ledger_by_outcome.json",
+      "n647_recovery_ledger.json",
+      "n664_vocabulary_upper_bound.json",
+      "n665_blocked_gate_depth.json",
+      "n666_blank_field_provenance.json",
+      "n669_decision_register_v3.json",
+      "n670_identifier_index.json"
+    ],
+    "57ef311258a83414": [
+      "n493_unprobed_available.json",
+      "n494_alt_oa_round2.json",
+      "n670_identifier_index.json"
+    ],
+    "58a83414e18036b3": [
+      "n624_corpus_denominator.json",
+      "n670_identifier_index.json"
+    ],
+    "59b4558a37f28bc9": [
+      "n548_incremental_rounds.json",
+      "n579_request_version_split.json",
+      "n582_same_cohort_probe.json",
+      "n586_zero_contribution_census.json",
+      "n611_tables_missing.json",
+      "n615_flat_hierarchy.json",
+      "n616_text_coverage.json",
+      "n622_attestation_audit.json",
+      "n627_dose_proxy_validation.json",
+      "n644_screening_vs_extraction.json",
+      "n664_vocabulary_upper_bound.json",
+      "n667_inscope_without_instrument.json",
+      "n668_scale_identity_elsewhere.json",
+      "n669_decision_register_v3.json",
+      "n670_identifier_index.json"
+    ],
+    "5a94f3888c919129": [
+      "n519_manifest_generation_drift.json",
+      "n670_identifier_index.json"
+    ],
+    "5b012423d8b0be0b": [
+      "n535_reading_payload.json",
+      "n541_untitled_reachability.json",
+      "n670_identifier_index.json"
+    ],
+    "5d84a17e2c347de7": [
+      "n624_corpus_denominator.json",
+      "n670_identifier_index.json"
+    ],
+    "5dc3cc50f10741dd": [
+      "n519_manifest_generation_drift.json",
+      "n670_identifier_index.json"
+    ],
+    "5fc69308696a1c03": [
+      "n535_reading_payload.json",
+      "n670_identifier_index.json"
+    ],
+    "608b0b6031daa098": [
+      "n493_unprobed_available.json",
+      "n494_alt_oa_round2.json",
+      "n670_identifier_index.json"
+    ],
+    "63a6d1c092183b48": [
+      "n493_unprobed_available.json",
+      "n494_alt_oa_round2.json",
+      "n670_identifier_index.json"
+    ],
+    "65d459b9129da800": [
+      "n548_incremental_rounds.json",
+      "n579_request_version_split.json",
+      "n580_study_vs_report.json",
+      "n582_same_cohort_probe.json",
+      "n585_blocked_drafts_errata.json",
+      "n587_zero_declared_adjudication.json",
+      "n611_tables_missing.json",
+      "n615_flat_hierarchy.json",
+      "n616_text_coverage.json",
+      "n643_corpus_to_evidence_funnel.json",
+      "n644_screening_vs_extraction.json",
+      "n670_identifier_index.json"
+    ],
+    "65dd82a89b2c5340": [
+      "n548_incremental_rounds.json",
+      "n579_request_version_split.json",
+      "n580_study_vs_report.json",
+      "n582_same_cohort_probe.json",
+      "n586_zero_contribution_census.json",
+      "n598_source_section_no_result.json",
+      "n608_fourth_double_read.json",
+      "n609_methods_title_check.json",
+      "n611_tables_missing.json",
+      "n612_parse_tei_root_cause.json",
+      "n613_recoverable_from_tables.json",
+      "n614_table_recovery_qualified.json",
+      "n615_flat_hierarchy.json",
+      "n616_text_coverage.json",
+      "n622_attestation_audit.json",
+      "n627_dose_proxy_validation.json",
+      "n641_double_read_state.json",
+      "n644_screening_vs_extraction.json",
+      "n664_vocabulary_upper_bound.json",
+      "n667_inscope_without_instrument.json",
+      "n668_scale_identity_elsewhere.json",
+      "n669_decision_register_v3.json",
+      "n670_identifier_index.json"
+    ],
+    "66b408b0f85932c0": [
+      "n493_unprobed_available.json",
+      "n494_alt_oa_round2.json",
+      "n670_identifier_index.json"
+    ],
+    "66e16f089f1522d1": [
+      "n579_request_version_split.json",
+      "n582_same_cohort_probe.json",
+      "n586_zero_contribution_census.json",
+      "n611_tables_missing.json",
+      "n615_flat_hierarchy.json",
+      "n616_text_coverage.json",
+      "n622_attestation_audit.json",
+      "n644_screening_vs_extraction.json",
+      "n654_registry_linkage.json",
+      "n664_vocabulary_upper_bound.json",
+      "n667_inscope_without_instrument.json",
+      "n668_scale_identity_elsewhere.json",
+      "n669_decision_register_v3.json",
+      "n670_identifier_index.json"
+    ],
+    "68a04090b746be6d": [
+      "n535_reading_payload.json",
+      "n670_identifier_index.json"
+    ],
+    "68b1b2f9ce594d6c": [
+      "n624_corpus_denominator.json",
+      "n670_identifier_index.json"
+    ],
+    "69e040d16b7320d7": [
+      "n456_pdf_textlayer.json",
+      "n459_grobid_acceptance.json",
+      "n484_tei_registration_dryrun.json",
+      "n485_tei_registration.json",
+      "n486_licence_gap.json",
+      "n489_calibration_versions.json",
+      "n490_published_version_availability.json",
+      "n496_corpus_verify.json",
+      "n498_sections_integrity.json",
+      "n670_identifier_index.json"
+    ],
+    "6b7320d74cdda857": [
+      "n579_request_version_split.json",
+      "n580_study_vs_report.json",
+      "n582_same_cohort_probe.json",
+      "n586_zero_contribution_census.json",
+      "n611_tables_missing.json",
+      "n612_parse_tei_root_cause.json",
+      "n613_recoverable_from_tables.json",
+      "n615_flat_hierarchy.json",
+      "n616_text_coverage.json",
+      "n622_attestation_audit.json",
+      "n644_screening_vs_extraction.json",
+      "n664_vocabulary_upper_bound.json",
+      "n667_inscope_without_instrument.json",
+      "n668_scale_identity_elsewhere.json",
+      "n669_decision_register_v3.json",
+      "n670_identifier_index.json"
+    ],
+    "6bf801689a8621c0": [
+      "n535_reading_payload.json",
+      "n541_untitled_reachability.json",
+      "n670_identifier_index.json"
+    ],
+    "742f1c1d44243ac6": [
+      "n487_version_and_licence.json",
+      "n488_pmcid_to_doi.json",
+      "n496_corpus_verify.json",
+      "n498_sections_integrity.json",
+      "n670_identifier_index.json"
+    ],
+    "762bd90aa5f4d62b": [
+      "n535_reading_payload.json",
+      "n538_tei_crlf_monitor.json",
+      "n670_identifier_index.json"
+    ],
+    "769c71fae4871d50": [
+      "n487_version_and_licence.json",
+      "n488_pmcid_to_doi.json",
+      "n496_corpus_verify.json",
+      "n498_sections_integrity.json",
+      "n670_identifier_index.json"
+    ],
+    "76df6297501bb474": [
+      "n487_version_and_licence.json",
+      "n488_pmcid_to_doi.json",
+      "n489_calibration_versions.json",
+      "n496_corpus_verify.json",
+      "n498_sections_integrity.json",
+      "n670_identifier_index.json"
+    ],
+    "77621b70399b246f": [
+      "n624_corpus_denominator.json",
+      "n670_identifier_index.json"
+    ],
+    "7902e3ec54370729": [
+      "n579_request_version_split.json",
+      "n580_study_vs_report.json",
+      "n582_same_cohort_probe.json",
+      "n586_zero_contribution_census.json",
+      "n611_tables_missing.json",
+      "n612_parse_tei_root_cause.json",
+      "n613_recoverable_from_tables.json",
+      "n615_flat_hierarchy.json",
+      "n616_text_coverage.json",
+      "n621_out_of_scope_audit.json",
+      "n622_attestation_audit.json",
+      "n633_gi_scale_heterogeneity.json",
+      "n644_screening_vs_extraction.json",
+      "n664_vocabulary_upper_bound.json",
+      "n667_inscope_without_instrument.json",
+      "n668_scale_identity_elsewhere.json",
+      "n669_decision_register_v3.json",
+      "n670_identifier_index.json"
+    ],
+    "79503020d89e7ccf": [
+      "n624_corpus_denominator.json",
+      "n670_identifier_index.json"
+    ],
+    "7a6ac1559c740fd6": [
+      "n548_incremental_rounds.json",
+      "n574_instrument_exclusions.json",
+      "n579_request_version_split.json",
+      "n580_study_vs_report.json",
+      "n582_same_cohort_probe.json",
+      "n584_thesis_and_hidden_duplicate.json",
+      "n585_blocked_drafts_errata.json",
+      "n586_zero_contribution_census.json",
+      "n595_second_read_invisible.json",
+      "n596_allocation_replicates.json",
+      "n611_tables_missing.json",
+      "n612_parse_tei_root_cause.json",
+      "n613_recoverable_from_tables.json",
+      "n615_flat_hierarchy.json",
+      "n616_text_coverage.json",
+      "n620_cohort_match_null.json",
+      "n622_attestation_audit.json",
+      "n628_evidence_thinness.json",
+      "n637_prose_numbers.json",
+      "n641_double_read_state.json",
+      "n642_double_read_sample.json",
+      "n643_corpus_to_evidence_funnel.json",
+      "n644_screening_vs_extraction.json",
+      "n646_loss_ledger_by_outcome.json",
+      "n647_recovery_ledger.json",
+      "n662_double_read_fields.json",
+      "n663_reader_vocabulary.json",
+      "n664_vocabulary_upper_bound.json",
+      "n665_blocked_gate_depth.json",
+      "n669_decision_register_v3.json",
+      "n670_identifier_index.json"
+    ],
+    "7a97713bf254fa26": [
+      "n548_incremental_rounds.json",
+      "n579_request_version_split.json",
+      "n580_study_vs_report.json",
+      "n582_same_cohort_probe.json",
+      "n586_zero_contribution_census.json",
+      "n611_tables_missing.json",
+      "n615_flat_hierarchy.json",
+      "n616_text_coverage.json",
+      "n622_attestation_audit.json",
+      "n644_screening_vs_extraction.json",
+      "n664_vocabulary_upper_bound.json",
+      "n667_inscope_without_instrument.json",
+      "n668_scale_identity_elsewhere.json",
+      "n669_decision_register_v3.json",
+      "n670_identifier_index.json"
+    ],
+    "7bc2c46bd4251685": [
+      "n487_version_and_licence.json",
+      "n488_pmcid_to_doi.json",
+      "n489_calibration_versions.json",
+      "n496_corpus_verify.json",
+      "n498_sections_integrity.json",
+      "n670_identifier_index.json"
+    ],
+    "7c5800be8a62d501": [
+      "n487_version_and_licence.json",
+      "n488_pmcid_to_doi.json",
+      "n496_corpus_verify.json",
+      "n498_sections_integrity.json",
+      "n670_identifier_index.json"
+    ],
+    "7dec3f4066e16f08": [
+      "n487_version_and_licence.json",
+      "n488_pmcid_to_doi.json",
+      "n496_corpus_verify.json",
+      "n498_sections_integrity.json",
+      "n670_identifier_index.json"
+    ],
+    "7eef56b17a6ac155": [
+      "n459_grobid_acceptance.json",
+      "n484_tei_registration_dryrun.json",
+      "n485_tei_registration.json",
+      "n486_licence_gap.json",
+      "n489_calibration_versions.json",
+      "n496_corpus_verify.json",
+      "n498_sections_integrity.json",
+      "n670_identifier_index.json"
+    ],
+    "82cbc04b68c38e79": [
+      "n579_request_version_split.json",
+      "n582_same_cohort_probe.json",
+      "n586_zero_contribution_census.json",
+      "n589_dose_not_reported_audit.json",
+      "n611_tables_missing.json",
+      "n612_parse_tei_root_cause.json",
+      "n613_recoverable_from_tables.json",
+      "n615_flat_hierarchy.json",
+      "n616_text_coverage.json",
+      "n621_out_of_scope_audit.json",
+      "n622_attestation_audit.json",
+      "n643_corpus_to_evidence_funnel.json",
+      "n644_screening_vs_extraction.json",
+      "n646_loss_ledger_by_outcome.json",
+      "n647_recovery_ledger.json",
+      "n664_vocabulary_upper_bound.json",
+      "n665_blocked_gate_depth.json",
+      "n666_blank_field_provenance.json",
+      "n669_decision_register_v3.json",
+      "n670_identifier_index.json"
+    ],
+    "82e1975d7c2bf4df": [
+      "n625_corpus_era_bias.json",
+      "n670_identifier_index.json"
+    ],
+    "834de4d822dfb3cd": [
+      "n579_request_version_split.json",
+      "n580_study_vs_report.json",
+      "n582_same_cohort_probe.json",
+      "n586_zero_contribution_census.json",
+      "n609_methods_title_check.json",
+      "n611_tables_missing.json",
+      "n615_flat_hierarchy.json",
+      "n616_text_coverage.json",
+      "n622_attestation_audit.json",
+      "n644_screening_vs_extraction.json",
+      "n664_vocabulary_upper_bound.json",
+      "n667_inscope_without_instrument.json",
+      "n668_scale_identity_elsewhere.json",
+      "n669_decision_register_v3.json",
+      "n670_identifier_index.json"
+    ],
+    "85855b5e7a97713b": [
+      "n487_version_and_licence.json",
+      "n488_pmcid_to_doi.json",
+      "n489_calibration_versions.json",
+      "n496_corpus_verify.json",
+      "n498_sections_integrity.json",
+      "n670_identifier_index.json"
+    ],
+    "85e0e186b9ab2f27": [
+      "n487_version_and_licence.json",
+      "n488_pmcid_to_doi.json",
+      "n496_corpus_verify.json",
+      "n498_sections_integrity.json",
+      "n670_identifier_index.json"
+    ],
+    "861b4a2965d459b9": [
+      "n487_version_and_licence.json",
+      "n488_pmcid_to_doi.json",
+      "n496_corpus_verify.json",
+      "n498_sections_integrity.json",
+      "n670_identifier_index.json"
+    ],
+    "86d45bdea1e7ca2b": [
+      "n535_reading_payload.json",
+      "n670_identifier_index.json"
+    ],
+    "86e6a580108fd94b": [
+      "n547_varied_shapes.json",
+      "n579_request_version_split.json",
+      "n582_same_cohort_probe.json",
+      "n586_zero_contribution_census.json",
+      "n611_tables_missing.json",
+      "n615_flat_hierarchy.json",
+      "n616_text_coverage.json",
+      "n622_attestation_audit.json",
+      "n627_dose_proxy_validation.json",
+      "n644_screening_vs_extraction.json",
+      "n663_reader_vocabulary.json",
+      "n664_vocabulary_upper_bound.json",
+      "n667_inscope_without_instrument.json",
+      "n668_scale_identity_elsewhere.json",
+      "n669_decision_register_v3.json",
+      "n670_identifier_index.json"
+    ],
+    "88747fa53f34fc92": [
+      "n459_grobid_acceptance.json",
+      "n484_tei_registration_dryrun.json",
+      "n485_tei_registration.json",
+      "n486_licence_gap.json",
+      "n489_calibration_versions.json",
+      "n496_corpus_verify.json",
+      "n498_sections_integrity.json",
+      "n523_s56_version_with_backfill.json",
+      "n670_identifier_index.json"
+    ],
+    "89e1a723c3028a8a": [
+      "n456_pdf_textlayer.json",
+      "n459_grobid_acceptance.json",
+      "n484_tei_registration_dryrun.json",
+      "n485_tei_registration.json",
+      "n486_licence_gap.json",
+      "n489_calibration_versions.json",
+      "n490_published_version_availability.json",
+      "n496_corpus_verify.json",
+      "n498_sections_integrity.json",
+      "n670_identifier_index.json"
+    ],
+    "8a62d501f88c7d04": [
+      "n548_incremental_rounds.json",
+      "n579_request_version_split.json",
+      "n582_same_cohort_probe.json",
+      "n586_zero_contribution_census.json",
+      "n611_tables_missing.json",
+      "n615_flat_hierarchy.json",
+      "n616_text_coverage.json",
+      "n622_attestation_audit.json",
+      "n644_screening_vs_extraction.json",
+      "n646_loss_ledger_by_outcome.json",
+      "n647_recovery_ledger.json",
+      "n664_vocabulary_upper_bound.json",
+      "n665_blocked_gate_depth.json",
+      "n667_inscope_without_instrument.json",
+      "n668_scale_identity_elsewhere.json",
+      "n669_decision_register_v3.json",
+      "n670_identifier_index.json"
+    ],
+    "8a8d5efcf6a82302": [
+      "n487_version_and_licence.json",
+      "n488_pmcid_to_doi.json",
+      "n496_corpus_verify.json",
+      "n498_sections_integrity.json",
+      "n670_identifier_index.json"
+    ],
+    "8d9e152de8d48c04": [
+      "n487_version_and_licence.json",
+      "n488_pmcid_to_doi.json",
+      "n496_corpus_verify.json",
+      "n498_sections_integrity.json",
+      "n670_identifier_index.json"
+    ],
+    "8dd0f644a9012191": [
+      "n459_grobid_acceptance.json",
+      "n484_tei_registration_dryrun.json",
+      "n485_tei_registration.json",
+      "n487_version_and_licence.json",
+      "n496_corpus_verify.json",
+      "n498_sections_integrity.json",
+      "n670_identifier_index.json"
+    ],
+    "8f4d886ad52e2d46": [
+      "n535_reading_payload.json",
+      "n670_identifier_index.json"
+    ],
+    "92183b4870ab6c46": [
+      "n624_corpus_denominator.json",
+      "n670_identifier_index.json"
+    ],
+    "9454731aad7c0004": [
+      "n459_grobid_acceptance.json",
+      "n484_tei_registration_dryrun.json",
+      "n485_tei_registration.json",
+      "n487_version_and_licence.json",
+      "n496_corpus_verify.json",
+      "n498_sections_integrity.json",
+      "n670_identifier_index.json"
+    ],
+    "97c2233f7e60c801": [
+      "n548_incremental_rounds.json",
+      "n579_request_version_split.json",
+      "n582_same_cohort_probe.json",
+      "n586_zero_contribution_census.json",
+      "n587_zero_declared_adjudication.json",
+      "n609_methods_title_check.json",
+      "n611_tables_missing.json",
+      "n615_flat_hierarchy.json",
+      "n616_text_coverage.json",
+      "n621_out_of_scope_audit.json",
+      "n622_attestation_audit.json",
+      "n643_corpus_to_evidence_funnel.json",
+      "n644_screening_vs_extraction.json",
+      "n664_vocabulary_upper_bound.json",
+      "n670_identifier_index.json"
+    ],
+    "98fe85bec4128a6f": [
+      "n456_pdf_textlayer.json",
+      "n459_grobid_acceptance.json",
+      "n484_tei_registration_dryrun.json",
+      "n485_tei_registration.json",
+      "n486_licence_gap.json",
+      "n489_calibration_versions.json",
+      "n490_published_version_availability.json",
+      "n496_corpus_verify.json",
+      "n498_sections_integrity.json",
+      "n670_identifier_index.json"
+    ],
+    "9929830874415257": [
+      "n670_identifier_index.json",
+      "n78_termination_evidence.json"
+    ],
+    "99f5af0f27301773": [
+      "n535_reading_payload.json",
+      "n538_tei_crlf_monitor.json",
+      "n541_untitled_reachability.json",
+      "n670_identifier_index.json"
+    ],
+    "99fedcef3babb7cc": [
+      "n519_manifest_generation_drift.json",
+      "n670_identifier_index.json"
+    ],
+    "9a3b03b4fb24cf65": [
+      "n574_instrument_exclusions.json",
+      "n579_request_version_split.json",
+      "n580_study_vs_report.json",
+      "n582_same_cohort_probe.json",
+      "n585_blocked_drafts_errata.json",
+      "n586_zero_contribution_census.json",
+      "n611_tables_missing.json",
+      "n615_flat_hierarchy.json",
+      "n616_text_coverage.json",
+      "n621_out_of_scope_audit.json",
+      "n622_attestation_audit.json",
+      "n644_screening_vs_extraction.json",
+      "n646_loss_ledger_by_outcome.json",
+      "n647_recovery_ledger.json",
+      "n664_vocabulary_upper_bound.json",
+      "n665_blocked_gate_depth.json",
+      "n667_inscope_without_instrument.json",
+      "n668_scale_identity_elsewhere.json",
+      "n669_decision_register_v3.json",
+      "n670_identifier_index.json"
+    ],
+    "9d5770f512d8271f": [
+      "n519_manifest_generation_drift.json",
+      "n670_identifier_index.json"
+    ],
+    "a-study-name-0123456789abcdef": [
+      "n496_corpus_verify.json",
+      "n670_identifier_index.json"
+    ],
+    "a103783d5231cfec": [
+      "n624_corpus_denominator.json",
+      "n670_identifier_index.json"
+    ],
+    "a271f7dfc7c5e4ba": [
+      "n625_corpus_era_bias.json",
+      "n670_identifier_index.json"
+    ],
+    "a3-first-measurement": [
+      "n594_a3_first_measurement.json",
+      "n670_identifier_index.json"
+    ],
+    "a32397909a3b03b4": [
+      "n487_version_and_licence.json",
+      "n488_pmcid_to_doi.json",
+      "n496_corpus_verify.json",
+      "n498_sections_integrity.json",
+      "n670_identifier_index.json"
+    ],
+    "a4bbe8aa65dd82a8": [
+      "n459_grobid_acceptance.json",
+      "n484_tei_registration_dryrun.json",
+      "n485_tei_registration.json",
+      "n487_version_and_licence.json",
+      "n496_corpus_verify.json",
+      "n498_sections_integrity.json",
+      "n524_gi_published_availability.json",
+      "n670_identifier_index.json"
+    ],
+    "a6ce9c92c7454a7c": [
+      "n579_request_version_split.json",
+      "n582_same_cohort_probe.json",
+      "n586_zero_contribution_census.json",
+      "n589_dose_not_reported_audit.json",
+      "n611_tables_missing.json",
+      "n615_flat_hierarchy.json",
+      "n616_text_coverage.json",
+      "n622_attestation_audit.json",
+      "n643_corpus_to_evidence_funnel.json",
+      "n644_screening_vs_extraction.json",
+      "n646_loss_ledger_by_outcome.json",
+      "n647_recovery_ledger.json",
+      "n664_vocabulary_upper_bound.json",
+      "n665_blocked_gate_depth.json",
+      "n666_blank_field_provenance.json",
+      "n669_decision_register_v3.json",
+      "n670_identifier_index.json"
+    ],
+    "a7b3ea1f7160ac10": [
+      "n535_reading_payload.json",
+      "n538_tei_crlf_monitor.json",
+      "n670_identifier_index.json"
+    ],
+    "a9012191142e7e02": [
+      "n579_request_version_split.json",
+      "n580_study_vs_report.json",
+      "n582_same_cohort_probe.json",
+      "n586_zero_contribution_census.json",
+      "n596_allocation_replicates.json",
+      "n609_methods_title_check.json",
+      "n611_tables_missing.json",
+      "n612_parse_tei_root_cause.json",
+      "n613_recoverable_from_tables.json",
+      "n615_flat_hierarchy.json",
+      "n616_text_coverage.json",
+      "n622_attestation_audit.json",
+      "n641_double_read_state.json",
+      "n642_double_read_sample.json",
+      "n644_screening_vs_extraction.json",
+      "n662_double_read_fields.json",
+      "n664_vocabulary_upper_bound.json",
+      "n667_inscope_without_instrument.json",
+      "n668_scale_identity_elsewhere.json",
+      "n669_decision_register_v3.json",
+      "n670_identifier_index.json"
+    ],
+    "a91e4efb7f5b57b7": [
+      "n535_reading_payload.json",
+      "n541_untitled_reachability.json",
+      "n670_identifier_index.json"
+    ],
+    "absent-vs-null-axis-audit": [
+      "n591_absent_vs_null_axis.json",
+      "n670_identifier_index.json"
+    ],
+    "abstract-only-likely": [
+      "n450_landing_survey.json",
+      "n670_identifier_index.json"
+    ],
+    "acid-hydrolysis-freeze-dried-biopsy": [
+      "n574_instrument_exclusions.json",
+      "n585_blocked_drafts_errata.json",
+      "n594_a3_first_measurement.json",
+      "n662_double_read_fields.json",
+      "n663_reader_vocabulary.json",
+      "n669_decision_register_v3.json",
+      "n670_identifier_index.json"
+    ],
+    "acquired-corpus-verification": [
+      "n496_corpus_verify.json",
+      "n670_identifier_index.json"
+    ],
+    "acquired-source-host-provenance": [
+      "n512_source_host_provenance.json",
+      "n670_identifier_index.json"
+    ],
+    "acquisition-effort-facts": [
+      "n528_acquisition_effort_facts.json",
+      "n670_identifier_index.json"
+    ],
+    "ad4b0994a103783d": [
+      "n493_unprobed_available.json",
+      "n494_alt_oa_round2.json",
+      "n670_identifier_index.json"
+    ],
+    "ad7c0004c386f31c": [
+      "n579_request_version_split.json",
+      "n580_study_vs_report.json",
+      "n582_same_cohort_probe.json",
+      "n586_zero_contribution_census.json",
+      "n589_dose_not_reported_audit.json",
+      "n611_tables_missing.json",
+      "n612_parse_tei_root_cause.json",
+      "n613_recoverable_from_tables.json",
+      "n615_flat_hierarchy.json",
+      "n616_text_coverage.json",
+      "n622_attestation_audit.json",
+      "n643_corpus_to_evidence_funnel.json",
+      "n644_screening_vs_extraction.json",
+      "n646_loss_ledger_by_outcome.json",
+      "n647_recovery_ledger.json",
+      "n664_vocabulary_upper_bound.json",
+      "n665_blocked_gate_depth.json",
+      "n666_blank_field_provenance.json",
+      "n669_decision_register_v3.json",
+      "n670_identifier_index.json"
+    ],
+    "aeb7ae224b5a2341": [
+      "n535_reading_payload.json",
+      "n538_tei_crlf_monitor.json",
+      "n541_untitled_reachability.json",
+      "n670_identifier_index.json"
+    ],
+    "allocation-disagreement-replicates": [
+      "n596_allocation_replicates.json",
+      "n670_identifier_index.json"
+    ],
+    "allowed-instrument-reports-power": [
+      "n587_zero_declared_adjudication.json",
+      "n670_identifier_index.json"
+    ],
+    "alternative-oa-locations": [
+      "n477_alt_oa_locations.json",
+      "n670_identifier_index.json"
+    ],
+    "alternative-oa-locations-second-pass": [
+      "n494_alt_oa_round2.json",
+      "n670_identifier_index.json"
+    ],
+    "analysis-set-not-in-scope": [
+      "n639_decision_space_coverage.json",
+      "n640_branch_reachability.json",
+      "n670_identifier_index.json"
+    ],
+    "anchor-source-label-errata": [
+      "n670_identifier_index.json",
+      "n82_anchor_source_errata.json"
+    ],
+    "animal-signal-review": [
+      "n670_identifier_index.json",
+      "n94_three_lane_reconcile.json"
+    ],
+    "apnm-2015-0491": [
+      "n510_licence_second_source.json",
+      "n670_identifier_index.json"
+    ],
+    "apnm-2017-0361": [
+      "n510_licence_second_source.json",
+      "n670_identifier_index.json"
+    ],
+    "apnm-2017-0777": [
+      "n510_licence_second_source.json",
+      "n670_identifier_index.json"
+    ],
+    "apnm-2018-0853": [
+      "n49_sample.json",
+      "n670_identifier_index.json"
+    ],
+    "apnm-2019-0802": [
+      "n510_licence_second_source.json",
+      "n670_identifier_index.json"
+    ],
+    "audit-debt-item-provenance": [
+      "n107_pilot_provenance.json",
+      "n670_identifier_index.json"
+    ],
+    "audit-debt-source-location": [
+      "n670_identifier_index.json",
+      "n92_audit_debt_sources.json"
+    ],
+    "audit-debt-union": [
+      "n670_identifier_index.json",
+      "n92_audit_debt_union.json"
+    ],
+    "author-screen-null": [
+      "n618_author_screen_null.json",
+      "n670_identifier_index.json"
+    ],
+    "available-landing-page": [
+      "n438_fulltext_route.json",
+      "n439_route_cost.json",
+      "n450_landing_survey.json",
+      "n484_tei_registration_dryrun.json",
+      "n485_tei_registration.json",
+      "n493_unprobed_available.json",
+      "n494_alt_oa_round2.json",
+      "n624_corpus_denominator.json",
+      "n670_identifier_index.json"
+    ],
+    "b0042b27bfd49070": [
+      "n535_reading_payload.json",
+      "n538_tei_crlf_monitor.json",
+      "n541_untitled_reachability.json",
+      "n670_identifier_index.json"
+    ],
+    "b11-exogenous-cho-endurance": [
+      "n535_reading_payload.json",
+      "n537_chain_rehearsal.json",
+      "n670_identifier_index.json",
+      "n78_termination_evidence.json"
+    ],
+    "b11-full-run": [
+      "n440_not_screened.json",
+      "n670_identifier_index.json"
+    ],
+    "b1eeb9c554d4200c": [
+      "n487_version_and_licence.json",
+      "n488_pmcid_to_doi.json",
+      "n496_corpus_verify.json",
+      "n498_sections_integrity.json",
+      "n670_identifier_index.json"
+    ],
+    "b35fab9217289437": [
+      "n535_reading_payload.json",
+      "n538_tei_crlf_monitor.json",
+      "n670_identifier_index.json"
+    ],
+    "b4ccdd9a461bf3eb": [
+      "n625_corpus_era_bias.json",
+      "n670_identifier_index.json"
+    ],
+    "b9ab2f27317a6a2b": [
+      "n579_request_version_split.json",
+      "n582_same_cohort_probe.json",
+      "n586_zero_contribution_census.json",
+      "n587_zero_declared_adjudication.json",
+      "n611_tables_missing.json",
+      "n615_flat_hierarchy.json",
+      "n616_text_coverage.json",
+      "n621_out_of_scope_audit.json",
+      "n622_attestation_audit.json",
+      "n643_corpus_to_evidence_funnel.json",
+      "n644_screening_vs_extraction.json",
+      "n664_vocabulary_upper_bound.json",
+      "n670_identifier_index.json"
+    ],
+    "batch-quality-gate": [
+      "n545_downstream_edge.json",
+      "n670_identifier_index.json"
+    ],
+    "bb3fb662b555cd48": [
+      "n519_manifest_generation_drift.json",
+      "n670_identifier_index.json"
+    ],
+    "bb8f0500e5a8afbe": [
+      "n538_tei_crlf_monitor.json",
+      "n670_identifier_index.json"
+    ],
+    "bbbbbbbbbbbbbbbb": [
+      "n525_id_key_conventions.json",
+      "n670_identifier_index.json"
+    ],
+    "bd9995f482cbc04b": [
+      "n456_pdf_textlayer.json",
+      "n459_grobid_acceptance.json",
+      "n484_tei_registration_dryrun.json",
+      "n485_tei_registration.json",
+      "n487_version_and_licence.json",
+      "n496_corpus_verify.json",
+      "n498_sections_integrity.json",
+      "n670_identifier_index.json"
+    ],
+    "bf4f8f5a11055379": [
+      "n456_pdf_textlayer.json",
+      "n459_grobid_acceptance.json",
+      "n484_tei_registration_dryrun.json",
+      "n485_tei_registration.json",
+      "n486_licence_gap.json",
+      "n489_calibration_versions.json",
+      "n490_published_version_availability.json",
+      "n496_corpus_verify.json",
+      "n498_sections_integrity.json",
+      "n670_identifier_index.json"
+    ],
+    "bf857c94bbf82b34": [
+      "n535_reading_payload.json",
+      "n538_tei_crlf_monitor.json",
+      "n670_identifier_index.json"
+    ],
+    "bfc01fa20cfceb6c": [
+      "n487_version_and_licence.json",
+      "n488_pmcid_to_doi.json",
+      "n496_corpus_verify.json",
+      "n498_sections_integrity.json",
+      "n670_identifier_index.json"
+    ],
+    "binding-integrity-audit": [
+      "n630_binding_integrity.json",
+      "n670_identifier_index.json"
+    ],
+    "blank-field-provenance": [
+      "n666_blank_field_provenance.json",
+      "n670_identifier_index.json"
+    ],
+    "blank-is-correct": [
+      "n589_dose_not_reported_audit.json",
+      "n670_identifier_index.json"
+    ],
+    "blocked-cell-review": [
+      "n507_blocked_cells_review.json",
+      "n670_identifier_index.json"
+    ],
+    "blocked-drafts-errata": [
+      "n585_blocked_drafts_errata.json",
+      "n670_identifier_index.json"
+    ],
+    "blocked-item-gate-depth": [
+      "n665_blocked_gate_depth.json",
+      "n670_identifier_index.json"
+    ],
+    "blocked-or-error": [
+      "n450_landing_survey.json",
+      "n670_identifier_index.json"
+    ],
+    "board-sourced-placeholder-audit": [
+      "n441_board_sourced.json",
+      "n670_identifier_index.json"
+    ],
+    "c3028a8a7b1ae2a1": [
+      "n548_incremental_rounds.json",
+      "n579_request_version_split.json",
+      "n582_same_cohort_probe.json",
+      "n586_zero_contribution_census.json",
+      "n611_tables_missing.json",
+      "n612_parse_tei_root_cause.json",
+      "n613_recoverable_from_tables.json",
+      "n614_table_recovery_qualified.json",
+      "n615_flat_hierarchy.json",
+      "n616_text_coverage.json",
+      "n621_out_of_scope_audit.json",
+      "n622_attestation_audit.json",
+      "n625_corpus_era_bias.json",
+      "n643_corpus_to_evidence_funnel.json",
+      "n644_screening_vs_extraction.json",
+      "n646_loss_ledger_by_outcome.json",
+      "n647_recovery_ledger.json",
+      "n664_vocabulary_upper_bound.json",
+      "n665_blocked_gate_depth.json",
+      "n666_blank_field_provenance.json",
+      "n669_decision_register_v3.json",
+      "n670_identifier_index.json"
+    ],
+    "c380c744307c0dd5": [
+      "n456_pdf_textlayer.json",
+      "n459_grobid_acceptance.json",
+      "n484_tei_registration_dryrun.json",
+      "n485_tei_registration.json",
+      "n487_version_and_licence.json",
+      "n496_corpus_verify.json",
+      "n498_sections_integrity.json",
+      "n670_identifier_index.json"
+    ],
+    "c4128a6f6dd2c0b5": [
+      "n548_incremental_rounds.json",
+      "n579_request_version_split.json",
+      "n580_study_vs_report.json",
+      "n582_same_cohort_probe.json",
+      "n586_zero_contribution_census.json",
+      "n590_source_location_audit.json",
+      "n609_methods_title_check.json",
+      "n611_tables_missing.json",
+      "n612_parse_tei_root_cause.json",
+      "n613_recoverable_from_tables.json",
+      "n615_flat_hierarchy.json",
+      "n616_text_coverage.json",
+      "n622_attestation_audit.json",
+      "n643_corpus_to_evidence_funnel.json",
+      "n644_screening_vs_extraction.json",
+      "n646_loss_ledger_by_outcome.json",
+      "n647_recovery_ledger.json",
+      "n664_vocabulary_upper_bound.json",
+      "n665_blocked_gate_depth.json",
+      "n666_blank_field_provenance.json",
+      "n669_decision_register_v3.json",
+      "n670_identifier_index.json"
+    ],
+    "c43263cb1863896c": [
+      "n535_reading_payload.json",
+      "n670_identifier_index.json"
+    ],
+    "c512422dd4149a8b": [
+      "n487_version_and_licence.json",
+      "n488_pmcid_to_doi.json",
+      "n496_corpus_verify.json",
+      "n498_sections_integrity.json",
+      "n670_identifier_index.json"
+    ],
+    "c7f005ead37a46ff": [
+      "n535_reading_payload.json",
+      "n670_identifier_index.json"
+    ],
+    "c8fea0895d84a17e": [
+      "n493_unprobed_available.json",
+      "n494_alt_oa_round2.json",
+      "n670_identifier_index.json"
+    ],
+    "c97d2ed84b0d1057": [
+      "n579_request_version_split.json",
+      "n582_same_cohort_probe.json",
+      "n586_zero_contribution_census.json",
+      "n587_zero_declared_adjudication.json",
+      "n611_tables_missing.json",
+      "n615_flat_hierarchy.json",
+      "n616_text_coverage.json",
+      "n622_attestation_audit.json",
+      "n643_corpus_to_evidence_funnel.json",
+      "n644_screening_vs_extraction.json",
+      "n664_vocabulary_upper_bound.json",
+      "n670_identifier_index.json"
+    ],
+    "calibration-draw-reproduction": [
+      "n499_calibration_redraw.json",
+      "n670_identifier_index.json"
+    ],
+    "calibration-fulltext-route-analysis": [
+      "n438_fulltext_route.json",
+      "n670_identifier_index.json"
+    ],
+    "calibration-plus-backfill": [
+      "n496_corpus_verify.json",
+      "n498_sections_integrity.json",
+      "n526_no_oa_locations_recheck.json",
+      "n527_incomplete_record_closeout.json",
+      "n670_identifier_index.json"
+    ],
+    "calibration-set-version-distribution": [
+      "n489_calibration_versions.json",
+      "n670_identifier_index.json"
+    ],
+    "cap-paths-divergence": [
+      "n593_cap_paths_diverge.json",
+      "n670_identifier_index.json"
+    ],
+    "cap-paths-executed": [
+      "n638_cap_paths_executed.json",
+      "n670_identifier_index.json"
+    ],
+    "cc-by-nc": [
+      "n505_licence_completion.json",
+      "n511_datacite_licence.json",
+      "n670_identifier_index.json"
+    ],
+    "cc-by-nc-3": [
+      "n511_datacite_licence.json",
+      "n670_identifier_index.json"
+    ],
+    "cc-by-nc-nd": [
+      "n487_version_and_licence.json",
+      "n505_licence_completion.json",
+      "n670_identifier_index.json"
+    ],
+    "cc-by-nd": [
+      "n505_licence_completion.json",
+      "n670_identifier_index.json"
+    ],
+    "cc-by-sa": [
+      "n486_licence_gap.json",
+      "n505_licence_completion.json",
+      "n670_identifier_index.json"
+    ],
+    "cd1e43154103c4b5": [
+      "n487_version_and_licence.json",
+      "n488_pmcid_to_doi.json",
+      "n496_corpus_verify.json",
+      "n498_sections_integrity.json",
+      "n670_identifier_index.json"
+    ],
+    "claude-opus-5": [
+      "n670_identifier_index.json",
+      "n68_termination_evidence.json"
+    ],
+    "cohort-match-null": [
+      "n620_cohort_match_null.json",
+      "n670_identifier_index.json"
+    ],
+    "corpus-denominator-audit": [
+      "n624_corpus_denominator.json",
+      "n670_identifier_index.json"
+    ],
+    "corpus-era-bias-audit": [
+      "n625_corpus_era_bias.json",
+      "n670_identifier_index.json"
+    ],
+    "corpus-to-evidence-funnel": [
+      "n643_corpus_to_evidence_funnel.json",
+      "n670_identifier_index.json"
+    ],
+    "critical-harms-signal": [
+      "n445_mandatory_at_trigger.json",
+      "n670_identifier_index.json",
+      "n94_three_lane_reconcile.json"
+    ],
+    "critical-harms-sweep": [
+      "n440_not_screened.json",
+      "n500_inaccessible_cells.json",
+      "n670_identifier_index.json",
+      "n82_anchor_source_errata.json",
+      "n94_three_lane_reconcile.json"
+    ],
+    "critical-harms-sweep-orphans": [
+      "n440_not_screened.json",
+      "n441_board_sourced.json",
+      "n500_inaccessible_cells.json",
+      "n670_identifier_index.json",
+      "n94_three_lane_reconcile.json"
+    ],
+    "cycling-time-to-exhaustion-fixed-power": [
+      "n574_instrument_exclusions.json",
+      "n585_blocked_drafts_errata.json",
+      "n662_double_read_fields.json",
+      "n663_reader_vocabulary.json",
+      "n669_decision_register_v3.json",
+      "n670_identifier_index.json"
+    ],
+    "cycling-time-trial-fixed-distance": [
+      "n574_instrument_exclusions.json",
+      "n670_identifier_index.json"
+    ],
+    "cycling-time-trial-fixed-duration-30min": [
+      "n585_blocked_drafts_errata.json",
+      "n670_identifier_index.json"
+    ],
+    "cycling-time-trial-fixed-work": [
+      "n574_instrument_exclusions.json",
+      "n670_identifier_index.json"
+    ],
+    "cycling-tte-fixed-intensity": [
+      "n574_instrument_exclusions.json",
+      "n585_blocked_drafts_errata.json",
+      "n662_double_read_fields.json",
+      "n663_reader_vocabulary.json",
+      "n669_decision_register_v3.json",
+      "n670_identifier_index.json"
+    ],
+    "d166115f5bedfb3d": [
+      "n535_reading_payload.json",
+      "n670_identifier_index.json"
+    ],
+    "d31b7224894847c9": [
+      "n535_reading_payload.json",
+      "n541_untitled_reachability.json",
+      "n670_identifier_index.json"
+    ],
+    "d4149a8bac287851": [
+      "n548_incremental_rounds.json",
+      "n579_request_version_split.json",
+      "n580_study_vs_report.json",
+      "n582_same_cohort_probe.json",
+      "n586_zero_contribution_census.json",
+      "n609_methods_title_check.json",
+      "n611_tables_missing.json",
+      "n615_flat_hierarchy.json",
+      "n616_text_coverage.json",
+      "n621_out_of_scope_audit.json",
+      "n622_attestation_audit.json",
+      "n628_evidence_thinness.json",
+      "n644_screening_vs_extraction.json",
+      "n664_vocabulary_upper_bound.json",
+      "n667_inscope_without_instrument.json",
+      "n668_scale_identity_elsewhere.json",
+      "n669_decision_register_v3.json",
+      "n670_identifier_index.json"
+    ],
+    "d4251685a43792ff": [
+      "n579_request_version_split.json",
+      "n580_study_vs_report.json",
+      "n582_same_cohort_probe.json",
+      "n586_zero_contribution_census.json",
+      "n611_tables_missing.json",
+      "n615_flat_hierarchy.json",
+      "n616_text_coverage.json",
+      "n622_attestation_audit.json",
+      "n627_dose_proxy_validation.json",
+      "n644_screening_vs_extraction.json",
+      "n664_vocabulary_upper_bound.json",
+      "n670_identifier_index.json"
+    ],
+    "db16877def5676e0": [
+      "n535_reading_payload.json",
+      "n541_untitled_reachability.json",
+      "n670_identifier_index.json"
+    ],
+    "dbdb6ea55c9667c3": [
+      "n548_incremental_rounds.json",
+      "n579_request_version_split.json",
+      "n582_same_cohort_probe.json",
+      "n586_zero_contribution_census.json",
+      "n611_tables_missing.json",
+      "n615_flat_hierarchy.json",
+      "n616_text_coverage.json",
+      "n621_out_of_scope_audit.json",
+      "n622_attestation_audit.json",
+      "n628_evidence_thinness.json",
+      "n644_screening_vs_extraction.json",
+      "n664_vocabulary_upper_bound.json",
+      "n667_inscope_without_instrument.json",
+      "n668_scale_identity_elsewhere.json",
+      "n669_decision_register_v3.json",
+      "n670_identifier_index.json"
+    ],
+    "dd5b52374d47acda": [
+      "n624_corpus_denominator.json",
+      "n670_identifier_index.json"
+    ],
+    "de939065eac2b5fd": [
+      "n456_pdf_textlayer.json",
+      "n459_grobid_acceptance.json",
+      "n484_tei_registration_dryrun.json",
+      "n485_tei_registration.json",
+      "n487_version_and_licence.json",
+      "n496_corpus_verify.json",
+      "n498_sections_integrity.json",
+      "n670_identifier_index.json"
+    ],
+    "decision-space-coverage": [
+      "n639_decision_space_coverage.json",
+      "n670_identifier_index.json"
+    ],
+    "default-only-when-absent-audit": [
+      "n592_default_only_when_absent.json",
+      "n670_identifier_index.json"
+    ],
+    "derived-from-queue-hash": [
+      "n670_identifier_index.json",
+      "n68_tail_sample.json",
+      "n78_tail_sample.json"
+    ],
+    "dose-gate-by-outcome": [
+      "n645_dose_gate_by_outcome.json",
+      "n670_identifier_index.json"
+    ],
+    "dose-not-reported-audit": [
+      "n589_dose_not_reported_audit.json",
+      "n670_identifier_index.json"
+    ],
+    "dose-outside-bands": [
+      "n586_zero_contribution_census.json",
+      "n588_reason_code_conflation.json",
+      "n615_flat_hierarchy.json",
+      "n636_headline_reconciliation.json",
+      "n639_decision_space_coverage.json",
+      "n643_corpus_to_evidence_funnel.json",
+      "n663_reader_vocabulary.json",
+      "n664_vocabulary_upper_bound.json",
+      "n665_blocked_gate_depth.json",
+      "n669_decision_register_v3.json",
+      "n670_identifier_index.json"
+    ],
+    "dose-proxy-validation": [
+      "n627_dose_proxy_validation.json",
+      "n670_identifier_index.json"
+    ],
+    "double-poling-ski-ergometer": [
+      "n574_instrument_exclusions.json",
+      "n670_identifier_index.json"
+    ],
+    "double-poling-ski-ergometer-time-trial-fixed-distance": [
+      "n574_instrument_exclusions.json",
+      "n585_blocked_drafts_errata.json",
+      "n670_identifier_index.json"
+    ],
+    "double-read-field-agreement": [
+      "n662_double_read_fields.json",
+      "n670_identifier_index.json"
+    ],
+    "double-read-sample-quality": [
+      "n642_double_read_sample.json",
+      "n670_identifier_index.json"
+    ],
+    "double-read-state": [
+      "n641_double_read_state.json",
+      "n670_identifier_index.json"
+    ],
+    "downstream-edge-census": [
+      "n545_downstream_edge.json",
+      "n670_identifier_index.json"
+    ],
+    "e21633241b68c93e": [
+      "n624_corpus_denominator.json",
+      "n670_identifier_index.json"
+    ],
+    "e4871d50d0001e66": [
+      "n579_request_version_split.json",
+      "n580_study_vs_report.json",
+      "n582_same_cohort_probe.json",
+      "n586_zero_contribution_census.json",
+      "n611_tables_missing.json",
+      "n615_flat_hierarchy.json",
+      "n616_text_coverage.json",
+      "n622_attestation_audit.json",
+      "n644_screening_vs_extraction.json",
+      "n664_vocabulary_upper_bound.json",
+      "n667_inscope_without_instrument.json",
+      "n668_scale_identity_elsewhere.json",
+      "n669_decision_register_v3.json",
+      "n670_identifier_index.json"
+    ],
+    "e6a14c095bc606e5": [
+      "n535_reading_payload.json",
+      "n670_identifier_index.json"
+    ],
+    "e8d48c04f919dbb0": [
+      "n548_incremental_rounds.json",
+      "n579_request_version_split.json",
+      "n580_study_vs_report.json",
+      "n582_same_cohort_probe.json",
+      "n586_zero_contribution_census.json",
+      "n611_tables_missing.json",
+      "n615_flat_hierarchy.json",
+      "n616_text_coverage.json",
+      "n621_out_of_scope_audit.json",
+      "n622_attestation_audit.json",
+      "n644_screening_vs_extraction.json",
+      "n664_vocabulary_upper_bound.json",
+      "n667_inscope_without_instrument.json",
+      "n668_scale_identity_elsewhere.json",
+      "n669_decision_register_v3.json",
+      "n670_identifier_index.json"
+    ],
+    "ea71c247cc395672": [
+      "n535_reading_payload.json",
+      "n541_untitled_reachability.json",
+      "n670_identifier_index.json"
+    ],
+    "eac2b5fd6bb06843": [
+      "n579_request_version_split.json",
+      "n580_study_vs_report.json",
+      "n582_same_cohort_probe.json",
+      "n586_zero_contribution_census.json",
+      "n598_source_section_no_result.json",
+      "n611_tables_missing.json",
+      "n612_parse_tei_root_cause.json",
+      "n613_recoverable_from_tables.json",
+      "n615_flat_hierarchy.json",
+      "n616_text_coverage.json",
+      "n622_attestation_audit.json",
+      "n644_screening_vs_extraction.json",
+      "n664_vocabulary_upper_bound.json",
+      "n667_inscope_without_instrument.json",
+      "n668_scale_identity_elsewhere.json",
+      "n669_decision_register_v3.json",
+      "n670_identifier_index.json"
+    ],
+    "eac6aff9f98c855c": [
+      "n493_unprobed_available.json",
+      "n494_alt_oa_round2.json",
+      "n670_identifier_index.json"
+    ],
+    "ebf625f560d3b997": [
+      "n519_manifest_generation_drift.json",
+      "n670_identifier_index.json"
+    ],
+    "ec96e02289bd1c47": [
+      "n535_reading_payload.json",
+      "n670_identifier_index.json"
+    ],
+    "effect-measure-not-in-scope": [
+      "n586_zero_contribution_census.json",
+      "n588_reason_code_conflation.json",
+      "n590_source_location_audit.json",
+      "n636_headline_reconciliation.json",
+      "n639_decision_space_coverage.json",
+      "n643_corpus_to_evidence_funnel.json",
+      "n664_vocabulary_upper_bound.json",
+      "n665_blocked_gate_depth.json",
+      "n669_decision_register_v3.json",
+      "n670_identifier_index.json"
+    ],
+    "errata-originals-check": [
+      "n670_identifier_index.json",
+      "n86_errata_originals.json"
+    ],
+    "escalated-exceeds-max-studyresults": [
+      "n639_decision_space_coverage.json",
+      "n670_identifier_index.json"
+    ],
+    "escalated-multiple-matches-in-window": [
+      "n639_decision_space_coverage.json",
+      "n640_branch_reachability.json",
+      "n670_identifier_index.json"
+    ],
+    "europe-pmc-jats": [
+      "n487_version_and_licence.json",
+      "n489_calibration_versions.json",
+      "n496_corpus_verify.json",
+      "n498_sections_integrity.json",
+      "n505_licence_completion.json",
+      "n512_source_host_provenance.json",
+      "n514_hash_lineending_exposure.json",
+      "n515_conversion_drill.json",
+      "n522_s3_record_factsheet.json",
+      "n528_acquisition_effort_facts.json",
+      "n535_reading_payload.json",
+      "n611_tables_missing.json",
+      "n615_flat_hierarchy.json",
+      "n616_text_coverage.json",
+      "n630_binding_integrity.json",
+      "n642_double_read_sample.json",
+      "n670_identifier_index.json"
+    ],
+    "evidence-thinness-census": [
+      "n628_evidence_thinness.json",
+      "n670_identifier_index.json"
+    ],
+    "executor-standing-check-suite": [
+      "n504_executor_suite.json",
+      "n670_identifier_index.json"
+    ],
+    "exogenous-cho-oxidation-peak": [
+      "n576_mapping_contradictions.json",
+      "n585_blocked_drafts_errata.json",
+      "n586_zero_contribution_census.json",
+      "n591_absent_vs_null_axis.json",
+      "n596_allocation_replicates.json",
+      "n613_recoverable_from_tables.json",
+      "n621_out_of_scope_audit.json",
+      "n628_evidence_thinness.json",
+      "n632_poolability.json",
+      "n641_double_read_state.json",
+      "n644_screening_vs_extraction.json",
+      "n645_dose_gate_by_outcome.json",
+      "n646_loss_ledger_by_outcome.json",
+      "n647_recovery_ledger.json",
+      "n662_double_read_fields.json",
+      "n665_blocked_gate_depth.json",
+      "n667_inscope_without_instrument.json",
+      "n669_decision_register_v3.json",
+      "n670_identifier_index.json"
+    ],
+    "explained-shadow-sample": [
+      "n670_identifier_index.json",
+      "n94_three_lane_reconcile.json"
+    ],
+    "explicit-none-reported": [
+      "n622_attestation_audit.json",
+      "n670_identifier_index.json"
+    ],
+    "extraction-chain-rehearsal": [
+      "n537_chain_rehearsal.json",
+      "n670_identifier_index.json"
+    ],
+    "extraction-function-coverage": [
+      "n552_untested_paths.json",
+      "n670_identifier_index.json"
+    ],
+    "extraction-scope-contract": [
+      "n545_downstream_edge.json",
+      "n670_identifier_index.json"
+    ],
+    "f0191beff371a279": [
+      "n535_reading_payload.json",
+      "n538_tei_crlf_monitor.json",
+      "n670_identifier_index.json"
+    ],
+    "f150a72729a5e5d6": [
+      "n535_reading_payload.json",
+      "n538_tei_crlf_monitor.json",
+      "n670_identifier_index.json"
+    ],
+    "f6a2becc97c2233f": [
+      "n487_version_and_licence.json",
+      "n488_pmcid_to_doi.json",
+      "n496_corpus_verify.json",
+      "n498_sections_integrity.json",
+      "n670_identifier_index.json"
+    ],
+    "f6a82302d7fe9adf": [
+      "n579_request_version_split.json",
+      "n582_same_cohort_probe.json",
+      "n585_blocked_drafts_errata.json",
+      "n611_tables_missing.json",
+      "n615_flat_hierarchy.json",
+      "n616_text_coverage.json",
+      "n643_corpus_to_evidence_funnel.json",
+      "n644_screening_vs_extraction.json",
+      "n654_registry_linkage.json",
+      "n670_identifier_index.json"
+    ],
+    "f832b2ea91cf03e6": [
+      "n535_reading_payload.json",
+      "n541_untitled_reachability.json",
+      "n670_identifier_index.json"
+    ],
+    "f8392067834de4d8": [
+      "n487_version_and_licence.json",
+      "n488_pmcid_to_doi.json",
+      "n489_calibration_versions.json",
+      "n496_corpus_verify.json",
+      "n498_sections_integrity.json",
+      "n670_identifier_index.json"
+    ],
+    "f85932c09316c4d0": [
+      "n624_corpus_denominator.json",
+      "n670_identifier_index.json"
+    ],
+    "f98c855ca35e4def": [
+      "n624_corpus_denominator.json",
+      "n670_identifier_index.json"
+    ],
+    "fail-closed-acceptance": [
+      "n506_failclosed_acceptance.json",
+      "n670_identifier_index.json"
+    ],
+    "fbdd9171fa511f22": [
+      "n519_manifest_generation_drift.json",
+      "n670_identifier_index.json"
+    ],
+    "fc75f1d5298c3260": [
+      "n456_pdf_textlayer.json",
+      "n459_grobid_acceptance.json",
+      "n484_tei_registration_dryrun.json",
+      "n485_tei_registration.json",
+      "n486_licence_gap.json",
+      "n489_calibration_versions.json",
+      "n490_published_version_availability.json",
+      "n496_corpus_verify.json",
+      "n498_sections_integrity.json",
+      "n670_identifier_index.json"
+    ],
+    "ff8c5c2ca6ce9c92": [
+      "n487_version_and_licence.json",
+      "n488_pmcid_to_doi.json",
+      "n496_corpus_verify.json",
+      "n498_sections_integrity.json",
+      "n670_identifier_index.json"
+    ],
+    "findings-by-source": [
+      "n617_findings_by_source.json",
+      "n670_identifier_index.json"
+    ],
+    "fixed-time-reports-power": [
+      "n587_zero_declared_adjudication.json",
+      "n670_identifier_index.json"
+    ],
+    "fixed-time-reports-work": [
+      "n587_zero_declared_adjudication.json",
+      "n670_identifier_index.json"
+    ],
+    "flake-watch-log": [
+      "n656_flake_watch.json",
+      "n670_identifier_index.json"
+    ],
+    "fourth-double-read": [
+      "n608_fourth_double_read.json",
+      "n670_identifier_index.json"
+    ],
+    "fulltext-manifest-backups": [
+      "n505_licence_completion.json",
+      "n670_identifier_index.json"
+    ],
+    "fulltext-route-cost-analysis": [
+      "n439_route_cost.json",
+      "n670_identifier_index.json"
+    ],
+    "gate-pattern-positive-controls": [
+      "n553_gate_pattern_controls.json",
+      "n670_identifier_index.json"
+    ],
+    "genuinely-out-of-band": [
+      "n588_reason_code_conflation.json",
+      "n670_identifier_index.json"
+    ],
+    "gi-harms-primary": [
+      "n451_harms_placeholders.json",
+      "n495_stratum_purpose.json",
+      "n670_identifier_index.json"
+    ],
+    "gi-harms-secondary-only": [
+      "n451_harms_placeholders.json",
+      "n495_stratum_purpose.json",
+      "n670_identifier_index.json"
+    ],
+    "gi-published-version-availability": [
+      "n524_gi_published_availability.json",
+      "n670_identifier_index.json"
+    ],
+    "gi-scale-heterogeneity": [
+      "n633_gi_scale_heterogeneity.json",
+      "n670_identifier_index.json"
+    ],
+    "gi-symptom-incidence": [
+      "n51_all.json",
+      "n51_changes2.json",
+      "n576_mapping_contradictions.json",
+      "n591_absent_vs_null_axis.json",
+      "n595_second_read_invisible.json",
+      "n596_allocation_replicates.json",
+      "n598_source_section_no_result.json",
+      "n610_pending_decisions.json",
+      "n628_evidence_thinness.json",
+      "n632_poolability.json",
+      "n634_decision_register_v2.json",
+      "n641_double_read_state.json",
+      "n644_screening_vs_extraction.json",
+      "n645_dose_gate_by_outcome.json",
+      "n646_loss_ledger_by_outcome.json",
+      "n647_recovery_ledger.json",
+      "n662_double_read_fields.json",
+      "n665_blocked_gate_depth.json",
+      "n666_blank_field_provenance.json",
+      "n667_inscope_without_instrument.json",
+      "n669_decision_register_v3.json",
+      "n670_identifier_index.json"
+    ],
+    "gi-symptom-severity": [
+      "n51_all.json",
+      "n51_changes.json",
+      "n51_changes2.json",
+      "n576_mapping_contradictions.json",
+      "n591_absent_vs_null_axis.json",
+      "n595_second_read_invisible.json",
+      "n596_allocation_replicates.json",
+      "n598_source_section_no_result.json",
+      "n608_fourth_double_read.json",
+      "n621_out_of_scope_audit.json",
+      "n628_evidence_thinness.json",
+      "n632_poolability.json",
+      "n641_double_read_state.json",
+      "n644_screening_vs_extraction.json",
+      "n645_dose_gate_by_outcome.json",
+      "n646_loss_ledger_by_outcome.json",
+      "n647_recovery_ledger.json",
+      "n654_registry_linkage.json",
+      "n662_double_read_fields.json",
+      "n665_blocked_gate_depth.json",
+      "n666_blank_field_provenance.json",
+      "n667_inscope_without_instrument.json",
+      "n669_decision_register_v3.json",
+      "n670_identifier_index.json"
+    ],
+    "glycogen-utilisation-not-concentration": [
+      "n587_zero_declared_adjudication.json",
+      "n670_identifier_index.json"
+    ],
+    "gold-scope-metrics": [
+      "n545_downstream_edge.json",
+      "n670_identifier_index.json"
+    ],
+    "grobid-contract-acceptance": [
+      "n459_grobid_acceptance.json",
+      "n670_identifier_index.json"
+    ],
+    "handoff-drift-check": [
+      "n542_handoff_drift.json",
+      "n670_identifier_index.json"
+    ],
+    "harms-adjacent-roster": [
+      "n482_harms_adjacent_roster.json",
+      "n670_identifier_index.json"
+    ],
+    "harms-section-placeholder-values": [
+      "n451_harms_placeholders.json",
+      "n670_identifier_index.json"
+    ],
+    "human-plus-blinded-llm-title-abstract": [
+      "n670_identifier_index.json",
+      "n86_15_104852c6_fields.json"
+    ],
+    "id-slicing-inventory": [
+      "n525_id_key_conventions.json",
+      "n670_identifier_index.json"
+    ],
+    "in-scope-without-instrument": [
+      "n667_inscope_without_instrument.json",
+      "n670_identifier_index.json"
+    ],
+    "inaccessible-placeholder-producer": [
+      "n500_inaccessible_cells.json",
+      "n670_identifier_index.json"
+    ],
+    "incomplete-record-closeout": [
+      "n527_incomplete_record_closeout.json",
+      "n670_identifier_index.json"
+    ],
+    "incremental-rounds-rehearsal": [
+      "n548_incremental_rounds.json",
+      "n670_identifier_index.json"
+    ],
+    "install-versus-develop": [
+      "n439_route_cost.json",
+      "n670_identifier_index.json"
+    ],
+    "instrument-exclusion-census": [
+      "n574_instrument_exclusions.json",
+      "n670_identifier_index.json"
+    ],
+    "instrument-not-in-allowlist": [
+      "n574_instrument_exclusions.json",
+      "n584_thesis_and_hidden_duplicate.json",
+      "n586_zero_contribution_census.json",
+      "n636_headline_reconciliation.json",
+      "n637_prose_numbers.json",
+      "n639_decision_space_coverage.json",
+      "n643_corpus_to_evidence_funnel.json",
+      "n663_reader_vocabulary.json",
+      "n664_vocabulary_upper_bound.json",
+      "n665_blocked_gate_depth.json",
+      "n669_decision_register_v3.json",
+      "n670_identifier_index.json"
+    ],
+    "instrument-vocabulary-upper-bound": [
+      "n664_vocabulary_upper_bound.json",
+      "n670_identifier_index.json"
+    ],
+    "intermittent-team-sport": [
+      "n500_inaccessible_cells.json",
+      "n670_identifier_index.json"
+    ],
+    "inventory-0000000000000000-0000000000000000": [
+      "n538_tei_crlf_monitor.json",
+      "n670_identifier_index.json"
+    ],
+    "inventory-batch-0000000000000000": [
+      "n538_tei_crlf_monitor.json",
+      "n670_identifier_index.json"
+    ],
+    "invisible-checks-status": [
+      "n653_invisible_checks.json",
+      "n670_identifier_index.json"
+    ],
+    "jfnr-6-6-8": [
+      "n49_sample.json",
+      "n670_identifier_index.json"
+    ],
+    "landing-page-reachability-survey": [
+      "n450_landing_survey.json",
+      "n670_identifier_index.json"
+    ],
+    "licence-gap-probe": [
+      "n486_licence_gap.json",
+      "n670_identifier_index.json"
+    ],
+    "licence-second-source": [
+      "n510_licence_second_source.json",
+      "n670_identifier_index.json"
+    ],
+    "licence-third-register": [
+      "n511_datacite_licence.json",
+      "n670_identifier_index.json"
+    ],
+    "line-ending-conversion-drill": [
+      "n515_conversion_drill.json",
+      "n670_identifier_index.json"
+    ],
+    "line-ending-exposure": [
+      "n514_hash_lineending_exposure.json",
+      "n670_identifier_index.json"
+    ],
+    "loss-ledger-by-outcome": [
+      "n646_loss_ledger_by_outcome.json",
+      "n670_identifier_index.json"
+    ],
+    "m1-e-delivery-checklist": [
+      "n441_board_sourced.json",
+      "n442_placeholder_sources.json",
+      "n670_identifier_index.json"
+    ],
+    "m1-g-acquisition-report": [
+      "n508_section_g_crosscheck.json",
+      "n670_identifier_index.json"
+    ],
+    "m1-owner-briefing": [
+      "n651_owner_briefing_recheck.json",
+      "n670_identifier_index.json"
+    ],
+    "manifest-generation-drift": [
+      "n519_manifest_generation_drift.json",
+      "n670_identifier_index.json"
+    ],
+    "mapping-contradiction-scan": [
+      "n576_mapping_contradictions.json",
+      "n670_identifier_index.json"
+    ],
+    "mapping-scan-null": [
+      "n619_mapping_scan_null.json",
+      "n670_identifier_index.json"
+    ],
+    "matches-a-generation": [
+      "n519_manifest_generation_drift.json",
+      "n670_identifier_index.json"
+    ],
+    "mean-not-peak": [
+      "n587_zero_declared_adjudication.json",
+      "n670_identifier_index.json"
+    ],
+    "metadata-missing-abstract": [
+      "n670_identifier_index.json",
+      "n86_15_104852c6_fields.json"
+    ],
+    "methods-title-check": [
+      "n609_methods_title_check.json",
+      "n670_identifier_index.json"
+    ],
+    "missing-contact-email": [
+      "n624_corpus_denominator.json",
+      "n670_identifier_index.json"
+    ],
+    "missing-era-dose-space": [
+      "n626_missing_era_dose_space.json",
+      "n670_identifier_index.json"
+    ],
+    "model-not-in-scope": [
+      "n591_absent_vs_null_axis.json",
+      "n592_default_only_when_absent.json",
+      "n639_decision_space_coverage.json",
+      "n640_branch_reachability.json",
+      "n670_identifier_index.json"
+    ],
+    "multiple-timepoint-match": [
+      "n639_decision_space_coverage.json",
+      "n640_branch_reachability.json",
+      "n670_identifier_index.json"
+    ],
+    "muscle-glycogen-post-exercise": [
+      "n574_instrument_exclusions.json",
+      "n576_mapping_contradictions.json",
+      "n584_thesis_and_hidden_duplicate.json",
+      "n585_blocked_drafts_errata.json",
+      "n586_zero_contribution_census.json",
+      "n591_absent_vs_null_axis.json",
+      "n594_a3_first_measurement.json",
+      "n595_second_read_invisible.json",
+      "n596_allocation_replicates.json",
+      "n613_recoverable_from_tables.json",
+      "n615_flat_hierarchy.json",
+      "n621_out_of_scope_audit.json",
+      "n628_evidence_thinness.json",
+      "n632_poolability.json",
+      "n641_double_read_state.json",
+      "n644_screening_vs_extraction.json",
+      "n645_dose_gate_by_outcome.json",
+      "n646_loss_ledger_by_outcome.json",
+      "n647_recovery_ledger.json",
+      "n662_double_read_fields.json",
+      "n665_blocked_gate_depth.json",
+      "n667_inscope_without_instrument.json",
+      "n669_decision_register_v3.json",
+      "n670_identifier_index.json"
+    ],
+    "n49-abstract-availability-result": [
+      "n49_result.json",
+      "n670_identifier_index.json"
+    ],
+    "n49-abstract-availability-sample": [
+      "n49_sample.json",
+      "n670_identifier_index.json"
+    ],
+    "n50-rescreen-worklist": [
+      "n50_rescreen_list.json",
+      "n670_identifier_index.json"
+    ],
+    "n506-absent-private-root": [
+      "n506_failclosed_acceptance.json",
+      "n670_identifier_index.json"
+    ],
+    "n580-family-detail": [
+      "n580_study_vs_report.json",
+      "n670_identifier_index.json"
+    ],
+    "n582-cohort-values": [
+      "n582_same_cohort_probe.json",
+      "n670_identifier_index.json"
+    ],
+    "n585-errata-labels": [
+      "n585_blocked_drafts_errata.json",
+      "n670_identifier_index.json"
+    ],
+    "needle-biopsy-vastus-lateralis": [
+      "n574_instrument_exclusions.json",
+      "n585_blocked_drafts_errata.json",
+      "n594_a3_first_measurement.json",
+      "n610_pending_decisions.json",
+      "n634_decision_register_v2.json",
+      "n662_double_read_fields.json",
+      "n663_reader_vocabulary.json",
+      "n669_decision_register_v3.json",
+      "n670_identifier_index.json"
+    ],
+    "no-numbers-yet": [
+      "n659_no_numbers_yet.json",
+      "n670_identifier_index.json"
+    ],
+    "no-numeric-result": [
+      "n586_zero_contribution_census.json",
+      "n592_default_only_when_absent.json",
+      "n593_cap_paths_diverge.json",
+      "n597_numeric_result_unsupported.json",
+      "n636_headline_reconciliation.json",
+      "n639_decision_space_coverage.json",
+      "n643_corpus_to_evidence_funnel.json",
+      "n663_reader_vocabulary.json",
+      "n664_vocabulary_upper_bound.json",
+      "n665_blocked_gate_depth.json",
+      "n669_decision_register_v3.json",
+      "n670_identifier_index.json"
+    ],
+    "no-oa-fulltext": [
+      "n485_tei_registration.json",
+      "n526_no_oa_locations_recheck.json",
+      "n527_incomplete_record_closeout.json",
+      "n624_corpus_denominator.json",
+      "n670_identifier_index.json"
+    ],
+    "no-oa-locations-recheck": [
+      "n526_no_oa_locations_recheck.json",
+      "n670_identifier_index.json"
+    ],
+    "no-official-sheet-by-design": [
+      "n670_identifier_index.json",
+      "n94_three_lane_reconcile.json"
+    ],
+    "no-registration-found": [
+      "n544_shacl_coverage.json",
+      "n670_identifier_index.json"
+    ],
+    "no-terms-recorded": [
+      "n513_repository_deposit_terms.json",
+      "n670_identifier_index.json"
+    ],
+    "non-pdf-ok": [
+      "n454_pdf_retry_and_landing.json",
+      "n670_identifier_index.json"
+    ],
+    "not-applicable-non-interventional": [
+      "n544_shacl_coverage.json",
+      "n670_identifier_index.json"
+    ],
+    "not-filled-in": [
+      "n588_reason_code_conflation.json",
+      "n670_identifier_index.json"
+    ],
+    "not-found-all-ids": [
+      "n670_identifier_index.json",
+      "n68_tail_information.json",
+      "n78_tail_dec_050.json",
+      "n78_tail_dec_125.json",
+      "n78_tail_information.json"
+    ],
+    "not-in-sheet": [
+      "n670_identifier_index.json",
+      "n94_three_lane_reconcile.json"
+    ],
+    "not-screened-count-derivation": [
+      "n440_not_screened.json",
+      "n670_identifier_index.json"
+    ],
+    "notExtracted-analysis-set-not-in-scope": [
+      "n639_decision_space_coverage.json",
+      "n640_branch_reachability.json",
+      "n670_identifier_index.json"
+    ],
+    "notExtracted-dose-outside-bands": [
+      "n586_zero_contribution_census.json",
+      "n588_reason_code_conflation.json",
+      "n636_headline_reconciliation.json",
+      "n639_decision_space_coverage.json",
+      "n643_corpus_to_evidence_funnel.json",
+      "n663_reader_vocabulary.json",
+      "n664_vocabulary_upper_bound.json",
+      "n665_blocked_gate_depth.json",
+      "n669_decision_register_v3.json",
+      "n670_identifier_index.json"
+    ],
+    "notExtracted-effect-measure-not-in-scope": [
+      "n586_zero_contribution_census.json",
+      "n588_reason_code_conflation.json",
+      "n590_source_location_audit.json",
+      "n636_headline_reconciliation.json",
+      "n639_decision_space_coverage.json",
+      "n643_corpus_to_evidence_funnel.json",
+      "n664_vocabulary_upper_bound.json",
+      "n665_blocked_gate_depth.json",
+      "n669_decision_register_v3.json",
+      "n670_identifier_index.json"
+    ],
+    "notExtracted-instrument-not-in-allowlist": [
+      "n574_instrument_exclusions.json",
+      "n586_zero_contribution_census.json",
+      "n636_headline_reconciliation.json",
+      "n639_decision_space_coverage.json",
+      "n643_corpus_to_evidence_funnel.json",
+      "n663_reader_vocabulary.json",
+      "n664_vocabulary_upper_bound.json",
+      "n665_blocked_gate_depth.json",
+      "n669_decision_register_v3.json",
+      "n670_identifier_index.json"
+    ],
+    "notExtracted-model-not-in-scope": [
+      "n591_absent_vs_null_axis.json",
+      "n592_default_only_when_absent.json",
+      "n639_decision_space_coverage.json",
+      "n640_branch_reachability.json",
+      "n670_identifier_index.json"
+    ],
+    "notExtracted-no-numeric-result": [
+      "n586_zero_contribution_census.json",
+      "n592_default_only_when_absent.json",
+      "n597_numeric_result_unsupported.json",
+      "n636_headline_reconciliation.json",
+      "n639_decision_space_coverage.json",
+      "n643_corpus_to_evidence_funnel.json",
+      "n663_reader_vocabulary.json",
+      "n664_vocabulary_upper_bound.json",
+      "n665_blocked_gate_depth.json",
+      "n669_decision_register_v3.json",
+      "n670_identifier_index.json"
+    ],
+    "notExtracted-outcome-not-in-scope": [
+      "n537_chain_rehearsal.json",
+      "n636_headline_reconciliation.json",
+      "n639_decision_space_coverage.json",
+      "n643_corpus_to_evidence_funnel.json",
+      "n663_reader_vocabulary.json",
+      "n670_identifier_index.json"
+    ],
+    "notExtracted-sensitivity-analysis-excluded-by-policy": [
+      "n592_default_only_when_absent.json",
+      "n639_decision_space_coverage.json",
+      "n640_branch_reachability.json",
+      "n670_identifier_index.json"
+    ],
+    "notExtracted-subgroup-excluded-by-policy": [
+      "n592_default_only_when_absent.json",
+      "n639_decision_space_coverage.json",
+      "n640_branch_reachability.json",
+      "n670_identifier_index.json"
+    ],
+    "notExtracted-timepoint-outside-window": [
+      "n639_decision_space_coverage.json",
+      "n640_branch_reachability.json",
+      "n670_identifier_index.json"
+    ],
+    "numeric-result-unsupported": [
+      "n597_numeric_result_unsupported.json",
+      "n670_identifier_index.json"
+    ],
+    "obligation-derived-figure-drift": [
+      "n447_expected_gap_drift.json",
+      "n670_identifier_index.json"
+    ],
+    "occurrence-comparison-semantics": [
+      "n443_occ_symmetry.json",
+      "n670_identifier_index.json"
+    ],
+    "occurrence-pscore-definition-check": [
+      "n444_pscore_definition.json",
+      "n670_identifier_index.json"
+    ],
+    "out-of-scope-audit": [
+      "n621_out_of_scope_audit.json",
+      "n670_identifier_index.json"
+    ],
+    "out-of-sequence": [
+      "n443_occ_symmetry.json",
+      "n444_pscore_definition.json",
+      "n670_identifier_index.json"
+    ],
+    "outcome-not-in-scope": [
+      "n537_chain_rehearsal.json",
+      "n636_headline_reconciliation.json",
+      "n639_decision_space_coverage.json",
+      "n643_corpus_to_evidence_funnel.json",
+      "n646_loss_ledger_by_outcome.json",
+      "n663_reader_vocabulary.json",
+      "n670_identifier_index.json"
+    ],
+    "owner-briefing-recheck": [
+      "n651_owner_briefing_recheck.json",
+      "n670_identifier_index.json"
+    ],
+    "owner-briefing-stratum-crosscheck": [
+      "n521_owner_briefing_crosscheck.json",
+      "n670_identifier_index.json"
+    ],
+    "page-014-with-65dd82a89b2c5340": [
+      "n608_fourth_double_read.json",
+      "n641_double_read_state.json",
+      "n670_identifier_index.json"
+    ],
+    "parse-tei-root-cause": [
+      "n612_parse_tei_root_cause.json",
+      "n670_identifier_index.json"
+    ],
+    "partial-overlap-not-same-cohort": [
+      "n582_same_cohort_probe.json",
+      "n670_identifier_index.json"
+    ],
+    "pdf-download-cache": [
+      "n455_pdf_download.json",
+      "n670_identifier_index.json"
+    ],
+    "pdf-reachability-probe": [
+      "n453_pdf_reachability.json",
+      "n670_identifier_index.json"
+    ],
+    "pdf-retry-and-landing-followup": [
+      "n454_pdf_retry_and_landing.json",
+      "n670_identifier_index.json"
+    ],
+    "pdf-text-layer-check": [
+      "n456_pdf_textlayer.json",
+      "n670_identifier_index.json"
+    ],
+    "pending-decision-register": [
+      "n669_decision_register_v3.json",
+      "n670_identifier_index.json"
+    ],
+    "pending-decisions-register": [
+      "n610_pending_decisions.json",
+      "n670_identifier_index.json"
+    ],
+    "pending-decisions-register-v2": [
+      "n634_decision_register_v2.json",
+      "n670_identifier_index.json"
+    ],
+    "per-stratum-acquired-two-populations": [
+      "n492_stratum_table.json",
+      "n670_identifier_index.json"
+    ],
+    "placebo-cho-vehicle": [
+      "n670_identifier_index.json",
+      "n68_tail_dec_000.json",
+      "n68_tail_dec_025.json",
+      "n68_tail_dec_075.json",
+      "n68_tail_dec_100.json",
+      "n70_std_tail.json",
+      "n78_tail_dec_050.json",
+      "n78_tail_dec_075.json",
+      "n78_tail_dec_100.json",
+      "n78_tail_dec_125.json"
+    ],
+    "placeholder-source-resolution": [
+      "n442_placeholder_sources.json",
+      "n670_identifier_index.json"
+    ],
+    "pmcid-to-doi-version-recovery": [
+      "n488_pmcid_to_doi.json",
+      "n670_identifier_index.json"
+    ],
+    "possible-same-cohort": [
+      "n582_same_cohort_probe.json",
+      "n670_identifier_index.json"
+    ],
+    "precondition-truth-at-second-trigger": [
+      "n445_mandatory_at_trigger.json",
+      "n670_identifier_index.json"
+    ],
+    "probe-mutation-test": [
+      "n629_probe_mutation_test.json",
+      "n670_identifier_index.json"
+    ],
+    "probe-shape-scan": [
+      "n631_probe_shape_scanner.json",
+      "n670_identifier_index.json"
+    ],
+    "prose-number-reconciliation": [
+      "n637_prose_numbers.json",
+      "n670_identifier_index.json"
+    ],
+    "publication-bias-attempt": [
+      "n655_publication_bias_attempt.json",
+      "n670_identifier_index.json"
+    ],
+    "published-version-availability": [
+      "n490_published_version_availability.json",
+      "n670_identifier_index.json"
+    ],
+    "quantity-kind-registry": [
+      "n545_downstream_edge.json",
+      "n670_identifier_index.json"
+    ],
+    "reader-vocabulary-scope-effect": [
+      "n663_reader_vocabulary.json",
+      "n670_identifier_index.json"
+    ],
+    "reading-payload-measurement": [
+      "n535_reading_payload.json",
+      "n670_identifier_index.json"
+    ],
+    "reason-code-conflation-census": [
+      "n588_reason_code_conflation.json",
+      "n670_identifier_index.json"
+    ],
+    "recoverable-from-tables": [
+      "n613_recoverable_from_tables.json",
+      "n670_identifier_index.json"
+    ],
+    "recoverable-rate-stated-in-methods": [
+      "n589_dose_not_reported_audit.json",
+      "n670_identifier_index.json"
+    ],
+    "registry-record-inaccessible": [
+      "n544_shacl_coverage.json",
+      "n670_identifier_index.json"
+    ],
+    "rename-needs-ruling": [
+      "n585_blocked_drafts_errata.json",
+      "n670_identifier_index.json"
+    ],
+    "reported-but-not-in-contract": [
+      "n588_reason_code_conflation.json",
+      "n670_identifier_index.json"
+    ],
+    "repository-deposit-terms": [
+      "n513_repository_deposit_terms.json",
+      "n670_identifier_index.json"
+    ],
+    "request-version-split": [
+      "n579_request_version_split.json",
+      "n670_identifier_index.json"
+    ],
+    "retraction-live-recheck": [
+      "n501_retraction_recheck.json",
+      "n670_identifier_index.json"
+    ],
+    "review-source-review": [
+      "n670_identifier_index.json",
+      "n94_three_lane_reconcile.json"
+    ],
+    "route-or-shrink": [
+      "n438_fulltext_route.json",
+      "n670_identifier_index.json"
+    ],
+    "ruling-input-record-fields": [
+      "n670_identifier_index.json",
+      "n86_15_104852c6_fields.json"
+    ],
+    "running-time-trial-fixed-distance": [
+      "n574_instrument_exclusions.json",
+      "n585_blocked_drafts_errata.json",
+      "n670_identifier_index.json",
+      "n68_tail_dec_150.json",
+      "n70_std_tail.json"
+    ],
+    "running-tte-fixed-intensity": [
+      "n574_instrument_exclusions.json",
+      "n670_identifier_index.json"
+    ],
+    "s00421-024-05437-y": [
+      "n49_sample.json",
+      "n670_identifier_index.json"
+    ],
+    "s00421-025-05995-9": [
+      "n49_sample.json",
+      "n670_identifier_index.json"
+    ],
+    "s12970-020-0341-4": [
+      "n49_sample.json",
+      "n670_identifier_index.json"
+    ],
+    "s3-in-hand-factsheet": [
+      "n522_s3_record_factsheet.json",
+      "n670_identifier_index.json"
+    ],
+    "s40798-022-00417-y": [
+      "n49_sample.json",
+      "n670_identifier_index.json"
+    ],
+    "s56-version-with-backfill": [
+      "n523_s56_version_with_backfill.json",
+      "n670_identifier_index.json"
+    ],
+    "safety-full-screen-pass-1": [
+      "n440_not_screened.json",
+      "n500_inaccessible_cells.json",
+      "n670_identifier_index.json",
+      "n94_three_lane_reconcile.json"
+    ],
+    "safety-full-screen-pass-2": [
+      "n440_not_screened.json",
+      "n500_inaccessible_cells.json",
+      "n670_identifier_index.json",
+      "n94_three_lane_reconcile.json"
+    ],
+    "same-cohort-probe": [
+      "n582_same_cohort_probe.json",
+      "n670_identifier_index.json"
+    ],
+    "scale-identity-elsewhere": [
+      "n668_scale_identity_elsewhere.json",
+      "n670_identifier_index.json"
+    ],
+    "schema-cannot-express": [
+      "n641_double_read_state.json",
+      "n670_identifier_index.json"
+    ],
+    "scoped-schema-conformance": [
+      "n539_scoped_schema_conformance.json",
+      "n670_identifier_index.json"
+    ],
+    "screening-shadow-gate": [
+      "n500_inaccessible_cells.json",
+      "n670_identifier_index.json",
+      "n92_audit_debt_sources.json"
+    ],
+    "screening-shadow-pass-a": [
+      "n440_not_screened.json",
+      "n500_inaccessible_cells.json",
+      "n670_identifier_index.json",
+      "n78_termination_evidence.json",
+      "n94_three_lane_reconcile.json"
+    ],
+    "screening-shadow-pass-b": [
+      "n440_not_screened.json",
+      "n500_inaccessible_cells.json",
+      "n670_identifier_index.json",
+      "n94_three_lane_reconcile.json"
+    ],
+    "screening-vs-extraction": [
+      "n644_screening_vs_extraction.json",
+      "n670_identifier_index.json"
+    ],
+    "search-contract-version": [
+      "n545_downstream_edge.json",
+      "n670_identifier_index.json"
+    ],
+    "second-read-and-invisible-inconsistency": [
+      "n595_second_read_invisible.json",
+      "n670_identifier_index.json"
+    ],
+    "section-g-crosscheck": [
+      "n508_section_g_crosscheck.json",
+      "n670_identifier_index.json"
+    ],
+    "sections-internal-consistency": [
+      "n498_sections_integrity.json",
+      "n670_identifier_index.json"
+    ],
+    "sensitivity-analysis-excluded-by-policy": [
+      "n592_default_only_when_absent.json",
+      "n639_decision_space_coverage.json",
+      "n640_branch_reachability.json",
+      "n670_identifier_index.json"
+    ],
+    "shacl-coverage-of-inventory": [
+      "n544_shacl_coverage.json",
+      "n670_identifier_index.json"
+    ],
+    "shadow-vs-official-lane-reconcile": [
+      "n670_identifier_index.json",
+      "n94_three_lane_reconcile.json"
+    ],
+    "source-location-audit": [
+      "n590_source_location_audit.json",
+      "n670_identifier_index.json"
+    ],
+    "source-section-has-no-result": [
+      "n598_source_section_no_result.json",
+      "n670_identifier_index.json"
+    ],
+    "standard-full-screen-pass-1": [
+      "n440_not_screened.json",
+      "n500_inaccessible_cells.json",
+      "n670_identifier_index.json",
+      "n78_termination_evidence.json",
+      "n94_three_lane_reconcile.json"
+    ],
+    "standard-lane-worksheet": [
+      "n445_mandatory_at_trigger.json",
+      "n670_identifier_index.json"
+    ],
+    "statistical-termination-evaluation": [
+      "n670_identifier_index.json",
+      "n68_termination_evidence.json"
+    ],
+    "stratum-purpose-vs-holdings": [
+      "n495_stratum_purpose.json",
+      "n670_identifier_index.json"
+    ],
+    "study-vs-report-family-scan": [
+      "n580_study_vs_report.json",
+      "n670_identifier_index.json"
+    ],
+    "subgroup-excluded-by-policy": [
+      "n592_default_only_when_absent.json",
+      "n639_decision_space_coverage.json",
+      "n640_branch_reachability.json",
+      "n670_identifier_index.json"
+    ],
+    "table-recovery-qualified": [
+      "n614_table_recovery_qualified.json",
+      "n670_identifier_index.json"
+    ],
+    "tables-missing-from-payload": [
+      "n611_tables_missing.json",
+      "n670_identifier_index.json"
+    ],
+    "tail-spot-check-report": [
+      "n670_identifier_index.json",
+      "n68_tail_result.json"
+    ],
+    "tail-spot-check-result": [
+      "n670_identifier_index.json",
+      "n68_tail_result.json",
+      "n78_tail_result.json"
+    ],
+    "tail-spot-check-sample": [
+      "n670_identifier_index.json",
+      "n68_tail_sample.json",
+      "n78_tail_sample.json"
+    ],
+    "tei-line-ending-monitor": [
+      "n538_tei_crlf_monitor.json",
+      "n670_identifier_index.json"
+    ],
+    "tei-registration-dry-run": [
+      "n484_tei_registration_dryrun.json",
+      "n670_identifier_index.json"
+    ],
+    "tei-registration-result": [
+      "n485_tei_registration.json",
+      "n670_identifier_index.json"
+    ],
+    "temporal-order-check": [
+      "n517_temporal_order_check.json",
+      "n670_identifier_index.json"
+    ],
+    "termination-evidence-freeze": [
+      "n670_identifier_index.json",
+      "n68_termination_evidence.json",
+      "n78_termination_evidence.json"
+    ],
+    "termination-preconditions-check": [
+      "n670_identifier_index.json",
+      "n68_preconditions.json"
+    ],
+    "termination-tail-sample-information-condition": [
+      "n670_identifier_index.json",
+      "n68_tail_information.json",
+      "n78_tail_information.json"
+    ],
+    "termination-tail-spot-check-population": [
+      "n670_identifier_index.json",
+      "n85_tail_population.json"
+    ],
+    "termination-tail-spot-check-result": [
+      "n670_identifier_index.json",
+      "n78_tail_result.json"
+    ],
+    "termination-tail-spot-check-sample": [
+      "n670_identifier_index.json",
+      "n68_tail_sample.json",
+      "n78_tail_sample.json"
+    ],
+    "terms-not-retrieved": [
+      "n513_repository_deposit_terms.json",
+      "n670_identifier_index.json"
+    ],
+    "thesis-and-hidden-duplicate": [
+      "n584_thesis_and_hidden_duplicate.json",
+      "n670_identifier_index.json"
+    ],
+    "three-min-all-out": [
+      "n587_zero_declared_adjudication.json",
+      "n670_identifier_index.json"
+    ],
+    "time-to-exhaustion": [
+      "n574_instrument_exclusions.json",
+      "n576_mapping_contradictions.json",
+      "n584_thesis_and_hidden_duplicate.json",
+      "n585_blocked_drafts_errata.json",
+      "n586_zero_contribution_census.json",
+      "n591_absent_vs_null_axis.json",
+      "n594_a3_first_measurement.json",
+      "n595_second_read_invisible.json",
+      "n596_allocation_replicates.json",
+      "n613_recoverable_from_tables.json",
+      "n615_flat_hierarchy.json",
+      "n621_out_of_scope_audit.json",
+      "n628_evidence_thinness.json",
+      "n632_poolability.json",
+      "n641_double_read_state.json",
+      "n644_screening_vs_extraction.json",
+      "n645_dose_gate_by_outcome.json",
+      "n646_loss_ledger_by_outcome.json",
+      "n647_recovery_ledger.json",
+      "n662_double_read_fields.json",
+      "n665_blocked_gate_depth.json",
+      "n666_blank_field_provenance.json",
+      "n667_inscope_without_instrument.json",
+      "n669_decision_register_v3.json",
+      "n670_identifier_index.json",
+      "n68_tail_dec_025.json",
+      "n68_tail_dec_050.json",
+      "n68_tail_dec_125.json",
+      "n70_std_tail.json"
+    ],
+    "timepoint-outside-window": [
+      "n639_decision_space_coverage.json",
+      "n640_branch_reachability.json",
+      "n670_identifier_index.json"
+    ],
+    "title-abstract-screening": [
+      "n545_downstream_edge.json",
+      "n670_identifier_index.json"
+    ],
+    "title-only-judged": [
+      "n447_expected_gap_drift.json",
+      "n500_inaccessible_cells.json",
+      "n670_identifier_index.json",
+      "n68_tail_dec_025.json",
+      "n70_std_tail.json"
+    ],
+    "tracer-indirect-calorimetry": [
+      "n585_blocked_drafts_errata.json",
+      "n670_identifier_index.json"
+    ],
+    "tracer-irms-indirect-calorimetry": [
+      "n585_blocked_drafts_errata.json",
+      "n670_identifier_index.json"
+    ],
+    "treadmill-time-trial-5km": [
+      "n585_blocked_drafts_errata.json",
+      "n670_identifier_index.json"
+    ],
+    "tt-completion-time": [
+      "n51_all.json",
+      "n51_changes.json",
+      "n574_instrument_exclusions.json",
+      "n576_mapping_contradictions.json",
+      "n585_blocked_drafts_errata.json",
+      "n586_zero_contribution_census.json",
+      "n587_zero_declared_adjudication.json",
+      "n590_source_location_audit.json",
+      "n591_absent_vs_null_axis.json",
+      "n595_second_read_invisible.json",
+      "n596_allocation_replicates.json",
+      "n613_recoverable_from_tables.json",
+      "n621_out_of_scope_audit.json",
+      "n628_evidence_thinness.json",
+      "n632_poolability.json",
+      "n641_double_read_state.json",
+      "n644_screening_vs_extraction.json",
+      "n645_dose_gate_by_outcome.json",
+      "n646_loss_ledger_by_outcome.json",
+      "n647_recovery_ledger.json",
+      "n654_registry_linkage.json",
+      "n662_double_read_fields.json",
+      "n665_blocked_gate_depth.json",
+      "n666_blank_field_provenance.json",
+      "n667_inscope_without_instrument.json",
+      "n669_decision_register_v3.json",
+      "n670_identifier_index.json",
+      "n68_tail_dec_025.json",
+      "n68_tail_dec_150.json",
+      "n70_std_tail.json"
+    ],
+    "tt-high-and-very-high-dose": [
+      "n489_calibration_versions.json",
+      "n490_published_version_availability.json",
+      "n492_stratum_table.json",
+      "n495_stratum_purpose.json",
+      "n499_calibration_redraw.json",
+      "n670_identifier_index.json"
+    ],
+    "tt-moderate-dose": [
+      "n489_calibration_versions.json",
+      "n490_published_version_availability.json",
+      "n492_stratum_table.json",
+      "n493_unprobed_available.json",
+      "n494_alt_oa_round2.json",
+      "n495_stratum_purpose.json",
+      "n499_calibration_redraw.json",
+      "n670_identifier_index.json"
+    ],
+    "undetermined-too-few-values": [
+      "n582_same_cohort_probe.json",
+      "n670_identifier_index.json"
+    ],
+    "unprobed-available-records": [
+      "n493_unprobed_available.json",
+      "n670_identifier_index.json"
+    ],
+    "untitled-section-reachability": [
+      "n541_untitled_reachability.json",
+      "n670_identifier_index.json"
+    ],
+    "upstream-no-abstract": [
+      "n50_rescreen_list.json",
+      "n670_identifier_index.json",
+      "n78_tail_information.json"
+    ],
+    "varied-shape-rehearsal": [
+      "n547_varied_shapes.json",
+      "n670_identifier_index.json"
+    ],
+    "version-distribution-and-licence-fill": [
+      "n487_version_and_licence.json",
+      "n670_identifier_index.json"
+    ],
+    "wrong-table-or-arm": [
+      "n641_double_read_state.json",
+      "n670_identifier_index.json"
+    ],
+    "zero-contribution-census": [
+      "n586_zero_contribution_census.json",
+      "n670_identifier_index.json"
+    ],
+    "zero-declared-adjudication": [
+      "n587_zero_declared_adjudication.json",
+      "n670_identifier_index.json"
+    ]
+  },
+  "evidenceToDecision": {
+    "n579_request_version_split.json": [
+      "D1"
+    ],
+    "n584_thesis_and_hidden_duplicate.json": [
+      "D3"
+    ],
+    "n585_blocked_drafts_errata.json": [
+      "D2"
+    ],
+    "n588_reason_code_conflation.json": [
+      "D5",
+      "D6"
+    ],
+    "n589_dose_not_reported_audit.json": [
+      "D7"
+    ],
+    "n592_default_only_when_absent.json": [
+      "D8"
+    ],
+    "n593_cap_paths_diverge.json": [
+      "D9"
+    ],
+    "n594_a3_first_measurement.json": [
+      "D4"
+    ],
+    "n596_allocation_replicates.json": [
+      "D10",
+      "D11"
+    ],
+    "n597_numeric_result_unsupported.json": [
+      "D12"
+    ],
+    "n608_fourth_double_read.json": [
+      "D14",
+      "D15"
+    ],
+    "n609_methods_title_check.json": [
+      "D13"
+    ],
+    "n612_parse_tei_root_cause.json": [
+      "D17"
+    ],
+    "n624_corpus_denominator.json": [
+      "D18",
+      "D19",
+      "D20"
+    ],
+    "n663_reader_vocabulary.json": [
+      "D24"
+    ],
+    "n665_blocked_gate_depth.json": [
+      "D22",
+      "D23",
+      "D24"
+    ],
+    "n666_blank_field_provenance.json": [
+      "D23"
+    ],
+    "n667_inscope_without_instrument.json": [
+      "D21"
+    ],
+    "n668_scale_identity_elsewhere.json": [
+      "D21"
+    ],
+    "p3_step1i_table.json": [
+      "D16"
+    ]
+  },
+  "retroTest": {
+    "cutoffRound": 663,
+    "query": [
+      "7a6ac1559c740fd6",
+      "muscle-glycogen-post-exercise",
+      "needle-biopsy-vastus-lateralis",
+      "acid-hydrolysis-freeze-dried-biopsy"
+    ],
+    "queryWeights": {
+      "7a6ac1559c740fd6": 1.92,
+      "muscle-glycogen-post-exercise": 2.18,
+      "needle-biopsy-vastus-lateralis": 3.38,
+      "acid-hydrolysis-freeze-dried-biopsy": 3.79
+    },
+    "top": [
+      {
+        "artefact": "n574_instrument_exclusions.json",
+        "score": 11.27,
+        "matched": [
+          "7a6ac1559c740fd6",
+          "acid-hydrolysis-freeze-dried-biopsy",
+          "muscle-glycogen-post-exercise",
+          "needle-biopsy-vastus-lateralis"
+        ]
+      },
+      {
+        "artefact": "n662_double_read_fields.json",
+        "score": 11.27,
+        "matched": [
+          "7a6ac1559c740fd6",
+          "acid-hydrolysis-freeze-dried-biopsy",
+          "muscle-glycogen-post-exercise",
+          "needle-biopsy-vastus-lateralis"
+        ]
+      },
+      {
+        "artefact": "n585_blocked_drafts_errata.json",
+        "score": 11.27,
+        "matched": [
+          "7a6ac1559c740fd6",
+          "acid-hydrolysis-freeze-dried-biopsy",
+          "muscle-glycogen-post-exercise",
+          "needle-biopsy-vastus-lateralis"
+        ]
+      },
+      {
+        "artefact": "n594_a3_first_measurement.json",
+        "score": 9.35,
+        "matched": [
+          "acid-hydrolysis-freeze-dried-biopsy",
+          "muscle-glycogen-post-exercise",
+          "needle-biopsy-vastus-lateralis"
+        ]
+      },
+      {
+        "artefact": "n615_flat_hierarchy.json",
+        "score": 4.1,
+        "matched": [
+          "7a6ac1559c740fd6",
+          "muscle-glycogen-post-exercise"
+        ]
+      }
+    ],
+    "rankOfTarget": 4,
+    "decisionsReached": [
+      "D2",
+      "D4"
+    ]
+  },
+  "chainLookback": {
+    "n662_double_read_fields.json": {
+      "queriedWith": [
+        "double-read-field-agreement",
+        "cycling-tte-fixed-intensity",
+        "cycling-time-to-exhaustion-fixed-power",
+        "acid-hydrolysis-freeze-dried-biopsy",
+        "needle-biopsy-vastus-lateralis"
+      ],
+      "rarestIdentifier": "double-read-field-agreement",
+      "rarestWeight": 4.53,
+      "closestEarlierArtefact": "n585_blocked_drafts_errata.json",
+      "closestScore": 13.2,
+      "itsDecisions": [
+        "D2"
+      ]
+    },
+    "n663_reader_vocabulary.json": {
+      "queriedWith": [
+        "reader-vocabulary-scope-effect",
+        "cycling-tte-fixed-intensity",
+        "notExtracted-outcome-not-in-scope",
+        "cycling-time-to-exhaustion-fixed-power",
+        "outcome-not-in-scope"
+      ],
+      "rarestIdentifier": "reader-vocabulary-scope-effect",
+      "rarestWeight": 4.53,
+      "closestEarlierArtefact": "n585_blocked_drafts_errata.json",
+      "closestScore": 6.9,
+      "itsDecisions": [
+        "D2"
+      ]
+    },
+    "n664_vocabulary_upper_bound.json": {
+      "queriedWith": [
+        "instrument-vocabulary-upper-bound",
+        "notExtracted-effect-measure-not-in-scope",
+        "notExtracted-dose-outside-bands",
+        "effect-measure-not-in-scope",
+        "notExtracted-instrument-not-in-allowlist"
+      ],
+      "rarestIdentifier": "instrument-vocabulary-upper-bound",
+      "rarestWeight": 4.53,
+      "closestEarlierArtefact": "n636_headline_reconciliation.json",
+      "closestScore": 11.7,
+      "itsDecisions": []
+    },
+    "n665_blocked_gate_depth.json": {
+      "queriedWith": [
+        "blocked-item-gate-depth",
+        "effect-measure-not-in-scope",
+        "notExtracted-effect-measure-not-in-scope",
+        "notExtracted-dose-outside-bands",
+        "notExtracted-instrument-not-in-allowlist"
+      ],
+      "rarestIdentifier": "blocked-item-gate-depth",
+      "rarestWeight": 4.53,
+      "closestEarlierArtefact": "n636_headline_reconciliation.json",
+      "closestScore": 11.7,
+      "itsDecisions": []
+    },
+    "n666_blank_field_provenance.json": {
+      "queriedWith": [
+        "blank-field-provenance",
+        "0eea079e79bf7913",
+        "a6ce9c92c7454a7c",
+        "0cfceb6c8a86f78b",
+        "54d4200c1c5e2b64"
+      ],
+      "rarestIdentifier": "blank-field-provenance",
+      "rarestWeight": 4.53,
+      "closestEarlierArtefact": "n615_flat_hierarchy.json",
+      "closestScore": 9.4,
+      "itsDecisions": []
+    },
+    "n667_inscope_without_instrument.json": {
+      "queriedWith": [
+        "in-scope-without-instrument",
+        "358bbf2c1886ac4b",
+        "e4871d50d0001e66",
+        "66e16f089f1522d1",
+        "59b4558a37f28bc9"
+      ],
+      "rarestIdentifier": "in-scope-without-instrument",
+      "rarestWeight": 4.53,
+      "closestEarlierArtefact": "n615_flat_hierarchy.json",
+      "closestScore": 10.3,
+      "itsDecisions": []
+    },
+    "n668_scale_identity_elsewhere.json": {
+      "queriedWith": [
+        "scale-identity-elsewhere",
+        "358bbf2c1886ac4b",
+        "e4871d50d0001e66",
+        "66e16f089f1522d1",
+        "59b4558a37f28bc9"
+      ],
+      "rarestIdentifier": "scale-identity-elsewhere",
+      "rarestWeight": 4.53,
+      "closestEarlierArtefact": "n615_flat_hierarchy.json",
+      "closestScore": 10.3,
+      "itsDecisions": []
+    },
+    "n669_decision_register_v3.json": {
+      "queriedWith": [
+        "pending-decision-register",
+        "cycling-time-to-exhaustion-fixed-power",
+        "cycling-tte-fixed-intensity",
+        "acid-hydrolysis-freeze-dried-biopsy",
+        "needle-biopsy-vastus-lateralis"
+      ],
+      "rarestIdentifier": "pending-decision-register",
+      "rarestWeight": 4.53,
+      "closestEarlierArtefact": "n585_blocked_drafts_errata.json",
+      "closestScore": 13.2,
+      "itsDecisions": [
+        "D2"
+      ]
+    }
+  },
+  "firstVersionWasWrong": "🚨 本支第一版用「報告代號 ＋ 契約結局**都要命中**」查，**查不到 n594——因為 n594 裡根本沒有報告代號**。✅ 真正該當鑰匙的是稀有的**儀器名稱**。⚠️ 那一版的「舊地重遊率」也每一支都是 100%%，**🚨 全滿的指標沒有鑑別力**，已整支換掉。",
+  "howToUse": "✅ 開一輪之前，把手上的識別字丟進 `search`，**🚨 看前五名有沒有掛著決策的舊憑證——有就先讀它。**",
+  "methodLimit": "🚨 本支只索引**識別字**，🚫 索引不到「同一件事用不同識別字談」——⚠️ 第 667 輪的「GI 佔六成」與 D6 沒有共同的稀有識別字，**故這支救得了 D4 那次，救不了 D6 那次**。✅ 寫在這裡，🚫 免得下次高估它。",
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "controlProbes": [
+    {
+      "probe": "索引真的建起來了（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 識別字 471 個、憑證 185 支；⚠️ 太少代表樣式沒抓到東西"
+    },
+    {
+      "probe": "查捏造的識別字必須查無（必觸發之反向）",
+      "passed": true,
+      "detail": "🚨 兩個捏造的識別字都查無；⚠️ 若查得到，索引是在亂比對"
+    },
+    {
+      "probe": "稀有度權重真的分得開（必觸發之反向）",
+      "passed": true,
+      "detail": "🚨 最普遍者 `7a6ac1559c740fd6` 出現 31／185 支、權重 1.79；最稀有者出現 2 支、權重 4.53；倍率 2.5；⚠️ 倍率接近 1 就代表排序只是在數命中次數"
+    },
+    {
+      "probe": "只用第 663 輪之前的憑證，n594 排得進前 5 且連得到 D4（必觸發之回溯）",
+      "passed": true,
+      "detail": "🚨 前 5 名：[('n574_instrument_exclusions.json', 11.3), ('n662_double_read_fields.json', 11.3), ('n585_blocked_drafts_errata.json', 11.3), ('n594_a3_first_measurement.json', 9.4), ('n615_flat_hierarchy.json', 4.1)]；n594 名次 4；連到的決策 ['D2', 'D4']；⚠️ 排不進去就代表這支索引蓋不到真正發生過的失誤"
+    },
+    {
+      "probe": "這一串沒有任何一支「早該先讀某支已掛決策的舊憑證」",
+      "passed": false,
+      "detail": "🚨 3／8 支的最近舊憑證掛著決策：{'n662_double_read_fields.json': \"n585_blocked_drafts_errata.json → ['D2']\", 'n663_reader_vocabulary.json': \"n585_blocked_drafts_errata.json → ['D2']\", 'n669_decision_register_v3.json': \"n585_blocked_drafts_errata.json → ['D2']\"}；⚠️ 這正是第 669 輪發現的那件事，現在指得出是哪一支"
+    }
+  ],
+  "auditHash": "sha256:bcb6424e7069ef614b3de1e0487572e7ccb68bee58fa93d1e0a8ab02519f6047"
+}

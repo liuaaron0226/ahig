@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "documentType": "probe-shape-scan",
   "notAGate": "🚫 不入輪次閘門（n+181 三）",
-  "probesScanned": 420,
-  "artefactsScanned": 90,
+  "probesScanned": 425,
+  "artefactsScanned": 91,
   "flaggedCount": 4,
   "deliberateRedFlags": [
     {
@@ -70,7 +70,7 @@
     {
       "probe": "真的掃到東西（必觸發之正對照）",
       "passed": true,
-      "detail": "🚨 掃出 420 道探針、90 支憑證；⚠️ 若很少，代表掃描器沒認出呼叫點"
+      "detail": "🚨 掃出 425 道探針、91 支憑證；⚠️ 若很少，代表掃描器沒認出呼叫點"
     },
     {
       "probe": "沒有甲、乙兩種確定恆真的形狀",
@@ -83,5 +83,5 @@
       "detail": "🚨 尚未證明會亮的哨兵探針 0 道：[]"
     }
   ],
-  "auditHash": "sha256:024ba90e999da2bac30cc90aac018a0e1491e7af54bca16eba5a04b79ea331c2"
+  "auditHash": "sha256:d3a45dd6dfdd40ad45fe778fdffb76f7b976e0de807cb8f40976f2a85274f4b1"
 }
