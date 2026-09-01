@@ -1,0 +1,883 @@
+{
+  "schemaVersion": 1,
+  "documentType": "artefact-reproducibility",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "method": "✅ 在暫存目錄搭一個**假的 repo 根**（`.scratch`／`ahig`／`docs` 副本），cwd 指向那裡：⚠️ 相對路徑讀得到，**🚨 而寫也只寫得進副本**。",
+  "twoBrokenVersionsBefore": "🚨 第一版 cwd 在 .scratch 副本裡 ⇒ 相對路徑讀不到，**87 支被誤判成「跑不起來」**。**🚨 第二版 cwd 在 repo 根 ⇒ 相對路徑的寫入落進了真正的 repo**：26 份憑證 JSON、產品程式 `statistical_termination.py`、10 份 docs 全被改動，測試從 840 掉到 839＋1 失敗。⚠️ 而本室當時在憑證裡寫著「repo 裡的憑證一個字都沒動」——**那是假的**。✅ 已用 `git checkout` 全部還原，測試回到 840 passed。",
+  "canary": {
+    "artefact": "n155_owner_briefing.py",
+    "ran": true,
+    "repoUntouched": true
+  },
+  "repoUntouchedAfterSweep": true,
+  "scanned": 126,
+  "identical": 105,
+  "drifted": 10,
+  "broken": 6,
+  "skippedBecauseNoRecordedJson": 128,
+  "scopeNote": "⚠️ 只跑「有已回報 JSON 可對」的憑證（126 支）；🚫 另 128 支沒有 JSON，無從比較故未執行——✅ 照實記下，🚫 不假裝它們不存在。",
+  "refusedByDesign": 5,
+  "refusedDetail": [
+    [
+      "n454_pdf_retry_and_landing.py",
+      ""
+    ],
+    [
+      "n455_pdf_download.py",
+      ""
+    ],
+    [
+      "n459_grobid_acceptance.py",
+      ""
+    ],
+    [
+      "n477_alt_oa_locations.py",
+      ""
+    ],
+    [
+      "n511_datacite_licence.py",
+      ""
+    ]
+  ],
+  "whyRefusedIsNotBroken": "✅ 憑證因為「缺聯絡信箱不送請求」「外部服務沒開」「無待查者」而停下，**是紀律生效，🚫 不是缺陷**。🚨 本支第一版把它們和真的壞掉混成同一個「跑不起來」——⚠️ 又是本 run 反覆抓到的那一族：**一種失敗長得像另一種**。",
+  "withoutRecordedJson": 128,
+  "rows": [
+    {
+      "artefact": "n438_fulltext_route.py",
+      "verdict": "✅ 一模一樣",
+      "changedFields": [],
+      "error": ""
+    },
+    {
+      "artefact": "n439_route_cost.py",
+      "verdict": "✅ 一模一樣",
+      "changedFields": [],
+      "error": ""
+    },
+    {
+      "artefact": "n440_not_screened.py",
+      "verdict": "✅ 一模一樣",
+      "changedFields": [],
+      "error": ""
+    },
+    {
+      "artefact": "n441_board_sourced.py",
+      "verdict": "✅ 一模一樣",
+      "changedFields": [],
+      "error": ""
+    },
+    {
+      "artefact": "n442_placeholder_sources.py",
+      "verdict": "✅ 一模一樣",
+      "changedFields": [],
+      "error": ""
+    },
+    {
+      "artefact": "n443_occ_symmetry.py",
+      "verdict": "✅ 一模一樣",
+      "changedFields": [],
+      "error": ""
+    },
+    {
+      "artefact": "n444_pscore_definition.py",
+      "verdict": "✅ 一模一樣",
+      "changedFields": [],
+      "error": ""
+    },
+    {
+      "artefact": "n445_mandatory_at_trigger.py",
+      "verdict": "✅ 一模一樣",
+      "changedFields": [],
+      "error": ""
+    },
+    {
+      "artefact": "n447_expected_gap_drift.py",
+      "verdict": "✅ 一模一樣",
+      "changedFields": [],
+      "error": ""
+    },
+    {
+      "artefact": "n450_landing_survey.py",
+      "verdict": "✅ 一模一樣",
+      "changedFields": [],
+      "error": ""
+    },
+    {
+      "artefact": "n451_harms_placeholders.py",
+      "verdict": "✅ 一模一樣",
+      "changedFields": [],
+      "error": ""
+    },
+    {
+      "artefact": "n453_pdf_reachability.py",
+      "verdict": "✅ 一模一樣",
+      "changedFields": [],
+      "error": ""
+    },
+    {
+      "artefact": "n454_pdf_retry_and_landing.py",
+      "verdict": "✅ 按設計拒跑（前置條件不在）",
+      "changedFields": [],
+      "error": ""
+    },
+    {
+      "artefact": "n455_pdf_download.py",
+      "verdict": "✅ 按設計拒跑（前置條件不在）",
+      "changedFields": [],
+      "error": ""
+    },
+    {
+      "artefact": "n456_pdf_textlayer.py",
+      "verdict": "✅ 一模一樣",
+      "changedFields": [],
+      "error": ""
+    },
+    {
+      "artefact": "n459_grobid_acceptance.py",
+      "verdict": "✅ 按設計拒跑（前置條件不在）",
+      "changedFields": [],
+      "error": ""
+    },
+    {
+      "artefact": "n477_alt_oa_locations.py",
+      "verdict": "✅ 按設計拒跑（前置條件不在）",
+      "changedFields": [],
+      "error": ""
+    },
+    {
+      "artefact": "n482_harms_adjacent_roster.py",
+      "verdict": "✅ 一模一樣",
+      "changedFields": [],
+      "error": ""
+    },
+    {
+      "artefact": "n492_stratum_table.py",
+      "verdict": "✅ 一模一樣",
+      "changedFields": [],
+      "error": ""
+    },
+    {
+      "artefact": "n495_stratum_purpose.py",
+      "verdict": "✅ 一模一樣",
+      "changedFields": [],
+      "error": ""
+    },
+    {
+      "artefact": "n496_corpus_verify.py",
+      "verdict": "✅ 一模一樣",
+      "changedFields": [],
+      "error": ""
+    },
+    {
+      "artefact": "n498_sections_integrity.py",
+      "verdict": "✅ 一模一樣",
+      "changedFields": [],
+      "error": ""
+    },
+    {
+      "artefact": "n499_calibration_redraw.py",
+      "verdict": "✅ 一模一樣",
+      "changedFields": [],
+      "error": ""
+    },
+    {
+      "artefact": "n49_sample.py",
+      "verdict": "✅ 一模一樣",
+      "changedFields": [],
+      "error": ""
+    },
+    {
+      "artefact": "n500_inaccessible_cells.py",
+      "verdict": "✅ 一模一樣",
+      "changedFields": [],
+      "error": ""
+    },
+    {
+      "artefact": "n501_retraction_recheck.py",
+      "verdict": "✅ 一模一樣",
+      "changedFields": [],
+      "error": ""
+    },
+    {
+      "artefact": "n504_executor_suite.py",
+      "verdict": "✅ 一模一樣",
+      "changedFields": [],
+      "error": ""
+    },
+    {
+      "artefact": "n505_licence_completion.py",
+      "verdict": "✅ 一模一樣",
+      "changedFields": [],
+      "error": ""
+    },
+    {
+      "artefact": "n506_failclosed_acceptance.py",
+      "verdict": "✅ 一模一樣",
+      "changedFields": [],
+      "error": ""
+    },
+    {
+      "artefact": "n507_blocked_cells_review.py",
+      "verdict": "✅ 一模一樣",
+      "changedFields": [],
+      "error": ""
+    },
+    {
+      "artefact": "n508_section_g_crosscheck.py",
+      "verdict": "🚨 跑不起來",
+      "changedFields": [],
+      "error": "FileNotFoundError: [Errno 2] No such file or directory: '.scratch/n477_alt_oa_locations.json'"
+    },
+    {
+      "artefact": "n50_rescreen_list.py",
+      "verdict": "✅ 一模一樣",
+      "changedFields": [],
+      "error": ""
+    },
+    {
+      "artefact": "n510_licence_second_source.py",
+      "verdict": "✅ 一模一樣",
+      "changedFields": [],
+      "error": ""
+    },
+    {
+      "artefact": "n511_datacite_licence.py",
+      "verdict": "✅ 按設計拒跑（前置條件不在）",
+      "changedFields": [],
+      "error": ""
+    },
+    {
+      "artefact": "n512_source_host_provenance.py",
+      "verdict": "✅ 一模一樣",
+      "changedFields": [],
+      "error": ""
+    },
+    {
+      "artefact": "n513_repository_deposit_terms.py",
+      "verdict": "✅ 一模一樣",
+      "changedFields": [],
+      "error": ""
+    },
+    {
+      "artefact": "n514_hash_lineending_exposure.py",
+      "verdict": "✅ 一模一樣",
+      "changedFields": [],
+      "error": ""
+    },
+    {
+      "artefact": "n515_conversion_drill.py",
+      "verdict": "✅ 一模一樣",
+      "changedFields": [],
+      "error": ""
+    },
+    {
+      "artefact": "n517_temporal_order_check.py",
+      "verdict": "✅ 一模一樣",
+      "changedFields": [],
+      "error": ""
+    },
+    {
+      "artefact": "n519_manifest_generation_drift.py",
+      "verdict": "✅ 一模一樣",
+      "changedFields": [],
+      "error": ""
+    },
+    {
+      "artefact": "n521_owner_briefing_crosscheck.py",
+      "verdict": "🚨 跑不起來",
+      "changedFields": [],
+      "error": "🚨 抽取失敗——⚠️ 措辭可能已改，🚫 不得當成「無不符」。"
+    },
+    {
+      "artefact": "n522_s3_record_factsheet.py",
+      "verdict": "✅ 一模一樣",
+      "changedFields": [],
+      "error": ""
+    },
+    {
+      "artefact": "n523_s56_version_with_backfill.py",
+      "verdict": "✅ 一模一樣",
+      "changedFields": [],
+      "error": ""
+    },
+    {
+      "artefact": "n524_gi_published_availability.py",
+      "verdict": "✅ 一模一樣",
+      "changedFields": [],
+      "error": ""
+    },
+    {
+      "artefact": "n525_id_key_conventions.py",
+      "verdict": "✅ 一模一樣",
+      "changedFields": [],
+      "error": ""
+    },
+    {
+      "artefact": "n526_no_oa_locations_recheck.py",
+      "verdict": "🚨 跑不起來",
+      "changedFields": [],
+      "error": "FileNotFoundError: [Errno 2] No such file or directory: '.scratch/n477_alt_oa_locations.json'"
+    },
+    {
+      "artefact": "n527_incomplete_record_closeout.py",
+      "verdict": "✅ 一模一樣",
+      "changedFields": [],
+      "error": ""
+    },
+    {
+      "artefact": "n528_acquisition_effort_facts.py",
+      "verdict": "✅ 一模一樣",
+      "changedFields": [],
+      "error": ""
+    },
+    {
+      "artefact": "n535_reading_payload.py",
+      "verdict": "⚠️ 跑得起來但結果變了",
+      "changedFields": [
+        "measured",
+        "records",
+        "versusN184"
+      ],
+      "error": ""
+    },
+    {
+      "artefact": "n537_chain_rehearsal.py",
+      "verdict": "⚠️ 跑得起來但結果變了",
+      "changedFields": [
+        "controlProbes",
+        "run"
+      ],
+      "error": ""
+    },
+    {
+      "artefact": "n538_tei_crlf_monitor.py",
+      "verdict": "✅ 一模一樣",
+      "changedFields": [],
+      "error": ""
+    },
+    {
+      "artefact": "n539_scoped_schema_conformance.py",
+      "verdict": "✅ 一模一樣",
+      "changedFields": [],
+      "error": ""
+    },
+    {
+      "artefact": "n540_worksheet_dryrun.py",
+      "verdict": "⚠️ 跑得起來但結果變了",
+      "changedFields": [
+        "controlProbes",
+        "paging"
+      ],
+      "error": ""
+    },
+    {
+      "artefact": "n541_untitled_reachability.py",
+      "verdict": "✅ 一模一樣",
+      "changedFields": [],
+      "error": ""
+    },
+    {
+      "artefact": "n542_handoff_drift.py",
+      "verdict": "🚨 跑不起來",
+      "changedFields": [],
+      "error": "🚨 取不到版控裡的那一份：Command '['git', 'show', 'HEAD:.scratch/executor_cells.json']' returned non-zero exit status 128."
+    },
+    {
+      "artefact": "n544_shacl_coverage.py",
+      "verdict": "🚨 跑不起來",
+      "changedFields": [],
+      "error": "FileNotFoundError: [Errno 2] No such file or directory: 'C:\\\\Users\\\\User\\\\AppData\\\\Local\\\\Temp\\\\ahig-repro-vm1kmn_n\\\\ahi"
+    },
+    {
+      "artefact": "n545_downstream_edge.py",
+      "verdict": "⚠️ 跑得起來但結果變了",
+      "changedFields": [
+        "identifierCensus"
+      ],
+      "error": ""
+    },
+    {
+      "artefact": "n547_varied_shapes.py",
+      "verdict": "✅ 一模一樣",
+      "changedFields": [],
+      "error": ""
+    },
+    {
+      "artefact": "n548_incremental_rounds.py",
+      "verdict": "✅ 一模一樣",
+      "changedFields": [],
+      "error": ""
+    },
+    {
+      "artefact": "n552_untested_paths.py",
+      "verdict": "🚨 跑不起來",
+      "changedFields": [],
+      "error": "ModuleNotFoundError: No module named 'test_extraction_corpus'"
+    },
+    {
+      "artefact": "n553_gate_pattern_controls.py",
+      "verdict": "✅ 一模一樣",
+      "changedFields": [],
+      "error": ""
+    },
+    {
+      "artefact": "n574_instrument_exclusions.py",
+      "verdict": "⚠️ 跑得起來但結果變了",
+      "changedFields": [
+        "inventories"
+      ],
+      "error": ""
+    },
+    {
+      "artefact": "n576_mapping_contradictions.py",
+      "verdict": "✅ 一模一樣",
+      "changedFields": [],
+      "error": ""
+    },
+    {
+      "artefact": "n579_request_version_split.py",
+      "verdict": "⚠️ 跑得起來但結果變了",
+      "changedFields": [
+        "controlProbes",
+        "timeline"
+      ],
+      "error": ""
+    },
+    {
+      "artefact": "n580_study_vs_report.py",
+      "verdict": "✅ 一模一樣",
+      "changedFields": [],
+      "error": ""
+    },
+    {
+      "artefact": "n582_same_cohort_probe.py",
+      "verdict": "✅ 一模一樣",
+      "changedFields": [],
+      "error": ""
+    },
+    {
+      "artefact": "n584_thesis_and_hidden_duplicate.py",
+      "verdict": "✅ 一模一樣",
+      "changedFields": [],
+      "error": ""
+    },
+    {
+      "artefact": "n585_blocked_drafts_errata.py",
+      "verdict": "✅ 一模一樣",
+      "changedFields": [],
+      "error": ""
+    },
+    {
+      "artefact": "n586_zero_contribution_census.py",
+      "verdict": "✅ 一模一樣",
+      "changedFields": [],
+      "error": ""
+    },
+    {
+      "artefact": "n587_zero_declared_adjudication.py",
+      "verdict": "✅ 一模一樣",
+      "changedFields": [],
+      "error": ""
+    },
+    {
+      "artefact": "n588_reason_code_conflation.py",
+      "verdict": "✅ 一模一樣",
+      "changedFields": [],
+      "error": ""
+    },
+    {
+      "artefact": "n589_dose_not_reported_audit.py",
+      "verdict": "✅ 一模一樣",
+      "changedFields": [],
+      "error": ""
+    },
+    {
+      "artefact": "n590_source_location_audit.py",
+      "verdict": "✅ 一模一樣",
+      "changedFields": [],
+      "error": ""
+    },
+    {
+      "artefact": "n591_absent_vs_null_axis.py",
+      "verdict": "✅ 一模一樣",
+      "changedFields": [],
+      "error": ""
+    },
+    {
+      "artefact": "n592_default_only_when_absent.py",
+      "verdict": "✅ 一模一樣",
+      "changedFields": [],
+      "error": ""
+    },
+    {
+      "artefact": "n593_cap_paths_diverge.py",
+      "verdict": "✅ 一模一樣",
+      "changedFields": [],
+      "error": ""
+    },
+    {
+      "artefact": "n594_a3_first_measurement.py",
+      "verdict": "⚠️ 跑得起來但結果變了",
+      "changedFields": [
+        "agreement",
+        "controlProbes",
+        "granularityConfirmed",
+        "refsBothOnThatReport"
+      ],
+      "error": ""
+    },
+    {
+      "artefact": "n597_numeric_result_unsupported.py",
+      "verdict": "✅ 一模一樣",
+      "changedFields": [],
+      "error": ""
+    },
+    {
+      "artefact": "n608_fourth_double_read.py",
+      "verdict": "✅ 一模一樣",
+      "changedFields": [],
+      "error": ""
+    },
+    {
+      "artefact": "n609_methods_title_check.py",
+      "verdict": "✅ 一模一樣",
+      "changedFields": [],
+      "error": ""
+    },
+    {
+      "artefact": "n610_pending_decisions.py",
+      "verdict": "✅ 一模一樣",
+      "changedFields": [],
+      "error": ""
+    },
+    {
+      "artefact": "n612_parse_tei_root_cause.py",
+      "verdict": "✅ 一模一樣",
+      "changedFields": [],
+      "error": ""
+    },
+    {
+      "artefact": "n613_recoverable_from_tables.py",
+      "verdict": "✅ 一模一樣",
+      "changedFields": [],
+      "error": ""
+    },
+    {
+      "artefact": "n614_table_recovery_qualified.py",
+      "verdict": "✅ 一模一樣",
+      "changedFields": [],
+      "error": ""
+    },
+    {
+      "artefact": "n615_flat_hierarchy.py",
+      "verdict": "✅ 一模一樣",
+      "changedFields": [],
+      "error": ""
+    },
+    {
+      "artefact": "n616_text_coverage.py",
+      "verdict": "✅ 一模一樣",
+      "changedFields": [],
+      "error": ""
+    },
+    {
+      "artefact": "n617_findings_by_source.py",
+      "verdict": "✅ 一模一樣",
+      "changedFields": [],
+      "error": ""
+    },
+    {
+      "artefact": "n618_author_screen_null.py",
+      "verdict": "✅ 一模一樣",
+      "changedFields": [],
+      "error": ""
+    },
+    {
+      "artefact": "n619_mapping_scan_null.py",
+      "verdict": "✅ 一模一樣",
+      "changedFields": [],
+      "error": ""
+    },
+    {
+      "artefact": "n620_cohort_match_null.py",
+      "verdict": "⚠️ 跑得起來但結果變了",
+      "changedFields": [
+        "controlProbes",
+        "nullMaxSharedDistribution",
+        "nullMean",
+        "nullZeroTrials",
+        "pValue",
+        "timesNullReachedObserved"
+      ],
+      "error": ""
+    },
+    {
+      "artefact": "n621_out_of_scope_audit.py",
+      "verdict": "✅ 一模一樣",
+      "changedFields": [],
+      "error": ""
+    },
+    {
+      "artefact": "n622_attestation_audit.py",
+      "verdict": "✅ 一模一樣",
+      "changedFields": [],
+      "error": ""
+    },
+    {
+      "artefact": "n624_corpus_denominator.py",
+      "verdict": "✅ 一模一樣",
+      "changedFields": [],
+      "error": ""
+    },
+    {
+      "artefact": "n625_corpus_era_bias.py",
+      "verdict": "✅ 一模一樣",
+      "changedFields": [],
+      "error": ""
+    },
+    {
+      "artefact": "n626_missing_era_dose_space.py",
+      "verdict": "✅ 一模一樣",
+      "changedFields": [],
+      "error": ""
+    },
+    {
+      "artefact": "n627_dose_proxy_validation.py",
+      "verdict": "✅ 一模一樣",
+      "changedFields": [],
+      "error": ""
+    },
+    {
+      "artefact": "n628_evidence_thinness.py",
+      "verdict": "✅ 一模一樣",
+      "changedFields": [],
+      "error": ""
+    },
+    {
+      "artefact": "n630_binding_integrity.py",
+      "verdict": "✅ 一模一樣",
+      "changedFields": [],
+      "error": ""
+    },
+    {
+      "artefact": "n632_poolability.py",
+      "verdict": "✅ 一模一樣",
+      "changedFields": [],
+      "error": ""
+    },
+    {
+      "artefact": "n633_gi_scale_heterogeneity.py",
+      "verdict": "✅ 一模一樣",
+      "changedFields": [],
+      "error": ""
+    },
+    {
+      "artefact": "n634_decision_register_v2.py",
+      "verdict": "✅ 一模一樣",
+      "changedFields": [],
+      "error": ""
+    },
+    {
+      "artefact": "n635_d12_recoverability.py",
+      "verdict": "✅ 一模一樣",
+      "changedFields": [],
+      "error": ""
+    },
+    {
+      "artefact": "n636_headline_reconciliation.py",
+      "verdict": "✅ 一模一樣",
+      "changedFields": [],
+      "error": ""
+    },
+    {
+      "artefact": "n637_prose_numbers.py",
+      "verdict": "✅ 一模一樣",
+      "changedFields": [],
+      "error": ""
+    },
+    {
+      "artefact": "n638_cap_paths_executed.py",
+      "verdict": "✅ 一模一樣",
+      "changedFields": [],
+      "error": ""
+    },
+    {
+      "artefact": "n639_decision_space_coverage.py",
+      "verdict": "✅ 一模一樣",
+      "changedFields": [],
+      "error": ""
+    },
+    {
+      "artefact": "n640_branch_reachability.py",
+      "verdict": "✅ 一模一樣",
+      "changedFields": [],
+      "error": ""
+    },
+    {
+      "artefact": "n641_double_read_state.py",
+      "verdict": "⚠️ 跑得起來但結果變了",
+      "changedFields": [
+        "causesInMyArtefactsOnly",
+        "controlProbes",
+        "discussedButNotRecorded"
+      ],
+      "error": ""
+    },
+    {
+      "artefact": "n642_double_read_sample.py",
+      "verdict": "✅ 一模一樣",
+      "changedFields": [],
+      "error": ""
+    },
+    {
+      "artefact": "n643_corpus_to_evidence_funnel.py",
+      "verdict": "✅ 一模一樣",
+      "changedFields": [],
+      "error": ""
+    },
+    {
+      "artefact": "n644_screening_vs_extraction.py",
+      "verdict": "✅ 一模一樣",
+      "changedFields": [],
+      "error": ""
+    },
+    {
+      "artefact": "n645_dose_gate_by_outcome.py",
+      "verdict": "⚠️ 跑得起來但結果變了",
+      "changedFields": [
+        "comparison"
+      ],
+      "error": ""
+    },
+    {
+      "artefact": "n646_loss_ledger_by_outcome.py",
+      "verdict": "✅ 一模一樣",
+      "changedFields": [],
+      "error": ""
+    },
+    {
+      "artefact": "n647_recovery_ledger.py",
+      "verdict": "✅ 一模一樣",
+      "changedFields": [],
+      "error": ""
+    },
+    {
+      "artefact": "n78_tail_dec_000.py",
+      "verdict": "✅ 一模一樣",
+      "changedFields": [],
+      "error": ""
+    },
+    {
+      "artefact": "n78_tail_dec_025.py",
+      "verdict": "✅ 一模一樣",
+      "changedFields": [],
+      "error": ""
+    },
+    {
+      "artefact": "n78_tail_dec_050.py",
+      "verdict": "✅ 一模一樣",
+      "changedFields": [],
+      "error": ""
+    },
+    {
+      "artefact": "n78_tail_dec_075.py",
+      "verdict": "✅ 一模一樣",
+      "changedFields": [],
+      "error": ""
+    },
+    {
+      "artefact": "n78_tail_dec_100.py",
+      "verdict": "✅ 一模一樣",
+      "changedFields": [],
+      "error": ""
+    },
+    {
+      "artefact": "n78_tail_dec_125.py",
+      "verdict": "✅ 一模一樣",
+      "changedFields": [],
+      "error": ""
+    },
+    {
+      "artefact": "n78_tail_dec_150.py",
+      "verdict": "✅ 一模一樣",
+      "changedFields": [],
+      "error": ""
+    },
+    {
+      "artefact": "n78_tail_dec_175.py",
+      "verdict": "✅ 一模一樣",
+      "changedFields": [],
+      "error": ""
+    },
+    {
+      "artefact": "n86_errata_originals.py",
+      "verdict": "✅ 一模一樣",
+      "changedFields": [],
+      "error": ""
+    },
+    {
+      "artefact": "n92_audit_debt_union.py",
+      "verdict": "✅ 一模一樣",
+      "changedFields": [],
+      "error": ""
+    },
+    {
+      "artefact": "n94_three_lane_reconcile.py",
+      "verdict": "✅ 一模一樣",
+      "changedFields": [],
+      "error": ""
+    },
+    {
+      "artefact": "n97_errata_roster.py",
+      "verdict": "✅ 一模一樣",
+      "changedFields": [],
+      "error": ""
+    }
+  ],
+  "skipped": [
+    "n629_probe_mutation_test.py",
+    "n631_probe_shape_scanner.py",
+    "n648_artefact_reproducibility.py",
+    "private_root.py",
+    "round_gate.py"
+  ],
+  "howToReadDrift": "⚠️ 「結果變了」不等於「壞掉」——🚨 有些憑證本來就跟著資料走（對帳表、覆蓋率表），✅ 那時候變才是對的；🚨 真正要看的是**變了卻沒有人知道**。",
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "controlProbes": [
+    {
+      "probe": "真的跑了夠多支（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 實跑 126 支；⚠️ 太少的話「全部還活著」沒有份量"
+    },
+    {
+      "probe": "🚨 Canary：跑一支會寫檔的憑證後 repo 仍未被動（必觸發之反向）",
+      "passed": true,
+      "detail": "🚨 canary=n155_owner_briefing.py、safe=True；⚠️ **第 648 輪的損害正是「以為擋得住」造成的**，故本支先跑一支會重產 docs 的憑證再檢查 git status"
+    },
+    {
+      "probe": "整趟跑完 repo 一個檔都沒被改動（必觸發之反向）",
+      "passed": true,
+      "detail": "🚨 前後差異：[]；⚠️ 若有差異，本支的「安全」就是假的"
+    },
+    {
+      "probe": "至少有一支重跑後一模一樣（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 一模一樣者 105 支；⚠️ 若一支都沒有，代表本支的比較方式有問題"
+    },
+    {
+      "probe": "每一支憑證今天都還跑得起來",
+      "passed": false,
+      "detail": "🚨 跑不起來的 6 支：[('n508_section_g_crosscheck.py', \"FileNotFoundError: [Errno 2] No such file or directory: '.scratch/n477_alt_oa_locations.json'\"), ('n521_owner_briefing_crosscheck.py', '🚨 抽取失敗——⚠️ 措辭可能已改，🚫 不得當成「無不符」。'), ('n526_no_oa_locations_recheck.py', \"FileNotFoundError: [Errno 2] No such file or directory: '.scratch/n477_alt_oa_locations.json'\"), ('n542_handoff_drift.py', \"🚨 取不到版控裡的那一份：Command '['git', 'show', 'HEAD:.scratch/executor_cells.json']' returned non-zero exit status 128.\"), ('n544_shacl_coverage.py', \"FileNotFoundError: [Errno 2] No such file or directory: 'C:\\\\\\\\Users\\\\\\\\User\\\\\\\\AppData\\\\\\\\Local\\\\\\\\Temp\\\\\\\\ahig-repro-vm1kmn_n\\\\\\\\ahi\"), ('n552_untested_paths.py', \"ModuleNotFoundError: No module named 'test_extraction_corpus'\")]"
+    },
+    {
+      "probe": "每一支憑證重跑後結論不變",
+      "passed": false,
+      "detail": "⚠️ 結果變了的 10 支：[('n535_reading_payload.py', ['measured', 'records', 'versusN184']), ('n537_chain_rehearsal.py', ['controlProbes', 'run']), ('n540_worksheet_dryrun.py', ['controlProbes', 'paging']), ('n545_downstream_edge.py', ['identifierCensus']), ('n574_instrument_exclusions.py', ['inventories']), ('n579_request_version_split.py', ['controlProbes', 'timeline']), ('n594_a3_first_measurement.py', ['agreement', 'controlProbes', 'granularityConfirmed', 'refsBothOnThatReport']), ('n620_cohort_match_null.py', ['controlProbes', 'nullMaxSharedDistribution', 'nullMean', 'nullZeroTrials', 'pValue', 'timesNullReachedObserved'])]"
+    }
+  ],
+  "auditHash": "sha256:c1c22b341d917827c0d8cafa08ea185ff5fe7602170b205e61ea4864609b7105"
+}

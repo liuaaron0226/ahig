@@ -61,6 +61,16 @@ SKIP = {'n648_artefact_reproducibility.py', 'round_gate.py',
 
 TIMEOUT = 240
 
+# 🚨 「跑不起來」又把兩種不同的東西混成一種——⚠️ 本 run 反覆抓到的同一族。
+# ✅ 憑證**按設計拒跑**（缺信箱不送請求、外部服務沒開、無待查者）
+#    與**真的壞了**必須分開；🚫 前者是紀律生效，不是缺陷。
+BY_DESIGN = (
+    'AHIG_CONTACT_EMAIL 未設定',
+    'GROBID 未在',
+    '無待查者',
+    '本輪無事可做',
+)
+
 
 def stage_fake_root():
     """搭一個假的 repo 根：🚨 讓任何寫入都只落在副本裡。"""
@@ -75,9 +85,19 @@ def stage_fake_root():
     return root
 
 
+def repo_dirty():
+    """repo 目前有哪些被改動的檔案——🚨 用來證明本支沒有動到它們。"""
+    result = subprocess.run(['git', 'status', '--porcelain'], cwd=str(REPO),
+                            capture_output=True, text=True,
+                            encoding='utf-8', errors='ignore')
+    return sorted(line for line in (result.stdout or '').split('\n')
+                  if line.strip())
+
+
 def main():
     workdir = stage_fake_root()
     stage = workdir / '.scratch'
+    before_dirty = repo_dirty()
 
     env = dict(os.environ)
     env['PYTHONPATH'] = os.pathsep.join(
@@ -85,7 +105,31 @@ def main():
     env['PYTHONIOENCODING'] = 'utf-8'
     env['AHIG_PRIVATE_ROOT'] = str(ROOT)
 
-    scripts = [p for p in sorted(S.glob('n*.py')) if p.name not in SKIP]
+    # 🚨 Canary：⚠️ 先單獨跑**一支已知會寫進 repo 的憑證**（重產 docs 的那種），
+    # 然後檢查 repo 有沒有被動。**🚫 不通過就不准跑其餘**——
+    # ✅ 因為第 648 輪那次損害，正是「以為擋得住」造成的。
+    CANARY = 'n155_owner_briefing.py'
+    canary_ran = canary_safe = None
+    if (stage / CANARY).is_file():
+        subprocess.run([sys.executable, '-X', 'utf8', str(stage / CANARY)],
+                       cwd=str(workdir), capture_output=True, text=True,
+                       encoding='utf-8', errors='ignore', env=env,
+                       timeout=TIMEOUT)
+        canary_ran = True
+        canary_safe = repo_dirty() == before_dirty
+        if not canary_safe:
+            shutil.rmtree(workdir, ignore_errors=True)
+            raise SystemExit(
+                '🚨 Canary 失敗：跑一支會寫檔的憑證之後 repo 被改動了——'
+                '🚫 本支中止，不跑其餘。差異：%s'
+                % sorted(set(repo_dirty()) - set(before_dirty)))
+
+    # ⚠️ 沒有已回報 JSON 的憑證**無從比較**——🚫 跑它們不會產生任何結論，
+    # 只會拉長時間。✅ 故本支只跑「有 JSON 可對」的那些，
+    # 並把略過的數目照實記下來（🚨 不是假裝它們不存在）。
+    all_scripts = [p for p in sorted(S.glob('n*.py')) if p.name not in SKIP]
+    scripts = [p for p in all_scripts if (S / (p.stem + '.json')).is_file()]
+    skipped_no_json = [p.name for p in all_scripts if p not in scripts]
     rows = []
     for script in scripts:
         recorded_path = S / (script.stem + '.json')
@@ -121,8 +165,11 @@ def main():
             except json.JSONDecodeError:
                 fresh = None
 
+        refused = any(marker in (error or '') for marker in BY_DESIGN)
         if recorded is None:
             verdict = '（沒有已回報的 JSON）'
+        elif refused and fresh is None:
+            verdict = '✅ 按設計拒跑（前置條件不在）'
         elif crashed or fresh is None:
             verdict = '🚨 跑不起來'
         elif fresh.get('auditHash') == recorded.get('auditHash'):
@@ -141,11 +188,14 @@ def main():
             'error': error[:120] if verdict == '🚨 跑不起來' else '',
         })
 
+    after_dirty = repo_dirty()
     shutil.rmtree(workdir, ignore_errors=True)
 
     same = [r for r in rows if r['verdict'] == '✅ 一模一樣']
     drifted = [r for r in rows if r['verdict'] == '⚠️ 跑得起來但結果變了']
     broken = [r for r in rows if r['verdict'] == '🚨 跑不起來']
+    refused_rows = [r for r in rows
+                    if r['verdict'].startswith('✅ 按設計拒跑')]
     no_json = [r for r in rows if r['verdict'].startswith('（')]
 
     probes = []
@@ -156,10 +206,15 @@ def main():
     probe('真的跑了夠多支（必觸發之正對照）',
           len(rows) >= 50,
           '🚨 實跑 %d 支；⚠️ 太少的話「全部還活著」沒有份量' % len(rows))
-    probe('副本沒有覆蓋 repo 裡的憑證（必觸發之反向）',
-          not (workdir.exists()),
-          '✅ 全部在暫存目錄執行且已清除；'
-          '🚨 若輸出落在 .scratch，本支就會改寫已回報的結果')
+    probe('🚨 Canary：跑一支會寫檔的憑證後 repo 仍未被動（必觸發之反向）',
+          canary_safe is True,
+          '🚨 canary=%s、safe=%s；⚠️ **第 648 輪的損害正是「以為擋得住」造成的**，'
+          '故本支先跑一支會重產 docs 的憑證再檢查 git status'
+          % (CANARY, canary_safe))
+    probe('整趟跑完 repo 一個檔都沒被改動（必觸發之反向）',
+          after_dirty == before_dirty,
+          '🚨 前後差異：%s；⚠️ 若有差異，本支的「安全」就是假的'
+          % sorted(set(after_dirty) ^ set(before_dirty)))
     probe('至少有一支重跑後一模一樣（必觸發之正對照）',
           bool(same),
           '🚨 一模一樣者 %d 支；⚠️ 若一支都沒有，代表本支的比較方式有問題'
@@ -192,11 +247,27 @@ def main():
             '10 份 docs 全被改動，測試從 840 掉到 839＋1 失敗。'
             '⚠️ 而本室當時在憑證裡寫著「repo 裡的憑證一個字都沒動」——**那是假的**。'
             '✅ 已用 `git checkout` 全部還原，測試回到 840 passed。'),
+        'canary': {'artefact': CANARY, 'ran': canary_ran,
+                   'repoUntouched': canary_safe},
+        'repoUntouchedAfterSweep': after_dirty == before_dirty,
         'scanned': len(rows),
         'identical': len(same),
         'drifted': len(drifted),
         'broken': len(broken),
-        'withoutRecordedJson': len(no_json),
+        'skippedBecauseNoRecordedJson': len(skipped_no_json),
+        'scopeNote': (
+            '⚠️ 只跑「有已回報 JSON 可對」的憑證（%d 支）；'
+            '🚫 另 %d 支沒有 JSON，無從比較故未執行——'
+            '✅ 照實記下，🚫 不假裝它們不存在。'
+            % (len(scripts), len(skipped_no_json))),
+        'refusedByDesign': len(refused_rows),
+        'refusedDetail': [(r['artefact'], r['error']) for r in refused_rows],
+        'whyRefusedIsNotBroken': (
+            '✅ 憑證因為「缺聯絡信箱不送請求」「外部服務沒開」「無待查者」而停下，'
+            '**是紀律生效，🚫 不是缺陷**。'
+            '🚨 本支第一版把它們和真的壞掉混成同一個「跑不起來」——'
+            '⚠️ 又是本 run 反覆抓到的那一族：**一種失敗長得像另一種**。'),
+        'withoutRecordedJson': len(skipped_no_json),
         'rows': rows,
         'skipped': sorted(SKIP),
         'howToReadDrift': (
@@ -211,9 +282,12 @@ def main():
                    encoding='utf-8')
 
     print('=== n648 憑證可重現性 ===')
-    print('   掃過 %d 支｜✅ 一模一樣 %d｜⚠️ 結果變了 %d｜🚨 跑不起來 %d｜'
-          '（無已回報 JSON）%d'
-          % (len(rows), len(same), len(drifted), len(broken), len(no_json)))
+    print('   掃過 %d 支｜✅ 一模一樣 %d｜⚠️ 結果變了 %d｜🚨 真的跑不起來 %d｜'
+          '✅ 按設計拒跑 %d｜（無已回報 JSON）%d'
+          % (len(rows), len(same), len(drifted), len(broken),
+             len(refused_rows), len(no_json)))
+    for row in refused_rows:
+        print('      ✅ 拒跑 %-38s %s' % (row['artefact'], row['error']))
     if broken:
         print('   🚨 跑不起來：')
         for row in broken:
