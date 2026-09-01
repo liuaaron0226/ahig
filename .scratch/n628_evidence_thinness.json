@@ -1,0 +1,185 @@
+{
+  "schemaVersion": 1,
+  "documentType": "evidence-thinness-census",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "countingUnit": "相異報告篇數（🚫 不是結局數）",
+  "inScopeOutcomes": 98,
+  "contractOutcomes": 6,
+  "census": [
+    {
+      "outcome": "gi-symptom-severity",
+      "papers": 19,
+      "outcomes": 47,
+      "instruments": 1,
+      "byDoseBand": {
+        "<60": 3,
+        "=60": 7,
+        "60-90": 3,
+        ">=90": 10
+      },
+      "isPerformance": false
+    },
+    {
+      "outcome": "exogenous-cho-oxidation-peak",
+      "papers": 13,
+      "outcomes": 18,
+      "instruments": 1,
+      "byDoseBand": {
+        "<60": 1,
+        "=60": 1,
+        "60-90": 3,
+        ">=90": 10
+      },
+      "isPerformance": false
+    },
+    {
+      "outcome": "gi-symptom-incidence",
+      "papers": 8,
+      "outcomes": 13,
+      "instruments": 1,
+      "byDoseBand": {
+        "<60": 1,
+        "=60": 2,
+        "60-90": 2,
+        ">=90": 4
+      },
+      "isPerformance": false
+    },
+    {
+      "outcome": "tt-completion-time",
+      "papers": 5,
+      "outcomes": 6,
+      "instruments": 3,
+      "byDoseBand": {
+        "<60": 0,
+        "=60": 1,
+        "60-90": 1,
+        ">=90": 3
+      },
+      "isPerformance": true
+    },
+    {
+      "outcome": "time-to-exhaustion",
+      "papers": 5,
+      "outcomes": 10,
+      "instruments": 1,
+      "byDoseBand": {
+        "<60": 1,
+        "=60": 2,
+        "60-90": 0,
+        ">=90": 3
+      },
+      "isPerformance": true
+    },
+    {
+      "outcome": "muscle-glycogen-post-exercise",
+      "papers": 2,
+      "outcomes": 4,
+      "instruments": 1,
+      "byDoseBand": {
+        "<60": 1,
+        "=60": 1,
+        "60-90": 0,
+        ">=90": 1
+      },
+      "isPerformance": false
+    }
+  ],
+  "doseBands": [
+    "<60",
+    "=60",
+    "60-90",
+    ">=90"
+  ],
+  "lowEndContributors": [
+    {
+      "report": "081d147cd92dee14",
+      "minDose": 24.0,
+      "outcomes": [
+        "gi-symptom-severity"
+      ],
+      "supportsPerformance": false
+    },
+    {
+      "report": "307c0dd5b141caed",
+      "minDose": 45.0,
+      "outcomes": [
+        "muscle-glycogen-post-exercise",
+        "time-to-exhaustion"
+      ],
+      "supportsPerformance": true
+    },
+    {
+      "report": "d4149a8bac287851",
+      "minDose": 48.0,
+      "outcomes": [
+        "exogenous-cho-oxidation-peak",
+        "gi-symptom-incidence",
+        "gi-symptom-severity"
+      ],
+      "supportsPerformance": false
+    },
+    {
+      "report": "dbdb6ea55c9667c3",
+      "minDose": 30.0,
+      "outcomes": [
+        "gi-symptom-severity"
+      ],
+      "supportsPerformance": false
+    }
+  ],
+  "lowEndPerformanceSupport": 1,
+  "knownCohortPair": [
+    "307c0dd5b141caed",
+    "7a6ac1559c740fd6"
+  ],
+  "convergence": "🚨 低劑量端唯一撐住**表現類**結局的是 307c0dd5b141caed——⚠️ 而它正是第 584 輪查明的同群重複對裡的那本論文。🚨 配對的期刊那篇目前在範圍內 0 項，**不是因為它沒有結局**，而是 n+189 之前的請求沒帶儀器清單。⚠️ 故 D2／D3 一旦動，動到的正是本支指出最薄的那一格。",
+  "erratumOnMyOwnProbes": {
+    "found": "🚨 本支第一版的反向探針寫成 len(papers_by_ref[不存在的鍵]) == 0——⚠️ 兩個缺陷：① defaultdict **取值即建鍵**，於是「契約結局幾種」被自己的探針從 6 撐成 7（🚨 量測改變了被量的東西）；② 新建空集合長度必為 0，**該探針恆真、永不亮紅**。",
+    "sameShapeElsewhere": {
+      "n622": "「不存在的段落不在標題集合裡」——✅ 用 not in，不建鍵；🚨 但同樣恆真。",
+      "n624": "status_count[不存在的 status] == 0——✅ 實測 Counter 取缺鍵**不會插入**，故計數未被污染；🚨 但同樣恆真。",
+      "n625": "sum(1 for o in opinion.values() if o == 不存在)==0——✅ 不建鍵；🚨 同樣恆真。"
+    },
+    "consequence": "⚠️ 依 n+112（二），必觸發之反向控制要**真的會亮**。🚨 上述三道不符合——它們是裝飾，不是控制。✅ 本支已改成「假鍵必須不在**且**真鍵必須在」（後半可能失敗）。🚫 n622／n624／n625 不就地改寫（已上看板），本條即其 errata。"
+  },
+  "whatThisCannotAnswer": "🚫 本支不判斷「幾篇才夠」——⚠️ 那是方法學與擁有者的裁定；✅ 它只把每一格實際有幾篇攤開。🚫 也不宣稱篇數即獨立性：⚠️ 同群重複已知至少一對，🚨 而未知的還可能有。",
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "controlProbes": [
+    {
+      "probe": "98 項全部落得進某個劑量帶（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 實得 98 項、落不進任何帶者 0；⚠️ 若有落空的，覆蓋格就漏數"
+    },
+    {
+      "probe": "以不存在的結局查，查無此鍵（必觸發之反向）",
+      "passed": true,
+      "detail": "🚨 若不存在的鍵也查得到、或真實的鍵反而查不到，整張普查表就不可信；⚠️ 現有鍵 6 個"
+    },
+    {
+      "probe": "=60 單獨成格真的有東西（必觸發）",
+      "passed": true,
+      "detail": "🚨 恰為 60 g/h 者共 29 項；⚠️ 若把它併進任一邊，該格會憑空胖一圈（第 627 輪查明 60 是眾數）"
+    },
+    {
+      "probe": "每一種契約結局都有 ≥3 篇支撐",
+      "passed": false,
+      "detail": "🚨 實得 muscle-glycogen-post-exercise 2 篇"
+    },
+    {
+      "probe": "表現類結局在低劑量帶有支撐",
+      "passed": false,
+      "detail": "🚨 tt-completion-time 在 <60 g/h 為 0 篇；time-to-exhaustion 在 <60 g/h 為 1 篇"
+    },
+    {
+      "probe": "低端的表現證據不倚賴已知的同群重複對",
+      "passed": false,
+      "detail": "🚨 低端撐表現的 1 篇中，有 1 篇是第 584 輪那組同群重複對的一半（['307c0dd5b141caed']）；⚠️ 配對的另一篇目前在範圍內 0 項只因舊請求沒帶儀器清單——**🚨 一旦重讀，同一批受試者就會被重複計入**"
+    }
+  ],
+  "auditHash": "sha256:f1ecc5c2133d4e48ddeacbf1e8a06a13e30e16493341d3f9e243f2631c9733e1"
+}
