@@ -1,0 +1,95 @@
+{
+  "schemaVersion": 1,
+  "documentType": "shape-profile-coverage-gap",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "followsFrom": "n678（只驗一份形狀會放東西過去）",
+  "coreTargets": [
+    "BatchQualityGate",
+    "CitationAnchor",
+    "ClaimVersion",
+    "OutcomeInventory",
+    "QuantitativeStudyResult",
+    "StudyFamily",
+    "StudyResult",
+    "SynthesizedClaim"
+  ],
+  "sparqlTargets": [
+    "BatchQualityGate",
+    "CanonicalCompetency",
+    "CitationAnchor",
+    "ClaimVersion",
+    "StudyFamily",
+    "StudyResult",
+    "SynthesizedClaim"
+  ],
+  "coreOnly": [
+    "OutcomeInventory",
+    "QuantitativeStudyResult"
+  ],
+  "sparqlOnly": [
+    "CanonicalCompetency"
+  ],
+  "rulesLivingOnlyInCore": [
+    {
+      "class": "OutcomeInventory",
+      "shape": "OutcomeInventoryShape",
+      "message": "OutcomeInventory 不得為空；空清單無法支撐任何 notExtracted 標記。"
+    },
+    {
+      "class": "OutcomeInventory",
+      "shape": "OutcomeInventoryShape",
+      "message": "registryComparisonStatus 必須是列舉值之一。"
+    },
+    {
+      "class": "QuantitativeStudyResult",
+      "shape": "QuantitativeStudyResultShape",
+      "message": "量化 StudyResult 必須有不確定性區間；原文未提供時只能存為缺失事實，不得建立量化節點。"
+    },
+    {
+      "class": "QuantitativeStudyResult",
+      "shape": "QuantitativeStudyResultShape",
+      "message": "量化 StudyResult 必須有點估計。"
+    }
+  ],
+  "theTest": {
+    "file": "ahig\\tests\\test_shacl_gates.py",
+    "name": "test_sparql_profile_still_targets_every_class_core_targets",
+    "bodyComparesTheTwoSets": false
+  },
+  "twoReadings": "✅ 兩種讀法都成立：**（一）測試名不副實**——名字與註解說「守備範圍必須一致」，主體卻只斷言非空；**（二）註解寫錯了**——也許 Core 管結構、SPARQL 管跨實體稽核，本來就不該一致。🚨 但兩者都會讓讀者相信一件沒發生的事。**📮 哪一邊該改是裁定。**",
+  "consequenceForD25": "🚨 「量化 StudyResult 必須有點估計／不確定性區間」**只掛在 core 守備的 `QuantitativeStudyResult` 上**。⚠️ 若驗收只跑 SPARQL（稽核）profile，**一個沒有信賴區間的量化結果會通過**——✅ 這正是第 678 輪那個示範的具名版本。",
+  "methodLimit": "⚠️ 本支只比**類別層級**的守備，🚫 沒有比「同一個類別上，兩邊的規則是否等價」——🚨 故 `sparqlOnly` 與 `coreOnly` 為空也不代表兩邊一樣嚴。",
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "controlProbes": [
+    {
+      "probe": "兩個 profile 都讀得到、也都守備得到東西（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 core 守備 8 類、sparql 守備 7 類；⚠️ 太少代表本支讀錯了圖"
+    },
+    {
+      "probe": "捏造的類別不在任一 profile 的守備裡（必觸發之反向）",
+      "passed": true,
+      "detail": "🚨 捏造類別不在守備清單；⚠️ 若在，代表抽的不是真的 target"
+    },
+    {
+      "probe": "那條測試的主體真的沒有比較兩個集合（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 在 test_shacl_gates.py 找到該測試；主體有無集合比較：False；⚠️ 找不到或其實有比較的話，本支的指控就不成立"
+    },
+    {
+      "probe": "把 sparql 換成與 core 完全不相交後，該測試的斷言必須失敗（必觸發之反向・突變）",
+      "passed": false,
+      "detail": "🚨 突變後斷言仍通過＝True；⚠️ 仍通過就證明那條測試**偵測不到縮編**"
+    },
+    {
+      "probe": "兩個 profile 的守備類別一致",
+      "passed": false,
+      "detail": "🚨 core 有而 sparql 沒有：['OutcomeInventory', 'QuantitativeStudyResult']；sparql 有而 core 沒有：['CanonicalCompetency']；⚠️ 而前者裡的 `QuantitativeStudyResult` 正是「必須有點估計／不確定性區間」那條規則的所在"
+    }
+  ],
+  "auditHash": "sha256:1ba361a321d00b24634acc4b2024563220b4a39f3ed64c6d3364b6e505bc4397"
+}
