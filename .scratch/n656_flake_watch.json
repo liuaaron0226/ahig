@@ -32,14 +32,27 @@
       "test": "閘門第 5 次紅時擷取到的失敗段落，內容為 `publish()`／`sweep()`／`staged.wait(timeout=30)`",
       "result": "✅ **獲支持**：那正是 test_fulltext.py 裡「掃除者與發布者並行時不得毀掉已提交證據」那一族",
       "power": "🚨 **而確切的斷言仍未知——本室又把輸出截斷了（第三次）**；⚠️ 且單獨跑 test_fulltext.py 25 回合（每次 1 秒、40 條）全綠，**故它需要完整套件的情境**"
+    },
+    {
+      "hypothesis": "單獨密集重跑那一條就會現形",
+      "test": "單獨跑該測試 60＋200 回合（每次 0.11 秒）",
+      "result": "🚫 未獲支持：**260 回合全綠**",
+      "power": "✅ 功率很高：整套約 4%，而這是 260 次——**🚨 故它在孤立情境下幾乎不會發生**"
+    },
+    {
+      "hypothesis": "對那一條加壓就會現形（時序壓力）",
+      "test": "19 個燒 CPU 的行程（**實測存活 19**）下跑該測試 150 回合",
+      "result": "🚫 未獲支持：150 回合全綠",
+      "power": "🚨 前一次的加壓實驗其實**沒有加到壓**——Windows 的 multiprocessing 無法從 stdin 重新匯入主模組，19 個行程全部 spawn 失敗而本室當時沒發現；✅ 本輪改用檔案並**驗證存活數**才算數"
     }
   ],
+  "whereTheTriggerIsNot": "✅ 第 660 輪：名字有了之後直接對**那一條**下手——單獨跑 **260 回合**全綠、19 個負載行程下再跑 **150 回合**全綠。⚠️ 而整套約 49 回合就紅 2 次。**🚨 故觸發條件在「完整套件的情境」裡，🚫 不是時序壓力本身。**⚠️ 那條測試會 patch `_write_committed_manifest`、改 `AHIG_PRIVATE_ROOT`、開兩條執行緒；🚫 而本室**不從機制推論成因**——等 traceback 落地。",
   "localisation": "✅ 第 659 輪：閘門第 5 次紅時，第 658 輪新加的 traceback 擷取**第一次實戰就抓到了**——內容為 `publish()`／`sweep()`／`staged.wait(timeout=30)`，即 test_fulltext.py 裡「掃除者與發布者並行時不得毀掉已提交證據」那一族。🚨 **而確切的斷言仍未知：本室又把閘門輸出截斷了（第三次）。**⚠️ 另：單獨跑 test_fulltext.py 25 回合全綠（每次 1 秒、40 條），**故它需要完整套件的情境**；本輪再跑 10 次整套亦全綠。",
   "extraRunsOutsideThisLog": "⚠️ 另有 3 回合（加壓）＋10 回合（固定種子）＋60 回合（單獨跑並行測試）全綠，🚫 未計入下方累計——✅ 因為它們跑的條件與本紀錄不同。",
   "runsThisInvocation": 3,
-  "cumulativeRuns": 32,
+  "cumulativeRuns": 35,
   "cumulativeFailures": 2,
-  "observedRate": 0.0625,
+  "observedRate": 0.0571,
   "failedTestNames": [
     "FAILED tests/test_fulltext.py::test_sweeper_running_beside_publisher_never_destroys_committed_evidence"
   ],
@@ -120,6 +133,27 @@
       "failedTests": [],
       "traceback": [],
       "returncode": 0
+    },
+    {
+      "summary": "840 passed, 15 warnings in 55.56s",
+      "passed": 840,
+      "failedTests": [],
+      "traceback": [],
+      "returncode": 0
+    },
+    {
+      "summary": "840 passed, 15 warnings in 51.67s",
+      "passed": 840,
+      "failedTests": [],
+      "traceback": [],
+      "returncode": 0
+    },
+    {
+      "summary": "840 passed, 15 warnings in 46.77s",
+      "passed": 840,
+      "failedTests": [],
+      "traceback": [],
+      "returncode": 0
     }
   ],
   "whyItMatters": "⚠️ 閘門紅過四次，其中三次沒重現、也沒留下名字。✅ 本輪證明它**是真的**（20 次裡重現 1 次）；🚨 但只要名字沒抓到，就無從判斷是哪一條測試、**也無從判斷它是不是與負載有關**。",
@@ -142,8 +176,8 @@
     {
       "probe": "那個間歇性失敗的測試名已經抓到",
       "passed": true,
-      "detail": "✅ **已抓到**：['FAILED tests/test_fulltext.py::test_sweeper_running_beside_publisher_never_destroys_committed_evidence']（累計 32 回合、紅 2 次，約 6%）"
+      "detail": "✅ **已抓到**：['FAILED tests/test_fulltext.py::test_sweeper_running_beside_publisher_never_destroys_committed_evidence']（累計 35 回合、紅 2 次，約 6%）"
     }
   ],
-  "auditHash": "sha256:b185c6878a0946a8e32b27d1ef15ec90b8732f148dafd2fd695cb0df277716f4"
+  "auditHash": "sha256:3046f4f4a5d2d996b068ae2a60c31a6572eb201a4040e1ac7977c29825a19175"
 }
