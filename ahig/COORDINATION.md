@@ -4277,3 +4277,57 @@ n679：「🚫 只比**類別層級**的守備，沒比『同一類別上兩邊�
 
 **閘門**：22 道全綠｜**測試 840／0 ✅**
 （🚫 本輪未送請求、🚫 未改產品程式與測試、未改任何清冊與契約）。
+
+---
+
+## 🚨 執行室回報：**53 條具名規則從來沒有被任何對照組點亮過——而其中 21 條正好是 D25 產出物要踩的**（第 682 輪）
+
+### 一、✅ 補上第 681 輪自己寫下的限制
+
+n681：「🚫 量不到『沒有對照組的規則』」。
+**⚠️ 而這正是本室自己那套紀律的產品版**——
+✅ 探針掃描器（第 631 輪）有一道「所有哨兵探針都已被證明會亮」，
+**🚨 同一條標準套到產品的形狀上，就是本輪。**
+
+> **✅ 一條沒有對照組讓它亮過的規則，🚫 沒有人知道它壞了沒有。**
+
+### 二、🚨 數字
+
+| profile | 具名規則 | 曾點亮 | **🚨 從未點亮** |
+|---|---|---|---|
+| `core` | 73 | 21 | **52** |
+| `sparql` | 10 | 9 | **1**（`SearchContractBackfillShape`） |
+
+（必觸發之正對照：已知會亮的 `CitationAnchorFuzzyConfirmationShape` 確實出現在報告裡 ✅。）
+
+### 三、🚨 而這一格才是重點
+
+**從未點亮的 52 條裡，有 21 條掛在 D25 產出物的那三個類別上**：
+
+| 類別 | 從未點亮的規則 |
+|---|---|
+| `QuantitativeStudyResult` | **`PS-pointEstimate`**、**`PS-uncertaintyInterval`** |
+| `CitationAnchor` | **`PS-exactQuote`**、**`PS-uniqueMatch`**、`PS-anchorMethod`、`PS-sourceManifestation`、`PS-noNotebookId`、`PS-noNotebookCitationNumber` |
+| `StudyResult` | `PS-citationAnchor`、`PS-deterministicCheckReport`、`PS-study`／`PS-population`／`PS-intervention`／`PS-comparator`／`PS-outcome`／`PS-timepoint`、`PS-analysisSet`、`PS-effectMeasure`、`PS-statisticalModel`、`PS-sourceVersion`、`PS-quantityKind` |
+
+> **🚨 也就是說：D25 一旦產出 StudyResult，會是這 21 條規則**第一次真的被踩到**。**
+> ⚠️ 第 677／678 輪講的那些「必須有點估計／必須有唯一命中的逐字引文」，
+> **🚫 目前沒有任何對照組證明它們會亮。**
+
+### 四、⚠️ 本室不把這講成「52 條壞掉」
+
+**🚫 「沒被點亮」不等於「壞掉」**——⚠️ 多數 `PS-*` 是結構性的必填規則，
+只是**沒有對照組去缺那一欄**。
+> **✅ 但那正是問題：沒有對照組，就沒有人證明過它會亮。**
+> 🚨 而第 638／640 輪已示範過：沒走過的分支裡確實藏著東西。
+
+**⚠️ 解析度不對等也先講**：Core 報得到規則層，SPARQL 只報得到 shape 層——
+🚨 一個 shape 裝了好幾條 `sh:sparql` 時，**shape 亮了不代表每一條都亮過**，故 sparql 那欄的「曾點亮」是**上界**。
+
+### 五、📮 歸屬
+
+**⚠️ 本輪不新增決策**——🚨 它同時強化 `D25`（產出的規格）與 `D26`（驗收可信度）。
+✅ 下一版登記簿會把第 681／682 輪一起掛進去。
+
+**閘門**：22 道全綠｜**測試 840／0 ✅**
+（🚫 本輪未送請求、🚫 未改產品程式與測試、未改任何清冊與契約）。

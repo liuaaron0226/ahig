@@ -1,0 +1,380 @@
+{
+  "schemaVersion": 1,
+  "documentType": "rules-never-fired",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "closesLimitDeclaredBy": "n681 → methodLimit（量不到沒有對照組的規則）",
+  "sameDisciplineAs": "✅ 本室探針掃描器（第 631 輪）的「所有哨兵探針都已被證明會亮」——🚨 同一條標準套到產品的形狀上。",
+  "totals": {
+    "core": {
+      "named": 73,
+      "everFired": 21,
+      "neverFired": 52
+    },
+    "sparql": {
+      "named": 10,
+      "everFired": 9,
+      "neverFired": 1
+    }
+  },
+  "neverFired": {
+    "core": [
+      "PS-analysisSet",
+      "PS-anchorMethod",
+      "PS-approvedStatus",
+      "PS-certaintyDerivation",
+      "PS-certaintyNotHigh",
+      "PS-citationAnchor",
+      "PS-claimApproved",
+      "PS-claimsPrespecified",
+      "PS-comparator",
+      "PS-deterministicCheckReport",
+      "PS-domainIsImprecision",
+      "PS-domainIsInconsistency",
+      "PS-domainIsIndirectness",
+      "PS-domainIsPublicationBias",
+      "PS-domainIsRiskOfBias",
+      "PS-duplicateEvidenceFlag",
+      "PS-effectMeasure",
+      "PS-exactQuote",
+      "PS-expertAdjudicated",
+      "PS-fuzzyAndApproved-method",
+      "PS-humanConfirmedAt",
+      "PS-intervention",
+      "PS-lastSuccessfulSourceCheckAt",
+      "PS-monitoringPolicy",
+      "PS-mustBeUniqueMatch",
+      "PS-noNotebookCitationNumber",
+      "PS-noNotebookId",
+      "PS-nonCriticalErrorCeiling",
+      "PS-outcome",
+      "PS-pointEstimate",
+      "PS-policyBlocksHealthReasoning",
+      "PS-policyGraceHours",
+      "PS-policyMaxAgeHours",
+      "PS-policySafetyCritical",
+      "PS-population",
+      "PS-prespecificationDecidedByHuman",
+      "PS-quantityKind",
+      "PS-registryComparisonStatus",
+      "PS-reportedOutcome",
+      "PS-resolutionRuleId",
+      "PS-riskTierSafetyCritical",
+      "PS-sampleSize",
+      "PS-sourceCheckAgeHours",
+      "PS-sourceManifestation",
+      "PS-sourceVersion",
+      "PS-statisticalModel",
+      "PS-study",
+      "PS-supportsApprovedClaim",
+      "PS-switchingFlaggedInventory",
+      "PS-timepoint",
+      "PS-uncertaintyInterval",
+      "PS-uniqueMatch"
+    ],
+    "sparql": [
+      "SearchContractBackfillShape"
+    ]
+  },
+  "neverFiredOnD25Classes": [
+    "PS-analysisSet",
+    "PS-anchorMethod",
+    "PS-citationAnchor",
+    "PS-comparator",
+    "PS-deterministicCheckReport",
+    "PS-effectMeasure",
+    "PS-exactQuote",
+    "PS-intervention",
+    "PS-noNotebookCitationNumber",
+    "PS-noNotebookId",
+    "PS-outcome",
+    "PS-pointEstimate",
+    "PS-population",
+    "PS-quantityKind",
+    "PS-sourceManifestation",
+    "PS-sourceVersion",
+    "PS-statisticalModel",
+    "PS-study",
+    "PS-timepoint",
+    "PS-uncertaintyInterval",
+    "PS-uniqueMatch"
+  ],
+  "ruleOwnerClass": {
+    "PS-scopeContractHash": "StudyResult",
+    "PS-scopeRuleId": "StudyResult",
+    "PS-derivedFromOutcomeInventory": "StudyResult",
+    "PS-study": "StudyResult",
+    "PS-population": "StudyResult",
+    "PS-intervention": "StudyResult",
+    "PS-comparator": "StudyResult",
+    "PS-outcome": "StudyResult",
+    "PS-timepoint": "StudyResult",
+    "PS-analysisSet": "StudyResult",
+    "PS-effectMeasure": "StudyResult",
+    "PS-statisticalModel": "StudyResult",
+    "PS-sourceVersion": "StudyResult",
+    "PS-quantityKind": "StudyResult",
+    "PS-citationAnchor": "StudyResult",
+    "PS-deterministicCheckReport": "StudyResult",
+    "PS-pointEstimate": "QuantitativeStudyResult",
+    "PS-uncertaintyInterval": "QuantitativeStudyResult",
+    "PS-reportedOutcome": "OutcomeInventory",
+    "PS-registryComparisonStatus": "OutcomeInventory",
+    "PS-nonCriticalErrorCeiling": "BatchQualityGate",
+    "PS-sampleSize": "BatchQualityGate",
+    "PS-agreementStatistic": "BatchQualityGate",
+    "PS-alsoReported": "BatchQualityGate",
+    "PS-goldSetAccuracy": "BatchQualityGate",
+    "PS-monitoringPolicy": "ClaimVersion",
+    "PS-lastSuccessfulSourceCheckAt": "ClaimVersion",
+    "PS-gradeDomainRiskOfBias": "SynthesizedClaim",
+    "PS-gradeDomainInconsistency": "SynthesizedClaim",
+    "PS-gradeDomainIndirectness": "SynthesizedClaim",
+    "PS-gradeDomainImprecision": "SynthesizedClaim",
+    "PS-gradeDomainPublicationBias": "SynthesizedClaim",
+    "PS-certaintyDerivation": "SynthesizedClaim",
+    "PS-resolutionRuleId": "StudyFamily",
+    "PS-familyResolvedByHuman": "StudyFamily",
+    "PS-sourceManifestation": "CitationAnchor",
+    "PS-exactQuote": "CitationAnchor",
+    "PS-anchorMethod": "CitationAnchor",
+    "PS-uniqueMatch": "CitationAnchor",
+    "PS-noNotebookSourceId": "CitationAnchor",
+    "PS-noNotebookChunkId": "CitationAnchor",
+    "PS-noNotebookCitationNumber": "CitationAnchor",
+    "PS-noNotebookId": "CitationAnchor"
+  },
+  "everFired": {
+    "core": [
+      "CitationAnchorFuzzyConfirmationShape",
+      "CitationAnchorUniqueMatchShape",
+      "ClaimVersionMonitoringMeasurableShape",
+      "ClaimVersionSafetyCriticalBlockShape",
+      "DuplicateEvidenceCeilingShape",
+      "HighRiskAdjudicationShape",
+      "OutcomeSwitchingShape",
+      "PS-agreementStatistic",
+      "PS-alsoReported",
+      "PS-derivedFromOutcomeInventory",
+      "PS-familyResolvedByHuman",
+      "PS-goldSetAccuracy",
+      "PS-gradeDomainImprecision",
+      "PS-gradeDomainInconsistency",
+      "PS-gradeDomainIndirectness",
+      "PS-gradeDomainPublicationBias",
+      "PS-gradeDomainRiskOfBias",
+      "PS-noNotebookChunkId",
+      "PS-noNotebookSourceId",
+      "PS-scopeContractHash",
+      "PS-scopeRuleId"
+    ],
+    "sparql": [
+      "CitationAnchorShape",
+      "ClaimVersionMonitoringShape",
+      "DuplicateEvidenceCeilingShape",
+      "HighRiskAdjudicationShape",
+      "NotebookIsolationShape",
+      "OutcomeSwitchingShape",
+      "QualityGateShape",
+      "StudyFamilyShape",
+      "SynthesizedClaimGradeShape"
+    ]
+  },
+  "perCanary": {
+    "citation-anchor-fuzzy-unconfirmed": {
+      "core": [
+        "CitationAnchorFuzzyConfirmationShape"
+      ],
+      "sparql": [
+        "CitationAnchorShape"
+      ]
+    },
+    "citation-anchor-multiple-match-approved": {
+      "core": [
+        "CitationAnchorUniqueMatchShape"
+      ],
+      "sparql": [
+        "CitationAnchorShape"
+      ]
+    },
+    "citation-anchor-notebook-leak": {
+      "core": [
+        "PS-noNotebookChunkId",
+        "PS-noNotebookSourceId"
+      ],
+      "sparql": [
+        "NotebookIsolationShape"
+      ]
+    },
+    "duplicate-evidence-high-certainty": {
+      "core": [
+        "DuplicateEvidenceCeilingShape"
+      ],
+      "sparql": [
+        "DuplicateEvidenceCeilingShape"
+      ]
+    },
+    "grade-domains-missing-one": {
+      "core": [
+        "PS-gradeDomainImprecision",
+        "PS-gradeDomainPublicationBias"
+      ],
+      "sparql": [
+        "SynthesizedClaimGradeShape"
+      ]
+    },
+    "grade-domains-not-distinct": {
+      "core": [
+        "PS-gradeDomainImprecision",
+        "PS-gradeDomainInconsistency",
+        "PS-gradeDomainIndirectness",
+        "PS-gradeDomainPublicationBias",
+        "PS-gradeDomainRiskOfBias"
+      ],
+      "sparql": [
+        "SynthesizedClaimGradeShape"
+      ]
+    },
+    "grade-egger-below-k10": {
+      "core": [],
+      "sparql": [
+        "SynthesizedClaimGradeShape"
+      ]
+    },
+    "grade-model-override-approved": {
+      "core": [],
+      "sparql": [
+        "SynthesizedClaimGradeShape"
+      ]
+    },
+    "monitor-missing-age": {
+      "core": [
+        "ClaimVersionMonitoringMeasurableShape"
+      ],
+      "sparql": [
+        "ClaimVersionMonitoringShape"
+      ]
+    },
+    "monitor-missing-maxage": {
+      "core": [
+        "ClaimVersionMonitoringMeasurableShape"
+      ],
+      "sparql": [
+        "ClaimVersionMonitoringShape"
+      ]
+    },
+    "monitor-safety-critical-blocks-false": {
+      "core": [
+        "ClaimVersionSafetyCriticalBlockShape"
+      ],
+      "sparql": [
+        "ClaimVersionMonitoringShape"
+      ]
+    },
+    "monitor-safety-critical-missing-blocks": {
+      "core": [
+        "ClaimVersionSafetyCriticalBlockShape"
+      ],
+      "sparql": [
+        "ClaimVersionMonitoringShape"
+      ]
+    },
+    "monitor-sla-grace-exceeded": {
+      "core": [],
+      "sparql": [
+        "ClaimVersionMonitoringShape"
+      ]
+    },
+    "outcome-switching-missing-decider": {
+      "core": [
+        "OutcomeSwitchingShape"
+      ],
+      "sparql": [
+        "OutcomeSwitchingShape"
+      ]
+    },
+    "outcome-switching-real-relation": {
+      "core": [
+        "OutcomeSwitchingShape"
+      ],
+      "sparql": [
+        "OutcomeSwitchingShape"
+      ]
+    },
+    "quality-gate-rule-of-three-violation": {
+      "core": [],
+      "sparql": [
+        "QualityGateShape"
+      ]
+    },
+    "quality-gate-wrong-statistic": {
+      "core": [
+        "PS-agreementStatistic",
+        "PS-alsoReported",
+        "PS-goldSetAccuracy"
+      ],
+      "sparql": []
+    },
+    "safety-critical-approved-missing-adjudication": {
+      "core": [
+        "HighRiskAdjudicationShape"
+      ],
+      "sparql": [
+        "HighRiskAdjudicationShape"
+      ]
+    },
+    "safety-critical-approved-self-adjudicated": {
+      "core": [
+        "HighRiskAdjudicationShape"
+      ],
+      "sparql": [
+        "HighRiskAdjudicationShape"
+      ]
+    },
+    "study-family-model-resolved": {
+      "core": [
+        "PS-familyResolvedByHuman"
+      ],
+      "sparql": [
+        "StudyFamilyShape"
+      ]
+    },
+    "studyresult-missing-scope-contract": {
+      "core": [
+        "PS-derivedFromOutcomeInventory",
+        "PS-scopeContractHash",
+        "PS-scopeRuleId"
+      ],
+      "sparql": []
+    }
+  },
+  "resolutionCaveat": "🚨 Core 報得到**規則層**（property shape 各自具名）；⚠️ SPARQL 只報得到 **shape 層**——**一個 shape 可能裝了好幾條 `sh:sparql`，🚫 shape 亮了不代表它裡面每一條都亮過。**✅ 故 SPARQL 那一欄的「已點亮」是**上界**。",
+  "whatThisIsNot": "🚫 「沒被點亮」不等於「壞掉」——⚠️ 那些規則可能只是沒有對照組。**✅ 但那正是問題：沒有對照組，就沒有人證明過它會亮。**🚨 而第 638／640 輪已示範過：沒走過的分支裡確實藏著東西。",
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "controlProbes": [
+    {
+      "probe": "兩份 profile 都數得到具名規則（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 {'core': 73, 'sparql': 10}；⚠️ 任一為 0 就代表本支的列舉方式對那一份無效"
+    },
+    {
+      "probe": "已知會亮的那一條真的出現在報告裡（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 `citation-anchor-fuzzy-unconfirmed` 在 core 下觸發 ['CitationAnchorFuzzyConfirmationShape']；⚠️ 對不上代表本支的比對根本沒接上"
+    },
+    {
+      "probe": "捏造的規則名不在點亮清單裡（必觸發之反向）",
+      "passed": true,
+      "detail": "🚨 捏造規則不在清單；⚠️ 若在，代表比對是在亂配"
+    },
+    {
+      "probe": "每一條具名規則都有對照組讓它亮過",
+      "passed": false,
+      "detail": "🚨 從未被點亮的具名規則共 53 條（{'core': 52, 'sparql': 1}）；⚠️ 一條沒被點亮過的規則，🚫 沒有人知道它壞了沒有"
+    }
+  ],
+  "auditHash": "sha256:fb23585afbf5cb27ecbec424bc7f1c8801e392161e84aed07a420118d5bc5b1b"
+}
