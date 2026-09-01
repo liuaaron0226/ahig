@@ -1,0 +1,92 @@
+{
+  "schemaVersion": 1,
+  "documentType": "d12-recoverability",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "report": "1105537918c174c9",
+  "sourceType": "grobid-tei",
+  "tablesInTei": 1,
+  "tableTextLength": 741,
+  "symptomsInTables": {
+    "comfort": {
+      "mentions": 1,
+      "withNumberNearby": 0
+    },
+    "cramp": {
+      "mentions": 0,
+      "withNumberNearby": 0
+    },
+    "nausea": {
+      "mentions": 0,
+      "withNumberNearby": 0
+    },
+    "headache": {
+      "mentions": 0,
+      "withNumberNearby": 0
+    }
+  },
+  "symptomsInSections": {
+    "comfort": {
+      "mentions": 10,
+      "withNumberNearby": 7
+    },
+    "cramp": {
+      "mentions": 2,
+      "withNumberNearby": 2
+    },
+    "nausea": {
+      "mentions": 2,
+      "withNumberNearby": 2
+    },
+    "headache": {
+      "mentions": 2,
+      "withNumberNearby": 2
+    }
+  },
+  "controlSymptomsInTables": {
+    "fullness": {
+      "mentions": 0,
+      "withNumberNearby": 0
+    },
+    "bloat": {
+      "mentions": 0,
+      "withNumberNearby": 0
+    },
+    "thirst": {
+      "mentions": 0,
+      "withNumberNearby": 0
+    }
+  },
+  "recoverableSymptoms": [],
+  "consequenceForD12": "⚠️ 本支原本要問的是「那 4 項是不是躺在被丟掉的表格裡」。🚨 結果：這一篇的 TEI 只有 **1 張表、741 字元**，而**對照症狀（內文有數字的那三個）在表裡一個都沒有**——**⚠️ 即那張表根本不含腸胃症狀內容。****🚨 故「那 4 項不在表裡」是無資訊的空結果，🚫 不能拿來支持撤回。**✅ 本支能確定的只有一件：**表格救援這條路對這 4 項不適用**，⚠️ 即 D12 **不會**因為 D17 而自動解決——🚫 兩者仍是各自獨立的決定。",
+  "noteOnSectionHits": "⚠️ 本支的粗略規則（症狀詞後 120 字元內出現任何數字）在 sections 裡對四個症狀都有命中。🚫 這**不**表示第 597 輪錯了——🚨 該輪用的是逐項、較嚴的判準，而本支這條規則連段落編號都算數字。**✅ 故本支不對第 597 輪的判定表示意見。**",
+  "contentDiscipline": "✅ 只輸出計數與布林；🚫 不輸出任何表格文字或題名（n+195 一）。",
+  "whatThisCannotAnswer": "🚫 找到「症狀詞附近有數字」不等於「那就是該結局的結果」——⚠️ 本支不判讀表格內容，🚨 它只說「那裡有東西值得重讀」。",
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "controlProbes": [
+    {
+      "probe": "這一篇確實走 GROBID 且表格確實不在 sections（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 sourceType=grobid-tei｜TEI 裡的 <figure type=\"table\"> 共 1 張；⚠️ 若是 0 張，本支整個問題不成立"
+    },
+    {
+      "probe": "表格文字真的抽得出東西（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 表格攤平後 741 字元、含數字=True；⚠️ 若抽不出東西，「表裡沒有」只是本支沒讀到"
+    },
+    {
+      "probe": "那張表裡有腸胃症狀內容（必觸發之正對照）",
+      "passed": false,
+      "detail": "🚨 對照組（內文有數字的那三個症狀）在表裡的命中：{'fullness': 0, 'bloat': 0, 'thirst': 0}；⚠️ 全為 0 代表**這張表根本不含腸胃症狀內容**——🚨 於是「那 4 項不在表裡」是一個**無資訊的空結果**"
+    },
+    {
+      "probe": "可以據此對 D12 下結論",
+      "passed": false,
+      "detail": "🚨 只有在上一道成立時，「表裡找不到」才代表什麼；⚠️ 本輪對照未成立，**故本支不對 D12 下任何結論**——✅ 它能確定的只有一件：**表格救援這條路對這 4 項不適用**（表裡找到「症狀＋鄰近數字」者 0 個）"
+    }
+  ],
+  "auditHash": "sha256:9fbbcf119ddf3bcd95f6be5ed9ee0b4946d52ba9a225b6caf010c4f725718c70"
+}
