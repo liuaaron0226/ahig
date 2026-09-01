@@ -176,8 +176,14 @@ def main():
         'acquiredNotAdvancedAtPass1': [
             {'report': c[-16:], 'pass1Opinion': opinion.get(c, '（此關未判）')}
             for c in acquired_not_advanced],
+        # 🚨 第 629 輪的突變測試查出：advance 落空時這一行會 ZeroDivisionError，
+        # ⚠️ 而本支的第一道控制正是「advance 集合非空」——
+        # **🚨 那道控制排在這一行後面，於是它永遠輪不到說話**：
+        # 該亮紅的情況變成整支當掉，一個字都印不出來。
+        # ✅ 除數加護，讓控制得以發聲。🚫 本改動不影響任何已回報的數字
+        # （advance 非空時 max(1, n) == n）。
         'coverageOfAdvanced': round(
-            100 * len(acquired & advance) / len(advance), 1),
+            100 * len(acquired & advance) / max(1, len(advance)), 1),
         'eraTable': rows,
         'eraBlockers': era_blockers,
         'fineBinTable': fine,

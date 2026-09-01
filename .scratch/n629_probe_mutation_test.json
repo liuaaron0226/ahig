@@ -1,0 +1,95 @@
+{
+  "schemaVersion": 1,
+  "documentType": "probe-mutation-test",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "method": "✅ 對每支憑證的**程式碼副本**注入一個具體故障，看該亮的控制有沒有變紅。🚫 不動任何原始資料。",
+  "cases": [
+    {
+      "artefact": "n624_corpus_denominator.py",
+      "fault": "讓一個舊命名孤兒目錄看起來是 acquired",
+      "faultApplied": true,
+      "expectProbe": "名冊未被孤兒目錄污染",
+      "cleanCopyRuns": true,
+      "probeGreenWhenClean": true,
+      "probeRedWhenFaulted": true,
+      "probeFoundInBothRuns": true,
+      "cleanStderrTail": [],
+      "dirtyStderrTail": []
+    },
+    {
+      "artefact": "n625_corpus_era_bias.py",
+      "fault": "把 advance 判詞全部改名，使分母落空",
+      "faultApplied": true,
+      "expectProbe": "advance 集合非空",
+      "cleanCopyRuns": true,
+      "probeGreenWhenClean": true,
+      "probeRedWhenFaulted": true,
+      "probeFoundInBothRuns": true,
+      "cleanStderrTail": [],
+      "dirtyStderrTail": []
+    },
+    {
+      "artefact": "n626_missing_era_dose_space.py",
+      "fault": "讓劑量抽取器永遠抽不到東西",
+      "faultApplied": true,
+      "expectProbe": "抽取器真的抽得到劑量",
+      "cleanCopyRuns": true,
+      "probeGreenWhenClean": true,
+      "probeRedWhenFaulted": true,
+      "probeFoundInBothRuns": true,
+      "cleanStderrTail": [],
+      "dirtyStderrTail": []
+    },
+    {
+      "artefact": "n627_dose_proxy_validation.py",
+      "fault": "把真值的劑量單位換成 g/min",
+      "faultApplied": true,
+      "expectProbe": "真值的單位只有一種",
+      "cleanCopyRuns": true,
+      "probeGreenWhenClean": true,
+      "probeRedWhenFaulted": true,
+      "probeFoundInBothRuns": true,
+      "cleanStderrTail": [],
+      "dirtyStderrTail": []
+    },
+    {
+      "artefact": "n628_evidence_thinness.py",
+      "fault": "把真實結局名改掉，使真鍵消失",
+      "faultApplied": true,
+      "expectProbe": "以不存在的結局查",
+      "cleanCopyRuns": true,
+      "probeGreenWhenClean": true,
+      "probeRedWhenFaulted": true,
+      "probeFoundInBothRuns": true,
+      "cleanStderrTail": [],
+      "dirtyStderrTail": []
+    }
+  ],
+  "firedCount": 5,
+  "totalCases": 5,
+  "whyItMatters": "⚠️ 協調者正被要求依 624–628 這條鏈做裁定，🚨 而那條鏈的證據力全靠這些控制。**⚠️ 第 628 輪已證明本室寫得出恆真的假控制**——✅ 故本支不推論、直接讓它們亮一次。",
+  "whatThisCannotAnswer": "🚫 本支只驗每支**一道**控制——⚠️ 其餘各道未受檢；🚨 亮得起來也不表示它抓得到**別種**故障。",
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "controlProbes": [
+    {
+      "probe": "每個故障都真的注入了（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 5/5 個案例找得到要替換的原文；⚠️ 找不到就等於沒突變，而「沒亮」會被誤讀成「控制壞了」"
+    },
+    {
+      "probe": "未突變的副本本來就是綠的（必觸發之對照）",
+      "passed": true,
+      "detail": "🚨 5/5 個案例在未突變時該探針為綠；⚠️ 若本來就紅，「突變後變紅」證明不了任何事"
+    },
+    {
+      "probe": "每支憑證的控制在故障下都真的亮了",
+      "passed": true,
+      "detail": "🚨 未亮者 0 個：[]"
+    }
+  ],
+  "auditHash": "sha256:7a93edf89978147ed6018537cfdb769a09f5fcf86c367e550a4f29e4c705e5d8"
+}
