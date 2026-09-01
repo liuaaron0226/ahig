@@ -1,0 +1,100 @@
+{
+  "schemaVersion": 1,
+  "documentType": "cap-paths-executed",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "seedReport": "1105537918c174c9",
+  "seedInScope": 9,
+  "cap": 12,
+  "scenarios": {
+    "甲 未超過上限（現行契約）": {
+      "decide_inventory": {
+        "escalated": false,
+        "inScopeCount": 9,
+        "itemsStillInScope": 9
+      },
+      "scope_inventory": {
+        "escalated": false,
+        "inScopeCount": 9,
+        "itemsStillInScope": 9
+      }
+    },
+    "乙 超過上限（現行契約 escalate）": {
+      "decide_inventory": {
+        "escalated": true,
+        "inScopeCount": 0,
+        "itemsStillInScope": 0
+      },
+      "scope_inventory": {
+        "escalated": true,
+        "inScopeCount": 0,
+        "itemsStillInScope": 0
+      }
+    },
+    "丙 超過上限（onExceedMax=truncate）": {
+      "decide_inventory": {
+        "escalated": true,
+        "inScopeCount": 0,
+        "itemsStillInScope": 13
+      },
+      "scope_inventory": {
+        "escalated": false,
+        "inScopeCount": 13,
+        "itemsStillInScope": 13
+      }
+    }
+  },
+  "agreement": {
+    "甲 未超過上限（現行契約）": true,
+    "乙 超過上限（現行契約 escalate）": true,
+    "丙 超過上限（onExceedMax=truncate）": false
+  },
+  "selfContradiction": {
+    "甲 未超過上限（現行契約）": {
+      "decide_inventory": false,
+      "scope_inventory": false
+    },
+    "乙 超過上限（現行契約 escalate）": {
+      "decide_inventory": false,
+      "scope_inventory": false
+    },
+    "丙 超過上限（onExceedMax=truncate）": {
+      "decide_inventory": true,
+      "scope_inventory": false
+    }
+  },
+  "howThisDiffersFromN593": "⚠️ 第 593 輪是**讀程式碼**推出「現行契約下兩者一致」。✅ 本支是**真的各跑一次**，並且多跑了一個 onExceedMax 被換掉的情境——🚨 那正是第 593 輪指出、卻沒有人執行過的分歧點。",
+  "whatThisCannotAnswer": "🚫 本支不主張該把 onExceedMax 改成別的值——⚠️ 那是契約作者的事；✅ 它只回答「若有人改了，兩條路會不會給出不同的東西」。",
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "controlProbes": [
+    {
+      "probe": "合成清冊真的做出超過上限的量（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 上限 12、合成 13 項；⚠️ 若沒超過，本支三個情境全都白跑"
+    },
+    {
+      "probe": "未超過上限時兩條路一致（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 甲情境：[{\"escalated\": false, \"inScopeCount\": 9, \"itemsStillInScope\": 9}, {\"escalated\": false, \"inScopeCount\": 9, \"itemsStillInScope\": 9}]；⚠️ 若這裡就不一致，分歧與上限無關"
+    },
+    {
+      "probe": "現行契約下、超過上限時兩條路一致",
+      "passed": true,
+      "detail": "✅ 乙情境：[{\"escalated\": true, \"inScopeCount\": 0, \"itemsStillInScope\": 0}, {\"escalated\": true, \"inScopeCount\": 0, \"itemsStillInScope\": 0}]"
+    },
+    {
+      "probe": "換掉 onExceedMax 之後兩條路仍一致",
+      "passed": false,
+      "detail": "🚨 丙情境：[{\"escalated\": true, \"inScopeCount\": 0, \"itemsStillInScope\": 13}, {\"escalated\": false, \"inScopeCount\": 13, \"itemsStillInScope\": 13}]；⚠️ **這是第 593 輪讀出來、本輪跑出來的分歧**"
+    },
+    {
+      "probe": "沒有情境產出自我矛盾的文件",
+      "passed": false,
+      "detail": "🚨 自我矛盾（摘要說 0 項、逐項卻還留著 in-scope）：{\"丙 超過上限（onExceedMax=truncate）\": {\"decide_inventory\": true, \"scope_inventory\": false}}"
+    }
+  ],
+  "auditHash": "sha256:0c716905cdc7d0ce6c5977cad539e2def8cf3f518328984afd3029362558a05e"
+}
