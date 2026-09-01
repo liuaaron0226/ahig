@@ -1,0 +1,70 @@
+{
+  "schemaVersion": 1,
+  "documentType": "binding-integrity-audit",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "inventories": 38,
+  "distinctContractHashes": 1,
+  "contractFile": "ahig/calibration/b11-carbohydrate/scope-contract.json",
+  "contractDeclaredHash": "sha256:1bd206e5c4741e2d0339a81ffa53a717330d539fa4f1d2a19fa31c3401ef8696",
+  "contractRecomputedHash": "sha256:1bd206e5c4741e2d0339a81ffa53a717330d539fa4f1d2a19fa31c3401ef8696",
+  "contractBoundInInventories": "sha256:1bd206e5c4741e2d0339a81ffa53a717330d539fa4f1d2a19fa31c3401ef8696",
+  "contractStatus": "frozen",
+  "frozenFieldNote": "⚠️ 契約沒有 `frozen` 這個鍵，凍結狀態寫在 `status`。✅ 而 inventory_draft.py:123 查的正是 `status != \"frozen\"`——🚫 故此處沒有「兩個名字指同一件事」的缺陷（本室實查後排除）。",
+  "manifestationMatched": 38,
+  "manifestationMismatched": 0,
+  "manifestationAbsent": 0,
+  "mismatchRows": [],
+  "inventoriesBySource": {
+    "europe-pmc-jats": 24,
+    "grobid-tei": 14
+  },
+  "inScopeBySource": {
+    "europe-pmc-jats": 55,
+    "grobid-tei": 43
+  },
+  "d17Cost": {
+    "inventoriesBoundToGrobidSections": 14,
+    "inScopeOutcomesAffected": 43,
+    "shareOfAllInScope": 43.9,
+    "note": "🚨 修 `parse_tei`（D17）會改變 TEI→sections 的位元組，⚠️ 於是這 14 份清冊綁的 manifestation 立刻失效——**它們必須重讀**，涉及 43 個在範圍內結局（全體的 43.9%）。✅ 這是 D17 的成本，🚫 本室不因此建議不修——⚠️ 第 612／613 輪已證明現行 TEI 路徑漏掉表格。"
+  },
+  "whatThisCannotAnswer": "🚫 綁定相符只證明「讀的是同一份位元組」——⚠️ 不證明讀得對，也不證明那份位元組本身完整（第 611／615／616 輪已量出 GROBID 酬載的三處缺口）。",
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "controlProbes": [
+    {
+      "probe": "清冊數與語料相符（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 實得 38 份清冊；⚠️ 若少了幾份，「全部相符」就只是「看到的都相符」"
+    },
+    {
+      "probe": "契約改一個字，雜湊就變（必觸發之反向）",
+      "passed": true,
+      "detail": "🚨 竄改後 sha256:dcfd501ba7cfaec0467；⚠️ 若不變，「與清冊相符」這句話沒有意義"
+    },
+    {
+      "probe": "弄壞一份清冊的 manifestation，同一支比對函式必須抓到（必觸發之反向）",
+      "passed": true,
+      "detail": "🚨 竄改一份後，不符數 0 → 1；⚠️ 若沒變，「38/38 相符」不代表任何事——**而這一道走的是真正的比對路徑，🚫 不是拿假值跟真值比大小**"
+    },
+    {
+      "probe": "38 份清冊綁同一份契約",
+      "passed": true,
+      "detail": "✅ 實得 1 種契約雜湊：['sha256:1bd206e5c4741e2d033']"
+    },
+    {
+      "probe": "repo 的契約自我一致，且與清冊所綁相符",
+      "passed": true,
+      "detail": "✅ 檔內宣告 sha256:1bd206e5c4741e2d033｜重算 sha256:1bd206e5c4741e2d033｜清冊所綁 sha256:1bd206e5c4741e2d033"
+    },
+    {
+      "probe": "每份清冊的 manifestation 與今天磁碟上的 sections 相符",
+      "passed": true,
+      "detail": "✅ 相符 38｜不符 0｜查無 sections 0"
+    }
+  ],
+  "auditHash": "sha256:2c5f3db3a543d9bf3e3cbcd9faab58307436367972f4ee22246e8199b16b76ea"
+}
