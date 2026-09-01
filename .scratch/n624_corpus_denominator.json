@@ -1,0 +1,161 @@
+{
+  "schemaVersion": 1,
+  "documentType": "corpus-denominator-audit",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "distinctCandidates": 311,
+  "manifestFilesOnDisk": 315,
+  "legacyOrphanDirs": [
+    {
+      "dir": "ahig_candidate_publication_21e29112ef4d15d8fe4d9796",
+      "status": "unavailable",
+      "attempts": 0,
+      "otherFiles": []
+    },
+    {
+      "dir": "ahig_candidate_publication_465dca4abe3d419a0c094731",
+      "status": "unavailable",
+      "attempts": 0,
+      "otherFiles": []
+    },
+    {
+      "dir": "ahig_candidate_publication_c3c6e0d4ea912e19b9479d4a",
+      "status": "unavailable",
+      "attempts": 0,
+      "otherFiles": []
+    },
+    {
+      "dir": "ahig_candidate_publication_c7470eb375e0928eb4713afa",
+      "status": "unavailable",
+      "attempts": 0,
+      "otherFiles": []
+    }
+  ],
+  "orphanNote": "🚨 磁碟上有 315 個 manifest 檔，但相異候選只有 311 個——差額是 4 個舊命名目錄，它們與現行目錄**指向同一批 candidateId**。⚠️ 產品的 _artifact_dir 走不到它們；🚨 但 corpus._acquired_manifests 的 iterdir 看得到，擋住它們的只有一句 status != \"acquired\"。",
+  "statusDistribution": {
+    "incomplete": 154,
+    "no-oa-fulltext": 64,
+    "acquired": 41,
+    "available-landing-page": 28,
+    "available-pdf": 24
+  },
+  "attemptFingerprints": {
+    "acquired": {
+      "europe-pmc=acquired-jats": 26,
+      "europe-pmc=miss / openalex=available-pdf": 11,
+      "europe-pmc=miss / openalex=available-landing-page": 4
+    },
+    "available-landing-page": {
+      "europe-pmc=miss / openalex=available-landing-page": 28
+    },
+    "no-oa-fulltext": {
+      "europe-pmc=miss / openalex=miss / unpaywall=miss": 64
+    },
+    "incomplete": {
+      "europe-pmc=miss / openalex=miss / unpaywall=blocked": 144,
+      "europe-pmc=miss / openalex=not-applicable / unpaywall=not-applicable": 8,
+      "europe-pmc=not-applicable / openalex=not-applicable / unpaywall=not-applicable": 2
+    },
+    "available-pdf": {
+      "europe-pmc=miss / openalex=available-pdf": 24
+    }
+  },
+  "obtainableAtN438": 45,
+  "obtainableInCorpus": 27,
+  "obtainableNeverTaken": [
+    "e21633241b68c93e",
+    "20de6fd9c68fa968",
+    "77621b70399b246f",
+    "521c5d3359712b22",
+    "dd5b52374d47acda",
+    "07fb03ac90367aca",
+    "58a83414e18036b3",
+    "31daa098b403a574",
+    "92183b4870ab6c46",
+    "f85932c09316c4d0",
+    "79503020d89e7ccf",
+    "39079e90850b4f2b",
+    "a103783d5231cfec",
+    "5d84a17e2c347de7",
+    "1de0f49f59fecb8b",
+    "09c665a709499ba1",
+    "f98c855ca35e4def",
+    "68b1b2f9ce594d6c"
+  ],
+  "corpusFromOutsideThatPool": 14,
+  "rosterTotal": 41,
+  "latestMissedManifestWrite": "2026-08-29T00:34:21.695443",
+  "earliestGrobidAcquire": "2026-08-29T22:29:12.658199",
+  "hostsOnBothSides": [
+    "doi.org",
+    "figshare.com"
+  ],
+  "missedHosts": {
+    "www.sciencedirect.com": 3,
+    "dspace.lboro.ac.uk": 2,
+    "researchportal.bath.ac.uk": 2,
+    "figshare.com": 2,
+    "doi.org": 2,
+    "link.springer.com": 1,
+    "cris.maastrichtuniversity.nl": 1,
+    "journals.humankinetics.com": 1,
+    "www.ncbi.nlm.nih.gov": 1,
+    "birmingham.elsevierpure.com": 1,
+    "ro.ecu.edu.au": 1,
+    "journals.physiology.org": 1
+  },
+  "singleBlocker": {
+    "fingerprint": "europe-pmc=miss / openalex=miss / unpaywall=blocked",
+    "count": 144,
+    "cause": "missing-contact-email（fulltext.py:931）"
+  },
+  "namingTrap": "⚠️ fulltext.py:1293 的 unavailableCount 數的是 no-oa-fulltext，🚨 而磁碟上另有字面上的 status=unavailable（那 4 個孤兒）——**同一個詞指兩件事**。",
+  "whatThisCannotAnswer": "🚫 那 18 篇實際取不取得到——⚠️ 要真的去抓才知道，本支不送請求。🚫 當初 PDF→GROBID 那一步的選取準則——⚠️ 沒有紀錄，本室不編。",
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "controlProbes": [
+    {
+      "probe": "「可得」集合非空且與名冊有交集（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 可得 45 篇、其中 27 篇進了語料；⚠️ 若交集為零，本支整個比較就沒有意義"
+    },
+    {
+      "probe": "以不存在的 status 查，計數為零（必觸發之反向）",
+      "passed": true,
+      "detail": "🚨 若這也數得出東西，「41 / 52 / 154」這些數就不可信"
+    },
+    {
+      "probe": "⚠️ 未取得的 18 篇不是「來不及」（時間戳）",
+      "passed": true,
+      "detail": "🚨 未取得者最後的清單寫入 2026-08-29T00:34；⚠️ 最早的 GROBID 取得 2026-08-29T22:29——故 GROBID 那一輪跑的時候它們**早已躺在那裡**"
+    },
+    {
+      "probe": "⚠️ 未取得的原因不是「這個 host 不抓」",
+      "passed": true,
+      "detail": "🚨 有 2 個 host 兩邊都出現（取到的與沒取的各有）：['doi.org', 'figshare.com']"
+    },
+    {
+      "probe": "判定可得者全部都進了語料",
+      "passed": false,
+      "detail": "🚨 實得 18 篇判定可得卻至今未取（available-landing-page×12、available-pdf×6）；⚠️ 而 repo 與私有根都查不到那一步餵了哪份名單"
+    },
+    {
+      "probe": "沒有一大群卡在單一關卡",
+      "passed": false,
+      "detail": "🚨 實得 144 份卡在同一個指紋「europe-pmc=miss / openalex=miss / unpaywall=blocked」——⚠️ 而 blocked 的成因是 missing-contact-email（fulltext.py:931），即 **Unpaywall 從來沒有被問過**"
+    },
+    {
+      "probe": "沒有舊命名的孤兒目錄",
+      "passed": false,
+      "detail": "🚨 實得 4 個 `ahig_candidate_publication_*` 目錄，status=['unavailable']、皆零嘗試且無任何產物；⚠️ acquire_fulltext 寫不出這個 status（它只寫 acquired／available-*／no-oa-fulltext／incomplete），故它們是舊命名時代的空殼，🚫 不是「取得失敗」"
+    },
+    {
+      "probe": "✅ 名冊未被孤兒目錄污染（本支的證明，非假設）",
+      "passed": true,
+      "detail": "✅ 孤兒目錄裡 status=acquired 者 0 個；⚠️ 只要有一個，名冊就會多出一筆同一篇的重複 id——**而重複的 id 看起來跟正常的一樣**"
+    }
+  ],
+  "auditHash": "sha256:6fdc5fdac241d8d1c6a87826db7e4ab186114119d75158dec9004e1493194ea5"
+}
