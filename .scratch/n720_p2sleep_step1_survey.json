@@ -1,0 +1,143 @@
+{
+  "schemaVersion": 1,
+  "documentType": "p2-step1-survey",
+  "assignment": "n+196：P2（睡眠）第一步之搜尋",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "protocol": "ahig/domains/p2-sleep/review-of-reviews.md",
+  "method": "✅ 與 P3 同一套（`p3_step1_survey.py`），🚫 不另發明。",
+  "queries": {
+    "sleep-appetite": "(TITLE_ABS:\"sleep extension\" OR TITLE_ABS:\"sleep restriction\" OR TITLE_ABS:\"sleep deprivation\" OR TITLE_ABS:\"sleep duration\" OR TITLE_ABS:\"sleep quality\" OR TITLE_ABS:\"short sleep\") AND (TITLE_ABS:\"appetite\" OR TITLE_ABS:\"energy intake\" OR TITLE_ABS:\"food intake\" OR TITLE_ABS:\"eating behaviour\" OR TITLE_ABS:\"eating behavior\" OR TITLE_ABS:\"food craving\") AND (PUB_TYPE:\"systematic review\" OR PUB_TYPE:\"meta-analysis\" OR TITLE:\"systematic review\" OR TITLE:\"meta-analysis\")",
+    "sleep-adherence": "(TITLE_ABS:\"sleep extension\" OR TITLE_ABS:\"sleep restriction\" OR TITLE_ABS:\"sleep deprivation\" OR TITLE_ABS:\"sleep duration\" OR TITLE_ABS:\"sleep quality\" OR TITLE_ABS:\"short sleep\") AND (TITLE_ABS:\"weight loss\" OR TITLE_ABS:\"fat loss\" OR TITLE_ABS:\"energy restriction\" OR TITLE_ABS:\"dietary adherence\" OR TITLE_ABS:\"weight loss maintenance\" OR TITLE_ABS:\"caloric restriction\") AND (PUB_TYPE:\"systematic review\" OR PUB_TYPE:\"meta-analysis\" OR TITLE:\"systematic review\" OR TITLE:\"meta-analysis\")"
+  },
+  "results": {
+    "sleep-appetite": {
+      "hitCount": 41,
+      "returned": 41,
+      "ids": [
+        "41707432",
+        "41202521",
+        "41450504",
+        "41302350",
+        "42504974",
+        "40257510",
+        "40843663",
+        "41220708",
+        "40026259",
+        "41803962",
+        "42044907",
+        "41889380",
+        "40816297",
+        "34620371",
+        "32537891",
+        "39363896",
+        "41750826",
+        "38643903",
+        "39605179",
+        "40046125",
+        "32960623",
+        "33001515",
+        "40980047",
+        "36083207",
+        "31166059",
+        "37938356",
+        "33919698",
+        "27804960",
+        "37477854",
+        "26098388",
+        "35141156",
+        "38969775",
+        "36507753",
+        "32616106",
+        "30870662",
+        "32590219",
+        "31100467",
+        "25028535",
+        "18239586",
+        "22836029",
+        "24788672"
+      ]
+    },
+    "sleep-adherence": {
+      "hitCount": 29,
+      "returned": 29,
+      "ids": [
+        "42478101",
+        "41202521",
+        "41783703",
+        "41318106",
+        "40257510",
+        "41939748",
+        "39964667",
+        "42394382",
+        "42061031",
+        "39930945",
+        "41076324",
+        "41803962",
+        "39175092",
+        "41484800",
+        "40980047",
+        "42118376",
+        "34620371",
+        "31911659",
+        "40454897",
+        "38361353",
+        "35466271",
+        "IND607690744",
+        "33876534",
+        "31726017",
+        "30957509",
+        "29923186",
+        "32616106",
+        "23881308",
+        "31365842"
+      ]
+    }
+  },
+  "failures": {},
+  "unionIds": 64,
+  "requestCounters": {
+    "totalRequests": 2,
+    "perRequestedHost": {
+      "www.ebi.ac.uk": 2
+    },
+    "perFinalHost": {
+      "www.ebi.ac.uk": 2
+    },
+    "redirectHops": 0,
+    "blockedHosts": {},
+    "distinctUrls": 2,
+    "minIntervalSeconds": 1.0,
+    "note": "Per-execution counters. totalRequests counts every hop actually sent, including redirect hops, because each hop is a real outbound request. Requested and final hosts are kept apart: a redirector such as doi.org appears in the first and the publisher it lands on in the second, and blocking keys on the second. State does not survive the process, so the no-retry guarantee holds within one run only."
+  },
+  "contactEmail": "l**********2@gmail.com",
+  "titlesKeptPrivate": "C:\\Users\\User\\Desktop\\claude\\ahig-private\\p2-sleep\\step1-candidates.json",
+  "whatThisDoesNotDo": "🚫 本支只做搜尋——⚠️ 不讀全文、不填截止日、不下判斷。🚨 而**搜尋截止日**是這一步最重要的一欄，**⚠️ 它要逐份讀方法段才填得出來**。",
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "controlProbes": [
+    {
+      "probe": "兩組查詢都拿到結果（必觸發）",
+      "passed": true,
+      "detail": "🚨 少一組就代表盤點不完整，⚠️ 而不完整的盤點看起來跟完整的一樣；實得 2／2，失敗 無"
+    },
+    {
+      "probe": "兩個問題確實問到不同的東西（必觸發之反向）",
+      "passed": true,
+      "detail": "🚨 若兩組回傳的是同一批文獻，protocol 所稱「兩件事」就沒有分開；⚠️ 實得聯集 64 筆、單組最大 41 筆"
+    },
+    {
+      "probe": "本支沒有把逐字題名寫進 repo",
+      "passed": true,
+      "detail": "✅ 題名只寫私有根 step1-candidates.json；🚫 本 repo 只收識別碼與計數"
+    },
+    {
+      "probe": "每一份候選回顧都已填入搜尋截止日",
+      "passed": false,
+      "detail": "🚨 本支只做搜尋，🚫 一份都還沒讀；⚠️ 截止日要逐份讀方法段才填得出來，**🚫 不得用「大概是那幾年」補上去**（n+196 三）"
+    }
+  ],
+  "auditHash": "sha256:670df68b5c998e05aada6ce9f969b3c8ae8beea89328cf22dfcdbdae0eec6907"
+}
