@@ -1,0 +1,187 @@
+{
+  "schemaVersion": 1,
+  "documentType": "uncited-tables-gap",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "followsFrom": "n691（那兩個 12 不是同一個 12）",
+  "grobidReports": 15,
+  "tablesInSource": 50,
+  "figuresInSource": 225,
+  "distinctCitedInInventories": 43,
+  "neverCited": 232,
+  "reportsWithAnyCitation": 7,
+  "reportsCitingNothing": [
+    "298c326024d22835",
+    "3f34fc92d4f4b70d",
+    "48da8a7f2f35af1f",
+    "6b7320d74cdda857",
+    "7902e3ec54370729",
+    "7a6ac1559c740fd6",
+    "82cbc04b68c38e79",
+    "c3028a8a7b1ae2a1"
+  ],
+  "reportsCitingNothingYetHavingTables": [
+    "3f34fc92d4f4b70d",
+    "48da8a7f2f35af1f",
+    "7902e3ec54370729",
+    "7a6ac1559c740fd6",
+    "82cbc04b68c38e79",
+    "c3028a8a7b1ae2a1"
+  ],
+  "outcomeTableReportsThatCiteNothing": [
+    "3f34fc92d4f4b70d",
+    "48da8a7f2f35af1f",
+    "c3028a8a7b1ae2a1"
+  ],
+  "rows": [
+    {
+      "report": "1105537918c174c9",
+      "tablesInSource": 1,
+      "figuresInSource": 3,
+      "distinctCited": 2,
+      "itemsCiting": 10,
+      "neverCited": 2
+    },
+    {
+      "report": "298c326024d22835",
+      "tablesInSource": 0,
+      "figuresInSource": 4,
+      "distinctCited": 0,
+      "itemsCiting": 0,
+      "neverCited": 4
+    },
+    {
+      "report": "307c0dd5b141caed",
+      "tablesInSource": 27,
+      "figuresInSource": 115,
+      "distinctCited": 16,
+      "itemsCiting": 31,
+      "neverCited": 126
+    },
+    {
+      "report": "3f34fc92d4f4b70d",
+      "tablesInSource": 1,
+      "figuresInSource": 7,
+      "distinctCited": 0,
+      "itemsCiting": 0,
+      "neverCited": 8
+    },
+    {
+      "report": "48da8a7f2f35af1f",
+      "tablesInSource": 2,
+      "figuresInSource": 13,
+      "distinctCited": 0,
+      "itemsCiting": 0,
+      "neverCited": 15
+    },
+    {
+      "report": "65dd82a89b2c5340",
+      "tablesInSource": 2,
+      "figuresInSource": 6,
+      "distinctCited": 2,
+      "itemsCiting": 8,
+      "neverCited": 6
+    },
+    {
+      "report": "6b7320d74cdda857",
+      "tablesInSource": 0,
+      "figuresInSource": 7,
+      "distinctCited": 0,
+      "itemsCiting": 0,
+      "neverCited": 7
+    },
+    {
+      "report": "7902e3ec54370729",
+      "tablesInSource": 1,
+      "figuresInSource": 7,
+      "distinctCited": 0,
+      "itemsCiting": 0,
+      "neverCited": 8
+    },
+    {
+      "report": "7a6ac1559c740fd6",
+      "tablesInSource": 3,
+      "figuresInSource": 17,
+      "distinctCited": 0,
+      "itemsCiting": 0,
+      "neverCited": 20
+    },
+    {
+      "report": "82cbc04b68c38e79",
+      "tablesInSource": 1,
+      "figuresInSource": 11,
+      "distinctCited": 0,
+      "itemsCiting": 0,
+      "neverCited": 12
+    },
+    {
+      "report": "a9012191142e7e02",
+      "tablesInSource": 1,
+      "figuresInSource": 8,
+      "distinctCited": 6,
+      "itemsCiting": 14,
+      "neverCited": 3
+    },
+    {
+      "report": "ad7c0004c386f31c",
+      "tablesInSource": 2,
+      "figuresInSource": 3,
+      "distinctCited": 6,
+      "itemsCiting": 22,
+      "neverCited": -1
+    },
+    {
+      "report": "c3028a8a7b1ae2a1",
+      "tablesInSource": 2,
+      "figuresInSource": 8,
+      "distinctCited": 0,
+      "itemsCiting": 0,
+      "neverCited": 10
+    },
+    {
+      "report": "c4128a6f6dd2c0b5",
+      "tablesInSource": 4,
+      "figuresInSource": 9,
+      "distinctCited": 4,
+      "itemsCiting": 22,
+      "neverCited": 9
+    },
+    {
+      "report": "eac2b5fd6bb06843",
+      "tablesInSource": 3,
+      "figuresInSource": 7,
+      "distinctCited": 7,
+      "itemsCiting": 12,
+      "neverCited": 3
+    }
+  ],
+  "whyThisMattersForD17": "⚠️ 目前對 `D17` 的效益描述是「那 12 項卡住的會解開」。🚨 但原始檔裡還有大量**從來沒被引用過**的表與圖——**✅ 修好之後多出來的不只是解開，還有「第一次看得見」。**🚫 本支不主張那些看得見之後一定有用。",
+  "methodLimit": "🚨 清冊的 `tableOrFigure` **表與圖不分**——⚠️ 引用到的可能是圖，故本支拿它跟「表＋圖」的總數比，🚫 不假裝分得開。⚠️ 又：「沒被引用」🚫 不等於「有用」——**一篇論文本來就有很多與本題無關的圖表。**✅ 第 613 輪才是「那些表裡有沒有我們要的結局」那一題。",
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "controlProbes": [
+    {
+      "probe": "接得到第 612 輪那 15 篇與 50 張表（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 15 篇、表 50 張、圖 225 張；⚠️ 對不上就與第 612 輪不一致"
+    },
+    {
+      "probe": "捏造的報告代號沒有任何引用（必觸發之反向）",
+      "passed": true,
+      "detail": "🚨 捏造代號查無引用；⚠️ 若查得到，代表比對是在亂配"
+    },
+    {
+      "probe": "至少有一些引用可比（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 清冊裡引用到的相異表／圖共 43 個（來自 7 篇）；⚠️ 若是 0，本支沒有可比的東西"
+    },
+    {
+      "probe": "原始檔裡的表／圖都被引用到了",
+      "passed": false,
+      "detail": "🚨 原始檔共 275 個表／圖，清冊只引用到 43 個（16%）；⚠️ 其餘 232 個**從來沒有被任何一項引用過**——**🚨 而讀的人本來就看不到它們**"
+    }
+  ],
+  "auditHash": "sha256:898074b2ddad9b5556ed1ba87beb20e0521d0f75891aa89a02850d201b867489"
+}
