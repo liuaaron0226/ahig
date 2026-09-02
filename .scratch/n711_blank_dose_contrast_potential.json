@@ -1,0 +1,155 @@
+{
+  "schemaVersion": 1,
+  "documentType": "blank-dose-contrast-potential",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "closesLimitDeclaredBy": "n710（空白劑量不算數，故 9 篇是下界）",
+  "blankDoseItems": 12,
+  "blankItemsByOutcome": {
+    "tt-completion-time": 7,
+    "time-to-exhaustion": 2,
+    "gi-symptom-severity": 2,
+    "gi-symptom-incidence": 1
+  },
+  "blankGroupsByOutcome": {
+    "tt-completion-time": 5,
+    "time-to-exhaustion": 2,
+    "gi-symptom-incidence": 1,
+    "gi-symptom-severity": 1
+  },
+  "rows": [
+    {
+      "report": "0cfceb6c8a86f78b",
+      "outcome": "tt-completion-time",
+      "blankItems": 1,
+      "existingInScopeDoses": [
+        108.0
+      ],
+      "couldCreateContrast": true,
+      "route": "現有劑量 ＋ 補一個"
+    },
+    {
+      "report": "0eea079e79bf7913",
+      "outcome": "time-to-exhaustion",
+      "blankItems": 1,
+      "existingInScopeDoses": [],
+      "couldCreateContrast": false,
+      "route": "🚫 補了也只有一個劑量"
+    },
+    {
+      "report": "54d4200c1c5e2b64",
+      "outcome": "tt-completion-time",
+      "blankItems": 2,
+      "existingInScopeDoses": [],
+      "couldCreateContrast": true,
+      "route": "兩個空白各補一個"
+    },
+    {
+      "report": "82cbc04b68c38e79",
+      "outcome": "time-to-exhaustion",
+      "blankItems": 1,
+      "existingInScopeDoses": [],
+      "couldCreateContrast": false,
+      "route": "🚫 補了也只有一個劑量"
+    },
+    {
+      "report": "82cbc04b68c38e79",
+      "outcome": "tt-completion-time",
+      "blankItems": 1,
+      "existingInScopeDoses": [],
+      "couldCreateContrast": false,
+      "route": "🚫 補了也只有一個劑量"
+    },
+    {
+      "report": "a6ce9c92c7454a7c",
+      "outcome": "tt-completion-time",
+      "blankItems": 1,
+      "existingInScopeDoses": [],
+      "couldCreateContrast": false,
+      "route": "🚫 補了也只有一個劑量"
+    },
+    {
+      "report": "ad7c0004c386f31c",
+      "outcome": "gi-symptom-incidence",
+      "blankItems": 1,
+      "existingInScopeDoses": [],
+      "couldCreateContrast": false,
+      "route": "🚫 補了也只有一個劑量"
+    },
+    {
+      "report": "ad7c0004c386f31c",
+      "outcome": "gi-symptom-severity",
+      "blankItems": 2,
+      "existingInScopeDoses": [],
+      "couldCreateContrast": true,
+      "route": "兩個空白各補一個"
+    },
+    {
+      "report": "ad7c0004c386f31c",
+      "outcome": "tt-completion-time",
+      "blankItems": 2,
+      "existingInScopeDoses": [],
+      "couldCreateContrast": true,
+      "route": "兩個空白各補一個"
+    }
+  ],
+  "groupsThatCouldGainContrast": 4,
+  "focusOutcome": "tt-completion-time",
+  "focusGroupsThatCouldGain": [
+    {
+      "report": "0cfceb6c8a86f78b",
+      "outcome": "tt-completion-time",
+      "blankItems": 1,
+      "existingInScopeDoses": [
+        108.0
+      ],
+      "couldCreateContrast": true,
+      "route": "現有劑量 ＋ 補一個"
+    },
+    {
+      "report": "54d4200c1c5e2b64",
+      "outcome": "tt-completion-time",
+      "blankItems": 2,
+      "existingInScopeDoses": [],
+      "couldCreateContrast": true,
+      "route": "兩個空白各補一個"
+    },
+    {
+      "report": "ad7c0004c386f31c",
+      "outcome": "tt-completion-time",
+      "blankItems": 2,
+      "existingInScopeDoses": [],
+      "couldCreateContrast": true,
+      "route": "兩個空白各補一個"
+    }
+  ],
+  "whatThisMeansForD23": "⚠️ `D23`（回補空白欄位）的效益，第 666 輪只算到「4 項是強漏填訊號」。**🚨 本支加一層：補回來之後，**哪些（篇×結局）可能因此獲得同篇內的劑量對比**——⚠️ 而那正是 `tt-completion-time` 目前完全沒有的東西。**",
+  "whatThisCannotAnswer": "🚫 補進來的值是多少，本支**算不到**——⚠️ 那要讀論文（`n+187`）。🚨 故「可能產生對比」是**上界**：**⚠️ 補進來的值若與現有的相同，仍然沒有對比。**",
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "controlProbes": [
+    {
+      "probe": "抓到的正是第 645 輪那 12 項空白（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 空白劑量項共 12 項，逐結局 {'tt-completion-time': 7, 'time-to-exhaustion': 2, 'gi-symptom-incidence': 1, 'gi-symptom-severity': 2}；⚠️ 不是 12 就與第 645 輪不一致"
+    },
+    {
+      "probe": "計時賽那一格是 7 項（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 `tt-completion-time` 的空白 7 項；⚠️ 對不上就與第 645 輪不一致"
+    },
+    {
+      "probe": "捏造的（篇×結局）沒有候選（必觸發之反向）",
+      "passed": true,
+      "detail": "🚨 捏造代號不在表裡；⚠️ 若在，代表本支收錯了東西"
+    },
+    {
+      "probe": "補回空白劑量，計時賽仍不會有同篇內對比",
+      "passed": false,
+      "detail": "🚨 `tt-completion-time` 有 3／5 組**補了就可能**產生同篇內對比：[('0cfceb6c8a86f78b', '現有劑量 ＋ 補一個', [108.0]), ('54d4200c1c5e2b64', '兩個空白各補一個', []), ('ad7c0004c386f31c', '兩個空白各補一個', [])]；⚠️ 而那是**可能**，🚫 不是「會」——**補進來的值若與現有的相同，仍然沒有對比**"
+    }
+  ],
+  "auditHash": "sha256:a1c7c551d263b047b547f65bdbf814c13103c7434fbaa91323ebb02b9df4b810"
+}
