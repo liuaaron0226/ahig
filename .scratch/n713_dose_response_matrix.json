@@ -1,0 +1,213 @@
+{
+  "schemaVersion": 1,
+  "documentType": "dose-response-matrix",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "complements": "n710／n711（同一篇之內的對比）",
+  "bands": [
+    {
+      "bandId": "low",
+      "min": 10,
+      "max": 29.9,
+      "unit": "g/h"
+    },
+    {
+      "bandId": "moderate",
+      "min": 30,
+      "max": 59.9,
+      "unit": "g/h"
+    },
+    {
+      "bandId": "high",
+      "min": 60,
+      "max": 89.9,
+      "unit": "g/h"
+    },
+    {
+      "bandId": "very-high",
+      "min": 90,
+      "max": 150,
+      "unit": "g/h"
+    }
+  ],
+  "unit": "篇（🚫 不是項——同一篇在同一帶上的多項只算一篇）",
+  "inScopeItems": 98,
+  "itemsOutsideAnyBand": 0,
+  "rows": [
+    {
+      "outcome": "exogenous-cho-oxidation-peak",
+      "papersByBand": {
+        "low": 0,
+        "moderate": 1,
+        "high": 4,
+        "very-high": 10
+      },
+      "itemsByBand": {
+        "low": 0,
+        "moderate": 2,
+        "high": 5,
+        "very-high": 11
+      },
+      "bandsWithAnyPaper": 3,
+      "bandsFilled": [
+        "moderate",
+        "high",
+        "very-high"
+      ],
+      "enoughForACurve": true,
+      "duplicatePairBothPresent": []
+    },
+    {
+      "outcome": "gi-symptom-incidence",
+      "papersByBand": {
+        "low": 0,
+        "moderate": 1,
+        "high": 4,
+        "very-high": 4
+      },
+      "itemsByBand": {
+        "low": 0,
+        "moderate": 1,
+        "high": 5,
+        "very-high": 7
+      },
+      "bandsWithAnyPaper": 3,
+      "bandsFilled": [
+        "moderate",
+        "high",
+        "very-high"
+      ],
+      "enoughForACurve": true,
+      "duplicatePairBothPresent": []
+    },
+    {
+      "outcome": "gi-symptom-severity",
+      "papersByBand": {
+        "low": 1,
+        "moderate": 3,
+        "high": 10,
+        "very-high": 10
+      },
+      "itemsByBand": {
+        "low": 1,
+        "moderate": 4,
+        "high": 23,
+        "very-high": 19
+      },
+      "bandsWithAnyPaper": 4,
+      "bandsFilled": [
+        "low",
+        "moderate",
+        "high",
+        "very-high"
+      ],
+      "enoughForACurve": true,
+      "duplicatePairBothPresent": []
+    },
+    {
+      "outcome": "muscle-glycogen-post-exercise",
+      "papersByBand": {
+        "low": 0,
+        "moderate": 1,
+        "high": 1,
+        "very-high": 1
+      },
+      "itemsByBand": {
+        "low": 0,
+        "moderate": 1,
+        "high": 2,
+        "very-high": 1
+      },
+      "bandsWithAnyPaper": 3,
+      "bandsFilled": [
+        "moderate",
+        "high",
+        "very-high"
+      ],
+      "enoughForACurve": true,
+      "duplicatePairBothPresent": []
+    },
+    {
+      "outcome": "time-to-exhaustion",
+      "papersByBand": {
+        "low": 0,
+        "moderate": 1,
+        "high": 2,
+        "very-high": 3
+      },
+      "itemsByBand": {
+        "low": 0,
+        "moderate": 1,
+        "high": 6,
+        "very-high": 3
+      },
+      "bandsWithAnyPaper": 3,
+      "bandsFilled": [
+        "moderate",
+        "high",
+        "very-high"
+      ],
+      "enoughForACurve": true,
+      "duplicatePairBothPresent": []
+    },
+    {
+      "outcome": "tt-completion-time",
+      "papersByBand": {
+        "low": 0,
+        "moderate": 0,
+        "high": 2,
+        "very-high": 3
+      },
+      "itemsByBand": {
+        "low": 0,
+        "moderate": 0,
+        "high": 3,
+        "very-high": 3
+      },
+      "bandsWithAnyPaper": 2,
+      "bandsFilled": [
+        "high",
+        "very-high"
+      ],
+      "enoughForACurve": false,
+      "duplicatePairBothPresent": []
+    }
+  ],
+  "outcomesWithTooFewBands": [
+    "tt-completion-time"
+  ],
+  "cells": {
+    "filled": 18,
+    "filledBySinglePaperOnly": 7,
+    "total": 24
+  },
+  "whyPapersNotItems": "🚨 同一篇在同一帶上有兩項，那還是一篇——**⚠️ 用項數會高估證據量。**",
+  "whatThisCannotAnswer": "🚫 本支**不看數值**（第 659 輪已證那 98 項沒有效應量）——⚠️ 故它回答的是「**設計上**有沒有足夠的劑量點」，**🚫 不是「算得出劑量-反應」**（那要等 `D25`）。🚨 又：只有一篇的格子，跨篇比較等於沒有變異可用。",
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "controlProbes": [
+    {
+      "probe": "數到的正是那 98 項（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 在範圍內 98 項、落不進任何帶的 0 項；⚠️ 對不上就與前幾輪不一致"
+    },
+    {
+      "probe": "帶的定義取自契約（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 契約的帶：['low', 'moderate', 'high', 'very-high']；⚠️ 對不上代表本支讀錯了契約"
+    },
+    {
+      "probe": "捏造的帶沒有任何論文（必觸發之反向）",
+      "passed": true,
+      "detail": "🚨 9999 g/h 落不進任何帶；⚠️ 若落得進，代表分帶邏輯壞了"
+    },
+    {
+      "probe": "每個結局至少在 3 個劑量帶上有論文（畫得出曲線）",
+      "passed": false,
+      "detail": "🚨 不足 3 個帶的結局 1 個：[('tt-completion-time', ['high', 'very-high'])]；⚠️ 只在一兩個帶上有研究的結局，**跨篇也畫不出劑量-反應**"
+    }
+  ],
+  "auditHash": "sha256:8b2779c3f2f447046e5bb321d57331075fa6b29290a172ee57def311a4df6d08"
+}
