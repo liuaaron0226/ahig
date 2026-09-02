@@ -1,0 +1,86 @@
+{
+  "schemaVersion": 1,
+  "documentType": "d24-duplicate-and-wrong-premise",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "howFound": "✅ 第 705 輪剩下的 29 對候選裡，挑了 `D2`／`D24` 逐對算——🚨 一讀 `D2` 的證據就看到那條改名早就在表裡。",
+  "d24Items": 7,
+  "d24ByReport": {
+    "7a6ac1559c740fd6": 4,
+    "9a3b03b4fb24cf65": 1,
+    "298c326024d22835": 2
+  },
+  "errataCoverage": [
+    {
+      "report": "298c326024d22835",
+      "itemsInD24": 2,
+      "n585Categories": [
+        "contract-gap"
+      ],
+      "coveredByErrata": true
+    },
+    {
+      "report": "7a6ac1559c740fd6",
+      "itemsInD24": 4,
+      "n585Categories": [
+        "rename-needs-ruling",
+        "rename-safe"
+      ],
+      "coveredByErrata": true
+    },
+    {
+      "report": "9a3b03b4fb24cf65",
+      "itemsInD24": 1,
+      "n585Categories": [
+        "contract-gap"
+      ],
+      "coveredByErrata": true
+    }
+  ],
+  "erratraRenameTable": {
+    "cycling-time-to-exhaustion-fixed-power": "cycling-tte-fixed-intensity",
+    "13c-tracer-irms-indirect-calorimetry": "13c-tracer-indirect-calorimetry",
+    "acid-hydrolysis-freeze-dried-biopsy": "needle-biopsy-vastus-lateralis",
+    "treadmill-time-trial-5km": "running-time-trial-fixed-distance"
+  },
+  "contractGapReports": [
+    "298c326024d22835",
+    "9a3b03b4fb24cf65"
+  ],
+  "renameSafeReports": [
+    "7a6ac1559c740fd6"
+  ],
+  "twoProblemsWithD24": {
+    "一・重複登記": "🚨 `n585`（`D2` 的證據）**早就有**`cycling-time-to-exhaustion-fixed-power` → `cycling-tte-fixed-intensity` 這條改名，⚠️ 而本室在第 669 輪把它新增成 `D24`。",
+    "二・前提錯誤": "🚨 本室當時是從**機械性突變**推出「這是同義字問題」——⚠️ 但「換成一個合格的值會進來」🚫 不等於「那篇論文用的就是那個工具」。**✅ 而 `n585` 是讀過論文之後分類的：`298c` 與 `9a3b` 是 `contract-gap`（契約沒有滑雪類工具），🚫 不是同義字。**"
+  },
+  "theToolDidWarnMe": "⚠️ 第 670 輪的「早該先讀」欄位就寫著 `n663 → n585 [D2]`。**🚨 本室當時只把它當成一個統計數字，🚫 沒有真的去讀那一支。**✅ 工具有效，⚠️ 而使用者（本室）沒有照它的指示做。",
+  "proposedDisposition": "📮 建議把 `D24` 標為**併入 `D2`**（🚫 不刪除），並把 `298c`／`9a3b` 那兩篇改掛到**契約缺口**那一線（第 573 輪已報「契約的計時賽工具只有自行車與跑步，沒有滑雪」）。⚠️ 本支只提建議，**📮 併不併是裁定**。",
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "controlProbes": [
+    {
+      "probe": "抓得到 `D24` 的範圍（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 第 665 輪「單欄換儀器即可進範圍」共 7 項，分佈 {'7a6ac1559c740fd6': 4, '9a3b03b4fb24cf65': 1, '298c326024d22835': 2}；⚠️ 若是 0，本支沒有可比的對象"
+    },
+    {
+      "probe": "更正表裡真的有那一條改名（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 更正表的改名對照：{'cycling-time-to-exhaustion-fixed-power': 'cycling-tte-fixed-intensity', '13c-tracer-irms-indirect-calorimetry': '13c-tracer-indirect-calorimetry', 'acid-hydrolysis-freeze-dried-biopsy': 'needle-biopsy-vastus-lateralis', 'treadmill-time-trial-5km': 'running-time-trial-fixed-distance'}；⚠️ 若沒有那一條，本支的「重複登記」指控就不成立"
+    },
+    {
+      "probe": "捏造的工具名不在更正表裡（必觸發之反向）",
+      "passed": true,
+      "detail": "🚨 捏造工具名不在表裡；⚠️ 若在，代表比對是在亂配"
+    },
+    {
+      "probe": "`D24` 涵蓋的篇，更正表都沒有處理過",
+      "passed": false,
+      "detail": "🚨 3 篇裡有 3 篇更正表**早就分類過**：[('298c326024d22835', ['contract-gap']), ('7a6ac1559c740fd6', ['rename-needs-ruling', 'rename-safe']), ('9a3b03b4fb24cf65', ['contract-gap'])]；⚠️ 而其中 2 篇被分為 `contract-gap`（契約沒有那類工具）——**🚨 那不是同義字問題，🚫 D24 問錯了**"
+    }
+  ],
+  "auditHash": "sha256:5e151737bd0b8fc6c5148512fe91977cd192a27d170d0b9d31a98d33cd6e9734"
+}
