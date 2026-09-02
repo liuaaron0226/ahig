@@ -1,0 +1,140 @@
+{
+  "schemaVersion": 1,
+  "documentType": "p2-step1e-methods-cutoff",
+  "assignment": "n+196：補齊 P2 表上的檢索截止日",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "targets": [
+    "27804960",
+    "32960623",
+    "33001515",
+    "42044907"
+  ],
+  "rows": [
+    {
+      "id": "27804960",
+      "pmcid": null,
+      "isOpenAccess": "N",
+      "inEPMC": "N",
+      "hasPDF": "N",
+      "fullTextIds": null,
+      "cutoff": null,
+      "pattern": null,
+      "truncated": null,
+      "outcome": "🚫 全文不在 Europe PMC（pmcid／inEPMC／fullTextId 三者皆無）——⚠️ 記為「無法接續」"
+    },
+    {
+      "id": "32960623",
+      "pmcid": null,
+      "isOpenAccess": "N",
+      "inEPMC": "N",
+      "hasPDF": "N",
+      "fullTextIds": null,
+      "cutoff": null,
+      "pattern": null,
+      "truncated": null,
+      "outcome": "🚫 全文不在 Europe PMC（pmcid／inEPMC／fullTextId 三者皆無）——⚠️ 記為「無法接續」"
+    },
+    {
+      "id": "33001515",
+      "pmcid": null,
+      "isOpenAccess": "N",
+      "inEPMC": "N",
+      "hasPDF": "N",
+      "fullTextIds": null,
+      "cutoff": null,
+      "pattern": null,
+      "truncated": null,
+      "outcome": "🚫 全文不在 Europe PMC（pmcid／inEPMC／fullTextId 三者皆無）——⚠️ 記為「無法接續」"
+    },
+    {
+      "id": "42044907",
+      "pmcid": null,
+      "isOpenAccess": "N",
+      "inEPMC": "N",
+      "hasPDF": "N",
+      "fullTextIds": null,
+      "cutoff": null,
+      "pattern": null,
+      "truncated": null,
+      "outcome": "🚫 全文不在 Europe PMC（pmcid／inEPMC／fullTextId 三者皆無）——⚠️ 記為「無法接續」"
+    }
+  ],
+  "resolved": {},
+  "unresolved": [
+    "27804960",
+    "32960623",
+    "33001515",
+    "42044907"
+  ],
+  "rescanOfRound721": {
+    "ran": true,
+    "abstractsScanned": 63,
+    "statedBefore": 24,
+    "statedAfter": 25,
+    "recovered": {
+      "41803962": "April 7, 2025"
+    },
+    "lostByRescan": [],
+    "note": "✅ 差額即第 721 輪因樣式而**低估**的份數；⚠️ 反向若有「掉的」，代表新樣式反而更緊，🚫 得回頭看。"
+  },
+  "patternRegression": "🚨 **本輪自己踩的坑，留紀錄**：為了兼容「September 12, 2025」，本室把日寫成 `\\d{1,2}?,?\\s*`——**⚠️ 那等於把日從選配變成必填**，🚫 反而打不中最常見的「September 2025」。✅ 是「必觸發之反向」那道控制探針在**已知答案**上先亮紅才擋下來的。**🚨 而同一個缺陷的另一半在第 721 輪那條裡**：它要求月份後直接接年，🚫 打不中帶日的寫法——故本輪回頭重掃。",
+  "correctionToRound723": "🚨 **更正第 723 輪自己寫的一句話。** ⚠️ 那一輪的「還缺什麼」寫了**「甲那四份的截止日多落在 2019–2020」**——🚫 但那是用**區間端點**（`33001515` 的 1970–2019）與**檢索執行日**（`32960623` 的 2016-10／2019-02）推出來的，**⚠️ 正是 n+196 三禁止的頂替。**\n✅ 站得住的說法只剩：**甲那四份裡只有 `34620371` 有明確截止日（July 2020），其餘三份為「無法接續」**；而「甲比乙舊」這個方向仍成立，⚠️ 但**依據是出版年（2017–2021 對 2026），🚫 不是檢索截止日**。\n**🚨 故「兩半證據新舊差五年」須降級為出版年之差，🚫 不得當成檢索涵蓋範圍之差。**",
+  "consequenceForTable": "⚠️ 六份的截止日欄位**維持 2 份明確、4 份無法接續**；🚫 本輪沒有把任何一格從「未載」改成日期。✅ 產出二（接續日 2025 年 9 月）**不受影響**——它來自 `42478101` 摘要自載的明確日期。",
+  "lookupError": null,
+  "requestCounters": {
+    "totalRequests": 1,
+    "perRequestedHost": {
+      "www.ebi.ac.uk": 1
+    },
+    "perFinalHost": {
+      "www.ebi.ac.uk": 1
+    },
+    "redirectHops": 0,
+    "blockedHosts": {},
+    "distinctUrls": 1,
+    "minIntervalSeconds": 1.0,
+    "note": "Per-execution counters. totalRequests counts every hop actually sent, including redirect hops, because each hop is a real outbound request. Requested and final hosts are kept apart: a redirector such as doi.org appears in the first and the publisher it lands on in the second, and blocking keys on the second. State does not survive the process, so the no-retry guarantee holds within one run only."
+  },
+  "contactEmail": "l**********2@gmail.com",
+  "excerptKeptPrivate": "C:\\Users\\User\\Desktop\\claude\\ahig-private\\p2-sleep\\step1e-methods.json",
+  "rule": "🚨 n+196 三：**最重要的一欄是搜尋截止日**，**🚫 不得用出版年或區間端點頂替**——✅ 讀不到就記「無法接續」。",
+  "knownTradeoff": "⚠️ `fetch_guard` 對回應有 40 萬字元上限，🚨 全文可能被截斷；✅ 方法段通常在前段，故多半不影響，**🚨 而本支逐份記下是否被截斷，🚫 不假裝讀完了整份。**",
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "controlProbes": [
+    {
+      "probe": "那四份的中繼資料都查得到（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 查到 4／4 份；錯誤：無；⚠️ 查不到就無從判斷全文取不取得到"
+    },
+    {
+      "probe": "截止日樣式在已知句型上打得中（必觸發之反向）",
+      "passed": true,
+      "detail": "🚨 對照句取得：September 2025；⚠️ 打不中就代表零命中只是樣式壞了"
+    },
+    {
+      "probe": "捏造的句子不會被誤判（必觸發之反向）",
+      "passed": true,
+      "detail": "🚨 無關句子未命中；⚠️ 若命中，代表樣式太寬"
+    },
+    {
+      "probe": "「取不到全文」是三個欄位一致下的判定（必觸發之反向）",
+      "passed": true,
+      "detail": "🚨 判為取不到的 4 份，逐份 (pmcid, inEPMC, fullTextIds)：[('27804960', None, 'N', None), ('32960623', None, 'N', None), ('33001515', None, 'N', None), ('42044907', None, 'N', None)]；⚠️ 只要有一份三者不一致，這個判定就站不住"
+    },
+    {
+      "probe": "四份的檢索截止日都補齊了",
+      "passed": false,
+      "detail": "🚨 補到 0／4 份；未補到的 [('27804960', '🚫 全文不在 Europe PMC（pmcid／inEPMC／fullTextId 三者皆無）——⚠️ 記為「無法接續」'), ('32960623', '🚫 全文不在 Europe PMC（pmcid／inEPMC／fullTextId 三者皆無）——⚠️ 記為「無法接續」'), ('33001515', '🚫 全文不在 Europe PMC（pmcid／inEPMC／fullTextId 三者皆無）——⚠️ 記為「無法接續」'), ('42044907', '🚫 全文不在 Europe PMC（pmcid／inEPMC／fullTextId 三者皆無）——⚠️ 記為「無法接續」')]；⚠️ 未補到者一律記「無法接續」——**🚫 不得用出版年頂替**"
+    },
+    {
+      "probe": "重掃只會把漏掉的補回來，🚫 不會把原本有的弄丟（必觸發之反向）",
+      "passed": true,
+      "detail": "🚨 補回 1 份、掉了 無；⚠️ 一旦有掉的，就不是單純的放寬"
+    }
+  ],
+  "auditHash": "sha256:642c55ccf6c075f3a1c7fe02d822cb1df35344bb0b91da90fe956217a347dbc7"
+}
