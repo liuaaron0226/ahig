@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 1,
+  "documentType": "two-twelves-disambiguation",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "theCoincidence": "⚠️ 第 613 輪「帶結局詞彙的表格 12 張」與第 690 輪「GROBID 酬載中指到表的在範圍內項目 12 項」——🚨 兩個都是 12，**但一個數表格、一個數項目**。",
+  "outcomeTablesByReport": {
+    "48da8a7f2f35af1f": 1,
+    "3f34fc92d4f4b70d": 1,
+    "c3028a8a7b1ae2a1": 1,
+    "65dd82a89b2c5340": 1,
+    "307c0dd5b141caed": 8
+  },
+  "inScopeTablePointingItemsByReport": {
+    "a9012191142e7e02": 4,
+    "307c0dd5b141caed": 4,
+    "1105537918c174c9": 2,
+    "eac2b5fd6bb06843": 2
+  },
+  "reportsInBoth": [
+    "307c0dd5b141caed"
+  ],
+  "reportsOnlyWithOutcomeTables": [
+    "3f34fc92d4f4b70d",
+    "48da8a7f2f35af1f",
+    "65dd82a89b2c5340",
+    "c3028a8a7b1ae2a1"
+  ],
+  "reportsOnlyWithInScopeTableItems": [
+    "1105537918c174c9",
+    "a9012191142e7e02",
+    "eac2b5fd6bb06843"
+  ],
+  "whyThisMatters": "🚨 一張表可以撐起好幾個項目；⚠️ 一個項目指到的表也可能**沒有**結局詞彙。**✅ 若把這兩個 12 當成同一批，`D17` 的效益就會被高估或低估，🚫 而且看不出來。**",
+  "whatThisDoesNotSay": "🚫 本支不主張哪一個數字比較重要，⚠️ 也不重新評估 `D17` 值不值得修——✅ 它只把兩個長得一樣的數字分開。",
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "controlProbes": [
+    {
+      "probe": "兩邊各自都重算得到 12（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 第 613 輪的結局表重算 12 張（5 篇）；第 690 輪的項目重算 12 項（4 篇）；⚠️ 對不上就代表本支比錯了對象"
+    },
+    {
+      "probe": "捏造的報告代號不在任一集合（必觸發之反向）",
+      "passed": true,
+      "detail": "🚨 捏造代號不在兩個集合裡；⚠️ 若在，代表集合是亂湊的"
+    },
+    {
+      "probe": "那兩個 12 指的是同一批東西",
+      "passed": false,
+      "detail": "🚨 兩邊都有的 1 篇：['307c0dd5b141caed']；只有「結局表」那邊的 4 篇：['3f34fc92d4f4b70d', '48da8a7f2f35af1f', '65dd82a89b2c5340', 'c3028a8a7b1ae2a1']；只有「在範圍內項目」那邊的 3 篇：['1105537918c174c9', 'a9012191142e7e02', 'eac2b5fd6bb06843']；⚠️ 集合不同就代表那個 12 對 12 只是巧合"
+    }
+  ],
+  "auditHash": "sha256:74f655793c1944679a1f24e78e832237f936def66ccb2ec69f811a4050ab422f"
+}
