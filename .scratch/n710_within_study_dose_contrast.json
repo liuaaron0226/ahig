@@ -1,0 +1,125 @@
+{
+  "schemaVersion": 1,
+  "documentType": "within-study-dose-contrast",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "whyNotCoveredBefore": "⚠️ 第 626 輪算的是**跨篇**分布且**每篇只取一個值**；🚫 第 632 輪算的是可合併性的軸，不是劑量。**✅ 同篇內的多劑量對比，本室從來沒數過。**",
+  "inScopeItems": 98,
+  "papersWithAnyWithinStudyContrast": 9,
+  "byOutcome": {
+    "exogenous-cho-oxidation-peak": {
+      "papersWithDose": 13,
+      "papersMultiDose": 3,
+      "papersSingleDose": 10,
+      "distinctDoseLevels": 13,
+      "doseRange": [
+        48.0,
+        144.0
+      ],
+      "multiDoseReports": [
+        "834de4d822dfb3cd",
+        "d4251685a43792ff",
+        "eac2b5fd6bb06843"
+      ]
+    },
+    "gi-symptom-incidence": {
+      "papersWithDose": 8,
+      "papersMultiDose": 1,
+      "papersSingleDose": 7,
+      "distinctDoseLevels": 8,
+      "doseRange": [
+        48.0,
+        144.0
+      ],
+      "multiDoseReports": [
+        "59b4558a37f28bc9"
+      ]
+    },
+    "gi-symptom-severity": {
+      "papersWithDose": 19,
+      "papersMultiDose": 5,
+      "papersSingleDose": 14,
+      "distinctDoseLevels": 13,
+      "doseRange": [
+        24.0,
+        144.0
+      ],
+      "multiDoseReports": [
+        "081d147cd92dee14",
+        "298c326024d22835",
+        "59b4558a37f28bc9",
+        "65dd82a89b2c5340",
+        "dbdb6ea55c9667c3"
+      ]
+    },
+    "muscle-glycogen-post-exercise": {
+      "papersWithDose": 2,
+      "papersMultiDose": 1,
+      "papersSingleDose": 1,
+      "distinctDoseLevels": 3,
+      "doseRange": [
+        45.0,
+        90.0
+      ],
+      "multiDoseReports": [
+        "307c0dd5b141caed"
+      ]
+    },
+    "time-to-exhaustion": {
+      "papersWithDose": 5,
+      "papersMultiDose": 1,
+      "papersSingleDose": 4,
+      "distinctDoseLevels": 4,
+      "doseRange": [
+        45.0,
+        120.0
+      ],
+      "multiDoseReports": [
+        "307c0dd5b141caed"
+      ]
+    },
+    "tt-completion-time": {
+      "papersWithDose": 5,
+      "papersMultiDose": 0,
+      "papersSingleDose": 5,
+      "distinctDoseLevels": 5,
+      "doseRange": [
+        60.0,
+        108.0
+      ],
+      "multiDoseReports": []
+    }
+  },
+  "outcomesWithoutAnyContrast": [
+    "tt-completion-time"
+  ],
+  "whyItMatters": "🚨 劑量-反應最乾淨的證據是**同一篇之內的多劑量對比**——⚠️ 同一群人、同一套方法、同一個量測。🚫 跨篇比較則把劑量差異與族群、方法、儀器的差異綁在一起。**✅ 故「有幾篇提供同篇內對比」是這份審查能不能談劑量-反應的上限之一。**",
+  "whatThisCannotAnswer": "🚫 本支**不看數值**——⚠️ 第 659 輪已證那 98 項沒有效應量。🚨 故「有對比」只代表**設計上有兩個劑量臂**，**🚫 不代表算得出劑量-反應**（那要等 `D25`）。⚠️ 又：劑量空白的項目（第 645 輪那 12 項）在本支裡不算數，🚨 故這是**下界**。",
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "controlProbes": [
+    {
+      "probe": "數到的正是那 98 項在範圍內的（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 在範圍內 98 項；⚠️ 對不上就與前幾輪不一致"
+    },
+    {
+      "probe": "劑量欄真的有值可數（必觸發之反向）",
+      "passed": true,
+      "detail": "🚨 有劑量的項目 98 個、單位分佈 {'g/h': 98}、（篇×結局）組合 52 個；⚠️ 若是 0，本支量的是空氣"
+    },
+    {
+      "probe": "已知的多手臂那一篇被認出來（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 `307c0dd5b141caed` 出現在多劑量清單裡：['muscle-glycogen-post-exercise', 'time-to-exhaustion']；⚠️ 認不出來代表本支的判準沒接上"
+    },
+    {
+      "probe": "每個結局都有論文提供同篇內的多劑量對比",
+      "passed": false,
+      "detail": "🚨 完全沒有同篇內對比的結局 1 個：['tt-completion-time']；⚠️ 那些結局的劑量-反應**只能靠跨篇比較**，**🚨 而跨篇比較受混淆影響大得多**"
+    }
+  ],
+  "auditHash": "sha256:20dc35569cac897e1505148bc31af76199c1880bd187c0c5f4969bc7b2b8ff82"
+}
