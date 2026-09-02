@@ -1,0 +1,73 @@
+{
+  "schemaVersion": 1,
+  "documentType": "p2-step1b-cutoff-scan",
+  "assignment": "n+196：P2（睡眠）第一步之截止日第一遍",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "method": "✅ 與 P3 的 `p3_step1b_cutoff_scan.py` 同一套（樣式逐字沿用）。",
+  "candidates": 64,
+  "abstractsScanned": 63,
+  "statedInAbstract": 24,
+  "needMethodsSection": 40,
+  "cutoffYearHistogram": {
+    "2025": 7,
+    "2024": 1,
+    "2023": 3,
+    "2022": 1,
+    "2021": 1,
+    "2020": 3,
+    "2019": 4,
+    "2018": 2,
+    "2017": 1,
+    "2013": 1
+  },
+  "newestStated": [
+    "2025",
+    "September 2025"
+  ],
+  "failures": {},
+  "requestCounters": {
+    "totalRequests": 3,
+    "perRequestedHost": {
+      "www.ebi.ac.uk": 3
+    },
+    "perFinalHost": {
+      "www.ebi.ac.uk": 3
+    },
+    "redirectHops": 0,
+    "blockedHosts": {},
+    "distinctUrls": 3,
+    "minIntervalSeconds": 1.0,
+    "note": "Per-execution counters. totalRequests counts every hop actually sent, including redirect hops, because each hop is a real outbound request. Requested and final hosts are kept apart: a redirector such as doi.org appears in the first and the publisher it lands on in the second, and blocking keys on the second. State does not survive the process, so the no-retry guarantee holds within one run only."
+  },
+  "contactEmail": "l**********2@gmail.com",
+  "abstractsKeptPrivate": "C:\\Users\\User\\Desktop\\claude\\ahig-private\\p2-sleep\\step1b-cutoff.json",
+  "whyThisIsNotTheAnswer": "⚠️ 摘要**經常不寫**搜尋截止日——🚨 權威來源是方法段。✅ 故本支的產出是「哪幾份摘要裡就寫了」＋「其餘要去讀方法段」，🚫 不是一份填好的截止日清單。**🚨 且這 64 份尚未篩選切題性——⚠️ 那份「最新」的回顧未必切題，🚫 不得當成結論。**",
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "controlProbes": [
+    {
+      "probe": "候選數與第 720 輪一致（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 聯集 64 筆｜第 720 輪記的 64 筆；⚠️ 對不上代表接錯了上一步"
+    },
+    {
+      "probe": "摘要真的拿到了（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 取得 63 份摘要（失敗 無）；⚠️ 若為零，「摘要裡沒寫截止日」只是沒讀到"
+    },
+    {
+      "probe": "截止日樣式確實打得中（必觸發之反向）",
+      "passed": true,
+      "detail": "✅ 實得 24 份摘要自己寫了檢索截止；🚨 若為零，那可能是樣式壞了而不是文獻沒寫"
+    },
+    {
+      "probe": "每一份候選都已填入搜尋截止日",
+      "passed": false,
+      "detail": "🚨 24／64 份的摘要裡寫了；⚠️ 其餘 40 份要去讀**方法段**——**🚫 不得用出版年或「大概是那幾年」補上去**（n+196 三）"
+    }
+  ],
+  "auditHash": "sha256:7a6b90aeac48d19629cc64dfdd8f98bac1e1ee4d1674dbd294604f9ab6d818ce"
+}
