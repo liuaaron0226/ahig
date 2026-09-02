@@ -1,0 +1,124 @@
+{
+  "schemaVersion": 1,
+  "documentType": "paired-design-guard-inert",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "guard": "ahig/stats/deterministic.py → check_paired_design_formula",
+  "ruleId": "STAT-012-paired-vs-independent",
+  "vocabularyFromSource": [
+    "RCT-crossover",
+    "matched-pairs",
+    "repeated-measures",
+    "within-subject"
+  ],
+  "cases": [
+    {
+      "case": "✅ 正對照・用對詞且宣告獨立樣本",
+      "args": [
+        "RCT-crossover",
+        "independent-groups",
+        null,
+        12
+      ],
+      "verdict": "FAIL",
+      "expected": "FAIL",
+      "asExpected": true
+    },
+    {
+      "case": "✅ 正對照・自由度用成 2n−2",
+      "args": [
+        "RCT-crossover",
+        "paired t-test",
+        22,
+        12
+      ],
+      "verdict": "FAIL",
+      "expected": "FAIL",
+      "asExpected": true
+    },
+    {
+      "case": "✅ 正對照・自由度正確（n−1）",
+      "args": [
+        "RCT-crossover",
+        "paired t-test",
+        11,
+        12
+      ],
+      "verdict": "PASS",
+      "expected": "PASS",
+      "asExpected": true
+    },
+    {
+      "case": "✅ 正對照・另一個配對詞",
+      "args": [
+        "repeated-measures",
+        "unpaired",
+        null,
+        10
+      ],
+      "verdict": "FAIL",
+      "expected": "FAIL",
+      "asExpected": true
+    },
+    {
+      "case": "🚨 自然拼法 `crossover`",
+      "args": [
+        "crossover",
+        "independent-groups",
+        null,
+        12
+      ],
+      "verdict": "NOT_APPLICABLE",
+      "expected": "NOT_APPLICABLE",
+      "asExpected": true
+    },
+    {
+      "case": "🚨 現況：欄位空著",
+      "args": [
+        "",
+        "",
+        null,
+        null
+      ],
+      "verdict": "NOT_APPLICABLE",
+      "expected": "NOT_APPLICABLE",
+      "asExpected": true
+    }
+  ],
+  "inventoryFieldCoverage": {
+    "reportedOutcomes": 790,
+    "studyDesign": 0,
+    "analysisReported": 0,
+    "nSubjects": 0
+  },
+  "whyItMatters": "🚨 這個領域幾乎都是**交叉設計**——⚠️ 而交叉設計誤用獨立樣本公式會**高估變異數、灌大信賴區間**。✅ 產品有一道檢查在守它（且實測會亮：宣告獨立樣本 → FAIL；自由度用成 2n−2 → FAIL）。**🚨 但清冊裡沒有任何一項記了設計，故它現在對每一項都是`NOT_APPLICABLE`——形同不設防。**",
+  "consequenceForD25": "⚠️ `D25` 若只抽「數值」而不抽**設計、分析方式、樣本數**，🚨 這道守衛**還是不會亮**。✅ 而且詞彙是逐字比對：**必須用 ['RCT-crossover', 'matched-pairs', 'repeated-measures', 'within-subject'] 之一**，🚫 寫 `crossover` 沒有用。**⚠️ 那與 `D2`／`D24` 的儀器名稱是同一族的病。**",
+  "whatThisIsNot": "🚫 本支**不主張**產品該收同義字——⚠️ 那是裁定。✅ 它只指出：**現況下這道檢查對每一項都不適用**，而那件事在 `D25` 的規格裡沒有被寫下來。",
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "controlProbes": [
+    {
+      "probe": "守衛本身有效——用對詞時會亮（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 正對照 [('✅ 正對照・用對詞且宣告獨立樣本', 'FAIL'), ('✅ 正對照・自由度用成 2n−2', 'FAIL'), ('✅ 正對照・自由度正確（n−1）', 'PASS'), ('✅ 正對照・另一個配對詞', 'FAIL')]；⚠️ 若不亮，本支的「不設防」就沒有對比基準"
+    },
+    {
+      "probe": "詞彙是從產品原始碼取的（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 抽出的配對設計詞彙：['RCT-crossover', 'matched-pairs', 'repeated-measures', 'within-subject']；⚠️ 抽不到就代表本支在手打"
+    },
+    {
+      "probe": "自然拼法 `crossover` 會被靜默略過（必觸發之反向）",
+      "passed": true,
+      "detail": "🚨 `crossover` → NOT_APPLICABLE；⚠️ 這與儀器允許清單是同一族：**逐字比對、沒有同義字**"
+    },
+    {
+      "probe": "清冊裡有記 `studyDesign`",
+      "passed": false,
+      "detail": "🚨 790 項報告結局中，記了 `studyDesign` 的 0 項、`analysisReported` 0 項、`nSubjects` 0 項；⚠️ 都是 0 就代表那道守衛**現在對每一項都是 NOT_APPLICABLE**"
+    }
+  ],
+  "auditHash": "sha256:f04528ecb9df6ceddf6dc162211dae744fce48f0fd9db8c4ab617aa4a73f61fd"
+}
