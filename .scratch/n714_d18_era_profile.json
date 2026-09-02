@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "documentType": "d18-era-profile",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "closesLoopWith": "n713（`low` 帶只有 1 篇）＋n626（缺掉的年代劑量顯著較低）",
+  "candidates": 18,
+  "unmatched": [],
+  "yearRange": [
+    1995,
+    2025
+  ],
+  "medianYear": 2008.0,
+  "pre2000": [
+    "521c5d3359712b22",
+    "07fb03ac90367aca",
+    "31daa098b403a574",
+    "09c665a709499ba1"
+  ],
+  "withoutYear": [],
+  "byDecade": {
+    "1990s": 4,
+    "2000s": 7,
+    "2010s": 2,
+    "2020s": 5
+  },
+  "acquiredCorpusYearRange": [
+    2005,
+    2026
+  ],
+  "acquiredCorpusMedianYear": 2020,
+  "whyThisMatters": "🚨 第 713 輪：`low` 帶（10–29.9 g/h）**只有 1 篇**。⚠️ 第 626 輪：缺掉的 2000 年前那批**劑量顯著較低**。**✅ 故「補取那 18 篇會不會補上低劑量端」，取決於它們是不是那個年代的。**",
+  "whatThisCannotAnswer": "🚫 本支**不推估那 18 篇的劑量**——⚠️ 年代與劑量的關係是第 626 輪證的，🚨 而那是**群體層次的統計**，**⚠️ 🚫 不保證任何一篇個別落在低劑量帶。**✅ 又：本支只讀候選池的年份，🚫 不送任何請求。",
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "controlProbes": [
+    {
+      "probe": "那 18 篇都對得到候選池（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 名單 18 篇、對到 18 篇、對不到的：無；⚠️ 對不到的話年代分佈就是殘的"
+    },
+    {
+      "probe": "候選池真的有年份（必觸發之反向）",
+      "passed": true,
+      "detail": "🚨 那 18 篇有年份的 18 篇；已取得那批有年份的 41 篇；⚠️ 任一為 0 就代表本支讀錯了欄位"
+    },
+    {
+      "probe": "捏造的代號對不到候選池（必觸發之反向）",
+      "passed": true,
+      "detail": "🚨 捏造代號查無；⚠️ 若查得到，代表比對是在亂配"
+    },
+    {
+      "probe": "那 18 篇裡有 2000 年前的（補得到低劑量端）",
+      "passed": true,
+      "detail": "🚨 2000 年前的 4 篇；年份範圍 [1995, 2025]；中位數 2008.0；⚠️ 若一篇都沒有，**補了也補不到低劑量端**"
+    }
+  ],
+  "auditHash": "sha256:db0c4572c7d2d8eacf8414f9a80d5fd86cc2314f14195162bf337ebfd0f81279"
+}
