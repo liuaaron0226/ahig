@@ -83,11 +83,29 @@ def identifiers(text):
             | set(KEBAB_RE.findall(text)) | set(DECISION_RE.findall(text)))
 
 
+# 🚨 第 708 輪查出的自我污染：索引的 JSON 列著**全部識別字**、
+# 登記簿列著**全部決策與報告**，⚠️ 於是它們跟任何查詢都相符、永遠佔住第一名，
+# **🚫 把真正該讀的憑證擠下去**（實測：未排除時 10／17 支的第一名是目錄）。
+# ✅ 目錄不是發現，故排除在索引之外。
+CATALOGUE_TYPES = {'identifier-index', 'pending-decision-register'}
+
+
+def is_catalogue(path):
+    try:
+        doc = json.loads(path.read_text(encoding='utf-8'))
+    except (OSError, ValueError):
+        return False
+    return isinstance(doc, dict) and \
+        doc.get('documentType') in CATALOGUE_TYPES
+
+
 def build(max_round=None):
     index = collections.defaultdict(set)
     per_file = {}
     for round_no, path in artefacts():
         if max_round is not None and round_no >= max_round:
+            continue
+        if is_catalogue(path):
             continue
         try:
             found = identifiers(path.read_text(encoding='utf-8'))

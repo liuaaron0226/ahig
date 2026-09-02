@@ -1,0 +1,136 @@
+{
+  "schemaVersion": 1,
+  "documentType": "index-self-pollution",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "problem": "🚨 索引的 JSON 列著**全部識別字**，登記簿列著**全部決策與報告**——⚠️ 它們跟任何查詢都高度相符，於是**永遠佔住第一名**，**🚫 把真正該讀的憑證擠下去。**",
+  "catalogues": [
+    "n669_decision_register_v3.json",
+    "n670_identifier_index.json",
+    "n675_decision_register_v4.json",
+    "n680_decision_register_v5.json",
+    "n684_decision_register_v6.json",
+    "n687_decision_register_v7.json",
+    "n692_decision_register_v8.json",
+    "n695_decision_register_v9.json",
+    "n698_decision_register_v10.json",
+    "n700_decision_register_v11.json",
+    "n702_decision_register_v12.json",
+    "n707_decision_register_v13.json"
+  ],
+  "topHitIsCatalogue": {
+    "未排除": [
+      10,
+      17
+    ],
+    "排除目錄後": [
+      0,
+      11
+    ]
+  },
+  "chainTopHits": {
+    "n690_table_items_vs_payload.json": {
+      "top": "n630_binding_integrity.json",
+      "decisions": []
+    },
+    "n691_two_twelves.json": {
+      "top": "n674_uncited_red_topics.json",
+      "decisions": []
+    },
+    "n693_uncited_tables_gap.json": {
+      "top": "n613_recoverable_from_tables.json",
+      "decisions": []
+    },
+    "n694_jats_table_parity.json": {
+      "top": null,
+      "decisions": []
+    },
+    "n696_table_section_fidelity.json": {
+      "top": "n615_flat_hierarchy.json",
+      "decisions": []
+    },
+    "n697_d27_consequences.json": {
+      "top": "n639_decision_space_coverage.json",
+      "decisions": []
+    },
+    "n699_decision_ordering.json": {
+      "top": "n673_orphan_findings.json",
+      "decisions": []
+    },
+    "n701_d3_d24_interlock.json": {
+      "top": "n674_uncited_red_topics.json",
+      "decisions": []
+    },
+    "n703_unrecorded_interlocks.json": {
+      "top": "n624_corpus_denominator.json",
+      "decisions": [
+        "D18",
+        "D19",
+        "D20"
+      ]
+    },
+    "n704_d18_d19_overlap.json": {
+      "top": "n624_corpus_denominator.json",
+      "decisions": [
+        "D18",
+        "D19",
+        "D20"
+      ]
+    },
+    "n705_independent_corroboration.json": {
+      "top": "n674_uncited_red_topics.json",
+      "decisions": []
+    },
+    "n706_d24_was_already_covered.json": {
+      "top": "n585_blocked_drafts_errata.json",
+      "decisions": [
+        "D2",
+        "D3"
+      ]
+    }
+  },
+  "retroTest": {
+    "target": "n594_a3_first_measurement.json",
+    "rank": 4,
+    "decisionsReached": [
+      "D2",
+      "D3",
+      "D4"
+    ]
+  },
+  "whyTwoTests": "🚨 只過一題不算：**回溯測試**防止修過頭（把真的線索也排掉），**本輪這題**證明真的修到（目錄不再霸佔第一名）。",
+  "connectsTo": "⚠️ 第 673 輪曾記下「加上決策代號後，第 670 輪那個 3／8 翻成 0／8，該指標對詞彙變動不穩」——**🚨 現在知道原因了：加上決策代號讓目錄型憑證更容易命中，於是它把真的線索擠掉了。**",
+  "methodLimit": "⚠️ 本支只排除**兩種** `documentType`；🚨 若日後又出現別的目錄型產物（例如全語料對帳表），**同樣的污染會再發生**，🚫 而本支不會自動認出它。",
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "controlProbes": [
+    {
+      "probe": "目錄型憑證抓得出來（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 目錄型憑證 12 支（['identifier-index', 'pending-decision-register'] 型）；⚠️ 抓不到就無從排除"
+    },
+    {
+      "probe": "未排除時，目錄不會霸佔第一名",
+      "passed": false,
+      "detail": "🚨 未排除：10／17 支的第一名是目錄；⚠️ 目錄列著全部識別字，跟任何查詢都相符"
+    },
+    {
+      "probe": "排除之後目錄不再佔第一名（必觸發之反向）",
+      "passed": true,
+      "detail": "🚨 排除後：0／11 支的第一名是目錄；⚠️ 若仍有，代表排除沒生效"
+    },
+    {
+      "probe": "排除之後，第 670 輪那題仍過（必觸發之正對照・防止修過頭）",
+      "passed": true,
+      "detail": "🚨 `n594` 名次 4、前五連到的決策 ['D2', 'D3', 'D4']；⚠️ 弄壞它就代表修過頭了"
+    },
+    {
+      "probe": "排除之後，本串沒有任何一支指向掛著決策的舊憑證",
+      "passed": false,
+      "detail": "🚨 3 支的第一名掛著決策：{'n703_unrecorded_interlocks.json': {'top': 'n624_corpus_denominator.json', 'decisions': ['D18', 'D19', 'D20']}, 'n704_d18_d19_overlap.json': {'top': 'n624_corpus_denominator.json', 'decisions': ['D18', 'D19', 'D20']}, 'n706_d24_was_already_covered.json': {'top': 'n585_blocked_drafts_errata.json', 'decisions': ['D2', 'D3']}}；⚠️ 這些就是「早該先讀」——**而第 706 輪已經證明不讀會出事**"
+    }
+  ],
+  "auditHash": "sha256:9de8ed78bef18a8a6ad1965d087c65bcc55c1b798df61ed5e0645be4f44da1cf"
+}
