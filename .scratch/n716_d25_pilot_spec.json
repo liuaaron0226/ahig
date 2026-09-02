@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "documentType": "d25-pilot-spec",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "pilotOutcome": "exogenous-cho-oxidation-peak",
+  "whyThisOne": "✅ 第 715 輪的計分表：**條件最完整**——3 個劑量帶、3 篇同篇內對比、18／18 都有工具紀錄、0 缺漏。",
+  "items": 18,
+  "papers": 13,
+  "workGroups": 13,
+  "groupSizeMax": 2,
+  "groupSizeMedian": 1,
+  "papersByBand": {
+    "high": 4,
+    "moderate": 1,
+    "very-high": 10
+  },
+  "itemsByTier": {
+    "第 2 層：只有段落（要自己找）": 10,
+    "第 3 層：GROBID ＋ 表格（🚨 卡在 D17）": 4,
+    "第 1 層：JATS ＋ 表格（表格拿得到）": 4
+  },
+  "tier1Groups": 2,
+  "tier3GroupsBlockedByD17": 2,
+  "notAnAdvocacy": "🚫 本支**不主張**應該做試點——⚠️ `D25` 還沒裁。✅ 它只回答「若要做，最小的一塊長什麼樣、要多少工」。",
+  "whatThisCannotAnswer": "🚫 本支**不看數值**（第 659 輪已證那 98 項沒有效應量）；⚠️ 也不保證那些定位點過去就有數字（第 689 輪：定位點是排序訊號，🚫 不是判定）。",
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "controlProbes": [
+    {
+      "probe": "試點結局的項數與前幾輪一致（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 `exogenous-cho-oxidation-peak` 在範圍內 18 項、13 篇；⚠️ 不是 18 就與第 713／715 輪不一致"
+    },
+    {
+      "probe": "別的結局沒有被混進來（必觸發之反向）",
+      "passed": true,
+      "detail": "🚨 試點 18 項 ＋ 其餘 80 項 ＝ 98；⚠️ 不等於 98 就代表本支濾錯了"
+    },
+    {
+      "probe": "劑量帶覆蓋與第 713 輪一致（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 有論文的帶：{'high': 4, 'moderate': 1, 'very-high': 10}；⚠️ 不是 3 個就與第 713 輪不一致"
+    },
+    {
+      "probe": "試點可以完全在第 1 層（表格拿得到）之內做完",
+      "passed": false,
+      "detail": "🚨 分層：{'第 2 層：只有段落（要自己找）': 10, '第 3 層：GROBID ＋ 表格（🚨 卡在 D17）': 4, '第 1 層：JATS ＋ 表格（表格拿得到）': 4}；⚠️ 有第 2／3 層就代表試點也要處理「段落裡自己找」與「表格拿不到」這兩種情形"
+    }
+  ],
+  "auditHash": "sha256:da6f08bd02dd7e5f2794ee2fc405a1252b161c0a0fe8f26d33abfa4b37399fd6"
+}
