@@ -1,0 +1,1001 @@
+{
+  "schemaVersion": 1,
+  "documentType": "independent-corroboration-interlocks",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "fixes": "n703 的素樸「共用論文」訊號——🚨 第 704 輪證明它會被**共同引用一份多用途憑證**污染。",
+  "rule": "✅ 一篇論文要算成 A 與 B 的共用，必須**同時**出現在「只有 A 引用」與「只有 B 引用」的憑證裡；🚫 只出現在兩邊共同引用的那一份裡不算。",
+  "naiveCandidatePairs": 39,
+  "corroboratedPairs": 31,
+  "unrecordedCandidates": [
+    {
+      "pair": [
+        "D22",
+        "D7"
+      ],
+      "naiveShared": 6,
+      "independentlyCorroborated": 6,
+      "sample": [
+        "0cfceb6c8a86f78b",
+        "0eea079e79bf7913",
+        "54d4200c1c5e2b64"
+      ],
+      "crossReferenced": false,
+      "coCitedFiles": []
+    },
+    {
+      "pair": [
+        "D23",
+        "D7"
+      ],
+      "naiveShared": 6,
+      "independentlyCorroborated": 6,
+      "sample": [
+        "0cfceb6c8a86f78b",
+        "0eea079e79bf7913",
+        "54d4200c1c5e2b64"
+      ],
+      "crossReferenced": false,
+      "coCitedFiles": []
+    },
+    {
+      "pair": [
+        "D24",
+        "D7"
+      ],
+      "naiveShared": 6,
+      "independentlyCorroborated": 6,
+      "sample": [
+        "0cfceb6c8a86f78b",
+        "0eea079e79bf7913",
+        "54d4200c1c5e2b64"
+      ],
+      "crossReferenced": false,
+      "coCitedFiles": []
+    },
+    {
+      "pair": [
+        "D13",
+        "D22"
+      ],
+      "naiveShared": 3,
+      "independentlyCorroborated": 3,
+      "sample": [
+        "307c0dd5b141caed",
+        "54d4200c1c5e2b64",
+        "c4128a6f6dd2c0b5"
+      ],
+      "crossReferenced": false,
+      "coCitedFiles": []
+    },
+    {
+      "pair": [
+        "D13",
+        "D23"
+      ],
+      "naiveShared": 3,
+      "independentlyCorroborated": 3,
+      "sample": [
+        "307c0dd5b141caed",
+        "54d4200c1c5e2b64",
+        "c4128a6f6dd2c0b5"
+      ],
+      "crossReferenced": false,
+      "coCitedFiles": []
+    },
+    {
+      "pair": [
+        "D13",
+        "D24"
+      ],
+      "naiveShared": 3,
+      "independentlyCorroborated": 3,
+      "sample": [
+        "307c0dd5b141caed",
+        "54d4200c1c5e2b64",
+        "c4128a6f6dd2c0b5"
+      ],
+      "crossReferenced": false,
+      "coCitedFiles": []
+    },
+    {
+      "pair": [
+        "D2",
+        "D22"
+      ],
+      "naiveShared": 3,
+      "independentlyCorroborated": 3,
+      "sample": [
+        "298c326024d22835",
+        "7a6ac1559c740fd6",
+        "9a3b03b4fb24cf65"
+      ],
+      "crossReferenced": false,
+      "coCitedFiles": []
+    },
+    {
+      "pair": [
+        "D2",
+        "D23"
+      ],
+      "naiveShared": 3,
+      "independentlyCorroborated": 3,
+      "sample": [
+        "298c326024d22835",
+        "7a6ac1559c740fd6",
+        "9a3b03b4fb24cf65"
+      ],
+      "crossReferenced": false,
+      "coCitedFiles": []
+    },
+    {
+      "pair": [
+        "D2",
+        "D24"
+      ],
+      "naiveShared": 3,
+      "independentlyCorroborated": 3,
+      "sample": [
+        "298c326024d22835",
+        "7a6ac1559c740fd6",
+        "9a3b03b4fb24cf65"
+      ],
+      "crossReferenced": false,
+      "coCitedFiles": []
+    },
+    {
+      "pair": [
+        "D22",
+        "D3"
+      ],
+      "naiveShared": 2,
+      "independentlyCorroborated": 2,
+      "sample": [
+        "307c0dd5b141caed",
+        "7a6ac1559c740fd6"
+      ],
+      "crossReferenced": false,
+      "coCitedFiles": []
+    },
+    {
+      "pair": [
+        "D23",
+        "D3"
+      ],
+      "naiveShared": 2,
+      "independentlyCorroborated": 2,
+      "sample": [
+        "307c0dd5b141caed",
+        "7a6ac1559c740fd6"
+      ],
+      "crossReferenced": false,
+      "coCitedFiles": []
+    },
+    {
+      "pair": [
+        "D10",
+        "D12"
+      ],
+      "naiveShared": 1,
+      "independentlyCorroborated": 1,
+      "sample": [
+        "1105537918c174c9"
+      ],
+      "crossReferenced": false,
+      "coCitedFiles": []
+    },
+    {
+      "pair": [
+        "D10",
+        "D13"
+      ],
+      "naiveShared": 1,
+      "independentlyCorroborated": 1,
+      "sample": [
+        "a9012191142e7e02"
+      ],
+      "crossReferenced": false,
+      "coCitedFiles": []
+    },
+    {
+      "pair": [
+        "D10",
+        "D2"
+      ],
+      "naiveShared": 1,
+      "independentlyCorroborated": 1,
+      "sample": [
+        "7a6ac1559c740fd6"
+      ],
+      "crossReferenced": false,
+      "coCitedFiles": []
+    },
+    {
+      "pair": [
+        "D10",
+        "D22"
+      ],
+      "naiveShared": 1,
+      "independentlyCorroborated": 1,
+      "sample": [
+        "7a6ac1559c740fd6"
+      ],
+      "crossReferenced": false,
+      "coCitedFiles": []
+    },
+    {
+      "pair": [
+        "D10",
+        "D23"
+      ],
+      "naiveShared": 1,
+      "independentlyCorroborated": 1,
+      "sample": [
+        "7a6ac1559c740fd6"
+      ],
+      "crossReferenced": false,
+      "coCitedFiles": []
+    },
+    {
+      "pair": [
+        "D10",
+        "D24"
+      ],
+      "naiveShared": 1,
+      "independentlyCorroborated": 1,
+      "sample": [
+        "7a6ac1559c740fd6"
+      ],
+      "crossReferenced": false,
+      "coCitedFiles": []
+    },
+    {
+      "pair": [
+        "D10",
+        "D3"
+      ],
+      "naiveShared": 1,
+      "independentlyCorroborated": 1,
+      "sample": [
+        "7a6ac1559c740fd6"
+      ],
+      "crossReferenced": false,
+      "coCitedFiles": []
+    },
+    {
+      "pair": [
+        "D11",
+        "D12"
+      ],
+      "naiveShared": 1,
+      "independentlyCorroborated": 1,
+      "sample": [
+        "1105537918c174c9"
+      ],
+      "crossReferenced": false,
+      "coCitedFiles": []
+    },
+    {
+      "pair": [
+        "D11",
+        "D13"
+      ],
+      "naiveShared": 1,
+      "independentlyCorroborated": 1,
+      "sample": [
+        "a9012191142e7e02"
+      ],
+      "crossReferenced": false,
+      "coCitedFiles": []
+    },
+    {
+      "pair": [
+        "D11",
+        "D2"
+      ],
+      "naiveShared": 1,
+      "independentlyCorroborated": 1,
+      "sample": [
+        "7a6ac1559c740fd6"
+      ],
+      "crossReferenced": false,
+      "coCitedFiles": []
+    },
+    {
+      "pair": [
+        "D11",
+        "D22"
+      ],
+      "naiveShared": 1,
+      "independentlyCorroborated": 1,
+      "sample": [
+        "7a6ac1559c740fd6"
+      ],
+      "crossReferenced": false,
+      "coCitedFiles": []
+    },
+    {
+      "pair": [
+        "D11",
+        "D23"
+      ],
+      "naiveShared": 1,
+      "independentlyCorroborated": 1,
+      "sample": [
+        "7a6ac1559c740fd6"
+      ],
+      "crossReferenced": false,
+      "coCitedFiles": []
+    },
+    {
+      "pair": [
+        "D11",
+        "D24"
+      ],
+      "naiveShared": 1,
+      "independentlyCorroborated": 1,
+      "sample": [
+        "7a6ac1559c740fd6"
+      ],
+      "crossReferenced": false,
+      "coCitedFiles": []
+    },
+    {
+      "pair": [
+        "D11",
+        "D3"
+      ],
+      "naiveShared": 1,
+      "independentlyCorroborated": 1,
+      "sample": [
+        "7a6ac1559c740fd6"
+      ],
+      "crossReferenced": false,
+      "coCitedFiles": []
+    },
+    {
+      "pair": [
+        "D13",
+        "D14"
+      ],
+      "naiveShared": 1,
+      "independentlyCorroborated": 1,
+      "sample": [
+        "65dd82a89b2c5340"
+      ],
+      "crossReferenced": false,
+      "coCitedFiles": []
+    },
+    {
+      "pair": [
+        "D13",
+        "D15"
+      ],
+      "naiveShared": 1,
+      "independentlyCorroborated": 1,
+      "sample": [
+        "65dd82a89b2c5340"
+      ],
+      "crossReferenced": false,
+      "coCitedFiles": []
+    },
+    {
+      "pair": [
+        "D13",
+        "D3"
+      ],
+      "naiveShared": 1,
+      "independentlyCorroborated": 1,
+      "sample": [
+        "307c0dd5b141caed"
+      ],
+      "crossReferenced": false,
+      "coCitedFiles": []
+    },
+    {
+      "pair": [
+        "D13",
+        "D7"
+      ],
+      "naiveShared": 1,
+      "independentlyCorroborated": 1,
+      "sample": [
+        "54d4200c1c5e2b64"
+      ],
+      "crossReferenced": false,
+      "coCitedFiles": []
+    }
+  ],
+  "rows": [
+    {
+      "pair": [
+        "D22",
+        "D7"
+      ],
+      "naiveShared": 6,
+      "independentlyCorroborated": 6,
+      "sample": [
+        "0cfceb6c8a86f78b",
+        "0eea079e79bf7913",
+        "54d4200c1c5e2b64"
+      ],
+      "crossReferenced": false,
+      "coCitedFiles": []
+    },
+    {
+      "pair": [
+        "D23",
+        "D7"
+      ],
+      "naiveShared": 6,
+      "independentlyCorroborated": 6,
+      "sample": [
+        "0cfceb6c8a86f78b",
+        "0eea079e79bf7913",
+        "54d4200c1c5e2b64"
+      ],
+      "crossReferenced": false,
+      "coCitedFiles": []
+    },
+    {
+      "pair": [
+        "D24",
+        "D7"
+      ],
+      "naiveShared": 6,
+      "independentlyCorroborated": 6,
+      "sample": [
+        "0cfceb6c8a86f78b",
+        "0eea079e79bf7913",
+        "54d4200c1c5e2b64"
+      ],
+      "crossReferenced": false,
+      "coCitedFiles": []
+    },
+    {
+      "pair": [
+        "D13",
+        "D22"
+      ],
+      "naiveShared": 3,
+      "independentlyCorroborated": 3,
+      "sample": [
+        "307c0dd5b141caed",
+        "54d4200c1c5e2b64",
+        "c4128a6f6dd2c0b5"
+      ],
+      "crossReferenced": false,
+      "coCitedFiles": []
+    },
+    {
+      "pair": [
+        "D13",
+        "D23"
+      ],
+      "naiveShared": 3,
+      "independentlyCorroborated": 3,
+      "sample": [
+        "307c0dd5b141caed",
+        "54d4200c1c5e2b64",
+        "c4128a6f6dd2c0b5"
+      ],
+      "crossReferenced": false,
+      "coCitedFiles": []
+    },
+    {
+      "pair": [
+        "D13",
+        "D24"
+      ],
+      "naiveShared": 3,
+      "independentlyCorroborated": 3,
+      "sample": [
+        "307c0dd5b141caed",
+        "54d4200c1c5e2b64",
+        "c4128a6f6dd2c0b5"
+      ],
+      "crossReferenced": false,
+      "coCitedFiles": []
+    },
+    {
+      "pair": [
+        "D2",
+        "D22"
+      ],
+      "naiveShared": 3,
+      "independentlyCorroborated": 3,
+      "sample": [
+        "298c326024d22835",
+        "7a6ac1559c740fd6",
+        "9a3b03b4fb24cf65"
+      ],
+      "crossReferenced": false,
+      "coCitedFiles": []
+    },
+    {
+      "pair": [
+        "D2",
+        "D23"
+      ],
+      "naiveShared": 3,
+      "independentlyCorroborated": 3,
+      "sample": [
+        "298c326024d22835",
+        "7a6ac1559c740fd6",
+        "9a3b03b4fb24cf65"
+      ],
+      "crossReferenced": false,
+      "coCitedFiles": []
+    },
+    {
+      "pair": [
+        "D2",
+        "D24"
+      ],
+      "naiveShared": 3,
+      "independentlyCorroborated": 3,
+      "sample": [
+        "298c326024d22835",
+        "7a6ac1559c740fd6",
+        "9a3b03b4fb24cf65"
+      ],
+      "crossReferenced": false,
+      "coCitedFiles": []
+    },
+    {
+      "pair": [
+        "D22",
+        "D3"
+      ],
+      "naiveShared": 2,
+      "independentlyCorroborated": 2,
+      "sample": [
+        "307c0dd5b141caed",
+        "7a6ac1559c740fd6"
+      ],
+      "crossReferenced": false,
+      "coCitedFiles": []
+    },
+    {
+      "pair": [
+        "D23",
+        "D3"
+      ],
+      "naiveShared": 2,
+      "independentlyCorroborated": 2,
+      "sample": [
+        "307c0dd5b141caed",
+        "7a6ac1559c740fd6"
+      ],
+      "crossReferenced": false,
+      "coCitedFiles": []
+    },
+    {
+      "pair": [
+        "D24",
+        "D3"
+      ],
+      "naiveShared": 2,
+      "independentlyCorroborated": 2,
+      "sample": [
+        "307c0dd5b141caed",
+        "7a6ac1559c740fd6"
+      ],
+      "crossReferenced": true,
+      "coCitedFiles": [
+        "n701_d3_d24_interlock.json"
+      ]
+    },
+    {
+      "pair": [
+        "D10",
+        "D12"
+      ],
+      "naiveShared": 1,
+      "independentlyCorroborated": 1,
+      "sample": [
+        "1105537918c174c9"
+      ],
+      "crossReferenced": false,
+      "coCitedFiles": []
+    },
+    {
+      "pair": [
+        "D10",
+        "D13"
+      ],
+      "naiveShared": 1,
+      "independentlyCorroborated": 1,
+      "sample": [
+        "a9012191142e7e02"
+      ],
+      "crossReferenced": false,
+      "coCitedFiles": []
+    },
+    {
+      "pair": [
+        "D10",
+        "D2"
+      ],
+      "naiveShared": 1,
+      "independentlyCorroborated": 1,
+      "sample": [
+        "7a6ac1559c740fd6"
+      ],
+      "crossReferenced": false,
+      "coCitedFiles": []
+    },
+    {
+      "pair": [
+        "D10",
+        "D22"
+      ],
+      "naiveShared": 1,
+      "independentlyCorroborated": 1,
+      "sample": [
+        "7a6ac1559c740fd6"
+      ],
+      "crossReferenced": false,
+      "coCitedFiles": []
+    },
+    {
+      "pair": [
+        "D10",
+        "D23"
+      ],
+      "naiveShared": 1,
+      "independentlyCorroborated": 1,
+      "sample": [
+        "7a6ac1559c740fd6"
+      ],
+      "crossReferenced": false,
+      "coCitedFiles": []
+    },
+    {
+      "pair": [
+        "D10",
+        "D24"
+      ],
+      "naiveShared": 1,
+      "independentlyCorroborated": 1,
+      "sample": [
+        "7a6ac1559c740fd6"
+      ],
+      "crossReferenced": false,
+      "coCitedFiles": []
+    },
+    {
+      "pair": [
+        "D10",
+        "D3"
+      ],
+      "naiveShared": 1,
+      "independentlyCorroborated": 1,
+      "sample": [
+        "7a6ac1559c740fd6"
+      ],
+      "crossReferenced": false,
+      "coCitedFiles": []
+    },
+    {
+      "pair": [
+        "D11",
+        "D12"
+      ],
+      "naiveShared": 1,
+      "independentlyCorroborated": 1,
+      "sample": [
+        "1105537918c174c9"
+      ],
+      "crossReferenced": false,
+      "coCitedFiles": []
+    },
+    {
+      "pair": [
+        "D11",
+        "D13"
+      ],
+      "naiveShared": 1,
+      "independentlyCorroborated": 1,
+      "sample": [
+        "a9012191142e7e02"
+      ],
+      "crossReferenced": false,
+      "coCitedFiles": []
+    },
+    {
+      "pair": [
+        "D11",
+        "D2"
+      ],
+      "naiveShared": 1,
+      "independentlyCorroborated": 1,
+      "sample": [
+        "7a6ac1559c740fd6"
+      ],
+      "crossReferenced": false,
+      "coCitedFiles": []
+    },
+    {
+      "pair": [
+        "D11",
+        "D22"
+      ],
+      "naiveShared": 1,
+      "independentlyCorroborated": 1,
+      "sample": [
+        "7a6ac1559c740fd6"
+      ],
+      "crossReferenced": false,
+      "coCitedFiles": []
+    },
+    {
+      "pair": [
+        "D11",
+        "D23"
+      ],
+      "naiveShared": 1,
+      "independentlyCorroborated": 1,
+      "sample": [
+        "7a6ac1559c740fd6"
+      ],
+      "crossReferenced": false,
+      "coCitedFiles": []
+    },
+    {
+      "pair": [
+        "D11",
+        "D24"
+      ],
+      "naiveShared": 1,
+      "independentlyCorroborated": 1,
+      "sample": [
+        "7a6ac1559c740fd6"
+      ],
+      "crossReferenced": false,
+      "coCitedFiles": []
+    },
+    {
+      "pair": [
+        "D11",
+        "D3"
+      ],
+      "naiveShared": 1,
+      "independentlyCorroborated": 1,
+      "sample": [
+        "7a6ac1559c740fd6"
+      ],
+      "crossReferenced": false,
+      "coCitedFiles": []
+    },
+    {
+      "pair": [
+        "D13",
+        "D14"
+      ],
+      "naiveShared": 1,
+      "independentlyCorroborated": 1,
+      "sample": [
+        "65dd82a89b2c5340"
+      ],
+      "crossReferenced": false,
+      "coCitedFiles": []
+    },
+    {
+      "pair": [
+        "D13",
+        "D15"
+      ],
+      "naiveShared": 1,
+      "independentlyCorroborated": 1,
+      "sample": [
+        "65dd82a89b2c5340"
+      ],
+      "crossReferenced": false,
+      "coCitedFiles": []
+    },
+    {
+      "pair": [
+        "D13",
+        "D3"
+      ],
+      "naiveShared": 1,
+      "independentlyCorroborated": 1,
+      "sample": [
+        "307c0dd5b141caed"
+      ],
+      "crossReferenced": false,
+      "coCitedFiles": []
+    },
+    {
+      "pair": [
+        "D13",
+        "D7"
+      ],
+      "naiveShared": 1,
+      "independentlyCorroborated": 1,
+      "sample": [
+        "54d4200c1c5e2b64"
+      ],
+      "crossReferenced": false,
+      "coCitedFiles": []
+    },
+    {
+      "pair": [
+        "D2",
+        "D3"
+      ],
+      "naiveShared": 1,
+      "independentlyCorroborated": 1,
+      "sample": [
+        "7a6ac1559c740fd6"
+      ],
+      "crossReferenced": true,
+      "coCitedFiles": []
+    },
+    {
+      "pair": [
+        "D18",
+        "D19"
+      ],
+      "naiveShared": 18,
+      "independentlyCorroborated": 0,
+      "sample": [],
+      "crossReferenced": false,
+      "coCitedFiles": [
+        "n624_corpus_denominator.json"
+      ]
+    },
+    {
+      "pair": [
+        "D18",
+        "D20"
+      ],
+      "naiveShared": 18,
+      "independentlyCorroborated": 0,
+      "sample": [],
+      "crossReferenced": false,
+      "coCitedFiles": [
+        "n624_corpus_denominator.json"
+      ]
+    },
+    {
+      "pair": [
+        "D19",
+        "D20"
+      ],
+      "naiveShared": 18,
+      "independentlyCorroborated": 0,
+      "sample": [],
+      "crossReferenced": false,
+      "coCitedFiles": [
+        "n624_corpus_denominator.json"
+      ]
+    },
+    {
+      "pair": [
+        "D22",
+        "D23"
+      ],
+      "naiveShared": 13,
+      "independentlyCorroborated": 0,
+      "sample": [],
+      "crossReferenced": false,
+      "coCitedFiles": [
+        "n665_blocked_gate_depth.json"
+      ]
+    },
+    {
+      "pair": [
+        "D22",
+        "D24"
+      ],
+      "naiveShared": 13,
+      "independentlyCorroborated": 0,
+      "sample": [],
+      "crossReferenced": false,
+      "coCitedFiles": [
+        "n665_blocked_gate_depth.json"
+      ]
+    },
+    {
+      "pair": [
+        "D23",
+        "D24"
+      ],
+      "naiveShared": 13,
+      "independentlyCorroborated": 0,
+      "sample": [],
+      "crossReferenced": false,
+      "coCitedFiles": [
+        "n665_blocked_gate_depth.json"
+      ]
+    },
+    {
+      "pair": [
+        "D10",
+        "D11"
+      ],
+      "naiveShared": 3,
+      "independentlyCorroborated": 0,
+      "sample": [],
+      "crossReferenced": false,
+      "coCitedFiles": [
+        "n596_allocation_replicates.json"
+      ]
+    },
+    {
+      "pair": [
+        "D14",
+        "D15"
+      ],
+      "naiveShared": 1,
+      "independentlyCorroborated": 0,
+      "sample": [],
+      "crossReferenced": false,
+      "coCitedFiles": [
+        "n608_fourth_double_read.json"
+      ]
+    }
+  ],
+  "validation": {
+    "mustSurvive": {
+      "pair": [
+        "D24",
+        "D3"
+      ],
+      "naiveShared": 2,
+      "independentlyCorroborated": 2,
+      "sample": [
+        "307c0dd5b141caed",
+        "7a6ac1559c740fd6"
+      ],
+      "crossReferenced": true,
+      "coCitedFiles": [
+        "n701_d3_d24_interlock.json"
+      ]
+    },
+    "mustDrop": {
+      "pair": [
+        "D18",
+        "D19"
+      ],
+      "naiveShared": 18,
+      "independentlyCorroborated": 0,
+      "sample": [],
+      "crossReferenced": false,
+      "coCitedFiles": [
+        "n624_corpus_denominator.json"
+      ]
+    }
+  },
+  "whyTwoKnownAnswers": "🚨 一個修好的判準要**同時**通過兩題：把真的連鎖（`D3`／`D24`，第 701 輪實算）留下，把假的（`D18`／`D19`，第 704 輪實算）殺掉。**⚠️ 只過一題的判準，可能只是變嚴或變鬆。**",
+  "methodLimit": "⚠️ 「獨立佐證」仍只是**必要條件**，🚫 不是連鎖的證明——🚨 兩個決定可能只是碰巧都提到同一篇論文。✅ 真正的連鎖仍要像第 701 輪那樣**算後果**。",
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "controlProbes": [
+    {
+      "probe": "已知為真的那一對必須留下（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 `D24`／`D3`：素樸共用 2、獨立佐證 2；⚠️ 掉光的話這個判準太嚴，把真的連鎖也殺掉了"
+    },
+    {
+      "probe": "已知為假的那一對必須掉光（必觸發之反向）",
+      "passed": true,
+      "detail": "🚨 `D18`／`D19`：素樸共用 18、獨立佐證 0、共同引用的憑證 ['n624_corpus_denominator.json']；⚠️ 沒掉光的話這個判準沒有修好那個混淆"
+    },
+    {
+      "probe": "判準真的比素樸版嚴（必觸發之反向）",
+      "passed": true,
+      "detail": "🚨 素樸候選 39 對 → 有獨立佐證的 31 對；⚠️ 若一樣多，代表這個判準什麼都沒篩掉"
+    },
+    {
+      "probe": "沒有「有獨立佐證卻兩邊都沒提對方」的決定對",
+      "passed": false,
+      "detail": "🚨 候選 29 對：[(['D22', 'D7'], 6), (['D23', 'D7'], 6), (['D24', 'D7'], 6), (['D13', 'D22'], 3), (['D13', 'D23'], 3), (['D13', 'D24'], 3), (['D2', 'D22'], 3), (['D2', 'D23'], 3), (['D2', 'D24'], 3), (['D22', 'D3'], 2)]；⚠️ 這一批才值得像第 701／704 輪那樣逐對算"
+    }
+  ],
+  "auditHash": "sha256:b953219ecbad604327a09a0b297fc23b421526104ea76407274daa39be2e73aa"
+}
