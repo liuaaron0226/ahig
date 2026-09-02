@@ -1,0 +1,995 @@
+{
+  "schemaVersion": 1,
+  "documentType": "jats-table-parity",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "question": "第 611 輪：JATS 26 篇只有 20 篇有表格節。⚠️ 那 6 篇是論文本來沒表，還是 `parse_jats` 也漏了？",
+  "summary": {
+    "europe-pmc-jats": {
+      "reports": 30,
+      "comparable": 26,
+      "rawTables": 51,
+      "sectionTables": 40,
+      "reportsWithTablesButNoTableSection": [
+        "dbdb6ea55c9667c3",
+        "54d4200c1c5e2b64",
+        "4103c4b52bbf21e6",
+        "97c2233f7e60c801"
+      ]
+    },
+    "openalex-oa": {
+      "reports": 52,
+      "comparable": 0,
+      "rawTables": 0,
+      "sectionTables": 0,
+      "reportsWithTablesButNoTableSection": []
+    },
+    "grobid-tei": {
+      "reports": 15,
+      "comparable": 15,
+      "rawTables": 51,
+      "sectionTables": 0,
+      "reportsWithTablesButNoTableSection": [
+        "7902e3ec54370729",
+        "48da8a7f2f35af1f",
+        "7a6ac1559c740fd6",
+        "3f34fc92d4f4b70d",
+        "c3028a8a7b1ae2a1",
+        "a9012191142e7e02",
+        "ad7c0004c386f31c",
+        "c4128a6f6dd2c0b5",
+        "65dd82a89b2c5340",
+        "82cbc04b68c38e79",
+        "1105537918c174c9",
+        "307c0dd5b141caed",
+        "eac2b5fd6bb06843"
+      ]
+    }
+  },
+  "tableWrapPlacement": {
+    "86e6a580108fd94b": {
+      "isControl": true,
+      "tableWrapPlacement": {
+        "body": 4
+      }
+    },
+    "dbdb6ea55c9667c3": {
+      "isControl": false,
+      "tableWrapPlacement": {
+        "floats-group": 3
+      }
+    },
+    "54d4200c1c5e2b64": {
+      "isControl": false,
+      "tableWrapPlacement": {
+        "floats-group": 1
+      }
+    },
+    "4103c4b52bbf21e6": {
+      "isControl": false,
+      "tableWrapPlacement": {
+        "floats-group": 4
+      }
+    },
+    "97c2233f7e60c801": {
+      "isControl": false,
+      "tableWrapPlacement": {
+        "floats-group": 3
+      }
+    }
+  },
+  "rows": [
+    {
+      "report": "081d147cd92dee14",
+      "sourceType": "europe-pmc-jats",
+      "rawTables": 3,
+      "sectionTables": 3,
+      "fakeTagHits": 0,
+      "rawPresent": true,
+      "sectionsPresent": true
+    },
+    {
+      "report": "0cfceb6c8a86f78b",
+      "sourceType": "europe-pmc-jats",
+      "rawTables": 1,
+      "sectionTables": 1,
+      "fakeTagHits": 0,
+      "rawPresent": true,
+      "sectionsPresent": true
+    },
+    {
+      "report": "0eea079e79bf7913",
+      "sourceType": "europe-pmc-jats",
+      "rawTables": 1,
+      "sectionTables": 1,
+      "fakeTagHits": 0,
+      "rawPresent": true,
+      "sectionsPresent": true
+    },
+    {
+      "report": "358bbf2c1886ac4b",
+      "sourceType": "europe-pmc-jats",
+      "rawTables": 0,
+      "sectionTables": 0,
+      "fakeTagHits": 0,
+      "rawPresent": true,
+      "sectionsPresent": true
+    },
+    {
+      "report": "4103c4b52bbf21e6",
+      "sourceType": "europe-pmc-jats",
+      "rawTables": 4,
+      "sectionTables": 0,
+      "fakeTagHits": 0,
+      "rawPresent": true,
+      "sectionsPresent": true
+    },
+    {
+      "report": "44243ac624c9b5e0",
+      "sourceType": "europe-pmc-jats",
+      "rawTables": 3,
+      "sectionTables": 3,
+      "fakeTagHits": 0,
+      "rawPresent": true,
+      "sectionsPresent": true
+    },
+    {
+      "report": "501bb474ac4704fa",
+      "sourceType": "europe-pmc-jats",
+      "rawTables": 3,
+      "sectionTables": 3,
+      "fakeTagHits": 0,
+      "rawPresent": true,
+      "sectionsPresent": true
+    },
+    {
+      "report": "54d4200c1c5e2b64",
+      "sourceType": "europe-pmc-jats",
+      "rawTables": 1,
+      "sectionTables": 0,
+      "fakeTagHits": 0,
+      "rawPresent": true,
+      "sectionsPresent": true
+    },
+    {
+      "report": "59b4558a37f28bc9",
+      "sourceType": "europe-pmc-jats",
+      "rawTables": 1,
+      "sectionTables": 1,
+      "fakeTagHits": 0,
+      "rawPresent": true,
+      "sectionsPresent": true
+    },
+    {
+      "report": "65d459b9129da800",
+      "sourceType": "europe-pmc-jats",
+      "rawTables": 3,
+      "sectionTables": 3,
+      "fakeTagHits": 0,
+      "rawPresent": true,
+      "sectionsPresent": true
+    },
+    {
+      "report": "66e16f089f1522d1",
+      "sourceType": "europe-pmc-jats",
+      "rawTables": 1,
+      "sectionTables": 1,
+      "fakeTagHits": 0,
+      "rawPresent": true,
+      "sectionsPresent": true
+    },
+    {
+      "report": "75e0928eb4713afa",
+      "sourceType": "europe-pmc-jats",
+      "rawTables": null,
+      "sectionTables": null,
+      "fakeTagHits": null,
+      "rawPresent": false,
+      "sectionsPresent": false
+    },
+    {
+      "report": "7a97713bf254fa26",
+      "sourceType": "europe-pmc-jats",
+      "rawTables": 2,
+      "sectionTables": 2,
+      "fakeTagHits": 0,
+      "rawPresent": true,
+      "sectionsPresent": true
+    },
+    {
+      "report": "834de4d822dfb3cd",
+      "sourceType": "europe-pmc-jats",
+      "rawTables": 1,
+      "sectionTables": 1,
+      "fakeTagHits": 0,
+      "rawPresent": true,
+      "sectionsPresent": true
+    },
+    {
+      "report": "86e6a580108fd94b",
+      "sourceType": "europe-pmc-jats",
+      "rawTables": 4,
+      "sectionTables": 4,
+      "fakeTagHits": 0,
+      "rawPresent": true,
+      "sectionsPresent": true
+    },
+    {
+      "report": "8a62d501f88c7d04",
+      "sourceType": "europe-pmc-jats",
+      "rawTables": 2,
+      "sectionTables": 2,
+      "fakeTagHits": 0,
+      "rawPresent": true,
+      "sectionsPresent": true
+    },
+    {
+      "report": "97c2233f7e60c801",
+      "sourceType": "europe-pmc-jats",
+      "rawTables": 3,
+      "sectionTables": 0,
+      "fakeTagHits": 0,
+      "rawPresent": true,
+      "sectionsPresent": true
+    },
+    {
+      "report": "9a3b03b4fb24cf65",
+      "sourceType": "europe-pmc-jats",
+      "rawTables": 3,
+      "sectionTables": 3,
+      "fakeTagHits": 0,
+      "rawPresent": true,
+      "sectionsPresent": true
+    },
+    {
+      "report": "a6ce9c92c7454a7c",
+      "sourceType": "europe-pmc-jats",
+      "rawTables": 2,
+      "sectionTables": 2,
+      "fakeTagHits": 0,
+      "rawPresent": true,
+      "sectionsPresent": true
+    },
+    {
+      "report": "b9ab2f27317a6a2b",
+      "sourceType": "europe-pmc-jats",
+      "rawTables": 2,
+      "sectionTables": 2,
+      "fakeTagHits": 0,
+      "rawPresent": true,
+      "sectionsPresent": true
+    },
+    {
+      "report": "be3d419a0c094731",
+      "sourceType": "europe-pmc-jats",
+      "rawTables": null,
+      "sectionTables": null,
+      "fakeTagHits": null,
+      "rawPresent": false,
+      "sectionsPresent": false
+    },
+    {
+      "report": "c97d2ed84b0d1057",
+      "sourceType": "europe-pmc-jats",
+      "rawTables": 2,
+      "sectionTables": 2,
+      "fakeTagHits": 0,
+      "rawPresent": true,
+      "sectionsPresent": true
+    },
+    {
+      "report": "d4149a8bac287851",
+      "sourceType": "europe-pmc-jats",
+      "rawTables": 1,
+      "sectionTables": 1,
+      "fakeTagHits": 0,
+      "rawPresent": true,
+      "sectionsPresent": true
+    },
+    {
+      "report": "d4251685a43792ff",
+      "sourceType": "europe-pmc-jats",
+      "rawTables": 2,
+      "sectionTables": 2,
+      "fakeTagHits": 0,
+      "rawPresent": true,
+      "sectionsPresent": true
+    },
+    {
+      "report": "dbdb6ea55c9667c3",
+      "sourceType": "europe-pmc-jats",
+      "rawTables": 3,
+      "sectionTables": 0,
+      "fakeTagHits": 0,
+      "rawPresent": true,
+      "sectionsPresent": true
+    },
+    {
+      "report": "e4871d50d0001e66",
+      "sourceType": "europe-pmc-jats",
+      "rawTables": 2,
+      "sectionTables": 2,
+      "fakeTagHits": 0,
+      "rawPresent": true,
+      "sectionsPresent": true
+    },
+    {
+      "report": "e8d48c04f919dbb0",
+      "sourceType": "europe-pmc-jats",
+      "rawTables": 0,
+      "sectionTables": 0,
+      "fakeTagHits": 0,
+      "rawPresent": true,
+      "sectionsPresent": true
+    },
+    {
+      "report": "ea912e19b9479d4a",
+      "sourceType": "europe-pmc-jats",
+      "rawTables": null,
+      "sectionTables": null,
+      "fakeTagHits": null,
+      "rawPresent": false,
+      "sectionsPresent": false
+    },
+    {
+      "report": "ef4d15d8fe4d9796",
+      "sourceType": "europe-pmc-jats",
+      "rawTables": null,
+      "sectionTables": null,
+      "fakeTagHits": null,
+      "rawPresent": false,
+      "sectionsPresent": false
+    },
+    {
+      "report": "f6a82302d7fe9adf",
+      "sourceType": "europe-pmc-jats",
+      "rawTables": 1,
+      "sectionTables": 1,
+      "fakeTagHits": 0,
+      "rawPresent": true,
+      "sectionsPresent": true
+    },
+    {
+      "report": "1105537918c174c9",
+      "sourceType": "grobid-tei",
+      "rawTables": 1,
+      "sectionTables": 0,
+      "fakeTagHits": 0,
+      "rawPresent": true,
+      "sectionsPresent": true
+    },
+    {
+      "report": "298c326024d22835",
+      "sourceType": "grobid-tei",
+      "rawTables": 0,
+      "sectionTables": 0,
+      "fakeTagHits": 0,
+      "rawPresent": true,
+      "sectionsPresent": true
+    },
+    {
+      "report": "307c0dd5b141caed",
+      "sourceType": "grobid-tei",
+      "rawTables": 27,
+      "sectionTables": 0,
+      "fakeTagHits": 0,
+      "rawPresent": true,
+      "sectionsPresent": true
+    },
+    {
+      "report": "3f34fc92d4f4b70d",
+      "sourceType": "grobid-tei",
+      "rawTables": 1,
+      "sectionTables": 0,
+      "fakeTagHits": 0,
+      "rawPresent": true,
+      "sectionsPresent": true
+    },
+    {
+      "report": "48da8a7f2f35af1f",
+      "sourceType": "grobid-tei",
+      "rawTables": 2,
+      "sectionTables": 0,
+      "fakeTagHits": 0,
+      "rawPresent": true,
+      "sectionsPresent": true
+    },
+    {
+      "report": "65dd82a89b2c5340",
+      "sourceType": "grobid-tei",
+      "rawTables": 2,
+      "sectionTables": 0,
+      "fakeTagHits": 0,
+      "rawPresent": true,
+      "sectionsPresent": true
+    },
+    {
+      "report": "6b7320d74cdda857",
+      "sourceType": "grobid-tei",
+      "rawTables": 0,
+      "sectionTables": 0,
+      "fakeTagHits": 0,
+      "rawPresent": true,
+      "sectionsPresent": true
+    },
+    {
+      "report": "7902e3ec54370729",
+      "sourceType": "grobid-tei",
+      "rawTables": 1,
+      "sectionTables": 0,
+      "fakeTagHits": 0,
+      "rawPresent": true,
+      "sectionsPresent": true
+    },
+    {
+      "report": "7a6ac1559c740fd6",
+      "sourceType": "grobid-tei",
+      "rawTables": 3,
+      "sectionTables": 0,
+      "fakeTagHits": 0,
+      "rawPresent": true,
+      "sectionsPresent": true
+    },
+    {
+      "report": "82cbc04b68c38e79",
+      "sourceType": "grobid-tei",
+      "rawTables": 1,
+      "sectionTables": 0,
+      "fakeTagHits": 0,
+      "rawPresent": true,
+      "sectionsPresent": true
+    },
+    {
+      "report": "a9012191142e7e02",
+      "sourceType": "grobid-tei",
+      "rawTables": 1,
+      "sectionTables": 0,
+      "fakeTagHits": 0,
+      "rawPresent": true,
+      "sectionsPresent": true
+    },
+    {
+      "report": "ad7c0004c386f31c",
+      "sourceType": "grobid-tei",
+      "rawTables": 2,
+      "sectionTables": 0,
+      "fakeTagHits": 0,
+      "rawPresent": true,
+      "sectionsPresent": true
+    },
+    {
+      "report": "c3028a8a7b1ae2a1",
+      "sourceType": "grobid-tei",
+      "rawTables": 2,
+      "sectionTables": 0,
+      "fakeTagHits": 0,
+      "rawPresent": true,
+      "sectionsPresent": true
+    },
+    {
+      "report": "c4128a6f6dd2c0b5",
+      "sourceType": "grobid-tei",
+      "rawTables": 5,
+      "sectionTables": 0,
+      "fakeTagHits": 0,
+      "rawPresent": true,
+      "sectionsPresent": true
+    },
+    {
+      "report": "eac2b5fd6bb06843",
+      "sourceType": "grobid-tei",
+      "rawTables": 3,
+      "sectionTables": 0,
+      "fakeTagHits": 0,
+      "rawPresent": true,
+      "sectionsPresent": true
+    },
+    {
+      "report": "002aeb1e1326c0db",
+      "sourceType": "openalex-oa",
+      "rawTables": null,
+      "sectionTables": null,
+      "fakeTagHits": null,
+      "rawPresent": false,
+      "sectionsPresent": false
+    },
+    {
+      "report": "005428d2bfa3c44d",
+      "sourceType": "openalex-oa",
+      "rawTables": null,
+      "sectionTables": null,
+      "fakeTagHits": null,
+      "rawPresent": false,
+      "sectionsPresent": false
+    },
+    {
+      "report": "0344bac98b2d5288",
+      "sourceType": "openalex-oa",
+      "rawTables": null,
+      "sectionTables": null,
+      "fakeTagHits": null,
+      "rawPresent": false,
+      "sectionsPresent": false
+    },
+    {
+      "report": "04c530fffd02ac0d",
+      "sourceType": "openalex-oa",
+      "rawTables": null,
+      "sectionTables": null,
+      "fakeTagHits": null,
+      "rawPresent": false,
+      "sectionsPresent": false
+    },
+    {
+      "report": "0734ed115e8914ff",
+      "sourceType": "openalex-oa",
+      "rawTables": null,
+      "sectionTables": null,
+      "fakeTagHits": null,
+      "rawPresent": false,
+      "sectionsPresent": false
+    },
+    {
+      "report": "07fb03ac90367aca",
+      "sourceType": "openalex-oa",
+      "rawTables": null,
+      "sectionTables": null,
+      "fakeTagHits": null,
+      "rawPresent": false,
+      "sectionsPresent": false
+    },
+    {
+      "report": "09c665a709499ba1",
+      "sourceType": "openalex-oa",
+      "rawTables": null,
+      "sectionTables": null,
+      "fakeTagHits": null,
+      "rawPresent": false,
+      "sectionsPresent": false
+    },
+    {
+      "report": "1bbf3dcfed1ba292",
+      "sourceType": "openalex-oa",
+      "rawTables": null,
+      "sectionTables": null,
+      "fakeTagHits": null,
+      "rawPresent": false,
+      "sectionsPresent": false
+    },
+    {
+      "report": "1de0f49f59fecb8b",
+      "sourceType": "openalex-oa",
+      "rawTables": null,
+      "sectionTables": null,
+      "fakeTagHits": null,
+      "rawPresent": false,
+      "sectionsPresent": false
+    },
+    {
+      "report": "20de6fd9c68fa968",
+      "sourceType": "openalex-oa",
+      "rawTables": null,
+      "sectionTables": null,
+      "fakeTagHits": null,
+      "rawPresent": false,
+      "sectionsPresent": false
+    },
+    {
+      "report": "313c7824691bffe1",
+      "sourceType": "openalex-oa",
+      "rawTables": null,
+      "sectionTables": null,
+      "fakeTagHits": null,
+      "rawPresent": false,
+      "sectionsPresent": false
+    },
+    {
+      "report": "31daa098b403a574",
+      "sourceType": "openalex-oa",
+      "rawTables": null,
+      "sectionTables": null,
+      "fakeTagHits": null,
+      "rawPresent": false,
+      "sectionsPresent": false
+    },
+    {
+      "report": "39079e90850b4f2b",
+      "sourceType": "openalex-oa",
+      "rawTables": null,
+      "sectionTables": null,
+      "fakeTagHits": null,
+      "rawPresent": false,
+      "sectionsPresent": false
+    },
+    {
+      "report": "39f849291286f786",
+      "sourceType": "openalex-oa",
+      "rawTables": null,
+      "sectionTables": null,
+      "fakeTagHits": null,
+      "rawPresent": false,
+      "sectionsPresent": false
+    },
+    {
+      "report": "3bb920fb7e3a4179",
+      "sourceType": "openalex-oa",
+      "rawTables": null,
+      "sectionTables": null,
+      "fakeTagHits": null,
+      "rawPresent": false,
+      "sectionsPresent": false
+    },
+    {
+      "report": "43308f91f5911e8c",
+      "sourceType": "openalex-oa",
+      "rawTables": null,
+      "sectionTables": null,
+      "fakeTagHits": null,
+      "rawPresent": false,
+      "sectionsPresent": false
+    },
+    {
+      "report": "484caf5078f3ee1e",
+      "sourceType": "openalex-oa",
+      "rawTables": null,
+      "sectionTables": null,
+      "fakeTagHits": null,
+      "rawPresent": false,
+      "sectionsPresent": false
+    },
+    {
+      "report": "4aa207fc249b30c5",
+      "sourceType": "openalex-oa",
+      "rawTables": null,
+      "sectionTables": null,
+      "fakeTagHits": null,
+      "rawPresent": false,
+      "sectionsPresent": false
+    },
+    {
+      "report": "4cb370305196874d",
+      "sourceType": "openalex-oa",
+      "rawTables": null,
+      "sectionTables": null,
+      "fakeTagHits": null,
+      "rawPresent": false,
+      "sectionsPresent": false
+    },
+    {
+      "report": "521c5d3359712b22",
+      "sourceType": "openalex-oa",
+      "rawTables": null,
+      "sectionTables": null,
+      "fakeTagHits": null,
+      "rawPresent": false,
+      "sectionsPresent": false
+    },
+    {
+      "report": "52716b5bebd4023f",
+      "sourceType": "openalex-oa",
+      "rawTables": null,
+      "sectionTables": null,
+      "fakeTagHits": null,
+      "rawPresent": false,
+      "sectionsPresent": false
+    },
+    {
+      "report": "58a83414e18036b3",
+      "sourceType": "openalex-oa",
+      "rawTables": null,
+      "sectionTables": null,
+      "fakeTagHits": null,
+      "rawPresent": false,
+      "sectionsPresent": false
+    },
+    {
+      "report": "5b99d4ffea29dff2",
+      "sourceType": "openalex-oa",
+      "rawTables": null,
+      "sectionTables": null,
+      "fakeTagHits": null,
+      "rawPresent": false,
+      "sectionsPresent": false
+    },
+    {
+      "report": "5bd2844ef6bd6511",
+      "sourceType": "openalex-oa",
+      "rawTables": null,
+      "sectionTables": null,
+      "fakeTagHits": null,
+      "rawPresent": false,
+      "sectionsPresent": false
+    },
+    {
+      "report": "5d84a17e2c347de7",
+      "sourceType": "openalex-oa",
+      "rawTables": null,
+      "sectionTables": null,
+      "fakeTagHits": null,
+      "rawPresent": false,
+      "sectionsPresent": false
+    },
+    {
+      "report": "5f0e391ae18a1e9a",
+      "sourceType": "openalex-oa",
+      "rawTables": null,
+      "sectionTables": null,
+      "fakeTagHits": null,
+      "rawPresent": false,
+      "sectionsPresent": false
+    },
+    {
+      "report": "68b1b2f9ce594d6c",
+      "sourceType": "openalex-oa",
+      "rawTables": null,
+      "sectionTables": null,
+      "fakeTagHits": null,
+      "rawPresent": false,
+      "sectionsPresent": false
+    },
+    {
+      "report": "6956c2f78dde392d",
+      "sourceType": "openalex-oa",
+      "rawTables": null,
+      "sectionTables": null,
+      "fakeTagHits": null,
+      "rawPresent": false,
+      "sectionsPresent": false
+    },
+    {
+      "report": "72cc9b950b96aad5",
+      "sourceType": "openalex-oa",
+      "rawTables": null,
+      "sectionTables": null,
+      "fakeTagHits": null,
+      "rawPresent": false,
+      "sectionsPresent": false
+    },
+    {
+      "report": "77621b70399b246f",
+      "sourceType": "openalex-oa",
+      "rawTables": null,
+      "sectionTables": null,
+      "fakeTagHits": null,
+      "rawPresent": false,
+      "sectionsPresent": false
+    },
+    {
+      "report": "79503020d89e7ccf",
+      "sourceType": "openalex-oa",
+      "rawTables": null,
+      "sectionTables": null,
+      "fakeTagHits": null,
+      "rawPresent": false,
+      "sectionsPresent": false
+    },
+    {
+      "report": "840f3be752a530dc",
+      "sourceType": "openalex-oa",
+      "rawTables": null,
+      "sectionTables": null,
+      "fakeTagHits": null,
+      "rawPresent": false,
+      "sectionsPresent": false
+    },
+    {
+      "report": "8dec3e50e8e6242d",
+      "sourceType": "openalex-oa",
+      "rawTables": null,
+      "sectionTables": null,
+      "fakeTagHits": null,
+      "rawPresent": false,
+      "sectionsPresent": false
+    },
+    {
+      "report": "91a92a469bd8e348",
+      "sourceType": "openalex-oa",
+      "rawTables": null,
+      "sectionTables": null,
+      "fakeTagHits": null,
+      "rawPresent": false,
+      "sectionsPresent": false
+    },
+    {
+      "report": "92183b4870ab6c46",
+      "sourceType": "openalex-oa",
+      "rawTables": null,
+      "sectionTables": null,
+      "fakeTagHits": null,
+      "rawPresent": false,
+      "sectionsPresent": false
+    },
+    {
+      "report": "971c0f0d11ee4a54",
+      "sourceType": "openalex-oa",
+      "rawTables": null,
+      "sectionTables": null,
+      "fakeTagHits": null,
+      "rawPresent": false,
+      "sectionsPresent": false
+    },
+    {
+      "report": "97b49b1c001accc3",
+      "sourceType": "openalex-oa",
+      "rawTables": null,
+      "sectionTables": null,
+      "fakeTagHits": null,
+      "rawPresent": false,
+      "sectionsPresent": false
+    },
+    {
+      "report": "a103783d5231cfec",
+      "sourceType": "openalex-oa",
+      "rawTables": null,
+      "sectionTables": null,
+      "fakeTagHits": null,
+      "rawPresent": false,
+      "sectionsPresent": false
+    },
+    {
+      "report": "bffa2a7a961e502b",
+      "sourceType": "openalex-oa",
+      "rawTables": null,
+      "sectionTables": null,
+      "fakeTagHits": null,
+      "rawPresent": false,
+      "sectionsPresent": false
+    },
+    {
+      "report": "c1e32d9eb52d294c",
+      "sourceType": "openalex-oa",
+      "rawTables": null,
+      "sectionTables": null,
+      "fakeTagHits": null,
+      "rawPresent": false,
+      "sectionsPresent": false
+    },
+    {
+      "report": "c96f081d090bc24d",
+      "sourceType": "openalex-oa",
+      "rawTables": null,
+      "sectionTables": null,
+      "fakeTagHits": null,
+      "rawPresent": false,
+      "sectionsPresent": false
+    },
+    {
+      "report": "cded75bba81127be",
+      "sourceType": "openalex-oa",
+      "rawTables": null,
+      "sectionTables": null,
+      "fakeTagHits": null,
+      "rawPresent": false,
+      "sectionsPresent": false
+    },
+    {
+      "report": "d6ffbb1f7786dd75",
+      "sourceType": "openalex-oa",
+      "rawTables": null,
+      "sectionTables": null,
+      "fakeTagHits": null,
+      "rawPresent": false,
+      "sectionsPresent": false
+    },
+    {
+      "report": "d9489620dcfd8bca",
+      "sourceType": "openalex-oa",
+      "rawTables": null,
+      "sectionTables": null,
+      "fakeTagHits": null,
+      "rawPresent": false,
+      "sectionsPresent": false
+    },
+    {
+      "report": "dd4b7d5266293ff7",
+      "sourceType": "openalex-oa",
+      "rawTables": null,
+      "sectionTables": null,
+      "fakeTagHits": null,
+      "rawPresent": false,
+      "sectionsPresent": false
+    },
+    {
+      "report": "dd5b52374d47acda",
+      "sourceType": "openalex-oa",
+      "rawTables": null,
+      "sectionTables": null,
+      "fakeTagHits": null,
+      "rawPresent": false,
+      "sectionsPresent": false
+    },
+    {
+      "report": "e21633241b68c93e",
+      "sourceType": "openalex-oa",
+      "rawTables": null,
+      "sectionTables": null,
+      "fakeTagHits": null,
+      "rawPresent": false,
+      "sectionsPresent": false
+    },
+    {
+      "report": "f1eca51da1f3b057",
+      "sourceType": "openalex-oa",
+      "rawTables": null,
+      "sectionTables": null,
+      "fakeTagHits": null,
+      "rawPresent": false,
+      "sectionsPresent": false
+    },
+    {
+      "report": "f57d2a70bd3bddd9",
+      "sourceType": "openalex-oa",
+      "rawTables": null,
+      "sectionTables": null,
+      "fakeTagHits": null,
+      "rawPresent": false,
+      "sectionsPresent": false
+    },
+    {
+      "report": "f85932c09316c4d0",
+      "sourceType": "openalex-oa",
+      "rawTables": null,
+      "sectionTables": null,
+      "fakeTagHits": null,
+      "rawPresent": false,
+      "sectionsPresent": false
+    },
+    {
+      "report": "f98c855ca35e4def",
+      "sourceType": "openalex-oa",
+      "rawTables": null,
+      "sectionTables": null,
+      "fakeTagHits": null,
+      "rawPresent": false,
+      "sectionsPresent": false
+    },
+    {
+      "report": "fa784ba2a13129aa",
+      "sourceType": "openalex-oa",
+      "rawTables": null,
+      "sectionTables": null,
+      "fakeTagHits": null,
+      "rawPresent": false,
+      "sectionsPresent": false
+    }
+  ],
+  "controlDesign": "🚨 本支的關鍵是控制：若這套方法在 **TEI** 那邊看不到第 611／612 輪已證的缺陷，**🚫 它在 JATS 上說「沒事」就不可信。**",
+  "methodLimit": "⚠️ 本支數的是**標籤出現次數**，🚫 不是「表格內容有沒有被保留」——🚨 一個表格節可能只留了標題而沒有內容。✅ 又：JATS 的 `<table-wrap>` 與 TEI 的 `<figure type=\"table\">` 不必然一一對應，故**跨來源的絕對數不可直接相比**，🚫 本支只比**同一來源內**的原始檔與 sections。",
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "controlProbes": [
+    {
+      "probe": "兩種來源都掃得到、也比得動（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 JATS 可比 26 篇、TEI 可比 15 篇；⚠️ 太少代表檔案指標讀不到，本支就沒有分母"
+    },
+    {
+      "probe": "本支在 TEI 那邊重現得出已知的落差（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 TEI：原始檔 51 張表 → sections 0 個表格節；⚠️ 若這裡看不到落差，本支在 JATS 上說「沒事」就不可信"
+    },
+    {
+      "probe": "捏造的標籤在任何檔案裡都是 0 次（必觸發之反向）",
+      "passed": true,
+      "detail": "🚨 捏造標籤命中總數 0；⚠️ 若不是 0，代表比對是在亂數"
+    },
+    {
+      "probe": "對照篇（有表格節那一篇）的 table-wrap 在 `<body>` 裡（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 對照篇 86e6a580108fd94b 的位置分佈：{'body': 4}；⚠️ 若它也不在 body，本支的根因說法就不成立"
+    },
+    {
+      "probe": "那幾篇的 table-wrap 也在 `<body>` 裡",
+      "passed": false,
+      "detail": "🚨 位置分佈：{'dbdb6ea55c9667c3': {'floats-group': 3}, '54d4200c1c5e2b64': {'floats-group': 1}, '4103c4b52bbf21e6': {'floats-group': 4}, '97c2233f7e60c801': {'floats-group': 3}}；⚠️ 全落在 `<floats-group>` 的話，**根因與 `parse_tei` 同構：解析器只走 `<body>`**"
+    },
+    {
+      "probe": "JATS 那一支沒有同樣的落差",
+      "passed": false,
+      "detail": "🚨 JATS：原始檔 51 張表 → sections 40 個表格節；**原始檔有表卻一個表格節都沒有的 4 篇：['dbdb6ea55c9667c3', '54d4200c1c5e2b64', '4103c4b52bbf21e6', '97c2233f7e60c801']**；⚠️ 有的話就是 `parse_jats` 也有缺口，🚨 而 `D17` 沒有涵蓋它"
+    }
+  ],
+  "auditHash": "sha256:bf0868a0cbaf0ce43d36b507f88fbbdfca57d00967e4d3e45d1234d8d4eb76fa"
+}
