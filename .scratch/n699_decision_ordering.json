@@ -1,0 +1,403 @@
+{
+  "schemaVersion": 1,
+  "documentType": "decision-ordering",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "basedOn": "n700_decision_register_v11.json",
+  "criteria": {
+    "卡內容關卡": "+2（`blocks` 以 A 開頭）",
+    "被別的決定引用": "+1 每次（逐字比對代號）",
+    "有前置條件": "-2（`n+187`／外部請求／擁有者）"
+  },
+  "detectionGapFound": "🚨 第一版只看登記簿的建議文字，**⚠️ 於是 `D25` 排到第一名卻顯示「無前置條件」**——而它要抽數值，非得有讀論文的視窗不可。✅ 加了第二條管道（看證據憑證）之後才補上。🚨 這正是本支自己宣告的那個限制，**當場就咬到了**。",
+  "subjectivity": "⚠️ 三個準則是**本室選的**，🚫 權重也是本室訂的。**✅ 本支不假裝這是客觀排序——它是一份附了計算過程的建議，🚨 而計算過程攤在這裡，所以推翻它很容易。**",
+  "ranked": [
+    {
+      "id": "D12",
+      "blocks": "A2",
+      "blocksContentGate": true,
+      "referencedByOthers": 1,
+      "prerequisites": [],
+      "prerequisitesStatedInRegister": [],
+      "prerequisitesOnlyFoundInEvidence": [],
+      "score": 3,
+      "ask": "宣稱有數值而文件裡沒有那個數字的 4 項，要不要撤回？"
+    },
+    {
+      "id": "D3",
+      "blocks": "A4",
+      "blocksContentGate": true,
+      "referencedByOthers": 1,
+      "prerequisites": [],
+      "prerequisitesStatedInRegister": [],
+      "prerequisitesOnlyFoundInEvidence": [],
+      "score": 3,
+      "ask": "博士論文與期刊論文那一對，是否合併為一個 study？"
+    },
+    {
+      "id": "D1",
+      "blocks": "A1",
+      "blocksContentGate": true,
+      "referencedByOthers": 0,
+      "prerequisites": [],
+      "prerequisitesStatedInRegister": [],
+      "prerequisitesOnlyFoundInEvidence": [],
+      "score": 2,
+      "ask": "A1「全語料同一版請求」指的是「同版」還是「都看過儀器清單」？"
+    },
+    {
+      "id": "D10",
+      "blocks": "A2",
+      "blocksContentGate": true,
+      "referencedByOthers": 0,
+      "prerequisites": [],
+      "prerequisitesStatedInRegister": [],
+      "prerequisitesOnlyFoundInEvidence": [],
+      "score": 2,
+      "ask": "adjudicate() 應否比對「配置」而不只是「集合成員」？"
+    },
+    {
+      "id": "D14",
+      "blocks": "A2／A3 產能",
+      "blocksContentGate": true,
+      "referencedByOthers": 0,
+      "prerequisites": [],
+      "prerequisitesStatedInRegister": [],
+      "prerequisitesOnlyFoundInEvidence": [],
+      "score": 2,
+      "ask": "write_page_drafts 是否該區分「新增一篇」與「改寫既有」？"
+    },
+    {
+      "id": "D2",
+      "blocks": "A4",
+      "blocksContentGate": true,
+      "referencedByOthers": 0,
+      "prerequisites": [],
+      "prerequisitesStatedInRegister": [],
+      "prerequisitesOnlyFoundInEvidence": [],
+      "score": 2,
+      "ask": "更正表：15 項改名、5 項撤回，是否施行？（🚨 須與 D3 一起決定）"
+    },
+    {
+      "id": "D11",
+      "blocks": "GI 家族",
+      "blocksContentGate": false,
+      "referencedByOthers": 1,
+      "prerequisites": [],
+      "prerequisitesStatedInRegister": [],
+      "prerequisitesOnlyFoundInEvidence": [],
+      "score": 1,
+      "ask": "gi-symptom-incidence 的分母是人數還是時點？"
+    },
+    {
+      "id": "D17",
+      "blocks": "酬載品質",
+      "blocksContentGate": false,
+      "referencedByOthers": 1,
+      "prerequisites": [],
+      "prerequisitesStatedInRegister": [],
+      "prerequisitesOnlyFoundInEvidence": [],
+      "score": 1,
+      "ask": "要不要修 parse_tei 漏掉表格的缺陷？"
+    },
+    {
+      "id": "D25",
+      "blocks": "A4（可否產出結果）",
+      "blocksContentGate": true,
+      "referencedByOthers": 1,
+      "prerequisites": [
+        "擁有者才能決定",
+        "讀論文的視窗"
+      ],
+      "prerequisitesStatedInRegister": [],
+      "prerequisitesOnlyFoundInEvidence": [
+        "擁有者才能決定",
+        "讀論文的視窗"
+      ],
+      "score": 1,
+      "ask": "要不要開一輪「數值抽取」把效應量、變異數、樣本數抽出來？若要，先做哪些結局？"
+    },
+    {
+      "id": "D6",
+      "blocks": "GI 家族（61%）",
+      "blocksContentGate": false,
+      "referencedByOthers": 1,
+      "prerequisites": [],
+      "prerequisitesStatedInRegister": [],
+      "prerequisitesOnlyFoundInEvidence": [],
+      "score": 1,
+      "ask": "inScopeEffectMeasures 要不要收 median？"
+    },
+    {
+      "id": "D8",
+      "blocks": "判定一致性",
+      "blocksContentGate": false,
+      "referencedByOthers": 1,
+      "prerequisites": [],
+      "prerequisitesStatedInRegister": [],
+      "prerequisitesOnlyFoundInEvidence": [],
+      "score": 1,
+      "ask": "明寫 null 與鍵缺席應否等價？policy 層的 null 該不該拒絕載入？"
+    },
+    {
+      "id": "D15",
+      "blocks": "契約表達力",
+      "blocksContentGate": false,
+      "referencedByOthers": 0,
+      "prerequisites": [],
+      "prerequisitesStatedInRegister": [],
+      "prerequisitesOnlyFoundInEvidence": [],
+      "score": 0,
+      "ask": "契約要不要收「條件間的百分比差」這種效應量？"
+    },
+    {
+      "id": "D20",
+      "blocks": "無（整潔）",
+      "blocksContentGate": false,
+      "referencedByOthers": 0,
+      "prerequisites": [],
+      "prerequisitesStatedInRegister": [],
+      "prerequisitesOnlyFoundInEvidence": [],
+      "score": 0,
+      "ask": "4 個舊命名的孤兒目錄怎麼處置？"
+    },
+    {
+      "id": "D22",
+      "blocks": "判定一致性（產品程式）",
+      "blocksContentGate": false,
+      "referencedByOthers": 0,
+      "prerequisites": [],
+      "prerequisitesStatedInRegister": [],
+      "prerequisitesOnlyFoundInEvidence": [],
+      "score": 0,
+      "ask": "契約設定欄位「留空」的語意要不要統一？"
+    },
+    {
+      "id": "D24",
+      "blocks": "A4（範圍歸屬）",
+      "blocksContentGate": true,
+      "referencedByOthers": 0,
+      "prerequisites": [
+        "讀論文的視窗"
+      ],
+      "prerequisitesStatedInRegister": [],
+      "prerequisitesOnlyFoundInEvidence": [
+        "讀論文的視窗"
+      ],
+      "score": 0,
+      "ask": "運動至衰竭時間與計時賽的儀器同義字，要不要在契約收，還是回全文判定哪一位讀者寫的才對？"
+    },
+    {
+      "id": "D26",
+      "blocks": "驗收可信度",
+      "blocksContentGate": false,
+      "referencedByOthers": 0,
+      "prerequisites": [],
+      "prerequisitesStatedInRegister": [],
+      "prerequisitesOnlyFoundInEvidence": [],
+      "score": 0,
+      "ask": "兩個 SHACL profile 的守備範圍要不要一致？以及那條聲稱在守它的測試，是名不副實還是註解寫錯？"
+    },
+    {
+      "id": "D27",
+      "blocks": "酬載品質",
+      "blocksContentGate": false,
+      "referencedByOthers": 0,
+      "prerequisites": [],
+      "prerequisitesStatedInRegister": [],
+      "prerequisitesOnlyFoundInEvidence": [],
+      "score": 0,
+      "ask": "要不要一併修 `parse_jats`？（它也漏表格，成因與 `parse_tei` 同構）"
+    },
+    {
+      "id": "D5",
+      "blocks": "報表可信度",
+      "blocksContentGate": false,
+      "referencedByOthers": 0,
+      "prerequisites": [],
+      "prerequisitesStatedInRegister": [],
+      "prerequisitesOnlyFoundInEvidence": [],
+      "score": 0,
+      "ask": "兩個理由碼各要拆成幾碼？"
+    },
+    {
+      "id": "D7",
+      "blocks": "1 項結局",
+      "blocksContentGate": false,
+      "referencedByOthers": 0,
+      "prerequisites": [],
+      "prerequisitesStatedInRegister": [],
+      "prerequisitesOnlyFoundInEvidence": [],
+      "score": 0,
+      "ask": "g/min → g/h 的單位換算算不算「換算論文沒寫的東西」？"
+    },
+    {
+      "id": "D9",
+      "blocks": "判定一致性",
+      "blocksContentGate": false,
+      "referencedByOthers": 0,
+      "prerequisites": [],
+      "prerequisitesStatedInRegister": [],
+      "prerequisitesOnlyFoundInEvidence": [],
+      "score": 0,
+      "ask": "兩條路徑的上限判斷應否合為同一段程式？"
+    },
+    {
+      "id": "D18",
+      "blocks": "語料完整性",
+      "blocksContentGate": false,
+      "referencedByOthers": 1,
+      "prerequisites": [
+        "需外部請求"
+      ],
+      "prerequisitesStatedInRegister": [
+        "需外部請求"
+      ],
+      "prerequisitesOnlyFoundInEvidence": [],
+      "score": -1,
+      "ask": "那 18 篇「判定可得卻未取」要不要補取？"
+    },
+    {
+      "id": "D19",
+      "blocks": "語料完整性",
+      "blocksContentGate": false,
+      "referencedByOthers": 1,
+      "prerequisites": [
+        "需外部請求"
+      ],
+      "prerequisitesStatedInRegister": [
+        "需外部請求"
+      ],
+      "prerequisitesOnlyFoundInEvidence": [],
+      "score": -1,
+      "ask": "卡在 unpaywall=blocked 的那批要不要用現有信箱重問？"
+    },
+    {
+      "id": "D21",
+      "blocks": "GI 家族（可合併性）",
+      "blocksContentGate": false,
+      "referencedByOthers": 1,
+      "prerequisites": [
+        "讀論文的視窗"
+      ],
+      "prerequisitesStatedInRegister": [],
+      "prerequisitesOnlyFoundInEvidence": [
+        "讀論文的視窗"
+      ],
+      "score": -1,
+      "ask": "gi-symptom-incidence／gi-symptom-severity 要不要要求記錄量表（儀器欄）？"
+    },
+    {
+      "id": "D23",
+      "blocks": "語料完整性",
+      "blocksContentGate": false,
+      "referencedByOthers": 1,
+      "prerequisites": [
+        "讀論文的視窗"
+      ],
+      "prerequisitesStatedInRegister": [
+        "讀論文的視窗"
+      ],
+      "prerequisitesOnlyFoundInEvidence": [],
+      "score": -1,
+      "ask": "因欄位空白被擋的那批要不要回補？"
+    },
+    {
+      "id": "D16",
+      "blocks": "P3 下一步",
+      "blocksContentGate": false,
+      "referencedByOthers": 0,
+      "prerequisites": [
+        "擁有者才能決定"
+      ],
+      "prerequisitesStatedInRegister": [],
+      "prerequisitesOnlyFoundInEvidence": [
+        "擁有者才能決定"
+      ],
+      "score": -2,
+      "ask": "既有回顧沒回答問題，P3 是否進入補 2023 年年中以後的原始研究？"
+    }
+  ],
+  "readyToActOn": [
+    "D12",
+    "D3",
+    "D1",
+    "D10",
+    "D14",
+    "D2"
+  ],
+  "blockedOnSomethingElse": [
+    {
+      "id": "D25",
+      "prerequisites": [
+        "擁有者才能決定",
+        "讀論文的視窗"
+      ]
+    },
+    {
+      "id": "D24",
+      "prerequisites": [
+        "讀論文的視窗"
+      ]
+    },
+    {
+      "id": "D18",
+      "prerequisites": [
+        "需外部請求"
+      ]
+    },
+    {
+      "id": "D19",
+      "prerequisites": [
+        "需外部請求"
+      ]
+    },
+    {
+      "id": "D21",
+      "prerequisites": [
+        "讀論文的視窗"
+      ]
+    },
+    {
+      "id": "D23",
+      "prerequisites": [
+        "讀論文的視窗"
+      ]
+    },
+    {
+      "id": "D16",
+      "prerequisites": [
+        "擁有者才能決定"
+      ]
+    }
+  ],
+  "howToRead": "✅ 分數高＝**卡著關卡、被別人依賴、而且裁了就做得動**。⚠️ 分數低不代表不重要——🚨 多半是「裁了也做不動」（要讀論文、要送外部請求、或要擁有者決定）。",
+  "methodLimit": "🚨 「前置條件」是靠**本室自己在建議裡用過的固定記號**認出來的（`n+187`／外部請求／擁有者）——⚠️ 若某一項的前置條件本室當初沒寫進去，**這裡就看不到**。🚫 故這份排序**只反映登記簿寫下來的東西**，不反映沒寫的。",
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "controlProbes": [
+    {
+      "probe": "登記簿的每一項未決都排到了（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 未決 25 項、排進 25 項；⚠️ 少一項就是把待裁定弄丟了"
+    },
+    {
+      "probe": "捏造的決定代號沒有被任何一項引用（必觸發之反向）",
+      "passed": true,
+      "detail": "🚨 捏造代號被引用 0 次；⚠️ 若不是 0，代表引用比對是在亂配"
+    },
+    {
+      "probe": "三個準則真的分得出差別（必觸發之反向）",
+      "passed": true,
+      "detail": "🚨 分數的相異值有 6 種：[3, 2, 1, 0, -1, -2]；⚠️ 若全部同分，這個排序沒有分辨力"
+    },
+    {
+      "probe": "每一個卡內容關卡的決定，裁了就做得動",
+      "passed": true,
+      "detail": "🚨 卡內容關卡且**沒有前置條件**的 6 項：['D12', 'D3', 'D1', 'D10', 'D14', 'D2']；而有前置條件（裁了也做不動）的 7 項：[('D25', ['擁有者才能決定', '讀論文的視窗']), ('D24', ['讀論文的視窗']), ('D18', ['需外部請求']), ('D19', ['需外部請求']), ('D21', ['讀論文的視窗']), ('D23', ['讀論文的視窗']), ('D16', ['擁有者才能決定'])]；⚠️ 後者要往後排，🚫 不是不重要"
+    }
+  ],
+  "auditHash": "sha256:9411c5d9b6db851bf53e8b130e650c26c9ec12998806ad7f4cbc1b1c34c4d884"
+}
