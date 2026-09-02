@@ -1,0 +1,85 @@
+{
+  "schemaVersion": 1,
+  "documentType": "d27-consequences",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "affectedReports": [
+    "dbdb6ea55c9667c3",
+    "54d4200c1c5e2b64",
+    "4103c4b52bbf21e6",
+    "97c2233f7e60c801"
+  ],
+  "rows": [
+    {
+      "report": "dbdb6ea55c9667c3",
+      "declared": 11,
+      "inScope": 2,
+      "mappedButBlocked": {},
+      "tableExplicableBlocks": 0
+    },
+    {
+      "report": "54d4200c1c5e2b64",
+      "declared": 8,
+      "inScope": 0,
+      "mappedButBlocked": {
+        "notExtracted-dose-outside-bands": 2
+      },
+      "tableExplicableBlocks": 2
+    },
+    {
+      "report": "4103c4b52bbf21e6",
+      "declared": 10,
+      "inScope": 0,
+      "mappedButBlocked": {},
+      "tableExplicableBlocks": 0
+    },
+    {
+      "report": "97c2233f7e60c801",
+      "declared": 20,
+      "inScope": 0,
+      "mappedButBlocked": {},
+      "tableExplicableBlocks": 0
+    }
+  ],
+  "inScopeFromAffected": 2,
+  "zeroContributionAmongAffected": [
+    "54d4200c1c5e2b64",
+    "4103c4b52bbf21e6",
+    "97c2233f7e60c801"
+  ],
+  "tableExplicableBlockedItems": 2,
+  "tableExplicableReasonCodes": [
+    "notExtracted-dose-outside-bands",
+    "notExtracted-effect-measure-not-in-scope",
+    "notExtracted-no-numeric-result"
+  ],
+  "mirrorsRound611Argument": "🚨 第 611 輪對 GROBID 那 13 篇說過：「『沒有數值結果』『劑量沒報』這些排除理由，可能是**表格被削掉造成的**，🚫 不是論文沒寫。」✅ 本支把同一句話拿到 JATS 這 4 篇上檢驗。",
+  "whatThisIsNot": "🚫 本支**不主張**那些被擋的項目修好之後就會進範圍——⚠️ 它只指出「被擋的理由**屬於表格能解釋的那幾種**」。🚨 要確認得重新解析再重判，而**重新解析會改變雜湊**（與 `D17` 的 `fixMakesA1Harder` 同一個代價），**📮 那是裁定，🚫 不是本室能動的。**",
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "controlProbes": [
+    {
+      "probe": "第 694 輪點名的 4 篇都找得到清冊（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 點名 4 篇、找到清冊 4 篇、沒有清冊的：無；⚠️ 沒有清冊的話它「零貢獻」是必然，🚫 不能算成證據"
+    },
+    {
+      "probe": "判定器在別篇上判得出在範圍內（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 其餘 34 篇合計判出 96 項在範圍內；⚠️ 若全語料都是 0，這 4 篇的 0 就沒有對比意義"
+    },
+    {
+      "probe": "那 4 篇之外沒有被誤收進來（必觸發之反向）",
+      "passed": true,
+      "detail": "🚨 表中每一列都在點名清單裡；⚠️ 若不是，代表本支收錯了篇"
+    },
+    {
+      "probe": "那 4 篇被擋的理由與「表格被削掉」無關",
+      "passed": false,
+      "detail": "🚨 已對上契約結局、且理由屬「表格可解釋」那三種的共 2 項；⚠️ 第 611 輪對 GROBID 講過同一句話——**🚨 那些理由可能是缺陷造成的，🚫 不是論文沒寫**"
+    }
+  ],
+  "auditHash": "sha256:77174c68b793bff5f4413cb1a3a6da5853a3c78bbad6b6a129f033f0c924fb83"
+}
