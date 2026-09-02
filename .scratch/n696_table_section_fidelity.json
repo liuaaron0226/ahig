@@ -1,0 +1,319 @@
+{
+  "schemaVersion": 1,
+  "documentType": "table-section-fidelity",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "closesLimitDeclaredBy": "n694（只數標籤次數，未看內容是否保留）",
+  "method": "✅ 用**數字密度**當代理：表格的實體是數字。原始 `<table-wrap>` 去標籤後的數字字元數為分母，`kind=table` 節文字的數字字元數為分子。🚫 不做任何內容判讀，也不輸出內容文字。",
+  "jatsReportsScanned": 26,
+  "comparable": 20,
+  "digitRatioMedian": 1.0,
+  "digitRatioMin": 0.988,
+  "digitRatioMax": 1.0,
+  "thinSections": [],
+  "rows": [
+    {
+      "report": "081d147cd92dee14",
+      "rawTableBlocks": 3,
+      "tableSections": 3,
+      "rawDigits": 1163,
+      "sectionDigits": 1163,
+      "rawChars": 4768,
+      "sectionChars": 4333,
+      "digitRatio": 1.0
+    },
+    {
+      "report": "0cfceb6c8a86f78b",
+      "rawTableBlocks": 1,
+      "tableSections": 1,
+      "rawDigits": 97,
+      "sectionDigits": 97,
+      "rawChars": 813,
+      "sectionChars": 711,
+      "digitRatio": 1.0
+    },
+    {
+      "report": "0eea079e79bf7913",
+      "rawTableBlocks": 1,
+      "tableSections": 1,
+      "rawDigits": 145,
+      "sectionDigits": 145,
+      "rawChars": 470,
+      "sectionChars": 328,
+      "digitRatio": 1.0
+    },
+    {
+      "report": "358bbf2c1886ac4b",
+      "rawTableBlocks": 0,
+      "tableSections": 0,
+      "rawDigits": 0,
+      "sectionDigits": 0,
+      "rawChars": 0,
+      "sectionChars": 0,
+      "digitRatio": null
+    },
+    {
+      "report": "4103c4b52bbf21e6",
+      "rawTableBlocks": 4,
+      "tableSections": 0,
+      "rawDigits": 390,
+      "sectionDigits": 0,
+      "rawChars": 2546,
+      "sectionChars": 0,
+      "digitRatio": 0.0
+    },
+    {
+      "report": "44243ac624c9b5e0",
+      "rawTableBlocks": 3,
+      "tableSections": 3,
+      "rawDigits": 628,
+      "sectionDigits": 628,
+      "rawChars": 3766,
+      "sectionChars": 3229,
+      "digitRatio": 1.0
+    },
+    {
+      "report": "501bb474ac4704fa",
+      "rawTableBlocks": 3,
+      "tableSections": 3,
+      "rawDigits": 536,
+      "sectionDigits": 536,
+      "rawChars": 3172,
+      "sectionChars": 2763,
+      "digitRatio": 1.0
+    },
+    {
+      "report": "54d4200c1c5e2b64",
+      "rawTableBlocks": 1,
+      "tableSections": 0,
+      "rawDigits": 140,
+      "sectionDigits": 0,
+      "rawChars": 863,
+      "sectionChars": 0,
+      "digitRatio": 0.0
+    },
+    {
+      "report": "59b4558a37f28bc9",
+      "rawTableBlocks": 1,
+      "tableSections": 1,
+      "rawDigits": 486,
+      "sectionDigits": 486,
+      "rawChars": 1935,
+      "sectionChars": 1570,
+      "digitRatio": 1.0
+    },
+    {
+      "report": "65d459b9129da800",
+      "rawTableBlocks": 3,
+      "tableSections": 3,
+      "rawDigits": 1240,
+      "sectionDigits": 1240,
+      "rawChars": 5511,
+      "sectionChars": 4705,
+      "digitRatio": 1.0
+    },
+    {
+      "report": "66e16f089f1522d1",
+      "rawTableBlocks": 1,
+      "tableSections": 1,
+      "rawDigits": 82,
+      "sectionDigits": 82,
+      "rawChars": 1144,
+      "sectionChars": 991,
+      "digitRatio": 1.0
+    },
+    {
+      "report": "7a97713bf254fa26",
+      "rawTableBlocks": 2,
+      "tableSections": 2,
+      "rawDigits": 471,
+      "sectionDigits": 471,
+      "rawChars": 2192,
+      "sectionChars": 1934,
+      "digitRatio": 1.0
+    },
+    {
+      "report": "834de4d822dfb3cd",
+      "rawTableBlocks": 1,
+      "tableSections": 1,
+      "rawDigits": 293,
+      "sectionDigits": 293,
+      "rawChars": 927,
+      "sectionChars": 800,
+      "digitRatio": 1.0
+    },
+    {
+      "report": "86e6a580108fd94b",
+      "rawTableBlocks": 4,
+      "tableSections": 4,
+      "rawDigits": 726,
+      "sectionDigits": 726,
+      "rawChars": 5573,
+      "sectionChars": 4771,
+      "digitRatio": 1.0
+    },
+    {
+      "report": "8a62d501f88c7d04",
+      "rawTableBlocks": 2,
+      "tableSections": 2,
+      "rawDigits": 835,
+      "sectionDigits": 835,
+      "rawChars": 4106,
+      "sectionChars": 3403,
+      "digitRatio": 1.0
+    },
+    {
+      "report": "97c2233f7e60c801",
+      "rawTableBlocks": 3,
+      "tableSections": 0,
+      "rawDigits": 305,
+      "sectionDigits": 0,
+      "rawChars": 2006,
+      "sectionChars": 0,
+      "digitRatio": 0.0
+    },
+    {
+      "report": "9a3b03b4fb24cf65",
+      "rawTableBlocks": 3,
+      "tableSections": 3,
+      "rawDigits": 764,
+      "sectionDigits": 764,
+      "rawChars": 4087,
+      "sectionChars": 3499,
+      "digitRatio": 1.0
+    },
+    {
+      "report": "a6ce9c92c7454a7c",
+      "rawTableBlocks": 2,
+      "tableSections": 2,
+      "rawDigits": 171,
+      "sectionDigits": 169,
+      "rawChars": 1272,
+      "sectionChars": 880,
+      "digitRatio": 0.988
+    },
+    {
+      "report": "b9ab2f27317a6a2b",
+      "rawTableBlocks": 2,
+      "tableSections": 2,
+      "rawDigits": 534,
+      "sectionDigits": 534,
+      "rawChars": 2722,
+      "sectionChars": 2290,
+      "digitRatio": 1.0
+    },
+    {
+      "report": "c97d2ed84b0d1057",
+      "rawTableBlocks": 2,
+      "tableSections": 2,
+      "rawDigits": 258,
+      "sectionDigits": 258,
+      "rawChars": 1242,
+      "sectionChars": 1019,
+      "digitRatio": 1.0
+    },
+    {
+      "report": "d4149a8bac287851",
+      "rawTableBlocks": 1,
+      "tableSections": 1,
+      "rawDigits": 105,
+      "sectionDigits": 105,
+      "rawChars": 549,
+      "sectionChars": 474,
+      "digitRatio": 1.0
+    },
+    {
+      "report": "d4251685a43792ff",
+      "rawTableBlocks": 2,
+      "tableSections": 2,
+      "rawDigits": 820,
+      "sectionDigits": 820,
+      "rawChars": 3370,
+      "sectionChars": 2904,
+      "digitRatio": 1.0
+    },
+    {
+      "report": "dbdb6ea55c9667c3",
+      "rawTableBlocks": 3,
+      "tableSections": 0,
+      "rawDigits": 413,
+      "sectionDigits": 0,
+      "rawChars": 4593,
+      "sectionChars": 0,
+      "digitRatio": 0.0
+    },
+    {
+      "report": "e4871d50d0001e66",
+      "rawTableBlocks": 2,
+      "tableSections": 2,
+      "rawDigits": 1106,
+      "sectionDigits": 1106,
+      "rawChars": 4079,
+      "sectionChars": 3416,
+      "digitRatio": 1.0
+    },
+    {
+      "report": "e8d48c04f919dbb0",
+      "rawTableBlocks": 0,
+      "tableSections": 0,
+      "rawDigits": 0,
+      "sectionDigits": 0,
+      "rawChars": 0,
+      "sectionChars": 0,
+      "digitRatio": null
+    },
+    {
+      "report": "f6a82302d7fe9adf",
+      "rawTableBlocks": 1,
+      "tableSections": 1,
+      "rawDigits": 93,
+      "sectionDigits": 93,
+      "rawChars": 583,
+      "sectionChars": 493,
+      "digitRatio": 1.0
+    }
+  ],
+  "resolvesN611SixReports": {
+    "note": "✅ 第 611 輪：JATS 26 篇裡有 6 篇沒有表格節。🚨 本支把那 6 篇拆乾淨了。",
+    "有表卻無節（缺陷，即 D27）": [
+      "dbdb6ea55c9667c3",
+      "54d4200c1c5e2b64",
+      "4103c4b52bbf21e6",
+      "97c2233f7e60c801"
+    ],
+    "原始檔本來就沒有表": [
+      "358bbf2c1886ac4b",
+      "e8d48c04f919dbb0"
+    ]
+  },
+  "strengthensFixCase": "✅ 走得到的表格**內容是完整的**（數字保留率中位數 1.00）——🚨 故 `D17`／`D27` 修好之後拿到的是**整張表**，🚫 不是只有標題。⚠️ 這讓那兩項的效益**不必打折**。",
+  "whyItMattersForD17AndD27": "⚠️ `D17`／`D27` 的效益是「修好之後表格看得見」。🚨 但**現在看得見的那些表格節**若只留了標題，**那修好之後多出來的東西，價值要照同一個折扣算。**",
+  "methodLimit": "🚨 數字密度是**代理**，🚫 不是內容比對——⚠️ 一張全是文字的表（例如納入條件表）數字本來就少，**會被本支誤判成「只有標題」**。✅ 故本支報的是分佈，🚫 不對個別篇下判斷。",
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "controlProbes": [
+    {
+      "probe": "有足夠可比的篇（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 JATS 掃過 26 篇，兩邊都有東西可比的 20 篇；⚠️ 太少的話比值沒有份量"
+    },
+    {
+      "probe": "沒有表格節的那幾篇，節文字的數字必須是 0（必觸發之反向）",
+      "passed": true,
+      "detail": "🚨 沒有表格節卻數到數字的：無；⚠️ 若有，代表本支把別種節也算進去了"
+    },
+    {
+      "probe": "原始檔那一側真的數得到數字（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 原始表格區塊的數字字元合計 10553 個；⚠️ 若是 0，比值的分母就沒有意義"
+    },
+    {
+      "probe": "表格節保留了原始表格的內容（數字比值 ≥ 0.5）",
+      "passed": true,
+      "detail": "🚨 比值中位數 1.00｜最低 0.99｜最高 1.00；低於 0.5 的 0／20 篇：無；⚠️ 比值很低代表**節裡只有標題**，**🚨 那麼「修好之後看得見」的價值要照同一個折扣算**"
+    }
+  ],
+  "auditHash": "sha256:fc750cdb567e29e3d191dc4510e0a66fe67f5c8fe6a5843835964b41aa46eaf5"
+}
