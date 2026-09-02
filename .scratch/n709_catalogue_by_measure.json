@@ -1,0 +1,161 @@
+{
+  "schemaVersion": 1,
+  "documentType": "catalogue-by-measure",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "closesLimitDeclaredBy": "n708（目錄是列出來的，不是量出來的）",
+  "measure": "✅ `該支的相異識別字數 ／ 全語料的相異識別字數`——🚨 目錄的特徵是「它提到絕大部分的識別字」。",
+  "threshold": 0.25,
+  "artefacts": 224,
+  "universeSize": 589,
+  "hardcodedCatalogues": [
+    "n669_decision_register_v3.json",
+    "n670_identifier_index.json",
+    "n675_decision_register_v4.json",
+    "n680_decision_register_v5.json",
+    "n684_decision_register_v6.json",
+    "n687_decision_register_v7.json",
+    "n692_decision_register_v8.json",
+    "n695_decision_register_v9.json",
+    "n698_decision_register_v10.json",
+    "n700_decision_register_v11.json",
+    "n702_decision_register_v12.json",
+    "n707_decision_register_v13.json"
+  ],
+  "detectedByMeasure": [
+    "n670_identifier_index.json"
+  ],
+  "detectedButNotHardcoded": [],
+  "hardcodedButNotDetected": [
+    "n669_decision_register_v3.json",
+    "n675_decision_register_v4.json",
+    "n680_decision_register_v5.json",
+    "n684_decision_register_v6.json",
+    "n687_decision_register_v7.json",
+    "n692_decision_register_v8.json",
+    "n695_decision_register_v9.json",
+    "n698_decision_register_v10.json",
+    "n700_decision_register_v11.json",
+    "n702_decision_register_v12.json",
+    "n707_decision_register_v13.json"
+  ],
+  "knownFindingsShare": {
+    "n585_blocked_drafts_errata.json": 0.039,
+    "n594_a3_first_measurement.json": 0.008,
+    "n612_parse_tei_root_cause.json": 0.027,
+    "n701_d3_d24_interlock.json": 0.012
+  },
+  "topShares": [
+    {
+      "artefact": "n670_identifier_index.json",
+      "share": 0.998,
+      "documentType": "identifier-index"
+    },
+    {
+      "artefact": "n694_jats_table_parity.json",
+      "share": 0.17,
+      "documentType": "jats-table-parity"
+    },
+    {
+      "artefact": "n669_decision_register_v3.json",
+      "share": 0.126,
+      "documentType": "pending-decision-register"
+    },
+    {
+      "artefact": "n674_uncited_red_topics.json",
+      "share": 0.121,
+      "documentType": "uncited-red-topic-overlap"
+    },
+    {
+      "artefact": "n707_decision_register_v13.json",
+      "share": 0.097,
+      "documentType": "pending-decision-register"
+    },
+    {
+      "artefact": "n586_zero_contribution_census.json",
+      "share": 0.087,
+      "documentType": "zero-contribution-census"
+    },
+    {
+      "artefact": "n644_screening_vs_extraction.json",
+      "share": 0.081,
+      "documentType": "screening-vs-extraction"
+    },
+    {
+      "artefact": "n664_vocabulary_upper_bound.json",
+      "share": 0.08,
+      "documentType": "instrument-vocabulary-upper-bound"
+    },
+    {
+      "artefact": "n496_corpus_verify.json",
+      "share": 0.078,
+      "documentType": "acquired-corpus-verification"
+    },
+    {
+      "artefact": "n582_same_cohort_probe.json",
+      "share": 0.078,
+      "documentType": "same-cohort-probe"
+    },
+    {
+      "artefact": "n615_flat_hierarchy.json",
+      "share": 0.078,
+      "documentType": "flat-hierarchy"
+    },
+    {
+      "artefact": "n702_decision_register_v12.json",
+      "share": 0.078,
+      "documentType": "pending-decision-register"
+    },
+    {
+      "artefact": "n695_decision_register_v9.json",
+      "share": 0.076,
+      "documentType": "pending-decision-register"
+    },
+    {
+      "artefact": "n498_sections_integrity.json",
+      "share": 0.075,
+      "documentType": "sections-internal-consistency"
+    },
+    {
+      "artefact": "n535_reading_payload.json",
+      "share": 0.075,
+      "documentType": "reading-payload-measurement"
+    }
+  ],
+  "verdict": "🚨 **這條路走不通，而且不是門檻沒調好。**⚠️ 已知目錄的最低佔比**低於**非目錄的最高佔比——**🚫 兩群重疊，任何單一門檻都分不開。**✅ 只有索引本身（佔比 1.000）是乾淨可分的；🚨 而各版登記簿的佔比（0.05–0.13）**低於**`n694_jats_table_parity`（0.170）這種真發現。**⚠️ 故第 708 輪的硬編型別清單留著，🚫 它的限制本輪沒有解決——本室如實記為失敗路線。**",
+  "whatIRefusedToDo": "🚨 本室**沒有**去調門檻讓它「看起來成功」——⚠️ 在已知答案上調參，只是把過擬合當成發現。",
+  "whyTwoSided": "🚨 只過正面 → 門檻太鬆（什麼都算目錄，真線索也被排掉）；⚠️ 只過反面 → 門檻太緊（漏掉目錄，污染照舊）。**✅ 兩面都要。**",
+  "methodLimit": "⚠️ 門檻 0.25 是**本室訂的**，🚫 不是算出來的——🚨 若目錄與發現之間沒有明顯的斷層，這個門檻就只是一條任意線。✅ 故本支同時列出**佔比排行**，讓人自己看有沒有斷層。",
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "controlProbes": [
+    {
+      "probe": "量得到足夠多的憑證（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 憑證 224 支、全語料相異識別字 589 個；⚠️ 太少的話這個比例沒有意義"
+    },
+    {
+      "probe": "第 708 輪那 12 支目錄，結構判準全部抓得到（必觸發之正對照）",
+      "passed": false,
+      "detail": "🚨 硬編認定的目錄 12 支；結構判準漏掉的：[('n669_decision_register_v3.json', 0.126), ('n675_decision_register_v4.json', 0.051), ('n680_decision_register_v5.json', 0.053), ('n684_decision_register_v6.json', 0.053), ('n687_decision_register_v7.json', 0.053), ('n692_decision_register_v8.json', 0.066), ('n695_decision_register_v9.json', 0.076), ('n698_decision_register_v10.json', 0.075), ('n700_decision_register_v11.json', 0.075), ('n702_decision_register_v12.json', 0.078), ('n707_decision_register_v13.json', 0.097)]；⚠️ 漏掉就代表門檻太緊"
+    },
+    {
+      "probe": "公認的「發現」都在門檻之下（必觸發之反向）",
+      "passed": true,
+      "detail": "🚨 反面對照的佔比：{'n585_blocked_drafts_errata.json': 0.039, 'n594_a3_first_measurement.json': 0.008, 'n612_parse_tei_root_cause.json': 0.027, 'n701_d3_d24_interlock.json': 0.012}；被誤判成目錄的：無；⚠️ 誤判就代表門檻太鬆，會把真線索也排掉"
+    },
+    {
+      "probe": "目錄與發現在這個量尺上分得開",
+      "passed": false,
+      "detail": "🚨 已知目錄的**最低**佔比 0.051（n675_decision_register_v4.json）；非目錄的**最高**佔比 0.170（n694_jats_table_parity.json）；⚠️ 前者低於後者就代表兩群重疊——**🚫 任何單一門檻都分不開，🚨 而調門檻只是對已知答案過擬合。**"
+    },
+    {
+      "probe": "硬編清單當時已經完整（結構判準沒有抓到額外的目錄）",
+      "passed": true,
+      "detail": "🚨 結構判準抓到、而硬編清單**沒有**的 0 支：[]；⚠️ 有的話就證明硬編清單當時已經不完整"
+    }
+  ],
+  "auditHash": "sha256:30c7c5b318d1f71431d594e1222c62c6ec77ce1d24f11f5831359a72aaa0202b"
+}
