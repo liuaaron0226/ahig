@@ -1,0 +1,845 @@
+{
+  "schemaVersion": 12,
+  "documentType": "pending-decision-register",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "supersedes": "n700_decision_register_v11.json（🚫 不改寫該檔）",
+  "whatThisRoundDid": "🚨 `D24` 原本的建議只寫「回全文判定儀器名稱」，**⚠️ 沒提只修這一項會讓同一組受試者被算兩次**。✅ 第 701 輪把數字算出來（完全重疊、4 項），本版把連鎖寫進 `D3` 與 `D24` **兩邊**。",
+  "counts": {
+    "total": 27,
+    "open": 25
+  },
+  "decisionsUpdatedThisRound": [
+    "D3",
+    "D24"
+  ],
+  "openByBlocking": {
+    "A1": [
+      "D1"
+    ],
+    "A4": [
+      "D2",
+      "D3",
+      "D4"
+    ],
+    "報表可信度": [
+      "D5"
+    ],
+    "GI 家族（61%）": [
+      "D6"
+    ],
+    "1 項結局": [
+      "D7"
+    ],
+    "判定一致性": [
+      "D8",
+      "D9"
+    ],
+    "A2": [
+      "D10",
+      "D12",
+      "D13"
+    ],
+    "GI 家族": [
+      "D11"
+    ],
+    "A2／A3 產能": [
+      "D14"
+    ],
+    "契約表達力": [
+      "D15"
+    ],
+    "P3 下一步": [
+      "D16"
+    ],
+    "酬載品質": [
+      "D17",
+      "D27"
+    ],
+    "語料完整性": [
+      "D18",
+      "D19",
+      "D23"
+    ],
+    "無（整潔）": [
+      "D20"
+    ],
+    "GI 家族（可合併性）": [
+      "D21"
+    ],
+    "判定一致性（產品程式）": [
+      "D22"
+    ],
+    "A4（範圍歸屬）": [
+      "D24"
+    ],
+    "A4（可否產出結果）": [
+      "D25"
+    ],
+    "驗收可信度": [
+      "D26"
+    ]
+  },
+  "items": [
+    {
+      "id": "D1",
+      "round": 579,
+      "status": "open",
+      "blocks": "A1",
+      "ask": "A1「全語料同一版請求」指的是「同版」還是「都看過儀器清單」？",
+      "evidence": "n579_request_version_split.json",
+      "recommend": "⚠️ 兩種讀法差 41 篇重讀。✅ 本室建議取「同版」：🚨 因為實測損害只有 6 項／1 篇，而重讀 41 篇的成本遠高於此。"
+    },
+    {
+      "id": "D2",
+      "round": 585,
+      "status": "open",
+      "blocks": "A4",
+      "ask": "更正表：15 項改名、5 項撤回，是否施行？（🚨 須與 D3 一起決定）",
+      "evidence": "n585_blocked_drafts_errata.json",
+      "recommend": "✅ 建議施行。⚠️ 撤回那 5 項是「平均功率當成完成時間」，🚫 改名救不了。",
+      "newEvidenceSince610": [
+        {
+          "label": "低劑量端撐住表現類結局的篇數",
+          "value": 1,
+          "from": "n628_evidence_thinness.json → lowEndPerformanceSupport"
+        }
+      ]
+    },
+    {
+      "id": "D3",
+      "round": 584,
+      "status": "open",
+      "blocks": "A4",
+      "ask": "博士論文與期刊論文那一對，是否合併為一個 study？",
+      "evidence": "n584_thesis_and_hidden_duplicate.json；n701_d3_d24_interlock.json",
+      "recommend": "🚨 建議合併。⚠️ 改名會讓期刊那篇拿回 9 項，而其中的肌肉肝醣正是論文 Study 2 的同一批 8 人。",
+      "newEvidenceSince610": [
+        {
+          "label": "低劑量端撐住表現類結局的篇數——🚨 那一篇正是這一對的論文那半",
+          "value": 1,
+          "from": "n628_evidence_thinness.json → lowEndPerformanceSupport"
+        }
+      ],
+      "newEvidenceSince700": [
+        {
+          "label": "🚨 只做一邊會被重複計數的項數",
+          "value": 4,
+          "from": "n701_d3_d24_interlock.json"
+        },
+        {
+          "label": "⚠️ 重疊的結局（論文半, 期刊半修好後）",
+          "value": {
+            "muscle-glycogen-post-exercise": [
+              2,
+              2
+            ],
+            "time-to-exhaustion": [
+              2,
+              2
+            ]
+          },
+          "from": "n701_d3_d24_interlock.json"
+        }
+      ],
+      "interlock": "🚨 **`D3` 與 `D24` 連在一起，不能只做一邊。**⚠️ 論文半目前在範圍內 `TTE 2／肌肝醣 2`；而期刊半只要把儀器名稱對上契約，拿回的也正是 `TTE 2／肌肝醣 2`——**🚨 完全重疊，4 項會被算兩次，而那是同一組受試者**（第 584 輪：6 個同群數值逐字相同）。⚠️ 反過來，只裁 `D3` 而不修 `D24`，期刊半仍是 0 項。**✅ 故兩者要一起裁。**"
+    },
+    {
+      "id": "D4",
+      "round": 594,
+      "status": "self-resolved",
+      "blocks": "A4",
+      "ask": "切片器械是否改名為 needle-biopsy-vastus-lateralis？",
+      "evidence": "n594_a3_first_measurement.json",
+      "recommend": "🚫 不改。✅ 第二位讀者記載取樣器械為 Weil-Blakesley conchotome——⚠️ 那 3 項移到「契約缺口」。",
+      "newEvidenceSince634": [
+        {
+          "label": "🚨 第 663 輪重新撞到的正是 D4 已裁的那一批（單欄換儀器即可進範圍者）",
+          "value": 2,
+          "from": "n665_blocked_gate_depth.json → rows"
+        }
+      ]
+    },
+    {
+      "id": "D5",
+      "round": 588,
+      "status": "open",
+      "blocks": "報表可信度",
+      "ask": "兩個理由碼各要拆成幾碼？",
+      "evidence": "n588_reason_code_conflation.json",
+      "recommend": "⚠️ 劑量是 3 種、效應量是 2 種。🚨 而 dose=0 那一種建議**根本不走排除路徑**——它是對照組。",
+      "newEvidenceSince634": [
+        {
+          "label": "⚠️ 走排除路徑的對照臂（dose=0）實測項數",
+          "value": 4,
+          "from": "n669 重算（產品判定器＋私有根）"
+        },
+        {
+          "label": "⚠️ 真的超出帶上限（180 g/h）的項數",
+          "value": 3,
+          "from": "n669 重算（產品判定器＋私有根）"
+        }
+      ]
+    },
+    {
+      "id": "D6",
+      "round": 588,
+      "status": "open",
+      "blocks": "GI 家族（61%）",
+      "ask": "inScopeEffectMeasures 要不要收 median？",
+      "evidence": "n588_reason_code_conflation.json",
+      "recommend": "✅ 建議收。⚠️ GI 嚴重度是次序尺度，median 配 IQR 是自然寫法；🚨 不收的話那個佔六成的家族實質上收不到。",
+      "newEvidenceSince634": [
+        {
+          "label": "🚨 因 median 被擋掉的實測項數",
+          "value": 3,
+          "from": "n669 重算（產品判定器＋私有根）"
+        },
+        {
+          "label": "⚠️ GI 兩結局在範圍內的項數（佔全體之分子）",
+          "value": 60,
+          "from": "n667_inscope_without_instrument.json"
+        }
+      ]
+    },
+    {
+      "id": "D7",
+      "round": 589,
+      "status": "open",
+      "blocks": "1 項結局",
+      "ask": "g/min → g/h 的單位換算算不算「換算論文沒寫的東西」？",
+      "evidence": "n589_dose_not_reported_audit.json",
+      "recommend": "✅ 建議不算。⚠️ 那與「6% 溶液 × 284 ml」推出 g/h 不同——前者只是換單位。"
+    },
+    {
+      "id": "D8",
+      "round": 591,
+      "status": "open",
+      "blocks": "判定一致性",
+      "ask": "明寫 null 與鍵缺席應否等價？policy 層的 null 該不該拒絕載入？",
+      "evidence": "n592_default_only_when_absent.json",
+      "recommend": "✅ 建議等價，且理由碼須說「論文未陳述 X」，🚫 不得說「X 不在範圍內」。⚠️ policy 層的 null 應直接拒絕載入。"
+    },
+    {
+      "id": "D9",
+      "round": 593,
+      "status": "open",
+      "blocks": "判定一致性",
+      "ask": "兩條路徑的上限判斷應否合為同一段程式？",
+      "evidence": "n593_cap_paths_diverge.json",
+      "recommend": "✅ 建議合一。🚨 且 decide_inventory 不得產出「摘要說 0、逐項說在範圍內」的自我矛盾文件。",
+      "newEvidenceSince669": [
+        {
+          "label": "🚨 現行契約下兩條路一致，但 `onExceedMax=truncate` 時**不一致**",
+          "value": {
+            "甲 未超過上限（現行契約）": true,
+            "乙 超過上限（現行契約 escalate）": true,
+            "丙 超過上限（onExceedMax=truncate）": false
+          },
+          "from": "n638_cap_paths_executed.json → agreement"
+        }
+      ]
+    },
+    {
+      "id": "D10",
+      "round": 596,
+      "status": "open",
+      "blocks": "A2",
+      "ask": "adjudicate() 應否比對「配置」而不只是「集合成員」？",
+      "evidence": "n596_allocation_replicates.json",
+      "recommend": "✅ 建議要。⚠️ 實測三篇雙讀全部有配置差異而佇列為 0，🚨 其中兩篇的成因（granularity）清單裡早就有名字。",
+      "newEvidenceSince634": [
+        {
+          "label": "🚨 雙讀在**欄位層級**的不一致處數（結局層級是 3/3 全一致）",
+          "value": 5,
+          "from": "n662_double_read_fields.json → disagreements"
+        },
+        {
+          "label": "⚠️ 不一致的欄位分佈",
+          "value": {
+            "dose": 2,
+            "instrument": 2,
+            "hasNumericResult": 1
+          },
+          "from": "n662_double_read_fields.json → byField"
+        }
+      ],
+      "newEvidenceSince669": [
+        {
+          "label": "🚨 雙讀樣本數與來源型別偏斜（3 篇全是 grobid-tei）",
+          "value": [
+            3,
+            {
+              "sampled": {
+                "grobid-tei": 3
+              },
+              "rest": {
+                "europe-pmc-jats": 24,
+                "grobid-tei": 11
+              }
+            }
+          ],
+          "from": "n642_double_read_sample.json"
+        }
+      ]
+    },
+    {
+      "id": "D11",
+      "round": 596,
+      "status": "open",
+      "blocks": "GI 家族",
+      "ask": "gi-symptom-incidence 的分母是人數還是時點？",
+      "evidence": "n596_allocation_replicates.json",
+      "recommend": "🚨 必須定義。⚠️ 實測兩篇論文一篇用時點（8×6＝48）、一篇用人數（12），🚫 兩種分母合成在一起沒有意義。"
+    },
+    {
+      "id": "D12",
+      "round": 597,
+      "status": "open",
+      "blocks": "A2",
+      "ask": "宣稱有數值而文件裡沒有那個數字的 4 項，要不要撤回？",
+      "evidence": "n597_numeric_result_unsupported.json",
+      "recommend": "⚠️ 本室不判成因（🚫 不定罪另一個視窗）。✅ 但那 4 項的症狀在全文裡各只出現一次且無數字。",
+      "newEvidenceSince669": [
+        {
+          "label": "⚠️ 從該篇 TEI 表格能救回的症狀項數",
+          "value": 0,
+          "from": "n635_d12_recoverability.json → recoverableSymptoms"
+        }
+      ]
+    },
+    {
+      "id": "D13",
+      "round": 598,
+      "status": "amended",
+      "blocks": "A2",
+      "ask": "座標指向方法段的 7 項要不要請該視窗改指；要不要立機檢？",
+      "evidence": "n609_methods_title_check.json",
+      "recommend": "✅ 第 609 輪修正：若要立機檢，須**兩條並列**（標題式＋內容式）並分開記——🚨 任一條單獨跑都會回報「沒事」。"
+    },
+    {
+      "id": "D14",
+      "round": 608,
+      "status": "open",
+      "blocks": "A2／A3 產能",
+      "ask": "write_page_drafts 是否該區分「新增一篇」與「改寫既有」？",
+      "evidence": "n608_fourth_double_read.json",
+      "recommend": "✅ 建議區分。⚠️ 現況讓多篇頁面的第二線實質上只能讀一篇；🚫 本室未繞過，該份讀暫存於私有根。"
+    },
+    {
+      "id": "D15",
+      "round": 608,
+      "status": "open",
+      "blocks": "契約表達力",
+      "ask": "契約要不要收「條件間的百分比差」這種效應量？",
+      "evidence": "n608_fourth_double_read.json",
+      "recommend": "⚠️ 實測兩位讀者各填 mean 與 MD，兩者都不精確而都通過。🚨 不收的話，那一軸會繼續安靜地吸收它。"
+    },
+    {
+      "id": "D16",
+      "round": 607,
+      "status": "open",
+      "blocks": "P3 下一步",
+      "ask": "既有回顧沒回答問題，P3 是否進入補 2023 年年中以後的原始研究？",
+      "evidence": "p3_step1i_table.json；n686_p3_chained_pair_errata.json",
+      "recommend": "⚠️ 那會用到 B.11 那台機器，🚨 而它的內容門檻 A1／A2／A4 尚未過。",
+      "newEvidenceSince684": [
+        {
+          "label": "🚨 同一條線的兩版收成一筆之後，方向分佈（原為 3／2／1）",
+          "value": {
+            "favourable": 2,
+            "mixed": 2,
+            "null": 1
+          },
+          "from": "n686_p3_chained_pair_errata.json"
+        },
+        {
+          "label": "⚠️ 原文即不存在的檢索截止日（照原文記，🚫 未更正）",
+          "value": {
+            "39763344": {
+              "asWritten": "31 April 2023",
+              "monthMaxDays": 30
+            }
+          },
+          "from": "n686_p3_chained_pair_errata.json"
+        }
+      ]
+    },
+    {
+      "id": "D17",
+      "round": 611,
+      "status": "open",
+      "blocks": "酬載品質",
+      "ask": "要不要修 parse_tei 漏掉表格的缺陷？",
+      "evidence": "n612_parse_tei_root_cause.json；n690_table_items_vs_payload.json；n691_two_twelves.json；n696_table_section_fidelity.json",
+      "recommend": "⚠️ 建議修，🚨 但論文那篇的文獻整理表不得當成它自己的結果。",
+      "newEvidenceSince610": [
+        {
+          "label": "會失效的清冊份數",
+          "value": 14,
+          "from": "n630_binding_integrity.json → d17Cost/inventoriesBoundToGrobidSections"
+        },
+        {
+          "label": "受影響的在範圍內結局數",
+          "value": 43,
+          "from": "n630_binding_integrity.json → d17Cost/inScopeOutcomesAffected"
+        },
+        {
+          "label": "佔全體百分比",
+          "value": 43.9,
+          "from": "n630_binding_integrity.json → d17Cost/shareOfAllInScope"
+        }
+      ],
+      "newEvidenceSince669": [
+        {
+          "label": "⚠️ GROBID 佔語料的基準率（%）",
+          "value": 37,
+          "from": "n617_findings_by_source.json"
+        },
+        {
+          "label": "🚨 明顯集中在 GROBID 的發現",
+          "value": [
+            "宣稱有數值而無數字（n597）",
+            "出處無結果標記（n598）",
+            "出處為討論段（n590）"
+          ],
+          "from": "n617_findings_by_source.json"
+        }
+      ],
+      "newEvidenceSince687": [
+        {
+          "label": "🚨 卡在本決策的在範圍內項數（GROBID ＋ 表格指標）",
+          "value": 12,
+          "from": "n690_table_items_vs_payload.json"
+        },
+        {
+          "label": "⚠️ 「12 張結局表」與「12 項卡住的項目」**不是同一批**",
+          "value": {
+            "兩邊都有的篇": [
+              "307c0dd5b141caed"
+            ],
+            "只有表格那邊": [
+              "3f34fc92d4f4b70d",
+              "48da8a7f2f35af1f",
+              "65dd82a89b2c5340",
+              "c3028a8a7b1ae2a1"
+            ],
+            "只有項目那邊": [
+              "1105537918c174c9",
+              "a9012191142e7e02",
+              "eac2b5fd6bb06843"
+            ]
+          },
+          "from": "n691_two_twelves.json"
+        }
+      ],
+      "newEvidenceSince695": [
+        {
+          "label": "✅ 走得到的表格內容完整（數字保留率中位數）——效益不必打折",
+          "value": 1.0,
+          "from": "n696_table_section_fidelity.json"
+        }
+      ]
+    },
+    {
+      "id": "D18",
+      "round": 624,
+      "status": "open",
+      "blocks": "語料完整性",
+      "ask": "那 18 篇「判定可得卻未取」要不要補取？",
+      "evidence": "n624_corpus_denominator.json",
+      "recommend": "⚠️ 建議補取，且**先做 2000 年前那批**——🚨 它們位置已知、零次新查詢。🚫 需外部請求，本室不自行開跑。",
+      "newEvidenceSince610": [
+        {
+          "label": "2000 年前「位置已知、只差去取」的篇數",
+          "value": 10,
+          "from": "n625_corpus_era_bias.json → eraBlockers/≤1999/位置已知未取"
+        }
+      ],
+      "newEvidenceSince669": [
+        {
+          "label": "🚨 2000 年前推進了幾篇／取得幾篇",
+          "value": [
+            107,
+            0
+          ],
+          "from": "n625_corpus_era_bias.json"
+        }
+      ]
+    },
+    {
+      "id": "D19",
+      "round": 624,
+      "status": "open",
+      "blocks": "語料完整性",
+      "ask": "卡在 unpaywall=blocked 的那批要不要用現有信箱重問？",
+      "evidence": "n624_corpus_denominator.json",
+      "recommend": "⚠️ 建議重問，優先 2000 年前那批——🚨 那是打開該年代的唯一鑰匙。🚫 需大量外部請求，須照 n+146（三）／n+150（三）節流。",
+      "newEvidenceSince610": [
+        {
+          "label": "2000 年前從未被問過 Unpaywall 的篇數",
+          "value": 67,
+          "from": "n625_corpus_era_bias.json → eraBlockers/≤1999/Unpaywall 從未被問"
+        },
+        {
+          "label": "全體卡在同一個關卡的份數",
+          "value": 144,
+          "from": "n624_corpus_denominator.json → singleBlocker/count"
+        }
+      ],
+      "newEvidenceSince669": [
+        {
+          "label": "⚠️ 已推進者的取得覆蓋率（%）",
+          "value": 12.6,
+          "from": "n625_corpus_era_bias.json"
+        }
+      ]
+    },
+    {
+      "id": "D20",
+      "round": 624,
+      "status": "open",
+      "blocks": "無（整潔）",
+      "ask": "4 個舊命名的孤兒目錄怎麼處置？",
+      "evidence": "n624_corpus_denominator.json",
+      "recommend": "✅ 建議記 errata、**不刪**——🚫 刪檔本室一律不自行動手。"
+    },
+    {
+      "id": "D21",
+      "round": 667,
+      "status": "open",
+      "blocks": "GI 家族（可合併性）",
+      "ask": "gi-symptom-incidence／gi-symptom-severity 要不要要求記錄量表（儀器欄）？",
+      "evidence": "n667_inscope_without_instrument.json；n668_scale_identity_elsewhere.json",
+      "recommend": "⚠️ 建議要求。🚨 在範圍內 98 項中有 60 項完全沒有量表資訊，且那兩個結局是 47／47 與 13／13 **全數落空**——✅ 能進來不是因為通過檢查，是因為契約對它們沒設檢查。✅ 補的成本已實測：23 個定位點、21 篇，🚫 不是「重讀 21 篇全文」。",
+      "notADuplicateOf": "D6（median 要不要收）談的是**效應量測**這一軸，D11 談的是 incidence 的**分母**——🚨 本項談的是**用哪個量表量的**，三者互不涵蓋。",
+      "newEvidenceSince669": [
+        {
+          "label": "🚨 那 60 項散在幾種量表型別（**它們量的不是同一把尺**）",
+          "value": {
+            "VAS": 16,
+            "未能分類": 14,
+            "數值範圍": 13,
+            "Likert／點量表": 9,
+            "具名問卷": 4,
+            "發生率／人數": 4
+          },
+          "from": "n633_gi_scale_heterogeneity.json"
+        },
+        {
+          "label": "⚠️ 清冊標籤看不出量表的篇數",
+          "value": 9,
+          "from": "n633_gi_scale_heterogeneity.json"
+        }
+      ]
+    },
+    {
+      "id": "D22",
+      "round": 665,
+      "status": "open",
+      "blocks": "判定一致性（產品程式）",
+      "ask": "契約設定欄位「留空」的語意要不要統一？",
+      "evidence": "n665_blocked_gate_depth.json → emptyConfigSemantics",
+      "recommend": "⚠️ 建議統一，🚫 但本室不判要統一成哪一邊。🚨 實測：{'allowedInstruments': '門全開', 'doseBands': '門全開', 'inScopeEffectMeasures': '門全關', 'inScopeAnalysisSets': '門全關'}——**同一份契約裡把一格留空，有的門放行全部、有的門擋掉全部**。⚠️ 而 D21 那 60 項正是踩在「留空＝門全開」上。",
+      "notADuplicateOf": "D8 談的是**資料項**的「明寫 null vs 鍵缺席」，🚨 本項談的是**契約設定**的「空清單」——⚠️ 同一族的病，但發生在不同層。"
+    },
+    {
+      "id": "D23",
+      "round": 666,
+      "status": "open",
+      "blocks": "語料完整性",
+      "ask": "因欄位空白被擋的那批要不要回補？",
+      "evidence": "n666_blank_field_provenance.json；n665_blocked_gate_depth.json",
+      "recommend": "⚠️ 建議先補「像漏填」的那幾項。🚨 實測分類：{'整篇該欄全空': 12, '同篇別的結局填得出來': 3, '同結局內別項填得出來': 1}——**只有同篇填得出來的那幾項才是強漏填訊號**，🚫 「整篇該欄全空」分不出是論文沒報還是整篇漏填。⚠️ 需要讀論文的視窗（n+187），🚫 本室不自行讀。",
+      "notADuplicateOf": "D18／D19 談的是**還沒取到的論文**，🚨 本項談的是**已經在手上、但欄位空著**的項目。"
+    },
+    {
+      "id": "D24",
+      "round": 663,
+      "status": "open",
+      "blocks": "A4（範圍歸屬）",
+      "ask": "運動至衰竭時間與計時賽的儀器同義字，要不要在契約收，還是回全文判定哪一位讀者寫的才對？",
+      "evidence": "n663_reader_vocabulary.json；n665_blocked_gate_depth.json；n701_d3_d24_interlock.json",
+      "recommend": "⚠️ 建議回全文判定，🚫 不要先收同義字。🚨 因為 D4 的前例正是「兩個名字都不對」——收同義字會把一個錯的名字寫進契約。✅ 規模：單欄換儀器即可進範圍者共 7 項，🚨 其中 2 項屬 D4 已裁的那批，**真正還開著的是 5 項**。",
+      "notADuplicateOf": "🚨 D4 已裁的是**切片器械**那一個結局；⚠️ 本項是**運動至衰竭時間與計時賽**那兩個，跨 3 篇。",
+      "newEvidenceSince700": [
+        {
+          "label": "🚨 只做一邊會被重複計數的項數",
+          "value": 4,
+          "from": "n701_d3_d24_interlock.json"
+        },
+        {
+          "label": "⚠️ 重疊的結局（論文半, 期刊半修好後）",
+          "value": {
+            "muscle-glycogen-post-exercise": [
+              2,
+              2
+            ],
+            "time-to-exhaustion": [
+              2,
+              2
+            ]
+          },
+          "from": "n701_d3_d24_interlock.json"
+        }
+      ],
+      "interlock": "🚨 **`D3` 與 `D24` 連在一起，不能只做一邊。**⚠️ 論文半目前在範圍內 `TTE 2／肌肝醣 2`；而期刊半只要把儀器名稱對上契約，拿回的也正是 `TTE 2／肌肝醣 2`——**🚨 完全重疊，4 項會被算兩次，而那是同一組受試者**（第 584 輪：6 個同群數值逐字相同）。⚠️ 反過來，只裁 `D3` 而不修 `D24`，期刊半仍是 0 項。**✅ 故兩者要一起裁。**"
+    },
+    {
+      "id": "D25",
+      "round": 659,
+      "status": "open",
+      "blocks": "A4（可否產出結果）",
+      "ask": "要不要開一輪「數值抽取」把效應量、變異數、樣本數抽出來？若要，先做哪些結局？",
+      "evidence": "n659_no_numbers_yet.json；n682_rules_never_fired.json；n683_prove_d25_rules_fire.json；n685_all_d25_rules_fire.json；n688_d25_worklist.json；n689_locator_yield_shape.json；n690_table_items_vs_payload.json；n676_numeric_field_requirements.json；n677_shacl_studyresult_spec.json；n678_shacl_v21_anchor_spec.json",
+      "recommend": "🚨 建議要，且這是**最先該決定的一件事**。⚠️ 在範圍內的 98 項，數值欄位全部是 0（effectSize=0／pointEstimate=0／variance=0／standardError=0）；`StudyResult` 文件 0 份。**🚨 GRADE 與統合分析今天跑不起來，而 n659 已用合成資料實跑證明卡的是資料、🚫 不是程式。**✅ 換句話說：那 98 項是「哪些結果」，🚫 不是「結果是多少」。",
+      "notADuplicateOf": "🚨 D12 問的是**特定 4 項**「宣稱有數值卻找不到數字」該不該撤回；⚠️ D23 問的是**欄位空白**要不要回補。**✅ 本項問的是：整個語料從頭到尾就沒有抽過數值——🚫 那不是某幾項的問題，是還沒做的一層。**",
+      "newEvidenceSince680": [
+        {
+          "label": "🚨 從未被點亮、而 D25 產出物會踩到的規則",
+          "value": [
+            "PS-analysisSet",
+            "PS-anchorMethod",
+            "PS-citationAnchor",
+            "PS-comparator",
+            "PS-deterministicCheckReport",
+            "PS-effectMeasure",
+            "PS-exactQuote",
+            "PS-intervention",
+            "PS-noNotebookCitationNumber",
+            "PS-noNotebookId",
+            "PS-outcome",
+            "PS-pointEstimate",
+            "PS-population",
+            "PS-quantityKind",
+            "PS-sourceManifestation",
+            "PS-sourceVersion",
+            "PS-statisticalModel",
+            "PS-study",
+            "PS-timepoint",
+            "PS-uncertaintyInterval",
+            "PS-uniqueMatch"
+          ],
+          "from": "n682_rules_never_fired.json"
+        },
+        {
+          "label": "✅ 本室已用突變證明會亮的規則（從「沒人看過」變「看過」）",
+          "value": [
+            "PS-pointEstimate",
+            "PS-uncertaintyInterval",
+            "PS-exactQuote",
+            "PS-uniqueMatch",
+            "PS-citationAnchor",
+            "PS-deterministicCheckReport",
+            "PS-sourceManifestation"
+          ],
+          "from": "n683_prove_d25_rules_fire.json"
+        },
+        {
+          "label": "🚨 對照組裡 `QuantitativeStudyResult` 的實例數",
+          "value": {
+            "QuantitativeStudyResult": 0,
+            "StudyResult": 4
+          },
+          "from": "n683_prove_d25_rules_fire.json"
+        }
+      ],
+      "newEvidenceSince684": [
+        {
+          "label": "✅ D25 產出物要踩的規則，已證明會亮的條數（21 條全數）",
+          "value": 21,
+          "from": "n685_all_d25_rules_fire.json"
+        },
+        {
+          "label": "⚠️ 本室無策略而仍未觀測的條數",
+          "value": 0,
+          "from": "n685_all_d25_rules_fire.json"
+        }
+      ],
+      "newEvidenceSince687": [
+        {
+          "label": "✅ 落地工作清單：在範圍內項數／工作組數／無定位點項數",
+          "value": [
+            98,
+            50,
+            0
+          ],
+          "from": "n688_d25_worklist.json"
+        },
+        {
+          "label": "⚠️ 定位點形狀（指到表／只有段落）",
+          "value": {
+            "只有段落": 75,
+            "表／圖": 23
+          },
+          "from": "n689_locator_yield_shape.json"
+        },
+        {
+          "label": "🚨 建議的落地順序（第 3 層卡在 D17）",
+          "value": [
+            {
+              "tier": 1,
+              "what": "JATS ＋ 表格指標",
+              "items": 11,
+              "why": "✅ 表格在酬載裡，數字最可能一次到手"
+            },
+            {
+              "tier": 2,
+              "what": "JATS ／ GROBID ＋ 只有段落",
+              "items": 75,
+              "why": "⚠️ 段落本來就在酬載裡（GROBID 漏的是表格，🚫 不是內文），但讀的人要自己在段落裡找"
+            },
+            {
+              "tier": 3,
+              "what": "GROBID ＋ 表格指標",
+              "items": 12,
+              "why": "🚨 **卡在 `D17`**——⚠️ 指到的那張表不在酬載裡，🚫 修好之前做不動"
+            }
+          ],
+          "from": "n690_table_items_vs_payload.json"
+        }
+      ],
+      "newEvidenceSince698": [
+        {
+          "label": "✅ 消費端實際要求的欄位數／清冊已有幾個",
+          "value": [
+            20,
+            2
+          ],
+          "from": "n676_numeric_field_requirements.json"
+        },
+        {
+          "label": "🚨 一份合法 StudyResult 還要帶的東西（SHACL 要、程式沒碰）",
+          "value": 17,
+          "from": "n677_shacl_studyresult_spec.json"
+        },
+        {
+          "label": "🚨 每個數字都要配一段**唯一命中**的逐字引文（v2.1 對 anchor 的約束）",
+          "value": 5,
+          "from": "n678_shacl_v21_anchor_spec.json"
+        }
+      ],
+      "executionPrerequisite": "🚨 **裁了之後要動工，需要讀論文的視窗（n+187）**——⚠️ 抽數值與取逐字引文都必須讀原文。✅ 第 688 輪的工作清單就是為那個視窗備的（98 項／50 組）。🚫 本室不在這個視窗讀論文。"
+    },
+    {
+      "id": "D26",
+      "round": 679,
+      "status": "open",
+      "blocks": "驗收可信度",
+      "ask": "兩個 SHACL profile 的守備範圍要不要一致？以及那條聲稱在守它的測試，是名不副實還是註解寫錯？",
+      "evidence": "n679_profile_coverage_gap.json；n678_shacl_v21_anchor_spec.json；n681_single_profile_leak.json；n682_rules_never_fired.json",
+      "recommend": "⚠️ 建議先決定**哪一邊是對的**，🚫 本室不判。🚨 實測：只有 core 守備 ['OutcomeInventory', 'QuantitativeStudyResult']；sparql 獨有 ['CanonicalCompetency']。⚠️ 而只存在於 core 的具名規則有 4 條，**其中兩條正是「量化 StudyResult 必須有點估計／不確定性區間」**——🚨 故只跑 SPARQL（稽核）profile 驗收，**一個沒有信賴區間的量化結果會通過**。⚠️ 而那條測試的主體是否比較過兩個集合：False（突變證明：換成完全不相交的集合，斷言照樣通過）。",
+      "notADuplicateOf": "🚨 D25 問的是**要不要抽數值**；⚠️ 本項問的是**抽出來之後，驗收時會不會被漏掉**——✅ 兩者相依但不是同一件事：**就算 D25 裁了要抽，這個落差仍會讓沒有區間的結果通過稽核。**",
+      "newEvidenceSince680": [
+        {
+          "label": "🚨 只跑一份 profile 會放過的負向對照數（兩份都跑為 0）",
+          "value": {
+            "core": 4,
+            "sparql": 2
+          },
+          "from": "n681_single_profile_leak.json"
+        },
+        {
+          "label": "⚠️ 從未被任何對照組點亮的具名規則數",
+          "value": {
+            "core": {
+              "named": 73,
+              "everFired": 21,
+              "neverFired": 52
+            },
+            "sparql": {
+              "named": 10,
+              "everFired": 9,
+              "neverFired": 1
+            }
+          },
+          "from": "n682_rules_never_fired.json"
+        }
+      ]
+    },
+    {
+      "id": "D27",
+      "round": 694,
+      "status": "open",
+      "blocks": "酬載品質",
+      "ask": "要不要一併修 `parse_jats`？（它也漏表格，成因與 `parse_tei` 同構）",
+      "evidence": "n694_jats_table_parity.json；n697_d27_consequences.json；n696_table_section_fidelity.json",
+      "recommend": "⚠️ 建議與 `D17` **一起裁**，🚫 不要分兩次。🚨 實測：JATS 原始檔 51 張表 → sections 只有 40 個表格節（少 11 張）；**其中 4 篇原始檔有表卻一個表格節都沒有**：['dbdb6ea55c9667c3', '54d4200c1c5e2b64', '4103c4b52bbf21e6', '97c2233f7e60c801']。✅ 根因與 `D17` 同構——PMC 把表格放在 `<floats-group>`（`<body>` 的兄弟節點），而解析器只走 `<body>`；🚨 對照篇的 `<table-wrap>` 全在 `<body>` 裡，**故不是「那幾篇沒有表」。**⚠️ 而修它同樣會改變雜湊（與 `D17` 的 `fixMakesA1Harder` 同一個代價）。",
+      "notADuplicateOf": "🚨 `D17` 只涵蓋 `parse_tei`（GROBID 那 15 篇）。⚠️ 本項是 **`parse_jats`**（Europe PMC 那 26 篇）——**✅ 兩支不同的程式、不同的論文，只是病因同構。**",
+      "newEvidenceSince695": [
+        {
+          "label": "⚠️ 受影響 4 篇目前的在範圍內項數／其中零貢獻篇數",
+          "value": [
+            2,
+            3
+          ],
+          "from": "n697_d27_consequences.json"
+        },
+        {
+          "label": "🚨 **可由「表格被削掉」解釋的被擋項目數**（效益上限的線索）",
+          "value": 2,
+          "from": "n697_d27_consequences.json"
+        },
+        {
+          "label": "✅ 走得到的表格內容完整（數字保留率中位數）",
+          "value": 1.0,
+          "from": "n696_table_section_fidelity.json"
+        }
+      ],
+      "sizeNote": "🚨 **本項的效益比 `D17` 小得多。**⚠️ 受影響 4 篇目前只貢獻 2 項，其中 3 篇零貢獻；🚨 但可由「表格被削掉」解釋的被擋項目**只有 2 項**——**⚠️ 那 3 篇的零貢獻是「結局根本沒對上」，🚫 與表格無關。**✅ 故本室的「與 D17 一起裁」建議**維持**（同一支病、同一種代價），🚫 但**不要期待它救回可觀的證據**。"
+    }
+  ],
+  "citations": [
+    {
+      "from": "n701_d3_d24_interlock.json",
+      "path": "itemsAtRiskOfDoubleCount",
+      "value": 4
+    },
+    {
+      "from": "n701_d3_d24_interlock.json",
+      "path": "overlappingOutcomes",
+      "value": {
+        "muscle-glycogen-post-exercise": [
+          2,
+          2
+        ],
+        "time-to-exhaustion": [
+          2,
+          2
+        ]
+      }
+    }
+  ],
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "controlProbes": [
+    {
+      "probe": "承接得到 v11 的全部登記（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 承接 27 項"
+    },
+    {
+      "probe": "每一個新引用都取得到值（必觸發）",
+      "passed": true,
+      "detail": "🚨 引用 2 筆，取不到值的：無"
+    },
+    {
+      "probe": "每一項的每一個證據檔都存在（必觸發）",
+      "passed": true,
+      "detail": "🚨 檢查 27 項；有指不到檔的：無"
+    },
+    {
+      "probe": "`D3` 與 `D24` **兩邊**都寫了連鎖（必觸發之反向）",
+      "passed": true,
+      "detail": "🚨 有連鎖說明的：['D3', 'D24']；⚠️ 只寫一邊的話，讀到另一邊的人仍會以為它可以單獨裁"
+    },
+    {
+      "probe": "沒有待裁定卡著內容關卡",
+      "passed": false,
+      "detail": "🚨 卡著內容關卡的待裁定共 8 項：['D1', 'D2', 'D3', 'D10', 'D12', 'D14', 'D24', 'D25']"
+    }
+  ],
+  "auditHash": "sha256:86e4896a3d302ae2d44fc200647974068ed864e3bb5881aa39a59c76a72c8cd9"
+}

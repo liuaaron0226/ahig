@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 1,
+  "documentType": "d3-d24-interlock",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "putsNumbersOn": "n584 的那句「重讀期刊那篇不能單獨做」——⚠️ 它當時沒有數字。",
+  "pair": {
+    "thesis": "307c0dd5b141caed",
+    "journalArticle": "7a6ac1559c740fd6"
+  },
+  "thesisInScopeNow": {
+    "time-to-exhaustion": 2,
+    "muscle-glycogen-post-exercise": 2
+  },
+  "journalInScopeNow": {},
+  "journalInScopeIfInstrumentsFixed": {
+    "time-to-exhaustion": 2,
+    "muscle-glycogen-post-exercise": 2
+  },
+  "instrumentSwapsApplied": 6,
+  "overlappingOutcomes": {
+    "muscle-glycogen-post-exercise": [
+      2,
+      2
+    ],
+    "time-to-exhaustion": [
+      2,
+      2
+    ]
+  },
+  "itemsAtRiskOfDoubleCount": 4,
+  "onlyThesis": [],
+  "onlyJournal": [],
+  "theInterlock": "🚨 **修 `D24`（把儀器名稱對上契約）而不裁 `D3`（兩筆算一個 study），會讓同一組受試者的 4 項結果被算兩次。**⚠️ 反過來，只裁 D3 而不修 D24，期刊那半仍是 0 項——**✅ 兩者要一起裁，🚫 順序上不能只做一邊。**",
+  "whatThisIsNot": "🚫 本支**不主張**那兩半就是同一個試驗——⚠️ 那是第 584 輪的證據（6 個同群數值逐字相同），**✅ 而判定是 `D3` 的事。**🚨 本支只算「若照現有證據合併，數字會怎麼動」。",
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "controlProbes": [
+    {
+      "probe": "論文半現在真的有在範圍內的項目（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 論文半在範圍內 4 項：{'time-to-exhaustion': 2, 'muscle-glycogen-post-exercise': 2}；⚠️ 若是 0，這一對就沒有重複的風險可談"
+    },
+    {
+      "probe": "期刊半現在是 0 項（必觸發之反向）",
+      "passed": true,
+      "detail": "🚨 期刊半現在 0 項；⚠️ 若不是 0，第 584 輪的「潛伏」說法就要改"
+    },
+    {
+      "probe": "反事實真的動到了東西（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 換掉 6 個儀器名稱後，期刊半拿回 4 項：{'time-to-exhaustion': 2, 'muscle-glycogen-post-exercise': 2}；⚠️ 若沒變，這個反事實等於沒做"
+    },
+    {
+      "probe": "兩半可回收的項目落在**不同的**結局上",
+      "passed": false,
+      "detail": "🚨 落在同一組結局的：{'muscle-glycogen-post-exercise': (2, 2), 'time-to-exhaustion': (2, 2)}；**⚠️ 重疊處共 4 項會被算兩次**——而那是同一組受試者（第 584 輪：6 個同群數值逐字相同）"
+    }
+  ],
+  "auditHash": "sha256:f7b8f0aae8fc4ca60bb86f94afc934df09d98e8df43b480b680a9c49ace2429d"
+}
