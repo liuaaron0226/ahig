@@ -1,0 +1,1065 @@
+{
+  "schemaVersion": 1,
+  "documentType": "unrecorded-interlocks",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "why": "🚨 第 701 輪那個連鎖是**碰巧**撞到的——⚠️ 碰巧發現一個，就該問還有幾個沒被碰到。",
+  "reportsPerDecision": {
+    "D1": 41,
+    "D10": 3,
+    "D11": 3,
+    "D12": 1,
+    "D13": 8,
+    "D14": 1,
+    "D15": 1,
+    "D16": 0,
+    "D17": 41,
+    "D18": 18,
+    "D19": 18,
+    "D2": 6,
+    "D20": 18,
+    "D21": 21,
+    "D22": 13,
+    "D23": 13,
+    "D24": 14,
+    "D25": 0,
+    "D26": 0,
+    "D27": 97,
+    "D3": 2,
+    "D4": 0,
+    "D5": 0,
+    "D6": 0,
+    "D7": 6,
+    "D8": 0,
+    "D9": 0
+  },
+  "corpusWideDecisions": [
+    "D1",
+    "D17",
+    "D21",
+    "D27"
+  ],
+  "specificDecisions": [
+    "D10",
+    "D11",
+    "D12",
+    "D13",
+    "D14",
+    "D15",
+    "D18",
+    "D19",
+    "D2",
+    "D20",
+    "D22",
+    "D23",
+    "D24",
+    "D3",
+    "D7"
+  ],
+  "corpusWideThreshold": 20,
+  "registerCitationsSkipped": {},
+  "pairs": [
+    {
+      "pair": [
+        "D18",
+        "D19"
+      ],
+      "sharedReports": 18,
+      "sharedSample": [
+        "07fb03ac90367aca",
+        "09c665a709499ba1",
+        "1de0f49f59fecb8b",
+        "20de6fd9c68fa968"
+      ],
+      "crossReferenced": false,
+      "bothWaysReferenced": false,
+      "bothOpen": true
+    },
+    {
+      "pair": [
+        "D18",
+        "D20"
+      ],
+      "sharedReports": 18,
+      "sharedSample": [
+        "07fb03ac90367aca",
+        "09c665a709499ba1",
+        "1de0f49f59fecb8b",
+        "20de6fd9c68fa968"
+      ],
+      "crossReferenced": false,
+      "bothWaysReferenced": false,
+      "bothOpen": true
+    },
+    {
+      "pair": [
+        "D19",
+        "D20"
+      ],
+      "sharedReports": 18,
+      "sharedSample": [
+        "07fb03ac90367aca",
+        "09c665a709499ba1",
+        "1de0f49f59fecb8b",
+        "20de6fd9c68fa968"
+      ],
+      "crossReferenced": false,
+      "bothWaysReferenced": false,
+      "bothOpen": true
+    },
+    {
+      "pair": [
+        "D22",
+        "D23"
+      ],
+      "sharedReports": 13,
+      "sharedSample": [
+        "0cfceb6c8a86f78b",
+        "0eea079e79bf7913",
+        "298c326024d22835",
+        "307c0dd5b141caed"
+      ],
+      "crossReferenced": false,
+      "bothWaysReferenced": false,
+      "bothOpen": true
+    },
+    {
+      "pair": [
+        "D22",
+        "D24"
+      ],
+      "sharedReports": 13,
+      "sharedSample": [
+        "0cfceb6c8a86f78b",
+        "0eea079e79bf7913",
+        "298c326024d22835",
+        "307c0dd5b141caed"
+      ],
+      "crossReferenced": false,
+      "bothWaysReferenced": false,
+      "bothOpen": true
+    },
+    {
+      "pair": [
+        "D23",
+        "D24"
+      ],
+      "sharedReports": 13,
+      "sharedSample": [
+        "0cfceb6c8a86f78b",
+        "0eea079e79bf7913",
+        "298c326024d22835",
+        "307c0dd5b141caed"
+      ],
+      "crossReferenced": false,
+      "bothWaysReferenced": false,
+      "bothOpen": true
+    },
+    {
+      "pair": [
+        "D22",
+        "D7"
+      ],
+      "sharedReports": 6,
+      "sharedSample": [
+        "0cfceb6c8a86f78b",
+        "0eea079e79bf7913",
+        "54d4200c1c5e2b64",
+        "82cbc04b68c38e79"
+      ],
+      "crossReferenced": false,
+      "bothWaysReferenced": false,
+      "bothOpen": true
+    },
+    {
+      "pair": [
+        "D23",
+        "D7"
+      ],
+      "sharedReports": 6,
+      "sharedSample": [
+        "0cfceb6c8a86f78b",
+        "0eea079e79bf7913",
+        "54d4200c1c5e2b64",
+        "82cbc04b68c38e79"
+      ],
+      "crossReferenced": false,
+      "bothWaysReferenced": false,
+      "bothOpen": true
+    },
+    {
+      "pair": [
+        "D24",
+        "D7"
+      ],
+      "sharedReports": 6,
+      "sharedSample": [
+        "0cfceb6c8a86f78b",
+        "0eea079e79bf7913",
+        "54d4200c1c5e2b64",
+        "82cbc04b68c38e79"
+      ],
+      "crossReferenced": false,
+      "bothWaysReferenced": false,
+      "bothOpen": true
+    },
+    {
+      "pair": [
+        "D10",
+        "D11"
+      ],
+      "sharedReports": 3,
+      "sharedSample": [
+        "1105537918c174c9",
+        "7a6ac1559c740fd6",
+        "a9012191142e7e02"
+      ],
+      "crossReferenced": false,
+      "bothWaysReferenced": false,
+      "bothOpen": true
+    },
+    {
+      "pair": [
+        "D13",
+        "D22"
+      ],
+      "sharedReports": 3,
+      "sharedSample": [
+        "307c0dd5b141caed",
+        "54d4200c1c5e2b64",
+        "c4128a6f6dd2c0b5"
+      ],
+      "crossReferenced": false,
+      "bothWaysReferenced": false,
+      "bothOpen": false
+    },
+    {
+      "pair": [
+        "D13",
+        "D23"
+      ],
+      "sharedReports": 3,
+      "sharedSample": [
+        "307c0dd5b141caed",
+        "54d4200c1c5e2b64",
+        "c4128a6f6dd2c0b5"
+      ],
+      "crossReferenced": false,
+      "bothWaysReferenced": false,
+      "bothOpen": false
+    },
+    {
+      "pair": [
+        "D13",
+        "D24"
+      ],
+      "sharedReports": 3,
+      "sharedSample": [
+        "307c0dd5b141caed",
+        "54d4200c1c5e2b64",
+        "c4128a6f6dd2c0b5"
+      ],
+      "crossReferenced": false,
+      "bothWaysReferenced": false,
+      "bothOpen": false
+    },
+    {
+      "pair": [
+        "D2",
+        "D22"
+      ],
+      "sharedReports": 3,
+      "sharedSample": [
+        "298c326024d22835",
+        "7a6ac1559c740fd6",
+        "9a3b03b4fb24cf65"
+      ],
+      "crossReferenced": false,
+      "bothWaysReferenced": false,
+      "bothOpen": true
+    },
+    {
+      "pair": [
+        "D2",
+        "D23"
+      ],
+      "sharedReports": 3,
+      "sharedSample": [
+        "298c326024d22835",
+        "7a6ac1559c740fd6",
+        "9a3b03b4fb24cf65"
+      ],
+      "crossReferenced": false,
+      "bothWaysReferenced": false,
+      "bothOpen": true
+    },
+    {
+      "pair": [
+        "D2",
+        "D24"
+      ],
+      "sharedReports": 3,
+      "sharedSample": [
+        "298c326024d22835",
+        "7a6ac1559c740fd6",
+        "9a3b03b4fb24cf65"
+      ],
+      "crossReferenced": false,
+      "bothWaysReferenced": false,
+      "bothOpen": true
+    },
+    {
+      "pair": [
+        "D22",
+        "D3"
+      ],
+      "sharedReports": 2,
+      "sharedSample": [
+        "307c0dd5b141caed",
+        "7a6ac1559c740fd6"
+      ],
+      "crossReferenced": false,
+      "bothWaysReferenced": false,
+      "bothOpen": true
+    },
+    {
+      "pair": [
+        "D23",
+        "D3"
+      ],
+      "sharedReports": 2,
+      "sharedSample": [
+        "307c0dd5b141caed",
+        "7a6ac1559c740fd6"
+      ],
+      "crossReferenced": false,
+      "bothWaysReferenced": false,
+      "bothOpen": true
+    },
+    {
+      "pair": [
+        "D24",
+        "D3"
+      ],
+      "sharedReports": 2,
+      "sharedSample": [
+        "307c0dd5b141caed",
+        "7a6ac1559c740fd6"
+      ],
+      "crossReferenced": true,
+      "bothWaysReferenced": true,
+      "bothOpen": true
+    },
+    {
+      "pair": [
+        "D10",
+        "D12"
+      ],
+      "sharedReports": 1,
+      "sharedSample": [
+        "1105537918c174c9"
+      ],
+      "crossReferenced": false,
+      "bothWaysReferenced": false,
+      "bothOpen": true
+    },
+    {
+      "pair": [
+        "D10",
+        "D13"
+      ],
+      "sharedReports": 1,
+      "sharedSample": [
+        "a9012191142e7e02"
+      ],
+      "crossReferenced": false,
+      "bothWaysReferenced": false,
+      "bothOpen": false
+    },
+    {
+      "pair": [
+        "D10",
+        "D2"
+      ],
+      "sharedReports": 1,
+      "sharedSample": [
+        "7a6ac1559c740fd6"
+      ],
+      "crossReferenced": false,
+      "bothWaysReferenced": false,
+      "bothOpen": true
+    },
+    {
+      "pair": [
+        "D10",
+        "D22"
+      ],
+      "sharedReports": 1,
+      "sharedSample": [
+        "7a6ac1559c740fd6"
+      ],
+      "crossReferenced": false,
+      "bothWaysReferenced": false,
+      "bothOpen": true
+    },
+    {
+      "pair": [
+        "D10",
+        "D23"
+      ],
+      "sharedReports": 1,
+      "sharedSample": [
+        "7a6ac1559c740fd6"
+      ],
+      "crossReferenced": false,
+      "bothWaysReferenced": false,
+      "bothOpen": true
+    },
+    {
+      "pair": [
+        "D10",
+        "D24"
+      ],
+      "sharedReports": 1,
+      "sharedSample": [
+        "7a6ac1559c740fd6"
+      ],
+      "crossReferenced": false,
+      "bothWaysReferenced": false,
+      "bothOpen": true
+    },
+    {
+      "pair": [
+        "D10",
+        "D3"
+      ],
+      "sharedReports": 1,
+      "sharedSample": [
+        "7a6ac1559c740fd6"
+      ],
+      "crossReferenced": false,
+      "bothWaysReferenced": false,
+      "bothOpen": true
+    },
+    {
+      "pair": [
+        "D11",
+        "D12"
+      ],
+      "sharedReports": 1,
+      "sharedSample": [
+        "1105537918c174c9"
+      ],
+      "crossReferenced": false,
+      "bothWaysReferenced": false,
+      "bothOpen": true
+    },
+    {
+      "pair": [
+        "D11",
+        "D13"
+      ],
+      "sharedReports": 1,
+      "sharedSample": [
+        "a9012191142e7e02"
+      ],
+      "crossReferenced": false,
+      "bothWaysReferenced": false,
+      "bothOpen": false
+    },
+    {
+      "pair": [
+        "D11",
+        "D2"
+      ],
+      "sharedReports": 1,
+      "sharedSample": [
+        "7a6ac1559c740fd6"
+      ],
+      "crossReferenced": false,
+      "bothWaysReferenced": false,
+      "bothOpen": true
+    },
+    {
+      "pair": [
+        "D11",
+        "D22"
+      ],
+      "sharedReports": 1,
+      "sharedSample": [
+        "7a6ac1559c740fd6"
+      ],
+      "crossReferenced": false,
+      "bothWaysReferenced": false,
+      "bothOpen": true
+    },
+    {
+      "pair": [
+        "D11",
+        "D23"
+      ],
+      "sharedReports": 1,
+      "sharedSample": [
+        "7a6ac1559c740fd6"
+      ],
+      "crossReferenced": false,
+      "bothWaysReferenced": false,
+      "bothOpen": true
+    },
+    {
+      "pair": [
+        "D11",
+        "D24"
+      ],
+      "sharedReports": 1,
+      "sharedSample": [
+        "7a6ac1559c740fd6"
+      ],
+      "crossReferenced": false,
+      "bothWaysReferenced": false,
+      "bothOpen": true
+    },
+    {
+      "pair": [
+        "D11",
+        "D3"
+      ],
+      "sharedReports": 1,
+      "sharedSample": [
+        "7a6ac1559c740fd6"
+      ],
+      "crossReferenced": false,
+      "bothWaysReferenced": false,
+      "bothOpen": true
+    },
+    {
+      "pair": [
+        "D13",
+        "D14"
+      ],
+      "sharedReports": 1,
+      "sharedSample": [
+        "65dd82a89b2c5340"
+      ],
+      "crossReferenced": false,
+      "bothWaysReferenced": false,
+      "bothOpen": false
+    },
+    {
+      "pair": [
+        "D13",
+        "D15"
+      ],
+      "sharedReports": 1,
+      "sharedSample": [
+        "65dd82a89b2c5340"
+      ],
+      "crossReferenced": false,
+      "bothWaysReferenced": false,
+      "bothOpen": false
+    },
+    {
+      "pair": [
+        "D13",
+        "D3"
+      ],
+      "sharedReports": 1,
+      "sharedSample": [
+        "307c0dd5b141caed"
+      ],
+      "crossReferenced": false,
+      "bothWaysReferenced": false,
+      "bothOpen": false
+    },
+    {
+      "pair": [
+        "D13",
+        "D7"
+      ],
+      "sharedReports": 1,
+      "sharedSample": [
+        "54d4200c1c5e2b64"
+      ],
+      "crossReferenced": false,
+      "bothWaysReferenced": false,
+      "bothOpen": false
+    },
+    {
+      "pair": [
+        "D14",
+        "D15"
+      ],
+      "sharedReports": 1,
+      "sharedSample": [
+        "65dd82a89b2c5340"
+      ],
+      "crossReferenced": false,
+      "bothWaysReferenced": false,
+      "bothOpen": true
+    },
+    {
+      "pair": [
+        "D2",
+        "D3"
+      ],
+      "sharedReports": 1,
+      "sharedSample": [
+        "7a6ac1559c740fd6"
+      ],
+      "crossReferenced": true,
+      "bothWaysReferenced": false,
+      "bothOpen": true
+    }
+  ],
+  "unrecordedCandidates": [
+    {
+      "pair": [
+        "D18",
+        "D19"
+      ],
+      "sharedReports": 18,
+      "sharedSample": [
+        "07fb03ac90367aca",
+        "09c665a709499ba1",
+        "1de0f49f59fecb8b",
+        "20de6fd9c68fa968"
+      ],
+      "crossReferenced": false,
+      "bothWaysReferenced": false,
+      "bothOpen": true
+    },
+    {
+      "pair": [
+        "D18",
+        "D20"
+      ],
+      "sharedReports": 18,
+      "sharedSample": [
+        "07fb03ac90367aca",
+        "09c665a709499ba1",
+        "1de0f49f59fecb8b",
+        "20de6fd9c68fa968"
+      ],
+      "crossReferenced": false,
+      "bothWaysReferenced": false,
+      "bothOpen": true
+    },
+    {
+      "pair": [
+        "D19",
+        "D20"
+      ],
+      "sharedReports": 18,
+      "sharedSample": [
+        "07fb03ac90367aca",
+        "09c665a709499ba1",
+        "1de0f49f59fecb8b",
+        "20de6fd9c68fa968"
+      ],
+      "crossReferenced": false,
+      "bothWaysReferenced": false,
+      "bothOpen": true
+    },
+    {
+      "pair": [
+        "D22",
+        "D23"
+      ],
+      "sharedReports": 13,
+      "sharedSample": [
+        "0cfceb6c8a86f78b",
+        "0eea079e79bf7913",
+        "298c326024d22835",
+        "307c0dd5b141caed"
+      ],
+      "crossReferenced": false,
+      "bothWaysReferenced": false,
+      "bothOpen": true
+    },
+    {
+      "pair": [
+        "D22",
+        "D24"
+      ],
+      "sharedReports": 13,
+      "sharedSample": [
+        "0cfceb6c8a86f78b",
+        "0eea079e79bf7913",
+        "298c326024d22835",
+        "307c0dd5b141caed"
+      ],
+      "crossReferenced": false,
+      "bothWaysReferenced": false,
+      "bothOpen": true
+    },
+    {
+      "pair": [
+        "D23",
+        "D24"
+      ],
+      "sharedReports": 13,
+      "sharedSample": [
+        "0cfceb6c8a86f78b",
+        "0eea079e79bf7913",
+        "298c326024d22835",
+        "307c0dd5b141caed"
+      ],
+      "crossReferenced": false,
+      "bothWaysReferenced": false,
+      "bothOpen": true
+    },
+    {
+      "pair": [
+        "D22",
+        "D7"
+      ],
+      "sharedReports": 6,
+      "sharedSample": [
+        "0cfceb6c8a86f78b",
+        "0eea079e79bf7913",
+        "54d4200c1c5e2b64",
+        "82cbc04b68c38e79"
+      ],
+      "crossReferenced": false,
+      "bothWaysReferenced": false,
+      "bothOpen": true
+    },
+    {
+      "pair": [
+        "D23",
+        "D7"
+      ],
+      "sharedReports": 6,
+      "sharedSample": [
+        "0cfceb6c8a86f78b",
+        "0eea079e79bf7913",
+        "54d4200c1c5e2b64",
+        "82cbc04b68c38e79"
+      ],
+      "crossReferenced": false,
+      "bothWaysReferenced": false,
+      "bothOpen": true
+    },
+    {
+      "pair": [
+        "D24",
+        "D7"
+      ],
+      "sharedReports": 6,
+      "sharedSample": [
+        "0cfceb6c8a86f78b",
+        "0eea079e79bf7913",
+        "54d4200c1c5e2b64",
+        "82cbc04b68c38e79"
+      ],
+      "crossReferenced": false,
+      "bothWaysReferenced": false,
+      "bothOpen": true
+    },
+    {
+      "pair": [
+        "D10",
+        "D11"
+      ],
+      "sharedReports": 3,
+      "sharedSample": [
+        "1105537918c174c9",
+        "7a6ac1559c740fd6",
+        "a9012191142e7e02"
+      ],
+      "crossReferenced": false,
+      "bothWaysReferenced": false,
+      "bothOpen": true
+    },
+    {
+      "pair": [
+        "D2",
+        "D22"
+      ],
+      "sharedReports": 3,
+      "sharedSample": [
+        "298c326024d22835",
+        "7a6ac1559c740fd6",
+        "9a3b03b4fb24cf65"
+      ],
+      "crossReferenced": false,
+      "bothWaysReferenced": false,
+      "bothOpen": true
+    },
+    {
+      "pair": [
+        "D2",
+        "D23"
+      ],
+      "sharedReports": 3,
+      "sharedSample": [
+        "298c326024d22835",
+        "7a6ac1559c740fd6",
+        "9a3b03b4fb24cf65"
+      ],
+      "crossReferenced": false,
+      "bothWaysReferenced": false,
+      "bothOpen": true
+    },
+    {
+      "pair": [
+        "D2",
+        "D24"
+      ],
+      "sharedReports": 3,
+      "sharedSample": [
+        "298c326024d22835",
+        "7a6ac1559c740fd6",
+        "9a3b03b4fb24cf65"
+      ],
+      "crossReferenced": false,
+      "bothWaysReferenced": false,
+      "bothOpen": true
+    },
+    {
+      "pair": [
+        "D22",
+        "D3"
+      ],
+      "sharedReports": 2,
+      "sharedSample": [
+        "307c0dd5b141caed",
+        "7a6ac1559c740fd6"
+      ],
+      "crossReferenced": false,
+      "bothWaysReferenced": false,
+      "bothOpen": true
+    },
+    {
+      "pair": [
+        "D23",
+        "D3"
+      ],
+      "sharedReports": 2,
+      "sharedSample": [
+        "307c0dd5b141caed",
+        "7a6ac1559c740fd6"
+      ],
+      "crossReferenced": false,
+      "bothWaysReferenced": false,
+      "bothOpen": true
+    },
+    {
+      "pair": [
+        "D10",
+        "D12"
+      ],
+      "sharedReports": 1,
+      "sharedSample": [
+        "1105537918c174c9"
+      ],
+      "crossReferenced": false,
+      "bothWaysReferenced": false,
+      "bothOpen": true
+    },
+    {
+      "pair": [
+        "D10",
+        "D2"
+      ],
+      "sharedReports": 1,
+      "sharedSample": [
+        "7a6ac1559c740fd6"
+      ],
+      "crossReferenced": false,
+      "bothWaysReferenced": false,
+      "bothOpen": true
+    },
+    {
+      "pair": [
+        "D10",
+        "D22"
+      ],
+      "sharedReports": 1,
+      "sharedSample": [
+        "7a6ac1559c740fd6"
+      ],
+      "crossReferenced": false,
+      "bothWaysReferenced": false,
+      "bothOpen": true
+    },
+    {
+      "pair": [
+        "D10",
+        "D23"
+      ],
+      "sharedReports": 1,
+      "sharedSample": [
+        "7a6ac1559c740fd6"
+      ],
+      "crossReferenced": false,
+      "bothWaysReferenced": false,
+      "bothOpen": true
+    },
+    {
+      "pair": [
+        "D10",
+        "D24"
+      ],
+      "sharedReports": 1,
+      "sharedSample": [
+        "7a6ac1559c740fd6"
+      ],
+      "crossReferenced": false,
+      "bothWaysReferenced": false,
+      "bothOpen": true
+    },
+    {
+      "pair": [
+        "D10",
+        "D3"
+      ],
+      "sharedReports": 1,
+      "sharedSample": [
+        "7a6ac1559c740fd6"
+      ],
+      "crossReferenced": false,
+      "bothWaysReferenced": false,
+      "bothOpen": true
+    },
+    {
+      "pair": [
+        "D11",
+        "D12"
+      ],
+      "sharedReports": 1,
+      "sharedSample": [
+        "1105537918c174c9"
+      ],
+      "crossReferenced": false,
+      "bothWaysReferenced": false,
+      "bothOpen": true
+    },
+    {
+      "pair": [
+        "D11",
+        "D2"
+      ],
+      "sharedReports": 1,
+      "sharedSample": [
+        "7a6ac1559c740fd6"
+      ],
+      "crossReferenced": false,
+      "bothWaysReferenced": false,
+      "bothOpen": true
+    },
+    {
+      "pair": [
+        "D11",
+        "D22"
+      ],
+      "sharedReports": 1,
+      "sharedSample": [
+        "7a6ac1559c740fd6"
+      ],
+      "crossReferenced": false,
+      "bothWaysReferenced": false,
+      "bothOpen": true
+    },
+    {
+      "pair": [
+        "D11",
+        "D23"
+      ],
+      "sharedReports": 1,
+      "sharedSample": [
+        "7a6ac1559c740fd6"
+      ],
+      "crossReferenced": false,
+      "bothWaysReferenced": false,
+      "bothOpen": true
+    },
+    {
+      "pair": [
+        "D11",
+        "D24"
+      ],
+      "sharedReports": 1,
+      "sharedSample": [
+        "7a6ac1559c740fd6"
+      ],
+      "crossReferenced": false,
+      "bothWaysReferenced": false,
+      "bothOpen": true
+    },
+    {
+      "pair": [
+        "D11",
+        "D3"
+      ],
+      "sharedReports": 1,
+      "sharedSample": [
+        "7a6ac1559c740fd6"
+      ],
+      "crossReferenced": false,
+      "bothWaysReferenced": false,
+      "bothOpen": true
+    },
+    {
+      "pair": [
+        "D14",
+        "D15"
+      ],
+      "sharedReports": 1,
+      "sharedSample": [
+        "65dd82a89b2c5340"
+      ],
+      "crossReferenced": false,
+      "bothWaysReferenced": false,
+      "bothOpen": true
+    }
+  ],
+  "controlPair": {
+    "pair": [
+      "D24",
+      "D3"
+    ],
+    "sharedReports": 2,
+    "sharedSample": [
+      "307c0dd5b141caed",
+      "7a6ac1559c740fd6"
+    ],
+    "crossReferenced": true,
+    "bothWaysReferenced": true,
+    "bothOpen": true
+  },
+  "whatSharedReportsMeans": "⚠️ 「共用論文」只代表兩個決定**碰同一批東西**，🚫 不代表裁一邊會影響另一邊。**✅ 本支產出的是候選清單**——🚨 `D3`／`D24` 那種真正的連鎖，仍要像第 701 輪那樣**逐對算**。",
+  "methodLimit": "🚨 只找得到**在證據憑證裡留下報告代號**的連鎖；⚠️ 若兩個決定連在一起卻不共用論文（例如都動到同一段產品程式），**本支看不到**。",
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "controlProbes": [
+    {
+      "probe": "每個決定都抽得到報告代號（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 19／27 個決定的證據裡有報告代號；⚠️ 太少的話這個比對沒有分母"
+    },
+    {
+      "probe": "`D3`／`D24` 這一對必須出現，且已被判為「已記錄」（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 對照對：{'pair': ['D24', 'D3'], 'sharedReports': 2, 'sharedSample': ['307c0dd5b141caed', '7a6ac1559c740fd6'], 'crossReferenced': True, 'bothWaysReferenced': True, 'bothOpen': True}；⚠️ 沒出現代表比對沒接上，只有單向代表第 702 輪的雙邊寫入沒生效"
+    },
+    {
+      "probe": "登記簿不在任何決定的證據清單裡（實際狀態）",
+      "passed": true,
+      "detail": "🚨 被當成證據的登記簿引用 0 次；⚠️ 若不是 0，每一對都會因為它而「共用」全部論文"
+    },
+    {
+      "probe": "全語料型的決定已被排除在配對之外（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 全語料型（證據涵蓋 ≥ 20 篇）4 個：['D1', 'D17', 'D21', 'D27']；指名特定論文的 15 個；⚠️ 若沒有排除，D1／D17 這種會跟誰都「共用 41 篇」"
+    },
+    {
+      "probe": "沒有「共用論文卻兩邊都沒提對方」的決定對",
+      "passed": false,
+      "detail": "🚨 候選未記錄連鎖 28 對：[(['D18', 'D19'], 18), (['D18', 'D20'], 18), (['D19', 'D20'], 18), (['D22', 'D23'], 13), (['D22', 'D24'], 13), (['D23', 'D24'], 13), (['D22', 'D7'], 6), (['D23', 'D7'], 6), (['D24', 'D7'], 6), (['D10', 'D11'], 3), (['D2', 'D22'], 3), (['D2', 'D23'], 3)]；⚠️ 這是**候選**，🚫 不是「一定有連鎖」——**共用論文只代表它們碰同一批東西**"
+    }
+  ],
+  "auditHash": "sha256:f0f1e500c11319122ff99ffb68fd4257aa8f972a193364bce5518d8a937747ae"
+}
