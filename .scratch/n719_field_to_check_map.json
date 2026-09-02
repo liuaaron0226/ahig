@@ -1,0 +1,202 @@
+{
+  "schemaVersion": 1,
+  "documentType": "field-to-check-map",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "generalises": "n718（STAT-012 對每一項都不適用）",
+  "stages": [
+    {
+      "stage": "第 0 階・清冊現有",
+      "fieldsAdded": [
+        "analysisSet",
+        "effectMeasure"
+      ],
+      "checksRun": 2,
+      "byVerdict": {
+        "NOT_APPLICABLE": 1,
+        "PASS": 1
+      },
+      "liveRules": [
+        "STAT-016-inference-framework"
+      ],
+      "newlyLive": [
+        "STAT-016-inference-framework"
+      ],
+      "liveCount": 1
+    },
+    {
+      "stage": "第 1 階・＋最小數值集",
+      "fieldsAdded": [
+        "ciHigh",
+        "ciLow",
+        "nSubjects",
+        "pointEstimate"
+      ],
+      "checksRun": 5,
+      "byVerdict": {
+        "PASS": 2,
+        "INCONCLUSIVE": 2,
+        "NOT_APPLICABLE": 1
+      },
+      "liveRules": [
+        "STAT-001-ci-symmetry",
+        "STAT-002-p-vs-ci",
+        "STAT-003-significance-coherence",
+        "STAT-016-inference-framework"
+      ],
+      "newlyLive": [
+        "STAT-001-ci-symmetry",
+        "STAT-002-p-vs-ci",
+        "STAT-003-significance-coherence"
+      ],
+      "liveCount": 4
+    },
+    {
+      "stage": "第 2 階・＋設計與分析方式",
+      "fieldsAdded": [
+        "analysisReported",
+        "studyDesign"
+      ],
+      "checksRun": 5,
+      "byVerdict": {
+        "INCONCLUSIVE": 3,
+        "PASS": 2
+      },
+      "liveRules": [
+        "STAT-001-ci-symmetry",
+        "STAT-002-p-vs-ci",
+        "STAT-003-significance-coherence",
+        "STAT-012-paired-vs-independent",
+        "STAT-016-inference-framework"
+      ],
+      "newlyLive": [
+        "STAT-012-paired-vs-independent"
+      ],
+      "liveCount": 5
+    },
+    {
+      "stage": "第 3 階・＋檢定統計量與 p 值",
+      "fieldsAdded": [
+        "pValue",
+        "testStatistic"
+      ],
+      "checksRun": 6,
+      "byVerdict": {
+        "PASS": 6
+      },
+      "liveRules": [
+        "STAT-001-ci-symmetry",
+        "STAT-002-p-vs-ci",
+        "STAT-003-significance-coherence",
+        "STAT-007-test-statistic-p",
+        "STAT-012-paired-vs-independent",
+        "STAT-016-inference-framework"
+      ],
+      "newlyLive": [
+        "STAT-007-test-statistic-p"
+      ],
+      "liveCount": 6
+    },
+    {
+      "stage": "第 4 階・＋事件數與各臂人數",
+      "fieldsAdded": [
+        "armN",
+        "events"
+      ],
+      "checksRun": 7,
+      "byVerdict": {
+        "PASS": 7
+      },
+      "liveRules": [
+        "STAT-001-ci-symmetry",
+        "STAT-002-p-vs-ci",
+        "STAT-003-significance-coherence",
+        "STAT-004-event-le-n",
+        "STAT-007-test-statistic-p",
+        "STAT-012-paired-vs-independent",
+        "STAT-016-inference-framework"
+      ],
+      "newlyLive": [
+        "STAT-004-event-le-n"
+      ],
+      "liveCount": 7
+    },
+    {
+      "stage": "第 5 階・＋各臂描述統計",
+      "fieldsAdded": [
+        "armDescriptives",
+        "smdType"
+      ],
+      "checksRun": 7,
+      "byVerdict": {
+        "PASS": 7
+      },
+      "liveRules": [
+        "STAT-001-ci-symmetry",
+        "STAT-002-p-vs-ci",
+        "STAT-003-significance-coherence",
+        "STAT-004-event-le-n",
+        "STAT-007-test-statistic-p",
+        "STAT-012-paired-vs-independent",
+        "STAT-016-inference-framework"
+      ],
+      "newlyLive": [],
+      "liveCount": 7
+    },
+    {
+      "stage": "第 6 階・＋逐項描述統計",
+      "fieldsAdded": [
+        "descriptives"
+      ],
+      "checksRun": 9,
+      "byVerdict": {
+        "PASS": 7,
+        "NOT_APPLICABLE": 2
+      },
+      "liveRules": [
+        "STAT-001-ci-symmetry",
+        "STAT-002-p-vs-ci",
+        "STAT-003-significance-coherence",
+        "STAT-004-event-le-n",
+        "STAT-007-test-statistic-p",
+        "STAT-012-paired-vs-independent",
+        "STAT-016-inference-framework"
+      ],
+      "newlyLive": [],
+      "liveCount": 7
+    }
+  ],
+  "liveAtStage0": 1,
+  "liveWhenComplete": 7,
+  "dormantToday": 6,
+  "whatThisGivesD25": "✅ 一張**欄位 → 把關**的對照：🚨 抽哪一階，就換到哪幾道確定性檢查。⚠️ 第 676 輪的兩層（合併得動／驗得動）是粗的；**✅ 這裡把「驗得動」拆成有順序的階梯，每一階都寫明它讓哪幾道規則活過來。**",
+  "contentDiscipline": "✅ 資料全是本支現造的合成值，🚫 不含任何文獻內容（n+195 一）。",
+  "methodLimit": "🚨 「活著」＝該道檢查回傳的判定**不是** `NOT_APPLICABLE`——⚠️ 它**不保證**那道檢查在真實資料上會抓到東西。🚫 又：本支用的是**一組**合成值，**若換一組值，某些階的活躍規則會不同。**",
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "controlProbes": [
+    {
+      "probe": "每一階都跑得出檢查（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 逐階的檢查數：[('第 0 階・清冊現有', 2), ('第 1 階・＋最小數值集', 5), ('第 2 階・＋設計與分析方式', 5), ('第 3 階・＋檢定統計量與 p 值', 6), ('第 4 階・＋事件數與各臂人數', 7), ('第 5 階・＋各臂描述統計', 7), ('第 6 階・＋逐項描述統計', 9)]；⚠️ 有 0 就代表那一階根本沒跑"
+    },
+    {
+      "probe": "第 0 階時 `STAT-012-paired-vs-independent` 不是活的（必觸發之反向・與第 718 輪一致）",
+      "passed": true,
+      "detail": "🚨 第 0 階活著的規則：['STAT-016-inference-framework']；⚠️ 若它已經活著，就與第 718 輪的實測矛盾"
+    },
+    {
+      "probe": "加回設計欄之後它會活過來（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 `STAT-012-paired-vs-independent` 在哪一階活過來：['第 2 階・＋設計與分析方式']；⚠️ 若一直沒活，代表本支的合成值沒觸發它"
+    },
+    {
+      "probe": "清冊現有的欄位已經讓所有把關活著",
+      "passed": false,
+      "detail": "🚨 第 0 階活著 1 道，全部欄位到齊時活著 7 道——**⚠️ 現況下有 6 道把關是死的**；🚫 而那不是它們壞了，是**沒有資料經過它們**"
+    }
+  ],
+  "auditHash": "sha256:9625e4381be44439e0c68764704e63064d375a3c73cfcc6e0d172f8d5e946a93"
+}
