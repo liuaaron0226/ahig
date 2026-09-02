@@ -1,0 +1,70 @@
+{
+  "schemaVersion": 1,
+  "documentType": "d18-d19-overlap",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "why": "✅ 第 703 輪那 28 對候選裡最強的一對——⚠️ 共用 18 篇，而兩邊條目都沒提對方。",
+  "d18Set": {
+    "name": "obtainableNeverTaken",
+    "size": 18
+  },
+  "d19Set": {
+    "name": "unpaywall=blocked（缺聯絡信箱）",
+    "sizeRecomputed": 144,
+    "sizeStoredInN624": 144
+  },
+  "overlap": [],
+  "onlyD18": [
+    "07fb03ac90367aca",
+    "09c665a709499ba1",
+    "1de0f49f59fecb8b",
+    "20de6fd9c68fa968",
+    "31daa098b403a574",
+    "39079e90850b4f2b",
+    "521c5d3359712b22",
+    "58a83414e18036b3",
+    "5d84a17e2c347de7",
+    "68b1b2f9ce594d6c",
+    "77621b70399b246f",
+    "79503020d89e7ccf",
+    "92183b4870ab6c46",
+    "a103783d5231cfec",
+    "dd5b52374d47acda",
+    "e21633241b68c93e",
+    "f85932c09316c4d0",
+    "f98c855ca35e4def"
+  ],
+  "statusOfD18Set": {
+    "available-landing-page": 12,
+    "available-pdf": 6
+  },
+  "reading": "🚨 重疊 0／18 篇。⚠️ 重疊處代表**同一篇論文同時是「判定可得卻未取」與「卡在缺信箱」**——✅ 那不是兩件事，是同一件事的兩種說法。",
+  "whatThisIsNot": "🚫 本支不主張補取得到——⚠️ 第 624 輪已寫明「那 18 篇實際取不取得到，要真的去抓才知道」，🚨 而本室**不送請求**。✅ 本支只回答「這兩個決定講的是不是同一批論文」。",
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "controlProbes": [
+    {
+      "probe": "那 18 篇的 manifest 都找得到（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 D18 名單 18 篇、找到 18 篇、找不到的：無；⚠️ 找不到的話重疊算不準"
+    },
+    {
+      "probe": "用同一套讀法重算 `unpaywall=blocked`，數字對得上（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 本支重算 144 筆｜第 624 輪存的 144 筆；⚠️ 對不上就代表本支讀錯了 attempts，**🚫 那麼下面的重疊也不能信**"
+    },
+    {
+      "probe": "捏造的候選代號不在任何集合裡（必觸發之反向）",
+      "passed": true,
+      "detail": "🚨 捏造代號查無；⚠️ 若查得到，代表集合是亂湊的"
+    },
+    {
+      "probe": "`D18` 那 18 篇與 `D19` 那批**互不重疊**",
+      "passed": true,
+      "detail": "🚨 同時落在兩邊的 0／18 篇；只屬 D18 的 18 篇；⚠️ 有重疊就代表**兩件事在講同一批論文的不同面向**——**🚨 分開裁會送兩次請求、或把同一批工算兩次**"
+    }
+  ],
+  "auditHash": "sha256:968d242d97e837a81e0283233e1a3f4445e8dd84c4565a2711eb2473d9998168"
+}
