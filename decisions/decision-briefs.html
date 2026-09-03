@@ -1,0 +1,412 @@
+<title>為什麼撐不住赤字</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700&family=Noto+Sans+TC:wght@400;500;700&family=IBM+Plex+Mono:wght@400;600&display=swap">
+<style>
+  :root{
+    --ground:#F6F8F6; --surface:#FFFFFF; --raise:#EEF2EF;
+    --ink:#141C18; --muted:#5A6B62; --faint:#84968C;
+    --rule:#DBE3DE; --rule-strong:#C3CFC8;
+    --do:#0E6B4C; --do-wash:#E7F2ED;
+    --cross:#8C3A34; --cross-wash:#F6EAE9;
+    --limit:#8A6100; --limit-wash:#F7F0DF;
+    --serif:"Noto Serif TC",serif;
+    --sans:"Noto Sans TC","Helvetica Neue",Arial,sans-serif;
+    --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --ground:#0E1411; --surface:#141C18; --raise:#1A241F;
+      --ink:#E4EBE6; --muted:#93A69C; --faint:#6E827A;
+      --rule:#26332C; --rule-strong:#35473D;
+      --do:#4FBF95; --do-wash:#12251E;
+      --cross:#E08A80; --cross-wash:#2A1917;
+      --limit:#D9A93F; --limit-wash:#26200F;
+    }
+  }
+  :root[data-theme="dark"]{
+    --ground:#0E1411; --surface:#141C18; --raise:#1A241F;
+    --ink:#E4EBE6; --muted:#93A69C; --faint:#6E827A;
+    --rule:#26332C; --rule-strong:#35473D;
+    --do:#4FBF95; --do-wash:#12251E;
+    --cross:#E08A80; --cross-wash:#2A1917;
+    --limit:#D9A93F; --limit-wash:#26200F;
+  }
+
+  *{box-sizing:border-box}
+  body{
+    background:var(--ground); color:var(--ink);
+    font-family:var(--sans); font-size:17px; line-height:1.75;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:44rem;margin:0 auto;padding:3.5rem 1.25rem 6rem;
+        display:flex;flex-direction:column;gap:3.5rem}
+
+  /* ---- masthead ---- */
+  .mast{display:flex;flex-direction:column;gap:.9rem}
+  .kicker{font-family:var(--mono);font-size:.72rem;letter-spacing:.14em;
+          text-transform:uppercase;color:var(--muted)}
+  h1{font-family:var(--serif);font-weight:700;font-size:2.4rem;line-height:1.25;
+     margin:0;text-wrap:balance;letter-spacing:.01em}
+  .standfirst{font-size:1.05rem;color:var(--muted);margin:0;max-width:34rem}
+  .mast-meta{display:flex;flex-wrap:wrap;gap:.4rem .9rem;font-family:var(--mono);
+             font-size:.74rem;color:var(--faint);padding-top:.4rem;
+             border-top:1px solid var(--rule)}
+
+  /* ---- the two-line answer ---- */
+  .answer{background:var(--surface);border:1px solid var(--rule-strong);
+          padding:1.6rem 1.5rem;display:flex;flex-direction:column;gap:1rem}
+  .answer p{margin:0}
+  .answer .lead{font-family:var(--serif);font-size:1.2rem;line-height:1.6;
+                font-weight:500}
+  .answer .lead b{color:var(--do)}
+  .answer .sub{font-size:.95rem;color:var(--muted)}
+
+  /* ---- brief ---- */
+  .brief{display:flex;flex-direction:column;gap:1.5rem}
+  .brief-head{display:flex;flex-direction:column;gap:.55rem;
+              border-top:2px solid var(--ink);padding-top:1rem}
+  .brief-no{font-family:var(--mono);font-size:.72rem;letter-spacing:.14em;
+            text-transform:uppercase;color:var(--muted)}
+  h2{font-family:var(--serif);font-weight:700;font-size:1.5rem;line-height:1.4;
+     margin:0;text-wrap:balance}
+
+  /* verification depth — real per-brief data, not decoration */
+  .depth{display:flex;align-items:baseline;gap:.55rem;flex-wrap:wrap;
+         font-family:var(--mono);font-size:.76rem;color:var(--muted)}
+  .depth .bar{display:inline-flex;gap:3px;align-items:center}
+  .depth .pip{width:13px;height:6px;background:var(--rule-strong);border-radius:1px}
+  .depth .pip.on{background:var(--do)}
+  .depth .verdict{color:var(--ink);font-weight:600}
+  .depth .verdict.thin{color:var(--limit)}
+
+  /* action panel */
+  .acts{display:flex;flex-direction:column;gap:1px;background:var(--rule)}
+  .act{background:var(--surface);padding:1.1rem 1.2rem;display:flex;gap:1rem;
+       align-items:flex-start}
+  .act .tag{font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;
+            text-transform:uppercase;padding:.22rem .5rem;white-space:nowrap;
+            border-radius:2px;margin-top:.28rem}
+  .act.do{background:var(--do-wash)}
+  .act.do .tag{background:var(--do);color:var(--ground)}
+  .act.cross{background:var(--cross-wash)}
+  .act.cross .tag{background:var(--cross);color:var(--ground)}
+  .act .body{display:flex;flex-direction:column;gap:.35rem}
+  .act .headline{font-weight:700;line-height:1.55}
+  .act .why{font-size:.92rem;color:var(--muted);line-height:1.65}
+  .act .why b{color:var(--ink);font-family:var(--mono);font-weight:600;
+              font-size:.9rem}
+
+  /* evidence table */
+  .tablewrap{overflow-x:auto;border:1px solid var(--rule)}
+  table{border-collapse:collapse;width:100%;min-width:34rem;
+        font-size:.88rem;background:var(--surface)}
+  caption{text-align:left;font-family:var(--mono);font-size:.72rem;
+          letter-spacing:.1em;text-transform:uppercase;color:var(--muted);
+          padding:.8rem 1rem .55rem;background:var(--raise)}
+  th,td{text-align:left;padding:.7rem 1rem;border-top:1px solid var(--rule);
+        vertical-align:top}
+  th{font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;
+     color:var(--muted);font-weight:500;background:var(--raise);border-top:none}
+  td.date{font-family:var(--mono);font-size:.82rem;white-space:nowrap;
+          font-variant-numeric:tabular-nums;color:var(--muted)}
+  td.date.unknown{color:var(--limit)}
+  td .num{font-family:var(--mono);font-weight:600;
+          font-variant-numeric:tabular-nums}
+  .sig-yes .num{color:var(--do)}
+  .sig-no .num{color:var(--cross)}
+
+  /* notes */
+  .note{border-left:3px solid var(--limit);background:var(--limit-wash);
+        padding:.9rem 1.1rem;font-size:.93rem;line-height:1.7}
+  .note b{font-weight:700}
+  .note-label{font-family:var(--mono);font-size:.68rem;letter-spacing:.12em;
+              text-transform:uppercase;color:var(--limit);display:block;
+              margin-bottom:.3rem}
+
+  .list{display:flex;flex-direction:column;gap:.6rem;font-size:.93rem;
+        color:var(--muted);line-height:1.7;margin:0;padding:0;list-style:none}
+  .list li{padding-left:1.1rem;position:relative}
+  .list li::before{content:"";position:absolute;left:0;top:.62em;
+                   width:5px;height:5px;background:var(--rule-strong)}
+  .list li b{color:var(--ink)}
+
+  h3{font-family:var(--sans);font-size:.78rem;letter-spacing:.11em;
+     text-transform:uppercase;color:var(--muted);font-weight:700;
+     margin:0 0 .1rem}
+
+  /* footer */
+  .foot{border-top:1px solid var(--rule);padding-top:1.5rem;
+        display:flex;flex-direction:column;gap:1rem;
+        font-size:.86rem;color:var(--muted);line-height:1.7}
+  .ids{font-family:var(--mono);font-size:.76rem;color:var(--faint);
+       word-break:break-all}
+  @media (max-width:34rem){
+    body{font-size:16px}
+    h1{font-size:1.9rem}
+    .act{flex-direction:column;gap:.6rem}
+    .act .tag{margin-top:0}
+  }
+</style>
+
+<div class="wrap">
+
+  <header class="mast">
+    <div class="kicker">AHIG 決策卡 001 + 002</div>
+    <h1>為什麼撐不住赤字</h1>
+    <p class="standfirst">兩個問題查完了：壓力性進食有沒有辦法治，睡眠有沒有影響。
+    答案剛好是一個否定、一個肯定，而它們指向同一件事。</p>
+    <div class="mast-meta">
+      <span>2026-09-02</span><span>來源：既有系統性回顧的盤點</span>
+      <span>未讀原始研究</span>
+    </div>
+  </header>
+
+  <section class="answer">
+    <p class="lead">不用再找「治好壓力性進食」的心理技巧了。
+    <b>把力氣放在不要睡不夠。</b></p>
+    <p class="sub">壓力性進食那一題，問得愈精準效果愈接近零；而睡眠那一題有一個
+    可測量、機制清楚的數字：睡不夠會讓你多吃，而消耗不變。</p>
+  </section>
+
+  <!-- ===================== 001 ===================== -->
+  <article class="brief">
+    <div class="brief-head">
+      <div class="brief-no">決策卡 001</div>
+      <h2>有沒有辦法讓我不要一壓力就吃、並且撐住熱量赤字？</h2>
+      <div class="depth">
+        <span>查證深度</span>
+        <span class="bar">
+          <span class="pip on"></span><span class="pip on"></span>
+          <span class="pip on"></span><span class="pip on"></span>
+          <span class="pip on"></span><span class="pip"></span>
+        </span>
+        <span class="verdict">6 份來源，5 份已回全文核對</span>
+      </div>
+    </div>
+
+    <div class="acts">
+      <div class="act cross">
+        <span class="tag">劃掉</span>
+        <div class="body">
+          <div class="headline">不要再找「哪一種心理技巧能治好壓力性進食」</div>
+          <div class="why">鎖定單一療法、單一結局去問的回顧，效果都接近零——
+          接納與承諾治療 <b>g = −0.20（p = 0.20）</b>、正念
+          <b>g = −0.27（p = 0.070）</b>，長期追蹤也一樣。
+          看起來有效的數字，來自把各種介入混在一起的回顧，研究之間差異極大
+          （<b>I² ≈ 88%</b>），其中一份還得校正發表偏誤才站得住。</div>
+        </div>
+      </div>
+      <div class="act cross">
+        <span class="tag">劃掉</span>
+        <div class="body">
+          <div class="headline">「減一陣子、休息一陣子」可以從選項裡拿掉</div>
+          <div class="why">唯一直接測過計畫性暫停的回顧說：體重與中途放棄率
+          <b>都沒有差別</b>。不是因為它有害，是因為它沒有比較好。
+          惟樣本只有 <b>9 個介入組、796 人</b>——那是「沒偵測到差異」，
+          不是「證明相同」。</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tablewrap">
+      <table>
+        <caption>第一題　有介入能減少情緒／壓力驅動的進食嗎</caption>
+        <thead><tr><th>檢索截止</th><th>介入</th><th>該回顧自己的結論</th></tr></thead>
+        <tbody>
+          <tr class="sig-yes"><td class="date">2017-06</td><td>正念介入</td>
+            <td>有利。惟為 9 篇 RCT 的敘述性綜合，<span class="num">未給合併估計值</span></td></tr>
+          <tr class="sig-yes"><td class="date">2022-02</td><td>情緒性進食的心理介入（含 CBT）</td>
+            <td>有利但幅度極小：體重 <span class="num">−1.08%</span>、
+            情緒性進食 <span class="num">−2.37%</span>。該回顧自陳兩個統合分析都測到顯著發表偏誤，
+            並說「這降低整體效果量的效度」</td></tr>
+          <tr class="sig-no"><td class="date">2022-06</td><td>接納與承諾治療（ACT）</td>
+            <td>混合——情緒性進食 <span class="num">g = −0.20，p = 0.20</span>，不顯著</td></tr>
+          <tr class="sig-yes"><td class="date">2023-04</td><td>上一份的更新版，拆解行為改變技術</td>
+            <td>有利且強：情緒性進食 <span class="num">SMD = −0.99，p &lt; 0.001</span>；
+            體重 <span class="num">−4.09 kg</span></td></tr>
+          <tr class="sig-no"><td class="date">2023-06</td><td>正念介入</td>
+            <td>混合——情緒性進食 <span class="num">g = −0.27，p = 0.070</span>、
+            暴食 <span class="num">p = 0.136</span>，長期 <span class="num">p = 0.809</span>，皆不顯著</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="note">
+      <span class="note-label">怎麼讀這張表</span>
+      差別在<b>問法</b>，不在新舊。鎖定單一療法、單一結局去問的，答案是零；
+      把各式各樣的「情緒性進食介入」合併起來問的，答案有利——但異質性極高。
+      （這一句是修正過的：先前寫成「愈新的證據愈接近沒有效果」，
+      與表格自相矛盾，經獨立核對後改掉。行動建議沒有變。）
+    </div>
+
+    <div class="tablewrap">
+      <table>
+        <caption>第二題　有介入能提高熱量赤字的維持率嗎</caption>
+        <thead><tr><th>檢索截止</th><th>比的是什麼</th><th>結果</th></tr></thead>
+        <tbody>
+          <tr class="sig-no"><td class="date">2023-07</td>
+            <td>計畫性暫停 vs 一路持續限制</td>
+            <td>體重與中途放棄率<span class="num"> 皆無差別</span>。
+            拿掉高偏誤風險研究後結果不變；但沒有任何一篇是低偏誤風險</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div>
+      <h3>這張卡不回答</h3>
+      <ul class="list">
+        <li><b>你為什麼掉不下去</b>——熱量估計、水分、藥物、代謝適應都可能，那是你與醫療專業的事。</li>
+        <li><b>藥物</b>（GLP-1 等）——處方決定不在這個專案的範圍。</li>
+        <li>這也<b>不等於「什麼都沒用」</b>：這些回顧問的是專門針對情緒性進食的介入，
+        沒有問睡眠、環境安排、進食結構。</li>
+      </ul>
+    </div>
+
+    <div>
+      <h3>適用限制</h3>
+      <ul class="list">
+        <li>成人。<b>多數研究不是在減脂中的人身上做的</b>——這是最大的外推限制。</li>
+        <li>「壓力性進食」在文獻裡至少四種定義（emotional／stress／disinhibited／binge），
+        各研究用的不是同一個，這張卡沒有把它們合併。</li>
+        <li>其中兩份是同一條線的前後兩版，<b>不是兩筆獨立證據</b>。</li>
+      </ul>
+    </div>
+
+    <p class="ids">來源：36768088 · 39763344 · 32551798 · 36763199 · 39489689 · 38246879</p>
+  </article>
+
+  <!-- ===================== 002 ===================== -->
+  <article class="brief">
+    <div class="brief-head">
+      <div class="brief-no">決策卡 002</div>
+      <h2>睡眠會不會影響我吃多少、以及撐不撐得住赤字？</h2>
+      <div class="depth">
+        <span>查證深度</span>
+        <span class="bar">
+          <span class="pip"></span><span class="pip"></span><span class="pip"></span>
+          <span class="pip"></span><span class="pip"></span><span class="pip"></span>
+        </span>
+        <span class="verdict thin">6 份來源，0 份取得全文——只到摘要層</span>
+      </div>
+    </div>
+
+    <div class="acts">
+      <div class="act do">
+        <span class="tag">照做</span>
+        <div class="body">
+          <div class="headline">把「睡不夠」當成「會讓你多吃」來處理，不是當成精神狀態問題</div>
+          <div class="why">唯一明確寫出時間單位的估計是<b> 每日 +204 kcal</b>
+          （95% CI 112–295）——足以把一般的減脂赤字整個抵消掉。
+          關鍵不是「多吃」，是<b>多吃而消耗沒有跟著上去</b>；那正好就是赤字破功的機制。</div>
+        </div>
+      </div>
+      <div class="act do">
+        <span class="tag">照做</span>
+        <div class="body">
+          <div class="headline">睡眠真的有問題的話，找結構化做法（CBT-I／睡眠衛生），不是多躺</div>
+          <div class="why">同一份回顧裡，CBT-I／睡眠衛生 <b>8 篇、n = 1384</b>，
+          BMI <b>−0.64（p = 0.0006，I² = 16%）</b>，肥胖者體重 <b>−5.55 kg</b>；
+          睡眠介入也真的把攝取壓下來：<b>每日 −147.5 kcal</b>，
+          <b>過重／肥胖者 −238.0 kcal／日（I² = 0%）</b>——那正是你的族群。</div>
+        </div>
+      </div>
+      <div class="act cross">
+        <span class="tag">別當主力</span>
+        <div class="body">
+          <div class="headline">「多躺一點」不是減脂手段——但也不必刻意避免</div>
+          <div class="why">單純睡眠延長那組 BMI <b>−0.15（p = 0.26）</b>，不顯著。
+          可是那組只有 <b>5 篇、n = 138</b>，旁邊的 CBT-I 是 <b>8 篇、n = 1384</b>，
+          規模差十倍。<b>正確的讀法是「沒有證據顯示有效」，不是「有證據顯示無效」。</b></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tablewrap">
+      <table>
+        <caption>第一題　睡眠不足會不會讓我吃更多</caption>
+        <thead><tr><th>檢索截止</th><th>測的是什麼</th><th>該回顧自己的結論</th></tr></thead>
+        <tbody>
+          <tr class="sig-yes"><td class="date unknown">無法接續<br>（2017 出版）</td>
+            <td>部分睡眠剝奪</td>
+            <td>攝取 <span class="num">+385 kcal</span>（252–517）；消耗無顯著變化。
+            <em>摘要未載時間單位</em></td></tr>
+          <tr class="sig-yes"><td class="date unknown">無法接續<br>（2020 出版）</td>
+            <td>睡眠限制 vs 習慣睡眠</td>
+            <td><span class="num">+149.86 kcal</span>（10.09–289.63，p = 0.04）。
+            <em>摘要未載時間單位</em></td></tr>
+          <tr class="sig-yes"><td class="date unknown">無法接續<br>（2021 出版）</td>
+            <td>介入研究之統合</td>
+            <td><span class="num">每日 +204 kcal</span>（112–295）；SMD 0.37。
+            唯一明載「每日」者</td></tr>
+          <tr class="sig-yes"><td class="date">2020-07</td>
+            <td>睡眠限制（50 篇 RCT）</td>
+            <td>攝食量、脂肪攝取、體重、食慾、飢餓皆增加；總能量消耗無變化。
+            <span class="num">敘述性綜合，未給合併估計值</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="tablewrap">
+      <table>
+        <caption>第二題　改善睡眠會不會提高減脂成效</caption>
+        <thead><tr><th>檢索截止</th><th>測的是什麼</th><th>結果</th></tr></thead>
+        <tbody>
+          <tr class="sig-yes"><td class="date unknown">無法接續<br>（2026 出版）</td>
+            <td>CBT-I／睡眠衛生（8 篇 n=1384）vs 單純睡眠延長（5 篇 n=138）</td>
+            <td>CBT-I／睡眠衛生 BMI <span class="num">−0.64（p = 0.0006）</span>；
+            睡眠延長 <span class="num">−0.15（p = 0.26）</span> 不顯著；
+            肥胖者體重 <span class="num">−5.55 kg</span></td></tr>
+          <tr class="sig-yes"><td class="date unknown">同上一份</td>
+            <td>睡眠介入 → 每日能量攝取</td>
+            <td><span class="num">−147.5 kcal／日</span>（p = 0.04）；
+            過重／肥胖者 <span class="num">−238.0 kcal／日</span>（p &lt; 0.00001，I² = 0%）</td></tr>
+          <tr class="sig-no"><td class="date">至 2025-09</td>
+            <td>睡眠作為暴露或介入成分（30 篇、10,944 人）</td>
+            <td>證據混雜：睡眠限制降低脂肪減少量；
+            <span class="num">睡眠時數與減重的關聯不一致</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="note">
+      <span class="note-label">這張卡最弱的地方</span>
+      <b>六份來源全部拿不到全文</b>，所以上面每一個數字都只核對到摘要那一層，
+      而摘要是作者自己挑過的。六份裡還有四份連檢索截止日都查不到。
+      相比之下卡 001 有五份讀得到全文。<b>這不代表結論是錯的，
+      但它代表這張卡的證據基礎比另一張薄。</b>
+    </div>
+
+    <div>
+      <h3>還不知道什麼</h3>
+      <ul class="list">
+        <li><b>兩半問的可能不是同一件事。</b>肯定的那一半幾乎全來自急性睡眠限制實驗，
+        混雜的那一半是長期睡眠介入試驗——前者的一致性不能替後者背書。</li>
+        <li><b>為什麼「睡眠延長」不顯著。</b>是延長本身沒用，
+        還是試驗裡的人本來就沒有睡眠不足？樣本太小本身就足以解釋那個零。</li>
+        <li>若日後要補新研究，只需<b>從 2025 年 9 月之後</b>開始。</li>
+      </ul>
+    </div>
+
+    <div>
+      <h3>這張卡不回答</h3>
+      <ul class="list">
+        <li>睡眠疾病的診斷與治療（睡眠呼吸中止等）。</li>
+        <li>輪班工作、時差、褪黑激素與安眠藥物。</li>
+        <li><b>你該睡幾小時</b>——這些證據比的是「限制 vs 習慣」，不是最適時數。</li>
+      </ul>
+    </div>
+
+    <p class="ids">來源：27804960 · 32960623 · 33001515 · 34620371 · 42044907 · 42478101</p>
+  </article>
+
+  <footer class="foot">
+    <p>兩張卡的每一項關鍵宣稱都經過第二個 session 獨立逐句核對：
+    <b>0 項編造、0 項引用不支撐宣稱的段落</b>。
+    卡 001 因此改正一處框架錯誤，卡 002 改正四處、補回一項漏記——
+    改動內容都留在紀錄裡，沒有掩蓋。</p>
+    <p>原文引句與中文翻譯（001 六則、002 七則）留在你電腦的私密資料夾，
+    不進版本庫。</p>
+  </footer>
+
+</div>
