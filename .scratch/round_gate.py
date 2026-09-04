@@ -141,9 +141,29 @@ def board_provenance():
 
     故本函式從看板抽出公告之樣式原件，與本檔硬寫者比對；
     🚫 不一致即中止：那時候的 PASS 沒有意義。
+
+    ## ⚠️ 第 503 輪：它比對的是**已凍結的那一份看板**
+
+    🚨 樣式的權威公告在根目錄 `COORDINATION.md`（第 598 輪以前的歷史）；
+    現行看板已移至 `ahig/COORDINATION.md`。**⚠️ 若日後在現行看板改寫樣式公告，
+    本函式看不到，會繼續拿舊副本比對並回報一致**——那正是本函式存在要防的事。
+    ✅ 故此處兩份都讀：以根目錄那份為原件，🚨 而若現行看板也出現了公告且與之相異，
+    立即中止——**⚠️ 兩份公告不一致時，沒有任何一份可以當原件。**
     """
     try:
         b = io.open('COORDINATION.md', encoding='utf-8').read()
+        live = ''
+        try:
+            live = io.open('ahig/COORDINATION.md', encoding='utf-8').read()
+        except OSError:
+            pass
+        for name, _mine in (('PAT', PAT.pattern), ('INNER', INNER.pattern)):
+            rx = name + r'\s*=\s*re\.compile\(r"([^"]+)"\)'
+            a = sorted(set(re.findall(rx, b)))
+            c = sorted(set(re.findall(rx, live)))
+            if c and c != a:
+                sys.exit('🚨 兩份看板對 %s 的公告不一致（歷史 %r／現行 %r）'
+                         '——⚠️ 沒有任何一份可以當原件，🚫 拒絕回報 PASS。' % (name, a, c))
     except OSError as e:
         sys.exit('🚨 讀不到看板，無從驗證樣式來源：%s' % e)
     out = []
@@ -173,7 +193,13 @@ if not all(ok for _, ok, _, _ in prov):
     sys.exit('🚨 本檔樣式已與看板公告分歧，🚫 拒絕回報 PASS——請先對齊。')
 print()
 
-files = tracked()
+# 🚨 第 503 輪：兩道外洩掃描原本只涵蓋 .scratch/，**而 decisions/ 完全在範圍外**。
+# ⚠️ decisions/ 是唯一會被交出去的東西，且它的內容就是在轉述論文
+#    ——**最可能夾帶逐字內容的地方，先前沒有任何東西在看。**
+# 🚫 這不是新增檢查機器（ADR-0015 四），是把現有檢查的範圍修對：
+#    ✅ 它保護的是交付物本身。
+# ⚠️ 加入時實測：decisions/ 對兩道樣式皆零命中，故基線 53／118 不變。
+files = tracked() + tracked('decisions/')
 if not files:
     sys.exit('🚨 受追蹤檔為零——不合理，可能是工作目錄錯誤。🚫 不回報 PASS。')
 
@@ -184,7 +210,7 @@ for f in files:
     except OSError:
         pass
 
-print('=== 每輪閘門｜n+48 範圍 .scratch/（%d 檔）===' % len(files))
+print('=== 每輪閘門｜n+48 範圍 .scratch/ ＋ decisions/（%d 檔）===' % len(files))
 print()
 
 # ── 控制探針：先證明「讀得到、比對得動」──────────────────────────
@@ -428,7 +454,7 @@ PYTEST_IGNORE = 'tests/test_shacl_gates.py'
 # 新增兩條，測「以契約結局為單位的一致性」（n+190）：🚨 顆粒度不同（一邊拆
 # 十筆、一邊記一筆）時標籤零重疊而契約結局完全一致、⚠️ 反向——顆粒度免疫
 # 不等於什麼都算一致，真的指向不同就要顯示出來。增量恰為 2。
-BASE_PASSED, BASE_FAILED = 814, 0
+BASE_PASSED, BASE_FAILED = 815, 0
 KNOWN_FAIL = '無（原 test_clopper_pearson_matches_closed_forms 已於第 437 輪依 n+113 四修正）'
 # 第 544 輪更正：先前只寫「缺 pyshacl」。⚠️ 操作上沒錯（裝 pyshacl 會帶 rdflib），
 # 🚨 但那句話讓人以為只差一個套件，而實測 rdflib 也不在——
@@ -446,7 +472,13 @@ KNOWN_FAIL = '無（原 test_clopper_pearson_matches_closed_forms 已於第 437 
 # 新增兩條，測不一致之裁決（n+192，外部審視第三題）：🚨 每一處不一致都要有
 # 成因，沒判完不算裁決過（⚠️ 那份分類比任何一致性分數有價值）；
 # ⚠️ 自創的成因要擋，判了不存在的不一致也要擋。增量恰為 2。
-SHACL_BASE_PASSED = 840          # 有 rdflib+pyshacl：814 + 26
+# 第 503 輪：814 → 815（不含 SHACL）／840 → 841（含）。前後對照（n+113 四）：
+#   改動前  814／840 passed，0 failed
+#   改動後  815／841 passed，0 failed
+# 新增一條：🚨 同一批次裡重複的 report 要在**寫入時**就擋——⚠️ 先前每筆給一個
+# 新的 set()，重複的會寫得進去，晚到 load_drafts 才被抓到，而那時已經落盤。
+# 增量恰為 1。
+SHACL_BASE_PASSED = 841          # 有 rdflib+pyshacl：815 + 26
 UNCOLLECTABLE_NOTE = ('%s（🚨 rdflib 或 pyshacl **匯入不了**，pyproject 第 15 行已宣告；'
                       '⚠️ 故本機 gates/shacl.py 與 verify.py 整層跑不起來。'
                       '🚨 匯入不了 ≠ 沒裝——見下一行的實際失敗）'

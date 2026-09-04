@@ -738,3 +738,24 @@ def test_an_invented_cause_and_a_phantom_disagreement_are_both_refused():
             raise AssertionError("判了不存在的不一致不該收")
 
     _in_corpus(body)
+
+
+def test_the_same_paper_twice_in_one_submission_is_refused_at_write_time():
+    """同一批次裡重複的 report，要在寫入時就擋，不是等到 load 才發現。
+
+    每筆給一個新的 set() 時它會通過寫入，落盤之後才在 load_drafts 被抓到——
+    錯誤出現得比必要的晚，而且檔案已經寫出去了。
+    """
+    def body(root, candidate_id):
+        out, requests = _two_page_sheet(root, candidate_id)
+        dup = [_draft_for(requests[0]), _draft_for(requests[0])]
+        try:
+            worksheet.write_page_drafts(out, 1, dup,
+                                        read_by={"agentClass": "model"})
+        except worksheet.WorksheetError as error:
+            assert "重複 report" in str(error)
+        else:
+            raise AssertionError("同一批次裡重複的 report 不該寫得進去")
+        assert not (out / "drafts" / "page-001.json").exists()
+
+    _in_corpus(body)

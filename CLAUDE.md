@@ -31,3 +31,11 @@ Default five canonical roles (`needs-triage`, `needs-info`, `ready-for-agent`, `
 ### Domain docs
 
 Single-context — one `CONTEXT.md` + `docs/adr/` at the repo root. See `docs/agents/domain.md`.
+
+⚠️ **但 `CONTEXT.md` 不是 AHIG 的**：它是這個工作區其他專案（Claude 工具與微網站）
+的詞彙表（Evidence Report、Detail Mode、`/watch`）。🚫 不要照它的用語做 AHIG 的事。
+**✅ AHIG 的決策紀錄是 `docs/adr/0006`–`0016`**（`0001`–`0005` 亦屬別的專案）。
+
+⚠️ **讀 ADR 之前先看它的 front-matter**：被後續 ADR 取代的條文都標了
+「⚠️ 部分已被取代」與取代它的編號。🚨 `0010` 的 M1 定義、`0011` 的領域順序與
+P1 題目、`0012` 的 P1 問題框架與順序，**都已經不是現行的**。
