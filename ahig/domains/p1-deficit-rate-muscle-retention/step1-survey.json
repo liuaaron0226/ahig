@@ -1,0 +1,159 @@
+{
+  "schemaVersion": 1,
+  "documentType": "p1-step1-survey",
+  "assignment": "n+200：P1 第一步（🚫 不重寫方法）",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "queries": {
+    "p1-rate": "(TITLE_ABS:\"rate of weight loss\" OR TITLE_ABS:\"weight loss rate\" OR TITLE_ABS:\"rapid weight loss\" OR TITLE_ABS:\"gradual weight loss\" OR TITLE_ABS:\"slow weight loss\" OR TITLE_ABS:\"energy deficit\" OR TITLE_ABS:\"caloric deficit\" OR TITLE_ABS:\"severe energy restriction\") AND (TITLE_ABS:\"fat-free mass\" OR TITLE_ABS:\"fat free mass\" OR TITLE_ABS:\"lean body mass\" OR TITLE_ABS:\"lean mass\" OR TITLE_ABS:\"muscle mass\" OR TITLE_ABS:\"body composition\") AND (PUB_TYPE:\"systematic review\" OR PUB_TYPE:\"meta-analysis\" OR TITLE:\"systematic review\" OR TITLE:\"meta-analysis\")",
+    "p1-training": "(TITLE_ABS:\"resistance training\" OR TITLE_ABS:\"resistance exercise\" OR TITLE_ABS:\"strength training\" OR TITLE_ABS:\"protein intake\" OR TITLE_ABS:\"dietary protein\" OR TITLE_ABS:\"protein supplementation\") AND (TITLE_ABS:\"fat-free mass\" OR TITLE_ABS:\"fat free mass\" OR TITLE_ABS:\"lean body mass\" OR TITLE_ABS:\"lean mass\" OR TITLE_ABS:\"muscle mass\" OR TITLE_ABS:\"body composition\") AND (TITLE_ABS:\"weight loss\" OR TITLE_ABS:\"energy restriction\" OR TITLE_ABS:\"caloric restriction\" OR TITLE_ABS:\"energy deficit\" OR TITLE_ABS:\"fat loss\") AND (PUB_TYPE:\"systematic review\" OR PUB_TYPE:\"meta-analysis\" OR TITLE:\"systematic review\" OR TITLE:\"meta-analysis\")"
+  },
+  "results": {
+    "p1-rate": {
+      "hitCount": 16,
+      "returned": 16,
+      "ids": [
+        "17075583",
+        "22264939",
+        "26384657",
+        "26571286",
+        "30925026",
+        "32576318",
+        "33113361",
+        "34623696",
+        "36982067",
+        "37764730",
+        "38357669",
+        "40510496",
+        "41093698",
+        "41901059",
+        "42588148",
+        "PMC10109030"
+      ]
+    },
+    "p1-training": {
+      "hitCount": 73,
+      "returned": 73,
+      "ids": [
+        "16469983",
+        "16855995",
+        "24092765",
+        "24472635",
+        "24724774",
+        "25973403",
+        "26883880",
+        "27376321",
+        "27635754",
+        "27637579",
+        "28470972",
+        "29087242",
+        "29596307",
+        "29688559",
+        "31526006",
+        "31794597",
+        "32383553",
+        "32548960",
+        "32781538",
+        "32896055",
+        "33624411",
+        "34193946",
+        "34623696",
+        "34779214",
+        "34886369",
+        "35191588",
+        "35250604",
+        "35642456",
+        "35812437",
+        "35977113",
+        "36071711",
+        "36207046",
+        "36231929",
+        "36235862",
+        "37028708",
+        "37388207",
+        "37497435",
+        "37764730",
+        "37788151",
+        "37995123",
+        "38288474",
+        "38320462",
+        "39002131",
+        "39278737",
+        "39631998",
+        "39896196",
+        "40362811",
+        "40405489",
+        "40492340",
+        "40510496",
+        "40618292",
+        "40769018",
+        "40866968",
+        "40873450",
+        "40895654",
+        "40909191",
+        "41754212",
+        "41869632",
+        "41877354",
+        "42144246",
+        "42211095",
+        "42280443",
+        "42280460",
+        "42541706",
+        "42570706",
+        "7713045",
+        "PMC6818834",
+        "PMC6818942",
+        "PPR1095494",
+        "PPR1255447",
+        "PPR1311812",
+        "PPR540345",
+        "PPR869730"
+      ]
+    }
+  },
+  "unionSize": 86,
+  "failures": {},
+  "requestCounters": {
+    "totalRequests": 2,
+    "perRequestedHost": {
+      "www.ebi.ac.uk": 2
+    },
+    "perFinalHost": {
+      "www.ebi.ac.uk": 2
+    },
+    "redirectHops": 0,
+    "blockedHosts": {},
+    "distinctUrls": 2,
+    "minIntervalSeconds": 1.0,
+    "note": "Per-execution counters. totalRequests counts every hop actually sent, including redirect hops, because each hop is a real outbound request. Requested and final hosts are kept apart: a redirector such as doi.org appears in the first and the publisher it lands on in the second, and blocking keys on the second. State does not survive the process, so the no-retry guarantee holds within one run only."
+  },
+  "contactEmail": "l**********2@gmail.com",
+  "titlesKeptPrivate": "C:\\Users\\User\\Desktop\\claude\\ahig-private\\p1-deficit-rate-muscle-retention\\step1-candidates.json",
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "controlProbes": [
+    {
+      "probe": "兩個查詢都回得來（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 成功 2／2；失敗：無；⚠️ 有失敗就不能拿這批當母體"
+    },
+    {
+      "probe": "兩個查詢不是同一批（必觸發之反向）",
+      "passed": true,
+      "detail": "🚨 甲 16 筆、乙 73 筆、交集 3 筆；⚠️ 若兩批完全相同，代表「速度」與「訓練」的切分是假的"
+    },
+    {
+      "probe": "回傳的確實是回顧（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 76／89 筆的 pubType 含 review／meta-analysis；⚠️ 比例低就代表那個篩選條件沒起作用"
+    },
+    {
+      "probe": "沒有一個查詢把上限吃滿（⚠️ 吃滿就代表還有沒撈到的）",
+      "passed": true,
+      "detail": "🚨 逐項回傳筆數：{'p1-rate': 16, 'p1-training': 73}；⚠️ 若等於 100，🚫 不得宣稱這是全部"
+    }
+  ],
+  "scriptLocation": "🚨 產生本檔的腳本不在 repo 內——⚠️ 依 ADR-0015 之後果，.scratch/ 已凍結、🚫 不再新增檔案，故腳本置於工作暫存區。✅ 可重現性由本檔的 queries 欄保證：⚠️ 那是逐字的查詢字串。"
+}
