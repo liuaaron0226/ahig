@@ -1,0 +1,249 @@
+{
+  "documentType": "p1-fulltext-method-and-cutoff",
+  "onTopic": [
+    "32576318",
+    "30925026",
+    "17075583",
+    "34623696",
+    "41093698",
+    "42144246",
+    "29596307",
+    "24092765",
+    "40510496",
+    "40909191",
+    "32781538",
+    "31794597",
+    "26883880",
+    "16469983",
+    "41754212"
+  ],
+  "rows": [
+    {
+      "id": "32576318",
+      "pmcid": null,
+      "inEPMC": "N",
+      "isOpenAccess": "N",
+      "cutoff": null,
+      "goodMethod": [],
+      "badMethod": [],
+      "outcome": "🚫 全文不在 Europe PMC——⚠️ 量法與截止日只能維持未知"
+    },
+    {
+      "id": "30925026",
+      "pmcid": null,
+      "inEPMC": "N",
+      "isOpenAccess": "N",
+      "cutoff": null,
+      "goodMethod": [],
+      "badMethod": [],
+      "outcome": "🚫 全文不在 Europe PMC——⚠️ 量法與截止日只能維持未知"
+    },
+    {
+      "id": "17075583",
+      "pmcid": null,
+      "inEPMC": "N",
+      "isOpenAccess": "N",
+      "cutoff": null,
+      "goodMethod": [],
+      "badMethod": [],
+      "outcome": "🚫 全文不在 Europe PMC——⚠️ 量法與截止日只能維持未知"
+    },
+    {
+      "id": "34623696",
+      "pmcid": null,
+      "inEPMC": "N",
+      "isOpenAccess": "N",
+      "cutoff": null,
+      "goodMethod": [],
+      "badMethod": [],
+      "outcome": "🚫 全文不在 Europe PMC——⚠️ 量法與截止日只能維持未知"
+    },
+    {
+      "id": "41093698",
+      "pmcid": null,
+      "inEPMC": "N",
+      "isOpenAccess": "N",
+      "cutoff": null,
+      "goodMethod": [],
+      "badMethod": [],
+      "outcome": "🚫 全文不在 Europe PMC——⚠️ 量法與截止日只能維持未知"
+    },
+    {
+      "id": "42144246",
+      "pmcid": "PMC13341414",
+      "inEPMC": "Y",
+      "isOpenAccess": "Y",
+      "cutoff": null,
+      "goodMethod": [
+        "PMC13341414 42144246 Handling Editor: Edoardo Mannucci Abbreviations BIA bioelectrical impedance analysis CR calorie restriction DXA dual‐energy x‐ray absorptiometry FFM fat‐free mass GIP glucose‐dependent insulinotropic polypeptide GLP‐1 glucagon‐like peptide",
+        "In addition, FFM and muscle mass were measured using diverse measurement techniques, including dual‐energy x‐ray absorptiometry (DXA) ( n = 14 studies), bioelectrical impedance analysis (BIA) ( n = 9 studies), air displacement plethysmography ( n = 4 studies),"
+      ],
+      "badMethod": [
+        "PMC13341414 42144246 Handling Editor: Edoardo Mannucci Abbreviations BIA bioelectrical impedance analysis CR calorie restriction DXA dual‐energy x‐ray absorptiometry FFM fat‐free mass GIP glucose‐dependent insulinotropic polypeptide GLP‐1 glucagon‐like peptide",
+        "In addition, FFM and muscle mass were measured using diverse measurement techniques, including dual‐energy x‐ray absorptiometry (DXA) ( n = 14 studies), bioelectrical impedance analysis (BIA) ( n = 9 studies), air displacement plethysmography ( n = 4 studies),"
+      ],
+      "outcome": "✅ 讀到全文"
+    },
+    {
+      "id": "29596307",
+      "pmcid": "PMC5946208",
+      "inEPMC": "Y",
+      "isOpenAccess": "Y",
+      "cutoff": null,
+      "goodMethod": [
+        "Were included in the review randomized clinical trials (RCT) comparing the effects of CR with (CRRT) or without RT on lean body mass (LBM), fat body mass (FBM), and total body mass (BM), measured by dual-energy X-ray absorptiometry, on obese elderly individual",
+        "Considering that only one study assessed body composition by hydrostatic weighing in young adults [ 21 ] (instead of the DEXA in older adults), and another one prescribed RT only for abdomen muscles [ 22 ] (instead of the whole body), they were not included in",
+        "RCT: randomized control trials; RT: Resistance training; DXA: Dual X-ray Absorbance; CRRT: caloric restriction with resistance training group."
+      ],
+      "badMethod": [],
+      "outcome": "✅ 讀到全文"
+    },
+    {
+      "id": "24092765",
+      "pmcid": null,
+      "inEPMC": "N",
+      "isOpenAccess": "N",
+      "cutoff": null,
+      "goodMethod": [],
+      "badMethod": [],
+      "outcome": "🚫 全文不在 Europe PMC——⚠️ 量法與截止日只能維持未知"
+    },
+    {
+      "id": "40510496",
+      "pmcid": "PMC12158682",
+      "inEPMC": "Y",
+      "isOpenAccess": "Y",
+      "cutoff": "September 2024",
+      "goodMethod": [],
+      "badMethod": [
+        "Effects of an intervention and maintenance weight loss diet with and without exercise on anthropometric indices in overweight and obese healthy women.",
+        "Hypocaloric diet and regular moderate aerobic exercise is an effective strategy to reduce anthropometric parameters and oxidative stress in obese patients."
+      ],
+      "outcome": "✅ 讀到全文"
+    },
+    {
+      "id": "40909191",
+      "pmcid": "PMC12406911",
+      "inEPMC": "Y",
+      "isOpenAccess": "Y",
+      "cutoff": "September 2021",
+      "goodMethod": [],
+      "badMethod": [
+        "References 1 Upadhyay J Farr O Perakakis N et al Obesity as a Disease Med Clin North Am 2018 102 13 33 10.1016/j.mcna.2017.08.004 29156181 2 An R Ji M Zhang S Global warming and obesity: a systematic review Obes Rev 2018 19 150 63 10.1111/obr.12624 28977817 3 "
+      ],
+      "outcome": "✅ 讀到全文"
+    },
+    {
+      "id": "32781538",
+      "pmcid": "PMC7468742",
+      "inEPMC": "Y",
+      "isOpenAccess": "Y",
+      "cutoff": "16 July 2018",
+      "goodMethod": [
+        "Time restricted feeding ↓ 1.0 kg Control ↑ 0.2 kg Time restricted feeding LBM ↑ 0.6 kg (NS) FM ↓ 1.6 kg Control LBM ↑ 0.5 kg (NS) FM ↓ 0.3 kg (NS) DXA 18 No Tinsley et al.",
+        "and midnight 3 days/week ad libitum Normal diet Usual dietary patterns Both groups 3 resistance sessions/week on non-consecutive days, alternating upper and lower body, 8–12 reps to failure, 4 sets of each exercise Time restricted feeding ↓ 1.0 kg (NS) Normal ",
+        "Type and duration of exercise is unspecified ↓ 1.3 kg FM ↓ 0.7 kg LBM ↑ 0.1 kg (NS) BF% ↓ 0.7% (NS) Underwater weighing 16 Unclear Notes: All results presented as mean ± SD."
+      ],
+      "badMethod": [
+        "From these studies, publication data, participant details, duration of study, description of fasting method and exercise protocol, mean weight and anthropometric changes, methods of anthropometric assessment and adherence rates were extracted into a custom tem",
+        "Results Participant and study characteristics are presented in Table 1 [ 24 , 25 , 26 , 27 , 28 , 29 , 30 , 31 ].These include: body mass index (BMI), age, sex, number of drop outs, length of intervention period, description of fasting and exercise protocol, w",
+        "Author, Year Participant Baseline Characteristics Drop Outs (Final Number of Completers) Duration of Study Description of Fasting Description of Exercise Weight Change Body Composition Changes Method of Anthropometric Assessment Quality Score (Downs and Black)"
+      ],
+      "outcome": "✅ 讀到全文"
+    },
+    {
+      "id": "31794597",
+      "pmcid": "PMC7231581",
+      "inEPMC": "Y",
+      "isOpenAccess": "N",
+      "cutoff": null,
+      "goodMethod": [],
+      "badMethod": [],
+      "outcome": "🚫 取不到全文（HTTP 404）"
+    },
+    {
+      "id": "26883880",
+      "pmcid": "PMC4892287",
+      "inEPMC": "Y",
+      "isOpenAccess": "N",
+      "cutoff": null,
+      "goodMethod": [],
+      "badMethod": [],
+      "outcome": "🚫 取不到全文（HTTP 404）"
+    },
+    {
+      "id": "16469983",
+      "pmcid": null,
+      "inEPMC": "N",
+      "isOpenAccess": "N",
+      "cutoff": null,
+      "goodMethod": [],
+      "badMethod": [],
+      "outcome": "🚫 全文不在 Europe PMC——⚠️ 量法與截止日只能維持未知"
+    },
+    {
+      "id": "41754212",
+      "pmcid": "PMC12942925",
+      "inEPMC": "Y",
+      "isOpenAccess": "Y",
+      "cutoff": "September 2025",
+      "goodMethod": [
+        "Primary outcomes were changes in fat-free mass assessed by validated methods (DXA, BIA, MRI), while secondary outcomes included body weight, fat mass, metabolic parameters, adherence, and safety.",
+        "Across all outcomes, changes in fat-free mass were consistently reported using mean difference with 95% confidence intervals as the effect measure, regardless of the assessment method (DXA, BIA, MRI, or underwater weighing) or the specific comparison evaluated",
+        "Primary outcomes include changes in fat-free mass, assessed using validated techniques such as dual-energy X-ray absorptiometry (DXA), bioelectrical impedance analysis (BIA), or magnetic resonance imaging (MRI), as well as muscle-function measures evaluated th"
+      ],
+      "badMethod": [
+        "Primary outcomes were changes in fat-free mass assessed by validated methods (DXA, BIA, MRI), while secondary outcomes included body weight, fat mass, metabolic parameters, adherence, and safety.",
+        "Across all outcomes, changes in fat-free mass were consistently reported using mean difference with 95% confidence intervals as the effect measure, regardless of the assessment method (DXA, BIA, MRI, or underwater weighing) or the specific comparison evaluated",
+        "Primary outcomes include changes in fat-free mass, assessed using validated techniques such as dual-energy X-ray absorptiometry (DXA), bioelectrical impedance analysis (BIA), or magnetic resonance imaging (MRI), as well as muscle-function measures evaluated th"
+      ],
+      "outcome": "✅ 讀到全文"
+    }
+  ],
+  "reached": 6,
+  "cutoffRecovered": 4,
+  "requestCounters": {
+    "totalRequests": 9,
+    "perRequestedHost": {
+      "www.ebi.ac.uk": 9
+    },
+    "perFinalHost": {
+      "www.ebi.ac.uk": 9
+    },
+    "redirectHops": 0,
+    "blockedHosts": {},
+    "distinctUrls": 9,
+    "minIntervalSeconds": 1.0,
+    "note": "Per-execution counters. totalRequests counts every hop actually sent, including redirect hops, because each hop is a real outbound request. Requested and final hosts are kept apart: a redirector such as doi.org appears in the first and the publisher it lands on in the second, and blocking keys on the second. State does not survive the process, so the no-retry guarantee holds within one run only."
+  },
+  "contactEmail": "l**********2@gmail.com",
+  "cachedTo": "C:\\Users\\User\\Desktop\\claude\\ahig-private\\p1-deficit-rate-muscle-retention\\fulltext",
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "controlProbes": [
+    {
+      "probe": "十五份的中繼資料都查得到（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 查到 15／15"
+    },
+    {
+      "probe": "量法詞在兩類例句上各自打得中、在無關句上不打（必觸發之反向）",
+      "passed": true,
+      "detail": "🚨 DXA 句=True；BIA 句=True；無關句未命中=True"
+    },
+    {
+      "probe": "讀到全文者都找得到量法詞（必觸發之正對照）",
+      "passed": false,
+      "detail": "🚨 讀到全文 6 份，其中出現「可承載」量法詞者 4 份；⚠️ 若差很多，代表那些回顧真的沒講量法"
+    },
+    {
+      "probe": "🚨 量法混用的情形會被看見（必觸發之反向）",
+      "passed": true,
+      "detail": "⚠️ 同時出現兩類量法詞者 3 份——🚨 protocol 說混用要「標明，🚫 不是丟掉」"
+    }
+  ],
+  "scriptLocation": "🚨 腳本不在 repo 內（.scratch 已依 ADR-0015 凍結），⚠️ 置於工作暫存區；全文已快取於私有根，下次 0 次請求。"
+}
