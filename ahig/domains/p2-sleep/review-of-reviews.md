@@ -3,7 +3,10 @@
 - 建立：2026-09-02（第 720 輪）
 - 依據：**協調者裁定 n+196**（P3 結案、改做 P2 的同一套盤點）
 - 做法來源：`ahig/domains/p3-stress-eating/review-of-reviews.md`（**🚨 同一套，不另發明**）
-- 狀態：**protocol 已立**，執行中
+- 狀態：✅ **已執行完畢**（⚠️ 本行原為「執行中」，🚨 第 828 輪更正）
+  - ✅ 產出：**決策卡 002**（`decisions/002-sleep-and-fat-loss.md`；
+    ⚠️ 擁有者版本在 `decisions/decision-briefs.html`）
+  - 🚨 **硬限制**：六份來源**全部取不到全文**，⚠️ 故查證上限為摘要層
 
 ---
 
