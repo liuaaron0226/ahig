@@ -1,0 +1,331 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>掉肌肉不是因為減太快</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700&family=Noto+Sans+TC:wght@400;500;700&family=IBM+Plex+Mono:wght@400;600&display=swap">
+<style>
+  :root{
+    --ground:#F6F8F6; --surface:#FFFFFF; --raise:#EEF2EF;
+    --ink:#141C18; --muted:#5A6B62; --faint:#84968C;
+    --rule:#DBE3DE; --rule-strong:#C3CFC8;
+    --do:#0E6B4C; --do-wash:#E7F2ED;
+    --cross:#8C3A34; --cross-wash:#F6EAE9;
+    --limit:#8A6100; --limit-wash:#F7F0DF;
+    --serif:"Noto Serif TC",serif;
+    --sans:"Noto Sans TC","Helvetica Neue",Arial,sans-serif;
+    --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --ground:#0E1411; --surface:#141C18; --raise:#1A241F;
+      --ink:#E4EBE6; --muted:#93A69C; --faint:#6E827A;
+      --rule:#26332C; --rule-strong:#35473D;
+      --do:#4FBF95; --do-wash:#12251E;
+      --cross:#E08A80; --cross-wash:#2A1917;
+      --limit:#D9A93F; --limit-wash:#26200F;
+    }
+  }
+  :root[data-theme="dark"]{
+    --ground:#0E1411; --surface:#141C18; --raise:#1A241F;
+    --ink:#E4EBE6; --muted:#93A69C; --faint:#6E827A;
+    --rule:#26332C; --rule-strong:#35473D;
+    --do:#4FBF95; --do-wash:#12251E;
+    --cross:#E08A80; --cross-wash:#2A1917;
+    --limit:#D9A93F; --limit-wash:#26200F;
+  }
+
+  *{box-sizing:border-box}
+  body{
+    background:var(--ground); color:var(--ink);
+    font-family:var(--sans); font-size:17px; line-height:1.75;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:44rem;margin:0 auto;padding:3.5rem 1.25rem 6rem;
+        display:flex;flex-direction:column;gap:3.5rem}
+
+  /* ---- masthead ---- */
+  .mast{display:flex;flex-direction:column;gap:.9rem}
+  .kicker{font-family:var(--mono);font-size:.72rem;letter-spacing:.14em;
+          text-transform:uppercase;color:var(--muted)}
+  h1{font-family:var(--serif);font-weight:700;font-size:2.4rem;line-height:1.25;
+     margin:0;text-wrap:balance;letter-spacing:.01em}
+  .standfirst{font-size:1.05rem;color:var(--muted);margin:0;max-width:34rem}
+  .mast-meta{display:flex;flex-wrap:wrap;gap:.4rem .9rem;font-family:var(--mono);
+             font-size:.74rem;color:var(--faint);padding-top:.4rem;
+             border-top:1px solid var(--rule)}
+
+  /* ---- the two-line answer ---- */
+  .answer{background:var(--surface);border:1px solid var(--rule-strong);
+          padding:1.6rem 1.5rem;display:flex;flex-direction:column;gap:1rem}
+  .answer p{margin:0}
+  .answer .lead{font-family:var(--serif);font-size:1.2rem;line-height:1.6;
+                font-weight:500}
+  .answer .lead b{color:var(--do)}
+  .answer .sub{font-size:.95rem;color:var(--muted)}
+
+  /* ---- brief ---- */
+  .brief{display:flex;flex-direction:column;gap:1.5rem}
+  .brief-head{display:flex;flex-direction:column;gap:.55rem;
+              border-top:2px solid var(--ink);padding-top:1rem}
+  .brief-no{font-family:var(--mono);font-size:.72rem;letter-spacing:.14em;
+            text-transform:uppercase;color:var(--muted)}
+  h2{font-family:var(--serif);font-weight:700;font-size:1.5rem;line-height:1.4;
+     margin:0;text-wrap:balance}
+
+  /* verification depth — real per-brief data, not decoration */
+  .depth{display:flex;align-items:baseline;gap:.55rem;flex-wrap:wrap;
+         font-family:var(--mono);font-size:.76rem;color:var(--muted)}
+  .depth .bar{display:inline-flex;gap:3px;align-items:center}
+  .depth .pip{width:13px;height:6px;background:var(--rule-strong);border-radius:1px}
+  .depth .pip.on{background:var(--do)}
+  .depth .verdict{color:var(--ink);font-weight:600}
+  .depth .verdict.thin{color:var(--limit)}
+
+  /* action panel */
+  .acts{display:flex;flex-direction:column;gap:1px;background:var(--rule)}
+  .act{background:var(--surface);padding:1.1rem 1.2rem;display:flex;gap:1rem;
+       align-items:flex-start}
+  .act .tag{font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;
+            text-transform:uppercase;padding:.22rem .5rem;white-space:nowrap;
+            border-radius:2px;margin-top:.28rem}
+  .act.do{background:var(--do-wash)}
+  .act.do .tag{background:var(--do);color:var(--ground)}
+  .act.cross{background:var(--cross-wash)}
+  .act.cross .tag{background:var(--cross);color:var(--ground)}
+  .act .body{display:flex;flex-direction:column;gap:.35rem}
+  .act .headline{font-weight:700;line-height:1.55}
+  .act .why{font-size:.92rem;color:var(--muted);line-height:1.65}
+  .act .why b{color:var(--ink);font-family:var(--mono);font-weight:600;
+              font-size:.9rem}
+
+  /* evidence table */
+  .tablewrap{overflow-x:auto;border:1px solid var(--rule)}
+  table{border-collapse:collapse;width:100%;min-width:34rem;
+        font-size:.88rem;background:var(--surface)}
+  caption{text-align:left;font-family:var(--mono);font-size:.72rem;
+          letter-spacing:.1em;text-transform:uppercase;color:var(--muted);
+          padding:.8rem 1rem .55rem;background:var(--raise)}
+  th,td{text-align:left;padding:.7rem 1rem;border-top:1px solid var(--rule);
+        vertical-align:top}
+  th{font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;
+     color:var(--muted);font-weight:500;background:var(--raise);border-top:none}
+  td.date{font-family:var(--mono);font-size:.82rem;white-space:nowrap;
+          font-variant-numeric:tabular-nums;color:var(--muted)}
+  td.date.unknown{color:var(--limit)}
+  td .num{font-family:var(--mono);font-weight:600;
+          font-variant-numeric:tabular-nums}
+  .sig-yes .num{color:var(--do)}
+  .sig-no .num{color:var(--cross)}
+
+  /* notes */
+  .note{border-left:3px solid var(--limit);background:var(--limit-wash);
+        padding:.9rem 1.1rem;font-size:.93rem;line-height:1.7}
+  .note b{font-weight:700}
+  .note-label{font-family:var(--mono);font-size:.68rem;letter-spacing:.12em;
+              text-transform:uppercase;color:var(--limit);display:block;
+              margin-bottom:.3rem}
+
+  .list{display:flex;flex-direction:column;gap:.6rem;font-size:.93rem;
+        color:var(--muted);line-height:1.7;margin:0;padding:0;list-style:none}
+  .list li{padding-left:1.1rem;position:relative}
+  .list li::before{content:"";position:absolute;left:0;top:.62em;
+                   width:5px;height:5px;background:var(--rule-strong)}
+  .list li b{color:var(--ink)}
+
+  h3{font-family:var(--sans);font-size:.78rem;letter-spacing:.11em;
+     text-transform:uppercase;color:var(--muted);font-weight:700;
+     margin:0 0 .1rem}
+
+  /* footer */
+  .foot{border-top:1px solid var(--rule);padding-top:1.5rem;
+        display:flex;flex-direction:column;gap:1rem;
+        font-size:.86rem;color:var(--muted);line-height:1.7}
+  .ids{font-family:var(--mono);font-size:.76rem;color:var(--faint);
+       word-break:break-all}
+  @media (max-width:34rem){
+    body{font-size:16px}
+    h1{font-size:1.9rem}
+    .act{flex-direction:column;gap:.6rem}
+    .act .tag{margin-top:0}
+  }
+</style>
+<div class="wrap">
+
+  <header class="mast">
+    <div class="kicker">AHIG 決策卡 003</div>
+    <h1>掉肌肉，不是因為減太快</h1>
+    <p class="standfirst">第三個問題查完了：減重速度會不會害你掉肌肉。
+    答案是不會——而真正有影響的那兩件事，其中一件你可以直接補上。</p>
+    <div class="mast-meta">
+      <span>2026-09-04</span><span>來源：既有系統性回顧的盤點</span>
+      <span>86 份候選，15 份切題</span><span>未讀原始研究</span>
+    </div>
+  </header>
+
+  <section class="answer">
+    <p class="lead">在同樣的總減重量下，<b>減得快或慢，對去脂體重沒有差別。</b>
+    有差別的是赤字開多大，以及有沒有做阻力訓練。</p>
+    <p class="sub">而阻力訓練那一項的幅度很大：在同樣的熱量限制下，
+    加入訓練把肌肉流失擋掉了四成到九成。</p>
+  </section>
+
+  <article class="brief">
+    <div class="brief-head">
+      <div class="brief-no">決策卡 003</div>
+      <h2>減重速度會不會影響肌肉保留？赤字期怎麼把肌肉保住？</h2>
+      <div class="depth">
+        <span>查證深度</span>
+        <span class="bar">
+          <span class="pip on"></span><span class="pip on"></span>
+          <span class="pip"></span><span class="pip"></span>
+          <span class="pip"></span><span class="pip"></span>
+        </span>
+        <span class="verdict">15 份來源，全部只到摘要層，0 份回全文核對</span>
+      </div>
+    </div>
+
+    <div class="acts">
+      <div class="act cross">
+        <span class="tag">劃掉</span>
+        <div class="body">
+          <div class="headline">「這次減慢一點，肌肉就保得住」——這個計畫可以拿掉</div>
+          <div class="why">唯一在<b>總減重量相同</b>的前提下比較漸進與快速的回顧說：
+          去脂體重<b>兩組沒有顯著差異</b>。另一份後設迴歸講得更直接——
+          減重的「量」與去脂體重流失相關（<b>p &lt; 0.001</b>），
+          「速度」<b>不相關</b>（<b>p = 0.150</b>）。
+          減慢仍然有它的好處（脂肪減得多一點、靜息代謝率保得住一點），
+          但那不是保肌肉的辦法。</div>
+        </div>
+      </div>
+
+      <div class="act">
+        <span class="tag">照做</span>
+        <div class="body">
+          <div class="headline">赤字期一定要做阻力訓練，這是幅度最大的一項</div>
+          <div class="why">34 篇隨機對照試驗、1455 人：熱量限制加運動，
+          比只限熱量多留住 <b>+0.87 公斤</b>去脂體重
+          （95% CI 0.59–1.16）——相當於<b>擋下約 45.7% 的流失</b>。
+          在肥胖長者身上（以 <b>DXA</b> 量測）阻力訓練更擋下
+          <b>93.5%</b> 的流失。即使是極低熱量、掉得很快的飲食，
+          加上運動一樣多留住 <b>+0.83 公斤</b>。</div>
+        </div>
+      </div>
+
+      <div class="act">
+        <span class="tag">照做</span>
+        <div class="body">
+          <div class="headline">把注意力從「每週掉幾公斤」移到「赤字開多大」</div>
+          <div class="why">與肌肉流失有關的是熱量限制的<b>程度</b>，不是速度。
+          而且赤字愈深，訓練的效果愈被吃掉——一份專門看
+          「赤字下做阻力訓練」的統合分析發現，瘦體組織的增益被顯著削弱
+          （<b>ES = −0.57，p = 0.02</b>），但肌力沒有。
+          換句話說：赤字太深時，你練得動，卻長不了肌肉。</div>
+        </div>
+      </div>
+
+      <div class="act">
+        <span class="tag">值得做</span>
+        <div class="body">
+          <div class="headline">蛋白質吃夠，尤其是年紀漸長之後</div>
+          <div class="why">20 篇隨機對照試驗：長者在減重期間攝取較高蛋白，
+          <b>保留較多瘦體組織、減去較多脂肪</b>。
+          另一份看赤字期受訓者的回顧發現，13 組裡有 9 組去脂體重仍下降，
+          而保住的那 6 組是<b>體脂較高、熱量限制較小、或蛋白質較高</b>的那幾組。</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="note">
+      <div class="note-label">關於你手上那個「肌肉掉很多」的數字</div>
+      <p>它來自 InBody。同一台機器、同一個人的前後比較，
+      比「拿你去跟族群平均比」可信得多，所以那個下降的方向大致可信。
+      但它仍然不是 DXA：水分、進食與量測時段都會讓它上下擺動。
+      本卡引用的研究裡，只有一份在摘要裡明講了量測方法（DXA）。</p>
+    </div>
+
+    <div class="tablewrap">
+      <table>
+        <caption>第一題　減重速度會不會影響去脂體重</caption>
+        <thead><tr><th>檢索截止</th><th>測的是什麼</th><th>該回顧自己的結論</th></tr></thead>
+        <tbody>
+          <tr><td class="date">2019-10</td>
+              <td>漸進 vs 快速，<b>總減重量相同</b></td>
+              <td><span class="sig-no">去脂體重無顯著差異</span>；
+                  脂肪量 <span class="num">−1 kg</span>、靜息代謝率漸進較佳</td></tr>
+          <tr><td class="date unknown">無法接續</td>
+              <td>減重的量、速度與組成 vs 復胖</td>
+              <td>量與去脂體重流失相關（<span class="num">p &lt; 0.001</span>）；
+                  <span class="sig-no">速度不相關（p = 0.150）</span></td></tr>
+          <tr><td class="date unknown">無法接續</td>
+              <td>減重超過 10 公斤者的去脂體重佔比</td>
+              <td>熱量限制<b>程度</b>與 %去脂體重流失正相關；
+                  <span class="sig-yes">運動使其下降</span></td></tr>
+          <tr><td class="date unknown">無法接續</td>
+              <td>赤字下的阻力訓練</td>
+              <td>瘦體組織增益受損
+                  <span class="num">ES = −0.57（p = 0.02）</span>；
+                  肌力不受損</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="tablewrap">
+      <table>
+        <caption>第二題　赤字期能不能把肌肉保住</caption>
+        <thead><tr><th>檢索截止</th><th>測的是什麼</th><th>結果</th></tr></thead>
+        <tbody>
+          <tr><td class="date unknown">無法接續</td>
+              <td>熱量限制加運動 vs 只限熱量（34 篇 RCT、1455 人）</td>
+              <td><span class="sig-yes">去脂體重 <span class="num">+0.87 kg</span></span>
+                  （0.59–1.16）；擋下約 <span class="num">45.7%</span> 的流失</td></tr>
+          <tr><td class="date">2017-07／08（僅檢索執行期間）</td>
+              <td>肥胖長者，阻力訓練，<b>DXA</b></td>
+              <td><span class="sig-yes">擋下 <span class="num">93.5%</span> 的流失</span>
+                  （0.819 kg）；6 篇 RCT</td></tr>
+          <tr><td class="date">2024-10</td>
+              <td>極低熱量飲食加運動</td>
+              <td><span class="sig-yes">去脂體重 <span class="num">+0.83 kg</span></span>
+                  （0.17–1.49，p = 0.01）；7 篇研究</td></tr>
+          <tr><td class="date unknown">無法接續</td>
+              <td>長者減重期間的蛋白質攝取（20 篇 RCT）</td>
+              <td><span class="sig-yes">保留較多瘦體組織、減去較多脂肪</span></td></tr>
+          <tr><td class="date">2025-09</td>
+              <td>肥胖者減重期間的乳清蛋白補充</td>
+              <td>去脂體重與肌肉相關結局之保留</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="note">
+      <div class="note-label">這張卡不回答</div>
+      <p><b>減重藥物</b>（GLP-1 等）造成的肌肉流失——那是處方決定，不在本專案範圍；
+      <b>減重手術</b>後的身體組成；以及癌症、糖尿病、關節炎等特定疾病族群的減重。
+      查到的 86 份候選裡，有 4 份是藥物、16 份是這類族群，全部排除。</p>
+    </div>
+
+    <div class="note">
+      <div class="note-label">仍然不知道什麼</div>
+      <ul class="list">
+        <li><b>研究用什麼量的，多半查不到。</b>15 份裡只有 1 份在摘要裡寫明是 DXA。
+        而量測方法會直接影響「掉了多少肌肉」這個數字有多可信。</li>
+        <li><b>速度那一半的證據比較舊。</b>它最新的明確檢索截止日是
+        <b>2019 年 10 月</b>；訓練那一半是 <b>2025 年 9 月</b>。</li>
+        <li><b>「速度」用什麼單位幾乎都沒寫</b>（每週掉體重的百分比，或每天少吃幾大卡）。
+        同樣的百分比，體重不同的人赤字差很多——這件事目前查不出來。</li>
+        <li>本階段<b>沒有做偏誤風險評估</b>，所以上面的數字不該當成最終結論。</li>
+      </ul>
+    </div>
+
+    <div class="ids">來源識別碼　32576318、30925026、17075583、34623696、41093698、
+    42144246、29596307、24092765、40510496、40909191、32781538、31794597、
+    26883880、16469983、41754212</div>
+  </article>
+
+  <footer class="foot">
+    <p>86 份候選逐份判過。其中憑題名判為切題的 11 份，補讀摘要後改掉了 4 份
+    （2 份是手術或關節炎族群，2 份沒有限定在減重期間）——
+    所以這張表上的 15 份，都是讀過摘要才留下的。</p>
+  </footer>
+
+</div>
