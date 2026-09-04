@@ -1,0 +1,93 @@
+{
+  "schemaVersion": 1,
+  "documentType": "p1-step1b-cutoff",
+  "notAGate": "🚫 不入輪次閘門（n+181 三）",
+  "candidates": 86,
+  "abstractsRetrieved": 86,
+  "statedInAbstract": {
+    "16855995": "March 3, 2005",
+    "24092765": "July 2013",
+    "27376321": "March 2016",
+    "28470972": "18 October 2016",
+    "31794597": "August 2018",
+    "32383553": "June 2019",
+    "34193946": "December 2020",
+    "35191588": "December 2020",
+    "35250604": "September 30, 2021",
+    "35812437": "November 2021",
+    "35977113": "December 2020",
+    "36235862": "August 2021",
+    "37028708": "July 12, 2022",
+    "37764730": "3 June 2023",
+    "37788151": "May 2022",
+    "37995123": "May 15, 2023",
+    "38288474": "February 2023",
+    "38320462": "July 2023",
+    "39002131": "15 March 2023",
+    "39631998": "July 2023",
+    "40362811": "January 2025",
+    "40769018": "April 2023",
+    "40866968": "April 1, 2025",
+    "40895654": "2025",
+    "41093698": "October 2024",
+    "41754212": "September 2025",
+    "41877354": "20 January 2026",
+    "41901059": "2 February 2026",
+    "42211095": "June 13, 2024",
+    "42280443": "September 2025",
+    "PMC10109030": "December 2021",
+    "PMC6818834": "August 2018",
+    "PMC6818942": "August 2018",
+    "PPR1095494": "April 2025",
+    "PPR1255447": "23 March 2026"
+  },
+  "patternHits": {
+    "C1": 30,
+    "C2": 5
+  },
+  "failures": [],
+  "requestCounters": {
+    "totalRequests": 4,
+    "perRequestedHost": {
+      "www.ebi.ac.uk": 4
+    },
+    "perFinalHost": {
+      "www.ebi.ac.uk": 4
+    },
+    "redirectHops": 0,
+    "blockedHosts": {},
+    "distinctUrls": 4,
+    "minIntervalSeconds": 1.0,
+    "note": "Per-execution counters. totalRequests counts every hop actually sent, including redirect hops, because each hop is a real outbound request. Requested and final hosts are kept apart: a redirector such as doi.org appears in the first and the publisher it lands on in the second, and blocking keys on the second. State does not survive the process, so the no-retry guarantee holds within one run only."
+  },
+  "contactEmail": "l**********2@gmail.com",
+  "abstractsKeptPrivate": "C:\\Users\\User\\Desktop\\claude\\ahig-private\\p1-deficit-rate-muscle-retention\\step1b-cutoff.json",
+  "privateRoot": {
+    "privateRootVerified": true,
+    "artifactDirectoriesSeen": 311,
+    "note": "Recorded so a truncated source shows up as a smaller number rather than passing silently. The preflight can tell a missing root from a present one; it cannot tell a complete root from a half-copied one."
+  },
+  "controlProbes": [
+    {
+      "probe": "絕大多數候選都取到摘要（必觸發之正對照）",
+      "passed": true,
+      "detail": "🚨 取到 86／86 份摘要；失敗批次 無；⚠️ 缺太多就不能拿來篩選"
+    },
+    {
+      "probe": "三種截止日寫法都打得中（必觸發之反向）",
+      "passed": true,
+      "detail": "🚨 三個對照句取得：['September 2025', 'June 2023', 'September 12, 2024']；⚠️ 任一為空，代表零命中只是樣式壞了"
+    },
+    {
+      "probe": "捏造的句子不會被誤判（必觸發之反向）",
+      "passed": true,
+      "detail": "🚨 無關句子未命中；⚠️ 若命中，代表樣式太寬"
+    },
+    {
+      "probe": "每一份的截止日都讀得到",
+      "passed": false,
+      "detail": "🚨 35／86 份摘要自載截止日；⚠️ 其餘要讀方法段——🚫 不得用出版年或區間端點頂替"
+    }
+  ],
+  "scriptLocation": "🚨 腳本不在 repo 內（.scratch 已依 ADR-0015 凍結），⚠️ 置於工作暫存區；✅ 樣式與批次大小記於本檔。"
+}
