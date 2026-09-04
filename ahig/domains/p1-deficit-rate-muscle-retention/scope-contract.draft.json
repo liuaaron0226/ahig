@@ -1,4 +1,5 @@
 {
+  "currentStatusNote": "⚠️ 現況標註（第 827 輪，執行室）：🚨 本草稿是為「P1 進到原始研究抽取」而寫的，而依 ADR-0012／0015 改為「先盤點既有回顧，答得出來就停」之後，✅ P1 已在回顧層得到答案（decisions/003-rate-of-loss-and-muscle.html，第 816–826 輪），🚫 故本草稿所屬的那條路目前不活躍。📮 本標註只說明現況，🚫 不主張作廢——是否作廢由協調者裁。⚠️ status 欄仍為 draft，🚫 本室未更動它。",
   "scopeContractId": "ahig:scope:p1-protein-energy-deficit-lean-mass",
   "version": "0.1.0",
   "status": "draft",
