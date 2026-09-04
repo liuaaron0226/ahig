@@ -1,0 +1,276 @@
+<title>這次體檢抓到什麼</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700&family=Noto+Sans+TC:wght@400;500;700&family=IBM+Plex+Mono:wght@400;600&display=swap">
+<style>
+  :root{
+    --ground:#F6F8F6; --surface:#FFFFFF; --raise:#EEF2EF;
+    --ink:#141C18; --muted:#5A6B62; --faint:#84968C;
+    --rule:#DBE3DE; --rule-strong:#C3CFC8;
+    --fixed:#0E6B4C; --fixed-wash:#E7F2ED;
+    --open:#8A6100; --open-wash:#F7F0DF;
+    --fail:#8C3A34; --fail-wash:#F6EAE9;
+    --serif:"Noto Serif TC",serif;
+    --sans:"Noto Sans TC","Helvetica Neue",Arial,sans-serif;
+    --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --ground:#0E1411; --surface:#141C18; --raise:#1A241F;
+      --ink:#E4EBE6; --muted:#93A69C; --faint:#6E827A;
+      --rule:#26332C; --rule-strong:#35473D;
+      --fixed:#4FBF95; --fixed-wash:#12251E;
+      --open:#D9A93F; --open-wash:#26200F;
+      --fail:#E08A80; --fail-wash:#2A1917;
+    }
+  }
+  :root[data-theme="dark"]{
+    --ground:#0E1411; --surface:#141C18; --raise:#1A241F;
+    --ink:#E4EBE6; --muted:#93A69C; --faint:#6E827A;
+    --rule:#26332C; --rule-strong:#35473D;
+    --fixed:#4FBF95; --fixed-wash:#12251E;
+    --open:#D9A93F; --open-wash:#26200F;
+    --fail:#E08A80; --fail-wash:#2A1917;
+  }
+  *{box-sizing:border-box}
+  body{background:var(--ground);color:var(--ink);font-family:var(--sans);
+       font-size:17px;line-height:1.75;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:44rem;margin:0 auto;padding:3.5rem 1.25rem 6rem;
+        display:flex;flex-direction:column;gap:3.25rem}
+
+  .kicker{font-family:var(--mono);font-size:.72rem;letter-spacing:.14em;
+          text-transform:uppercase;color:var(--muted)}
+  h1{font-family:var(--serif);font-weight:700;font-size:2.4rem;line-height:1.25;
+     margin:0;text-wrap:balance}
+  .standfirst{font-size:1.05rem;color:var(--muted);margin:0;max-width:34rem}
+  .mast{display:flex;flex-direction:column;gap:.9rem}
+  .mast-meta{display:flex;flex-wrap:wrap;gap:.4rem .9rem;font-family:var(--mono);
+             font-size:.74rem;color:var(--faint);padding-top:.4rem;
+             border-top:1px solid var(--rule)}
+
+  .headline-box{background:var(--surface);border:1px solid var(--rule-strong);
+                padding:1.6rem 1.5rem;display:flex;flex-direction:column;gap:.9rem}
+  .headline-box p{margin:0}
+  .headline-box .lead{font-family:var(--serif);font-size:1.2rem;line-height:1.6;
+                      font-weight:500}
+  .headline-box .lead b{color:var(--fail)}
+  .headline-box .sub{font-size:.95rem;color:var(--muted)}
+
+  h2{font-family:var(--serif);font-weight:700;font-size:1.45rem;line-height:1.4;
+     margin:0;text-wrap:balance}
+  section{display:flex;flex-direction:column;gap:1.2rem}
+  .sec-head{border-top:2px solid var(--ink);padding-top:1rem;
+            display:flex;flex-direction:column;gap:.4rem}
+
+  .items{display:flex;flex-direction:column;gap:1px;background:var(--rule)}
+  .item{background:var(--surface);padding:1.1rem 1.2rem;display:flex;gap:1rem;
+        align-items:flex-start}
+  .item .tag{font-family:var(--mono);font-size:.66rem;letter-spacing:.08em;
+             text-transform:uppercase;padding:.22rem .5rem;white-space:nowrap;
+             border-radius:2px;margin-top:.3rem}
+  .item.fixed{background:var(--fixed-wash)}
+  .item.fixed .tag{background:var(--fixed);color:var(--ground)}
+  .item.open{background:var(--open-wash)}
+  .item.open .tag{background:var(--open);color:var(--ground)}
+  .item .body{display:flex;flex-direction:column;gap:.35rem}
+  .item .what{font-weight:700;line-height:1.55}
+  .item .why{font-size:.92rem;color:var(--muted);line-height:1.65}
+  .item .why b{color:var(--ink)}
+  .sev{font-family:var(--mono);font-size:.7rem;color:var(--faint);
+       letter-spacing:.06em}
+
+  .tablewrap{overflow-x:auto;border:1px solid var(--rule)}
+  table{border-collapse:collapse;width:100%;min-width:30rem;font-size:.9rem;
+        background:var(--surface)}
+  caption{text-align:left;font-family:var(--mono);font-size:.72rem;
+          letter-spacing:.1em;text-transform:uppercase;color:var(--muted);
+          padding:.8rem 1rem .55rem;background:var(--raise)}
+  th,td{text-align:left;padding:.7rem 1rem;border-top:1px solid var(--rule);
+        vertical-align:top}
+  th{font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;
+     color:var(--muted);font-weight:500;background:var(--raise);border-top:none}
+  td .num{font-family:var(--mono);font-weight:600;
+          font-variant-numeric:tabular-nums}
+  td .num.bad{color:var(--fail)}
+  td .num.good{color:var(--fixed)}
+
+  .note{border-left:3px solid var(--open);background:var(--open-wash);
+        padding:.9rem 1.1rem;font-size:.93rem;line-height:1.7}
+  .note-label{font-family:var(--mono);font-size:.68rem;letter-spacing:.12em;
+              text-transform:uppercase;color:var(--open);display:block;
+              margin-bottom:.3rem}
+  .note b{font-weight:700}
+
+  .foot{border-top:1px solid var(--rule);padding-top:1.5rem;font-size:.86rem;
+        color:var(--muted);line-height:1.7;display:flex;flex-direction:column;
+        gap:.8rem}
+  a{color:var(--fixed)}
+  @media (max-width:34rem){
+    body{font-size:16px} h1{font-size:1.9rem}
+    .item{flex-direction:column;gap:.6rem} .item .tag{margin-top:0}
+  }
+</style>
+
+<div class="wrap">
+
+  <header class="mast">
+    <div class="kicker">AHIG 全面重審</div>
+    <h1>這次體檢抓到什麼</h1>
+    <p class="standfirst">你要求重新檢視整個專案的問題。抓到七項，六項當場修好。
+    其中一項直接影響你手上那份簡報。</p>
+    <div class="mast-meta"><span>2026-09-02</span><span>七項成立</span>
+    <span>六項已修</span><span>一項待你決定要不要管</span></div>
+  </header>
+
+  <div class="headline-box">
+    <p class="lead">最要緊的一項：<b>你在看的那份 HTML 簡報，掉了睡眠那張卡的整段「適用限制」。</b></p>
+    <p class="sub">掉的四點裡最關鍵的是——你「照做第一條」整條靠的那個
+    <b>每日 +204 kcal</b>，其實來自<b>實驗室裡的短期睡眠限制實驗</b>，
+    不是長期生活狀態下的睡不夠。方向可信，數值不該照面額套在自己身上。
+    已經補回去，而且直接放在那條行動旁邊，不是藏在下面。</p>
+  </div>
+
+  <section>
+    <div class="sec-head">
+      <h2>七項發現</h2>
+      <div class="sev">嚴重度由高到低</div>
+    </div>
+
+    <div class="items">
+      <div class="item fixed">
+        <span class="tag">已修</span>
+        <div class="body">
+          <div class="what">HTML 簡報掉了睡眠那張卡的整段「適用限制」<span class="sev"> · high</span></div>
+          <div class="why">壓力性進食那張有「適用限制」，睡眠那張沒有。掉的四點：成人；
+          <b>第二題那半的族群正好貼近你</b>（BMI 25 以上、正在減重）；
+          <b>第一題那半多是實驗室短期睡眠限制</b>；
+          那份 50 篇的回顧<b>含 7 篇兒童青少年而且沒分層</b>。已全部補回。</div>
+        </div>
+      </div>
+
+      <div class="item fixed">
+        <span class="tag">已修</span>
+        <div class="body">
+          <div class="what">十六份決策紀錄裡，沒有一份說自己已經被取代<span class="sev"> · high</span></div>
+          <div class="why">現在讀第 10 號紀錄，會讀到一個看起來還有效、
+          <b>實際上早就被第 16 號取代</b>的驗收標準。而那個標準決定了練習題什麼時候能收工。
+          四份被取代的都補上了「哪一條被誰取代」。</div>
+        </div>
+      </div>
+
+      <div class="item fixed">
+        <span class="tag">已修</span>
+        <div class="body">
+          <div class="what">防外洩的掃描，完全沒有涵蓋「要交給你的那個資料夾」<span class="sev"> · medium</span></div>
+          <div class="why">兩道掃描只看內部腳本目錄。<b>而決策卡是唯一會被交出去的東西，
+          內容又剛好是在轉述論文</b>——最可能夾帶原文的地方，先前沒有任何東西在看。
+          現在納入了，實測<b>零命中</b>：是乾淨的，只是先前沒人看。</div>
+        </div>
+      </div>
+
+      <div class="item fixed">
+        <span class="tag">已修</span>
+        <div class="body">
+          <div class="what">專案指示檔指向的詞彙表，是別的專案的<span class="sev"> · medium</span></div>
+          <div class="why">新開的視窗照著指示去讀 <code>CONTEXT.md</code>，
+          拿到的是這台電腦上另一個專案（工具與微網站）的用語規範。已註明。</div>
+        </div>
+      </div>
+
+      <div class="item fixed">
+        <span class="tag">已修</span>
+        <div class="body">
+          <div class="what">檢查用的樣式，是拿「已經凍結的舊工作紀錄」去核對的<span class="sev"> · low</span></div>
+          <div class="why">工作紀錄已經分成新舊兩份，而這道檢查只讀舊的那份。
+          日後在新的那份修訂樣式，它<b>看不到，還會繼續回報一致</b>——
+          那正是這道檢查存在要防的事。改成兩份都讀，不一致就直接停。
+          <b>已經注入假資料驗過會叫。</b></div>
+        </div>
+      </div>
+
+      <div class="item fixed">
+        <span class="tag">已修</span>
+        <div class="body">
+          <div class="what">同一批次裡重複的論文，寫入時不擋，落盤後才被抓到<span class="sev"> · low</span></div>
+          <div class="why">錯誤出現得比必要的晚，而那時檔案已經寫出去了。加了測試。</div>
+        </div>
+      </div>
+
+      <div class="item open">
+        <span class="tag">待處理</span>
+        <div class="body">
+          <div class="what">說好要換的進度指標，一次都沒被算過<span class="sev"> · medium</span></div>
+          <div class="why">外部審查之後定了新指標（回答了幾個問題、驗到什麼程度、
+          有沒有改變行動）。<b>而每一輪還是在報「22 道閘門全綠、841 條測試通過」</b>——
+          正是被判定為「把工具當成果」的那種說法。這一輪第一次真的算了，見下。</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <h2>第一次照新指標算出來的數字</h2>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <caption>ADR-0015 定的進度指標</caption>
+        <thead><tr><th>指標</th><th>現值</th></tr></thead>
+        <tbody>
+          <tr><td>回答了幾個決策問題</td><td><span class="num good">2</span>
+            （壓力性進食、睡眠）</td></tr>
+          <tr><td>關鍵宣稱驗到原文全文的比例</td>
+            <td><span class="num">5 / 13</span>——壓力進食那張 5／6，
+            <span class="num bad">睡眠那張 0／6</span>（六份全部拿不到全文）</td></tr>
+          <tr><td>答案有沒有改變你的行動</td><td><span class="num good">兩張都有</span>：
+            一張劃掉兩個選項，一張給出三條可照做的</td></tr>
+          <tr><td>從提問到答案要幾天</td>
+            <td><span class="num bad">沒有在記</span>——兩張都在 14 天內，
+            但確切天數算不出來</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="note">
+      <span class="note-label">最後一列本身就是一項發現</span>
+      新指標定下來之後，<b>舊習慣還在每一輪被寫出來，新指標一次都沒被算過</b>。
+      從這一輪起改為每輪計算。
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <h2>這次體檢自己失敗了三次</h2>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <caption>三次嘗試</caption>
+        <thead><tr><th>嘗試</th><th>結果</th><th>成因</th></tr></thead>
+        <tbody>
+          <tr><td>八個視角 × 三個懷疑者</td><td>中止</td>
+            <td>這台機器同時只能跑 2 個，而設計假設 16 個——會跑好幾個小時</td></tr>
+          <tr><td>改精簡</td><td><span class="num bad">全滅</span></td>
+            <td>我規定的回報格式有 8 個必填欄位，八個都填不進去，
+            重試五次後放棄。<b>燒掉 55 萬 token，零產出</b></td></tr>
+          <tr><td>改純文字</td><td>工具全被擋</td>
+            <td>執行環境的權限層故障，八個一個檔案都讀不到</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="note">
+      <span class="note-label">第三次有一件好的</span>
+      八個全部<b>拒絕編造</b>，逐一回報「我一個檔案都沒讀到，這個零不代表乾淨」。
+      換成會硬掰的，這一輪就會產出一份假的安全保證——那比不交還糟。
+      <br><br>
+      <b>我的教訓：我為了好處理而規定了嚴格的回報格式，而那個格式本身成了失敗點。
+      檢查的形式，不該比檢查的內容還難滿足。</b>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <p>七項全部由我親自逐檔查證——讀檔、grep、跑測試——不是憑印象。
+    修完測試 841 條全過，所有閘門綠燈。</p>
+    <p>一項沒做：內部那 514 支腳本的死碼盤點。它要逐支確認，
+    <b>而它不會改變你任何一個健康決定</b>，所以排在後面。</p>
+  </footer>
+
+</div>
