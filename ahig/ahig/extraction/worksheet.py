@@ -249,7 +249,10 @@ def write_page_drafts(out_dir: Path, page: int, entries: Sequence[dict], *,
     on_page = {it["report"] for it in sheet["items"] if it["page"] == page}
     if not on_page:
         raise WorksheetError(f"工作單沒有第 {page} 頁")
-    validated = [_validate_entry(i, item, index, set())
+    # seen 要共用一個。每筆給一個新的 set()，同一批次裡重複的 report 就不會在
+    # 寫入時被擋——它會晚到 load_drafts 才被抓到，而那時候檔案已經落盤了。
+    within_page = set()
+    validated = [_validate_entry(i, item, index, within_page)
                  for i, item in enumerate(entries)]
     stray = sorted({e["report"] for e in validated} - on_page)
     if stray:
