@@ -9,6 +9,15 @@
 ✅ **內部文件不受此限**：看板、ADR、契約、`scope-extensions-required.md`
 等只給機器與 session 讀的東西，維持 markdown。
 
+## 擁有者提出新問題時
+
+**看 `docs/new-question-recipe.md`——那是唯一的一份做法。**
+🚫 不要為新領域另寫一份 protocol（⚠️ 先前三個領域各寫一份，三份都過期了）。
+
+⚠️ **現況**（ADR-0017）：三題已答完並收工。**🚫 「讀原始論文」那條路目前不可用**
+——它已知會宣稱文件裡不存在的數值。**✅ 新問題預設停在「盤點既有回顧」**，
+🚨 三次實測都停在那裡就足夠。
+
 ## Multi-session coordination
 
 AHIG 專案有多個 session 並行。開工前先讀 `COORDINATION.md`：
