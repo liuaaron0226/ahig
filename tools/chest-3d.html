@@ -1,0 +1,345 @@
+<title>胸大肌三束怎麼動</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700&family=Noto+Sans+TC:wght@400;500;700&family=IBM+Plex+Mono:wght@400;600&display=swap">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<style>
+  :root{
+    --ground:#F6F8F6; --surface:#FFFFFF; --raise:#EEF2EF;
+    --ink:#141C18; --muted:#5A6B62; --faint:#84968C;
+    --rule:#DBE3DE; --rule-strong:#C3CFC8;
+    --c1:#0E6B4C; --c2:#3F8F5E; --c3:#7BA85F; --delt:#1F5E7A;
+    --warn:#8A6100; --warn-wash:#F7F0DF;
+    --serif:"Noto Serif TC",serif;
+    --sans:"Noto Sans TC","Helvetica Neue",Arial,sans-serif;
+    --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+    --scene:#EAEEEB;
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --ground:#0E1411; --surface:#141C18; --raise:#1A241F;
+      --ink:#E4EBE6; --muted:#93A69C; --faint:#6E827A;
+      --rule:#26332C; --rule-strong:#35473D;
+      --c1:#4FBF95; --c2:#6FCB8C; --c3:#A8D67E; --delt:#6FB8D8;
+      --warn:#D9A93F; --warn-wash:#26200F; --scene:#0B1210;
+    }
+  }
+  :root[data-theme="dark"]{
+    --ground:#0E1411; --surface:#141C18; --raise:#1A241F;
+    --ink:#E4EBE6; --muted:#93A69C; --faint:#6E827A;
+    --rule:#26332C; --rule-strong:#35473D;
+    --c1:#4FBF95; --c2:#6FCB8C; --c3:#A8D67E; --delt:#6FB8D8;
+    --warn:#D9A93F; --warn-wash:#26200F; --scene:#0B1210;
+  }
+  *{box-sizing:border-box}
+  body{background:var(--ground);color:var(--ink);font-family:var(--sans);
+       font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:46rem;margin:0 auto;padding:2.5rem 1.25rem 5rem;
+        display:flex;flex-direction:column;gap:1.6rem}
+  .kicker{font-family:var(--mono);font-size:.72rem;letter-spacing:.14em;
+          text-transform:uppercase;color:var(--muted)}
+  h1{font-family:var(--serif);font-weight:700;font-size:2rem;line-height:1.3;margin:0}
+  .standfirst{color:var(--muted);margin:0;max-width:34rem}
+
+  #scene{width:100%;aspect-ratio:4/3;background:var(--scene);
+         border:1px solid var(--rule-strong);touch-action:none;cursor:grab;display:block}
+  #scene:active{cursor:grabbing}
+
+  .panel{background:var(--surface);border:1px solid var(--rule-strong);
+         padding:1rem 1.1rem;display:flex;flex-direction:column;gap:.9rem}
+  .ctrl{display:flex;align-items:center;gap:.9rem;flex-wrap:wrap}
+  .ctrl label{font-size:.86rem;color:var(--muted);min-width:6.5rem}
+  input[type=range]{flex:1;min-width:11rem;accent-color:var(--c1)}
+  .val{font-family:var(--mono);font-size:.9rem;min-width:5.5rem;text-align:right;
+       font-variant-numeric:tabular-nums}
+  button{font-family:var(--sans);font-size:.88rem;padding:.5rem .95rem;
+         border:1px solid var(--rule-strong);background:var(--raise);
+         color:var(--ink);cursor:pointer}
+  button.on{background:var(--c1);color:var(--ground);border-color:var(--c1);font-weight:700}
+
+  .bars{display:flex;flex-direction:column;gap:.55rem}
+  .bar{display:grid;grid-template-columns:8.5rem 1fr 4.5rem;gap:.7rem;
+       align-items:center;font-size:.87rem}
+  .bar .nm{font-weight:700}
+  .bar .track{height:15px;background:var(--raise);position:relative;overflow:hidden}
+  .bar .fill{position:absolute;inset:0 auto 0 0;width:0}
+  .bar .num{font-family:var(--mono);text-align:right;
+            font-variant-numeric:tabular-nums;color:var(--muted)}
+  .legend{font-size:.84rem;color:var(--muted)}
+
+  .note{border-left:3px solid var(--warn);background:var(--warn-wash);
+        padding:.9rem 1.05rem;font-size:.9rem;line-height:1.65}
+  .note-label{font-family:var(--mono);font-size:.68rem;letter-spacing:.12em;
+              text-transform:uppercase;color:var(--warn);display:block;
+              margin-bottom:.3rem}
+  .note b{font-weight:700}
+  h2{font-family:var(--serif);font-size:1.15rem;margin:0;font-weight:700}
+  @media (max-width:34rem){
+    .bar{grid-template-columns:6.5rem 1fr 3.6rem;font-size:.82rem}
+    h1{font-size:1.7rem}
+  }
+</style>
+
+<div class="wrap">
+  <header style="display:flex;flex-direction:column;gap:.7rem">
+    <div class="kicker">AHIG 立體圖 · 胸</div>
+    <h1>胸大肌三束怎麼動</h1>
+    <p class="standfirst">拖曳可以轉動視角。拉「椅背角度」那一條，
+    看三束的縮短量怎麼變——<b>那些百分比是即時算的，不是畫出來的示意</b>。</p>
+  </header>
+
+  <canvas id="scene"></canvas>
+
+  <div class="panel">
+    <div class="ctrl">
+      <label for="angle">椅背角度</label>
+      <input type="range" id="angle" min="-15" max="75" value="0" step="1">
+      <span class="val" id="angleV">0°（平板）</span>
+    </div>
+    <div class="ctrl">
+      <label for="phase">動作位置</label>
+      <input type="range" id="phase" min="0" max="100" value="0" step="1">
+      <span class="val" id="phaseV">最低點</span>
+    </div>
+    <div class="ctrl">
+      <button id="play" class="on">⏸ 暫停</button>
+      <button id="delt">隱藏前三角</button>
+      <span class="legend">拖曳畫面可轉視角</span>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2>目前這個位置，各束縮短了多少</h2>
+    <div class="bars" id="bars"></div>
+    <p class="legend">長條 = 相對於這一束在整個行程中最長的位置，
+    現在縮短了幾成。<b>整趟行程縮得越多的那一束，做的功越多。</b></p>
+  </div>
+
+  <div class="note">
+    <span class="note-label">這個模型簡化掉什麼</span>
+    肌肉畫成<b>起點到止點的直線</b>，真實肌肉會繞過骨頭、有寬度、纖維方向不一致；
+    肩胛骨在這裡<b>固定不動</b>，真實臥推它會後收與旋轉；也沒有旋轉肌群。
+    <br><br>
+    <b>所以這些百分比是「這個模型的幾何」，不是量出來的力矩臂。</b>
+    它能對的是<b>方向</b>——角度往上，鎖骨部縮得越多、胸肋部越少——
+    那一點是幾何必然，不靠模型精不精細。
+  </div>
+</div>
+
+<script>
+(function(){
+  const cv = document.getElementById('scene');
+  const css = getComputedStyle(document.documentElement);
+  const col = n => new THREE.Color(css.getPropertyValue(n).trim());
+
+  const renderer = new THREE.WebGLRenderer({canvas:cv, antialias:true});
+  const scene = new THREE.Scene();
+  scene.background = col('--scene');
+  const cam = new THREE.PerspectiveCamera(40, 4/3, 0.1, 100);
+
+  scene.add(new THREE.AmbientLight(0xffffff, .62));
+  const key = new THREE.DirectionalLight(0xffffff, .85); key.position.set(4,6,7);
+  scene.add(key);
+  const rim = new THREE.DirectionalLight(0xffffff, .3); rim.position.set(-5,2,-4);
+  scene.add(rim);
+
+  // ── 骨架尺寸（相對單位）──────────────────────────────
+  const SH = new THREE.Vector3(0.95, 1.05, 0.10);   // 右肩關節中心
+  const UPPER = 1.45, FORE = 1.35;                   // 上臂、前臂
+
+  // 胸大肌三束：起點在胸廓前面，止點都在肱骨上段
+  const BUNDLES = [
+    {key:'cl', name:'鎖骨部', origin:new THREE.Vector3(0.18, 1.16, 0.30), col:'--c1'},
+    {key:'st', name:'胸肋部', origin:new THREE.Vector3(0.14, 0.42, 0.32), col:'--c2'},
+    {key:'ab', name:'腹部纖維', origin:new THREE.Vector3(0.20,-0.34, 0.26), col:'--c3'},
+  ];
+  const DELT = {key:'de', name:'前三角', origin:new THREE.Vector3(0.72, 1.18, 0.20),
+                col:'--delt', along:0.52};
+  const PEC_ALONG = 0.22;   // 止點在上臂上的比例位置
+
+  // ── 軀幹 ────────────────────────────────────────────
+  const torsoMat = new THREE.MeshLambertMaterial({color:col('--rule-strong'),
+    transparent:true, opacity:.5});
+  const torso = new THREE.Mesh(new THREE.BoxGeometry(1.5, 2.5, 0.62), torsoMat);
+  torso.position.set(0, 0.15, 0);
+  scene.add(torso);
+  const clav = new THREE.Mesh(new THREE.CylinderGeometry(.055,.055,1.0,10),
+    new THREE.MeshLambertMaterial({color:col('--faint')}));
+  clav.rotation.z = Math.PI/2; clav.position.set(0.5, 1.16, 0.28);
+  scene.add(clav);
+
+  // 骨頭
+  const boneMat = new THREE.MeshLambertMaterial({color:col('--faint')});
+  const upper = new THREE.Mesh(new THREE.CylinderGeometry(.085,.075,1,12), boneMat);
+  const fore  = new THREE.Mesh(new THREE.CylinderGeometry(.07,.06,1,12), boneMat);
+  scene.add(upper, fore);
+  const joint = r => new THREE.Mesh(new THREE.SphereGeometry(r,16,12), boneMat);
+  const jSh = joint(.13), jEl = joint(.10), jHa = joint(.09);
+  scene.add(jSh, jEl, jHa); jSh.position.copy(SH);
+
+  // 肌肉（以圓柱表示，每格重算長度與方向）
+  const muscles = [...BUNDLES, DELT].map(b => {
+    const m = new THREE.Mesh(new THREE.CylinderGeometry(.075,.075,1,10),
+      new THREE.MeshLambertMaterial({color:col(b.col)}));
+    scene.add(m);
+    const o = new THREE.Mesh(new THREE.SphereGeometry(.075,12,10),
+      new THREE.MeshLambertMaterial({color:col(b.col)}));
+    o.position.copy(b.origin); scene.add(o);
+    return {...b, mesh:m, dot:o};
+  });
+
+  function place(mesh, a, b){                       // 讓圓柱從 a 連到 b
+    const d = new THREE.Vector3().subVectors(b,a), len = d.length();
+    mesh.position.copy(a).addScaledVector(d, .5);
+    mesh.scale.set(1, len, 1);
+    mesh.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0), d.clone().normalize());
+    return len;
+  }
+
+  // ── 動作：槓的路徑在世界座標是垂直的，而軀幹是斜的 ──
+  //    故椅背角度一變，手相對於軀幹的行進方向就往頭側偏——
+  //    這正是上斜會偏到鎖骨部的原因。
+  function handAt(s, thetaDeg){
+    const th = thetaDeg * Math.PI/180;
+    const press = new THREE.Vector3(0, Math.sin(th), Math.cos(th)); // 推的方向
+    const wide  = new THREE.Vector3(0.62,-0.12, 0.16)
+                    .applyAxisAngle(new THREE.Vector3(1,0,0), th);  // 底部外展
+    const bottom = SH.clone().addScaledVector(wide, 1.05);
+    const top    = SH.clone().addScaledVector(press, 2.55)
+                    .add(new THREE.Vector3(-0.42, 0, 0));           // 頂端向中線收
+    const p = bottom.clone().lerp(top, s);
+    const arc = Math.sin(Math.PI * s) * 0.10;                       // 些微弧線
+    return p.addScaledVector(press, arc);
+  }
+
+  function elbowFor(hand){                          // 兩節 IK
+    const d = new THREE.Vector3().subVectors(hand, SH);
+    let L = d.length();
+    L = Math.min(L, UPPER + FORE - 1e-3);
+    const dir = d.clone().normalize();
+    const a = (UPPER*UPPER - FORE*FORE + L*L) / (2*L);
+    const h = Math.sqrt(Math.max(0, UPPER*UPPER - a*a));
+    // 極向量：手肘朝外下方
+    let pole = new THREE.Vector3(0.55,-1,-0.25).normalize();
+    pole.addScaledVector(dir, -pole.dot(dir)).normalize();
+    return SH.clone().addScaledVector(dir, a).addScaledVector(pole, h);
+  }
+
+  // ── 每一束在整個行程中的長度範圍（用來算縮短百分比）──
+  function rangeFor(thetaDeg){
+    const out = {};
+    for (const b of muscles) out[b.key] = {min:Infinity, max:-Infinity};
+    for (let i=0;i<=40;i++){
+      const s=i/40, hand=handAt(s,thetaDeg), el=elbowFor(hand);
+      const uDir = new THREE.Vector3().subVectors(el, SH).normalize();
+      for (const b of muscles){
+        const along = (b.key==='de') ? DELT.along : PEC_ALONG;
+        const ins = SH.clone().addScaledVector(uDir, UPPER*along);
+        const L = b.origin.distanceTo(ins);
+        out[b.key].min = Math.min(out[b.key].min, L);
+        out[b.key].max = Math.max(out[b.key].max, L);
+      }
+    }
+    return out;
+  }
+
+  // ── UI ──────────────────────────────────────────────
+  const angleEl=document.getElementById('angle'), phaseEl=document.getElementById('phase');
+  const angleV=document.getElementById('angleV'), phaseV=document.getElementById('phaseV');
+  const playEl=document.getElementById('play'), deltEl=document.getElementById('delt');
+  const barsEl=document.getElementById('bars');
+  let playing=true, showDelt=true, t=0, ranges=rangeFor(0);
+
+  barsEl.innerHTML = muscles.map(b=>`<div class="bar" data-k="${b.key}">
+      <span class="nm" style="color:${css.getPropertyValue(b.col).trim()}">${b.name}</span>
+      <span class="track"><span class="fill" style="background:${css.getPropertyValue(b.col).trim()}"></span></span>
+      <span class="num">—</span></div>`).join('');
+  const barOf = {};
+  barsEl.querySelectorAll('.bar').forEach(el=>{
+    barOf[el.dataset.k] = {fill:el.querySelector('.fill'), num:el.querySelector('.num'), row:el};
+  });
+
+  function angleLabel(a){
+    if (a <= -5) return a+'°（下斜）';
+    if (a < 5)  return '0°（平板）';
+    if (a <= 30) return a+'°（上斜）';
+    if (a <= 50) return a+'°（高上斜）';
+    return a+'°（接近肩推）';
+  }
+  angleEl.addEventListener('input', ()=>{
+    angleV.textContent = angleLabel(+angleEl.value);
+    ranges = rangeFor(+angleEl.value);
+  });
+  phaseEl.addEventListener('input', ()=>{ playing=false; setPlay(); t = +phaseEl.value/100; });
+  function setPlay(){ playEl.textContent = playing ? '⏸ 暫停' : '▶ 播放';
+                      playEl.classList.toggle('on', playing); }
+  playEl.addEventListener('click', ()=>{ playing=!playing; setPlay(); });
+  deltEl.addEventListener('click', ()=>{
+    showDelt=!showDelt;
+    deltEl.textContent = showDelt ? '隱藏前三角' : '顯示前三角';
+    barOf['de'].row.style.display = showDelt ? '' : 'none';
+  });
+
+  // 滑鼠／觸控轉視角
+  let yaw=0.62, pitch=0.12, drag=null;
+  const down = e => { drag={x:(e.touches?e.touches[0]:e).clientX,
+                           y:(e.touches?e.touches[0]:e).clientY}; };
+  const move = e => { if(!drag) return;
+    const p = e.touches?e.touches[0]:e;
+    yaw -= (p.clientX-drag.x)*0.008; pitch += (p.clientY-drag.y)*0.006;
+    pitch = Math.max(-0.9, Math.min(1.0, pitch)); drag={x:p.clientX,y:p.clientY};
+    if (e.cancelable) e.preventDefault(); };
+  const up = () => { drag=null; };
+  cv.addEventListener('mousedown',down); addEventListener('mousemove',move);
+  addEventListener('mouseup',up);
+  cv.addEventListener('touchstart',down,{passive:true});
+  cv.addEventListener('touchmove',move,{passive:false});
+  addEventListener('touchend',up);
+
+  function resize(){
+    const w = cv.clientWidth, h = w*3/4;
+    renderer.setPixelRatio(Math.min(2, devicePixelRatio||1));
+    renderer.setSize(w, h, false);
+    cam.aspect = w/h; cam.updateProjectionMatrix();
+  }
+  addEventListener('resize', resize); resize();
+
+  let last = 0;
+  function frame(now){
+    requestAnimationFrame(frame);
+    const dt = Math.min(.05, (now-last)/1000 || 0); last = now;
+    if (playing){ t = (t + dt*0.38) % 2; }
+    const s = t < 1 ? t : 2 - t;                   // 來回
+    if (playing) phaseEl.value = Math.round(s*100);
+    phaseV.textContent = s < .06 ? '最低點' : s > .94 ? '頂端' : `行程 ${Math.round(s*100)}%`;
+
+    const theta = +angleEl.value;
+    const hand = handAt(s, theta), el = elbowFor(hand);
+    place(upper, SH, el); place(fore, el, hand);
+    jEl.position.copy(el); jHa.position.copy(hand);
+
+    const uDir = new THREE.Vector3().subVectors(el, SH).normalize();
+    for (const b of muscles){
+      const vis = (b.key !== 'de') || showDelt;
+      b.mesh.visible = vis; b.dot.visible = vis;
+      const along = (b.key==='de') ? DELT.along : PEC_ALONG;
+      const ins = SH.clone().addScaledVector(uDir, UPPER*along);
+      const L = place(b.mesh, b.origin, ins);
+      const r = ranges[b.key];
+      const short = r.max > r.min ? (r.max - L) / r.max : 0;      // 相對最長縮短幾成
+      const span  = r.max > 0 ? (r.max - r.min) / r.max : 0;      // 整趟行程的擺幅
+      const bar = barOf[b.key];
+      bar.fill.style.width = (short / Math.max(.02, span) * 100).toFixed(1) + '%';
+      bar.num.textContent = (short*100).toFixed(1) + '%';
+      bar.row.title = `整趟行程擺幅 ${(span*100).toFixed(1)}%`;
+    }
+
+    const R = 6.2;
+    cam.position.set(Math.sin(yaw)*Math.cos(pitch)*R, 0.55 + Math.sin(pitch)*R,
+                     Math.cos(yaw)*Math.cos(pitch)*R);
+    cam.lookAt(0.35, 0.45, 0.2);
+    renderer.render(scene, cam);
+  }
+  requestAnimationFrame(frame);
+})();
+</script>
