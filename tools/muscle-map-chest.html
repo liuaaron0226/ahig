@@ -1,0 +1,313 @@
+<title>練胸的時候在練什麼</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700&family=Noto+Sans+TC:wght@400;500;700&family=IBM+Plex+Mono:wght@400;600&display=swap">
+<style>
+  :root{
+    --ground:#F6F8F6; --surface:#FFFFFF; --raise:#EEF2EF;
+    --ink:#141C18; --muted:#5A6B62; --faint:#84968C;
+    --rule:#DBE3DE; --rule-strong:#C3CFC8;
+    --prime:#0E6B4C; --prime-wash:#E7F2ED;
+    --second:#1F5E7A; --second-wash:#E6EFF3;
+    --stab:#6B5B8A; --stab-wash:#EEEAF3;
+    --warn:#8A6100; --warn-wash:#F7F0DF;
+    --stop:#8C3A34; --stop-wash:#F6EAE9;
+    --serif:"Noto Serif TC",serif;
+    --sans:"Noto Sans TC","Helvetica Neue",Arial,sans-serif;
+    --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --ground:#0E1411; --surface:#141C18; --raise:#1A241F;
+      --ink:#E4EBE6; --muted:#93A69C; --faint:#6E827A;
+      --rule:#26332C; --rule-strong:#35473D;
+      --prime:#4FBF95; --prime-wash:#12251E;
+      --second:#6FB8D8; --second-wash:#10222B;
+      --stab:#B0A0CC; --stab-wash:#1E1A28;
+      --warn:#D9A93F; --warn-wash:#26200F;
+      --stop:#E08A80; --stop-wash:#2A1917;
+    }
+  }
+  :root[data-theme="dark"]{
+    --ground:#0E1411; --surface:#141C18; --raise:#1A241F;
+    --ink:#E4EBE6; --muted:#93A69C; --faint:#6E827A;
+    --rule:#26332C; --rule-strong:#35473D;
+    --prime:#4FBF95; --prime-wash:#12251E;
+    --second:#6FB8D8; --second-wash:#10222B;
+    --stab:#B0A0CC; --stab-wash:#1E1A28;
+    --warn:#D9A93F; --warn-wash:#26200F;
+    --stop:#E08A80; --stop-wash:#2A1917;
+  }
+  *{box-sizing:border-box}
+  body{background:var(--ground);color:var(--ink);font-family:var(--sans);
+       font-size:17px;line-height:1.75;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:46rem;margin:0 auto;padding:3rem 1.25rem 6rem;
+        display:flex;flex-direction:column;gap:3rem}
+  .kicker{font-family:var(--mono);font-size:.72rem;letter-spacing:.14em;
+          text-transform:uppercase;color:var(--muted)}
+  h1{font-family:var(--serif);font-weight:700;font-size:2.3rem;line-height:1.25;
+     margin:0;text-wrap:balance}
+  .standfirst{color:var(--muted);margin:0;max-width:34rem}
+  h2{font-family:var(--serif);font-weight:700;font-size:1.4rem;margin:0;
+     text-wrap:balance}
+  h3{font-family:var(--sans);font-size:.78rem;letter-spacing:.11em;
+     text-transform:uppercase;color:var(--muted);font-weight:700;margin:0}
+  section{display:flex;flex-direction:column;gap:1.1rem;
+          border-top:2px solid var(--ink);padding-top:1rem}
+
+  /* 肌群卡 */
+  .muscles{display:flex;flex-direction:column;gap:1px;background:var(--rule)}
+  .m{background:var(--surface);padding:1.1rem 1.2rem;display:flex;gap:1rem;
+     align-items:flex-start}
+  .m .tag{font-family:var(--mono);font-size:.66rem;letter-spacing:.08em;
+          text-transform:uppercase;padding:.22rem .5rem;white-space:nowrap;
+          border-radius:2px;margin-top:.3rem}
+  .m.p{background:var(--prime-wash)} .m.p .tag{background:var(--prime);color:var(--ground)}
+  .m.s{background:var(--second-wash)} .m.s .tag{background:var(--second);color:var(--ground)}
+  .m.t{background:var(--stab-wash)} .m.t .tag{background:var(--stab);color:var(--ground)}
+  .m .body{display:flex;flex-direction:column;gap:.3rem}
+  .m .name{font-weight:700;line-height:1.5}
+  .m .name .lat{font-family:var(--mono);font-size:.8rem;color:var(--muted);
+                font-weight:400;margin-left:.4rem}
+  .m .does{font-size:.93rem;color:var(--muted);line-height:1.65}
+  .m .does b{color:var(--ink)}
+
+  .tablewrap{overflow-x:auto;border:1px solid var(--rule)}
+  table{border-collapse:collapse;width:100%;min-width:32rem;font-size:.9rem;
+        background:var(--surface)}
+  caption{text-align:left;font-family:var(--mono);font-size:.72rem;
+          letter-spacing:.1em;text-transform:uppercase;color:var(--muted);
+          padding:.8rem 1rem .55rem;background:var(--raise)}
+  th,td{text-align:left;padding:.65rem 1rem;border-top:1px solid var(--rule);
+        vertical-align:top}
+  th{font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;
+     color:var(--muted);font-weight:500;background:var(--raise);border-top:none}
+  td b{color:var(--prime)}
+
+  .note{border-left:3px solid var(--warn);background:var(--warn-wash);
+        padding:.9rem 1.1rem;font-size:.94rem;line-height:1.7}
+  .note.stop{border-left-color:var(--stop);background:var(--stop-wash)}
+  .note-label{font-family:var(--mono);font-size:.68rem;letter-spacing:.12em;
+              text-transform:uppercase;color:var(--warn);display:block;
+              margin-bottom:.3rem}
+  .note.stop .note-label{color:var(--stop)}
+  .note b{font-weight:700}
+
+  .fix{display:flex;flex-direction:column;gap:1px;background:var(--rule)}
+  .fix .row{background:var(--surface);padding:1rem 1.1rem;
+            display:grid;grid-template-columns:11rem 1fr;gap:1rem}
+  .fix .feel{font-weight:700;line-height:1.5}
+  .fix .why{font-size:.93rem;color:var(--muted);line-height:1.65}
+  .fix .why b{color:var(--ink)}
+  .src{font-family:var(--mono);font-size:.68rem;letter-spacing:.06em;
+       text-transform:uppercase;padding:.12rem .4rem;border-radius:2px;
+       background:var(--raise);color:var(--muted);white-space:nowrap}
+  .src.mech{color:var(--prime)} .src.conv{color:var(--warn)}
+
+  .foot{border-top:1px solid var(--rule);padding-top:1.4rem;font-size:.87rem;
+        color:var(--muted);line-height:1.7;display:flex;flex-direction:column;
+        gap:.8rem}
+  @media (max-width:34rem){
+    body{font-size:16px} h1{font-size:1.85rem}
+    .m{flex-direction:column;gap:.6rem} .m .tag{margin-top:0}
+    .fix .row{grid-template-columns:1fr;gap:.4rem}
+  }
+</style>
+
+<div class="wrap">
+
+  <header style="display:flex;flex-direction:column;gap:.9rem">
+    <div class="kicker">AHIG 肌群圖 · 胸</div>
+    <h1>練胸的時候在練什麼</h1>
+    <p class="standfirst">主要、次要、輔助各是哪幾塊，動作怎麼換會偏到哪裡，
+    以及「感覺跑掉了」通常是什麼原因。</p>
+  </header>
+
+  <section>
+    <h2>主要肌群</h2>
+    <div class="muscles">
+      <div class="m p">
+        <span class="tag">主動</span>
+        <div class="body">
+          <div class="name">胸大肌 · 鎖骨部<span class="lat">pectoralis major, clavicular head</span></div>
+          <div class="does">從鎖骨內側到肱骨。做的是<b>肩關節屈曲＋水平內收</b>——
+          手往前上方推、往中間夾。<b>上斜角度會偏到這一束</b>。</div>
+        </div>
+      </div>
+      <div class="m p">
+        <span class="tag">主動</span>
+        <div class="body">
+          <div class="name">胸大肌 · 胸肋部<span class="lat">sternocostal head</span></div>
+          <div class="does">從胸骨與肋軟骨到肱骨，<b>體積最大的一束</b>。
+          做的是<b>水平內收＋內收＋從屈曲位往下拉</b>。
+          平板與下斜、由高往低的夾胸偏這裡。</div>
+        </div>
+      </div>
+      <div class="m p">
+        <span class="tag">主動</span>
+        <div class="body">
+          <div class="name">胸大肌 · 腹部纖維<span class="lat">abdominal fibres</span></div>
+          <div class="does">最下緣、最小的一束。<b>下斜與雙槓前傾</b>時參與較多。
+          它不是獨立的「下胸肌」，是同一塊肌肉的最下面幾束。</div>
+        </div>
+      </div>
+    </div>
+    <div class="note">
+      <span class="note-label">一個常被搞混的</span>
+      <b>胸小肌</b>（pectoralis minor）在胸大肌底下，做的是<b>肩胛骨前引與下壓</b>，
+      不是推的動作。它練不出你看得到的胸——但它太緊會把肩胛往前拉，
+      間接影響你臥推時肩膀的位置。
+    </div>
+  </section>
+
+  <section>
+    <h2>次要肌群（推的時候一起出力）</h2>
+    <div class="muscles">
+      <div class="m s">
+        <span class="tag">協同</span>
+        <div class="body">
+          <div class="name">前三角肌<span class="lat">anterior deltoid</span></div>
+          <div class="does">肩屈曲＋水平內收——<b>和胸大肌鎖骨部做的事幾乎一樣</b>。
+          所以<b>它是最容易「搶戲」的那一塊</b>，上斜角度越大搶得越多。</div>
+        </div>
+      </div>
+      <div class="m s">
+        <span class="tag">協同</span>
+        <div class="body">
+          <div class="name">肱三頭肌<span class="lat">triceps brachii</span></div>
+          <div class="does">伸肘。<b>所有「推」的動作都有它，所有「夾」的動作都沒有</b>——
+          這是臥推和飛鳥最大的分別。</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>輔助 / 穩定肌群（不出主力，但沒有它就練不好）</h2>
+    <div class="muscles">
+      <div class="m t">
+        <span class="tag">穩定</span>
+        <div class="body">
+          <div class="name">前鋸肌<span class="lat">serratus anterior</span></div>
+          <div class="does">把肩胛骨貼在肋骨上並前引、上旋。
+          <b>它負責讓你的肩胛有一個穩定的底座可以推</b>。</div>
+        </div>
+      </div>
+      <div class="m t">
+        <span class="tag">穩定</span>
+        <div class="body">
+          <div class="name">旋轉肌群<span class="lat">rotator cuff</span></div>
+          <div class="does">四塊小肌肉把肱骨頭固定在關節窩中央。
+          <b>臥推底部它們在對抗肱骨頭往前滑</b>——前側肩痛常和這裡有關。</div>
+        </div>
+      </div>
+      <div class="m t">
+        <span class="tag">穩定</span>
+        <div class="body">
+          <div class="name">菱形肌 / 中斜方<span class="lat">rhomboids, mid-trapezius</span></div>
+          <div class="does">把肩胛骨往後收並固定住。
+          <b>整組臥推它們是等長收縮</b>——收好肩胛才有穩定的支點。</div>
+        </div>
+      </div>
+      <div class="m t">
+        <span class="tag">穩定</span>
+        <div class="body">
+          <div class="name">闊背肌<span class="lat">latissimus dorsi</span></div>
+          <div class="does">它是胸的<b>拮抗肌</b>，但在臥推裡負責控制下放與穩住軀幹。
+          很多人「推不動」其實是下放沒控制好。</div>
+        </div>
+      </div>
+      <div class="m t">
+        <span class="tag">穩定</span>
+        <div class="body">
+          <div class="name">肱二頭肌長頭<span class="lat">biceps, long head</span></div>
+          <div class="does">它跨過肩關節。<b>臥推最低點時它被拉到最長</b>——
+          肩膀前側「卡卡的」有時候是它，不是胸。</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>動作換一下，偏到哪裡</h2>
+    <div class="tablewrap">
+      <table>
+        <caption>力學上的差異（不是效果排名）</caption>
+        <thead><tr><th>動作</th><th>偏向</th><th>為什麼</th></tr></thead>
+        <tbody>
+          <tr><td>平板臥推</td><td><b>胸肋部</b>＋前三角＋三頭</td>
+            <td>水平內收為主，三個關節一起動</td></tr>
+          <tr><td>上斜 15–30°</td><td><b>鎖骨部</b>（前三角也跟著多）</td>
+            <td>手的路徑往前上方，正是鎖骨部的方向</td></tr>
+          <tr><td>上斜超過 45°</td><td>前三角為主</td>
+            <td>角度越接近垂直，越像肩推</td></tr>
+          <tr><td>下斜 / 雙槓前傾</td><td><b>胸肋下部＋腹部纖維</b></td>
+            <td>手往前下方推</td></tr>
+          <tr><td>飛鳥 / 繩索夾胸</td><td><b>胸大肌，幾乎沒有三頭</b></td>
+            <td>只有肩關節在動，肘角固定</td></tr>
+          <tr><td>窄握推</td><td>三頭大幅增加</td>
+            <td>肘的行程變長，肩的水平內收變少</td></tr>
+          <tr><td>full ROM、底部有拉長感</td><td>胸大肌整體</td>
+            <td>拉長位置的張力，目前被認為對肥大重要</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>「感覺跑掉了」——通常是什麼原因</h2>
+    <div class="fix">
+      <div class="row">
+        <div class="feel">只感覺到前三角<span class="src mech">力學</span></div>
+        <div class="why"><b>手的路徑太垂直</b>（槓落在鎖骨附近而不是乳頭線）、
+        <b>肩胛沒有收好</b>所以肩往前跑、或<b>上斜角度太大</b>。
+        先把肩胛後收下壓固定住，再把落點往下移一點。</div>
+      </div>
+      <div class="row">
+        <div class="feel">只感覺到三頭<span class="src mech">力學</span></div>
+        <div class="why"><b>握距太窄</b>、<b>手肘夾太緊</b>、或<b>行程太短</b>
+        （沒有下到胸）。三頭是伸肘的，胸是夾的——
+        <b>如果你的手肘全程貼著身體，那本來就是三頭的動作</b>。</div>
+      </div>
+      <div class="row">
+        <div class="feel">胸完全沒感覺<span class="src mech">力學</span></div>
+        <div class="why">最常見是<b>行程太短、底部沒有拉長</b>，
+        其次是<b>重量太重</b>導致整組都在用能推起來的方式推，而不是用胸推。
+        換成飛鳥或繩索找一次感覺，再回來調臥推。</div>
+      </div>
+      <div class="row">
+        <div class="feel">兩邊感覺不一樣<span class="src conv">慣例</span></div>
+        <div class="why">常見說法是肩胛穩定性或活動度左右不同。
+        <b>這一條沒有明確的驗證方式</b>——可做的是改用<b>單邊啞鈴或繩索</b>，
+        它會強迫兩邊各自出力，你自己比較得出來。</div>
+      </div>
+      <div class="row">
+        <div class="feel">肩膀前側「卡」或痛<span class="src stop"
+          style="background:var(--stop-wash);color:var(--stop)">停下來</span></div>
+        <div class="why"><b>這一項不要用「調整發力」處理。</b>
+        底部手肘外展過大＋肩胛沒收，會讓肱骨頭往前擠；
+        也可能是二頭長頭或肩鎖關節。<b>先把重量降下來、縮小行程試一組</b>，
+        如果還在，那是要找人看的，不是靠調姿勢解決的。</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="note">
+    <span class="note-label">「有感覺」值多少</span>
+    <b>感覺到某塊肌肉緊，不等於那塊肌肉被練到比較多。</b>
+    有些研究顯示刻意去「想」某塊肌肉會增加它的肌電訊號，
+    但<b>肌電訊號不等於長肌肉</b>，而且對不同肌群結果不一致。
+    <br><br>
+    所以「有感覺」是個<b>有用的線索</b>——它通常代表你的動作路徑對了——
+    <b>但它不是成績單</b>。真正算數的還是重量、次數、行程有沒有進步。
+  </div>
+
+  <footer class="foot">
+    <p><b>這一頁是解剖與力學，不是臨床試驗證據。</b>
+    肌肉的起止點與動作方向是解剖事實；「換動作偏到哪裡」是從那些事實推出來的力學；
+    標了「慣例」的那幾條是健身圈的普遍做法，沒有明確驗證。三種混在一起講的話，
+    你會分不出哪個該堅持、哪個可以放掉，所以這裡分開標。</p>
+    <p>其他部位（背、肩、腿、手臂）用同一個格式，確認這版可用之後再做。</p>
+  </footer>
+
+</div>
