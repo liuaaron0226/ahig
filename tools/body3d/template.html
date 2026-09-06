@@ -11,7 +11,7 @@
     font:14px/1.5 -apple-system,"PingFang TC","Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif;overflow:hidden}
   #c{position:fixed;inset:0;display:block;touch-action:none}
   .ui{position:fixed;z-index:5}
-  .panel{background:var(--panel);backdrop-filter:blur(10px);border:1px solid var(--line);border-radius:14px}
+  .panel{background:var(--panel);backdrop-filter:blur(10px);border:1px solid var(--line);border-radius:14px;box-sizing:border-box}
   button{font:inherit;color:var(--ink);background:var(--btn);border:1px solid var(--line);border-radius:10px;
     padding:6px 12px;cursor:pointer;-webkit-tap-highlight-color:transparent}
   button.on{background:var(--btn-on);border-color:var(--sel)}
@@ -45,7 +45,7 @@
   #card .x{position:absolute;right:8px;top:8px;width:28px;height:28px;padding:0;border-radius:50%}
   .tag{display:inline-block;font-size:11px;padding:0 6px;border-radius:6px;border:1px solid var(--line);color:var(--mute);margin-left:4px;vertical-align:1px}
   /* 縮短百分比 */
-  #bars{right:12px;bottom:134px;width:min(300px,calc(100vw - 24px));padding:10px 12px;display:none}
+  #bars{right:12px;bottom:176px;width:min(300px,calc(100vw - 24px));padding:10px 12px;display:none}
   #bars.show{display:block}
   #bars h4{margin:0 0 6px;font-size:12px;color:var(--mute);font-weight:500;cursor:pointer;user-select:none}
   #bars h4 .chev{float:right;transition:transform .2s}
@@ -56,12 +56,27 @@
   .bar .track{height:8px;background:rgba(255,255,255,.08);border-radius:4px;overflow:hidden}
   .bar .fill{height:100%;width:0;border-radius:4px;background:var(--p1);transition:width .08s linear}
   .bar .num{text-align:right;font-variant-numeric:tabular-nums;color:var(--mute)}
-  /* 說明 */
-  #note{position:fixed;inset:0;z-index:20;background:rgba(0,0,0,.6);display:none;align-items:center;justify-content:center;padding:20px}
-  #note.show{display:flex}
-  #note .box{max-width:560px;max-height:85vh;overflow:auto;padding:18px 20px;font-size:13.5px}
-  #note h3{margin:0 0 8px}
-  #note p{margin:8px 0}
+  /* 握法・呼吸那一列 */
+  .row.wrap{flex-wrap:wrap;row-gap:6px}
+  .seg{display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+  .seg .seg-l{font-size:12px;color:var(--mute);padding:0 8px}
+  .seg button{border:0;border-radius:0;border-left:1px solid var(--line);padding:5px 10px}
+  .pill{display:inline-block;padding:4px 10px;border-radius:999px;font-size:13px;min-width:6.5em;text-align:center;
+    background:rgba(255,255,255,.06);border:1px solid var(--line);transition:background .25s,color .25s}
+  .pill.in{background:rgba(124,199,255,.22);border-color:var(--sel)}
+  .pill.hold{background:rgba(245,213,71,.20);border-color:var(--p3)}
+  .pill.out{background:rgba(255,77,61,.20);border-color:var(--p1)}
+  button.link{background:none;border:0;color:var(--sel);text-decoration:underline;padding:4px 2px;font-size:12px}
+  /* 說明與握法：同一種浮層 */
+  #note,.sheet{position:fixed;inset:0;z-index:20;background:rgba(0,0,0,.6);display:none;align-items:center;justify-content:center;padding:20px}
+  #note.show,.sheet.show{display:flex}
+  #note .box,.sheet .box{max-width:560px;max-height:85vh;overflow:auto;padding:18px 20px;font-size:13.5px}
+  #note h3,.sheet h3{margin:0 0 8px}
+  .sheet h4{margin:12px 0 4px;font-size:13px;color:var(--mute)}
+  .sheet ul{margin:0;padding-left:18px}
+  .sheet li{margin:4px 0}
+  .sheet .who{color:var(--mute);font-size:12.5px}
+  #note p,.sheet p{margin:8px 0}
   #note a{color:var(--sel)}
   #hint{left:50%;transform:translateX(-50%);top:64px;color:var(--mute);font-size:12px;padding:4px 10px;pointer-events:none;transition:opacity .4s;text-align:center}
   #loading{position:fixed;inset:0;z-index:30;display:flex;align-items:center;justify-content:center;background:var(--bg);color:var(--mute)}
@@ -75,10 +90,12 @@
     #left button{width:40px;height:34px;font-size:11px}
     #bottom{grid-template-columns:1fr;gap:6px;padding:8px 12px}
     #bottom label{display:none}
-    #bars{bottom:150px;width:calc(100vw - 24px)}
-    #hint{top:auto;bottom:150px;left:64px;right:12px;transform:none;max-width:none;font-size:11px}
+    #bars{bottom:196px;width:calc(100vw - 24px)}
+    #hint{top:auto;bottom:196px;left:64px;right:12px;transform:none;max-width:none;font-size:11px}
     #bars.show ~ #hint{display:none}
-    #card{top:auto;bottom:150px;left:12px;right:12px;width:auto}
+    #card{top:auto;bottom:196px;left:12px;right:12px;width:auto}
+    .seg .seg-l{padding:0 6px}
+    .seg button{padding:4px 8px}
     #card.show ~ #bars{display:none}
   }
 </style>
@@ -135,6 +152,36 @@
   <div class="row bench-only"><input type="range" id="angle" min="-15" max="75" value="0" step="1"><output id="angleV">0°（平板）</output></div>
   <label class="bench-only">握距</label>
   <div class="row bench-only"><input type="range" id="grip" min="110" max="200" value="160" step="5"><output id="gripV">1.6 倍肩寬</output></div>
+  <label class="bench-only">握法・呼吸</label>
+  <div class="row bench-only wrap">
+    <span class="seg"><span class="seg-l">手腕</span><button data-w="straight" class="on">直</button><button data-w="bent">折</button></span>
+    <span class="seg"><span class="seg-l">呼吸</span><button data-b="basic" class="on">初學</button><button data-b="brace">大重量</button></span>
+    <span id="breath" class="pill">—</span>
+    <button id="tGrip" class="link">怎麼握、怎麼呼吸</button>
+  </div>
+</div>
+
+<div id="gripNote" class="sheet">
+  <div class="box panel">
+    <h3>握法與呼吸</h3>
+    <p class="who">⚠️ 這一節是健身圈的通行做法（標 <span class="tag">慣例</span>）與從槓桿推出來的（標 <span class="tag">力學</span>），
+      <b>不是量測，也不是任何一位教練的說法</b>。你給的那個頻道，我從這裡看不到影片內容，🚫 沒有把他的話放進來。</p>
+    <h4>握法</h4>
+    <ul>
+      <li><b>槓放掌根，壓在前臂正上方</b><span class="tag">力學</span>——槓、腕、肘三點成一直線，力直接走進骨頭。上面「手腕：直／折」切換看差別。</li>
+      <li><b>手腕不要往後折</b><span class="tag">力學</span>——折腕＝槓跑到前臂線後面，那段距離就是壓在手腕上的力矩；練久了手腕痛多半從這裡來。</li>
+      <li><b>拇指要扣住槓（全握）</b><span class="tag">停下來</span>——拇指不扣（虛握）槓可能滾出來，砸在胸口或脖子上。🚫 不做。</li>
+      <li><b>握距</b><span class="tag">慣例</span>——底端時前臂接近垂直。拉「握距」滑桿看前臂角度；寬一點偏胸、窄一點偏三頭。</li>
+      <li><b>手要握緊、想像把槓「掰彎」</b><span class="tag">慣例</span>——讓肘自然收一點、肩胛收緊；有沒有效因人而異。</li>
+    </ul>
+    <h4>呼吸</h4>
+    <ul>
+      <li><b>初學</b><span class="tag">慣例</span>——下放時吸氣，推起時吐氣。簡單、安全，重量不大時就用這個。</li>
+      <li><b>大重量</b><span class="tag">慣例</span>——頂端先吸滿、繃緊肚子與背，下放到推過最難那一段都憋住，過了再吐。這是靠腹壓把軀幹撐硬。</li>
+      <li><b>什麼時候不能憋</b><span class="tag">停下來</span>——憋氣會讓血壓短時間衝高。有高血壓、憋氣會頭暈或眼前發黑的人，一律用「初學」那種，並且去問人。</li>
+    </ul>
+    <p style="text-align:right;margin-top:10px"><button id="gripX">關閉</button></p>
+  </div>
 </div>
 
 <div id="note">
@@ -150,7 +197,7 @@
       <b>不是我藏起來，是資料集裡沒有。</b> 練背的主要肌群因此少了最大的一塊，「背」那一頁有標。</p>
     <p><b>動作怎麼算的</b>：骨頭是剛體，肌肉與皮膚依「離關節多遠」平滑分配到軀幹或手臂——
       這是動畫常用的簡化，<b>肌肉不會真的收縮變粗，肩胛骨也固定不動</b>（真實臥推它會後收）。
-      沒有旋轉肌群的動態，也沒有手腕與手指的動作。</p>
+      沒有旋轉肌群的動態。<b>手指不會彎</b>，所以用「開掌托著槓」代表握；前臂的旋前也是用轉手掌代替的。</p>
     <p><b>縮短百分比</b>：每一束取「軀幹端」與「手臂端」兩點的距離（直線若穿過肩關節，就改算繞過肱骨頭的路徑），
       與這一趟裡最拉長的那一格相比，縮短了幾 %。<b>這是這個模型的幾何，不是量出來的力矩臂或肌電。</b>
       三頭肌那一列直接顯示肘關節角度，越直＝三頭越短。
@@ -175,7 +222,7 @@ const jv = k => V3(k[0],k[1],k[2]);
 const smooth = x => { x = x<0?0:x>1?1:x; return x*x*(3-2*x); };
 
 // ── 骨架：9 節（軀幹含頭與骨盆；手掌隨前臂；腳掌隨小腿）───────────
-const BONES = ['torso','R_uarm','R_farm','L_uarm','L_farm','R_thigh','R_shank','L_thigh','L_shank'];
+const BONES = ['torso','R_uarm','R_farm','R_hand','L_uarm','L_farm','L_hand','R_thigh','R_shank','R_foot','L_thigh','L_shank','L_foot'];
 const BI = Object.fromEntries(BONES.map((b,i)=>[b,i]));
 const REST = {};                                   // 靜止姿勢的關節（模型座標，公尺）
 for (const s of ['R','L']) for (const k in J[s]) REST[s+'_'+k] = jv(J[s][k]);
@@ -194,19 +241,22 @@ function distSeg(px,py,pz, a, b){
 // 一條肢體（肩→肘→腕 或 髖→膝→踝）對一個頂點的權重：[近端骨, 遠端骨]
 // （27 萬個頂點都要跑，所以用純數字，不配置向量）
 const chainCache = new Map();
-function chainWeight(px,py,pz, c0, c1, c2, r1, r2, t0, t1, band, allowTip){
-  let C = chainCache.get(c0); if (!C){ C = {u0:c1.clone().sub(c0).normalize(), u1:c2.clone().sub(c1).normalize()}; C.tip = c2.clone().addScaledVector(C.u1,.22); chainCache.set(c0,C); }
+function chainWeight(px,py,pz, c0, c1, c2, r1, r2, t0, t1, band, allowTip, tipDir){
+  // tipDir：手掌／腳掌從腕／踝往哪個方向伸（⚠️ 腳是往前伸，不是順著小腿往下；不給的話就順著前臂）
+  let C = chainCache.get(c0); if (!C){ C = {u0:c1.clone().sub(c0).normalize(), u1:c2.clone().sub(c1).normalize()}; C.tip = c2.clone().add(tipDir ? tipDir : C.u1.clone().multiplyScalar(.22)); chainCache.set(c0,C); }
   const t = (px-c0.x)*C.u0.x+(py-c0.y)*C.u0.y+(pz-c0.z)*C.u0.z;
-  if (t < t0-.02) return [0,0];
+  if (t < t0-.02) return [0,0,0];
   // 手指／腳趾會張開，離手掌軸線比 r2 遠；那一段放寬 6 cm，否則指尖會留在原地拉成長絲。
   // ⚠️ 但靜止時手就垂在大腿旁邊，放寬只能給手臂的肌肉與手的皮膚，🚫 不能給大腿與腹側（否則它們會被手拖走）
   const tipD = distSeg(px,py,pz,c2,C.tip) - (allowTip ? .06 : 0);
   const r = Math.min(distSeg(px,py,pz,c0,c1), distSeg(px,py,pz,c1,c2), Math.max(0, tipD));
-  if (r > r2) return [0,0];
+  if (r > r2) return [0,0,0];
   const w = smooth((t-t0)/(t1-t0)) * smooth((r2-r)/(r2-r1));
   const td = (px-c1.x)*C.u1.x+(py-c1.y)*C.u1.y+(pz-c1.z)*C.u1.z;
-  const w2 = smooth((td+band)/(2*band));
-  return [w*(1-w2), w*w2];
+  const w2 = smooth((td+band)/(2*band));                     // 過了肘／膝 → 前臂／小腿
+  const t3 = (px-c2.x)*C.u1.x+(py-c2.y)*C.u1.y+(pz-c2.z)*C.u1.z;
+  const w3 = smooth((t3+band)/(2*band));                     // 過了腕／踝 → 手掌／腳掌
+  return [w*(1-w2), w*w2*(1-w3), w*w2*w3];
 }
 
 // ── 解碼幾何 ───────────────────────────────────────────────────
@@ -243,11 +293,11 @@ function buildGroup(g){
         const armPart = g==='m' && (p.region==='arm' || p.region==='forearm');
         const handSkin = g==='s' && Math.abs(x) > .205;          // 手掌比大腿外側更靠外
         for (const s of (side ? [side] : ['R','L'])){
-          const [a,b] = chainWeight(x,y,z, REST[s+'_shoulder'], REST[s+'_elbow'], REST[s+'_wrist'], .04, r2s, 0, .07, .03, armPart || handSkin);
-          const [c,d] = chainWeight(x,y,z, REST[s+'_hip'], REST[s+'_knee'], REST[s+'_ankle'], .05, r2h, 0, .08, .03, true);
-          if (a>1e-3) w[s+'_uarm']=a; if (b>1e-3) w[s+'_farm']=b;
-          if (c>1e-3) w[s+'_thigh']=c; if (d>1e-3) w[s+'_shank']=d;
-          rest -= a+b+c+d;
+          const [a,b,h] = chainWeight(x,y,z, REST[s+'_shoulder'], REST[s+'_elbow'], REST[s+'_wrist'], .04, r2s, 0, .07, .03, armPart || handSkin, REST[s+'_handDir'].clone().multiplyScalar(.20));
+          const [c,d,f] = chainWeight(x,y,z, REST[s+'_hip'], REST[s+'_knee'], REST[s+'_ankle'], .05, r2h, 0, .08, .03, true, V3(0,-.07,.20));
+          if (a>1e-3) w[s+'_uarm']=a; if (b>1e-3) w[s+'_farm']=b; if (h>1e-3) w[s+'_hand']=h;
+          if (c>1e-3) w[s+'_thigh']=c; if (d>1e-3) w[s+'_shank']=d; if (f>1e-3) w[s+'_foot']=f;
+          rest -= a+b+h+c+d+f;
         }
         if (rest>1e-3) w.torso = rest;
       }
@@ -304,7 +354,7 @@ const FS = `
     if (role == 1.0) c = vec3(1.0, .30, .22);
     else if (role == 2.0) c = vec3(1.0, .62, .18);
     else if (role == 3.0) c = vec3(.96, .84, .28);
-    else if (dim > .5 && uKind < .5) c = vec3(.46, .35, .34);
+    else if (dim > .5 && uKind < .5) c = vec3(.84, .66, .55);   // 這個動作沒用到的肌肉：皮膚色
     vec3 L1 = normalize(vec3(.45, .7, .6)), L2 = normalize(vec3(-.6, .2, .4));
     float d = .28 + .62*max(dot(N,L1),0.0) + .22*max(dot(N,L2),0.0);
     float spec = pow(max(dot(reflect(-L1,N),V),0.0), 28.0) * (uKind < .5 ? .28 : .12);
@@ -364,7 +414,7 @@ const key = new THREE.DirectionalLight(0xffffff, .6); key.position.set(2,4,3); s
 // ── 姿勢 ───────────────────────────────────────────────────────
 const BENCH_H = .45, BACK_T = .11;                    // 椅面高度、髖中心到背面皮膚的厚度
 const R0 = new THREE.Matrix4().makeRotationX(-Math.PI/2);    // 站姿 → 仰臥（頭朝 −Z、胸朝上）
-const state = {mode:'bench', angle:0, grip:1.6, t:0, playing:true, selected:-1, part:'chest'};
+const state = {mode:'bench', angle:0, grip:1.6, t:0, playing:true, selected:-1, part:'chest', wrist:'straight', breath:'basic'};
 const skin = BONES.map(()=>new THREE.Matrix4());       // 每節骨頭的蒙皮矩陣（模型座標 → 世界）
 const world = {};                                     // 目前各關節的世界座標
 
@@ -393,9 +443,23 @@ function ikArm(s, target){
   const u = E.clone().sub(S).normalize(), f = H.clone().sub(E).normalize();
   const axis = u.clone().cross(f).normalize();
   world[s+'_elbow'] = E; world[s+'_wrist'] = H;
+  const Rf = frameRot(REST[s+'_wrist'].clone().sub(REST[s+'_elbow']), XR, f, axis);
   skin[BI[s+'_uarm']] = pivotMat(S, frameRot(REST[s+'_elbow'].clone().sub(REST[s+'_shoulder']), XR, u, axis), REST[s+'_shoulder']);
-  skin[BI[s+'_farm']] = pivotMat(E, frameRot(REST[s+'_wrist'].clone().sub(REST[s+'_elbow']), XR, f, axis), REST[s+'_elbow']);
-  return {S,E,H};
+  skin[BI[s+'_farm']] = pivotMat(E, Rf, REST[s+'_elbow']);
+  return {S,E,H,f,Rf};
+}
+// 手掌：模型沒有旋前，也沒有手指關節，所以用「開掌」代表握——
+// 先把掌心轉到朝腳的方向（旋前），再繞腕關節往手背折 e 度：e=90° 掌心正對槓、手指朝頭。
+function poseHand(s, r, headDir, ext){
+  const W = world[s+'_wrist'], f = r.f;
+  // 目標：n＝垂直於前臂、朝腳的方向；手指＝把前臂方向往手背折 ext 度；掌心跟著轉
+  const n = headDir.clone().negate().addScaledVector(f, headDir.dot(f)).normalize();
+  const fingers = f.clone().multiplyScalar(Math.cos(ext)).addScaledVector(n, -Math.sin(ext)).normalize();
+  const palm = n.clone().multiplyScalar(Math.cos(ext)).addScaledVector(f, Math.sin(ext)).normalize();
+  // 靜止時手掌自己的方向與掌心（由掌骨算出來，存在清單裡）→ 轉到目標
+  const R = frameRot(REST[s+'_handDir'], REST[s+'_palm'], fingers, palm);
+  skin[BI[s+'_hand']] = pivotMat(W, R, REST[s+'_wrist']);
+  return {fingers, palmNormal: palm};
 }
 
 function elbowAngle(s){
@@ -457,14 +521,15 @@ function poseBench(t){
   skin[BI.torso] = pivotMat(P0w, rotT, P0r);
   for (const s of ['R','L']) world[s+'_shoulder'] = REST[s+'_shoulder'].clone().applyMatrix4(skin[BI.torso]);
   for (const s of ['R','L']) world[s+'_hip'] = REST[s+'_hip'].clone().applyMatrix4(skin[BI.torso]);
-  // 腿：大腿往前下方、小腿踩地
+  // 腿：大腿近乎水平躺在椅面上、膝過椅緣、小腿近乎垂直、腳掌平貼地面（踝關節離腳底約 8 cm）
   for (const s of ['R','L']){
     const Hp = world[s+'_hip'];
     const Lt = REST[s+'_hip'].distanceTo(REST[s+'_knee']), Ls = REST[s+'_knee'].distanceTo(REST[s+'_ankle']);
-    const alpha = 32*Math.PI/180;
-    const dt = V3(s==='R'?-.10:.10, -Math.sin(alpha), Math.cos(alpha)).normalize();
+    const alpha = 15*Math.PI/180;
+    const dt = V3(s==='R'?-.12:.12, -Math.sin(alpha), Math.cos(alpha)).normalize();
     const K = Hp.clone().addScaledVector(dt, Lt);
-    const cb = Math.max(0, Math.min(1, (K.y-.02)/Ls)), beta = Math.acos(cb);
+    const ankleY = REST[s+'_ankle'].y + .004;
+    const cb = Math.max(0, Math.min(1, (K.y-ankleY)/Ls)), beta = Math.acos(cb);
     const ds = V3(0, -Math.cos(beta), Math.sin(beta)).normalize();
     const A = K.clone().addScaledVector(ds, Ls);
     const axis = dt.clone().cross(ds).normalize();
@@ -472,6 +537,9 @@ function poseBench(t){
     // 膝的屈曲軸朝受試者左側（+X）；肘的朝右側（−X）——兩者都是「往彎的方向」的右手定則
     skin[BI[s+'_thigh']] = pivotMat(Hp, frameRot(REST[s+'_knee'].clone().sub(REST[s+'_hip']), XL, dt, axis), REST[s+'_hip']);
     skin[BI[s+'_shank']] = pivotMat(K, frameRot(REST[s+'_ankle'].clone().sub(REST[s+'_knee']), XL, ds, axis), REST[s+'_knee']);
+    // 腳掌不轉，只平移：靜止姿勢的腳本來就是平的、朝前的
+    const Ar = REST[s+'_ankle'];
+    skin[BI[s+'_foot']] = new THREE.Matrix4().makeTranslation(A.x-Ar.x, A.y-Ar.y, A.z-Ar.z);
   }
   // 槓的路徑：世界座標裡垂直上下；頂端在肩正上方，底端碰到胸（上斜時碰觸點往上移，這是慣例）
   const Sm = world.R_shoulder.clone().add(world.L_shoulder).multiplyScalar(.5);
@@ -482,10 +550,22 @@ function poseBench(t){
   const hTop = Math.sqrt(Math.max(.05, reach*reach - (G-halfSh)*(G-halfSh)));
   const chestRest = V3(0, 1.27 + .10*Math.max(0,state.angle)/60, .135);
   const Cw = chestRest.applyMatrix4(skin[BI.torso]);
-  const top = V3(0, Sm.y + hTop, Sm.z), bot = V3(0, Cw.y + .045, Cw.z);
+  const top = V3(0, Sm.y + hTop + .05, Sm.z), bot = V3(0, Cw.y + .045, Cw.z);
   const s = .5 + .5*Math.cos(2*Math.PI*t);            // 1 = 頂端
   const barC = bot.clone().lerp(top, s);
-  const r = ikArm('R', V3(-G, barC.y, barC.z)), l = ikArm('L', V3(G, barC.y, barC.z));
+  // 槓放在掌心：腕關節在槓的下方 3 cm、再往手指方向退 p（直腕 p 小＝槓壓在前臂正上方；折腕 p 大＝槓跑到手指根）
+  const headDir = V3(0, Math.sin(th), -Math.cos(th));
+  const ext = state.wrist==='bent' ? 118*Math.PI/180 : 90*Math.PI/180, p = state.wrist==='bent' ? .075 : .035;
+  const hands = {};
+  for (const [s2, gx] of [['R',-G],['L',G]]){
+    let f = V3(0,1,0), fingers = headDir.clone(), r;
+    for (let it=0; it<2; it++){
+      const T = V3(gx, barC.y, barC.z).addScaledVector(f, -.03).addScaledVector(fingers, -p);
+      r = ikArm(s2, T); f = r.f;
+      fingers = poseHand(s2, r, headDir, ext).fingers;
+    }
+    hands[s2] = r;
+  }
   bar.position.copy(barC); plates[0].position.set(-G-.28, barC.y, barC.z); plates[1].position.set(G+.28, barC.y, barC.z);
   bar.visible = plates[0].visible = plates[1].visible = true;
   // 椅子
@@ -682,6 +762,24 @@ $('grip').addEventListener('input', ()=>{ state.grip=+$('grip').value/100; $('gr
 $('phase').addEventListener('input', ()=>{ state.playing=false; setPlay(); state.t=+$('phase').value/100; });
 function setPlay(){ $('play').textContent = state.playing ? '⏸ 暫停' : '▶ 播放'; $('play').classList.toggle('on', state.playing); }
 $('play').addEventListener('click', ()=>{ state.playing=!state.playing; setPlay(); });
+document.querySelectorAll('button[data-w]').forEach(b=>b.addEventListener('click', ()=>{
+  state.wrist=b.dataset.w; document.querySelectorAll('button[data-w]').forEach(x=>x.classList.toggle('on', x===b));
+  showHint(state.wrist==='bent' ? '折腕：槓跑到前臂線後面，那段距離就是壓在手腕上的力矩' : '直腕：槓、腕、肘成一直線，力直接走進骨頭');
+}));
+document.querySelectorAll('button[data-b]').forEach(b=>b.addEventListener('click', ()=>{
+  state.breath=b.dataset.b; document.querySelectorAll('button[data-b]').forEach(x=>x.classList.toggle('on', x===b));
+}));
+$('tGrip').addEventListener('click', ()=>$('gripNote').classList.add('show'));
+$('gripX').addEventListener('click', ()=>$('gripNote').classList.remove('show'));
+$('gripNote').addEventListener('click', e=>{ if (e.target===$('gripNote')) $('gripNote').classList.remove('show'); });
+// 呼吸提示：依行程位置
+function breathCue(t, s){
+  const lowering = t < .5;
+  if (state.breath==='basic') return lowering ? ['吸氣','in'] : ['吐氣','out'];
+  if (s > .92 && lowering) return ['吸滿・繃緊','in'];
+  if (lowering || s < .55) return ['憋住','hold'];
+  return ['吐氣','out'];
+}
 
 $('barsH').addEventListener('click', ()=>$('bars').classList.toggle('fold'));
 if (innerWidth <= 640) $('bars').classList.add('fold');
@@ -715,6 +813,8 @@ function tick(now){
     }
     const s = .5+.5*Math.cos(2*Math.PI*state.t);
     $('phaseV').textContent = s>.9 ? '頂端（鎖定）' : s<.1 ? '底端（碰胸）' : (state.t<.5 ? '下放中' : '往上推');
+    const [cue, cls] = breathCue(state.t, s); const bp = $('breath');
+    if (bp.textContent !== cue){ bp.textContent = cue; bp.className = 'pill ' + cls; }
   } else applyPose();
   updateCamera();
   renderer.render(scene, camera);

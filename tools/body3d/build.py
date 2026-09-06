@@ -144,13 +144,15 @@ def side_of(name):
     if re.search(r'\bleft\b', n):  return 'L'
     return ''
 
-HAND_BONES = re.compile(r'radius|ulna|scaphoid|lunate|triquetral|pisiform|trapezium|trapezoid|capitate|hamate|metacarpal|finger|thumb', re.I)
-FOOT_BONES = re.compile(r'patella|tibia|fibula|talus|calcaneus|cuboid|navicular|cuneiform bone|metatarsal|toe', re.I)
+HAND_BONES = re.compile(r'scaphoid|lunate|triquetral|pisiform|trapezium|trapezoid|capitate|hamate|metacarpal|finger|thumb', re.I)
+FOOT_BONES = re.compile(r'talus|calcaneus|cuboid|navicular|cuneiform bone|metatarsal|toe', re.I)
 def bone_seg(name):
     if re.search(r'humerus', name, re.I): return 'uarm'
-    if HAND_BONES.search(name): return 'farm'
+    if re.search(r'radius|ulna', name, re.I): return 'farm'
+    if HAND_BONES.search(name): return 'hand'
     if re.search(r'femur', name, re.I): return 'thigh'
-    if FOOT_BONES.search(name): return 'shank'
+    if re.search(r'patella|tibia|fibula', name, re.I): return 'shank'
+    if FOOT_BONES.search(name): return 'foot'
     return 'torso'
 
 # 給介面用的區域標籤
@@ -197,15 +199,29 @@ def femoral_head(pos):
     medial = top[np.argmin(np.abs(top[:,0]))]
     return top[np.linalg.norm(top-medial, axis=1) < 0.025].mean(axis=0)
 
+def by_name(sub):
+    return raw(next(p for p in atlas['parts'] if p['name'].lower() == sub.lower())['id'])[0]
+
 def joints_for(side):
     hum = raw('FJ3368' if side=='R' else 'FJ3262')[0]
     rad = raw('FJ3349' if side=='R' else 'FJ3277')[0]
     fem = raw('FJ3365' if side=='R' else 'FJ3259')[0]
     tib = raw('FJ3387' if side=='R' else 'FJ3282')[0]
+    s = 'right' if side == 'R' else 'left'
+    wrist = end_centroid(rad, False, 0.015)
+    # 手掌的靜止朝向：由掌骨算，🚫 不假設資料是「掌心朝前」的解剖姿勢
+    mc3 = by_name(f'{s} third metacarpal bone').mean(axis=0)
+    mc1 = by_name(f'{s} first metacarpal bone').mean(axis=0)
+    mc5 = by_name(f'{s} fifth metacarpal bone').mean(axis=0)
+    hand_dir = mc3 - wrist; hand_dir /= np.linalg.norm(hand_dir)
+    radial = mc1 - mc5; radial -= hand_dir * radial.dot(hand_dir); radial /= np.linalg.norm(radial)
+    palm = np.cross(radial, hand_dir) if side == 'R' else np.cross(hand_dir, radial)   # 掌心＝拇指那側轉向手指方向
     return {
         'shoulder': end_centroid(hum, True, 0.035).tolist(),
         'elbow':    end_centroid(hum, False, 0.02).tolist(),
-        'wrist':    end_centroid(rad, False, 0.015).tolist(),
+        'wrist':    wrist.tolist(),
+        'handDir':  hand_dir.tolist(),
+        'palm':     palm.tolist(),
         'hip':      femoral_head(fem).tolist(),
         'knee':     end_centroid(fem, False, 0.02).tolist(),
         'ankle':    end_centroid(tib, False, 0.02).tolist(),
