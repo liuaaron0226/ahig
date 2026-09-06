@@ -147,6 +147,7 @@ def side_of(name):
 HAND_BONES = re.compile(r'scaphoid|lunate|triquetral|pisiform|trapezium|trapezoid|capitate|hamate|metacarpal|finger|thumb', re.I)
 FOOT_BONES = re.compile(r'talus|calcaneus|cuboid|navicular|cuneiform bone|metatarsal|toe', re.I)
 def bone_seg(name):
+    if re.search(r'\brib\b|costal cartilage|sternum|manubrium|xiphoid', name, re.I): return 'chest'   # 呼吸時會撐開
     if re.search(r'humerus', name, re.I): return 'uarm'
     if re.search(r'radius|ulna', name, re.I): return 'farm'
     if HAND_BONES.search(name): return 'hand'
