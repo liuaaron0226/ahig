@@ -121,9 +121,9 @@
 </div>
 
 <div id="left" class="ui panel">
-  <button id="tSkin" title="皮膚">皮膚</button>
+  <button id="tSkin" class="on" title="皮膚">皮膚</button>
   <button id="tMus" class="on" title="肌肉">肌肉</button>
-  <button id="tBone" class="on" title="骨頭">骨頭</button>
+  <button id="tBone" title="骨頭">骨頭</button>
   <div class="sep"></div>
   <button data-v="front">正面</button>
   <button data-v="back">背面</button>
@@ -147,7 +147,7 @@
   <div id="barRows"></div>
 </div>
 
-<div id="hint" class="ui panel">一指拖曳轉動・兩指縮放・點肌肉看名字</div>
+<div id="hint" class="ui panel">一指拖曳轉動・兩指縮放・點身體看底下是哪塊肌肉</div>
 
 <div id="bottom" class="ui panel">
   <label>動作</label>
@@ -199,6 +199,8 @@
       <a href="https://dbarchive.biosciencedbc.jp/en/bodyparts3d/" target="_blank" rel="noopener">dbarchive.biosciencedbc.jp</a>；經
       <a href="https://github.com/ashemag/human-atlas" target="_blank" rel="noopener">human-atlas</a>（MIT）轉成瀏覽器格式，
       本頁再把每一塊簡化到約一半的三角形數，並把座標壓成 16 位元。</p>
+    <p><b>外觀</b>：預設是皮膚，在用力的那幾塊肌肉底下皮膚會變透，讓它們透出來；關掉「皮膚」就是全部肌肉。
+      ⚠️ 這具身體是資料庫裡的<b>平均體型成年男性</b>，不是健身模特兒；能改的是光線與呈現，🚫 改不了他的體型。</p>
     <p><b>這套資料沒有的肌肉</b>：闊背肌、腹直肌、腹內斜肌、腹橫肌、腰方肌。
       <b>不是我藏起來，是資料集裡沒有。</b> 練背的主要肌群因此少了最大的一塊，「背」那一頁有標。</p>
     <p><b>動作怎麼算的</b>：骨頭是剛體，肌肉與皮膚依「離關節多遠」平滑分配到軀幹或手臂——
@@ -270,7 +272,29 @@ function chainWeight(px,py,pz, c0, c1, c2, r1, r2, t0, t1, band, allowTip, tipDi
 const raw = Uint8Array.from(atob(document.getElementById('blob').textContent.trim()), c=>c.charCodeAt(0));
 const lo = M.bbox[0], sc = [M.bbox[1][0]-lo[0], M.bbox[1][1]-lo[1], M.bbox[1][2]-lo[2]];
 
-function buildGroup(g){
+// 皮膚的權重不用距離規則算——皮膚是一整張，腋下與大腿根用距離分不開；
+// 改成「抄底下最近那個肌肉／骨頭頂點的權重」：皮膚跟著它包住的東西走。
+function buildGrid(refs){
+  const cell = .03, map = new Map();
+  const key = (x,y,z)=> (Math.floor(x/cell)+512) + (Math.floor(y/cell)+512)*1024 + (Math.floor(z/cell)+512)*1048576;
+  refs.forEach((r, ri)=>{ for (let k=0;k<r.pid.length;k++){ const kk = key(r.pos[k*3],r.pos[k*3+1],r.pos[k*3+2]); let a = map.get(kk); if (!a){ a=[]; map.set(kk,a); } a.push(ri, k); } });
+  return {cell, map, refs};
+}
+function nearestRef(grid, x,y,z){
+  const c = grid.cell, ix=Math.floor(x/c)+512, iy=Math.floor(y/c)+512, iz=Math.floor(z/c)+512;
+  let best=null, bd=Infinity;
+  for (let R=1; R<=4 && !best; R++){
+    for (let dx=-R;dx<=R;dx++) for (let dy=-R;dy<=R;dy++) for (let dz=-R;dz<=R;dz++){
+      const a = grid.map.get((ix+dx)+(iy+dy)*1024+(iz+dz)*1048576); if (!a) continue;
+      for (let j=0;j<a.length;j+=2){ const r=grid.refs[a[j]], k=a[j+1];
+        const ex=r.pos[k*3]-x, ey=r.pos[k*3+1]-y, ez=r.pos[k*3+2]-z, d=ex*ex+ey*ey+ez*ez;
+        if (d<bd){ bd=d; best=[a[j],k]; } }
+    }
+  }
+  return best;
+}
+function buildGroup(g, refs){
+  const grid = refs ? buildGrid(refs) : null;
   const list = PARTS.map((p,i)=>({p,i})).filter(o=>o.p.g===g);
   let V=0,T=0; for (const {p} of list){ V+=p.v; T+=p.t; }
   const pos=new Float32Array(V*3), col=new Uint8Array(V*3), pid=new Float32Array(V),
@@ -281,26 +305,41 @@ function buildGroup(g){
     const ii = new Uint16Array(raw.buffer, p.io, p.t*3);
     const side = p.side;
     const crossS = g==='m' && CROSS_SH.test(p.en), crossH = g==='m' && CROSS_HIP.test(p.en);
-    const r2s = g==='s' ? .11 : crossS ? .12 : .07, r2h = g==='s' ? .11 : crossH ? .12 : .07;
+    const r2s = g==='s' ? .13 : crossS ? .12 : .07, r2h = g==='s' ? .13 : crossH ? .12 : .07;
+    const r1 = g==='s' ? .05 : .04, tS0 = g==='s' ? -.02 : 0, tS1 = g==='s' ? .10 : .07;   // 皮膚的過渡帶寬一點，腋下才不會撕開
+    const SHORTS = [44, 48, 62];                       // 短褲：骨盆到大腿上段的皮膚改成深色布
     // 顏色：肌肉略有深淺差，讓相鄰的塊分得開
     const h = ((i*2654435761)>>>0)%1000/1000;
-    let base = g==='m' ? [168+h*30, 58+h*14, 54+h*12] : g==='b' ? [228+h*10, 220+h*10, 198+h*10] : [216,168,140];
+    let base = g==='m' ? [168+h*30, 58+h*14, 54+h*12] : g==='b' ? [228+h*10, 220+h*10, 198+h*10]
+             : p.en==='Skin' ? [219,170,142] : p.en==='Lip' ? [190,112,104] : [46,32,26];   // 頭髮、眉毛深棕
     ranges.push({i, start:to*3, count:p.t*3});
     for (let k=0;k<p.v;k++){
       const x=(q[k*3]+32768)/65535*sc[0]+lo[0], y=(q[k*3+1]+32768)/65535*sc[1]+lo[1], z=(q[k*3+2]+32768)/65535*sc[2]+lo[2];
       const o=(vo+k); pos[o*3]=x; pos[o*3+1]=y; pos[o*3+2]=z;
-      col[o*3]=base[0]; col[o*3+1]=base[1]; col[o*3+2]=base[2]; pid[o]=i;
+      let cc = base; pid[o]=i;
       // 權重
       let w = {};
       if (g==='b'){
         const seg = p.seg;
         w[ TRUNK.includes(seg) ? seg : (side||'R')+'_'+seg ] = 1;
+      } else if (grid){
+        const nb = nearestRef(grid, x,y,z);
+        if (nb){
+          const r = grid.refs[nb[0]], kk = nb[1];
+          for (let j=0;j<4;j++){ sIdx[o*4+j]=r.sIdx[kk*4+j]; sW[o*4+j]=r.sW[kk*4+j]; }
+          const np = PARTS[r.pid[kk]];
+          // 短褲：腰到大腿中段的皮膚改成深色布；⚠️ 手垂在大腿旁、高度一樣，用「底下是不是手臂」把手排除
+          const isArm = np.region==='arm' || np.region==='forearm' || (np.g==='b' && (np.seg==='hand' || np.seg==='farm'));
+          if (p.en==='Skin' && y > .70 && y < .985 && !isArm) cc = SHORTS;
+        } else { sIdx[o*4]=0; sW[o*4]=1; }
+        col[o*3]=cc[0]; col[o*3+1]=cc[1]; col[o*3+2]=cc[2];
+        continue;
       } else {
         let rest = 1;
         const armPart = g==='m' && (p.region==='arm' || p.region==='forearm');
         const handSkin = g==='s' && Math.abs(x) > .205;          // 手掌比大腿外側更靠外
         for (const s of (side ? [side] : ['R','L'])){
-          const [a,b,h] = chainWeight(x,y,z, REST[s+'_shoulder'], REST[s+'_elbow'], REST[s+'_wrist'], .04, r2s, 0, .07, .03, armPart || handSkin, REST[s+'_handDir'].clone().multiplyScalar(.20));
+          const [a,b,h] = chainWeight(x,y,z, REST[s+'_shoulder'], REST[s+'_elbow'], REST[s+'_wrist'], r1, r2s, tS0, tS1, .03, armPart || handSkin, REST[s+'_handDir'].clone().multiplyScalar(.20));
           const [c,d,f] = chainWeight(x,y,z, REST[s+'_hip'], REST[s+'_knee'], REST[s+'_ankle'], .05, r2h, 0, .08, .03, true, V3(0,-.07,.20));
           if (a>1e-3) w[s+'_uarm']=a; if (b>1e-3) w[s+'_farm']=b; if (h>1e-3) w[s+'_hand']=h;
           if (c>1e-3) w[s+'_thigh']=c; if (d>1e-3) w[s+'_shank']=d; if (f>1e-3) w[s+'_foot']=f;
@@ -320,6 +359,7 @@ function buildGroup(g){
       const keys = Object.keys(w).sort((A,B)=>w[B]-w[A]).slice(0,4);
       let sum=0; for (const k of keys) sum+=w[k];
       for (let j=0;j<4;j++){ const k=keys[j]; sIdx[o*4+j]=k?BI[k]:0; sW[o*4+j]=k?w[k]/sum:0; }
+      col[o*3]=cc[0]; col[o*3+1]=cc[1]; col[o*3+2]=cc[2];
     }
     for (let k=0;k<p.t*3;k++) idx[to*3+k] = ii[k]+vo;
     vo+=p.v; to+=p.t;
@@ -332,7 +372,7 @@ function buildGroup(g){
   geo.setAttribute('skinWeight', new THREE.BufferAttribute(sW,4));
   geo.setIndex(new THREE.BufferAttribute(idx,1));
   geo.computeVertexNormals();
-  return {geo, ranges};
+  return {geo, ranges, data:{pos, sIdx, sW, pid}};
 }
 
 // ── 材質（自寫 shader：一張小貼圖存每一塊的狀態）─────────────────
@@ -343,8 +383,8 @@ partTex.minFilter = partTex.magFilter = THREE.NearestFilter;
 
 const VS = `
   attribute float partIndex;
-  varying vec3 vN; varying vec3 vC; varying vec3 vV; varying float vId; varying vec4 vP;
-  uniform sampler2D uPart; uniform float uPW;
+  varying vec3 vN; varying vec3 vC; varying vec3 vV; varying float vId; varying vec4 vP; varying float vDepth; varying float vSoft;
+  uniform sampler2D uPart; uniform float uPW; uniform float uInflate;
   #include <skinning_pars_vertex>
   void main(){
     vP = texture2D(uPart, vec2((partIndex+.5)/uPW, .5));
@@ -352,39 +392,70 @@ const VS = `
     #include <skinbase_vertex>
     vec3 objectNormal = vec3(normal);
     #include <skinnormal_vertex>
-    vec3 transformed = vec3(position);
+    vec3 transformed = vec3(position) + normal * uInflate;
     #include <skinning_vertex>
     vec4 mv = modelViewMatrix * vec4(transformed, 1.0);
-    vV = -mv.xyz; vN = normalize(normalMatrix * objectNormal); vC = color;
+    vV = -mv.xyz; vN = normalize(normalMatrix * objectNormal); vC = color; vDepth = -mv.z;
+    vSoft = (color.r > .7 && position.y < 1.5) ? 1.0 : 0.0;    // 只有脖子以下的裸露皮膚才微透；短褲、頭髮、臉不透
     gl_Position = projectionMatrix * mv;
   }`;
 const FS = `
   precision highp float;
-  varying vec3 vN; varying vec3 vC; varying vec3 vV; varying float vId; varying vec4 vP;
+  varying vec3 vN; varying vec3 vC; varying vec3 vV; varying float vId; varying vec4 vP; varying float vDepth; varying float vSoft;
   uniform float uPick; uniform float uAlpha; uniform float uKind;   // 0 肌肉 1 骨 2 皮
+  uniform sampler2D uMask; uniform vec2 uRes;                          // 皮膚：底下有亮起來的肌肉的地方，皮膚變透
+  // 遮罩帶深度（G、B 兩個位元組），皮膚只在「亮的肌肉就在自己底下幾公分內」才變透——
+  // ⚠️ 否則背後的豎脊肌會讓臉變透（第一版就是這樣）
+  float maskHit(vec2 uv, float depth){
+    vec4 m = texture2D(uMask, uv);
+    if (m.r < .5) return 0.0;
+    float md = (m.g*255.0 + m.b)/255.0*8.0;
+    return (md - depth) < .045 ? 1.0 : 0.0;
+  }
   void main(){
+    float role = floor(vP.r*255.0 + .5), dim = vP.g, sel = vP.b;
+    if (uPick > 1.5){
+      float d = clamp(vDepth/8.0, 0.0, 1.0);
+      gl_FragColor = vec4((role > .5 || sel > .5) ? 1.0 : 0.0, floor(d*255.0)/255.0, fract(d*255.0), 1.0); return;
+    }
     if (uPick > .5){ float id = vId + 1.0; gl_FragColor = vec4(mod(id,256.0)/255.0, floor(id/256.0)/255.0, 0.0, 1.0); return; }
     vec3 N = normalize(vN); vec3 V = normalize(vV);
     vec3 c = vC;
-    float role = floor(vP.r*255.0 + .5), dim = vP.g, sel = vP.b;
     if (role == 1.0) c = vec3(1.0, .30, .22);
     else if (role == 2.0) c = vec3(1.0, .62, .18);
     else if (role == 3.0) c = vec3(.96, .84, .28);
     else if (dim > .5 && uKind < .5) c = vec3(.84, .66, .55);   // 這個動作沒用到的肌肉：皮膚色
     vec3 L1 = normalize(vec3(.45, .7, .6)), L2 = normalize(vec3(-.6, .2, .4));
-    float d = .28 + .62*max(dot(N,L1),0.0) + .22*max(dot(N,L2),0.0);
-    float spec = pow(max(dot(reflect(-L1,N),V),0.0), 28.0) * (uKind < .5 ? .28 : .12);
-    float rim = pow(1.0-max(dot(N,V),0.0), 3.0);
-    vec3 col = c*d + spec + rim*(sel > .5 ? vec3(.55,.8,1.0)*.9 : vec3(.10));
+    float d, spec, rim = pow(1.0-max(dot(N,V),0.0), 3.0);
+    if (uKind > 1.5){
+      // 皮膚：柔一點的光（半包覆）、少量高光、暖色邊緣——像人不像塑膠
+      float w1 = pow(max(dot(N,L1)*.5+.5, 0.0), 1.6), w2 = max(dot(N,L2)*.5+.5, 0.0);
+      d = .22 + .66*w1 + .18*w2;
+      spec = pow(max(dot(reflect(-L1,N),V),0.0), 40.0) * .10;
+    } else {
+      d = .28 + .62*max(dot(N,L1),0.0) + .22*max(dot(N,L2),0.0);
+      spec = pow(max(dot(reflect(-L1,N),V),0.0), 28.0) * (uKind < .5 ? .28 : .12);
+    }
+    vec3 col = c*d + spec + rim*(sel > .5 ? vec3(.55,.8,1.0)*.9 : (uKind > 1.5 ? vec3(.16,.08,.05) : vec3(.10)));
     if (sel > .5) col = mix(col, vec3(.6,.85,1.0), .25);
-    float a = uAlpha;
-    if (uKind > 1.5) a *= (.55 + .45*rim);
+    float a = uKind > 1.5 ? mix(1.0, uAlpha, vSoft) : uAlpha;
+    if (uKind > 1.5){
+      vec2 uv = gl_FragCoord.xy / uRes, px = 1.5 / uRes;
+      float m = maskHit(uv, vDepth)*.4 + maskHit(uv+vec2(px.x,0.0), vDepth)*.15 + maskHit(uv-vec2(px.x,0.0), vDepth)*.15
+              + maskHit(uv+vec2(0.0,px.y), vDepth)*.15 + maskHit(uv-vec2(0.0,px.y), vDepth)*.15;
+      a = mix(a, .22, m);
+    }
     gl_FragColor = vec4(col, a);
   }`;
+const maskRT = new THREE.WebGLRenderTarget(2, 2);
+// ⚠️ 肌肉的材質不能綁 maskRT 的貼圖：畫遮罩時它同時是輸出目標，WebGL 會判定回饋迴圈而整個跳過不畫
+const blackTex = new THREE.DataTexture(new Uint8Array([0,0,0,255]), 1, 1, THREE.RGBAFormat, THREE.UnsignedByteType); blackTex.needsUpdate = true;
 function makeMat(kind, alpha, transparent){
   const m = new THREE.ShaderMaterial({vertexShader:VS, fragmentShader:FS, vertexColors:true, skinning:true,
-    transparent, depthWrite:!transparent,
-    uniforms:{uPart:{value:partTex}, uPW:{value:PW}, uPick:{value:0}, uAlpha:{value:alpha}, uKind:{value:kind}}});
+    transparent, depthWrite:true,
+    uniforms:{uPart:{value:partTex}, uPW:{value:PW}, uPick:{value:0}, uAlpha:{value:alpha}, uKind:{value:kind},
+              uInflate:{value: kind===2 ? .006 : 0},             // 皮膚沿法線外推 6 mm，免得肌肉尖端戳出皮膚
+              uMask:{value: kind===2 ? maskRT.texture : blackTex}, uRes:{value:new THREE.Vector2(1,1)}}});
   return m;
 }
 
@@ -399,15 +470,29 @@ const camera = new THREE.PerspectiveCamera(38, 1, .05, 30);
 const bones = BONES.map(()=>new THREE.Bone());
 const skeleton = new THREE.Skeleton(bones, bones.map(()=>new THREE.Matrix4()));
 const groups = {};
-for (const [g, kind, alpha, tr] of [['m',0,1,false],['b',1,1,false],['s',2,.32,true]]){
-  const {geo, ranges} = buildGroup(g);
+// 皮膚不完全不透明（.86）：底下肌肉的起伏會隱約透出來，看起來像有線條的人，不像蠟像
+for (const [g, kind, alpha, tr] of [['m',0,1,false],['b',1,1,false],['s',2,.86,true]]){
+  const {geo, ranges, data} = buildGroup(g, g==='s' ? [groups.m.data, groups.b.data] : null);
   const mesh = new THREE.SkinnedMesh(geo, makeMat(kind, alpha, tr));
   mesh.bind(skeleton, new THREE.Matrix4());
   mesh.frustumCulled = false;
   if (tr) mesh.renderOrder = 10;
-  scene.add(mesh); groups[g] = {mesh, ranges};
+  scene.add(mesh); groups[g] = {mesh, ranges, data};
 }
-groups.s.mesh.visible = false;
+groups.b.mesh.visible = false;                       // 預設：外觀（皮膚）＋亮起來的肌肉透出來；骨頭關著
+// 每格先把「亮起來的肌肉」畫到一張遮罩，皮膚在那些地方變透——像健身模特兒脫了上衣，看得到在用力的那幾塊
+function renderMask(){
+  const s = groups.s.mesh; if (!s.visible || !groups.m.mesh.visible) { renderer.setRenderTarget(maskRT); renderer.setClearColor(0x000000); renderer.clear(); renderer.setRenderTarget(null); renderer.setClearColor(0x0f1115); return; }
+  const vis = [bench.visible, bar.visible, grid.visible, groups.b.mesh.visible, airIn.visible, airOut.visible];
+  bench.visible = bar.visible = plates[0].visible = plates[1].visible = grid.visible = groups.b.mesh.visible = airIn.visible = airOut.visible = false;
+  s.visible = false;
+  groups.m.mesh.material.uniforms.uPick.value = 2;
+  renderer.setRenderTarget(maskRT); renderer.setClearColor(0x000000); renderer.clear(); renderer.render(scene, camera);
+  renderer.setRenderTarget(null); renderer.setClearColor(0x0f1115);
+  groups.m.mesh.material.uniforms.uPick.value = 0;
+  s.visible = true;
+  [bench.visible, bar.visible, grid.visible, groups.b.mesh.visible, airIn.visible, airOut.visible] = vis; plates[0].visible = plates[1].visible = bar.visible;
+}
 
 // 臥推椅、槓、地板
 const benchMat = new THREE.MeshLambertMaterial({color:0x2a2f3a});
@@ -847,6 +932,9 @@ $('barRows').innerHTML = TRACK.map((t,i)=>`<div class="bar"><span style="color:$
 function resize(){
   const w = innerWidth, h = innerHeight;
   renderer.setSize(w, h, false); camera.aspect = w/h; camera.updateProjectionMatrix();
+  const pr = renderer.getPixelRatio();
+  maskRT.setSize(Math.max(2, Math.floor(w*pr)), Math.max(2, Math.floor(h*pr)));
+  for (const g in groups) groups[g].mesh.material.uniforms.uRes.value.set(w*pr, h*pr);
 }
 addEventListener('resize', resize); resize();
 
@@ -877,6 +965,7 @@ function tick(now){
     $('lungArc').setAttribute('stroke-dashoffset', (62.8*(1-state.lung)).toFixed(1));
   } else applyPose();
   updateCamera();
+  renderMask();
   renderer.render(scene, camera);
   requestAnimationFrame(tick);
 }

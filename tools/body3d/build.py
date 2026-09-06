@@ -35,15 +35,16 @@ DROP = re.compile(r'''
   tooth|gingiva|cartilage$|^Hyoid|^Ethmoid|^Vomer|palatine\ bone|^Sphenoid|sesamoid|
   ^Cricoid|^Thyroid\ cartilage|alar\ cartilage|
   ligament|membrane|raphe|conus|trochlea|tendon\ of|intermediate\ tendon|linea\ alba|
-  ^Eyebrow|^Hair|^Lip$|^Pubic
+  ^Pubic
 ''', re.I | re.X)
+SKIN_PARTS = {'Skin', 'Eyebrow', 'Lip', 'Hair of head'}     # 外觀層：皮膚加上讓臉不像假人的三樣
 
 KEEP_CONNECTIVE = re.compile(r'calcaneal tendon|tensor fasciae latae', re.I)
 MUSCLE_IN_SKELETAL = re.compile(r'fibularis|tibialis|levator scapulae|subscapularis|iliotibial', re.I)
 
 def group_of(p):
     n, s = p['name'], p['system']
-    if s == 'integumentary': return 's' if n == 'Skin' else None
+    if s == 'integumentary': return 's' if n in SKIN_PARTS else None
     if s == 'connective':    return 'm' if KEEP_CONNECTIVE.search(n) else None
     if s == 'skeletal':      return 'm' if MUSCLE_IN_SKELETAL.search(n) else 'b'
     if s == 'muscular':      return 'm'
@@ -100,7 +101,7 @@ ORD = {'first':1,'second':2,'third':3,'fourth':4,'fifth':5,'sixth':6,'seventh':7
        'eleventh':11,'twelfth':12}
 WHOLE = {'Atlas':'寰椎（第1頸椎）','Axis':'樞椎（第2頸椎）','Body of sternum':'胸骨體','Manubrium':'胸骨柄',
  'Xiphoid process':'劍突','Sacrum':'薦骨','Mandible':'下頜骨','Frontal bone':'額骨','Occipital bone':'枕骨',
- 'Skin':'皮膚','Intervertebral disk':'椎間盤','Spinal part of right deltoid':'右三角肌後束（肩胛棘部）',
+ 'Skin':'皮膚','Eyebrow':'眉毛','Lip':'嘴唇','Hair of head':'頭髮','Intervertebral disk':'椎間盤','Spinal part of right deltoid':'右三角肌後束（肩胛棘部）',
  'Spinal part of left deltoid':'左三角肌後束（肩胛棘部）','Acromial part of right deltoid':'右三角肌中束（肩峰部）',
  'Acromial part of left deltoid':'左三角肌中束（肩峰部）','Clavicular part of right deltoid':'右三角肌前束（鎖骨部）',
  'Clavicular part of left deltoid':'左三角肌前束（鎖骨部）'}
@@ -230,8 +231,8 @@ def joints_for(side):
 joints = {'R': joints_for('R'), 'L': joints_for('L')}
 
 # ── 6. 簡化＋量化＋打包 ───────────────────────────────────────
-CAP = {'m': 2600, 'b': 1400, 's': 14000}
-KEEP_RATIO = {'m': 0.55, 'b': 0.5, 's': 0.35}
+CAP = {'m': 2600, 'b': 1400, 's': 28000}
+KEEP_RATIO = {'m': 0.55, 'b': 0.5, 's': 0.65}      # 皮膚是外觀，留多一點三角形才平滑
 
 selected = []
 missing_zh = []
