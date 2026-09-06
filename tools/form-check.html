@@ -1,0 +1,355 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>動作量測</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700&family=Noto+Sans+TC:wght@400;500;700&family=IBM+Plex+Mono:wght@400;600&display=swap">
+<style>
+  :root{
+    --ground:#F6F8F6; --surface:#FFFFFF; --raise:#EEF2EF;
+    --ink:#141C18; --muted:#5A6B62; --faint:#84968C;
+    --rule:#DBE3DE; --rule-strong:#C3CFC8;
+    --ok:#0E6B4C; --ok-wash:#E7F2ED;
+    --warn:#8A6100; --warn-wash:#F7F0DF;
+    --bad:#8C3A34;
+    --serif:"Noto Serif TC",serif;
+    --sans:"Noto Sans TC","Helvetica Neue",Arial,sans-serif;
+    --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{
+      --ground:#0E1411; --surface:#141C18; --raise:#1A241F;
+      --ink:#E4EBE6; --muted:#93A69C; --faint:#6E827A;
+      --rule:#26332C; --rule-strong:#35473D;
+      --ok:#4FBF95; --ok-wash:#12251E;
+      --warn:#D9A93F; --warn-wash:#26200F;
+      --bad:#E08A80;
+    }
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--ground);color:var(--ink);font-family:var(--sans);
+       font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:52rem;margin:0 auto;padding:2.5rem 1.25rem 5rem;
+        display:flex;flex-direction:column;gap:2rem}
+  .kicker{font-family:var(--mono);font-size:.72rem;letter-spacing:.14em;
+          text-transform:uppercase;color:var(--muted)}
+  h1{font-family:var(--serif);font-weight:700;font-size:2rem;line-height:1.3;margin:0}
+  .standfirst{color:var(--muted);margin:0;max-width:34rem}
+  h2{font-family:var(--serif);font-size:1.15rem;margin:0;font-weight:700}
+  section{display:flex;flex-direction:column;gap:.9rem;
+          border-top:2px solid var(--ink);padding-top:1rem}
+
+  .privacy{background:var(--ok-wash);border-left:3px solid var(--ok);
+           padding:.85rem 1.05rem;font-size:.92rem}
+  .privacy b{color:var(--ok)}
+  .caveat{background:var(--warn-wash);border-left:3px solid var(--warn);
+          padding:.85rem 1.05rem;font-size:.92rem}
+  .caveat b{color:var(--warn)}
+  .caveat ul{margin:.5rem 0 0;padding-left:1.1rem}
+  .caveat li{margin:.25rem 0}
+
+  .controls{display:flex;flex-wrap:wrap;gap:.75rem;align-items:center;
+            background:var(--surface);border:1px solid var(--rule-strong);
+            padding:1.1rem}
+  label.file{font-family:var(--mono);font-size:.85rem;cursor:pointer;
+             border:1px solid var(--rule-strong);padding:.55rem .9rem;
+             background:var(--raise)}
+  label.file:focus-within{outline:2px solid var(--ok);outline-offset:2px}
+  input[type=file]{position:absolute;width:1px;height:1px;opacity:0}
+  select,button{font-family:var(--sans);font-size:.9rem;padding:.55rem .9rem;
+                border:1px solid var(--rule-strong);background:var(--surface);
+                color:var(--ink);cursor:pointer}
+  button.primary{background:var(--ok);color:var(--ground);border-color:var(--ok);
+                 font-weight:700}
+  button:disabled{opacity:.45;cursor:not-allowed}
+  .status{font-family:var(--mono);font-size:.82rem;color:var(--muted)}
+
+  .stage{position:relative;background:#000;line-height:0;overflow:hidden}
+  video,canvas.overlay{display:block;width:100%;height:auto}
+  canvas.overlay{position:absolute;inset:0}
+
+  .tablewrap{overflow-x:auto;border:1px solid var(--rule)}
+  table{border-collapse:collapse;width:100%;min-width:32rem;font-size:.88rem;
+        background:var(--surface)}
+  th,td{text-align:right;padding:.55rem .8rem;border-top:1px solid var(--rule);
+        font-variant-numeric:tabular-nums;font-family:var(--mono)}
+  th:first-child,td:first-child{text-align:left;font-family:var(--sans)}
+  th{font-size:.72rem;letter-spacing:.05em;text-transform:uppercase;
+     color:var(--muted);font-weight:500;background:var(--raise);border-top:none}
+  td.drift-up{color:var(--bad)} td.drift-flat{color:var(--muted)}
+
+  .chart{background:var(--surface);border:1px solid var(--rule);padding:.6rem}
+  .empty{color:var(--faint);font-family:var(--mono);font-size:.85rem;
+         padding:1.2rem;border:1px dashed var(--rule-strong);text-align:center}
+  code{font-family:var(--mono);font-size:.86em;background:var(--raise);
+       padding:.1em .35em}
+  .foot{border-top:1px solid var(--rule);padding-top:1.2rem;font-size:.86rem;
+        color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="kicker">AHIG 工具 · 第一版探針</div>
+    <h1>動作量測</h1>
+    <p class="standfirst">它<b>只報量到什麼，不判斷對不對</b>。
+    判準是你自己以前的那幾下，或你教練的那一下——不是「標準姿勢」。</p>
+  </header>
+
+  <div class="privacy">
+    <b>影片不會離開這台電腦。</b>這一頁在你的瀏覽器裡跑，沒有任何上傳、沒有伺服器。
+    你關掉分頁，什麼都不留。
+  </div>
+
+  <section>
+    <h2>選一段影片</h2>
+    <div class="controls">
+      <label class="file" tabindex="0">選擇影片…
+        <input type="file" id="file" accept="video/*">
+      </label>
+      <select id="view" title="拍攝角度">
+        <option value="side">側面拍（建議先用這個）</option>
+        <option value="front">正面拍</option>
+      </select>
+      <button class="primary" id="run" disabled>開始分析</button>
+      <span class="status" id="status">尚未選檔</span>
+    </div>
+
+    <div class="stage">
+      <video id="video" playsinline muted></video>
+      <canvas class="overlay" id="overlay"></canvas>
+    </div>
+  </section>
+
+  <section>
+    <h2>逐下量測</h2>
+    <div id="repsHost"><div class="empty">還沒有資料</div></div>
+  </section>
+
+  <section>
+    <h2>整組的變化</h2>
+    <div id="chartHost"><div class="empty">還沒有資料</div></div>
+    <p class="status">最有用的訊號通常不是「第幾下最深」，
+    而是<b>後面幾下和前面幾下差多少</b>——那是疲勞與代償開始的位置。</p>
+  </section>
+
+  <div class="caveat">
+    <b>這一版量不到的東西，先講清楚：</b>
+    <ul>
+      <li><b>單機位拍攝，深度資訊是推估的。</b>側面拍時左右差幾乎沒有意義；
+      要看左右不對稱請改正面拍，而正面拍又看不準蹲多深。</li>
+      <li><b>脊椎彎曲量不準。</b>骨架關鍵點沒有脊椎中段，
+      這裡的「軀幹角度」是肩－髖連線對垂直線的夾角，<b>不等於腰椎屈曲</b>。</li>
+      <li><b>穿寬鬆衣物、光線不足、器材遮擋</b>都會讓關鍵點抖動。
+      下面每一列都附了偵測信心值，<b>信心低的那幾下不要當真</b>。</li>
+      <li>它<b>不會告訴你姿勢對不對</b>——那需要一個判準，而那個判準應該是
+      你教練的版本，不是這個工具的意見。</li>
+    </ul>
+  </div>
+
+  <footer class="foot">
+    <p>如果雙擊打不開或卡在載入模型，改用本機伺服器開：
+    在這個檔案的資料夾按住 Shift 右鍵開 PowerShell，執行
+    <code>python -m http.server 8000</code>，
+    再用瀏覽器開 <code>http://localhost:8000/form-check.html</code>。</p>
+  </footer>
+
+</div>
+
+<script type="module">
+import { PoseLandmarker, FilesetResolver } from
+  "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14";
+
+const $ = id => document.getElementById(id);
+const fileEl = $('file'), runEl = $('run'), statusEl = $('status');
+const video = $('video'), overlay = $('overlay'), ctx = overlay.getContext('2d');
+
+let landmarker = null;
+
+fileEl.addEventListener('change', () => {
+  const f = fileEl.files && fileEl.files[0];
+  if (!f) return;
+  video.src = URL.createObjectURL(f);
+  video.addEventListener('loadedmetadata', () => {
+    overlay.width = video.videoWidth; overlay.height = video.videoHeight;
+    statusEl.textContent = `${f.name}｜${video.videoWidth}×${video.videoHeight}｜`
+      + `${video.duration.toFixed(1)} 秒`;
+    runEl.disabled = false;
+  }, { once: true });
+});
+
+async function ensureModel() {
+  if (landmarker) return landmarker;
+  statusEl.textContent = '第一次要下載模型（約 10 MB），之後瀏覽器會快取…';
+  const fileset = await FilesetResolver.forVisionTasks(
+    "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14/wasm");
+  landmarker = await PoseLandmarker.createFromOptions(fileset, {
+    baseOptions: {
+      modelAssetPath: "https://storage.googleapis.com/mediapipe-models/"
+        + "pose_landmarker/pose_landmarker_full/float16/1/pose_landmarker_full.task",
+      delegate: "GPU",
+    },
+    runningMode: "VIDEO",
+    numPoses: 1,
+  });
+  return landmarker;
+}
+
+// ── 幾何 ────────────────────────────────────────────────
+const L = { SHOULDER:11, HIP:23, KNEE:25, ANKLE:27 };
+const R = { SHOULDER:12, HIP:24, KNEE:26, ANKLE:28 };
+
+function angle(a, b, c) {           // b 為頂點，回傳度數
+  const v1 = { x:a.x-b.x, y:a.y-b.y }, v2 = { x:c.x-b.x, y:c.y-b.y };
+  const dot = v1.x*v2.x + v1.y*v2.y;
+  const m = Math.hypot(v1.x,v1.y) * Math.hypot(v2.x,v2.y);
+  if (!m) return NaN;
+  return Math.acos(Math.max(-1, Math.min(1, dot/m))) * 180 / Math.PI;
+}
+function torsoTilt(sh, hip) {       // 肩－髖連線對垂直線的夾角
+  return Math.abs(Math.atan2(sh.x - hip.x, hip.y - sh.y) * 180 / Math.PI);
+}
+const mean = a => a.reduce((s,x)=>s+x,0) / (a.length || 1);
+
+// ── 逐格取樣 ────────────────────────────────────────────
+async function analyse() {
+  runEl.disabled = true;
+  const lm = await ensureModel();
+  const frames = [];
+  const step = 1 / 30;
+  statusEl.textContent = '分析中…';
+
+  for (let t = 0; t < video.duration; t += step) {
+    await new Promise(res => {
+      video.currentTime = Math.min(t, video.duration - 0.01);
+      video.addEventListener('seeked', res, { once: true });
+    });
+    const out = lm.detectForVideo(video, performance.now());
+    const p = out.landmarks && out.landmarks[0];
+    if (!p) continue;
+    const conf = mean([L.HIP,L.KNEE,L.ANKLE,R.HIP,R.KNEE,R.ANKLE]
+      .map(i => (out.worldLandmarks ? 1 : 1) * (p[i].visibility ?? 1)));
+    frames.push({
+      t,
+      hipY: (p[L.HIP].y + p[R.HIP].y) / 2,
+      kneeL: angle(p[L.HIP], p[L.KNEE], p[L.ANKLE]),
+      kneeR: angle(p[R.HIP], p[R.KNEE], p[R.ANKLE]),
+      hipAngL: angle(p[L.SHOULDER], p[L.HIP], p[L.KNEE]),
+      torso: torsoTilt(p[L.SHOULDER], p[L.HIP]),
+      conf,
+    });
+    ctx.clearRect(0,0,overlay.width,overlay.height);
+    ctx.fillStyle = '#4FBF95';
+    for (const i of [L.SHOULDER,L.HIP,L.KNEE,L.ANKLE,R.SHOULDER,R.HIP,R.KNEE,R.ANKLE]) {
+      ctx.beginPath();
+      ctx.arc(p[i].x*overlay.width, p[i].y*overlay.height, 6, 0, 7);
+      ctx.fill();
+    }
+    if (Math.round(t*10) % 5 === 0)
+      statusEl.textContent = `分析中… ${(t/video.duration*100).toFixed(0)}%`;
+  }
+
+  if (frames.length < 10) {
+    statusEl.textContent = '🚨 抓不到人體——換一段光線好一點、全身入鏡的影片再試。';
+    runEl.disabled = false;
+    return;
+  }
+  render(segment(frames), frames);
+  statusEl.textContent = `完成｜取樣 ${frames.length} 格`;
+  runEl.disabled = false;
+}
+
+// ── 用髖部高度切出每一下 ────────────────────────────────
+function segment(frames) {
+  const ys = frames.map(f => f.hipY);
+  const lo = Math.min(...ys), hi = Math.max(...ys);
+  const range = hi - lo;
+  if (range < 0.04) return [];               // 幾乎沒動，切不出來
+  const down = lo + range * 0.75;            // 靠近最低點（y 往下為大）
+  const up = lo + range * 0.25;
+  const reps = [];
+  let state = 'up', start = 0, bottom = 0;
+  frames.forEach((f, i) => {
+    if (state === 'up' && f.hipY > down) { state = 'down'; start = i; bottom = i; }
+    else if (state === 'down') {
+      if (f.hipY > frames[bottom].hipY) bottom = i;
+      if (f.hipY < up) { reps.push({ start, bottom, end: i }); state = 'up'; }
+    }
+  });
+  return reps;
+}
+
+function render(reps, frames) {
+  const host = document.getElementById('repsHost');
+  if (!reps.length) {
+    host.innerHTML = '<div class="empty">切不出反覆次數——'
+      + '這段影片裡髖部高度變化太小，或只有一下。</div>';
+    return;
+  }
+  const rows = reps.map((r, i) => {
+    const b = frames[r.bottom];
+    const seg = frames.slice(r.start, r.end + 1);
+    return {
+      n: i + 1,
+      depth: ((b.hipY - Math.min(...seg.map(f=>f.hipY))) * 100),
+      knee: Math.min(b.kneeL, b.kneeR),
+      diff: Math.abs(b.kneeL - b.kneeR),
+      torso: b.torso,
+      conf: mean(seg.map(f=>f.conf)),
+    };
+  });
+  const first = rows[0];
+  host.innerHTML = `<div class="tablewrap"><table>
+    <thead><tr><th>第幾下</th><th>最低點膝角°</th><th>左右差°</th>
+    <th>軀幹前傾°</th><th>對第 1 下</th><th>信心</th></tr></thead><tbody>
+    ${rows.map(r => {
+      const d = r.knee - first.knee;
+      const cls = Math.abs(d) < 3 ? 'drift-flat' : 'drift-up';
+      return `<tr><td>${r.n}</td><td>${r.knee.toFixed(0)}</td>
+        <td>${r.diff.toFixed(0)}</td><td>${r.torso.toFixed(0)}</td>
+        <td class="${cls}">${d>=0?'+':''}${d.toFixed(0)}</td>
+        <td>${(r.conf*100).toFixed(0)}%</td></tr>`;
+    }).join('')}
+  </tbody></table></div>`;
+  drawChart(rows);
+}
+
+function drawChart(rows) {
+  const w = 640, h = 200, pad = 34;
+  const vals = rows.map(r => r.knee);
+  const lo = Math.min(...vals) - 5, hi = Math.max(...vals) + 5;
+  const x = i => pad + i * (w - pad*2) / Math.max(1, rows.length - 1);
+  const y = v => h - pad - (v - lo) * (h - pad*2) / Math.max(1e-6, hi - lo);
+  const css = getComputedStyle(document.documentElement);
+  const ink = css.getPropertyValue('--ink').trim();
+  const ok = css.getPropertyValue('--ok').trim();
+  const muted = css.getPropertyValue('--muted').trim();
+  document.getElementById('chartHost').innerHTML = `<div class="chart">
+    <svg viewBox="0 0 ${w} ${h}" width="100%" role="img"
+         aria-label="每一下最低點膝角的變化">
+      <line x1="${pad}" y1="${h-pad}" x2="${w-pad}" y2="${h-pad}"
+            stroke="${muted}" stroke-width="1"/>
+      <line x1="${pad}" y1="${pad}" x2="${pad}" y2="${h-pad}"
+            stroke="${muted}" stroke-width="1"/>
+      <polyline fill="none" stroke="${ok}" stroke-width="2.5"
+        points="${rows.map((r,i)=>`${x(i)},${y(r.knee)}`).join(' ')}"/>
+      ${rows.map((r,i)=>`<circle cx="${x(i)}" cy="${y(r.knee)}" r="4"
+        fill="${ok}"/>`).join('')}
+      <text x="${pad}" y="${pad-12}" fill="${ink}" font-size="12"
+        font-family="monospace">最低點膝角（度）｜${lo.toFixed(0)}–${hi.toFixed(0)}</text>
+      ${rows.map((r,i)=>`<text x="${x(i)}" y="${h-pad+16}" fill="${muted}"
+        font-size="11" text-anchor="middle" font-family="monospace">${r.n}</text>`).join('')}
+    </svg></div>`;
+}
+
+runEl.addEventListener('click', () => { analyse().catch(e => {
+  statusEl.textContent = '🚨 出錯：' + e.message;
+  runEl.disabled = false;
+}); });
+</script>
+</body>
+</html>
