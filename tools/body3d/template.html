@@ -1,0 +1,730 @@
+<title>人體肌肉 3D</title>
+<style>
+  :root{
+    color-scheme:dark;
+    --bg:#0f1115; --panel:rgba(22,25,32,.88); --line:rgba(255,255,255,.10);
+    --ink:#eceef2; --mute:#9aa3b2; --faint:#6b7280;
+    --p1:#ff4d3d; --p2:#ff9f2e; --p3:#f5d547; --sel:#7cc7ff;
+    --btn:rgba(255,255,255,.07); --btn-on:rgba(124,199,255,.22);
+  }
+  html,body{height:100%;margin:0;background:var(--bg);color:var(--ink);
+    font:14px/1.5 -apple-system,"PingFang TC","Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif;overflow:hidden}
+  #c{position:fixed;inset:0;display:block;touch-action:none}
+  .ui{position:fixed;z-index:5}
+  .panel{background:var(--panel);backdrop-filter:blur(10px);border:1px solid var(--line);border-radius:14px}
+  button{font:inherit;color:var(--ink);background:var(--btn);border:1px solid var(--line);border-radius:10px;
+    padding:6px 12px;cursor:pointer;-webkit-tap-highlight-color:transparent}
+  button.on{background:var(--btn-on);border-color:var(--sel)}
+  button:active{transform:translateY(1px)}
+  /* 上方：部位 */
+  #top{top:12px;left:12px;right:12px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+  #top .brand{font-weight:600;padding:6px 12px;border-radius:10px;background:var(--panel);border:1px solid var(--line)}
+  #parts{display:flex;gap:6px;padding:4px}
+  #parts button{padding:6px 14px;border-radius:999px}
+  #legend{display:flex;gap:10px;padding:6px 12px;font-size:12px;color:var(--mute);margin-left:auto}
+  #legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:4px;vertical-align:-1px}
+  /* 左側：圖層與視角 */
+  #left{left:12px;top:64px;display:flex;flex-direction:column;gap:6px;padding:6px}
+  #left button{width:44px;height:40px;padding:0;font-size:12px}
+  #left .sep{height:1px;background:var(--line);margin:2px 4px}
+  /* 下方：播放與椅背 */
+  #bottom{left:12px;right:12px;bottom:12px;display:grid;grid-template-columns:auto 1fr;gap:10px 14px;
+    padding:10px 14px;align-items:center;max-width:820px;margin:0 auto}
+  #bottom label{color:var(--mute);font-size:12px;white-space:nowrap}
+  #bottom .row{display:flex;gap:10px;align-items:center}
+  #bottom .row output{min-width:8.5em;font-variant-numeric:tabular-nums;font-size:13px}
+  input[type=range]{flex:1;accent-color:var(--sel);height:28px;margin:0;min-width:120px}
+  #bottom.hidden-bench .bench-only{display:none}
+  /* 右側：資訊卡 */
+  #card{right:12px;top:64px;width:min(300px,calc(100vw - 24px));padding:12px 14px;display:none}
+  #card.show{display:block}
+  #card h3{margin:0 0 2px;font-size:17px}
+  #card .sub{color:var(--mute);font-size:12px;margin-bottom:8px}
+  #card .role{display:inline-block;padding:1px 8px;border-radius:999px;font-size:12px;margin-right:6px}
+  #card p{margin:8px 0 0;font-size:13px}
+  #card .x{position:absolute;right:8px;top:8px;width:28px;height:28px;padding:0;border-radius:50%}
+  .tag{display:inline-block;font-size:11px;padding:0 6px;border-radius:6px;border:1px solid var(--line);color:var(--mute);margin-left:4px;vertical-align:1px}
+  /* 縮短百分比 */
+  #bars{right:12px;bottom:134px;width:min(300px,calc(100vw - 24px));padding:10px 12px;display:none}
+  #bars.show{display:block}
+  #bars h4{margin:0 0 6px;font-size:12px;color:var(--mute);font-weight:500;cursor:pointer;user-select:none}
+  #bars h4 .chev{float:right;transition:transform .2s}
+  #bars.fold h4{margin:0}
+  #bars.fold h4 .chev{transform:rotate(180deg)}
+  #bars.fold #barRows{display:none}
+  .bar{display:grid;grid-template-columns:8em 1fr 3em;gap:8px;align-items:center;font-size:12px;margin:3px 0}
+  .bar .track{height:8px;background:rgba(255,255,255,.08);border-radius:4px;overflow:hidden}
+  .bar .fill{height:100%;width:0;border-radius:4px;background:var(--p1);transition:width .08s linear}
+  .bar .num{text-align:right;font-variant-numeric:tabular-nums;color:var(--mute)}
+  /* 說明 */
+  #note{position:fixed;inset:0;z-index:20;background:rgba(0,0,0,.6);display:none;align-items:center;justify-content:center;padding:20px}
+  #note.show{display:flex}
+  #note .box{max-width:560px;max-height:85vh;overflow:auto;padding:18px 20px;font-size:13.5px}
+  #note h3{margin:0 0 8px}
+  #note p{margin:8px 0}
+  #note a{color:var(--sel)}
+  #hint{left:50%;transform:translateX(-50%);top:64px;color:var(--mute);font-size:12px;padding:4px 10px;pointer-events:none;transition:opacity .4s;text-align:center}
+  #loading{position:fixed;inset:0;z-index:30;display:flex;align-items:center;justify-content:center;background:var(--bg);color:var(--mute)}
+  #hint{max-width:min(620px,calc(100vw - 340px))}
+  @media (max-width:640px){
+    #legend{display:none}
+    #top .brand{display:none}
+    #top{flex-wrap:nowrap}
+    #parts{overflow-x:auto;max-width:calc(100vw - 24px);-webkit-overflow-scrolling:touch}
+    #left{top:60px;padding:4px;gap:4px}
+    #left button{width:40px;height:34px;font-size:11px}
+    #bottom{grid-template-columns:1fr;gap:6px;padding:8px 12px}
+    #bottom label{display:none}
+    #bars{bottom:150px;width:calc(100vw - 24px)}
+    #hint{top:auto;bottom:150px;left:64px;right:12px;transform:none;max-width:none;font-size:11px}
+    #bars.show ~ #hint{display:none}
+    #card{top:auto;bottom:150px;left:12px;right:12px;width:auto}
+    #card.show ~ #bars{display:none}
+  }
+</style>
+
+<canvas id="c"></canvas>
+<div id="loading">正在把人體模型解開…</div>
+
+<div id="top" class="ui">
+  <div class="brand">人體肌肉 3D</div>
+  <div id="parts" class="panel">
+    <button data-p="chest" class="on">胸</button>
+    <button data-p="back">背</button>
+    <button data-p="shoulder">肩</button>
+    <button data-p="legs">腿</button>
+    <button data-p="arms">手臂</button>
+    <button data-p="all">全部</button>
+  </div>
+  <div id="legend" class="panel"><span><i style="background:var(--p1)"></i>主要</span><span><i style="background:var(--p2)"></i>次要</span><span><i style="background:var(--p3)"></i>輔助</span><span><i style="background:#555"></i>其他</span></div>
+</div>
+
+<div id="left" class="ui panel">
+  <button id="tSkin" title="皮膚">皮膚</button>
+  <button id="tMus" class="on" title="肌肉">肌肉</button>
+  <button id="tBone" class="on" title="骨頭">骨頭</button>
+  <div class="sep"></div>
+  <button data-v="front">正面</button>
+  <button data-v="back">背面</button>
+  <button data-v="side">側面</button>
+  <button data-v="top">上方</button>
+  <button data-v="reset">重設</button>
+  <div class="sep"></div>
+  <button id="tNote" title="這個模型簡化了什麼">說明</button>
+</div>
+
+<div id="card" class="ui panel">
+  <button class="x" id="cardX">✕</button>
+  <h3 id="cName">—</h3>
+  <div class="sub" id="cSub"></div>
+  <div id="cRole"></div>
+  <p id="cText"></p>
+</div>
+
+<div id="bars" class="ui panel">
+  <h4 id="barsH">各束比最拉長時縮短了幾 % <span class="tag">模型幾何，不是量到的</span><span class="chev">▾</span></h4>
+  <div id="barRows"></div>
+</div>
+
+<div id="hint" class="ui panel">一指拖曳轉動・兩指縮放・點肌肉看名字</div>
+
+<div id="bottom" class="ui panel">
+  <label>動作</label>
+  <div class="row"><button id="play" class="on">⏸ 暫停</button><input type="range" id="phase" min="0" max="100" value="0"><output id="phaseV">頂端</output></div>
+  <label class="bench-only">椅背角度</label>
+  <div class="row bench-only"><input type="range" id="angle" min="-15" max="75" value="0" step="1"><output id="angleV">0°（平板）</output></div>
+  <label class="bench-only">握距</label>
+  <div class="row bench-only"><input type="range" id="grip" min="110" max="200" value="160" step="5"><output id="gripV">1.6 倍肩寬</output></div>
+</div>
+
+<div id="note">
+  <div class="box panel">
+    <h3>這個模型是什麼、簡化了什麼</h3>
+    <p><b>人體來源</b>：BodyParts3D 4.0（成年男性參考解剖，© The Database Center for Life Science，
+      <a href="https://creativecommons.org/licenses/by/4.0/deed.zh_TW" target="_blank" rel="noopener">CC BY 4.0</a>），
+      資料識別碼 doi:10.1093/nar/gkn613，原站
+      <a href="https://dbarchive.biosciencedbc.jp/en/bodyparts3d/" target="_blank" rel="noopener">dbarchive.biosciencedbc.jp</a>；經
+      <a href="https://github.com/ashemag/human-atlas" target="_blank" rel="noopener">human-atlas</a>（MIT）轉成瀏覽器格式，
+      本頁再把每一塊簡化到約一半的三角形數，並把座標壓成 16 位元。</p>
+    <p><b>這套資料沒有的肌肉</b>：闊背肌、腹直肌、腹內斜肌、腹橫肌、腰方肌。
+      <b>不是我藏起來，是資料集裡沒有。</b> 練背的主要肌群因此少了最大的一塊，「背」那一頁有標。</p>
+    <p><b>動作怎麼算的</b>：骨頭是剛體，肌肉與皮膚依「離關節多遠」平滑分配到軀幹或手臂——
+      這是動畫常用的簡化，<b>肌肉不會真的收縮變粗，肩胛骨也固定不動</b>（真實臥推它會後收）。
+      沒有旋轉肌群的動態，也沒有手腕與手指的動作。</p>
+    <p><b>縮短百分比</b>：每一束取「軀幹端」與「手臂端」兩點的距離（直線若穿過肩關節，就改算繞過肱骨頭的路徑），
+      與這一趟裡最拉長的那一格相比，縮短了幾 %。<b>這是這個模型的幾何，不是量出來的力矩臂或肌電。</b>
+      三頭肌那一列直接顯示肘關節角度，越直＝三頭越短。
+      <b>有些束在推上去的時候反而拉長</b>（例如高上斜時的胸大肌腹部）——那表示這個角度不是它出力的方向，不是壞掉。</p>
+    <p><b>主要／次要／輔助</b>：依解剖動作方向分的健身慣例，<b>不是量測結果</b>。</p>
+    <p><b>兩條界線</b>：「有感覺」不等於「練到比較多」；肩前側痛不走調姿勢那條路，降重量、縮行程試一組仍在，就是要找人看。</p>
+    <p style="text-align:right;margin-top:14px"><button id="noteX">關閉</button></p>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+const MANIFEST = __MANIFEST__;
+</script>
+<script type="text/plain" id="blob">__BLOB__</script>
+<script>
+(function(){
+'use strict';
+const M = MANIFEST, PARTS = M.parts, J = M.joints;
+const V3 = (x,y,z)=>new THREE.Vector3(x,y,z);
+const jv = k => V3(k[0],k[1],k[2]);
+const smooth = x => { x = x<0?0:x>1?1:x; return x*x*(3-2*x); };
+
+// ── 骨架：9 節（軀幹含頭與骨盆；手掌隨前臂；腳掌隨小腿）───────────
+const BONES = ['torso','R_uarm','R_farm','L_uarm','L_farm','R_thigh','R_shank','L_thigh','L_shank'];
+const BI = Object.fromEntries(BONES.map((b,i)=>[b,i]));
+const REST = {};                                   // 靜止姿勢的關節（模型座標，公尺）
+for (const s of ['R','L']) for (const k in J[s]) REST[s+'_'+k] = jv(J[s][k]);
+const HC = REST.R_hip.clone().add(REST.L_hip).multiplyScalar(.5);   // 髖中心
+
+// 這些肌肉跨過肩／髖，允許以較大半徑把「靠手臂那端」分給手臂
+const CROSS_SH  = /pectoralis major|deltoid|teres|infraspinatus|supraspinatus|subscapularis|coracobrachialis|biceps brachii|triceps brachii/i;
+const CROSS_HIP = /gluteus|tensor fasciae|iliotibial|psoas|iliacus|pectineus|adductor|gracilis|sartorius|rectus femoris|biceps femoris|semitendinosus|semimembranosus|piriformis|obturator|gemellus|quadratus femoris/i;
+
+function distSeg(px,py,pz, a, b){
+  const dx=b.x-a.x, dy=b.y-a.y, dz=b.z-a.z, L2=dx*dx+dy*dy+dz*dz;
+  let t=((px-a.x)*dx+(py-a.y)*dy+(pz-a.z)*dz)/L2; t = t<0?0:t>1?1:t;
+  const qx=a.x+dx*t-px, qy=a.y+dy*t-py, qz=a.z+dz*t-pz;
+  return Math.sqrt(qx*qx+qy*qy+qz*qz);
+}
+// 一條肢體（肩→肘→腕 或 髖→膝→踝）對一個頂點的權重：[近端骨, 遠端骨]
+// （27 萬個頂點都要跑，所以用純數字，不配置向量）
+const chainCache = new Map();
+function chainWeight(px,py,pz, c0, c1, c2, r1, r2, t0, t1, band, allowTip){
+  let C = chainCache.get(c0); if (!C){ C = {u0:c1.clone().sub(c0).normalize(), u1:c2.clone().sub(c1).normalize()}; C.tip = c2.clone().addScaledVector(C.u1,.22); chainCache.set(c0,C); }
+  const t = (px-c0.x)*C.u0.x+(py-c0.y)*C.u0.y+(pz-c0.z)*C.u0.z;
+  if (t < t0-.02) return [0,0];
+  // 手指／腳趾會張開，離手掌軸線比 r2 遠；那一段放寬 6 cm，否則指尖會留在原地拉成長絲。
+  // ⚠️ 但靜止時手就垂在大腿旁邊，放寬只能給手臂的肌肉與手的皮膚，🚫 不能給大腿與腹側（否則它們會被手拖走）
+  const tipD = distSeg(px,py,pz,c2,C.tip) - (allowTip ? .06 : 0);
+  const r = Math.min(distSeg(px,py,pz,c0,c1), distSeg(px,py,pz,c1,c2), Math.max(0, tipD));
+  if (r > r2) return [0,0];
+  const w = smooth((t-t0)/(t1-t0)) * smooth((r2-r)/(r2-r1));
+  const td = (px-c1.x)*C.u1.x+(py-c1.y)*C.u1.y+(pz-c1.z)*C.u1.z;
+  const w2 = smooth((td+band)/(2*band));
+  return [w*(1-w2), w*w2];
+}
+
+// ── 解碼幾何 ───────────────────────────────────────────────────
+const raw = Uint8Array.from(atob(document.getElementById('blob').textContent.trim()), c=>c.charCodeAt(0));
+const lo = M.bbox[0], sc = [M.bbox[1][0]-lo[0], M.bbox[1][1]-lo[1], M.bbox[1][2]-lo[2]];
+
+function buildGroup(g){
+  const list = PARTS.map((p,i)=>({p,i})).filter(o=>o.p.g===g);
+  let V=0,T=0; for (const {p} of list){ V+=p.v; T+=p.t; }
+  const pos=new Float32Array(V*3), col=new Uint8Array(V*3), pid=new Float32Array(V),
+        sIdx=new Uint16Array(V*4), sW=new Float32Array(V*4), idx=new Uint32Array(T*3);
+  let vo=0, to=0; const P=new THREE.Vector3(); const ranges=[];
+  for (const {p,i} of list){
+    const q = new Int16Array(raw.buffer, p.po, p.v*3);
+    const ii = new Uint16Array(raw.buffer, p.io, p.t*3);
+    const side = p.side;
+    const crossS = g==='m' && CROSS_SH.test(p.en), crossH = g==='m' && CROSS_HIP.test(p.en);
+    const r2s = g==='s' ? .11 : crossS ? .12 : .07, r2h = g==='s' ? .11 : crossH ? .12 : .07;
+    // 顏色：肌肉略有深淺差，讓相鄰的塊分得開
+    const h = ((i*2654435761)>>>0)%1000/1000;
+    let base = g==='m' ? [168+h*30, 58+h*14, 54+h*12] : g==='b' ? [228+h*10, 220+h*10, 198+h*10] : [216,168,140];
+    ranges.push({i, start:to*3, count:p.t*3});
+    for (let k=0;k<p.v;k++){
+      const x=(q[k*3]+32768)/65535*sc[0]+lo[0], y=(q[k*3+1]+32768)/65535*sc[1]+lo[1], z=(q[k*3+2]+32768)/65535*sc[2]+lo[2];
+      const o=(vo+k); pos[o*3]=x; pos[o*3+1]=y; pos[o*3+2]=z;
+      col[o*3]=base[0]; col[o*3+1]=base[1]; col[o*3+2]=base[2]; pid[o]=i;
+      // 權重
+      let w = {};
+      if (g==='b'){
+        const seg = p.seg;
+        w[ seg==='torso' ? 'torso' : (side||'R')+'_'+seg ] = 1;
+      } else {
+        let rest = 1;
+        const armPart = g==='m' && (p.region==='arm' || p.region==='forearm');
+        const handSkin = g==='s' && Math.abs(x) > .205;          // 手掌比大腿外側更靠外
+        for (const s of (side ? [side] : ['R','L'])){
+          const [a,b] = chainWeight(x,y,z, REST[s+'_shoulder'], REST[s+'_elbow'], REST[s+'_wrist'], .04, r2s, 0, .07, .03, armPart || handSkin);
+          const [c,d] = chainWeight(x,y,z, REST[s+'_hip'], REST[s+'_knee'], REST[s+'_ankle'], .05, r2h, 0, .08, .03, true);
+          if (a>1e-3) w[s+'_uarm']=a; if (b>1e-3) w[s+'_farm']=b;
+          if (c>1e-3) w[s+'_thigh']=c; if (d>1e-3) w[s+'_shank']=d;
+          rest -= a+b+c+d;
+        }
+        if (rest>1e-3) w.torso = rest;
+      }
+      const keys = Object.keys(w).sort((A,B)=>w[B]-w[A]).slice(0,4);
+      let sum=0; for (const k of keys) sum+=w[k];
+      for (let j=0;j<4;j++){ const k=keys[j]; sIdx[o*4+j]=k?BI[k]:0; sW[o*4+j]=k?w[k]/sum:0; }
+    }
+    for (let k=0;k<p.t*3;k++) idx[to*3+k] = ii[k]+vo;
+    vo+=p.v; to+=p.t;
+  }
+  const geo = new THREE.BufferGeometry();
+  geo.setAttribute('position', new THREE.BufferAttribute(pos,3));
+  geo.setAttribute('color', new THREE.BufferAttribute(col,3,true));
+  geo.setAttribute('partIndex', new THREE.BufferAttribute(pid,1));
+  geo.setAttribute('skinIndex', new THREE.BufferAttribute(sIdx,4));
+  geo.setAttribute('skinWeight', new THREE.BufferAttribute(sW,4));
+  geo.setIndex(new THREE.BufferAttribute(idx,1));
+  geo.computeVertexNormals();
+  return {geo, ranges};
+}
+
+// ── 材質（自寫 shader：一張小貼圖存每一塊的狀態）─────────────────
+const PW = 1024;                                      // 部位數 < 1024
+const partData = new Uint8Array(PW*4);                // R=角色 G=變暗 B=選取 A=（保留）
+const partTex = new THREE.DataTexture(partData, PW, 1, THREE.RGBAFormat, THREE.UnsignedByteType);
+partTex.minFilter = partTex.magFilter = THREE.NearestFilter;
+
+const VS = `
+  attribute float partIndex;
+  varying vec3 vN; varying vec3 vC; varying vec3 vV; varying float vId; varying vec4 vP;
+  uniform sampler2D uPart; uniform float uPW;
+  #include <skinning_pars_vertex>
+  void main(){
+    vP = texture2D(uPart, vec2((partIndex+.5)/uPW, .5));
+    vId = partIndex;
+    #include <skinbase_vertex>
+    vec3 objectNormal = vec3(normal);
+    #include <skinnormal_vertex>
+    vec3 transformed = vec3(position);
+    #include <skinning_vertex>
+    vec4 mv = modelViewMatrix * vec4(transformed, 1.0);
+    vV = -mv.xyz; vN = normalize(normalMatrix * objectNormal); vC = color;
+    gl_Position = projectionMatrix * mv;
+  }`;
+const FS = `
+  precision highp float;
+  varying vec3 vN; varying vec3 vC; varying vec3 vV; varying float vId; varying vec4 vP;
+  uniform float uPick; uniform float uAlpha; uniform float uKind;   // 0 肌肉 1 骨 2 皮
+  void main(){
+    if (uPick > .5){ float id = vId + 1.0; gl_FragColor = vec4(mod(id,256.0)/255.0, floor(id/256.0)/255.0, 0.0, 1.0); return; }
+    vec3 N = normalize(vN); vec3 V = normalize(vV);
+    vec3 c = vC;
+    float role = floor(vP.r*255.0 + .5), dim = vP.g, sel = vP.b;
+    if (role == 1.0) c = vec3(1.0, .30, .22);
+    else if (role == 2.0) c = vec3(1.0, .62, .18);
+    else if (role == 3.0) c = vec3(.96, .84, .28);
+    else if (dim > .5 && uKind < .5) c = vec3(.46, .35, .34);
+    vec3 L1 = normalize(vec3(.45, .7, .6)), L2 = normalize(vec3(-.6, .2, .4));
+    float d = .28 + .62*max(dot(N,L1),0.0) + .22*max(dot(N,L2),0.0);
+    float spec = pow(max(dot(reflect(-L1,N),V),0.0), 28.0) * (uKind < .5 ? .28 : .12);
+    float rim = pow(1.0-max(dot(N,V),0.0), 3.0);
+    vec3 col = c*d + spec + rim*(sel > .5 ? vec3(.55,.8,1.0)*.9 : vec3(.10));
+    if (sel > .5) col = mix(col, vec3(.6,.85,1.0), .25);
+    float a = uAlpha;
+    if (uKind > 1.5) a *= (.55 + .45*rim);
+    gl_FragColor = vec4(col, a);
+  }`;
+function makeMat(kind, alpha, transparent){
+  const m = new THREE.ShaderMaterial({vertexShader:VS, fragmentShader:FS, vertexColors:true, skinning:true,
+    transparent, depthWrite:!transparent,
+    uniforms:{uPart:{value:partTex}, uPW:{value:PW}, uPick:{value:0}, uAlpha:{value:alpha}, uKind:{value:kind}}});
+  return m;
+}
+
+// ── 場景 ───────────────────────────────────────────────────────
+const canvas = document.getElementById('c');
+const renderer = new THREE.WebGLRenderer({canvas, antialias:true, alpha:false});
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.setClearColor(0x0f1115);
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(38, 1, .05, 30);
+
+const bones = BONES.map(()=>new THREE.Bone());
+const skeleton = new THREE.Skeleton(bones, bones.map(()=>new THREE.Matrix4()));
+const groups = {};
+for (const [g, kind, alpha, tr] of [['m',0,1,false],['b',1,1,false],['s',2,.32,true]]){
+  const {geo, ranges} = buildGroup(g);
+  const mesh = new THREE.SkinnedMesh(geo, makeMat(kind, alpha, tr));
+  mesh.bind(skeleton, new THREE.Matrix4());
+  mesh.frustumCulled = false;
+  if (tr) mesh.renderOrder = 10;
+  scene.add(mesh); groups[g] = {mesh, ranges};
+}
+groups.s.mesh.visible = false;
+
+// 臥推椅、槓、地板
+const benchMat = new THREE.MeshLambertMaterial({color:0x2a2f3a});
+const padMat = new THREE.MeshLambertMaterial({color:0x3b3f4a});
+const bench = new THREE.Group(); scene.add(bench);
+const seat = new THREE.Mesh(new THREE.BoxGeometry(.32,.06,.36), padMat); bench.add(seat);
+const pad = new THREE.Mesh(new THREE.BoxGeometry(.32,.06,1.04), padMat); bench.add(pad);
+const post = new THREE.Mesh(new THREE.CylinderGeometry(.03,.03,1,10), benchMat); bench.add(post);
+const post2 = new THREE.Mesh(new THREE.CylinderGeometry(.03,.03,1,10), benchMat); bench.add(post2);
+const foot = new THREE.Mesh(new THREE.BoxGeometry(.5,.04,.9), benchMat); bench.add(foot);
+const barMat = new THREE.MeshStandardMaterial({color:0xb8bcc6, metalness:.8, roughness:.35});
+const bar = new THREE.Mesh(new THREE.CylinderGeometry(.014,.014,2.0,14), barMat); bar.rotation.z = Math.PI/2; scene.add(bar);
+const plateGeo = new THREE.CylinderGeometry(.16,.16,.03,28);
+const plates = [new THREE.Mesh(plateGeo, benchMat), new THREE.Mesh(plateGeo, benchMat)];
+plates.forEach(p=>{p.rotation.z=Math.PI/2; scene.add(p);});
+const grid = new THREE.GridHelper(6, 24, 0x2a2f3a, 0x1c2027); scene.add(grid);
+scene.add(new THREE.HemisphereLight(0xffffff, 0x222222, .9));
+const key = new THREE.DirectionalLight(0xffffff, .6); key.position.set(2,4,3); scene.add(key);
+
+// ── 姿勢 ───────────────────────────────────────────────────────
+const BENCH_H = .45, BACK_T = .11;                    // 椅面高度、髖中心到背面皮膚的厚度
+const R0 = new THREE.Matrix4().makeRotationX(-Math.PI/2);    // 站姿 → 仰臥（頭朝 −Z、胸朝上）
+const state = {mode:'bench', angle:0, grip:1.6, t:0, playing:true, selected:-1, part:'chest'};
+const skin = BONES.map(()=>new THREE.Matrix4());       // 每節骨頭的蒙皮矩陣（模型座標 → 世界）
+const world = {};                                     // 目前各關節的世界座標
+
+function frameRot(restY, restX, curY, curX){
+  // 把「靜止時的骨頭方向與屈曲軸」轉到「現在的方向與屈曲軸」
+  const ry = restY.clone().normalize(), rx = restX.clone().addScaledVector(ry, -restX.dot(ry)).normalize(), rz = rx.clone().cross(ry);
+  const cy = curY.clone().normalize(),  cx = curX.clone().addScaledVector(cy, -curX.dot(cy)).normalize(),  cz = cx.clone().cross(cy);
+  const A = new THREE.Matrix4().makeBasis(rx, ry, rz), B = new THREE.Matrix4().makeBasis(cx, cy, cz);
+  return B.multiply(A.invert());
+}
+function pivotMat(worldPivot, rot, restPivot){
+  return new THREE.Matrix4().makeTranslation(worldPivot.x, worldPivot.y, worldPivot.z).multiply(rot)
+    .multiply(new THREE.Matrix4().makeTranslation(-restPivot.x, -restPivot.y, -restPivot.z));
+}
+const XR = V3(-1,0,0), XL = V3(1,0,0);                 // 靜止時的屈曲軸：肘往前彎（−X）、膝往後彎（+X）
+
+function ikArm(s, target){
+  const S = world[s+'_shoulder'];
+  const Lu = REST[s+'_shoulder'].distanceTo(REST[s+'_elbow']), Lf = REST[s+'_elbow'].distanceTo(REST[s+'_wrist']);
+  const d = target.clone().sub(S); let D = Math.min(d.length(), (Lu+Lf)*.985); const dir = d.normalize();
+  const a = (Lu*Lu - Lf*Lf + D*D)/(2*D), h = Math.sqrt(Math.max(0, Lu*Lu - a*a));
+  let pole = V3(s==='R'?-.55:.55, -1, .18).normalize();
+  pole.addScaledVector(dir, -pole.dot(dir)).normalize();
+  const E = S.clone().addScaledVector(dir, a).addScaledVector(pole, h);
+  const H = S.clone().addScaledVector(dir, D);
+  const u = E.clone().sub(S).normalize(), f = H.clone().sub(E).normalize();
+  const axis = u.clone().cross(f).normalize();
+  world[s+'_elbow'] = E; world[s+'_wrist'] = H;
+  skin[BI[s+'_uarm']] = pivotMat(S, frameRot(REST[s+'_elbow'].clone().sub(REST[s+'_shoulder']), XR, u, axis), REST[s+'_shoulder']);
+  skin[BI[s+'_farm']] = pivotMat(E, frameRot(REST[s+'_wrist'].clone().sub(REST[s+'_elbow']), XR, f, axis), REST[s+'_elbow']);
+  return {S,E,H};
+}
+
+function elbowAngle(s){
+  const a = world[s+'_shoulder'].clone().sub(world[s+'_elbow']), b = world[s+'_wrist'].clone().sub(world[s+'_elbow']);
+  return a.angleTo(b)*180/Math.PI;
+}
+
+// 各束的「軀幹端」與「手臂端」：用蒙皮權重最小／最大的頂點求平均
+const TRACK = [
+  {name:'胸大肌鎖骨部', re:/Clavicular part of right pectoralis major/, col:'#ff4d3d'},
+  {name:'胸大肌胸肋部', re:/Sternocostal part of right pectoralis major/, col:'#ff7a3d'},
+  {name:'胸大肌腹部',   re:/Abdominal part of right pectoralis major/, col:'#ffb03d'},
+  {name:'三角肌前束',   re:/Clavicular part of right deltoid/, col:'#7cc7ff'},
+  {name:'三頭肌（肘角）', re:null, col:'#c9a8ff'},
+];
+(function initTrack(){
+  const geo = groups.m.geo || groups.m.mesh.geometry, pos = geo.attributes.position, pid = geo.attributes.partIndex,
+        si = geo.attributes.skinIndex, sw = geo.attributes.skinWeight;
+  for (const t of TRACK){
+    t.range={min:Infinity,max:-Infinity};
+    if (!t.re) continue;
+    const i = PARTS.findIndex(p=>t.re.test(p.en)); t.idx = i;
+    // 軀幹端＝手臂權重最低的 40% 頂點；手臂端＝最高的 15%（🚫 不用固定門檻，免得一端沒有點）
+    const vs = [];
+    for (let k=0;k<pos.count;k++){
+      if (pid.getX(k)!==i) continue;
+      let wa=0; for (let j=0;j<4;j++) if (si.array[k*4+j]===BI.R_uarm) wa=sw.array[k*4+j];
+      vs.push({k, wa});
+    }
+    vs.sort((A,B)=>A.wa-B.wa);
+    const mean = arr => { const v=new THREE.Vector3(); for (const {k} of arr) v.add(new THREE.Vector3(pos.getX(k),pos.getY(k),pos.getZ(k))); return v.divideScalar(Math.max(1,arr.length)); };
+    t.o = mean(vs.slice(0, Math.max(1, Math.floor(vs.length*.4))));
+    t.a = mean(vs.slice(Math.floor(vs.length*.85)));
+    t.wmax = vs.length ? vs[vs.length-1].wa : 0;
+  }
+})();
+// 肌肉會繞過肱骨頭，不是直線：直線若穿過肩關節中心附近的球（半徑 4 cm），就改算「兩條切線＋一段弧」
+const WRAP_R = .04;
+function wrapLen(o, a, C){
+  const co = o.clone().sub(C), ca = a.clone().sub(C), lo = co.length(), la = ca.length();
+  if (lo <= WRAP_R || la <= WRAP_R) return o.distanceTo(a);
+  if (distSeg(C.x,C.y,C.z, o, a) >= WRAP_R) return o.distanceTo(a);
+  const th = co.angleTo(ca), to = Math.asin(WRAP_R/lo), ta = Math.asin(WRAP_R/la);
+  return Math.sqrt(lo*lo-WRAP_R*WRAP_R) + Math.sqrt(la*la-WRAP_R*WRAP_R) + WRAP_R*Math.max(0, th-to-ta);
+}
+function trackLength(t){
+  if (!t.re) return elbowAngle('R');                 // 三頭：用肘角，越直＝越短
+  const ow = t.o.clone().applyMatrix4(skin[BI.torso]), aw = t.a.clone().applyMatrix4(skin[BI.R_uarm]);
+  return wrapLen(ow, aw, world.R_shoulder);
+}
+
+let benchAnchors = null;
+function poseBench(t){
+  const th = state.angle*Math.PI/180;
+  // 軀幹：繞「髖下方、貼椅背那一點」轉椅背角度
+  const P0r = HC.clone().add(V3(0,0,-BACK_T));
+  const P0w = V3(0, BENCH_H, 0);
+  const rotT = new THREE.Matrix4().makeRotationX(th).multiply(R0);
+  skin[BI.torso] = pivotMat(P0w, rotT, P0r);
+  for (const s of ['R','L']) world[s+'_shoulder'] = REST[s+'_shoulder'].clone().applyMatrix4(skin[BI.torso]);
+  for (const s of ['R','L']) world[s+'_hip'] = REST[s+'_hip'].clone().applyMatrix4(skin[BI.torso]);
+  // 腿：大腿往前下方、小腿踩地
+  for (const s of ['R','L']){
+    const Hp = world[s+'_hip'];
+    const Lt = REST[s+'_hip'].distanceTo(REST[s+'_knee']), Ls = REST[s+'_knee'].distanceTo(REST[s+'_ankle']);
+    const alpha = 32*Math.PI/180;
+    const dt = V3(s==='R'?-.10:.10, -Math.sin(alpha), Math.cos(alpha)).normalize();
+    const K = Hp.clone().addScaledVector(dt, Lt);
+    const cb = Math.max(0, Math.min(1, (K.y-.02)/Ls)), beta = Math.acos(cb);
+    const ds = V3(0, -Math.cos(beta), Math.sin(beta)).normalize();
+    const A = K.clone().addScaledVector(ds, Ls);
+    const axis = dt.clone().cross(ds).normalize();
+    world[s+'_knee']=K; world[s+'_ankle']=A;
+    // 膝的屈曲軸朝受試者左側（+X）；肘的朝右側（−X）——兩者都是「往彎的方向」的右手定則
+    skin[BI[s+'_thigh']] = pivotMat(Hp, frameRot(REST[s+'_knee'].clone().sub(REST[s+'_hip']), XL, dt, axis), REST[s+'_hip']);
+    skin[BI[s+'_shank']] = pivotMat(K, frameRot(REST[s+'_ankle'].clone().sub(REST[s+'_knee']), XL, ds, axis), REST[s+'_knee']);
+  }
+  // 槓的路徑：世界座標裡垂直上下；頂端在肩正上方，底端碰到胸（上斜時碰觸點往上移，這是慣例）
+  const Sm = world.R_shoulder.clone().add(world.L_shoulder).multiplyScalar(.5);
+  const halfSh = Math.abs(world.R_shoulder.x - world.L_shoulder.x)/2;
+  const G = halfSh*state.grip;
+  const Lu = REST.R_shoulder.distanceTo(REST.R_elbow), Lf = REST.R_elbow.distanceTo(REST.R_wrist);
+  const reach = (Lu+Lf)*.965;
+  const hTop = Math.sqrt(Math.max(.05, reach*reach - (G-halfSh)*(G-halfSh)));
+  const chestRest = V3(0, 1.27 + .10*Math.max(0,state.angle)/60, .135);
+  const Cw = chestRest.applyMatrix4(skin[BI.torso]);
+  const top = V3(0, Sm.y + hTop, Sm.z), bot = V3(0, Cw.y + .045, Cw.z);
+  const s = .5 + .5*Math.cos(2*Math.PI*t);            // 1 = 頂端
+  const barC = bot.clone().lerp(top, s);
+  const r = ikArm('R', V3(-G, barC.y, barC.z)), l = ikArm('L', V3(G, barC.y, barC.z));
+  bar.position.copy(barC); plates[0].position.set(-G-.28, barC.y, barC.z); plates[1].position.set(G+.28, barC.y, barC.z);
+  bar.visible = plates[0].visible = plates[1].visible = true;
+  // 椅子
+  bench.visible = true;
+  seat.position.set(0, BENCH_H-.03, .20);
+  pad.position.set(0, BENCH_H-.03, 0).add(V3(0, Math.sin(th), -Math.cos(th)).multiplyScalar(.52));
+  pad.rotation.set(th, 0, 0);
+  post.position.set(0, BENCH_H/2-.05, .25); post.scale.y = BENCH_H-.06;
+  const pe = V3(0, BENCH_H-.03, 0).add(V3(0, Math.sin(th), -Math.cos(th)).multiplyScalar(.90));
+  post2.position.set(0, pe.y/2-.03, pe.z); post2.scale.y = Math.max(.05, pe.y-.06);
+  foot.position.set(0, .02, -.1);
+  benchAnchors = {Sm, Cw, top, bot};
+}
+function poseStand(){
+  for (let i=0;i<skin.length;i++) skin[i].identity();
+  bench.visible = false; bar.visible = plates[0].visible = plates[1].visible = false;
+  for (const s of ['R','L']) for (const k in J[s]) world[s+'_'+k] = REST[s+'_'+k].clone();
+}
+function applyPose(){
+  if (state.mode==='bench') poseBench(state.t); else poseStand();
+  for (let i=0;i<bones.length;i++) bones[i].matrixWorld.copy(skin[i]);
+  skeleton.update();
+}
+
+// ── 部位與角色（慣例分類；🚫 不是量測）──────────────────────────
+const ROLES = {
+  chest:{title:'胸', mode:'bench', p1:/pectoralis major/i, p2:/Clavicular part of .* deltoid|triceps brachii/i, p3:/serratus anterior|pectoralis minor|coracobrachialis|subclavius/i,
+    note:'臥推：胸大肌三束是主要；前三角與三頭跟著推；前鋸肌、胸小肌把肩胛穩住。'},
+  back:{title:'背', mode:'stand', p1:/Transverse part of .* trapezius|Ascending part of .* trapezius|rhomboid|teres major|Spinal part of .* deltoid/i, p2:/biceps brachii|brachialis|brachioradialis/i, p3:/longissimus|iliocostalis|spinalis|infraspinatus|teres minor|Descending part of .* trapezius/i,
+    note:'划船／下拉：⚠️ 這套資料沒有闊背肌（練背最大的一塊），所以這裡亮的是斜方肌中下部、菱形肌、大圓肌與後三角；手臂彎的肌肉跟著拉；豎脊肌撐住軀幹。'},
+  shoulder:{title:'肩', mode:'stand', p1:/deltoid/i, p2:/triceps brachii|Descending part of .* trapezius|supraspinatus/i, p3:/serratus anterior|Clavicular part of .* pectoralis major|infraspinatus|teres minor|subscapularis/i,
+    note:'肩推：三角肌三束是主要（前束、中束最吃力）；三頭與上斜方肌把重量送上去；前鋸肌與旋轉肌群把肩關節顧好。'},
+  legs:{title:'腿', mode:'stand', p1:/rectus femoris|vastus|gluteus maximus/i, p2:/adductor magnus|biceps femoris|semitendinosus|semimembranosus/i, p3:/gluteus medius|gluteus minimus|longissimus|iliocostalis|spinalis|gastrocnemius|soleus|external oblique/i,
+    note:'深蹲：股四頭與臀大肌是主要；內收大肌與腿後跟著伸髖；臀中小肌、豎脊肌、小腿與腹側撐住。'},
+  arms:{title:'手臂', mode:'stand', p1:/biceps brachii|brachialis|triceps brachii/i, p2:/brachioradialis|anconeus/i, p3:/flexor carpi|extensor carpi|pronator teres|Clavicular part of .* deltoid/i,
+    note:'彎舉＋伸展：肱二頭、肱肌、肱三頭是主要；肱橈肌與肘肌跟著；前臂把握力撐住。'},
+  all:{title:'全部', mode:'stand', p1:null, p2:null, p3:null, note:'不分角色，全部用原色顯示。點任何一塊看名字。'},
+};
+function roleOf(p, R){
+  if (p.g!=='m') return 0;
+  if (R.p1 && R.p1.test(p.en)) return 1;
+  if (R.p2 && R.p2.test(p.en)) return 2;
+  if (R.p3 && R.p3.test(p.en)) return 3;
+  return 0;
+}
+function refreshPartTex(){
+  const R = ROLES[state.part];
+  for (let i=0;i<PARTS.length;i++){
+    const p = PARTS[i], role = roleOf(p, R);
+    partData[i*4] = role; partData[i*4+1] = (R.p1 && role===0) ? 255 : 0; partData[i*4+2] = (i===state.selected)?255:0; partData[i*4+3] = 255;
+  }
+  partTex.needsUpdate = true;
+}
+
+// 肌肉說明（只寫解剖上確定的起止與方向；🚫 不寫「怎麼練最好」）
+const TEXT = [
+  [/Clavicular part of .* pectoralis major/, '起於鎖骨內側半，止於肱骨。把手臂往前、往上帶——上斜時推的方向偏向頭側，這一束吃得最重。'],
+  [/Sternocostal part of .* pectoralis major/, '起於胸骨與第 2–6 肋軟骨，是三束裡最大的一束。把手臂往前、往中線帶——平板臥推主要靠它。'],
+  [/Abdominal part of .* pectoralis major/, '起於腹直肌鞘，纖維往上外走到肱骨。下斜或雙槓時方向最順。'],
+  [/Clavicular part of .* deltoid/, '三角肌前束：起於鎖骨外側，止於肱骨外側。把手臂往前抬——臥推、肩推都會用到。'],
+  [/Acromial part of .* deltoid/, '三角肌中束：起於肩峰。把手臂往側邊抬（側平舉）。'],
+  [/Spinal part of .* deltoid/, '三角肌後束：起於肩胛棘。把手臂往後帶（反向飛鳥、划船的末段）。'],
+  [/Long head of .* triceps/, '肱三頭肌長頭：跨過肩關節與肘關節，起於肩胛骨。伸肘，也幫忙把手臂往後帶。'],
+  [/Lateral head of .* triceps|Medial head of .* triceps/, '肱三頭肌外側頭／內側頭：只跨肘關節。伸肘——臥推鎖定那一段。'],
+  [/biceps brachii/, '肱二頭肌：跨肩與肘。屈肘、把前臂轉成掌心向上。'],
+  [/brachialis/, '肱肌：在二頭下面，只屈肘，不管前臂怎麼轉。'],
+  [/serratus anterior/, '前鋸肌：起於肋骨側面，止於肩胛骨內緣。把肩胛骨往前推、貼住胸廓——推的動作最後那一下。'],
+  [/pectoralis minor/, '胸小肌：在胸大肌下面，起於第 3–5 肋，止於肩胛骨喙突。把肩胛骨往前下拉。'],
+  [/Descending part of .* trapezius/, '上斜方肌：把肩胛骨往上提（聳肩）。'],
+  [/Transverse part of .* trapezius/, '中斜方肌：把肩胛骨往中線收。'],
+  [/Ascending part of .* trapezius/, '下斜方肌：把肩胛骨往下壓、往中線收。'],
+  [/rhomboid/, '菱形肌：把肩胛骨往中線、往上收。'],
+  [/teres major/, '大圓肌：把手臂往後、往內帶，動作跟闊背肌很像（闊背肌不在這套資料裡）。'],
+  [/supraspinatus|infraspinatus|teres minor|subscapularis/, '旋轉肌群之一：把肱骨頭壓在關節窩裡。⚠️ 肩前側痛不走調姿勢那條路。'],
+  [/gluteus maximus/, '臀大肌：伸髖、外旋。深蹲站起來那一段。'],
+  [/gluteus medius|gluteus minimus/, '臀中／小肌：把腿往側邊抬，單腳站時把骨盆撐平。'],
+  [/rectus femoris/, '股直肌：股四頭裡唯一跨髖的一束，伸膝也屈髖。'],
+  [/vastus/, '股四頭肌的一束：伸膝。'],
+  [/biceps femoris|semitendinosus|semimembranosus/, '腿後肌群之一：屈膝、伸髖。'],
+  [/adductor magnus/, '內收大肌：把腿往中線帶，後側部分也幫忙伸髖。'],
+  [/gastrocnemius/, '腓腸肌：踮腳，也幫忙屈膝。'],
+  [/soleus/, '比目魚肌：在腓腸肌下面，踮腳。'],
+  [/external oblique/, '腹外斜肌：轉軀幹、側彎，也把腹壓撐住。'],
+  [/longissimus|iliocostalis|spinalis/, '豎脊肌的一束：把背挺直。'],
+];
+function textFor(p){ for (const [re,t] of TEXT) if (re.test(p.en)) return t; return p.g==='m' ? '（這一塊本頁沒有另外寫說明）' : ''; }
+const REGION_ZH = {chest:'胸',shoulder:'肩',back:'背',arm:'上臂',forearm:'前臂',core:'軀幹',glute:'臀',thigh:'大腿',calf:'小腿',neck:'頸',other:'其他',b:'骨頭',s:'皮膚'};
+
+// ── 相機（自寫繞行；不依賴 OrbitControls）─────────────────────
+const cam = {target:V3(0,.8,-.2), theta:.9, phi:1.15, dist:2.3};
+function viewPreset(v){
+  const standing = state.mode==='stand', fromBack = state.part==='back';
+  if (v==='reset'){
+    if (standing){ cam.target.set(0,.95,0); cam.theta = fromBack ? Math.PI-.55 : .55; cam.phi=1.35; cam.dist=2.6; }
+    else { cam.target.set(0,.8,-.15); cam.theta=.85; cam.phi=1.1; cam.dist=2.4; }
+    return;
+  }
+  if (v==='front'){ cam.theta = standing ? 0 : Math.PI; cam.phi = standing ? 1.5 : 1.25; }
+  if (v==='back'){ cam.theta = standing ? Math.PI : 0; cam.phi = standing ? 1.5 : 1.25; }
+  if (v==='side'){ cam.theta = Math.PI/2; cam.phi = standing ? 1.5 : 1.4; }
+  if (v==='top'){ cam.theta = standing ? 0 : Math.PI; cam.phi = .15; }
+}
+function updateCamera(){
+  const t = cam.target;
+  camera.position.set(t.x + cam.dist*Math.sin(cam.phi)*Math.sin(cam.theta), t.y + cam.dist*Math.cos(cam.phi), t.z + cam.dist*Math.sin(cam.phi)*Math.cos(cam.theta));
+  camera.lookAt(t);
+}
+const pointers = new Map(); let dragged=false, pinch0=0, dist0=0;
+canvas.addEventListener('pointerdown', e=>{ pointers.set(e.pointerId,{x:e.clientX,y:e.clientY}); dragged=false; canvas.setPointerCapture(e.pointerId);
+  if (pointers.size===2){ const [a,b]=[...pointers.values()]; pinch0=Math.hypot(a.x-b.x,a.y-b.y); dist0=cam.dist; } });
+canvas.addEventListener('pointermove', e=>{
+  if (!pointers.has(e.pointerId)) return;
+  const prev = pointers.get(e.pointerId); const dx=e.clientX-prev.x, dy=e.clientY-prev.y;
+  pointers.set(e.pointerId,{x:e.clientX,y:e.clientY});
+  if (Math.abs(dx)+Math.abs(dy)>3) dragged=true;
+  if (pointers.size===1){
+    if (e.shiftKey || e.buttons===2 || e.buttons===4){ panBy(dx,dy); }
+    else { cam.theta -= dx*.006; cam.phi = Math.max(.08, Math.min(Math.PI-.08, cam.phi - dy*.006)); }
+  } else if (pointers.size===2){
+    const [a,b]=[...pointers.values()]; const d=Math.hypot(a.x-b.x,a.y-b.y);
+    cam.dist = Math.max(.5, Math.min(8, dist0*pinch0/Math.max(1,d)));
+    panBy(dx*.5, dy*.5);
+  }
+});
+function panBy(dx,dy){
+  const right = V3().setFromMatrixColumn(camera.matrix,0), up = V3().setFromMatrixColumn(camera.matrix,1);
+  cam.target.addScaledVector(right, -dx*.0016*cam.dist).addScaledVector(up, dy*.0016*cam.dist);
+}
+canvas.addEventListener('pointerup', e=>{ pointers.delete(e.pointerId); if (!dragged && pointers.size===0) pick(e.clientX, e.clientY); });
+canvas.addEventListener('pointercancel', e=>pointers.delete(e.pointerId));
+canvas.addEventListener('wheel', e=>{ e.preventDefault(); cam.dist = Math.max(.5, Math.min(8, cam.dist*Math.exp(e.deltaY*.001))); }, {passive:false});
+canvas.addEventListener('contextmenu', e=>e.preventDefault());
+
+// ── 點選：把部位編號畫進離屏畫面再讀一個像素 ─────────────────────
+const pickRT = new THREE.WebGLRenderTarget(1,1);
+const pixel = new Uint8Array(4);
+function pick(x,y){
+  const w = canvas.clientWidth, h = canvas.clientHeight; const pr = renderer.getPixelRatio();
+  pickRT.setSize(Math.floor(w*pr), Math.floor(h*pr));
+  const vis = [bench.visible, bar.visible, grid.visible, groups.s.mesh.visible];
+  bench.visible = bar.visible = plates[0].visible = plates[1].visible = grid.visible = false;
+  groups.s.mesh.visible = false;                       // 皮膚半透明，點的時候穿過去
+  for (const g in groups) groups[g].mesh.material.uniforms.uPick.value = 1;
+  renderer.setRenderTarget(pickRT); renderer.setClearColor(0x000000); renderer.clear(); renderer.render(scene, camera);
+  renderer.readRenderTargetPixels(pickRT, Math.floor(x*pr), Math.floor((h-y)*pr), 1, 1, pixel);
+  renderer.setRenderTarget(null); renderer.setClearColor(0x0f1115);
+  for (const g in groups) groups[g].mesh.material.uniforms.uPick.value = 0;
+  [bench.visible, bar.visible, grid.visible, groups.s.mesh.visible] = vis; plates[0].visible = plates[1].visible = bar.visible;
+  const id = pixel[0] + pixel[1]*256 - 1;
+  select(id >= 0 && id < PARTS.length ? id : -1);
+}
+function select(i){
+  state.selected = i; refreshPartTex();
+  const card = document.getElementById('card');
+  if (i<0){ card.classList.remove('show'); return; }
+  const p = PARTS[i], R = ROLES[state.part], role = roleOf(p,R);
+  document.getElementById('cName').textContent = p.zh;
+  document.getElementById('cSub').textContent = (p.g==='m'?'肌肉・':p.g==='b'?'骨頭・':'') + (REGION_ZH[p.region]||'');
+  const rl = ['','主要','次要','輔助'][role];
+  document.getElementById('cRole').innerHTML = rl ? `<span class="role" style="background:var(--p${role});color:#111">${rl}</span><span class="tag">慣例</span>` : (p.g==='m' && R.p1 ? '<span class="tag">這個動作裡不算主要角色</span>' : '');
+  document.getElementById('cText').textContent = textFor(p);
+  card.classList.add('show');
+}
+
+// ── 介面 ───────────────────────────────────────────────────────
+const $ = id => document.getElementById(id);
+function setPart(k){
+  state.part = k; const R = ROLES[k];
+  document.querySelectorAll('#parts button').forEach(b=>b.classList.toggle('on', b.dataset.p===k));
+  const newMode = R.mode; const changed = newMode!==state.mode; state.mode = newMode;
+  if (changed || k==='back' || state.lastPart==='back') viewPreset('reset');
+  state.lastPart = k;
+  const bench = state.mode==='bench';
+  $('bottom').style.display = bench ? '' : 'none';         // 站姿沒有可以拉的東西，整條收起來
+  $('bars').classList.toggle('show', bench);
+  document.body.classList.toggle('stand', !bench);
+  select(-1); refreshPartTex();
+  showHint(R.note, !bench);                                 // 站姿的說明留著，臥推的過幾秒淡掉
+}
+let hintT;
+function showHint(t, keep){ const h=$('hint'); h.textContent=t; h.style.opacity=1; clearTimeout(hintT); if (!keep) hintT=setTimeout(()=>h.style.opacity=0, 7000); }
+document.querySelectorAll('#parts button').forEach(b=>b.addEventListener('click', ()=>setPart(b.dataset.p)));
+document.querySelectorAll('#left button[data-v]').forEach(b=>b.addEventListener('click', ()=>viewPreset(b.dataset.v)));
+$('tSkin').addEventListener('click', ()=>{ const m=groups.s.mesh; m.visible=!m.visible; $('tSkin').classList.toggle('on', m.visible); });
+$('tMus').addEventListener('click', ()=>{ const m=groups.m.mesh; m.visible=!m.visible; $('tMus').classList.toggle('on', m.visible); });
+$('tBone').addEventListener('click', ()=>{ const m=groups.b.mesh; m.visible=!m.visible; $('tBone').classList.toggle('on', m.visible); });
+$('tNote').addEventListener('click', ()=>$('note').classList.add('show'));
+$('noteX').addEventListener('click', ()=>$('note').classList.remove('show'));
+$('note').addEventListener('click', e=>{ if (e.target===$('note')) $('note').classList.remove('show'); });
+$('cardX').addEventListener('click', ()=>select(-1));
+function angleLabel(a){ if (a<=-5) return a+'°（下斜）'; if (a<5) return '0°（平板）'; if (a<=30) return a+'°（上斜）'; if (a<=50) return a+'°（高上斜）'; return a+'°（接近肩推）'; }
+$('angle').addEventListener('input', ()=>{ state.angle=+$('angle').value; $('angleV').textContent=angleLabel(state.angle); for (const t of TRACK) t.range={min:Infinity,max:-Infinity}; });
+$('grip').addEventListener('input', ()=>{ state.grip=+$('grip').value/100; $('gripV').textContent=state.grip.toFixed(2).replace(/0$/,'')+' 倍肩寬'; for (const t of TRACK) t.range={min:Infinity,max:-Infinity}; });
+$('phase').addEventListener('input', ()=>{ state.playing=false; setPlay(); state.t=+$('phase').value/100; });
+function setPlay(){ $('play').textContent = state.playing ? '⏸ 暫停' : '▶ 播放'; $('play').classList.toggle('on', state.playing); }
+$('play').addEventListener('click', ()=>{ state.playing=!state.playing; setPlay(); });
+
+$('barsH').addEventListener('click', ()=>$('bars').classList.toggle('fold'));
+if (innerWidth <= 640) $('bars').classList.add('fold');
+$('barRows').innerHTML = TRACK.map((t,i)=>`<div class="bar"><span style="color:${t.col}">${t.name}</span><span class="track"><span class="fill" id="bf${i}" style="background:${t.col}"></span></span><span class="num" id="bn${i}">—</span></div>`).join('');
+
+function resize(){
+  const w = innerWidth, h = innerHeight;
+  renderer.setSize(w, h, false); camera.aspect = w/h; camera.updateProjectionMatrix();
+}
+addEventListener('resize', resize); resize();
+
+// 先掃一整個行程，讓縮短百分比有基準
+function warmRanges(){
+  const save = state.t;
+  for (let i=0;i<=48;i++){ state.t=i/48; poseBench(state.t); for (const t of TRACK){ const L=trackLength(t); t.range.min=Math.min(t.range.min,L); t.range.max=Math.max(t.range.max,L); } }
+  state.t = save;
+}
+
+let last = performance.now();
+function tick(now){
+  const dt = Math.min(.05, (now-last)/1000); last = now;
+  if (state.mode==='bench'){
+    if (state.playing){ state.t = (state.t + dt/3.2) % 1; $('phase').value = Math.round(state.t*100); }
+    if (TRACK[0].range.min===Infinity) warmRanges();
+    applyPose();
+    for (let i=0;i<TRACK.length;i++){
+      const t=TRACK[i], L=trackLength(t), r=t.range;
+      if (!t.re){ $('bf'+i).style.width = Math.round((L-30)/150*100)+'%'; $('bn'+i).textContent = Math.round(L)+'°'; continue; }
+      const pct = r.max>0 ? (r.max-L)/r.max*100 : 0;       // 與這一趟最拉長那一格相比，縮短了幾 %
+      $('bf'+i).style.width = Math.min(100, Math.max(0, pct*2))+'%'; $('bn'+i).textContent = Math.round(pct)+'%';
+    }
+    const s = .5+.5*Math.cos(2*Math.PI*state.t);
+    $('phaseV').textContent = s>.9 ? '頂端（鎖定）' : s<.1 ? '底端（碰胸）' : (state.t<.5 ? '下放中' : '往上推');
+  } else applyPose();
+  updateCamera();
+  renderer.render(scene, camera);
+  requestAnimationFrame(tick);
+}
+// 初始
+window.__body3d = {state, TRACK, trackLength, poseBench, world, REST};   // 給無頭測試讀數字用
+$('angleV').textContent = angleLabel(0);
+setPart('chest'); viewPreset('reset');
+document.getElementById('loading').remove();
+requestAnimationFrame(tick);
+})();
+</script>

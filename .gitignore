@@ -106,3 +106,7 @@ trading-desk/data/
 # 編譯產物：第 432 輪誤以 git add -A 帶入，撤除後擋住
 __pycache__/
 *.pyc
+
+# tools/body3d：中間產物，由 build.py 重生；成品是 tools/body-3d.html
+tools/body3d/atlas.bin
+tools/body3d/atlas.json
